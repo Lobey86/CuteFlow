@@ -1,0 +1,6 @@
+-- 
+-- Tabellenstruktur für Tabelle `cf_additional_text`
+-- 
+
+DROP TABLE IF EXISTS `cf_additional_text`;
+CREATE TABLE `cf_additional_text` (`id` int(11) NOT NULL auto_increment,`title` text NOT NULL,  `content` text NOT NULL,  `is_default` int(11) NOT NULL,  PRIMARY KEY  (`id`)) TYPE=MyISAM  AUTO_INCREMENT=1 ;

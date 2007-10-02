@@ -1,0 +1,24 @@
+Hooks:
+
+- CF_MENU
+- CF_ADD_CIRCULATION
+- CF_ENDACTION
+
+
+Placeholders:
+
+- CFLANGUAGE
+
+
+Details:
+
+- CF_MENU:
+    Groups:
+        - CF_GROUP_CIRCULATIONS
+	- CF_GROUP_MANAGEMENT
+	- CF_GROUP_ADMINISTRATION
+	- CF_GROUP_NEW???
+
+
+(Accesslevels: 2-Admin; 8-Sender; 4-ReadOnly; 1-Empfänger)
+Bsp: 15 steht für Alle
