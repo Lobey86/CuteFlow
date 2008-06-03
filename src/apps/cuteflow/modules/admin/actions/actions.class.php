@@ -18,4 +18,5 @@ class adminActions extends sfActions
   {
     $this->forward('default', 'module');
   }
+
 }

@@ -1,0 +1,40 @@
+Config:
+  tableName: cf_config
+  columns:
+    description: {type: string}
+    config_key: {type: string}
+    config_value: {type: string}
+    
+Field:
+  tableName: cf_field
+  columns:
+    description: {type: string}
+    default_value: {type: string}
+    type: {type: integer}
+    is_read_only: {type: integer}
+    created_at: { type: timestamp }
+    updated_at: { type: timestamp }
+  actAs:
+    Timestampable: ~
+    
+FieldDefinition:
+  tableName: cf_field_definition
+  columns:
+    field_id: { type: integer, length: 4}
+    definition_value: {type: string}
+    position: {type: integer}
+    created_at: { type: timestamp }
+    updated_at: { type: timestamp }
+  relations:
+    field: { foreignAlias: FieldDefinitions, class: Field, local: field_id }
+  actAs:
+    Timestampable: ~
+    
+Project:
+  tableName: cf_project
+  columns:
+    description: {type: string}
+    created_at: { type: timestamp }
+    updated_at: { type: timestamp }
+  actAs:
+    Timestampable: ~
