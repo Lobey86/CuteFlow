@@ -20,8 +20,8 @@ abstract class BaseFieldDefinition extends sfDoctrineRecord
   public function setUp()
   {
     parent::setUp();
-    $this->hasOne('Field as field', array('local' => 'field_id',
-                                          'foreign' => 'id'));
+    $this->hasOne('Field', array('local' => 'field_id',
+                                 'foreign' => 'id'));
 
     $timestampable0 = new Doctrine_Template_Timestampable();
     $this->actAs($timestampable0);

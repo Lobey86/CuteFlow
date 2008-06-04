@@ -35,6 +35,7 @@ FieldDefinition:
 
 FieldValue:
   tableName: cf_field_value
+  columns:  
     field_id: { type: integer, length: 4}
     revision_id: { type: integer, length: 4}
     value: { type: clob }
