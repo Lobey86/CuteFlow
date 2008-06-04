@@ -10,14 +10,19 @@ abstract class BaseProject extends sfDoctrineRecord
   {
     $this->setTableName('cf_project');
     $this->hasColumn('id', 'integer', 4, array('primary' => true, 'autoincrement' => true));
-    $this->hasColumn('description', 'string', null);
+    $this->hasColumn('name', 'string', 255);
+    $this->hasColumn('description', 'string', 255);
     $this->hasColumn('created_at', 'timestamp', null);
     $this->hasColumn('updated_at', 'timestamp', null);
+    $this->hasColumn('deleted_at', 'timestamp', null);
   }
 
   public function setUp()
   {
     parent::setUp();
+    $this->hasMany('User as Users', array('local' => 'id',
+                                          'foreign' => 'project_id'));
+
     $timestampable0 = new Doctrine_Template_Timestampable();
     $this->actAs($timestampable0);
   }
