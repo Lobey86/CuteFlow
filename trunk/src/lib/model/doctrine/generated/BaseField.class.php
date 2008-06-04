@@ -16,6 +16,7 @@ abstract class BaseField extends sfDoctrineRecord
     $this->hasColumn('is_read_only', 'integer', null);
     $this->hasColumn('created_at', 'timestamp', null);
     $this->hasColumn('updated_at', 'timestamp', null);
+    $this->hasColumn('deleted_at', 'timestamp', null);
   }
 
   public function setUp()

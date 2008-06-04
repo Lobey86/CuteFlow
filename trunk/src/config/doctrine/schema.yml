@@ -16,6 +16,7 @@ Field:
     is_read_only: {type: integer}
     created_at: { type: timestamp }
     updated_at: { type: timestamp }
+    deleted_at: { type: timestamp }
   actAs:
     Timestampable: ~
     
@@ -28,6 +29,7 @@ FieldDefinition:
     position: {type: integer}
     created_at: { type: timestamp }
     updated_at: { type: timestamp }
+    deleted_at: { type: timestamp }
   relations:
     Field: { foreignAlias: FieldDefinitions, class: Field, local: field_id }
   actAs:
@@ -41,6 +43,7 @@ FieldValue:
     value: { type: clob }
     created_at: { type: timestamp }
     updated_at: { type: timestamp }
+    deleted_at: { type: timestamp }
   relations:
     Revision:
     Field: { foreignAlias: FieldValues, class: Field, local: field_id }
@@ -57,6 +60,7 @@ Revision:
     description: { type: string(4096) }
     created_at: { type: timestamp }
     updated_at: { type: timestamp }
+    deleted_at: { type: timestamp }
   actAs:
     Timestampable: ~
     
@@ -78,8 +82,86 @@ Project:
   tableName: cf_project
   columns:
     id: { type: integer, length: 4, primary: true, autoincrement: true }
-    description: {type: string}
+    name: { type: string(255) }
+    description: {type: string(255) }
     created_at: { type: timestamp }
     updated_at: { type: timestamp }
+    deleted_at: { type: timestamp }
+  actAs:
+    Timestampable: ~
+
+Workflow:
+  tableName: cf_workflow
+  columns:
+    id: { type: integer, length: 4, primary: true, autoincrement: true }
+    sender_id: { type: integer, length: 4 }
+    end_action: { type: integer, length: 4 }
+    template_id: { type: integer, length: 4 }
+    created_at: { type: timestamp }
+    updated_at: { type: timestamp }
+    deleted_at: { type: timestamp }
+    archived_at: { type: timestamp }
+  relations:
+    Sender:  { foreignAlias: Workflows, class: User, local: sender_id }
+    Template: { foreignAlias: Workflows, class: Template, local: template_id }    
+  actAs:
+    Timestampable: ~
+
+Template:
+  tableName: cf_template
+  columns:
+    id: { type: integer, length: 4, primary: true, autoincrement: true }
+    project_id: { type: integer, length: 4 }
+    name: { type: string(255) }
+    created_at: { type: timestamp }
+    updated_at: { type: timestamp }
+    deleted_at: { type: timestamp }
+  actAs:
+    Timestampable: ~   
+    
+Slot:
+  tableName: cf_slot
+  columns:
+    id: { type: integer, length: 4, primary: true, autoincrement: true }
+    name: { type: string(255) }
+    template_id: { type: integer, length: 4 }
+    created_at: { type: timestamp }
+    updated_at: { type: timestamp }
+    deleted_at: { type: timestamp }
+  relations:
+    Template: { foreignAlias: Slots, class: Template, local: template_id }
+  actAs:
+    Timestampable: ~
+
+User:
+  tableName: cf_user
+  columns:
+    id: { type: integer, length: 4, primary: true, autoincrement: true }
+    project_id: { type: integer(4) }
+    access_level: { type: integer(4) }
+    description: { type: string(255) }
+    username: { type: string(255) }
+    password: { type: string(255) }
+    firstname: { type: string(255) }
+    lastname: { type: string(255) }
+    email: { type: string(255) }
+    street: { type: string(255) }
+    country: { type: string(255) }
+    zipcode: { type: string(255) }
+    city: { type: string(255) }
+    telephone1: { type: string(255) }
+    telephone2: { type: string(255) }
+    mobilephone: { type: string(255) }
+    fax: { type: string(255) }
+    organisation: { type: string(255) }
+    department: { type: string(255) }
+    cost_center: { type: string(255) }
+    userdefined1: { type: string(255) }
+    userdefined2: { type: string(255) }
+    created_at: { type: timestamp }
+    updated_at: { type: timestamp }
+    deleted_at: { type: timestamp }
+  relations:
+    Project: { foreignAlias: Users, class: Project, local: project_id }
   actAs:
     Timestampable: ~

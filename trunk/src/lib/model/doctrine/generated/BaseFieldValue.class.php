@@ -14,6 +14,7 @@ abstract class BaseFieldValue extends sfDoctrineRecord
     $this->hasColumn('value', 'clob', null);
     $this->hasColumn('created_at', 'timestamp', null);
     $this->hasColumn('updated_at', 'timestamp', null);
+    $this->hasColumn('deleted_at', 'timestamp', null);
   }
 
   public function setUp()

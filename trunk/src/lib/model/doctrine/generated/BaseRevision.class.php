@@ -16,6 +16,7 @@ abstract class BaseRevision extends sfDoctrineRecord
     $this->hasColumn('description', 'string', 4096);
     $this->hasColumn('created_at', 'timestamp', null);
     $this->hasColumn('updated_at', 'timestamp', null);
+    $this->hasColumn('deleted_at', 'timestamp', null);
   }
 
   public function setUp()
