@@ -1,6 +1,7 @@
 Config:
   tableName: cf_config
   columns:
+    id: { type: integer, length: 4, primary: true, autoincrement: true }
     description: {type: string}
     config_key: {type: string}
     config_value: {type: string}
@@ -8,6 +9,7 @@ Config:
 Field:
   tableName: cf_field
   columns:
+    id: { type: integer, length: 4, primary: true, autoincrement: true }
     description: {type: string}
     default_value: {type: string}
     type: {type: integer}
@@ -20,19 +22,61 @@ Field:
 FieldDefinition:
   tableName: cf_field_definition
   columns:
+    id: { type: integer, length: 4, primary: true, autoincrement: true }
     field_id: { type: integer, length: 4}
     definition_value: {type: string}
     position: {type: integer}
     created_at: { type: timestamp }
     updated_at: { type: timestamp }
   relations:
-    field: { foreignAlias: FieldDefinitions, class: Field, local: field_id }
+    Field: { foreignAlias: FieldDefinitions, class: Field, local: field_id }
+  actAs:
+    Timestampable: ~
+
+FieldValue:
+  tableName: cf_field_value
+    field_id: { type: integer, length: 4}
+    revision_id: { type: integer, length: 4}
+    value: { type: clob }
+    created_at: { type: timestamp }
+    updated_at: { type: timestamp }
+  relations:
+    Revision:
+    Field: { foreignAlias: FieldValues, class: Field, local: field_id }
   actAs:
     Timestampable: ~
     
+Revision:
+  tableName: cf_revision
+  columns:
+    id: { type: integer, length: 4, primary: true, autoincrement: true }
+    revision_nr: { type: integer }
+    sent_at: { type: timestamp }
+    workflow_id: { type: integer }
+    description: { type: string(4096) }
+    created_at: { type: timestamp }
+    updated_at: { type: timestamp }
+  actAs:
+    Timestampable: ~
+    
+Attachment:
+  tableName: cf_attachment
+  columns:
+    id: { type: integer, length: 4, primary: true, autoincrement: true }
+    file_name: { type: string(255) }
+    data: { type: blob }
+    revision_id: { type: integer(4) }
+    created_at: { type: timestamp }
+    updated_at: { type: timestamp }
+  relations:
+    Revision: { foreignAlias: Attachments, class: Revision, local: revision_id }
+  actAs:
+    Timestanpable: ~
+
 Project:
   tableName: cf_project
   columns:
+    id: { type: integer, length: 4, primary: true, autoincrement: true }
     description: {type: string}
     created_at: { type: timestamp }
     updated_at: { type: timestamp }

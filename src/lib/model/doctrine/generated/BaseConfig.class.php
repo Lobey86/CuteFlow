@@ -9,6 +9,7 @@ abstract class BaseConfig extends sfDoctrineRecord
   public function setTableDefinition()
   {
     $this->setTableName('cf_config');
+    $this->hasColumn('id', 'integer', 4, array('primary' => true, 'autoincrement' => true));
     $this->hasColumn('description', 'string', null);
     $this->hasColumn('config_key', 'string', null);
     $this->hasColumn('config_value', 'string', null);

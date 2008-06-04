@@ -9,6 +9,7 @@ abstract class BaseFieldDefinition extends sfDoctrineRecord
   public function setTableDefinition()
   {
     $this->setTableName('cf_field_definition');
+    $this->hasColumn('id', 'integer', 4, array('primary' => true, 'autoincrement' => true));
     $this->hasColumn('field_id', 'integer', 4);
     $this->hasColumn('definition_value', 'string', null);
     $this->hasColumn('position', 'integer', null);
