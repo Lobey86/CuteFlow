@@ -9,7 +9,6 @@ abstract class BaseFieldValue extends sfDoctrineRecord
   public function setTableDefinition()
   {
     $this->setTableName('cf_field_value');
-    $this->hasColumn('id', 'integer', 4, array('primary' => true, 'autoincrement' => true));
     $this->hasColumn('field_id', 'integer', 4);
     $this->hasColumn('revision_id', 'integer', 4);
     $this->hasColumn('value', 'clob', null);
@@ -23,8 +22,8 @@ abstract class BaseFieldValue extends sfDoctrineRecord
     $this->hasOne('Revision', array('local' => 'revision_id',
                                     'foreign' => 'id'));
 
-    $this->hasOne('Field as field', array('local' => 'field_id',
-                                          'foreign' => 'id'));
+    $this->hasOne('Field', array('local' => 'field_id',
+                                 'foreign' => 'id'));
 
     $timestampable0 = new Doctrine_Template_Timestampable();
     $this->actAs($timestampable0);

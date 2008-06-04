@@ -20,8 +20,8 @@ abstract class BaseAttachment extends sfDoctrineRecord
   public function setUp()
   {
     parent::setUp();
-    $this->hasOne('Revision as revision', array('local' => 'revision_id',
-                                                'foreign' => 'id'));
+    $this->hasOne('Revision', array('local' => 'revision_id',
+                                    'foreign' => 'id'));
 
     $timestanpable0 = new Timestanpable();
     $this->actAs($timestanpable0);
