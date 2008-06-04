@@ -9,6 +9,7 @@ abstract class BaseField extends sfDoctrineRecord
   public function setTableDefinition()
   {
     $this->setTableName('cf_field');
+    $this->hasColumn('id', 'integer', 4, array('primary' => true, 'autoincrement' => true));
     $this->hasColumn('description', 'string', null);
     $this->hasColumn('default_value', 'string', null);
     $this->hasColumn('type', 'integer', null);
@@ -22,6 +23,9 @@ abstract class BaseField extends sfDoctrineRecord
     parent::setUp();
     $this->hasMany('FieldDefinition as FieldDefinitions', array('local' => 'id',
                                                                 'foreign' => 'field_id'));
+
+    $this->hasMany('FieldValue as FieldValues', array('local' => 'id',
+                                                      'foreign' => 'field_id'));
 
     $timestampable0 = new Doctrine_Template_Timestampable();
     $this->actAs($timestampable0);
