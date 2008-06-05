@@ -106,6 +106,29 @@ Workflow:
     Template: { foreignAlias: Workflows, class: Template, local: template_id }    
   actAs:
     Timestampable: ~
+    
+WorkflowProcess:
+  tableName: cf_workflow_process
+  columns:
+    id: { type: integer, length: 4, primary: true, autoincrement: true }
+    workflow_id: { type: integer, length: 4 }
+    revision_id: { type: integer, length: 4 }
+    node_id: { type: integer, length: 4 }
+    user_id: { type: integer, length: 4 }
+    subsititute_id: { type: integer, length: 4 }
+    decission_state: { type: integer, length: 4 }
+    decission_at: { type: timestamp }
+    resend_count: { type: integer, length: 4 }
+    created_at: { type: timestamp }
+    updated_at: { type: timestamp }    
+  relations:
+    User: { foreignAlias: WorkflowProcesses, class: User, local: user_id }
+    Workflow: { foreignAlias: WorkflowProcesses, class: Workflow, local: workflow_id }
+    Revision: { foreignAlias: WorkflowProcesses, class: Revision, local: revision_id }
+    SubstituteInformation: { foreignAlias: WorkflowProcesses, class: SubstituteInformation, local: substitute_id }
+    Node: { foreignAlias: WorkflowProcesses, class: Node, local: node_id }
+  actAs:
+    TimeStampable: ~
 
 Template:
   tableName: cf_template

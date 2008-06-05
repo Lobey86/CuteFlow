@@ -34,6 +34,9 @@ abstract class BaseNode extends sfDoctrineRecord
     $this->hasOne('User as Receiver', array('local' => 'receiver_id',
                                             'foreign' => 'id'));
 
+    $this->hasMany('WorkflowProcess as WorkflowProcesses', array('local' => 'id',
+                                                                 'foreign' => 'node_id'));
+
     $this->hasMany('NodeCondition as Conditions', array('local' => 'id',
                                                         'foreign' => 'node_id'));
 

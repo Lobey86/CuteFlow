@@ -45,6 +45,9 @@ abstract class BaseUser extends sfDoctrineRecord
     $this->hasMany('Workflow as Workflows', array('local' => 'id',
                                                   'foreign' => 'sender_id'));
 
+    $this->hasMany('WorkflowProcess as WorkflowProcesses', array('local' => 'id',
+                                                                 'foreign' => 'user_id'));
+
     $this->hasMany('UserIndex', array('local' => 'id',
                                       'foreign' => 'user_id'));
 

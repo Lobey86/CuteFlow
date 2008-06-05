@@ -28,6 +28,9 @@ abstract class BaseWorkflow extends sfDoctrineRecord
     $this->hasOne('Template', array('local' => 'template_id',
                                     'foreign' => 'id'));
 
+    $this->hasMany('WorkflowProcess as WorkflowProcesses', array('local' => 'id',
+                                                                 'foreign' => 'workflow_id'));
+
     $this->hasMany('Node as Nodes', array('local' => 'id',
                                           'foreign' => 'workflow_id'));
 
