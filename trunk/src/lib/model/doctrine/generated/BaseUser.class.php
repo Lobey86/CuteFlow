@@ -45,6 +45,9 @@ abstract class BaseUser extends sfDoctrineRecord
     $this->hasMany('Workflow as Workflows', array('local' => 'id',
                                                   'foreign' => 'sender_id'));
 
+    $this->hasMany('Node as Nodes', array('local' => 'id',
+                                          'foreign' => 'receiver_id'));
+
     $timestampable0 = new Doctrine_Template_Timestampable();
     $this->actAs($timestampable0);
   }

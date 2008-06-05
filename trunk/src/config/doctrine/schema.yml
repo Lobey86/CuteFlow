@@ -165,3 +165,73 @@ User:
     Project: { foreignAlias: Users, class: Project, local: project_id }
   actAs:
     Timestampable: ~
+    
+EventActionValue:
+  tableName: cf_event_action_value
+  columns:
+    id: { type: integer, length: 4, primary: true, autoincrement: true }
+    key: { type: string(255) }
+    value: { type: string(4096) }
+    created_at: { type: timestamp }
+    updated_at: { type: timestamp }
+  actAs:
+    Timestampable: ~
+    
+Node:
+  tableName: cf_node
+  columns:
+    id: { type: integer, length: 4, primary: true, autoincrement: true }
+    name: { type: string(255) }
+    receiver_id: { type: integer, length: 4 }
+    workflow_id: { type: integer, length: 4 }
+    template_id: { type: integer, length: 4 }
+    template_slot_id: { type: integer, length: 4 }
+    created_at: { type: timestamp }
+    updated_at: { type: timestamp }
+  relations:
+    Workflow: { foreignAlias: Nodes, class: Workflow, local: workflow_id }
+    Template: { foreignAlias: Nodes, class: Template, local: template_id }
+    Slot: { foreignAlias: Nodes, class: Slot, local: template_slot_id }
+    Receiver: { foreignAlias: Nodes, class: User, local: receiver_id }
+  actAs:
+    Timestampable: ~
+    
+NodeCondition:
+  tableName: cf_node_condition
+  columns:
+    id: { type: integer, length: 4, primary: true, autoincrement: true }
+    node_id: { type: integer, length: 4 }
+    destination_node_id: { type: integer, length: 4 }
+    expression: { type: string(4096) }
+    created_at: { type: timestamp }
+    updated_at: { type: timestamp }
+  relations:
+    Node: { foreignAlias: Conditions, class: Node, local: node_id }
+    DestinationNode: { foreignAlias: DependendNodes, class: Node, local: destination_node_id }
+  actAs:
+    Timestampable: ~
+    
+Filter:
+  tableName: cf_filter
+  columns: 
+    id: { type: integer, length: 4, primary: true, autoincrement: true }
+    user_id: { type: integer, length: 4 }
+    name: { type: string(255) }
+    created_at: { type: timestamp }
+    updated_at: { type: timestamp }
+  actAs:
+    Timestampable: ~
+
+FilterValue:
+  tableName: cf_filter_value
+  columns:
+    id: { type: integer, length: 4, primary: true, autoincrement: true }
+    filter_id: { type: integer, length: 4 }
+    key: { type: string(255) }
+    value: { type: string(255) }
+    created_at: { type: timestamp }
+    updated_at: { type: timestamp }
+  relations:
+    Filter: { foreignAlias: FilterValues, class: Filter, local: filter_id }
+  actAs: 
+    Timestampable: ~
