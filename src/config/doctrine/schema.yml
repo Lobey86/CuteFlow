@@ -165,7 +165,48 @@ User:
     Project: { foreignAlias: Users, class: Project, local: project_id }
   actAs:
     Timestampable: ~
-    
+
+UserIndex:
+  tableName: cf_user_index
+  columns:
+    id: { type: integer, length: 4, primary: true, autoincrement: true }
+    user_id: { type: integer, length: 4 }
+    value: { type: string(255) }
+    created_at: { type: timestamp }
+    updated_at: { type: timestamp }
+  relations:
+    User: { local: user_id, class: User, foreign: id }
+  actAs: 
+    Timestampable: ~
+
+UserConfigValue:
+  tableName: cf_user_config
+  columns:
+    id: { type: integer, length: 4, primary: true, autoincrement: true }
+    user_id: { type: integer, length: 4 }
+    key: { type: stromg(255)  }
+    value: { type: string(255) }
+    created_at: { type: timestamp }
+    updated_at: { type: timestamp }
+  relations:
+    User: { foreignAlias: UserConfigValues, class: User, local: user_id }
+  actAs:
+    Timestampable: ~
+
+SubstituteInformation:
+  tableName: cf_substitute_information
+  columns:
+    id: { type: integer, length: 4, primary: true, autoincrement: true }
+    user_id: { type: integer, length: 4 }
+    duration: { type: integer, length: 4 }
+    position: { type: integer, length: 4 }
+    created_at: { type: timestamp }
+    updated_at: { type: timestamp }
+  relations:
+    User: { foreignAlias: UserConfigValues, class: User, local: user_id }
+  actAs:
+    Timestampable: ~
+
 EventActionValue:
   tableName: cf_event_action_value
   columns:
@@ -235,3 +276,4 @@ FilterValue:
     Filter: { foreignAlias: FilterValues, class: Filter, local: filter_id }
   actAs: 
     Timestampable: ~
+    
