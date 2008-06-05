@@ -23,6 +23,9 @@ abstract class BaseSubstituteInformation extends sfDoctrineRecord
     $this->hasOne('User', array('local' => 'user_id',
                                 'foreign' => 'id'));
 
+    $this->hasMany('WorkflowProcess as WorkflowProcesses', array('local' => 'id',
+                                                                 'foreign' => 'substitute_id'));
+
     $timestampable0 = new Doctrine_Template_Timestampable();
     $this->actAs($timestampable0);
   }

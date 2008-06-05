@@ -28,6 +28,9 @@ abstract class BaseRevision extends sfDoctrineRecord
     $this->hasMany('Attachment as Attachments', array('local' => 'id',
                                                       'foreign' => 'revision_id'));
 
+    $this->hasMany('WorkflowProcess as WorkflowProcesses', array('local' => 'id',
+                                                                 'foreign' => 'revision_id'));
+
     $timestampable0 = new Doctrine_Template_Timestampable();
     $this->actAs($timestampable0);
   }
