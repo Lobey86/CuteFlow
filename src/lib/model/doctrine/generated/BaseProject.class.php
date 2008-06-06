@@ -20,8 +20,9 @@ abstract class BaseProject extends sfDoctrineRecord
   public function setUp()
   {
     parent::setUp();
-    $this->hasMany('User as Users', array('local' => 'id',
-                                          'foreign' => 'project_id'));
+    $this->hasMany('User as Users', array('refClass' => 'ProjectUser',
+                                          'local' => 'project_id',
+                                          'foreign' => 'user_id'));
 
     $timestampable0 = new Doctrine_Template_Timestampable();
     $this->actAs($timestampable0);

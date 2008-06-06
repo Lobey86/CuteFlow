@@ -23,6 +23,10 @@ abstract class BaseSlot extends sfDoctrineRecord
     $this->hasOne('Template', array('local' => 'template_id',
                                     'foreign' => 'id'));
 
+    $this->hasMany('Field as Fields', array('refClass' => 'SlotField',
+                                            'local' => 'slot_id',
+                                            'foreign' => 'field_id'));
+
     $this->hasMany('Node as Nodes', array('local' => 'id',
                                           'foreign' => 'template_slot_id'));
 

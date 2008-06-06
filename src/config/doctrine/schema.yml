@@ -90,6 +90,12 @@ Project:
   actAs:
     Timestampable: ~
 
+ProjectUser:
+  tableName: cf_project_user
+  columns:
+    project_id: { type: integer, primary: true }
+    user_id: { type: integer, primary: true }
+    
 Workflow:
   tableName: cf_workflow
   columns:
@@ -153,8 +159,18 @@ Slot:
     deleted_at: { type: timestamp }
   relations:
     Template: { foreignAlias: Slots, class: Template, local: template_id }
+    Fields: { class: Field, refClass: SlotField, local: slot_id, foreign: field_id, foreignAlias: Slots }
   actAs:
     Timestampable: ~
+
+SlotField:
+  tableName: cf_slot_field
+  columns:
+    user_id: { type: integer, primary: true }
+    slot_id: { type: integer, primary: true }
+    position: { type: integer, length: 4 }
+  relations:
+  
 
 User:
   tableName: cf_user
@@ -185,7 +201,7 @@ User:
     updated_at: { type: timestamp }
     deleted_at: { type: timestamp }
   relations:
-    Project: { foreignAlias: Users, class: Project, local: project_id }
+    Projects: { foreignAlias: Users, class: Project, refClass: ProjectUser, local: user_id, foreign: project_id }
   actAs:
     Timestampable: ~
 
