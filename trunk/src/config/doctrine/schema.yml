@@ -95,6 +95,9 @@ ProjectUser:
   columns:
     project_id: { type: integer, primary: true }
     user_id: { type: integer, primary: true }
+    role_id: { type: integer, length: 4 }
+  relations:
+    Role: { local: role_id, class: Role, foreign: id }
     
 Workflow:
   tableName: cf_workflow
@@ -205,6 +208,17 @@ User:
   actAs:
     Timestampable: ~
 
+Role:
+  tableName: cf_role
+  columns:
+    id: { type: integer, length: 4, primary: true, autoincrement: true }
+    name: { type: string(255) }
+    access_level: { type: integer }
+    created_at: { type: timestamp }
+    updated_at: { type: timestamp }
+  actAs:
+    Timestampable: ~
+
 UserIndex:
   tableName: cf_user_index
   columns:
@@ -246,12 +260,63 @@ SubstituteInformation:
   actAs:
     Timestampable: ~
 
+Event:
+  tableName: cf_event
+  columns:
+    id: { type: integer, length: 4, primary: true, autoincrement: true }
+    position: { type: integer }
+    type: { type: integer }
+    node_id: { type: integer, length: 4 }
+    created_at: { type: timestamp }
+    updated_at: { type: timestamp }
+  relations:
+    Node: { foreignAlias: Events, class: Node, local: node_id }
+  actAs:
+    Timestampable: ~
+
+PhpEvent:
+  tableName: cf_event_php
+  columns:
+    script_url: { type: string(255) }
+  inheritance:
+    extends: Event
+    type: column_aggregation
+    keyField: action_type
+    keyValue: 1
+
+OdbcEvent:
+  tableName: cf_event_odbc
+  columns:
+    dsn: { type: string(512) }
+    table_name: { type: string(255) }
+    username: { type: string(255) }
+    password: { type: string(255) }
+  inheritance:
+    extends: Event
+    type: column_aggregation
+    keyField: action_type
+    keyValue: 2
+
+PdoEvent:
+  tableName: cf_event_php
+  columns:
+    dsn: { type: string(512) }
+    table_name: { type: string(255) }
+    username: { type: string(255) }
+    password: { type: string(255) }
+  inheritance:
+    extends: Event
+    type: column_aggregation
+    keyField: action_type
+    keyValue: 3
+
 EventActionValue:
   tableName: cf_event_action_value
   columns:
     id: { type: integer, length: 4, primary: true, autoincrement: true }
     key: { type: string(255) }
     value: { type: string(4096) }
+    event_id: { type: integer, length: 4 }
     created_at: { type: timestamp }
     updated_at: { type: timestamp }
   actAs:
