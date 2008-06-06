@@ -298,7 +298,7 @@ OdbcEvent:
     keyValue: 2
 
 PdoEvent:
-  tableName: cf_event_php
+  tableName: cf_event_pdo
   columns:
     dsn: { type: string(512) }
     table_name: { type: string(255) }
@@ -309,6 +309,18 @@ PdoEvent:
     type: column_aggregation
     keyField: action_type
     keyValue: 3
+    
+BreakpointEvent:
+  tableName: cf_event_breakpoint
+  columns:
+    trigger_id: { type: integer }
+  relations:
+    Trigger: { local: trigger_id, foreign: id }
+  inheritance:
+    extends: Event
+    type: column_aggregation
+    keyField: action_type
+    keyValue: 4
 
 EventActionValue:
   tableName: cf_event_action_value
@@ -321,6 +333,38 @@ EventActionValue:
     updated_at: { type: timestamp }
   actAs:
     Timestampable: ~
+    
+Trigger:
+  tableName: cf_trigger
+  columns:
+    id: { type: integer, length: 4, primary: true, autoincrement: true }
+    created_at: { type: timestamp }
+    updated_at: { type: timestamp }
+
+TriggerTime:
+  tableName: cf_trigger_time
+  columns:
+    value: { type: integer}
+    type: { type: integer }
+  inheritance:
+    extends: Trigger
+    type: column_aggregation
+    keyField: trigger_type
+    keyValue: 1  
+    
+TriggerDatabaseValue:
+  tableName: cf_trigger_dbvalue
+  columns:
+    dsn: { type: string(512) }
+    username: { type: string(255) }
+    password: { type: string(255) }
+    sql_statement: { type: string(255) }
+    needed_value: { type: string(255) }
+  inheritance:
+    extends: Trigger
+    type: column_aggregation
+    keyField: trigger_type
+    keyValue: 2
     
 Node:
   tableName: cf_node

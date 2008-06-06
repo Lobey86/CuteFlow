@@ -21,8 +21,9 @@ abstract class BaseEvent extends sfDoctrineRecord
     $this->hasColumn('table_name', 'string', 255);
     $this->hasColumn('username', 'string', 255);
     $this->hasColumn('password', 'string', 255);
+    $this->hasColumn('trigger_id', 'integer', null);
 
-    $this->setSubClasses(array('PhpEvent' => array('action_type' => 1), 'OdbcEvent' => array('action_type' => 2), 'PdoEvent' => array('action_type' => 3)));
+    $this->setSubClasses(array('PhpEvent' => array('action_type' => 1), 'OdbcEvent' => array('action_type' => 2), 'PdoEvent' => array('action_type' => 3), 'BreakpointEvent' => array('action_type' => 4)));
   }
 
   public function setUp()
