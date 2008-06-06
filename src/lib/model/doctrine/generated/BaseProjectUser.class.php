@@ -11,11 +11,14 @@ abstract class BaseProjectUser extends sfDoctrineRecord
     $this->setTableName('cf_project_user');
     $this->hasColumn('project_id', 'integer', null, array('primary' => true));
     $this->hasColumn('user_id', 'integer', null, array('primary' => true));
+    $this->hasColumn('role_id', 'integer', 4);
   }
 
   public function setUp()
   {
     parent::setUp();
+    $this->hasOne('Role', array('local' => 'role_id',
+                                'foreign' => 'id'));
   }
 
 }
