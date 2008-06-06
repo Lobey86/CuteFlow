@@ -39,8 +39,9 @@ abstract class BaseUser extends sfDoctrineRecord
   public function setUp()
   {
     parent::setUp();
-    $this->hasOne('Project', array('local' => 'project_id',
-                                   'foreign' => 'id'));
+    $this->hasMany('Project as Projects', array('refClass' => 'ProjectUser',
+                                                'local' => 'user_id',
+                                                'foreign' => 'project_id'));
 
     $this->hasMany('Workflow as Workflows', array('local' => 'id',
                                                   'foreign' => 'sender_id'));

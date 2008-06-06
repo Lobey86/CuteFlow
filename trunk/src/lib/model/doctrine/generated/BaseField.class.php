@@ -28,6 +28,10 @@ abstract class BaseField extends sfDoctrineRecord
     $this->hasMany('FieldValue as FieldValues', array('local' => 'id',
                                                       'foreign' => 'field_id'));
 
+    $this->hasMany('Slot as Slots', array('refClass' => 'SlotField',
+                                          'local' => 'field_id',
+                                          'foreign' => 'slot_id'));
+
     $timestampable0 = new Doctrine_Template_Timestampable();
     $this->actAs($timestampable0);
   }
