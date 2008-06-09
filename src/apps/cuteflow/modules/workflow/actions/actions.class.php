@@ -16,6 +16,64 @@ class workflowActions extends sfActions
    */
   public function executeIndex()
   {
-    $this->forward('default', 'module');
+    $this->forward('list');
+  }
+  
+  public function executeStart()
+  {
+  	
+  }
+  
+  public function executeList()
+  {
+  	// check filters first
+  	
+  	
+  	
+  }
+  
+  public function executeArchive()
+  {
+  	$workflow_id = $this->getRequestParameter('wid', null);
+  	
+  	assert(is_integer($workflow_id));
+  	
+  	$workflow = new Workflow();
+  	$workflow->find($workflow_id);
+  }
+  
+  public function executeDelete()
+  {
+  	
+  }
+  
+  public function exeuteRestart()
+  {
+  	
+  }
+  
+  public function executeShow()
+  {
+  	
+  }
+  
+  public function executeDefine()
+  {
+  	
+  }
+  
+  public function executeEdit()
+  {
+  	
+  }
+  
+  public function executeStop()
+  {
+  	
+  }
+  
+  public function executeSave()
+  {
+  	
   }
 }
