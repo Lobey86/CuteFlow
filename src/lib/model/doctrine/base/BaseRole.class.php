@@ -8,17 +8,32 @@ abstract class BaseRole extends sfDoctrineRecord
     public function setTableDefinition()
     {
         $this->setTableName('cf_role');
-        $this->hasColumn('id', 'integer', 4, array('type' => 'integer', 'length' => 4, 'primary' => true, 'autoincrement' => true));
-        $this->hasColumn('name', 'string', 255, array('type' => 'string', 'length' => '255'));
-        $this->hasColumn('access_level', 'integer', null, array('type' => 'integer'));
-        $this->hasColumn('created_at', 'timestamp', null, array('type' => 'timestamp'));
-        $this->hasColumn('updated_at', 'timestamp', null, array('type' => 'timestamp'));
+        $this->hasColumn('id', 'integer', 4, array(
+             'type' => 'integer',
+             'length' => 4,
+             'primary' => true,
+             'autoincrement' => true,
+             ));
+        $this->hasColumn('name', 'string', 255, array(
+             'type' => 'string',
+             'length' => '255',
+             ));
+        $this->hasColumn('access_level', 'integer', null, array(
+             'type' => 'integer',
+             ));
+        $this->hasColumn('created_at', 'timestamp', null, array(
+             'type' => 'timestamp',
+             ));
+        $this->hasColumn('updated_at', 'timestamp', null, array(
+             'type' => 'timestamp',
+             ));
     }
 
     public function setUp()
     {
-        $this->hasMany('ProjectUser', array('local' => 'id',
-                                            'foreign' => 'role_id'));
+        $this->hasMany('ProjectUser', array(
+             'local' => 'id',
+             'foreign' => 'role_id'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();
         $this->actAs($timestampable0);

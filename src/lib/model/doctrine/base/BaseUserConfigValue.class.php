@@ -8,18 +8,37 @@ abstract class BaseUserConfigValue extends sfDoctrineRecord
     public function setTableDefinition()
     {
         $this->setTableName('cf_user_config');
-        $this->hasColumn('id', 'integer', 4, array('type' => 'integer', 'length' => 4, 'primary' => true, 'autoincrement' => true));
-        $this->hasColumn('user_id', 'integer', 4, array('type' => 'integer', 'length' => 4));
-        $this->hasColumn('key', 'stromg', 255, array('type' => 'stromg', 'length' => '255'));
-        $this->hasColumn('value', 'string', 255, array('type' => 'string', 'length' => '255'));
-        $this->hasColumn('created_at', 'timestamp', null, array('type' => 'timestamp'));
-        $this->hasColumn('updated_at', 'timestamp', null, array('type' => 'timestamp'));
+        $this->hasColumn('id', 'integer', 4, array(
+             'type' => 'integer',
+             'length' => 4,
+             'primary' => true,
+             'autoincrement' => true,
+             ));
+        $this->hasColumn('user_id', 'integer', 4, array(
+             'type' => 'integer',
+             'length' => 4,
+             ));
+        $this->hasColumn('key', 'stromg', 255, array(
+             'type' => 'stromg',
+             'length' => '255',
+             ));
+        $this->hasColumn('value', 'string', 255, array(
+             'type' => 'string',
+             'length' => '255',
+             ));
+        $this->hasColumn('created_at', 'timestamp', null, array(
+             'type' => 'timestamp',
+             ));
+        $this->hasColumn('updated_at', 'timestamp', null, array(
+             'type' => 'timestamp',
+             ));
     }
 
     public function setUp()
     {
-        $this->hasOne('User', array('local' => 'user_id',
-                                    'foreign' => 'id'));
+        $this->hasOne('User', array(
+             'local' => 'user_id',
+             'foreign' => 'id'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();
         $this->actAs($timestampable0);

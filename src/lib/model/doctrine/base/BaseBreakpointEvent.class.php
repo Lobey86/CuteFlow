@@ -8,7 +8,8 @@ abstract class BaseBreakpointEvent extends Event
     public function setUp()
     {
         parent::setUp();
-    $this->hasOne('Trigger', array('local' => 'trigger_id',
-                                       'foreign' => 'id'));
+    $this->hasOne('Trigger', array(
+             'local' => 'trigger_id',
+             'foreign' => 'id'));
     }
 }

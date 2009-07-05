@@ -8,9 +8,18 @@ abstract class BaseSlotField extends sfDoctrineRecord
     public function setTableDefinition()
     {
         $this->setTableName('cf_slot_field');
-        $this->hasColumn('user_id', 'integer', null, array('type' => 'integer', 'primary' => true));
-        $this->hasColumn('slot_id', 'integer', null, array('type' => 'integer', 'primary' => true));
-        $this->hasColumn('position', 'integer', 4, array('type' => 'integer', 'length' => 4));
+        $this->hasColumn('user_id', 'integer', null, array(
+             'type' => 'integer',
+             'primary' => true,
+             ));
+        $this->hasColumn('slot_id', 'integer', null, array(
+             'type' => 'integer',
+             'primary' => true,
+             ));
+        $this->hasColumn('position', 'integer', 4, array(
+             'type' => 'integer',
+             'length' => 4,
+             ));
     }
 
 }

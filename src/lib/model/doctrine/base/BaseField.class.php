@@ -8,27 +8,52 @@ abstract class BaseField extends sfDoctrineRecord
     public function setTableDefinition()
     {
         $this->setTableName('cf_field');
-        $this->hasColumn('id', 'integer', 4, array('type' => 'integer', 'length' => 4, 'primary' => true, 'autoincrement' => true));
-        $this->hasColumn('description', 'string', null, array('type' => 'string'));
-        $this->hasColumn('default_value', 'string', null, array('type' => 'string'));
-        $this->hasColumn('type', 'integer', null, array('type' => 'integer'));
-        $this->hasColumn('is_read_only', 'integer', null, array('type' => 'integer'));
-        $this->hasColumn('created_at', 'timestamp', null, array('type' => 'timestamp'));
-        $this->hasColumn('updated_at', 'timestamp', null, array('type' => 'timestamp'));
-        $this->hasColumn('deleted_at', 'timestamp', null, array('type' => 'timestamp'));
+        $this->hasColumn('id', 'integer', 4, array(
+             'type' => 'integer',
+             'length' => 4,
+             'primary' => true,
+             'autoincrement' => true,
+             ));
+        $this->hasColumn('description', 'string', null, array(
+             'type' => 'string',
+             ));
+        $this->hasColumn('default_value', 'string', null, array(
+             'type' => 'string',
+             ));
+        $this->hasColumn('type', 'integer', null, array(
+             'type' => 'integer',
+             ));
+        $this->hasColumn('read_only', 'boolean', null, array(
+             'type' => 'boolean',
+             ));
+        $this->hasColumn('mandantory', 'boolean', null, array(
+             'type' => 'boolean',
+             ));
+        $this->hasColumn('created_at', 'timestamp', null, array(
+             'type' => 'timestamp',
+             ));
+        $this->hasColumn('updated_at', 'timestamp', null, array(
+             'type' => 'timestamp',
+             ));
+        $this->hasColumn('deleted_at', 'timestamp', null, array(
+             'type' => 'timestamp',
+             ));
     }
 
     public function setUp()
     {
-        $this->hasMany('FieldDefinition as FieldDefinitions', array('local' => 'id',
-                                                                    'foreign' => 'field_id'));
+        $this->hasMany('FieldDefinition as FieldDefinitions', array(
+             'local' => 'id',
+             'foreign' => 'field_id'));
 
-        $this->hasMany('FieldValue as FieldValues', array('local' => 'id',
-                                                          'foreign' => 'field_id'));
+        $this->hasMany('FieldValue as FieldValues', array(
+             'local' => 'id',
+             'foreign' => 'field_id'));
 
-        $this->hasMany('Slot as Slots', array('refClass' => 'SlotField',
-                                              'local' => 'field_id',
-                                              'foreign' => 'slot_id'));
+        $this->hasMany('Slot as Slots', array(
+             'refClass' => 'SlotField',
+             'local' => 'field_id',
+             'foreign' => 'slot_id'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();
         $this->actAs($timestampable0);

@@ -77,7 +77,7 @@ Attachment:
   relations:
     Revision: { foreignAlias: Attachments, class: Revision, local: revision_id }
   actAs:
-    Timestanpable: ~
+    Timestampable: ~
 
 Project:
   tableName: cf_project
@@ -225,7 +225,7 @@ UserConfigValue:
   columns:
     id: { type: integer, length: 4, primary: true, autoincrement: true }
     user_id: { type: integer, length: 4 }
-    key: { type: stromg(255)  }
+    key: { type: string(255)  }
     value: { type: string(255) }
     created_at: { type: timestamp }
     updated_at: { type: timestamp }
@@ -413,3 +413,4 @@ FilterValue:
   actAs: 
     Timestampable: ~
     
+     
