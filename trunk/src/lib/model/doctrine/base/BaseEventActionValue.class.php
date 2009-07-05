@@ -8,12 +8,30 @@ abstract class BaseEventActionValue extends sfDoctrineRecord
     public function setTableDefinition()
     {
         $this->setTableName('cf_event_action_value');
-        $this->hasColumn('id', 'integer', 4, array('type' => 'integer', 'length' => 4, 'primary' => true, 'autoincrement' => true));
-        $this->hasColumn('key', 'string', 255, array('type' => 'string', 'length' => '255'));
-        $this->hasColumn('value', 'string', 4096, array('type' => 'string', 'length' => '4096'));
-        $this->hasColumn('event_id', 'integer', 4, array('type' => 'integer', 'length' => 4));
-        $this->hasColumn('created_at', 'timestamp', null, array('type' => 'timestamp'));
-        $this->hasColumn('updated_at', 'timestamp', null, array('type' => 'timestamp'));
+        $this->hasColumn('id', 'integer', 4, array(
+             'type' => 'integer',
+             'length' => 4,
+             'primary' => true,
+             'autoincrement' => true,
+             ));
+        $this->hasColumn('key', 'string', 255, array(
+             'type' => 'string',
+             'length' => '255',
+             ));
+        $this->hasColumn('value', 'string', 4096, array(
+             'type' => 'string',
+             'length' => '4096',
+             ));
+        $this->hasColumn('event_id', 'integer', 4, array(
+             'type' => 'integer',
+             'length' => 4,
+             ));
+        $this->hasColumn('created_at', 'timestamp', null, array(
+             'type' => 'timestamp',
+             ));
+        $this->hasColumn('updated_at', 'timestamp', null, array(
+             'type' => 'timestamp',
+             ));
     }
 
     public function setUp()

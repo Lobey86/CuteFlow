@@ -8,24 +8,44 @@ abstract class BaseTemplate extends sfDoctrineRecord
     public function setTableDefinition()
     {
         $this->setTableName('cf_template');
-        $this->hasColumn('id', 'integer', 4, array('type' => 'integer', 'length' => 4, 'primary' => true, 'autoincrement' => true));
-        $this->hasColumn('project_id', 'integer', 4, array('type' => 'integer', 'length' => 4));
-        $this->hasColumn('name', 'string', 255, array('type' => 'string', 'length' => '255'));
-        $this->hasColumn('created_at', 'timestamp', null, array('type' => 'timestamp'));
-        $this->hasColumn('updated_at', 'timestamp', null, array('type' => 'timestamp'));
-        $this->hasColumn('deleted_at', 'timestamp', null, array('type' => 'timestamp'));
+        $this->hasColumn('id', 'integer', 4, array(
+             'type' => 'integer',
+             'length' => 4,
+             'primary' => true,
+             'autoincrement' => true,
+             ));
+        $this->hasColumn('project_id', 'integer', 4, array(
+             'type' => 'integer',
+             'length' => 4,
+             ));
+        $this->hasColumn('name', 'string', 255, array(
+             'type' => 'string',
+             'length' => '255',
+             ));
+        $this->hasColumn('created_at', 'timestamp', null, array(
+             'type' => 'timestamp',
+             ));
+        $this->hasColumn('updated_at', 'timestamp', null, array(
+             'type' => 'timestamp',
+             ));
+        $this->hasColumn('deleted_at', 'timestamp', null, array(
+             'type' => 'timestamp',
+             ));
     }
 
     public function setUp()
     {
-        $this->hasMany('Workflow as Workflows', array('local' => 'id',
-                                                      'foreign' => 'template_id'));
+        $this->hasMany('Workflow as Workflows', array(
+             'local' => 'id',
+             'foreign' => 'template_id'));
 
-        $this->hasMany('Slot as Slots', array('local' => 'id',
-                                              'foreign' => 'template_id'));
+        $this->hasMany('Slot as Slots', array(
+             'local' => 'id',
+             'foreign' => 'template_id'));
 
-        $this->hasMany('Node as Nodes', array('local' => 'id',
-                                              'foreign' => 'template_id'));
+        $this->hasMany('Node as Nodes', array(
+             'local' => 'id',
+             'foreign' => 'template_id'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();
         $this->actAs($timestampable0);

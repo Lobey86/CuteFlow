@@ -8,19 +8,38 @@ abstract class BaseFieldDefinition extends sfDoctrineRecord
     public function setTableDefinition()
     {
         $this->setTableName('cf_field_definition');
-        $this->hasColumn('id', 'integer', 4, array('type' => 'integer', 'length' => 4, 'primary' => true, 'autoincrement' => true));
-        $this->hasColumn('field_id', 'integer', 4, array('type' => 'integer', 'length' => 4));
-        $this->hasColumn('definition_value', 'string', null, array('type' => 'string'));
-        $this->hasColumn('position', 'integer', null, array('type' => 'integer'));
-        $this->hasColumn('created_at', 'timestamp', null, array('type' => 'timestamp'));
-        $this->hasColumn('updated_at', 'timestamp', null, array('type' => 'timestamp'));
-        $this->hasColumn('deleted_at', 'timestamp', null, array('type' => 'timestamp'));
+        $this->hasColumn('id', 'integer', 4, array(
+             'type' => 'integer',
+             'length' => 4,
+             'primary' => true,
+             'autoincrement' => true,
+             ));
+        $this->hasColumn('field_id', 'integer', 4, array(
+             'type' => 'integer',
+             'length' => 4,
+             ));
+        $this->hasColumn('definition_value', 'string', null, array(
+             'type' => 'string',
+             ));
+        $this->hasColumn('position', 'integer', null, array(
+             'type' => 'integer',
+             ));
+        $this->hasColumn('created_at', 'timestamp', null, array(
+             'type' => 'timestamp',
+             ));
+        $this->hasColumn('updated_at', 'timestamp', null, array(
+             'type' => 'timestamp',
+             ));
+        $this->hasColumn('deleted_at', 'timestamp', null, array(
+             'type' => 'timestamp',
+             ));
     }
 
     public function setUp()
     {
-        $this->hasOne('Field', array('local' => 'field_id',
-                                     'foreign' => 'id'));
+        $this->hasOne('Field', array(
+             'local' => 'field_id',
+             'foreign' => 'id'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();
         $this->actAs($timestampable0);
