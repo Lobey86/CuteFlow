@@ -10,10 +10,11 @@ Field:
   tableName: cf_field
   columns:
     id: { type: integer, length: 4, primary: true, autoincrement: true }
-    description: {type: string}
-    default_value: {type: string}
-    type: {type: integer}
-    is_read_only: {type: integer}
+    description: { type: string }
+    default_value: { type: string }
+    type: { type: integer }
+    read_only: { type: boolean }
+    mandantory: { type: boolean } 
     created_at: { type: timestamp }
     updated_at: { type: timestamp }
     deleted_at: { type: timestamp }
@@ -38,19 +39,19 @@ FieldDefinition:
 FieldValue:
   tableName: cf_field_value
   columns:  
-    field_id: { type: integer, length: 4}
-    revision_id: { type: integer, length: 4}
+    field_id: { type: integer, length: 4 }
+    revision_id: { type: integer, length: 4 }
     value: { type: clob }
     created_at: { type: timestamp }
     updated_at: { type: timestamp }
     deleted_at: { type: timestamp }
   relations:
-    Revision:
+    WorkflowRevision: { foreignAlias: FieldValues, class: WorkflowRevision, local: revision_id }
     Field: { foreignAlias: FieldValues, class: Field, local: field_id }
   actAs:
     Timestampable: ~
     
-Revision:
+WorkflowRevision:
   tableName: cf_revision
   columns:
     id: { type: integer, length: 4, primary: true, autoincrement: true }
@@ -217,19 +218,6 @@ Role:
     created_at: { type: timestamp }
     updated_at: { type: timestamp }
   actAs:
-    Timestampable: ~
-
-UserIndex:
-  tableName: cf_user_index
-  columns:
-    id: { type: integer, length: 4, primary: true, autoincrement: true }
-    user_id: { type: integer, length: 4 }
-    value: { type: string(255) }
-    created_at: { type: timestamp }
-    updated_at: { type: timestamp }
-  relations:
-    User: { local: user_id, class: User, foreign: id }
-  actAs: 
     Timestampable: ~
 
 UserConfigValue:
