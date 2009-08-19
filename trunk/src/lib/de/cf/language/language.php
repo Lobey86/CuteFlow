@@ -60,5 +60,17 @@ class Language {
             $result = explode('_', $language);
             return format_language($result[0]);
         }
+
+        public function loadAjaxLanguage($conext) {
+            $result = array();
+            $result['login'] = $conext->getI18N()->__('Login',null,'login');
+            $result['username'] = $conext->getI18N()->__('Username',null,'login');
+            $result['password'] = $conext->getI18N()->__('Password',null,'login');
+            $result['language'] = $conext->getI18N()->__('Language',null,'login');
+            $result['close'] = $conext->getI18N()->__('Close',null,'login');
+           // print_r ($result);die;
+            return $result;
+        }
+
 }
 ?>
