@@ -25,19 +25,63 @@ class CredentialRolemanagement {
             $a=1;
             foreach($this->records as $item) {
                 $module = '';
-                $module = $this->checkModule($result,$item->getUsermodule());
+                $module = $this->checkModule($result,$item->getUserModule());
                 if($module != '') {
                     $result[$this->moduleCounter]['usermodule']['title'] = $module;
-                    $result[$this->moduleCounter]['usermodule']['id'] = 'usergroup_' . $module;
+                    $result[$this->moduleCounter]['usermodule']['id'] = 'usermodule_' . $module;
                     $result[$this->moduleCounter]['usermodule']['server_id'] = $module;
+                    $result[$this->moduleCounter]['usermodule']['usermodule'] = $module;
                     $result[$this->moduleCounter]['usermodule']['usergroup'] = '';
                 }
-                //$a++;
-            }
- 
 
-            print_r ($result);die;
+                $group = '';
+                $group = $this->checkGroup($result[$this->moduleCounter],$item->getUserGroup());
+                if($group != ''){
+                    $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['title'] = $group;
+                    $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['id'] = $result[$this->moduleCounter]['usermodule']['id'] . '_usergroup_' . $group;
+                    $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['icon'] = $result[$this->moduleCounter]['usermodule']['id'] . '_usergroupIcon_' . $group;
+                    $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['server_id'] = $group;
+                    $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['usergroupe'] = $group;
+                    $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['userright'] = '';
+                }
+
+               
+                $right = $item->getUserRight();
+                $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['userright'][$this->rightCounter]['title'] = $right;
+                $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['userright'][$this->rightCounter]['id'] =  $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['id'] . '_userright_' . $right;
+                $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['userright'][$this->rightCounter]['server_id'] = $right;
+                $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['userright'][$this->rightCounter]['userright'] = $right;
+                $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['userright'][$this->rightCounter]['name'] = $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['id'];
+                $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['userright'][$this->rightCounter]['parent'] = $this->checkParent($right);
+                $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['userright'][$this->rightCounter++]['database_id'] = $item->getId();
+                
+
+            }
             return $result;
+        }
+
+
+
+        private function checkGroup($result, $item) {
+            $flag = false;
+            if ($this->firstRun == false OR $this->groupCounter > 0) {
+                foreach($result['usermodule']['usergroup'] as $group) {
+                    if($group['server_id'] == $item) {
+                        $flag = true;
+                    }
+                }
+                if($flag == false) {
+                    $this->groupCounter++;
+                    $this->rightCounter = 0;
+                    return $item;
+                }
+                
+            }
+            else {
+                $this->firstRun = false;
+                return $item;
+            }
+            
         }
 
         /**
@@ -60,6 +104,9 @@ class CredentialRolemanagement {
 
                 if($flag == false) {
                     $this->moduleCounter++;
+                    $this->groupCounter = 0;
+                    $this->rightCounter = 0;
+                    $this->firstRun = true;
                     return $item;
                 }
                 else {
@@ -67,7 +114,7 @@ class CredentialRolemanagement {
                 }
             }
             else {
-                $this->firstRun = false;
+                //$this->firstRun = false;
                 return $item;
             }
         }
