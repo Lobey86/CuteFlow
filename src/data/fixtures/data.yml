@@ -1,0 +1,124 @@
+Credential:
+  c1:
+    usermodule: management
+    usergroup: usermanagement
+    userright: showModule
+  c2:
+    usermodule: management
+    usergroup: usermanagement
+    userright: editUser
+  c3:
+    usermodule: management
+    usergroup: usermanagement
+    userright: removeUser
+  c4:
+    usermodule: management
+    usergroup: test
+    userright: removeTest
+  c5:
+    usermodule: management
+    usergroup: test
+    userright: addTest
+  c6:
+    usermodule: verwaltung
+    usergroup: test
+    userright: addTest
+  c7:
+    usermodule: verwaltung
+    usergroup: test
+    userright: removeTest
+  c8:
+    usermodule: verwaltung
+    usergroup: test
+    userright: modifyTest
+  c9:
+    usermodule: management
+    usergroup: usermanagement
+    userright: showModule2
+
+Role:
+  r1:
+    description: admin
+    deleteable: 0
+    editable: 0
+  r2:
+    description: user
+    deleteable: 1
+    editable: 1
+  r3:
+    description: gartenzwerg
+    deleteable: 1
+    editable: 1
+
+CredentialRole:
+  rc1:
+    role_id: 1
+    credential_id: 1
+  rc2:
+    role_id: 1
+    credential_id: 2
+  rc3:
+    role_id: 2
+    credential_id: 1
+  rc4:
+    role_id: 2
+    credential_id: 2
+  rc4:
+    role_id: 2
+    credential_id: 3
+  rc5:
+    role_id: 3
+    credential_id: 1
+
+User:
+  u1:
+    username: admin
+    password: admin
+    role_id: 1
+    firstname: lucky
+    lastname: luke
+  u2:
+    username: admin1
+    password: admin1
+    role_id: 1
+    firstname: onkel
+    lastname: jürgen
+  u3:
+    username: admin2
+    password: admin2
+    role_id: 1
+    firstname: jürgen
+    lastname: drews
+  u4:
+    username: admin3
+    password: admin3
+    role_id: 1
+    firstname: krööte
+    lastname: flööte
+
+  u5:
+    username: admin4
+    password: admin4
+    role_id: 2
+    firstname: grüß
+    lastname: gott
+  u6:
+    username: admin5
+    password: admin5
+    role_id: 2
+    firstname: schnitzel
+    lastname: mit pommes
+
+UserSetting:
+  us1:
+     user_id: 1
+  us2:
+     user_id: 2
+  us3:
+     user_id: 3
+  us4:
+     user_id: 4
+  us5:
+     user_id: 5
+  us6:
+     user_id: 6
