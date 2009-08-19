@@ -1,416 +1,76 @@
-Config:
-  tableName: cf_config
+Role:
+  tableName: cf_role
   columns:
-    id: { type: integer, length: 4, primary: true, autoincrement: true }
-    description: {type: string}
-    config_key: {type: string}
-    config_value: {type: string}
-    
-Field:
-  tableName: cf_field
-  columns:
-    id: { type: integer, length: 4, primary: true, autoincrement: true }
-    description: { type: string }
-    default_value: { type: string }
-    type: { type: integer }
-    read_only: { type: boolean }
-    mandantory: { type: boolean } 
-    created_at: { type: timestamp }
-    updated_at: { type: timestamp }
-    deleted_at: { type: timestamp }
-  actAs:
-    Timestampable: ~
-    
-FieldDefinition:
-  tableName: cf_field_definition
-  columns:
-    id: { type: integer, length: 4, primary: true, autoincrement: true }
-    field_id: { type: integer, length: 4}
-    definition_value: {type: string}
-    position: {type: integer}
-    created_at: { type: timestamp }
-    updated_at: { type: timestamp }
-    deleted_at: { type: timestamp }
-  relations:
-    Field: { foreignAlias: FieldDefinitions, class: Field, local: field_id }
-  actAs:
-    Timestampable: ~
+    id: { type: integer, length: 10, primary: true, autoincrement: true }
+    description: { type: string(100) }
+    deleteable: { type: integer(1), default: 1 }
+    editable: { type: integer(1), default: 1 }
 
-FieldValue:
-  tableName: cf_field_value
-  columns:  
-    field_id: { type: integer, length: 4 }
-    revision_id: { type: integer, length: 4 }
-    value: { type: clob }
-    created_at: { type: timestamp }
-    updated_at: { type: timestamp }
-    deleted_at: { type: timestamp }
+Credential:
+  tableName: cf_credential
+  columns:
+    id: { type: integer, length: 10, primary: true, autoincrement: true }
+    usermodule: { type: string(100) }
+    usergroup: { type: string(100) }
+    userright: { type: string(100) }
   relations:
-    WorkflowRevision: { foreignAlias: FieldValues, class: WorkflowRevision, local: revision_id }
-    Field: { foreignAlias: FieldValues, class: Field, local: field_id }
-  actAs:
-    Timestampable: ~
-    
-WorkflowRevision:
-  tableName: cf_revision
-  columns:
-    id: { type: integer, length: 4, primary: true, autoincrement: true }
-    revision_nr: { type: integer }
-    sent_at: { type: timestamp }
-    workflow_id: { type: integer }
-    description: { type: string(4096) }
-    created_at: { type: timestamp }
-    updated_at: { type: timestamp }
-    deleted_at: { type: timestamp }
-  actAs:
-    Timestampable: ~
-    
-Attachment:
-  tableName: cf_attachment
-  columns:
-    id: { type: integer, length: 4, primary: true, autoincrement: true }
-    file_name: { type: string(255) }
-    data: { type: blob }
-    revision_id: { type: integer(4) }
-    created_at: { type: timestamp }
-    updated_at: { type: timestamp }
-  relations:
-    Revision: { foreignAlias: Attachments, class: Revision, local: revision_id }
-  actAs:
-    Timestampable: ~
-
-Project:
-  tableName: cf_project
-  columns:
-    id: { type: integer, length: 4, primary: true, autoincrement: true }
-    name: { type: string(255) }
-    description: {type: string(255) }
-    created_at: { type: timestamp }
-    updated_at: { type: timestamp }
-    deleted_at: { type: timestamp }
-  actAs:
-    Timestampable: ~
-
-ProjectUser:
-  tableName: cf_project_user
-  columns:
-    project_id: { type: integer, primary: true }
-    user_id: { type: integer, primary: true }
-    role_id: { type: integer, length: 4 }
-  relations:
-    Role: { local: role_id, class: Role, foreign: id }
-    
-Workflow:
-  tableName: cf_workflow
-  columns:
-    id: { type: integer, length: 4, primary: true, autoincrement: true }
-    sender_id: { type: integer, length: 4 }
-    end_action: { type: integer, length: 4 }
-    template_id: { type: integer, length: 4 }
-    created_at: { type: timestamp }
-    updated_at: { type: timestamp }
-    deleted_at: { type: timestamp }
-    archived_at: { type: timestamp }
-  relations:
-    Sender:  { foreignAlias: Workflows, class: User, local: sender_id }
-    Template: { foreignAlias: Workflows, class: Template, local: template_id }    
-  actAs:
-    Timestampable: ~
-    
-WorkflowProcess:
-  tableName: cf_workflow_process
-  columns:
-    id: { type: integer, length: 4, primary: true, autoincrement: true }
-    workflow_id: { type: integer, length: 4 }
-    revision_id: { type: integer, length: 4 }
-    node_id: { type: integer, length: 4 }
-    user_id: { type: integer, length: 4 }
-    subsititute_id: { type: integer, length: 4 }
-    decission_state: { type: integer, length: 4 }
-    decission_at: { type: timestamp }
-    resend_count: { type: integer, length: 4 }
-    created_at: { type: timestamp }
-    updated_at: { type: timestamp }    
-  relations:
-    User: { foreignAlias: WorkflowProcesses, class: User, local: user_id }
-    Workflow: { foreignAlias: WorkflowProcesses, class: Workflow, local: workflow_id }
-    Revision: { foreignAlias: WorkflowProcesses, class: Revision, local: revision_id }
-    SubstituteInformation: { foreignAlias: WorkflowProcesses, class: SubstituteInformation, local: substitute_id }
-    Node: { foreignAlias: WorkflowProcesses, class: Node, local: node_id }
-  actAs:
-    TimeStampable: ~
-
-Template:
-  tableName: cf_template
-  columns:
-    id: { type: integer, length: 4, primary: true, autoincrement: true }
-    project_id: { type: integer, length: 4 }
-    name: { type: string(255) }
-    created_at: { type: timestamp }
-    updated_at: { type: timestamp }
-    deleted_at: { type: timestamp }
-  actAs:
-    Timestampable: ~   
-    
-Slot:
-  tableName: cf_slot
-  columns:
-    id: { type: integer, length: 4, primary: true, autoincrement: true }
-    name: { type: string(255) }
-    template_id: { type: integer, length: 4 }
-    created_at: { type: timestamp }
-    updated_at: { type: timestamp }
-    deleted_at: { type: timestamp }
-  relations:
-    Template: { foreignAlias: Slots, class: Template, local: template_id }
-    Fields: { class: Field, refClass: SlotField, local: slot_id, foreign: field_id, foreignAlias: Slots }
-  actAs:
-    Timestampable: ~
-
-SlotField:
-  tableName: cf_slot_field
-  columns:
-    user_id: { type: integer, primary: true }
-    slot_id: { type: integer, primary: true }
-    position: { type: integer, length: 4 }
-  relations:
-  
+    Roles:
+      foreignAlias: Credentials
+      class: Role
+      local: credential_id
+      refClass: CredentialRole
+      
+CredentialRole:
+   tableName: cf_credntialrole
+   columns:
+     role_id: { type: integer(10), primary: true }
+     credential_id: { type: integer(10), primary: true }
 
 User:
   tableName: cf_user
   columns:
-    id: { type: integer, length: 4, primary: true, autoincrement: true }
-    project_id: { type: integer(4) }
-    access_level: { type: integer(4) }
-    description: { type: string(255) }
-    username: { type: string(255) }
-    password: { type: string(255) }
-    firstname: { type: string(255) }
-    lastname: { type: string(255) }
-    email: { type: string(255) }
-    street: { type: string(255) }
-    country: { type: string(255) }
-    zipcode: { type: string(255) }
-    city: { type: string(255) }
-    telephone1: { type: string(255) }
-    telephone2: { type: string(255) }
-    mobilephone: { type: string(255) }
-    fax: { type: string(255) }
-    organisation: { type: string(255) }
-    department: { type: string(255) }
-    cost_center: { type: string(255) }
-    userdefined1: { type: string(255) }
-    userdefined2: { type: string(255) }
-    created_at: { type: timestamp }
-    updated_at: { type: timestamp }
-    deleted_at: { type: timestamp }
+    id: { type: integer, length: 10, primary: true, autoincrement: true }
+    role_id: { type: integer, length: 10}
+    firstname: { type: string(100) }
+    lastname: { type: string(100) }
+    email: { type: string(100) }
+    username: { type: string(100) }
+    password: { type: string(100) }
+    street: { type: string(100) }
+    zip: { type: string(100) }
+    city: { type: string(100) }
+    phone1: { type: string(100) }
+    phone2: { type: string(100) }
+    mobile: { type: string(100) }
+    fax: { type: string(100) }
+    organisation: { type: string(100) }
+    department: { type: string(100) }
+    burdenCenter: { type: string(100) }
+    emailFormat: { type: string(100) }
+    comment: { type: object }
   relations:
-    Projects: { foreignAlias: Users, class: Project, refClass: ProjectUser, local: user_id, foreign: project_id }
-  actAs:
-    Timestampable: ~
+    Role: { class: Role, local: role_id, foreign: id, foreignType: many, type: one }
 
-Role:
-  tableName: cf_role
+UserSetting:
+  tableName: cf_usersetting
   columns:
-    id: { type: integer, length: 4, primary: true, autoincrement: true }
-    name: { type: string(255) }
-    access_level: { type: integer }
-    created_at: { type: timestamp }
-    updated_at: { type: timestamp }
-  actAs:
-    Timestampable: ~
-
-UserConfigValue:
-  tableName: cf_user_config
-  columns:
-    id: { type: integer, length: 4, primary: true, autoincrement: true }
-    user_id: { type: integer, length: 4 }
-    key: { type: string(255)  }
-    value: { type: string(255) }
-    created_at: { type: timestamp }
-    updated_at: { type: timestamp }
+    id: { type: integer, length: 10, primary: true, autoincrement: true }
+    user_id: { type: integer, length: 10}
+    menue1expand: { type: string(10), default: 'true'}
+    menue2expand: { type: string(10), default: 'true'}
+    menue3expand: { type: string(10), default: 'true'}
+    refreshtime: { type: integer, default: 180}
+    displayeditem: { type: integer, default: 25}
   relations:
-    User: { foreignAlias: UserConfigValues, class: User, local: user_id }
-  actAs:
-    Timestampable: ~
+    User: { class: User, local: user_id, foreign: id, foreignType: one, type: one, onDelete: CASCADE }
 
-SubstituteInformation:
-  tableName: cf_substitute_information
+UserAgent:
+  tableName: cf_useragent
   columns:
-    id: { type: integer, length: 4, primary: true, autoincrement: true }
-    user_id: { type: integer, length: 4 }
-    duration: { type: integer, length: 4 }
-    position: { type: integer, length: 4 }
-    created_at: { type: timestamp }
-    updated_at: { type: timestamp }
+    id: { type: integer, length: 10, primary: true, autoincrement: true }
+    user_id: { type: integer, length: 10}
+    useragent_id: { type: integer, length: 10 }
+    durationtype: { type: string(100) }
+    durationlength: { type: string(100) }
   relations:
-    User: { foreignAlias: UserConfigValues, class: User, local: user_id }
-  actAs:
-    Timestampable: ~
-
-Event:
-  tableName: cf_event
-  columns:
-    id: { type: integer, length: 4, primary: true, autoincrement: true }
-    position: { type: integer }
-    type: { type: integer }
-    node_id: { type: integer, length: 4 }
-    created_at: { type: timestamp }
-    updated_at: { type: timestamp }
-  relations:
-    Node: { foreignAlias: Events, class: Node, local: node_id }
-  actAs:
-    Timestampable: ~
-
-PhpEvent:
-  tableName: cf_event_php
-  columns:
-    script_url: { type: string(255) }
-  inheritance:
-    extends: Event
-    type: column_aggregation
-    keyField: action_type
-    keyValue: 1
-
-OdbcEvent:
-  tableName: cf_event_odbc
-  columns:
-    dsn: { type: string(512) }
-    table_name: { type: string(255) }
-    username: { type: string(255) }
-    password: { type: string(255) }
-  inheritance:
-    extends: Event
-    type: column_aggregation
-    keyField: action_type
-    keyValue: 2
-
-PdoEvent:
-  tableName: cf_event_pdo
-  columns:
-    dsn: { type: string(512) }
-    table_name: { type: string(255) }
-    username: { type: string(255) }
-    password: { type: string(255) }
-  inheritance:
-    extends: Event
-    type: column_aggregation
-    keyField: action_type
-    keyValue: 3
-    
-BreakpointEvent:
-  tableName: cf_event_breakpoint
-  columns:
-    trigger_id: { type: integer }
-  relations:
-    Trigger: { local: trigger_id, foreign: id }
-  inheritance:
-    extends: Event
-    type: column_aggregation
-    keyField: action_type
-    keyValue: 4
-
-EventActionValue:
-  tableName: cf_event_action_value
-  columns:
-    id: { type: integer, length: 4, primary: true, autoincrement: true }
-    key: { type: string(255) }
-    value: { type: string(4096) }
-    event_id: { type: integer, length: 4 }
-    created_at: { type: timestamp }
-    updated_at: { type: timestamp }
-  actAs:
-    Timestampable: ~
-    
-Trigger:
-  tableName: cf_trigger
-  columns:
-    id: { type: integer, length: 4, primary: true, autoincrement: true }
-    created_at: { type: timestamp }
-    updated_at: { type: timestamp }
-
-TriggerTime:
-  tableName: cf_trigger_time
-  columns:
-    value: { type: integer}
-    type: { type: integer }
-  inheritance:
-    extends: Trigger
-    type: column_aggregation
-    keyField: trigger_type
-    keyValue: 1  
-    
-TriggerDatabaseValue:
-  tableName: cf_trigger_dbvalue
-  columns:
-    dsn: { type: string(512) }
-    username: { type: string(255) }
-    password: { type: string(255) }
-    sql_statement: { type: string(255) }
-    needed_value: { type: string(255) }
-  inheritance:
-    extends: Trigger
-    type: column_aggregation
-    keyField: trigger_type
-    keyValue: 2
-    
-Node:
-  tableName: cf_node
-  columns:
-    id: { type: integer, length: 4, primary: true, autoincrement: true }
-    name: { type: string(255) }
-    receiver_id: { type: integer, length: 4 }
-    workflow_id: { type: integer, length: 4 }
-    template_id: { type: integer, length: 4 }
-    template_slot_id: { type: integer, length: 4 }
-    created_at: { type: timestamp }
-    updated_at: { type: timestamp }
-  relations:
-    Workflow: { foreignAlias: Nodes, class: Workflow, local: workflow_id }
-    Template: { foreignAlias: Nodes, class: Template, local: template_id }
-    Slot: { foreignAlias: Nodes, class: Slot, local: template_slot_id }
-    Receiver: { foreignAlias: Nodes, class: User, local: receiver_id }
-  actAs:
-    Timestampable: ~
-    
-NodeCondition:
-  tableName: cf_node_condition
-  columns:
-    id: { type: integer, length: 4, primary: true, autoincrement: true }
-    node_id: { type: integer, length: 4 }
-    destination_node_id: { type: integer, length: 4 }
-    expression: { type: string(4096) }
-    created_at: { type: timestamp }
-    updated_at: { type: timestamp }
-  relations:
-    Node: { foreignAlias: Conditions, class: Node, local: node_id }
-    DestinationNode: { foreignAlias: DependendNodes, class: Node, local: destination_node_id }
-  actAs:
-    Timestampable: ~
-    
-Filter:
-  tableName: cf_filter
-  columns: 
-    id: { type: integer, length: 4, primary: true, autoincrement: true }
-    user_id: { type: integer, length: 4 }
-    name: { type: string(255) }
-    created_at: { type: timestamp }
-    updated_at: { type: timestamp }
-  actAs:
-    Timestampable: ~
-
-FilterValue:
-  tableName: cf_filter_value
-  columns:
-    id: { type: integer, length: 4, primary: true, autoincrement: true }
-    filter_id: { type: integer, length: 4 }
-    key: { type: string(255) }
-    value: { type: string(255) }
-    created_at: { type: timestamp }
-    updated_at: { type: timestamp }
-  relations:
-    Filter: { foreignAlias: FilterValues, class: Filter, local: filter_id }
-  actAs: 
-    Timestampable: ~
-    
-     
+    User: { class: User, local: user_id, foreign: id, foreignType: many, type: one, onDelete: CASCADE }
