@@ -8,10 +8,9 @@ Options +FollowSymLinks +ExecCGI
   #RewriteBase /
 
   # we skip all files with .something
-  # comment the following 3 lines to allow periods in routes
-  RewriteCond %{REQUEST_URI} \..+$
-  RewriteCond %{REQUEST_URI} !\.html$
-  RewriteRule .* - [L]
+  #RewriteCond %{REQUEST_URI} \..+$
+  #RewriteCond %{REQUEST_URI} !\.html$
+  #RewriteRule .* - [L]
 
   # we check if the .html version is here (caching)
   RewriteRule ^$ index.html [QSA]
@@ -21,6 +20,3 @@ Options +FollowSymLinks +ExecCGI
   # no, so we redirect to our front web controller
   RewriteRule ^(.*)$ index.php [QSA,L]
 </IfModule>
-
-# big crash from our front web controller
-ErrorDocument 500 "<h2>Application error</h2>symfony application failed to start properly"
