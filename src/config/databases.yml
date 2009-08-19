@@ -1,5 +1,15 @@
 all:
   doctrine:
-    class:          sfDoctrineDatabase
+    class: sfDoctrineDatabase
     param:
-      dsn:          mysql://root@localhost/cuteflow_3000
+      dsn:      mysql:host=localhost;dbname=cuteflow
+      username: root
+      password:
+
+dev:
+  doctrine:
+    class: sfDoctrineDatabase
+    param:
+      dsn:      mysql:host=localhost;dbname=cuteflow
+      username: root
+      password:
