@@ -1,20 +1,25 @@
-#usergroup_management_usergroupIcon_usermanagement {
+#usermodule_management_usergroupIcon_test{
 	background-image: url(/images/icons/accept.png); 
 	width: 17px;
 	height:17px;
 }
 
-#usergroup_management_usergroupIcon_test{
-	background-image: url(/images/icons/accept.png); 
+#usermodule_management_usergroupIcon_usermanagement{
+	background-image: url(/images/icons/wrench.png); 
 	width: 17px;
 	height:17px;
 }
 
-#usergroup_verwaltung_usergroupIcon_test{
-	background-image: url(/images/icons/accept.png); 
+#usermodule_verwaltung_usergroupIcon_riemen{
+	background-image: url(/images/icons/user_add.png); 
 	width: 17px;
 	height:17px;
 }
 
+#usermodule_verwaltung_usergroupIcon_test{
+	background-image: url(/images/icons/user_delete.png); 
+	width: 17px;
+	height:17px;
+}
 
 
