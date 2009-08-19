@@ -56,12 +56,9 @@ class loginActions extends sfActions
 
   public function executeChangeLanguage(sfWebRequest $request)
   {
+    $language = new Language();
     $this->getUser()->setCulture($request->getParameter('language'));
-    $result['login'] = $this->getContext()->getI18N()->__('Login',null,'login');
-    $result['username'] = $this->getContext()->getI18N()->__('Username',null,'login');
-    $result['password'] = $this->getContext()->getI18N()->__('Password',null,'login');
-    $result['language'] = $this->getContext()->getI18N()->__('Language',null,'login');
-    $result['close'] = $this->getContext()->getI18N()->__('Close',null,'login');
+    $result = $language->loadAjaxLanguage($this->getContext());
     $default = Language::buildDefaultLanguage($this->getUser()->getCulture());
     $this->renderText('{"defaultValue":"'.$default.'","result":'.json_encode($result).'}');
     return sfView::NONE;
