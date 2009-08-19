@@ -1,40 +1,44 @@
 Credential:
   c1:
-    usermodule: management
-    usergroup: usermanagement
-    userright: showModule
+    userModule: management
+    userGroup: usermanagement
+    userRight: showModule
   c2:
-    usermodule: management
-    usergroup: usermanagement
-    userright: editUser
+    userModule: management
+    userGroup: usermanagement
+    userRight: editUser
   c3:
-    usermodule: management
-    usergroup: usermanagement
-    userright: removeUser
+    userModule: management
+    userGroup: usermanagement
+    userRight: removeUser
   c4:
-    usermodule: management
-    usergroup: test
-    userright: removeTest
+    userModule: management
+    userGroup: test
+    userRight: removeTest
   c5:
-    usermodule: management
-    usergroup: test
-    userright: addTest
+    userModule: management
+    userGroup: test
+    userRight: addTest
   c6:
-    usermodule: verwaltung
-    usergroup: test
-    userright: addTest
+    userModule: verwaltung
+    userGroup: test
+    userRight: addTest
   c7:
-    usermodule: verwaltung
-    usergroup: test
-    userright: removeTest
+    userModule: verwaltung
+    userGroup: test
+    userRight: removeTest
   c8:
-    usermodule: verwaltung
-    usergroup: test
-    userright: modifyTest
+    userModule: verwaltung
+    userGroup: test
+    userRight: modifyTest
   c9:
-    usermodule: management
-    usergroup: usermanagement
-    userright: showModule2
+    userModule: management
+    userGroup: usermanagement
+    userRight: showModule2
+  c10:
+    userModule: management
+    userGroup: test
+    userRight: showModule
 
 Role:
   r1:
