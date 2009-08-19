@@ -55,9 +55,8 @@ cf.AddRoleTabpanel = function(){return {
 							style:'margin-top:4px;margin-left:120px;',
 							handler: function (check) {
 								var name = check.getName();
-								var parent_id = check.getId();
-								parent_id = parent_id.replace('_userright_'+name,'');
-								var changeFieldSet = Ext.getCmp(parent_id);
+
+								var changeFieldSet = Ext.getCmp(name);
 								changeFieldSet.items.each(function(itm){
 									itm.setValue(check.checked);									
 								});
