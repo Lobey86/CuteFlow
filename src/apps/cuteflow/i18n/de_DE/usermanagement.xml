@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.0">
+  <file original="global" source-language="en_US" target-language="de_DE" datatype="plaintext">
+    <body>  
+      <trans-unit id="1">
+        <source>Firstname</source>
+        <target>Vorname</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Lastname</source>
+        <target>Nachname</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Email</source>
+        <target>E-Mail</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>Username</source>
+        <target>Benutzername</target>
+      </trans-unit> 	  
+		<trans-unit id="5">
+        <source>Userrole</source>
+        <target>Rolle</target>
+      </trans-unit> 
+	  <trans-unit id="6">
+        <source>Action</source>
+        <target>Aktion</target>
+      </trans-unit> 
+	  <trans-unit id="7">
+        <source>Add new user</source>
+        <target>Neuen Benutzer anlegen</target>
+      </trans-unit> 
+	  <trans-unit id="8">
+        <source>No records found</source>
+        <target>keine Daten vorhanden</target>
+      </trans-unit> 
+	 <trans-unit id="9">
+        <source>No records found</source>
+        <target>keine Daten vorhanden</target>
+     </trans-unit> 
+	 <trans-unit id="10">
+        <source>Searchbar</source>
+        <target>Filter</target>
+     </trans-unit>
+	 <trans-unit id="11">
+        <source>User management</source>
+        <target>Benutzerverwaltung</target>
+     </trans-unit>
+	 <trans-unit id="12">
+        <source>Search</source>
+        <target>Suchen</target>
+     </trans-unit>
+	 <trans-unit id="13">
+        <source>Delete existing user</source>
+        <target>Benutzer L&#246;schen</target>
+     </trans-unit>
+	 <trans-unit id="14">
+        <source>Displaying topics</source>
+        <target>Benutzer</target>
+     </trans-unit> 
+	 <trans-unit id="15">
+        <source>of</source>
+        <target>von</target>
+     </trans-unit>
+	 <trans-unit id="16">
+        <source>OK</source>
+        <target>OK</target>
+     </trans-unit>
+	 <trans-unit id="17">
+        <source>Delete Success</source>
+        <target>L&#246;schen erfolgreich</target>
+     </trans-unit>
+	 <trans-unit id="18">
+        <source>Error</source>
+        <target>Fehler</target>
+     </trans-unit>
+	 <trans-unit id="19">
+        <source>Deleting own account not working</source>
+        <target>Eigens Profil kann nicht gel&#246;scht werden</target>
+     </trans-unit>
+	 <trans-unit id="20">
+        <source>Add new user</source>
+        <target>Neuen Benutzer anlegen</target>
+     </trans-unit>
+	 <trans-unit id="21">
+        <source>User overview</source>
+        <target>Benutzer &#220;bersicht</target>
+     </trans-unit>	
+	 <trans-unit id="22">
+        <source>Edit user</source>
+        <target>Benutzer bearbeiten</target>
+     </trans-unit>		 
+    </body>
+  </file>
+</xliff>

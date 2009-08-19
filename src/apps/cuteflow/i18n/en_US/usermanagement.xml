@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.0">
+  <file original="global" source-language="en_US" target-language="en_US" datatype="plaintext">
+    <body>  
+      <trans-unit id="1">
+        <source>Firstname</source>
+        <target>Firstname</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Lastname</source>
+        <target>Lastname</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Email</source>
+        <target>Email</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>Username</source>
+        <target>Username</target>
+      </trans-unit> 	  
+		<trans-unit id="5">
+        <source>Userrole</source>
+        <target>Userrole</target>
+      </trans-unit> 
+	  <trans-unit id="6">
+        <source>Action</source>
+        <target>Action</target>
+      </trans-unit> 
+	  <trans-unit id="7">
+        <source>Add new user</source>
+        <target>Add new user</target>
+      </trans-unit> 
+	  <trans-unit id="8">
+        <source>No records found</source>
+        <target>No records found</target>
+      </trans-unit> 
+	 <trans-unit id="9">
+        <source>No records found</source>
+        <target>No records found</target>
+     </trans-unit> 
+	 <trans-unit id="10">
+        <source>Searchbar</source>
+        <target>Searchbar</target>
+     </trans-unit>
+	 <trans-unit id="11">
+        <source>User management</source>
+        <target>User management</target>
+     </trans-unit>
+	 <trans-unit id="12">
+        <source>Search</source>
+        <target>Search</target>
+     </trans-unit>
+	 <trans-unit id="13">
+        <source>Delete existing user</source>
+        <target>Delete existing user</target>
+     </trans-unit>
+	 <trans-unit id="14">
+        <source>Displaying topics</source>
+        <target>Displaying topics</target>
+     </trans-unit> 
+	 <trans-unit id="15">
+        <source>of</source>
+        <target>of</target>
+     </trans-unit>
+	 <trans-unit id="16">
+        <source>OK</source>
+        <target>OK</target>
+     </trans-unit>
+	 <trans-unit id="17">
+        <source>Delete Success</source>
+        <target>Delete Success</target>
+     </trans-unit>
+	 <trans-unit id="18">
+        <source>Error</source>
+        <target>Error</target>
+     </trans-unit>
+	 <trans-unit id="19">
+        <source>Deleting own account not working</source>
+        <target>Deleting own account not working</target>
+     </trans-unit>
+	 <trans-unit id="20">
+        <source>Add new user</source>
+        <target>Add new user</target>
+     </trans-unit>
+	 <trans-unit id="21">
+        <source>User overview</source>
+        <target>User overview</target>
+     </trans-unit>
+	 <trans-unit id="22">
+        <source>Edit user</source>
+        <target>Edit user</target>
+     </trans-unit>		 
+    </body>
+  </file>
+</xliff>
