@@ -1,0 +1,17 @@
+all:
+  http_metas:
+    content-type: text/html
+
+  metas:
+    #title:        symfony project
+    #description:  symfony project
+    #keywords:     symfony, project
+    #language:     en
+    #robots:       index, follow
+
+  stylesheets:    [main.css]
+
+  javascripts:    [/djs/layout/main.js,/djs/layout/layout.js,/djs/layout/regionWest.js,/djs/layout/regionCenter.js,/djs/usermanagement/userWindow.js,/djs/usermanagement/userSearchbar.js,/djs/usermanagement/userGrid.js,/djs/usermanagement/userAddWindow.js,/djs/userrolemanagement/roleWindow.js,/djs/userrolemanagement/roleGrid.js,/djs/userrolemanagement/roleAddWindow.js,/djs/userrolemanagement/roleTabpanel.js,/djs/userrolemanagement/roleDeleteWindow.js]
+
+  has_layout:     on
+  layout:         layout
