@@ -68,7 +68,6 @@ class Language {
             $result['password'] = $conext->getI18N()->__('Password',null,'login');
             $result['language'] = $conext->getI18N()->__('Language',null,'login');
             $result['close'] = $conext->getI18N()->__('Close',null,'login');
-           // print_r ($result);die;
             return $result;
         }
 
