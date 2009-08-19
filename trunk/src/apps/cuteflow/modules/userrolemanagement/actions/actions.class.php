@@ -64,7 +64,7 @@ class userrolemanagementActions extends sfActions
   {
 
    $query = new Doctrine_Query();
-   $result = $query->from('Credential c')->orderby('c.usermodule asc')->execute();
+   $result = $query->from('Credential c')->orderby('c.usermodule asc,c.usergroup asc')->execute();
    $credentialmanagement = new CredentialRolemanagement($result);
    $json_result = $credentialmanagement->buildTabpanel();
 
