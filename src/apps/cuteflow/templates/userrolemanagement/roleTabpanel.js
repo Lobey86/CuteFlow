@@ -16,9 +16,7 @@ cf.AddRoleTabpanel = function(){return {
 		Ext.Ajax.request({  
 			url : '<?php echo url_for('userrolemanagement/LoadRoleTree')?>',
 			success: function(objServerResponse){
-				//alert(objServerResponse.responseText);
-				theJsonTreeData = {};
-				theJsonTreeData = JSON.parse(objServerResponse.responseText);
+				theJsonTreeData = Ext.util.JSON.decode(objServerResponse.responseText);
 				cf.AddRoleTabpanel.buildTabs(theJsonTreeData);
 			}
 		});
