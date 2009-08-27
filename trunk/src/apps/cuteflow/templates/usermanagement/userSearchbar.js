@@ -105,9 +105,7 @@ cf.UserSearchbar = function(){return {
 						},
 						width: 70
 					}]
-				},
-				
-				]
+				}]
 		});
 	},
 	

@@ -23,7 +23,6 @@ cf.UserGrid = function(){return {
 	initUserGrid: function () {
 		this.isInitialized  = true;
 		
-	
 		this.theUserGrid = new Ext.grid.GridPanel({
 			frame:false,
 			id: 'grid',
