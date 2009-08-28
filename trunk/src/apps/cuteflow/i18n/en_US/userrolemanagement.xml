@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xliff version="1.0">
-  <file original="global" source-language="en_US" target-language="de_DE" datatype="plaintext">
+  <file original="global" source-language="en_US" target-language="en_US" datatype="plaintext">
     <body>  
       <trans-unit id="1">
         <source>Role management</source>
@@ -43,46 +43,42 @@
         <target>Name</target>
      </trans-unit>
 	 <trans-unit id="11">
-        <source>User management</source>
-        <target>User management</target>
-     </trans-unit>
-	 <trans-unit id="12">
         <source>Remove Role</source>
         <target>Remove Role</target>
      </trans-unit>
-	 <trans-unit id="13">
+	 <trans-unit id="12">
         <source>Delete existing user</source>
         <target>Delete existing user</target>
      </trans-unit>
-	 <trans-unit id="14">
+	 <trans-unit id="13">
         <source>Delete</source>
         <target>Delete</target>
      </trans-unit> 
-	 <trans-unit id="15">
+	 <trans-unit id="14">
         <source>profiles changed</source>
         <target>profiles changed</target>
      </trans-unit>
-	 <trans-unit id="16">
+	 <trans-unit id="15">
         <source>OK</source>
         <target>OK</target>
      </trans-unit>
-	 <trans-unit id="17">
+	 <trans-unit id="16">
         <source>Close</source>
         <target>Close</target>
      </trans-unit>
-	 <trans-unit id="18">
+	 <trans-unit id="17">
         <source>Error</source>
         <target>Error</target>
      </trans-unit>
-	 <trans-unit id="19">
+	 <trans-unit id="18">
         <source>Store</source>
         <target>Store</target>
      </trans-unit>
-	 <trans-unit id="20">
+	 <trans-unit id="19">
         <source>Role is already existing</source>
         <target>Role is already existing</target>
      </trans-unit>
-	 <trans-unit id="21">
+	 <trans-unit id="20">
         <source>Move all users to</source>
         <target>Move all users to</target>
      </trans-unit>		 

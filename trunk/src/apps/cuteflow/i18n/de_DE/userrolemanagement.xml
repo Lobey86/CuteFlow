@@ -4,7 +4,7 @@
     <body>  
       <trans-unit id="1">
         <source>Role management</source>
-        <target>Benutzerrechte verwalten</target>
+        <target>Role management</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Role description</source>
@@ -43,46 +43,42 @@
         <target>Name</target>
      </trans-unit>
 	 <trans-unit id="11">
-        <source>User management</source>
-        <target>Benutzerverwaltung</target>
-     </trans-unit>
-	 <trans-unit id="12">
         <source>Remove Role</source>
         <target>Rolle l&#246;schen</target>
      </trans-unit>
-	 <trans-unit id="13">
+	 <trans-unit id="12">
         <source>Delete existing user</source>
         <target>Benutzer L&#246;schen</target>
      </trans-unit>
-	 <trans-unit id="14">
+	 <trans-unit id="13">
         <source>Delete</source>
-        <target>L&#246;schen </target>
+        <target>L&#246;schen</target>
      </trans-unit> 
-	 <trans-unit id="15">
+	 <trans-unit id="14">
         <source>profiles changed</source>
         <target>Profile gel&#246;scht</target>
      </trans-unit>
-	 <trans-unit id="16">
+	 <trans-unit id="15">
         <source>OK</source>
         <target>OK</target>
      </trans-unit>
-	 <trans-unit id="17">
+	 <trans-unit id="16">
         <source>Close</source>
         <target>Verwerfen</target>
      </trans-unit>
-	 <trans-unit id="18">
+	 <trans-unit id="17">
         <source>Error</source>
         <target>Fehler</target>
      </trans-unit>
-	 <trans-unit id="19">
+	 <trans-unit id="18">
         <source>Store</source>
         <target>Speichern</target>
      </trans-unit>
-	 <trans-unit id="20">
+	 <trans-unit id="19">
         <source>Role is already existing</source>
         <target>Rolle wurde bereits angelegt</target>
      </trans-unit>
-	 <trans-unit id="21">
+	 <trans-unit id="20">
         <source>Move all users to</source>
         <target>Alle Benutzer zuordnen in</target>
      </trans-unit>		 
