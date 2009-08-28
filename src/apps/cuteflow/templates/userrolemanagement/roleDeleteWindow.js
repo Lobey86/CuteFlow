@@ -40,13 +40,12 @@ cf.DeleteRoleWindow = function(){return {
 			autoScroll: false,
 			items: [{
 				xtype: 'combo',
-				fieldLabel: '<?php echo __('Language',null,'login'); ?>',
+				fieldLabel: '<?php echo __('Move all users to',null,'userrolemanagement'); ?>',
 				valueField: 'value',
 				displayField: 'text',
 				editable: false,
 				mode: 'local',
 				id: 'deletCombo',
-				store: this.theComboStore,
 				triggerAction: 'all',
 				selectOnFocus:true,
 				allowBlank: false,
@@ -66,16 +65,20 @@ cf.DeleteRoleWindow = function(){return {
 			height: 130,
 			width: 400,
 			autoScroll: false,
-			title: '<?php echo __('Remove User role',null,'userrolemanagement'); ?>',
+			title: '<?php echo __('Delete Role',null,'userrolemanagement'); ?>',
 			shadow: false,
 			minimizable: false,
 			draggable: true,
 			resizable: true,
 	        plain: false,
+			close : function(){
+				cf.DeleteRoleWindow.theRoleDeleteWindow.hide();
+				cf.DeleteRoleWindow.theRoleDeleteWindow.destroy();
+			},
 	        buttonAlign: 'center',
 			buttons:[{
 	                    id: 'removeButton',
-						text:'<?php echo __('L&ouml;schen',null,'userrolemanagement'); ?>', 
+						text:'<?php echo __('Delete',null,'userrolemanagement'); ?>', 
 						icon: '/images/icons/accept.png',
 						handler: function () {
 							if(Ext.getCmp('deletCombo').getValue() != '') {
@@ -88,7 +91,7 @@ cf.DeleteRoleWindow = function(){return {
 											cf.UserGrid.theUserStore.reload();
 										}
 										Ext.Msg.minWidth = 200;
-										Ext.MessageBox.alert('OK', objServerResponse.responseText + ' profiles changed');
+										Ext.MessageBox.alert('<?php echo __('OK',null,'userrolemanagement'); ?>', objServerResponse.responseText + ' <?php echo __('profiles changed',null,'userrolemanagement'); ?>');
 									}
 								});
 								cf.DeleteRoleWindow.theRoleDeleteWindow.hide();

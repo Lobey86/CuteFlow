@@ -15,7 +15,7 @@ cf.UserRoleManagement = function(){return {
 	
 	initWindow: function () {
 		this.theManagementWindow = new Ext.Panel({
-				title: '<?php echo __('Role management',null,'rolemanagement'); ?>',
+				title: '<?php echo __('User management',null,'rolemanagement'); ?>',
 				closable: true,
 				plain: true,
 				frame: false,
