@@ -4,7 +4,7 @@
     <body>  
       <trans-unit id="1">
         <source>Role management</source>
-        <target>Benutzerrechte Verwaltung</target>
+        <target>Benutzerrechte verwalten</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Role description</source>
