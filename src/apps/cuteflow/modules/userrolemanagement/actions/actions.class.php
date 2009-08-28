@@ -156,6 +156,7 @@ class userrolemanagementActions extends sfActions
         $obj->setDescription($request->getParameter('userrole_title_name'));
         $obj->save();
    }
+   $this->renderText('{success:true}');
    return sfView::NONE;
   }
 
