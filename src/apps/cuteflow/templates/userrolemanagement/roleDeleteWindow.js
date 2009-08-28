@@ -77,43 +77,37 @@ cf.DeleteRoleWindow = function(){return {
 			},
 	        buttonAlign: 'center',
 			buttons:[{
-	                    id: 'removeButton',
-						text:'<?php echo __('Delete',null,'userrolemanagement'); ?>', 
-						icon: '/images/icons/accept.png',
-						handler: function () {
-							if(Ext.getCmp('deletCombo').getValue() != '') {
-								var updateid = (Ext.getCmp('deletCombo').getValue());
-								Ext.Ajax.request({ 
-									url : '<?php echo url_for('userrolemanagement/DeleteRole')?>/deleteid/' + deleteid + '/updateid/' + updateid, 
-									success: function(objServerResponse){
-										cf.UserRoleGrid.theUserRoleStore.reload();
-										if(cf.UserGrid.theUserStoreIsInitialized == true) {
-											cf.UserGrid.theUserStore.reload();
-										}
-										Ext.Msg.minWidth = 200;
-										Ext.MessageBox.alert('<?php echo __('OK',null,'userrolemanagement'); ?>', objServerResponse.responseText + ' <?php echo __('profiles changed',null,'userrolemanagement'); ?>');
-									}
-								});
-								cf.DeleteRoleWindow.theRoleDeleteWindow.hide();
-								cf.DeleteRoleWindow.theRoleDeleteWindow.destroy();
+				id: 'removeButton',
+				text:'<?php echo __('Delete',null,'userrolemanagement'); ?>', 
+				icon: '/images/icons/accept.png',
+				handler: function () {
+					if(Ext.getCmp('deletCombo').getValue() != '') {
+						var updateid = (Ext.getCmp('deletCombo').getValue());
+						Ext.Ajax.request({ 
+							url : '<?php echo url_for('userrolemanagement/DeleteRole')?>/deleteid/' + deleteid + '/updateid/' + updateid, 
+							success: function(objServerResponse){
+								cf.UserRoleGrid.theUserRoleStore.reload();
+								if(cf.UserGrid.theUserStoreIsInitialized == true) {
+									cf.UserGrid.theUserStore.reload();
+								}
+								Ext.Msg.minWidth = 200;
+								Ext.MessageBox.alert('<?php echo __('OK',null,'userrolemanagement'); ?>', objServerResponse.responseText + ' <?php echo __('profiles changed',null,'userrolemanagement'); ?>');
 							}
-						}
-					},{
-	                    id: 'cancelButton',
-						text:'<?php echo __('Verwerfen',null,'userrolemanagement'); ?>', 
-						icon: '/images/icons/cancel.png',
-						handler: function () {
-							cf.DeleteRoleWindow.theRoleDeleteWindow.hide();
-							cf.DeleteRoleWindow.theRoleDeleteWindow.destroy();
-						}
-					}]
+						});
+						cf.DeleteRoleWindow.theRoleDeleteWindow.hide();
+						cf.DeleteRoleWindow.theRoleDeleteWindow.destroy();
+					}
+				}
+			},
+			{
+				id: 'cancelButton',
+				text:'<?php echo __('Verwerfen',null,'userrolemanagement'); ?>', 
+				icon: '/images/icons/cancel.png',
+				handler: function () {
+					cf.DeleteRoleWindow.theRoleDeleteWindow.hide();
+					cf.DeleteRoleWindow.theRoleDeleteWindow.destroy();
+				}
+			}]
 		});
-	
 	}
-
-
-
-
-
-
 };}();

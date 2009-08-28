@@ -12,7 +12,7 @@ cf.AddRoleWindow = function(){return {
 	
 	
 	initWindow: function() {
-		//this.theAddRoleWindowIsInitialzied = true;
+		this.theAddRoleWindowIsInitialzied = true;
 		this.theAddRoleWin = new Ext.Window({
 			modal: true,
 			closable: true,
@@ -47,7 +47,6 @@ cf.AddRoleWindow = function(){return {
 							url : '<?php echo url_for('userrolemanagement/CheckForExistingRole')?>/description/' + textfield.getValue(),
 							success: function(objServerResponse){
 								if(objServerResponse.responseText == 1) {
-									
 									cf.AddRoleTabpanel.theFormPanel.getForm().submit({
 										url: '<?php echo url_for('userrolemanagement/AddRole')?>',
 										success: function(theForm, action) {
@@ -78,6 +77,5 @@ cf.AddRoleWindow = function(){return {
 				}
 			}]
 		});
-			
 	}
 };}();
