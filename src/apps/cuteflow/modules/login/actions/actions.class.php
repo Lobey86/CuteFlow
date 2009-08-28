@@ -20,8 +20,8 @@ class loginActions extends sfActions
     return sfView::SUCCESS;
   }
 
-  /*
-  * Dummy Action, to register User......add ldap functionality here...
+  /**
+  * Dummy Action, to login User......add ldap functionality here...
   *
   */
   public function executeDoLogin(sfWebRequest $request)
@@ -44,6 +44,12 @@ class loginActions extends sfActions
   }
 
 
+  /**
+   * Function loads new Language for the combobox on Login Page
+   *
+   * @param sfWebRequest $request
+   * @return <type>
+   */
   public function executeLoadLanguage(sfWebRequest $request)
   {
     $result = array();
@@ -54,6 +60,14 @@ class loginActions extends sfActions
     return sfView::NONE;
   }
 
+  /**
+   *
+   * Function loads all language files to change the
+   * labels of the textfields and buttons. 
+   *
+   * @param sfWebRequest $request
+   * @return <type>
+   */
   public function executeChangeLanguage(sfWebRequest $request)
   {
     $language = new Language();

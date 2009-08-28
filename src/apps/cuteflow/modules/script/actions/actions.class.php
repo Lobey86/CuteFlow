@@ -20,6 +20,13 @@ class scriptActions extends sfActions
     $this->forward('default', 'module');
   }
 
+  /**
+   * Routing, to get JS Files compiled
+   *
+   *
+   * @param sfWebRequest $request
+   * @return <type>
+   */
   public function executeLoad(sfWebRequest $request)
   {
         $path = $request->getPathInfo();
