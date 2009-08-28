@@ -21,6 +21,7 @@ class userrolemanagementActions extends sfActions
   }
 
 
+  // loads all roles for usergrid
   public function executeLoadAllRoles(sfWebRequest $request)
   {
       $userrolemanagement = new UserRolemanagement();
@@ -31,7 +32,9 @@ class userrolemanagementActions extends sfActions
       $this->renderText('({"result":'.json_encode($json_result).'})');
       return sfView::NONE;
   }
-  
+
+
+ // loads all roles for the popup, to which the members of the deleted role can be added
   public function executeLoadDeletableRoles(sfWebRequest $request)
   {
       $userrolemanagement = new UserRolemanagement();
@@ -45,7 +48,7 @@ class userrolemanagementActions extends sfActions
       return sfView::NONE;
   }
 
-
+  // removes role from database
   public function executeDeleteRole(sfWebRequest $request)
   {
       $update = new Doctrine_Query();
@@ -60,6 +63,7 @@ class userrolemanagementActions extends sfActions
   }
 
 
+  // loads role tabs, groups and rights to build dynamically
   public function executeLoadRoleTree(sfWebRequest $request)
   {
 
@@ -72,4 +76,52 @@ class userrolemanagementActions extends sfActions
    return sfView::NONE;
   }
 
+
+  public function executeCheckForExistingRole(sfWebRequest $request) 
+  {
+    $query = new Doctrine_Query();
+    $result = $query->from('Role r')->where('r.description = ?', $request->getParameter('description'))->execute();
+    if($result[0]->getDescription() == $request->getParameter('description')) {
+        $this->renderText('0'); // no write access
+    }
+    else {
+        $this->renderText('1'); // write access
+    }
+    return sfView::NONE;
+  }
+
+
+
+  // stores new role in database
+  public function executeAddRole(sfWebRequest $request)
+  {
+   
+   $data = $request->getPostParameters();
+   if(count($data) > 1) { // some rights are set
+        unset($data['userrole_title_name']);
+        $values = array_keys($data);
+
+        $roleObj = new Role();
+        $roleObj->setDescription($request->getParameter('userrole_title_name'));
+        $roleObj->save();
+        $id = $roleObj->getId();
+
+        foreach($values as $item) {
+            $rolecredObj = new CredentialRole();
+            $rolecredObj->setRole_id($id);
+            $rolecredObj->setCredential_id($item);
+            $rolecredObj->save();
+        }
+   }
+   else { // Only Userrole is written in textfield, nothing else
+        $obj = new Role();
+        $obj->setDescription($request->getParameter('userrole_title_name'));
+        $obj->save();
+   }
+   return sfView::NONE;
+  }
+
+
+
+  
 }
