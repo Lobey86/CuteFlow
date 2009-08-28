@@ -75,7 +75,7 @@ class usermanagementActions extends sfActions
     }
 
     if($request->getParameter('userrole')){
-        $query->andwhere('u.userrole_id = ?',$request->getParameter('userrole'));
+        $query->andwhere('u.role_id = ?',$request->getParameter('userrole'));
     }
     
     $anz = $query->execute();
