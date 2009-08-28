@@ -11,7 +11,7 @@
 class layoutActions extends sfActions
 {
  /**
-  * Executes index action
+  * Load Userrights and User Id to Sesseion.
   *
   * @param sfRequest $request A request object
   */

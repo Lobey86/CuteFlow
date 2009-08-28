@@ -20,6 +20,13 @@ class usermanagementActions extends sfActions
     return sfView::NONE;
   }
 
+  /**
+   *
+   * Function loads all Users for Datagrid overview.
+   *
+   * @param sfWebRequest $request
+   * @return <type>
+   */
   public function executeLoadAllUser(sfWebRequest $request)
   {
     $json_result = array();
@@ -39,6 +46,13 @@ class usermanagementActions extends sfActions
   }
 
 
+  /**
+   *
+   * Filter functionality for User Grid
+   *
+   * @param sfWebRequest $request
+   * @return <type>
+   */
   public function executeLoadAllUserFilter(sfWebRequest $request)
   {
     $json_result = array();
@@ -76,6 +90,14 @@ class usermanagementActions extends sfActions
   }
 
 
+  /**
+   *
+   * Loads all Roles for the Combobox in the filter.
+   * Is only called when combo is opend first time
+   *
+   * @param sfWebRequest $request
+   * @return <type>
+   */
   public function executeLoadAllRole(sfWebRequest $request)
   {
     $userrolemanagement = new Usermanagement();
@@ -87,6 +109,13 @@ class usermanagementActions extends sfActions
     return sfView::NONE;
   }
 
+  /**
+   *
+   * Function removes user from database.
+   *
+   * @param sfWebRequest $request
+   * @return <type>
+   */
     public function executeDeleteUser(sfWebRequest $request)
   {
     $query = new Doctrine_Query();

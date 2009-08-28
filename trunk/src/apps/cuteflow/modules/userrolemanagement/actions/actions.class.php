@@ -21,7 +21,14 @@ class userrolemanagementActions extends sfActions
   }
 
 
-  // loads all roles for usergrid
+  /**
+   *
+   * Function loads all Roles for the Grid.
+   * Actually no Filter and Paging is needed
+   *
+   * @param sfWebRequest $request
+   * @return <type>
+   */
   public function executeLoadAllRoles(sfWebRequest $request)
   {
       $userrolemanagement = new UserRolemanagement();
@@ -34,13 +41,18 @@ class userrolemanagementActions extends sfActions
   }
 
 
- // loads all roles for the popup, to which the members of the deleted role can be added
+ /**
+  * Function loads all roles for the pop 'Delete Role'.
+  * The Role, user want to delete is not loaded
+  *
+  * @param sfWebRequest $request
+  * @return <type>
+  */
   public function executeLoadDeletableRoles(sfWebRequest $request)
   {
       $userrolemanagement = new UserRolemanagement();
       $query = new Doctrine_Query();
       $result = $query->select('r.*')->from('Role r')->where('r.id != ?', $request->getParameter('id'))->execute();
-
 
       $json_result = $userrolemanagement->buildRoleCombobox($result);
 
@@ -48,7 +60,14 @@ class userrolemanagementActions extends sfActions
       return sfView::NONE;
   }
 
-  // removes role from database
+  /**
+   *
+   * Function Deletes a Role, and sets all users of the deleted Role
+   * to the selected Role from Combobox
+   *
+   * @param sfWebRequest $request
+   * @return <type>
+   */
   public function executeDeleteRole(sfWebRequest $request)
   {
       $update = new Doctrine_Query();
@@ -63,7 +82,12 @@ class userrolemanagementActions extends sfActions
   }
 
 
-  // loads role tabs, groups and rights to build dynamically
+  /**
+   * Function builds the Tabs, Groups and Rights for the Pop 'Add Role'
+   *
+   * @param sfWebRequest $request
+   * @return <type>
+   */
   public function executeLoadRoleTree(sfWebRequest $request)
   {
 
@@ -77,6 +101,15 @@ class userrolemanagementActions extends sfActions
   }
 
 
+  /**
+   * Function checks, when user is trying to create a new userrole , if its
+   * name is already stored in database.
+   * When alreasy storen, no save process is done.
+   *
+   *
+   * @param sfWebRequest $request
+   * @return <type>
+   */
   public function executeCheckForExistingRole(sfWebRequest $request) 
   {
     $query = new Doctrine_Query();
@@ -92,7 +125,12 @@ class userrolemanagementActions extends sfActions
 
 
 
-  // stores new role in database
+  /**
+   * Function adds a role to database
+   *
+   * @param sfWebRequest $request
+   * @return <type>
+   */
   public function executeAddRole(sfWebRequest $request)
   {
    
