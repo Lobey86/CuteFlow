@@ -31,7 +31,6 @@ cf.AddRoleTabpanel = function(){return {
 	},
 	
 	buildTabs: function (theJsonTreeData) {
-		
 		for(var a=0;a<theJsonTreeData.result.length;a++) {
 			var tabItem = new Ext.Panel({
 				title: theJsonTreeData.result[a].usermodule.title,
@@ -48,6 +47,7 @@ cf.AddRoleTabpanel = function(){return {
 					id: tabCategory.id,
 					style:'margin-top:5px;margin-left:5px;margin-right:5px;'
 				});
+				
 				var myFieldset = Ext.getCmp(tabCategory.id);
 				for(var c=0;c<theJsonTreeData.result[a].usermodule.usergroup[b].userright.length;c++) {
 					var myCheckbox = theJsonTreeData.result[a].usermodule.usergroup[b].userright[c];
@@ -76,12 +76,8 @@ cf.AddRoleTabpanel = function(){return {
 							style:'margin-top:4px;margin-left:120px;'
 						});
 					}
-					
-					
-	
 				}
 			}
-			
 			this.theTabpanel.add(tabItem);
 		}
 	},
@@ -115,7 +111,4 @@ cf.AddRoleTabpanel = function(){return {
 			
 		});
 	}
-	
-	
-	
 };}();

@@ -52,8 +52,7 @@ cf.UserRoleGrid = function(){return {
                 	cf.AddRoleWindow.init();
                 }
 			}]
-		});
-			
+		});	
 	},
 	
 	initUserRoleStore: function () {
@@ -113,7 +112,7 @@ cf.UserRoleGrid = function(){return {
 			return myDiv;
 		}
 		else {
-			return '<div></div>';
+			return '<div style="height:24px;"></div>';
 		}
 		
 	},
