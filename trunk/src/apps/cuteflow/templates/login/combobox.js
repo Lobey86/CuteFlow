@@ -43,7 +43,7 @@ cf.ComboBox = function(){return {
 								var hasFocus = cf.ComboBox.theComboBox.hasFocus;
 								cf.ComboBox.theComboBox.hasFocus = null;
 								cf.ComboBox.theComboStore.reload({callback: function(){
-										if(cf.ComboBox.theComboBox.thasFocus === null){
+										if(cf.ComboBox.theComboBox.hasFocus === null){
 											cf.ComboBox.theComboBox.hasFocus = hasFocus;
 										}
 									}
