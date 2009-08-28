@@ -42,9 +42,6 @@ cf.UserGrid = function(){return {
 	},
 	
 	initTopToolBar: function () {
-		var states = [['25','25'],['50','50']];
-
-		
 		this.theGridTopToolbar = new Ext.Toolbar({
 			items: [{
                 icon: '/images/icons/user_add.png',
@@ -53,8 +50,8 @@ cf.UserGrid = function(){return {
                 handler: function () {
                 	cf.AddUserWindow.init();
                 }
-               },'-',
-               {
+		    },'-',
+            {
 				icon: '/images/icons/user_delete.png',
                 tooltip:'<?php echo __('Delete existing user',null,'usermanagement'); ?>',
                 disabled: false,
@@ -80,10 +77,9 @@ cf.UserGrid = function(){return {
 							Ext.MessageBox.alert('<?php echo __('Error',null,'usermanagement'); ?>', '<?php echo __('Deleting own account not working',null,'usermanagement'); ?>');
 						}
 					}
-				
                 }
-               },'->',
-               {
+            },'->',
+            {
 				xtype: 'combo',
 				id: 'itemsDisplay',
 				mode: 'local',
@@ -93,10 +89,9 @@ cf.UserGrid = function(){return {
 				foreSelection: true,
 				fieldLabel: 'fewfew',
 				store: new Ext.data.SimpleStore({
-       				 id: 0,
 					 fields:['id','text'],
        				 data:[[25, '25'],[50, '50'],[75, '75'],[100, '100']]
-   				 }),
+   				}),
  				valueField:'id',
 				displayField:'text',
 				width:50,
@@ -107,7 +102,7 @@ cf.UserGrid = function(){return {
 		    			}
 		    		}
 		    	}
-               }]
+		   }]
 		});	
 	},
 	
