@@ -12,6 +12,7 @@ cf.Layout = function(){return {
 		cf.Textfield.thePanel.add(cf.ComboBox.theComboBox);
 		cf.Window.theWindow.add(cf.Textfield.thePanel);
 		cf.Window.theWindow.add(cf.Textfield.theHiddenField);
+
 		cf.Window.theWindow.show();
 	}
 };}();

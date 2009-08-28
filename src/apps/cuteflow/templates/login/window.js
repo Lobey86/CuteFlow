@@ -6,11 +6,10 @@ cf.Window = function(){return {
 		this.theWindow = new Ext.Window({
 		width:370,
 		height:175,
-		plain: true,
+		frame: true,
 		title: '<div style="float:left;"><img src="/images/icons/key.png" /></div><div>&nbsp;&nbsp;CuteFlow - <?php echo __('Login',null,'login') ?></div>',
 		closable: false,
-		draggable: false,
-		plain: false,
+		draggable: true,
 		buttonAlign: 'center', 
                 buttons: [{ 
                     id: 'loginButton',
@@ -26,8 +25,7 @@ cf.Window = function(){return {
 										window.location.href = url;
 									}
 									else {
-										var ServerResult = {};
-										ServerResult = JSON.parse(objServerResponse.responseText);
+										var ServerResult = Ext.util.JSON.decode(objServerResponse.responseText);
 										Ext.MessageBox.alert(ServerResult.result.errorTitle, ServerResult.result.errorMessage);
 										cf.Textfield.theUsernameField.setValue();
 										cf.Textfield.theUserpasswordField.setValue();

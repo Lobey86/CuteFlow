@@ -42,9 +42,9 @@ cf.Textfield = function(){return {
 	
 	initPanel: function() {
 		this.thePanel = new Ext.Panel({
-			plain: false,
+			plain: true,
 			frame: true,
-			height: 100,
+			height: 104,
 			buttonAlign: 'center',
 		    layout: 'form'
 		});

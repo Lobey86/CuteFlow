@@ -11,5 +11,4 @@ cf.Main = function(){return {
 		cf.Layout.init();
 	}
 };}();
-
 Ext.onReady(cf.Main.init, cf.Main);
