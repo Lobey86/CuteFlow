@@ -47,7 +47,6 @@ cf.Layout = function(){return {
 			this.theRegionCenter =  this.theMainLayout.layout.center.panel;	
 			
 			this.theRegionWest.add(cf.Navigation.theNavigationPanel);
-			
 			cf.TabPanel.theTabPanel.add({title: 'Welcome', closable: 'false', html: 'fewfwe'});
 			this.theRegionCenter.add(cf.TabPanel.theTabPanel);
 			
