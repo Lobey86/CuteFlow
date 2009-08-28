@@ -11,8 +11,7 @@ class Language {
 	}
 
         /**
-         * Function extracts all language files from login/i18n Dir.
-         * File must look like: login.fr_FR.xml
+         * Function extracts all language files from app Dir.
          *
          * @param array $languages
          * @return array $result
@@ -51,6 +50,8 @@ class Language {
 
         /**
          *
+         * Function that returns the defualt language
+         *
          * @param String $language, e.g. en_US, de_DE
          * @return String, formated in correct language, e.g. English, German
          */
@@ -61,6 +62,13 @@ class Language {
             return format_language($result[0]);
         }
 
+
+        /**
+         * Function loads all translations for the textfields and combobox
+         *
+         * @param user $conext
+         * @return array $result
+         */
         public function loadAjaxLanguage($conext) {
             $result = array();
             $result['login'] = $conext->getI18N()->__('Login',null,'login');
