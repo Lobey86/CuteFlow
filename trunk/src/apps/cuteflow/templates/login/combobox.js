@@ -29,8 +29,6 @@ cf.ComboBox = function(){return {
 							url : '<?php echo url_for('login/ChangeLanguage')?>/language/' + combo.getValue(), 
 							success: function(objServerResponse){  
 								var ServerResult = Ext.util.JSON.decode(objServerResponse.responseText);
-								
-								// change Language and set Labels of Ext Components
 								cf.Textfield.theUsernameField.setLabel((ServerResult.result.username) + ':'); 
 								cf.Textfield.theUserpasswordField.setLabel((ServerResult.result.password) + ':'); 
 								combo.setLabel((ServerResult.result.language) + ':');	
@@ -70,11 +68,8 @@ cf.ComboBox = function(){return {
 				{name: 'text'}
 			]
 		});
-
 		cf.ComboBox.theComboStore.load();
 	}
-
-
 };}();
 
 Ext.override(Ext.form.Field, {
