@@ -46,6 +46,7 @@ cf.Textfield = function(){return {
 			frame: true,
 			height: 104,
 			buttonAlign: 'center',
+			style: 'border:none;',
 		    layout: 'form'
 		});
 	}
