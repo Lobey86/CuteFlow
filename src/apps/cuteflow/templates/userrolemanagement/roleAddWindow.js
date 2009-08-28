@@ -49,8 +49,8 @@ cf.AddRoleWindow = function(){return {
 								if(objServerResponse.responseText == 1) {
 									cf.AddRoleTabpanel.theFormPanel.getForm().submit({
 										url: '<?php echo url_for('userrolemanagement/AddRole')?>',
-										success: function(theForm, action) {
-											alert("ok");
+										method: 'POST',
+										success: function() {
 											cf.UserRoleGrid.theUserRoleStore.reload();
 											cf.AddRoleWindow.theAddRoleWin.hide();
 											cf.AddRoleWindow.theAddRoleWin.destroy();
