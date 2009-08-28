@@ -11,7 +11,11 @@ class CredentialRolemanagement {
         private $groupCounter;
         private $firstRun;
         private $rightCounter;
-    
+
+        /**
+         *
+         * @param Doctrine_Collection $data_in, records from database
+         */
 	public function __construct(Doctrine_Collection $data_in) {
             $this->records = $data_in;
             $this->moduleCounter = 0;
@@ -20,6 +24,13 @@ class CredentialRolemanagement {
             $this->firstRun = true;
         }
 
+        /**
+         *
+         * Function builds out of the data, a tree to display all tabs, groups and rights
+         * to the extjs popwindow
+         * 
+         * @return array $result, resultset
+         */
         public function buildTabpanel() {
             $result = array();
             $a=1;

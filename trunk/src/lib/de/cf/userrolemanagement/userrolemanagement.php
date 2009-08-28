@@ -10,6 +10,13 @@ class UserRolemanagement {
 
     }
 
+    /**
+     * Function loads all Roles and builds output for ExtJS
+     *
+     * @param Doctrine_Collection $data
+     * @param <type> $index
+     * @return <type>
+     */
     public function buildRole(Doctrine_Collection $data, $index) {
 
         $result = array();
@@ -26,7 +33,13 @@ class UserRolemanagement {
         return $result;
     }
 
-
+    /**
+     *
+     * Function checks if ROle is deletable and Editable
+     *
+     * @param <type> $item
+     * @return <type>
+     */
     private function buildRoleAction($item) {
         if($item->getEditable() == 0 AND $item->getDeleteable() == 0) {
             return 0;
@@ -36,6 +49,14 @@ class UserRolemanagement {
         }
     }
 
+
+    /**
+     *
+     * Builds role for extjs combobox
+     *
+     * @param Doctrine_Collection $data, resultset
+     * @return <type>
+     */
     public function buildRoleCombobox(Doctrine_Collection $data) {
 
         $result = array();
