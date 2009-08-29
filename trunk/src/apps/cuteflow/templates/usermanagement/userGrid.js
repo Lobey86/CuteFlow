@@ -175,8 +175,8 @@ cf.UserGrid = function(){return {
 			tooltip: '<?php echo __('Edit Role',null,'userrolemanagement'); ?>',
 			icon: '/images/icons/pencil.png',
 			tooltip: '<?php echo __('Edit user',null,'usermanagement'); ?>',
-			handler: cf.UserGrid.handleEdit,
-			scope : this
+			handler: cf.UserGrid.handleEdit
+			//style:'background-image: url(/images/icons/pencil.png)',
 		});
 	},
 	
