@@ -37,7 +37,7 @@ cf.AddRoleWindow = function(){return {
 				text:'<?php echo __('Store',null,'userrolemanagement'); ?>', 
 				icon: '/images/icons/accept.png',
 				handler: function () {
-					cf.SaveRole.save(new_flag);
+					cf.RoleCRUD.saveRole(new_flag);
 				}
 			},{
 				id: 'cancelButton',
