@@ -3,15 +3,15 @@ cf.AddRoleWindow = function(){return {
 	theAddRoleWin						:false,
 	theAddRoleWindowIsInitialzied		:false,
 	
-	init: function () {
-		this.initWindow();
+	init: function (new_flag) {
+		this.initWindow(new_flag);
 		cf.AddRoleTabpanel.init();
 		this.theAddRoleWin.add(cf.AddRoleTabpanel.theFormPanel);
 		this.theAddRoleWin.show();
 	},
 	
 	
-	initWindow: function() {
+	initWindow: function(new_flag) {
 		this.theAddRoleWindowIsInitialzied = true;
 		this.theAddRoleWin = new Ext.Window({
 			modal: true,
@@ -37,35 +37,7 @@ cf.AddRoleWindow = function(){return {
 				text:'<?php echo __('Store',null,'userrolemanagement'); ?>', 
 				icon: '/images/icons/accept.png',
 				handler: function () {
-					var textfield = Ext.getCmp('userrole_title_id');
-					if(textfield.getValue() == '') {
-						cf.AddRoleTabpanel.theTabpanel.setActiveTab(0);
-						textfield.focus();
-					}
-					else {
-						Ext.Ajax.request({  
-							url : '<?php echo url_for('userrolemanagement/CheckForExistingRole')?>/description/' + textfield.getValue(),
-							success: function(objServerResponse){
-								if(objServerResponse.responseText == 1) {
-									cf.AddRoleTabpanel.theFormPanel.getForm().submit({
-										url: '<?php echo url_for('userrolemanagement/AddRole')?>',
-										method: 'POST',
-										success: function() {
-											cf.UserRoleGrid.theUserRoleStore.reload();
-											cf.AddRoleWindow.theAddRoleWin.hide();
-											cf.AddRoleWindow.theAddRoleWin.destroy();
-										}
-									});
-								}
-								else {
-									Ext.MessageBox.alert('<?php echo __('Error',null,'userrolemanagement'); ?>', '<?php echo __('Role is already existing',null,'userrolemanagement'); ?>');
-									cf.AddRoleTabpanel.theTabpanel.setActiveTab(0);
-									textfield.focus();
-									textfield.setValue();
-								}
-							}
-						});
-					}
+					cf.SaveRole.save(new_flag);
 				}
 			},{
 				id: 'cancelButton',
