@@ -21,7 +21,7 @@ Credential:
       refClass: CredentialRole
       
 CredentialRole:
-   tableName: cf_credntialrole
+   tableName: cf_credentialrole
    columns:
      role_id: { type: integer(10), primary: true }
      credential_id: { type: integer(10), primary: true }
