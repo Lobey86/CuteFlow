@@ -142,7 +142,7 @@ cf.UserGrid = function(){return {
 	
 	renderAction: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 		var action = record.data['action'];
-		cf.UserGrid.createButtons.defer(1, this, [record.data['action']]);
+		cf.UserGrid.createButtons.defer(800, this, [record.data['action']]);
 		var myDiv = '<center><table><tr><td><div style="float:left;" id="user_edit'+ record.data['id'] +'"></div></td></tr></table></center>'
 		return myDiv;
 	},
