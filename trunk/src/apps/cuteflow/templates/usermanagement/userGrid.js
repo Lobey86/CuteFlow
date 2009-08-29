@@ -56,27 +56,7 @@ cf.UserGrid = function(){return {
                 tooltip:'<?php echo __('Delete existing user',null,'usermanagement'); ?>',
                 disabled: false,
                 handler: function () {
-					var grid = Ext.getCmp('grid');
-                	var rows = grid.getSelectionModel().getSelections();
-					if (rows.length > 0) {
-						for(var i=0;i<rows.length;i++) {
-							var r = rows[i];
-							var deleteurl = '<?php echo url_for('usermanagement/DeleteUser')?>/id/' + r.get('id');
-							if(r.get('id') != '<?php echo $sf_user->getAttribute('id')?>') {
-								cf.UserGrid.theUserStore.remove(rows[i]);
-								Ext.Ajax.request({  
-									url : deleteurl
-								});
-							}
-						}
-						Ext.Msg.minWidth = 200;
-						if(r.get('id') != '<?php echo $sf_user->getAttribute('id')?>') {
-							Ext.MessageBox.alert('<?php echo __('OK',null,'usermanagement'); ?>', '<?php echo __('Delete Success',null,'usermanagement'); ?>');
-						}
-						else {
-							Ext.MessageBox.alert('<?php echo __('Error',null,'usermanagement'); ?>', '<?php echo __('Deleting own account not working',null,'usermanagement'); ?>');
-						}
-					}
+					cf.UserCRUD.deleteUser();
                 }
             },'->',
             {
@@ -105,8 +85,7 @@ cf.UserGrid = function(){return {
 		   }]
 		});	
 	},
-	
-	
+		
 	initBottomToolBar: function () {
 		this.theGridBottomToolbar =  new Ext.PagingToolbar({
 			pageSize: <?php echo $sf_user->getAttribute('userSettings')->getDisplayeditem();?>,
@@ -175,14 +154,14 @@ cf.UserGrid = function(){return {
 			tooltip: '<?php echo __('Edit Role',null,'userrolemanagement'); ?>',
 			icon: '/images/icons/pencil.png',
 			tooltip: '<?php echo __('Edit user',null,'usermanagement'); ?>',
-			handler: cf.UserGrid.handleEdit
+			handler: function () {
+				cf.UserCRUD.editUser(id);
+			}
 			//style:'background-image: url(/images/icons/pencil.png)',
 		});
-	},
-	
-	handleEdit: function (button) {
-		alert(button.getId());
 	}
+	
+
 	
 	
 	
