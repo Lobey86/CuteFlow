@@ -83,20 +83,34 @@ class userrolemanagementActions extends sfActions
 
 
   /**
-   * Function builds the Tabs, Groups and Rights for the Pop 'Add Role'
+   * Function builds the Tabs, Groups and Rights for the Pop 'Add Role' and 'Edit Role'
    *
    * @param sfWebRequest $request
    * @return <type>
    */
   public function executeLoadRoleTree(sfWebRequest $request)
   {
+   $credentialmanagement = new CredentialRolemanagement();
+   if ($request->getParameter('role_id') != '') { // Flag if Role is edited
+       $credentialQuery = new Doctrine_Query();
+       $res = $credentialQuery->select('cr.credential_id')->from('CredentialRole cr')->where('cr.role_id = ?', $request->getParameter('role_id'))->execute();
+       $credentials = $credentialmanagement->buildCredentials($res);
 
+       $roleQuery = new Doctrine_Query();
+       $roleName = $roleQuery->select('r.description')->from('Role r')->where('r.id = ?', $request->getParameter('role_id'))->execute();
+   }
+   
    $query = new Doctrine_Query();
    $result = $query->from('Credential c')->orderby('c.usermodule asc,c.usergroup asc')->execute();
-   $credentialmanagement = new CredentialRolemanagement($result);
-   $json_result = $credentialmanagement->buildTabpanel();
+   $credentialmanagement->setRecords($result);
+   $json_result = $credentialmanagement->buildTabpanel($credentials);
 
-   $this->renderText('{"result":'.json_encode($json_result).'}');
+   if ($request->getParameter('role_id') != '') {
+       $this->renderText('{"result":'.json_encode($json_result).',"name":"'.$roleName[0]->getDescription().'"}');
+   }
+   else {
+       $this->renderText('{"result":'.json_encode($json_result).',"name":""}');
+   }
    return sfView::NONE;
   }
 
@@ -135,8 +149,9 @@ class userrolemanagementActions extends sfActions
   {
    
    $data = $request->getPostParameters();
-   if(count($data) > 1) { // some rights are set
+   if(count($data) > 2) { // some rights are set
         unset($data['userrole_title_name']);
+        unset($data['hiddenfield']);
         $values = array_keys($data);
 
         $roleObj = new Role();
@@ -160,6 +175,31 @@ class userrolemanagementActions extends sfActions
    return sfView::NONE;
   }
 
+
+  /**
+   * Changes an Edited Role
+   *
+   * @param sfWebRequest $request
+   * @return <type>
+   */
+  public function executeEditRole(sfWebRequest $request)
+  {
+   $data = $request->getPostParameters();
+   $id = $this->getRequestParameter('hiddenfield');
+   $delQuery = new Doctrine_Query();
+   $delQuery->delete('CredentialRole')->from('CredentialRole cr')->where('cr.role_id = ?',$id)->execute();
+   unset($data['hiddenfield']);
+   $values = array_keys($data);
+
+   foreach($values as $item) {
+        $rolecredObj = new CredentialRole();
+        $rolecredObj->setRole_id($id);
+        $rolecredObj->setCredential_id($item);
+        $rolecredObj->save();
+    }
+   $this->renderText('{success:true}');
+   return sfView::NONE;
+  }
 
 
   
