@@ -49,7 +49,7 @@ cf.UserRoleGrid = function(){return {
                 tooltip:'<?php echo __('Add new Userrole',null,'userrolemanagement'); ?>',
                 disabled: false,
                 handler: function () {
-                	cf.AddRoleWindow.init();
+                	cf.AddRoleWindow.init(1);
                 }
 			}]
 		});	
