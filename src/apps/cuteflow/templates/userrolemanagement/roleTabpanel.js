@@ -3,23 +3,36 @@ cf.AddRoleTabpanel = function(){return {
 	theTabpanel								:false,
 	theRoleNameText							:false,
 	theFormPanel							:false,
+	theHiddenField							:false,
 	
-	init: function () {
-		this.initTextfield();
+	init: function (id) {
+		this.initTextfield(id);
 		this.initTabpanel();
 		this.theTabpanel.add(this.theRoleNameText);
-		this.initTree();
+		this.initTree(id);
 		this.theTabpanel.setActiveTab(this.theRoleNameText);
 		this.initFormPanel();
 		this.theFormPanel.add(this.theTabpanel);
 	},
 	
-	initTree: function () {
+	initTree: function (id) {
+		if(id == '') {
+			var url = '<?php echo url_for('userrolemanagement/LoadRoleTree')?>';
+		}
+		else {
+			var url = '<?php echo url_for('userrolemanagement/LoadRoleTree')?>/role_id/' + id;
+		}
+		
+		
 		Ext.Ajax.request({  
-			url : '<?php echo url_for('userrolemanagement/LoadRoleTree')?>',
+			url : url,
 			success: function(objServerResponse){
 				theJsonTreeData = Ext.util.JSON.decode(objServerResponse.responseText);
 				cf.AddRoleTabpanel.buildTabs(theJsonTreeData);
+				Ext.getCmp('userrole_title_id').setValue(theJsonTreeData.name);
+				if (Ext.getCmp('userrole_title_id').getValue() != '') {
+					Ext.getCmp('userrole_title_id').setDisabled(true);
+				}
 			}
 		});
 	},
@@ -58,6 +71,7 @@ cf.AddRoleTabpanel = function(){return {
 							xtype: 'checkbox',
 							id: myCheckbox.database_id,
 							name: myCheckbox.database_id,
+							checked: myCheckbox.checked,
 							style:'margin-top:4px;margin-left:120px;',
 							handler: function (check) {
 								var parentElement = check.ownerCt;
@@ -73,6 +87,7 @@ cf.AddRoleTabpanel = function(){return {
 							xtype: 'checkbox',
 							id: myCheckbox.database_id,
 							name: myCheckbox.database_id,
+							checked: myCheckbox.checked,
 							style:'margin-top:4px;margin-left:120px;'
 						});
 					}
@@ -91,8 +106,9 @@ cf.AddRoleTabpanel = function(){return {
 			deferredRender:false
 		});
 	},
+
 	
-	initTextfield: function () {
+	initTextfield: function (id) {
 		this.theRoleNameText = new Ext.Panel({
 			title: '<?php echo __('Description',null,'userrolemanagement'); ?>',
 			frame: true,
@@ -105,8 +121,14 @@ cf.AddRoleTabpanel = function(){return {
 	                name: 'userrole_title_name',
 					id: 'userrole_title_id',
 					allowBlank: false,
-	                fieldLabel: 'Name'
-            	}]
+					value: '',
+	                fieldLabel: '<?php echo __('Name',null,'userrolemanagement'); ?>'
+            	},{
+					xtype: 'hidden',
+					name: 'hiddenfield',
+					id: 'hiddenfield',
+					value: id
+				}]
 			}]
 			
 		});

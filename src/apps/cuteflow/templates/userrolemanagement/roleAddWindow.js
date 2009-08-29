@@ -3,15 +3,15 @@ cf.AddRoleWindow = function(){return {
 	theAddRoleWin						:false,
 	theAddRoleWindowIsInitialzied		:false,
 	
-	init: function (new_flag) {
-		this.initWindow(new_flag);
-		cf.AddRoleTabpanel.init();
+	init: function (new_flag, id) {
+		this.initWindow(new_flag,id);
+		cf.AddRoleTabpanel.init(id);
 		this.theAddRoleWin.add(cf.AddRoleTabpanel.theFormPanel);
 		this.theAddRoleWin.show();
 	},
 	
 	
-	initWindow: function(new_flag) {
+	initWindow: function(new_flag,id) {
 		this.theAddRoleWindowIsInitialzied = true;
 		this.theAddRoleWin = new Ext.Window({
 			modal: true,
@@ -37,7 +37,7 @@ cf.AddRoleWindow = function(){return {
 				text:'<?php echo __('Store',null,'userrolemanagement'); ?>', 
 				icon: '/images/icons/accept.png',
 				handler: function () {
-					cf.RoleCRUD.saveRole(new_flag);
+					cf.RoleCRUD.saveRole(new_flag,id);
 				}
 			},{
 				id: 'cancelButton',

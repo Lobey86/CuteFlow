@@ -49,7 +49,7 @@ cf.UserRoleGrid = function(){return {
                 tooltip:'<?php echo __('Add new Userrole',null,'userrolemanagement'); ?>',
                 disabled: false,
                 handler: function () {
-                	cf.AddRoleWindow.init(1);
+                	cf.AddRoleWindow.init(1,'');
                 }
 			}]
 		});	
@@ -88,7 +88,9 @@ cf.UserRoleGrid = function(){return {
 			id: id,
 			icon: '/images/icons/delete.png',
 			tooltip: '<?php echo __('Delete Role',null,'userrolemanagement'); ?>',
-			handler: cf.UserRoleGrid.handleDelete,
+			handler: function () {
+				cf.RoleCRUD.deleteRole(id);
+			},
 			scope : this
 		});
 		
@@ -97,7 +99,10 @@ cf.UserRoleGrid = function(){return {
 			id: id,
 			tooltip: '<?php echo __('Edit Role',null,'userrolemanagement'); ?>',
 			icon: '/images/icons/pencil.png',
-			handler: cf.UserRoleGrid.handleEdit,
+			handler: function () {
+				cf.AddRoleWindow.init(0,id);
+				//cf.RoleCRUD.editRole(id);
+			},
 			scope : this
 		});
 		
@@ -107,7 +112,7 @@ cf.UserRoleGrid = function(){return {
 	renderAction: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 		var action = record.data['action'];
 		if (action == 1) { // item is deleteable and editable!
-			cf.UserRoleGrid.createButtons.defer(1, this, [record.data['id']]);
+			cf.UserRoleGrid.createButtons.defer(500, this, [record.data['id']]);
 			var myDiv = '<center><table><tr><td><div id="role_edit_'+ record.data['id'] +'"></div></td><td><div style="float:left;" id="role_del_'+ record.data['id'] +'"></div></td></tr></table></center>'
 			return myDiv;
 		}
@@ -115,19 +120,6 @@ cf.UserRoleGrid = function(){return {
 			return '<div style="height:24px;"></div>';
 		}
 		
-	},
-	
-	handleDelete: function (button, event) {
-		cf.DeleteRoleWindow.init(button.getId());
-	}, 
-	
-	handleEdit: function (button, event) {
-		alert(button.getId());
 	}
-	
-	
-
-	
-
 
 };}();
