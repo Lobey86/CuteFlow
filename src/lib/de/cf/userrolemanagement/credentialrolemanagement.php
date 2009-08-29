@@ -16,14 +16,16 @@ class CredentialRolemanagement {
          *
          * @param Doctrine_Collection $data_in, records from database
          */
-	public function __construct(Doctrine_Collection $data_in) {
-            $this->records = $data_in;
+	public function __construct() {
             $this->moduleCounter = 0;
             $this->groupCounter = 0;
             $this->rightCounter = 0;
             $this->firstRun = true;
         }
 
+        public function setRecords(Doctrine_Collection $records_in) {
+            $this->records = $records_in;
+        }
         /**
          *
          * Function builds out of the data, a tree to display all tabs, groups and rights
@@ -31,7 +33,7 @@ class CredentialRolemanagement {
          * 
          * @return array $result, resultset
          */
-        public function buildTabpanel() {
+        public function buildTabpanel(array $credentials = NULL) {
             $result = array();
             $a=1;
             foreach($this->records as $item) {
@@ -65,17 +67,41 @@ class CredentialRolemanagement {
                 $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['userright'][$this->rightCounter]['userright'] = $right;
                 $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['userright'][$this->rightCounter]['name'] = $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['id'];
                 $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['userright'][$this->rightCounter]['parent'] = $this->checkParent($right);
-                $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['userright'][$this->rightCounter]['parentelement'] = $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['id'];
+                if ($credentials == NULL) {
+                    $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['userright'][$this->rightCounter]['checked'] = 0;
+                }
+                else {
+                    $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['userright'][$this->rightCounter]['checked'] = $this->checkChecked($id, $credentials);
+                }
+                
                 $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['userright'][$this->rightCounter++]['database_id'] = $id;
                 
 
             }
-            #print_r ($result);die;
             $result = $this->sortGroup($result);
             return $result;
         }
 
 
+
+        /**
+         *
+         * Function checks when role is edited, if a checkbox is set or not
+         * 
+         * @param int $item, id of the item
+         * @param array $credentials, credentials for the role.....
+         * @return boolean, true if role is active, false if not.
+         */
+        private function checkChecked($item, array $credentials) {
+            if(in_array($item, $credentials) == true) {
+                return 1;
+            }
+            else {
+                return 0;
+            }
+        }
+
+        
         /**
          * Function checks for equal group in the resultset and the current item
          * if a group is already in the resultset, nothing is done.
@@ -185,4 +211,22 @@ class CredentialRolemanagement {
             }
             return $data;
         }
+
+
+        /**
+         *
+         * Function builds an array out of the collection
+         *
+         * @param Doctrine_Collection $data
+         * @return array $result, resultset
+         */
+        public function buildCredentials(Doctrine_Collection $data) {
+            $result = array();
+            foreach($data as $item) {
+
+                $result[] = $item->getCredentialId();
+            }
+            return $result;
+        }
+
 }
