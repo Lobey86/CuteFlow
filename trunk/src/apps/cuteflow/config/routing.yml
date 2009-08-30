@@ -4,7 +4,7 @@ dynamic_js:
 
 homepage:
   url:   /
-  param: { module: default, action: index }
+  param: { module: login, action: Index }
 
 default_index:
   url:   /:module
