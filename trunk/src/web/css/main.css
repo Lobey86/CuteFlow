@@ -1,16 +1,16 @@
-#usermanagement_usermodule_management_usergroupIcon_usermanagement{
+#usermanagement_usermodule_administration_usergroupIcon_usermanagement{
 	background-image: url(/images/icons/group.png); 
 	width: 16px;
 	height:16px;
 }
 
-#usermanagement_usermodule_management_usergroupIcon_userrolemanagement{
+#usermanagement_usermodule_administration_usergroupIcon_userrolemanagement{
 	background-image: url(/images/icons/cog_add.png); 
 	width: 16px;
 	height:16px;
 }
 
-#usermanagement_usermodule_management_usergroupIcon_myprofile{
+#usermanagement_usermodule_administration_usergroupIcon_myprofile{
 	background-image: url(/images/icons/user_edit.png); 
 	width: 16px;
 	height:16px;
