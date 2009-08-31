@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.0">
+  <file original="global" source-language="en_US" target-language="de_DE" datatype="plaintext">
+    <body>     
+	  <trans-unit id="1">
+        <source>administration</source>
+        <target>Verwaltung</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>usermanagement</source>
+        <target>Benutzer verwalten</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>userrolemanagement</source>
+        <target>Benutzerrechte verwalten</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>myprofile</source>
+        <target>Mein Profil</target>
+      </trans-unit> 	  
+		<trans-unit id="5">
+        <source>showModule</source>
+        <target>Modul anzeigen</target>
+      </trans-unit> 
+	  <trans-unit id="6">
+        <source>editUser</source>
+        <target>Benutzer editieren</target>
+      </trans-unit> 
+	  <trans-unit id="7">
+        <source>removeUser</source>
+        <target>Benutzer l&#246;schen</target>
+      </trans-unit> 
+	  <trans-unit id="8">
+        <source>addUser</source>
+        <target>Neuen Benutzer anlegen</target>
+      </trans-unit> 
+	 <trans-unit id="9">
+        <source>changeRole</source>
+        <target>Rolle wechseln</target>
+     </trans-unit> 
+	 <trans-unit id="10">
+        <source>Edit exisitng User</source>
+        <target>vorhandener Benutzer bearbeiten</target>
+	</trans-unit> 
+	<trans-unit id="11">
+        <source>Description</source>
+        <target>Beschreibung</target>
+    </trans-unit> 
+	<trans-unit id="12">
+        <source>Userrole description</source>
+        <target>Benutzerrollen Beschreibung</target>
+    </trans-unit> 
+	<trans-unit id="13">
+        <source>Name</source>
+        <target>Name</target>
+     </trans-unit>
+	<trans-unit id="14">
+        <source>Add new Userrole</source>
+        <target>Neue Benutzerrolle anlegen</target>
+     </trans-unit>
+	<trans-unit id="15">
+        <source>Edit Userrole</source>
+        <target>Benutzerrolle bearbeiten</target>
+     </trans-unit>
+	 	<trans-unit id="16">
+        <source>Store</source>
+        <target>Speichern</target>
+     </trans-unit>
+	<trans-unit id="17">
+        <source>Close</source>
+        <target>Verwerfen</target>
+     </trans-unit>
+	</body>
+  </file>
+</xliff>
