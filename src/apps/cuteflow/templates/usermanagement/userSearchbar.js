@@ -24,32 +24,32 @@ cf.UserSearchbar = function(){return {
 					layout: 'form',
 					items: [{
 						xtype:'textfield',
-						fieldLabel: '<?php echo __('Firstname',null,'user'); ?>',
+						fieldLabel: '&nbsp;<?php echo __('Firstname',null,'usermanagement'); ?>',
 						style:'margin-top:5px;',
 						name: 'firstname',
 						id: 'firstname',
 						width:150
 					},{
 						xtype:'textfield',
-						fieldLabel: '<?php echo __('Lastname',null,'user'); ?>',
+						fieldLabel: '&nbsp;<?php echo __('Lastname',null,'usermanagement'); ?>',
 						name: 'lastname',
 						id: 'lastname',
 						width:150
 					},{
 						xtype:'textfield',
-						fieldLabel: '<?php echo __('Email',null,'user'); ?>',
+						fieldLabel: '&nbsp;<?php echo __('Email',null,'usermanagement'); ?>',
 						name: 'email',
 						id: 'email',
 						width:150
 					},{
 						xtype:'textfield',
-						fieldLabel: '<?php echo __('Username',null,'user'); ?>',
+						fieldLabel: '&nbsp;<?php echo __('Username',null,'usermanagement'); ?>',
 						name: 'username',
 						id: 'username',
 						width:150
 					},{
 						xtype: 'combo',
-						fieldLabel : '<?php echo __('Userrole',null,'user'); ?>',
+						fieldLabel : '&nbsp;<?php echo __('Userrole',null,'usermanagement'); ?>',
 						id: 'userrole',
 						valueField: 'id',
 						mode: 'remote',
@@ -62,7 +62,7 @@ cf.UserSearchbar = function(){return {
 						width: 150
 					},{
 						xtype: 'button',
-						text: '<?php echo __('Search',null,'user'); ?>',
+						text: '<?php echo __('Search',null,'usermanagement'); ?>',
 						name: 'search',
 						id: 'search',
 						style:'margin-bottom:5px;margin-left:3px;',
