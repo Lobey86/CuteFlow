@@ -32,7 +32,6 @@ cf.UserGrid = function(){return {
 			width: 'auto',
 			title: '<?php echo __('User overview',null,'usermanagement'); ?>',
 			height: cf.Layout.theRegionWest.getHeight() - 110,
-			stripeRows: true,
 			border: true,
 			store: this.theUserStore,
 			cm: this.theGridCm,
@@ -115,7 +114,7 @@ cf.UserGrid = function(){return {
 			{header: "<?php echo __('Email',null,'usermanagement'); ?>", width: 150, sortable: true, dataIndex: 'email', css : "text-align : left;font-size:12px;align:center;"},
 			{header: "<?php echo __('Username',null,'usermanagement'); ?>", width: 150, sortable: true, dataIndex: 'username', css : "text-align : left;font-size:12px;align:center;"},
 			{header: "<?php echo __('Userrole',null,'usermanagement'); ?>", width: 150, sortable: true, dataIndex: 'role_description', css : "text-align : left;font-size:12px;align:center;"},
-			{header: "<?php echo __('Action',null,'usermanagement'); ?>", width: 80, sortable: true, dataIndex: 'action', css : "text-align : left;font-size:12px;align:center;", renderer: this.renderAction}
+			{header: "<?php echo __('Action',null,'usermanagement'); ?>", width: 80, sortable: true, dataIndex: 'action', css : "text-align :center; font-size:12px;",  renderer: cf.UserGrid.renderAction}
 		]);
      },
 	
@@ -125,7 +124,6 @@ cf.UserGrid = function(){return {
 				totalProperty: 'total',
 				root: 'result',
 				url: '<?php echo url_for('usermanagement/LoadAllUser')?>',
-				autoload: true,
 				fields: [
 					{name: '#'},
 					{name: 'id'},
@@ -142,25 +140,30 @@ cf.UserGrid = function(){return {
 	
 	renderAction: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 		var action = record.data['action'];
-		cf.UserGrid.createButtons.defer(800, this, [record.data['action']]);
-		var myDiv = '<center><table><tr><td><div style="float:left;" id="user_edit'+ record.data['id'] +'"></div></td></tr></table></center>'
-		return myDiv;
+		cf.UserGrid.createButton.defer(500,this, [record.data['action']]);
+		return '<center><table><tr><td><div id="user_edit'+ record.data['id'] +'"></div></td></tr></table></center>';
 	},
 	
-	createButtons:function (id) {
-		var btn_edit = new Ext.Button(  {
+	createButton:function (id) {
+		var btn_edit = new Ext.form.Label({
 			renderTo: 'user_edit' + id,
 			id: id,
-			tooltip: '<?php echo __('Edit Role',null,'userrolemanagement'); ?>',
-			icon: '/images/icons/pencil.png',
+			html: '<span style="cursor:pointer;"><img src="/images/icons/pencil.png" /></span>',
 			tooltip: '<?php echo __('Edit user',null,'usermanagement'); ?>',
-			handler: function () {
-				cf.UserCRUD.editUser(id);
+			listeners: {
+				render: function(c){
+					  c.getEl().on({
+						click: function(el){
+							cf.UserCRUD.editUser(id);
+						},
+					scope: c
+				});
+
+				}
 			}
-			//style:'background-image: url(/images/icons/pencil.png)',
 		});
+		
 	}
-	
 
 	
 	
