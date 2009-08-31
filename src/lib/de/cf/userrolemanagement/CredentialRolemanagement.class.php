@@ -52,7 +52,7 @@ class CredentialRolemanagement {
                 if($group != ''){
                     $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['title'] = $group;
                     $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['id'] = $result[$this->moduleCounter]['usermodule']['id'] . '_usergroup_' . $group;
-                    $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['icon'] = $result[$this->moduleCounter]['usermodule']['id'] . '_usergroupIcon_' . $group;
+                    $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['icon'] = 'usermanagement_' . $result[$this->moduleCounter]['usermodule']['id'] . '_usergroupIcon_' . $group;
                     $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['server_id'] = $group;
                     $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['usergroupe'] = $group;
                     $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['userright'] = '';
