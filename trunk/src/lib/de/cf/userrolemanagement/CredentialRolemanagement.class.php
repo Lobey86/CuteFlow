@@ -47,7 +47,7 @@ class CredentialRolemanagement {
                 $module = '';
                 $module = $this->checkModule($result,$item->getUserModule());
                 if($module != '') {
-                   // $result[$this->moduleCounter]['usermodule']['title'] = $module;
+                    $result[$this->moduleCounter]['usermodule']['title'] = $module;
                     $result[$this->moduleCounter]['usermodule']['id'] = 'usermodule_' . $module;
                     $result[$this->moduleCounter]['usermodule']['server_id'] = $module;
                     $result[$this->moduleCounter]['usermodule']['usermodule'] = $module;
@@ -58,7 +58,7 @@ class CredentialRolemanagement {
                 $group = '';
                 $group = $this->checkGroup($result[$this->moduleCounter],$item->getUserGroup());
                 if($group != ''){
-                    //$result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['title'] = $group;
+                    $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['title'] = $group;
                     $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['id'] = $result[$this->moduleCounter]['usermodule']['id'] . '_usergroup_' . $group;
                     $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['icon'] = 'usermanagement_' . $result[$this->moduleCounter]['usermodule']['id'] . '_usergroupIcon_' . $group;
                     $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['server_id'] = $group;
@@ -70,7 +70,7 @@ class CredentialRolemanagement {
                
                 $right = $item->getUserRight();
                 $id = $item->getId();
-                //$result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['userright'][$this->rightCounter]['title'] = $right;
+                $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['userright'][$this->rightCounter]['title'] = $right;
                 $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['userright'][$this->rightCounter]['id'] =  $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['id'] . '_userright_' . $right;
                 $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['userright'][$this->rightCounter]['server_id'] = $right;
                 $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['userright'][$this->rightCounter]['userright'] = $right;
