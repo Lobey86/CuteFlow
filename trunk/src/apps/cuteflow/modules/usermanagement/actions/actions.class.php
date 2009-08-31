@@ -8,17 +8,15 @@
  * @author     Your name here
  * @version    SVN: $Id: actions.class.php 12479 2008-10-31 10:54:40Z fabien $
  */
-class usermanagementActions extends sfActions
-{
+class usermanagementActions extends sfActions {
  /**
   * Executes index action
   *
   * @param sfRequest $request A request object
   */
-  public function executeIndex(sfWebRequest $request)
-  {
-    return sfView::NONE;
-  }
+    public function executeIndex(sfWebRequest $request) {
+        return sfView::NONE;
+    }
 
   /**
    *
@@ -27,23 +25,31 @@ class usermanagementActions extends sfActions
    * @param sfWebRequest $request
    * @return <type>
    */
-  public function executeLoadAllUser(sfWebRequest $request)
-  {
-    $json_result = array();
-    $usermanagement = new Usermanagement();
-    $count_query = new Doctrine_Query();
-    $anz = $count_query->select('COUNT(*) AS anzahl')->from('User u')->execute();
+    public function executeLoadAllUser(sfWebRequest $request) {
+        $json_result = array();
+        $usermanagement = new Usermanagement();
 
-    $query = new Doctrine_Query();
-    $result = $query->select('u.*')->from('User u')->orderby('u.id DESC')->limit($request->getParameter('limit',$this->getUser()->getAttribute('userSettings')->getDisplayeditem()))->offset($request->getParameter('start',0))->execute();
 
-    $json_result = $usermanagement->buildUser($result, $this->getRequestParameter('start',0)+1);
+        $anz = Doctrine_Query::create()
+                ->select('COUNT(*) AS anzahl')
+                ->from('User u')
+                ->execute();
 
-    $data = '({"total":"'.$anz[0]->getAnzahl().'","result":'.json_encode($json_result).'})';
-    $this->renderText($data);
-    
-    return sfView::NONE;
-  }
+        $result = Doctrine_Query::create()
+                ->select('u.*')
+                ->from('User u')
+                ->orderby('u.id DESC')
+                ->limit($request->getParameter('limit',$this->getUser()->getAttribute('userSettings')->getDisplayeditem()))
+                ->offset($request->getParameter('start',0))
+                ->execute();
+
+        $json_result = $usermanagement->buildUser($result, $this->getRequestParameter('start',0)+1);
+
+        $data = '({"total":"'.$anz[0]->getAnzahl().'","result":'.json_encode($json_result).'})';
+        $this->renderText($data);
+
+        return sfView::NONE;
+    }
 
 
   /**
@@ -53,41 +59,46 @@ class usermanagementActions extends sfActions
    * @param sfWebRequest $request
    * @return <type>
    */
-  public function executeLoadAllUserFilter(sfWebRequest $request)
-  {
-    $json_result = array();
-    $usermanagement = new Usermanagement();
+    public function executeLoadAllUserFilter(sfWebRequest $request) {
+        $json_result = array();
+        $usermanagement = new Usermanagement();
 
-    $query = new Doctrine_Query();
-    $query->select('COUNT(*) AS anzahl')->from('User u');
+        $query = new Doctrine_Query();
+        $query->select('COUNT(*) AS anzahl')
+              ->from('User u');
 
-    if($request->getParameter('username')){
-        $query->andwhere('u.username LIKE ?','%'.$request->getParameter('username').'%');
-    }
-    if($request->getParameter('firstname')){
-        $query->andwhere('u.firstname LIKE ?','%'.$request->getParameter('firstname').'%');
-    }
-    if($request->getParameter('lastname')){
-        $query->andwhere('u.lastname LIKE ?','%'.$request->getParameter('lastname').'%');
-    }
-    if($request->getParameter('email')){
-        $query->andwhere('u.email LIKE ?','%'.$request->getParameter('email').'%');
-    }
+        if($request->getParameter('username')){
+            $query->andwhere('u.username LIKE ?','%'.$request->getParameter('username').'%');
+        }
+        if($request->getParameter('firstname')){
+            $query->andwhere('u.firstname LIKE ?','%'.$request->getParameter('firstname').'%');
+        }
+        if($request->getParameter('lastname')){
+            $query->andwhere('u.lastname LIKE ?','%'.$request->getParameter('lastname').'%');
+        }
+        if($request->getParameter('email')){
+            $query->andwhere('u.email LIKE ?','%'.$request->getParameter('email').'%');
+        }
 
-    if($request->getParameter('userrole')){
-        $query->andwhere('u.role_id = ?',$request->getParameter('userrole'));
+        if($request->getParameter('userrole')){
+            $query->andwhere('u.role_id = ?',$request->getParameter('userrole'));
+        }
+
+        $anz = $query->execute();
+        $result = $query->select('u.*')
+                        ->orderby('u.id DESC')
+                        ->limit($request->getParameter('limit',$this->getUser()
+                        ->getAttribute('userSettings')->getDisplayeditem()))
+                        ->offset($request->getParameter('start',0))
+                        ->execute();
+
+        $json_result = $usermanagement->buildUser($result, $this->getRequestParameter('start',0)+1);
+
+        $data = '({"total":"'.$anz[0]->getAnzahl().'","result":'.json_encode($json_result).'})';
+        $this->renderText($data);
+
+        return sfView::NONE;
     }
-    
-    $anz = $query->execute();
-    $result = $query->select('u.*')->orderby('u.id DESC')->limit($request->getParameter('limit',$this->getUser()->getAttribute('userSettings')->getDisplayeditem()))->offset($request->getParameter('start',0))->execute();
-    
-    $json_result = $usermanagement->buildUser($result, $this->getRequestParameter('start',0)+1);
-
-    $data = '({"total":"'.$anz[0]->getAnzahl().'","result":'.json_encode($json_result).'})';
-    $this->renderText($data);
-
-    return sfView::NONE;
-  }
 
 
   /**
@@ -98,16 +109,18 @@ class usermanagementActions extends sfActions
    * @param sfWebRequest $request
    * @return <type>
    */
-  public function executeLoadAllRole(sfWebRequest $request)
-  {
-    $userrolemanagement = new Usermanagement();
-    $query = new Doctrine_Query();
-    $result = $query->select('r.*')->from('Role r')->execute();
-    $json_result = $userrolemanagement->buildRole($result,0);
+    public function executeLoadAllRole(sfWebRequest $request) {
+        $userrolemanagement = new Usermanagement();
 
-    $this->renderText('({"result":'.json_encode($json_result).'})');
-    return sfView::NONE;
-  }
+        $result = Doctrine_Query::create()
+                    ->select('r.*')
+                    ->from('Role r')
+                    ->execute();
+        $json_result = $userrolemanagement->buildRole($result,0);
+
+        $this->renderText('({"result":'.json_encode($json_result).'})');
+        return sfView::NONE;
+    }
 
   /**
    *
@@ -116,12 +129,16 @@ class usermanagementActions extends sfActions
    * @param sfWebRequest $request
    * @return <type>
    */
-    public function executeDeleteUser(sfWebRequest $request)
-  {
-    $query = new Doctrine_Query();
-    $query->delete('User')->from('User u')->where('u.id = ?',$request->getParameter('id'))->andwhere('u.id != ?', $this->getUser()->getAttribute('id'))->execute();
-    return sfView::NONE;
-  }
+    public function executeDeleteUser(sfWebRequest $request) {
+    
+        Doctrine_Query::create()
+            ->delete('User')
+            ->from('User u')
+            ->where('u.id = ?',$request->getParameter('id'))
+            ->andwhere('u.id != ?', $this->getUser()->getAttribute('id'))
+            ->execute();
+        return sfView::NONE;
+    }
 
-  
+    
 }
