@@ -11,12 +11,14 @@ class CredentialRolemanagement {
         private $groupCounter;
         private $firstRun;
         private $rightCounter;
+        private $context;
 
         /**
          *
          * @param Doctrine_Collection $data_in, records from database
          */
 	public function __construct() {
+            sfLoader::loadHelpers('I18N');
             $this->moduleCounter = 0;
             $this->groupCounter = 0;
             $this->rightCounter = 0;
@@ -26,6 +28,11 @@ class CredentialRolemanagement {
         public function setRecords(Doctrine_Collection $records_in) {
             $this->records = $records_in;
         }
+
+        public function setContext($context_in) {
+            $this->context = $context_in;
+        }
+        
         /**
          *
          * Function builds out of the data, a tree to display all tabs, groups and rights
@@ -40,33 +47,36 @@ class CredentialRolemanagement {
                 $module = '';
                 $module = $this->checkModule($result,$item->getUserModule());
                 if($module != '') {
-                    $result[$this->moduleCounter]['usermodule']['title'] = $module;
+                   // $result[$this->moduleCounter]['usermodule']['title'] = $module;
                     $result[$this->moduleCounter]['usermodule']['id'] = 'usermodule_' . $module;
                     $result[$this->moduleCounter]['usermodule']['server_id'] = $module;
                     $result[$this->moduleCounter]['usermodule']['usermodule'] = $module;
+                    $result[$this->moduleCounter]['usermodule']['translation'] = $this->context->getI18N()->__($module ,null,'userrolemanagementpopup');
                     $result[$this->moduleCounter]['usermodule']['usergroup'] = '';
                 }
 
                 $group = '';
                 $group = $this->checkGroup($result[$this->moduleCounter],$item->getUserGroup());
                 if($group != ''){
-                    $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['title'] = $group;
+                    //$result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['title'] = $group;
                     $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['id'] = $result[$this->moduleCounter]['usermodule']['id'] . '_usergroup_' . $group;
                     $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['icon'] = 'usermanagement_' . $result[$this->moduleCounter]['usermodule']['id'] . '_usergroupIcon_' . $group;
                     $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['server_id'] = $group;
                     $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['usergroupe'] = $group;
+                    $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['translation'] = $this->context->getI18N()->__($group ,null,'userrolemanagementpopup');
                     $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['userright'] = '';
                 }
 
                
                 $right = $item->getUserRight();
                 $id = $item->getId();
-                $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['userright'][$this->rightCounter]['title'] = $right;
+                //$result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['userright'][$this->rightCounter]['title'] = $right;
                 $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['userright'][$this->rightCounter]['id'] =  $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['id'] . '_userright_' . $right;
                 $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['userright'][$this->rightCounter]['server_id'] = $right;
                 $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['userright'][$this->rightCounter]['userright'] = $right;
                 $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['userright'][$this->rightCounter]['name'] = $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['id'];
                 $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['userright'][$this->rightCounter]['parent'] = $this->checkParent($right);
+                $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['userright'][$this->rightCounter]['translation'] = $this->context->getI18N()->__($right ,null,'userrolemanagementpopup');
                 if ($credentials == NULL) {
                     $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['userright'][$this->rightCounter]['checked'] = 0;
                 }
