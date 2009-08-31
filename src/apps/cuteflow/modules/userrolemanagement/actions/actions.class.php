@@ -131,6 +131,7 @@ class userrolemanagementActions extends sfActions {
                     ->execute();
         
         $credentialmanagement->setRecords($result);
+        $credentialmanagement->setContext($this->getContext());
         $json_result = $credentialmanagement->buildTabpanel($credentials);
 
         if ($request->getParameter('role_id') != '') {
