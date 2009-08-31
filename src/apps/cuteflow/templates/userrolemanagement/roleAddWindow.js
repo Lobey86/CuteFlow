@@ -12,6 +12,13 @@ cf.AddRoleWindow = function(){return {
 	
 	
 	initWindow: function(new_flag,id) {
+		if(new_flag == 1) {
+			var title = '<?php echo __('Add new Userrole',null,'userrolemanagementpopup'); ?>';
+		}
+		else {
+			var title = '<?php echo __('Edit Userrole',null,'userrolemanagementpopup'); ?>';
+		}
+		
 		this.theAddRoleWindowIsInitialzied = true;
 		this.theAddRoleWin = new Ext.Window({
 			modal: true,
@@ -20,7 +27,7 @@ cf.AddRoleWindow = function(){return {
 			height: 700,
 			width: 650,
 			autoScroll: true,
-			title: '<?php echo __('Add new Userrole',null,'userrolemanagement'); ?>',
+			title: title,
 			shadow: false,
 			minimizable: false,
 			draggable: true,
@@ -34,14 +41,14 @@ cf.AddRoleWindow = function(){return {
 			},
 			buttons:[{
 				id: 'addButton',
-				text:'<?php echo __('Store',null,'userrolemanagement'); ?>', 
+				text:'<?php echo __('Store',null,'userrolemanagementpopup'); ?>', 
 				icon: '/images/icons/accept.png',
 				handler: function () {
 					cf.RoleCRUD.saveRole(new_flag,id);
 				}
 			},{
 				id: 'cancelButton',
-				text:'<?php echo __('Close',null,'userrolemanagement'); ?>', 
+				text:'<?php echo __('Close',null,'userrolemanagementpopup'); ?>', 
 				icon: '/images/icons/cancel.png',
 				handler: function () {
 					cf.AddRoleWindow.theAddRoleWin.hide();
