@@ -25,7 +25,7 @@ cf.UserSearchbar = function(){return {
 					items: [{
 						xtype:'textfield',
 						fieldLabel: '&nbsp;<?php echo __('Firstname',null,'usermanagement'); ?>',
-						style:'margin-top:5px;',
+						style:'margin-top:2px;',
 						name: 'firstname',
 						id: 'firstname',
 						width:150
