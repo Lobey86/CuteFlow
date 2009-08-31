@@ -88,7 +88,6 @@ cf.UserRoleGrid = function(){return {
 			id: id,
 			html: '<span style="cursor:pointer;"><img src="/images/icons/delete.png" /></span>',
 			tooltip: '<?php echo __('Delete Role',null,'userrolemanagement'); ?>',
-			style: 'width:22px;',
 			listeners: {
 				render: function(c){
 					c.getEl().on({
@@ -128,7 +127,7 @@ cf.UserRoleGrid = function(){return {
 			return '<center><table><tr><td><div id="role_edit_'+ record.data['id'] +'"></div></td><td><div style="float:left;" id="role_del_'+ record.data['id'] +'"></div></td></tr></table></center>'
 		}
 		else {
-			return '<div style="height:23px;"></div>';
+			return '<div style="height:18px;"></div>';
 		}
 		
 	}
