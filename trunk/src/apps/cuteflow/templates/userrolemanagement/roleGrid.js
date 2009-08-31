@@ -83,27 +83,39 @@ cf.UserRoleGrid = function(){return {
 	},
 	
 	createButtons: function (id) {
-		var btn_delete = new Ext.Button(  {
+		var btn_delete = new Ext.form.Label(  {
 			renderTo: 'role_del_' + id,
 			id: id,
-			icon: '/images/icons/delete.png',
+			html: '<span style="cursor:pointer;"><img src="/images/icons/delete.png" /></span>',
 			tooltip: '<?php echo __('Delete Role',null,'userrolemanagement'); ?>',
-			handler: function () {
-				cf.RoleCRUD.deleteRole(id);
-			},
-			scope : this
+			style: 'width:22px;',
+			listeners: {
+				render: function(c){
+					c.getEl().on({
+						click: function(el){
+							cf.RoleCRUD.deleteRole(id);
+						},
+					scope: c
+					});
+				}
+			}
 		});
 		
-		var btn_edit = new Ext.Button(  {
+		var btn_edit = new Ext.form.Label(  {
 			renderTo: 'role_edit_' + id,
 			id: id,
 			tooltip: '<?php echo __('Edit Role',null,'userrolemanagement'); ?>',
-			icon: '/images/icons/pencil.png',
-			handler: function () {
-				cf.AddRoleWindow.init(0,id);
-				//cf.RoleCRUD.editRole(id);
-			},
-			scope : this
+			html: '<span style="cursor:pointer;"><img src="/images/icons/pencil.png" /></span>',
+			listeners: {
+				render: function(c){
+					c.getEl().on({
+						click: function(el){
+							cf.AddRoleWindow.init(0,id);
+						},
+					scope: c
+					});
+				}
+			}
 		});
 		
 	
@@ -113,11 +125,10 @@ cf.UserRoleGrid = function(){return {
 		var action = record.data['action'];
 		if (action == 1) { // item is deleteable and editable!
 			cf.UserRoleGrid.createButtons.defer(500, this, [record.data['id']]);
-			var myDiv = '<center><table><tr><td><div id="role_edit_'+ record.data['id'] +'"></div></td><td><div style="float:left;" id="role_del_'+ record.data['id'] +'"></div></td></tr></table></center>'
-			return myDiv;
+			return '<center><table><tr><td><div id="role_edit_'+ record.data['id'] +'"></div></td><td><div style="float:left;" id="role_del_'+ record.data['id'] +'"></div></td></tr></table></center>'
 		}
 		else {
-			return '<div style="height:24px;"></div>';
+			return '<div style="height:23px;"></div>';
 		}
 		
 	}
