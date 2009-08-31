@@ -1,45 +1,32 @@
 Credential:
   c1:
-    userModule: management
+    userModule: administration
     userGroup: usermanagement
     userRight: showModule
   c2:
-    userModule: management
+    userModule: administration
     userGroup: usermanagement
     userRight: editUser
   c3:
-    userModule: management
+    userModule: administration
     userGroup: usermanagement
     userRight: removeUser
   c4:
-    userModule: management
-    userGroup: test
-    userRight: removeTest
-  c5:
-    userModule: management
-    userGroup: test
-    userRight: addTest
-  c6:
-    userModule: verwaltung
-    userGroup: test
-    userRight: addTest
-  c7:
-    userModule: verwaltung
-    userGroup: test
-    userRight: removeTest
-  c8:
-    userModule: verwaltung
-    userGroup: test
-    userRight: modifyTest
-  c9:
-    userModule: management
+    userModule: administration
     userGroup: usermanagement
-    userRight: showModule2
-  c10:
-    userModule: management
-    userGroup: test
+    userRight: addUser
+  c5:
+    userModule: administration
+    userGroup: userrolemanagement
     userRight: showModule
-
+  c6:
+    userModule: administration
+    userGroup: myprofile
+    userRight: showModule
+  c7:
+    userModule: administration
+    userGroup: myprofile
+    userRight: changeRole
 Role:
   r1:
     description: admin
@@ -62,18 +49,29 @@ CredentialRole:
     role_id: 1
     credential_id: 2
   rc3:
-    role_id: 2
-    credential_id: 1
-  rc4:
-    role_id: 2
-    credential_id: 2
-  rc4:
-    role_id: 2
+    role_id: 1
     credential_id: 3
+  rc4:
+    role_id: 1
+    credential_id: 4
   rc5:
+    role_id: 1
+    credential_id: 5
+  rc6:
+    role_id: 1
+    credential_id: 6
+  rc7:
+    role_id: 1
+    credential_id: 7
+  rc8:
     role_id: 3
     credential_id: 1
-
+  rc9:
+    role_id: 3
+    credential_id: 5
+  rc10:
+    role_id: 3
+    credential_id: 6
 User:
   u1:
     username: admin
@@ -109,7 +107,7 @@ User:
   u6:
     username: admin5
     password: admin5
-    role_id: 2
+    role_id: 3
     firstname: schnitzel
     lastname: mit pommes
 
