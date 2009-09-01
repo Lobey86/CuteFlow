@@ -29,7 +29,7 @@ class CredentialRolemanagement {
             $this->records = $records_in;
         }
 
-        public function setContext($context_in) {
+        public function setContext(sfContext $context_in) {
             $this->context = $context_in;
         }
         
