@@ -80,9 +80,11 @@ cf.Navigation = function(){return {
 					icon: '/images/icons/group.png',
 					leaf: true,
 					id: 'nodeUser',
+					disabled: <?php $arr = $sf_user->getAttribute('credential');echo $arr['administration_usermanagement_showModule'];?>,
 					text: '<span style="font-size:14px;"><?php echo __('User management',null,'layout'); ?></span>'
 				},{
 					icon: '/images/icons/user_edit.png',
+					disabled: <?php $arr = $sf_user->getAttribute('credential');echo $arr['administration_myprofile_showModule'];?>,
 					leaf: true,
 					text: '<span style="font-size:14px;"><?php echo __('My Profile',null,'layout'); ?></span>'
 				},{
@@ -93,6 +95,7 @@ cf.Navigation = function(){return {
 					icon: '/images/icons/cog_add.png',
 					id: 'nodeRoleManagement',
 					leaf: true,
+					disabled: <?php $arr = $sf_user->getAttribute('credential');echo $arr['administration_userrolemanagement_showModule'];?>,
 					text: '<span style="font-size:14px;"><?php echo __('Userrole management',null,'layout'); ?></span>'
 				},{
 					icon: '/images/icons/note_go.png',

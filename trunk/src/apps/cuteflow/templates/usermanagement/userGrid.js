@@ -56,7 +56,7 @@ cf.UserGrid = function(){return {
 			items: [{
                 icon: '/images/icons/user_add.png',
                 tooltip:'<?php echo __('Add new user',null,'usermanagement'); ?>',
-                disabled: false,
+                disabled: <?php $arr = $sf_user->getAttribute('credential');echo $arr['administration_usermanagement_addUser'];?>,
                 handler: function () {
                 	cf.AddUserWindow.init(); // pop will be displayed to add new User
                 }
@@ -64,7 +64,7 @@ cf.UserGrid = function(){return {
             {
 				icon: '/images/icons/user_delete.png',
                 tooltip:'<?php echo __('Delete existing user',null,'usermanagement'); ?>',
-                disabled: false,
+                disabled: <?php $arr = $sf_user->getAttribute('credential');echo $arr['administration_usermanagement_removeUser'];?>,
                 handler: function () {
 					cf.UserCRUD.deleteUser(); // calls Delete function to remove
                 }
@@ -170,13 +170,16 @@ cf.UserGrid = function(){return {
 		var btn_edit = new Ext.form.Label({
 			renderTo: 'user_edit' + id,
 			id: id,
+			disabled: <?php $arr = $sf_user->getAttribute('credential');echo $arr['administration_usermanagement_editUser'];?>,
 			html: '<span style="cursor:pointer;"><img src="/images/icons/pencil.png" /></span>',
 			tooltip: '<?php echo __('Edit user',null,'usermanagement'); ?>',
 			listeners: {
 				render: function(c){
 					  c.getEl().on({
 						click: function(el){
-							cf.UserCRUD.editUser(id);
+							if (Ext.getCmp(id).disabled == false) {
+								cf.UserCRUD.editUser(id);
+							}
 						},
 					scope: c
 				});
