@@ -108,6 +108,7 @@ class userrolemanagementActions extends sfActions {
     */
     public function executeLoadRoleTree(sfWebRequest $request) {
         $credentialmanagement = new CredentialRolemanagement();
+        $credentials = NULL;
         // Part when role was edited
         if ($request->getParameter('role_id') != '') {
             $res = Doctrine_Query::create()
