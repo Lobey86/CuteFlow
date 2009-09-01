@@ -44,7 +44,7 @@ cf.Window = function(){return {
                     text: '<?php echo __('Close',null,'login'); ?>', 
 					icon: '/images/icons/cancel.png',
                     handler: function(){ 
-                        cf.Window.theWindow.hide(); 
+                    	cf.Window.theWindow.hide(); 
                     } 
                 }] 
 		});
