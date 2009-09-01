@@ -3,7 +3,6 @@
 * the login and close button and handles login functionality
 * 
 */
-
 cf.Window = function(){return {
 	theWindow : false,
 
