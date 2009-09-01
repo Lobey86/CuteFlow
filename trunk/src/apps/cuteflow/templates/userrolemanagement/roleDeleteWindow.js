@@ -1,3 +1,8 @@
+/**
+* Function creates the popup, to apply the users of an deleted role into another role.
+*
+*
+*/
 cf.DeleteRoleWindow = function(){return {
 
 	theRoleDeleteWindow			:false,
@@ -6,6 +11,12 @@ cf.DeleteRoleWindow = function(){return {
 	thePanel					:false,
 	
 	
+	/**
+	* Function calls all necessary functions to display the popup
+	*
+	* @param int id, id of the role, which will be deleted
+	*
+	*/
 	init:function (id) {
 		this.initComboStore(id);
 		this.theComboStore.load();
@@ -16,7 +27,7 @@ cf.DeleteRoleWindow = function(){return {
 	
 	},
 	
-	
+	/** store for the combobox **/
 	initComboStore: function (id) {
 		this.theComboStore = new Ext.data.JsonStore({
 			mode: 'local',
@@ -30,6 +41,7 @@ cf.DeleteRoleWindow = function(){return {
 		});
 	},
 	
+	/** Panel, where combo is binded **/
 	initPanel: function () {
 		this.thePanel = new Ext.Panel({
 			plain: false,
@@ -45,7 +57,7 @@ cf.DeleteRoleWindow = function(){return {
 				displayField: 'text',
 				editable: false,
 				mode: 'local',
-				id: 'deletCombo',
+				id: 'deleteCombo',
 				triggerAction: 'all',
 				selectOnFocus:true,
 				allowBlank: false,
@@ -56,7 +68,11 @@ cf.DeleteRoleWindow = function(){return {
 		});
 	},
 	
-	
+	/** 
+	* popupwindow, where panel is added
+    *	
+    * @param deleteid, id of the entry which is to delete
+    */
 	initWindow: function (deleteid) {
 		this.theRoleDeleteWindow = new Ext.Window({
 			modal: true,
@@ -80,9 +96,9 @@ cf.DeleteRoleWindow = function(){return {
 				id: 'removeButton',
 				text:'<?php echo __('Delete',null,'userrolemanagement'); ?>', 
 				icon: '/images/icons/accept.png',
-				handler: function () {
-					if(Ext.getCmp('deletCombo').getValue() != '') {
-						var updateid = (Ext.getCmp('deletCombo').getValue());
+				handler: function () { // delete role
+					if(Ext.getCmp('deleteCombo').getValue() != '') {
+						var updateid = (Ext.getCmp('deleteCombo').getValue());
 						Ext.Ajax.request({ 
 							url : '<?php echo url_for('userrolemanagement/DeleteRole')?>/deleteid/' + deleteid + '/updateid/' + updateid, 
 							success: function(objServerResponse){
@@ -99,14 +115,14 @@ cf.DeleteRoleWindow = function(){return {
 					}
 				}
 			},
-			{
+			{ // do nothing
 				id: 'cancelButton',
 				text:'<?php echo __('Verwerfen',null,'userrolemanagement'); ?>', 
 				icon: '/images/icons/cancel.png',
 				handler: function () {
 					cf.DeleteRoleWindow.theRoleDeleteWindow.hide();
 					cf.DeleteRoleWindow.theRoleDeleteWindow.destroy();
-				}
+			}
 			}]
 		});
 	}

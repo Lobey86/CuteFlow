@@ -1,3 +1,6 @@
+/**
+* Class opens new window, to add a new user
+*/
 cf.AddUserWindow = function(){return {
 	
 	theAddUserWindow					:false,

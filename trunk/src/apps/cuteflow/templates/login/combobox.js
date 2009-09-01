@@ -1,12 +1,21 @@
+/**
+* Class builds the combobox for the login page, and
+* implements Ajax functionality to change the language on the fly.
+*
+*/
+
+
 cf.ComboBox = function(){return {
 	theComboBox : false,
 	theComboStore: false,
 	
+	/** Function inits the Store for combo and the combobox **/
 	init: function () {
 		this.initStore();
 		this.initCombobox();
 	},
 
+	/** Combobox is initialzed here, the Combo is needed to change the language before login, Combo also handles ajax functionality to change the language in frontend **/
 	initCombobox: function () {
 		this.theComboBox = new Ext.form.ComboBox({
 			fieldLabel: '<?php echo __('Language',null,'login'); ?>',
@@ -57,6 +66,7 @@ cf.ComboBox = function(){return {
 		});
 	}, 
 	
+	/** Store for combo **/
 	initStore: function () {
 		this.theComboStore = new Ext.data.JsonStore({
 			mode: 'local',
@@ -72,6 +82,7 @@ cf.ComboBox = function(){return {
 	}
 };}();
 
+/** need to override extjs Field, to change the Labels on the fly using ajax **/
 Ext.override(Ext.form.Field, {
    setLabel: function(text){
       var r = this.getEl().up('div.x-form-item');

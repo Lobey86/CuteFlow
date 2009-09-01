@@ -1,9 +1,14 @@
+/**
+* Main Class for the group "Usermanagement". This class initializes the searchbar and the grid
+* where all data will be displayed.
+*
+*/
 cf.UserManagement = function(){return {
 	
 	isInitialized              : false,
 	theUserWindow              : false,
 
-
+	/** inits searchbar and grid **/
 	init: function () {
 		if (this.isInitialized == false) {
 			this.isInitialized = true;
@@ -15,6 +20,7 @@ cf.UserManagement = function(){return {
 		}
 	},
 	
+	/** inits the Panel, where searchbar and grid will be added. Panel is displayed in Tabpanel **/
 	initWindow: function () {
 		this.theUserWindow = new Ext.Panel({
 				title: '<?php echo __('User management',null,'usermanagement'); ?>',
@@ -26,10 +32,22 @@ cf.UserManagement = function(){return {
 		});
 	},
 	
+	/** 
+	 * Part of the API
+	 * set value if class is already initialized. 
+	 * @param boolean value
+	 *
+	 **/
 	setInitialized: function (value) {
 		this.isInitialized = value;
 	},
 	
+	
+	/**
+	* Part of the API
+	* This function returns the window, to add it into tabpanel
+	*
+	*/
 	getInstance: function() {
 		return this.theUserWindow;
 	}

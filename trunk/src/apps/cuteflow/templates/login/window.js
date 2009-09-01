@@ -1,7 +1,13 @@
+/**
+* Class creates a window, where all textfields and comobox will be rendered. The WIndow also includes
+* the login and close button and handles login functionality
+* 
+*/
+
 cf.Window = function(){return {
 	theWindow : false,
 
-
+	/** Function inits window, with 2 buttons and handles login functionality **/
 	init: function () {
 		this.theWindow = new Ext.Window({
 		width:370,
@@ -20,11 +26,11 @@ cf.Window = function(){return {
 							Ext.Ajax.request({
 								url: '<?php echo url_for('login/DoLogin')?>/username/' + cf.Textfield.theUsernameField.getValue() + '/password/' + cf.Textfield.theUserpasswordField.getValue() + '/language/' + cf.Textfield.theHiddenField.getValue(),						
 								success: function(objServerResponse){  
-									if(objServerResponse.responseText == 1) {
+									if(objServerResponse.responseText == 1) { // login TRUE
 										var url = Ext.get('url').dom.value;
 										window.location.href = url;
 									}
-									else {
+									else { // login FALSE
 										var ServerResult = Ext.util.JSON.decode(objServerResponse.responseText);
 										Ext.MessageBox.alert(ServerResult.result.errorTitle, ServerResult.result.errorMessage);
 										cf.Textfield.theUsernameField.setValue();

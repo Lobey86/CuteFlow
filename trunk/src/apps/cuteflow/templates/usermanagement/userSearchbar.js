@@ -1,3 +1,9 @@
+/**
+* Class inits the Searchbar for the usergrid, and handles also the searchrequest if 
+* searchbutton is hit
+* 
+*/
+
 cf.UserSearchbar = function(){return {
 
 	theUserSearchbar			:false,
