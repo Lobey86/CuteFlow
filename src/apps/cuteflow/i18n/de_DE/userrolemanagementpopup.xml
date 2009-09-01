@@ -53,23 +53,23 @@
 	<trans-unit id="13">
         <source>Name</source>
         <target>Name</target>
-     </trans-unit>
+    </trans-unit>
 	<trans-unit id="14">
         <source>Add new Userrole</source>
         <target>Neue Benutzerrolle anlegen</target>
-     </trans-unit>
+    </trans-unit>
 	<trans-unit id="15">
         <source>Edit Userrole</source>
         <target>Benutzerrolle bearbeiten</target>
-     </trans-unit>
-	 	<trans-unit id="16">
+    </trans-unit>
+	<trans-unit id="16">
         <source>Store</source>
         <target>Speichern</target>
-     </trans-unit>
+    </trans-unit>
 	<trans-unit id="17">
         <source>Close</source>
         <target>Verwerfen</target>
-     </trans-unit>
+    </trans-unit>
 	</body>
   </file>
 </xliff>
