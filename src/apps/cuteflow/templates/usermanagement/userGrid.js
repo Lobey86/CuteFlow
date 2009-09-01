@@ -1,3 +1,11 @@
+/**
+* Class inits the usergrid with all necessary components:
+*	- toolbar
+* 	- paging
+*	- renderer of the button for the grid
+*
+*/
+
 cf.UserGrid = function(){return {
 	isInitialized				: false,
 	theUserGrid					: false,
@@ -8,6 +16,7 @@ cf.UserGrid = function(){return {
 	theGridPanel				: false,
 	theGridBottomToolbar		: false,
 
+	/** main init function **/
 	init:function() {	
 		this.initGridStore();
 		this.theUserStore.load();
@@ -20,6 +29,7 @@ cf.UserGrid = function(){return {
 	},
 	
 	
+	/** function initializes the usergrid and sets columnmodel, store and toolbars **/
 	initUserGrid: function () {
 		this.isInitialized  = true;
 		
@@ -40,6 +50,7 @@ cf.UserGrid = function(){return {
 		});
 	},
 	
+	/** Function inits top Toolbar, with Add, Delete User and number of pages displayed **/
 	initTopToolBar: function () {
 		this.theGridTopToolbar = new Ext.Toolbar({
 			items: [{
@@ -47,7 +58,7 @@ cf.UserGrid = function(){return {
                 tooltip:'<?php echo __('Add new user',null,'usermanagement'); ?>',
                 disabled: false,
                 handler: function () {
-                	cf.AddUserWindow.init();
+                	cf.AddUserWindow.init(); // pop will be displayed to add new User
                 }
 		    },'-',
             {
@@ -55,11 +66,11 @@ cf.UserGrid = function(){return {
                 tooltip:'<?php echo __('Delete existing user',null,'usermanagement'); ?>',
                 disabled: false,
                 handler: function () {
-					cf.UserCRUD.deleteUser();
+					cf.UserCRUD.deleteUser(); // calls Delete function to remove
                 }
             },'->',
             {
-				xtype: 'combo',
+				xtype: 'combo', // number of records to display in grid
 				id: 'itemsDisplay',
 				mode: 'local',
 				value: '<?php echo $sf_user->getAttribute('userSettings')->getDisplayeditem();?>',
@@ -84,7 +95,8 @@ cf.UserGrid = function(){return {
 		   }]
 		});	
 	},
-		
+	
+	/** Paging toolbar **/
 	initBottomToolBar: function () {
 		this.theGridBottomToolbar =  new Ext.PagingToolbar({
 			pageSize: <?php echo $sf_user->getAttribute('userSettings')->getDisplayeditem();?>,
@@ -95,6 +107,7 @@ cf.UserGrid = function(){return {
 		});
 	},
 	
+	/** Panel where grid is rendered in **/
 	initGridbarPanel: function () {
 		this.theGridPanel = new Ext.Panel({
 			closable: false,
@@ -106,6 +119,7 @@ cf.UserGrid = function(){return {
 		});
 	},
 	
+	/** Columnmodel for grid **/
 	initColumnModel: function () {
 		this.theGridCm  =  new Ext.grid.ColumnModel([
 			{header: "#", width: 50, sortable: true, dataIndex: '#', css : "text-align : left;font-size:12px;align:center;"},
@@ -118,6 +132,7 @@ cf.UserGrid = function(){return {
 		]);
      },
 	
+     /** Store for grid **/
 	initGridStore: function () {
 		this.theUserStoreIsInitialized = true;
 		this.theUserStore = new Ext.data.JsonStore({
@@ -138,12 +153,19 @@ cf.UserGrid = function(){return {
 		});	
 	},
 	
+	/** Function to render "Edit Button" into datagrid **/
 	renderAction: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 		var action = record.data['action'];
 		cf.UserGrid.createButton.defer(500,this, [record.data['action']]);
 		return '<center><table><tr><td><div id="user_edit'+ record.data['id'] +'"></div></td></tr></table></center>';
 	},
 	
+	
+	/**
+	* Function loads a label that includes an image into grid.
+	* Problem is, that a button has ugly borders, a label not.
+	* @param int id, ID of the current record
+	*/
 	createButton:function (id) {
 		var btn_edit = new Ext.form.Label({
 			renderTo: 'user_edit' + id,
@@ -158,7 +180,6 @@ cf.UserGrid = function(){return {
 						},
 					scope: c
 				});
-
 				}
 			}
 		});

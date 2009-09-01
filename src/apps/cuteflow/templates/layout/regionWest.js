@@ -1,6 +1,5 @@
 /**
 * Class creates the Navigation for the west Region.
-* Navigation type is a TreeTabpanel.
 * Class also Handles the Click Functionality and adds Navigation Clicks to TabPanel
 *
 */

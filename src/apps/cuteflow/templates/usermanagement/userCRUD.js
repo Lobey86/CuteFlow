@@ -1,7 +1,10 @@
+/**
+* Class implements the CRUD Functions for the users.
+*
+*/ 
 cf.UserCRUD = function(){return {
-
-
-
+	
+	/** delete selected users from the grid and database **/
 	deleteUser: function () {
 		var grid = Ext.getCmp('grid');
 		var rows = grid.getSelectionModel().getSelections();
@@ -26,6 +29,7 @@ cf.UserCRUD = function(){return {
 		}
 	},
 	
+	/** edit user **/
 	editUser: function (userId) {
 		alert(userId);
 	}

@@ -1,9 +1,15 @@
+/**
+* Main class for Rolemanegement, which loads the grid into an panel
+*
+*/
+
 cf.UserRoleManagement = function(){return {
 	
 	isInitialized 	                 : false,
 	theManagementWindow              : false,
 	
 	
+	/** init grid and window **/
 	init: function () {
 		if (this.isInitialized == false) {
 			this.isInitialized = true;
@@ -13,6 +19,7 @@ cf.UserRoleManagement = function(){return {
 		}
 	},
 	
+	/** inits the panel for grid **/
 	initWindow: function () {
 		this.theManagementWindow = new Ext.Panel({
 			title: '<?php echo __('Role management',null,'userrolemanagement'); ?>',
@@ -24,10 +31,21 @@ cf.UserRoleManagement = function(){return {
 		});
 	},
 	
+	/** 
+	 * Part of the API
+	 * set value if class is already initialized. 
+	 * @param boolean value
+	 *
+	 **/
 	setInitialized: function (value) {
 		this.isInitialized = value;
 	},
 	
+	/**
+	* Part of the API
+	* This function returns the window, to add it into tabpanel
+	*
+	*/
 	getInstance: function() {
 		return this.theManagementWindow;
 	}

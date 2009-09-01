@@ -1,3 +1,8 @@
+/**
+* Class initialzies the Grid to display all roles stored in DB.
+* Paging and Searchbar is not needed here
+* 
+*/
 cf.UserRoleGrid = function(){return {
 	theUserRoleGrid					:false,
 	isInitialized					:false,
@@ -6,7 +11,7 @@ cf.UserRoleGrid = function(){return {
 	theUserRoleCM					:false,
 	theTopToolBar					:false,
 	
-
+	/** inits all necessary functions to build the grid and its toolbars **/
 	init: function () {
 			this.isInitialized = true;
 			this.initUserRoleStore();
@@ -17,6 +22,7 @@ cf.UserRoleGrid = function(){return {
 	},
 	
 	
+	/** Grid and store, toolbar and cm are binded **/
 	initUserRoleGrid: function () {
 		this.theUserRoleGrid = new Ext.grid.GridPanel({
 				title: '<?php echo __('Role management',null,'userrolemanagement'); ?>',
@@ -32,7 +38,7 @@ cf.UserRoleGrid = function(){return {
 		
 	},
 	
-	
+	/** columnModel **/
 	initUserRoleCM: function() {
 		this.theUserRoleCM  =  new Ext.grid.ColumnModel([
 			{header: "#", width: 50, sortable: true, dataIndex: '#', css : "text-align : left;font-size:12px;align:center;"},
@@ -42,6 +48,7 @@ cf.UserRoleGrid = function(){return {
 		]);
 	},
 	
+	/** Toolbar, to add new role **/
 	initTopToolBar: function () {
 		this.theTopToolBar = new Ext.Toolbar({
 			items: [{
@@ -49,12 +56,13 @@ cf.UserRoleGrid = function(){return {
                 tooltip:'<?php echo __('Add new Userrole',null,'userrolemanagement'); ?>',
                 disabled: false,
                 handler: function () {
-                	cf.AddRoleWindow.init(1,'');
+                	cf.AddRoleWindow.init(1,''); // new popup is opened, 1 = new record
                 }
 			}]
 		});	
 	},
 	
+	/** the store for grid **/
 	initUserRoleStore: function () {
 		this.theUserRoleStoreIsInitialized = true;
 		this.theUserRoleStore = new Ext.data.JsonStore({
@@ -74,14 +82,11 @@ cf.UserRoleGrid = function(){return {
 		});
 	},
 	
-	setInitialized: function (value) {
-		this.isInitialized = value;
-	},
-	
-	getInstance: function() {
-		return this.theUserRoleGrid;
-	},
-	
+	/** 
+	* function created edit and delete button for the grid. button is displayed as label 
+	*
+	* @param int id, id of the record
+	**/
 	createButtons: function (id) {
 		var btn_delete = new Ext.form.Label(  {
 			renderTo: 'role_del_' + id,
@@ -120,6 +125,7 @@ cf.UserRoleGrid = function(){return {
 	
 	},
 	
+	/** render both buttons to grid **/
 	renderAction: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 		var action = record.data['action'];
 		if (action == 1) { // item is deleteable and editable!

@@ -1,3 +1,9 @@
+/**
+* Class builds all all necessary Textfields for the Loginpage
+*
+*/
+
+
 cf.Textfield = function(){return {
 	
 	theUsernameField   		: false,
@@ -5,6 +11,7 @@ cf.Textfield = function(){return {
 	theHiddenField			: false,
 	thePanel				: false,
 	
+	/** Functions calls all necessary functions to init the login window **/
 	init: function(){
 		this.initUsernameField();
 		this.initUserpasswordField();
@@ -12,6 +19,7 @@ cf.Textfield = function(){return {
 		this.initPanel();
 	}, 
 	
+	/** Textfield **/
 	initUsernameField: function() {
 		this.theUsernameField = new Ext.form.TextField({
 			id: 'username',
@@ -20,7 +28,7 @@ cf.Textfield = function(){return {
 			width: 225
 		});
 	},
-	
+	/** Hiddenfield **/
 	initHiddenField: function () {
 		this.theHiddenField =  new Ext.form.Hidden({
 			id: 'hiddenfield',
@@ -30,6 +38,7 @@ cf.Textfield = function(){return {
 		});
 	},
 	
+	/** Textfield **/
 	initUserpasswordField: function() {
 		this.theUserpasswordField = new Ext.form.TextField({
 			id:'userpassword',
@@ -40,6 +49,7 @@ cf.Textfield = function(){return {
 		});
 	},
 	
+	/** Panel, where all textfields and combo will be added **/
 	initPanel: function() {
 		this.thePanel = new Ext.Panel({
 			plain: true,
