@@ -8,189 +8,145 @@ cf.Navigation = function(){return {
 	
 	isInitialized                 : false,
 	theAccordion            	  : false, // stores the left Navigationpabel
-	theFirstItem				  : false,
-	theSecondItem				  : false,
-	theThirdItem				  : false,
-	theFirstItemTree			  : false,
-	theSecondItemTree			  : false,
-	theThirdItemTree			  : false,
+
 	
 	/*********************************/
 	
 	init: function () {
-		this.initAccordionLayout();
-		this.initFirstItems();
-		this.initSecondItems();
-		this.initThirdItems();
-		this.theFirstItem.add(this.theFirstItemTree);
-		this.theSecondItem.add(this.theSecondItemTree);
-		this.theThirdItem.add(this.theThirdItemTree);
-		//this.theAccordion.setActiveItem(this.theThirdItem);
+		this.initAccordion();
+		this.initTree();
+		
 	},
 	
-	initFirstItems: function () {
-		this.theFirstItemTree = new Ext.tree.TreePanel({
-			width: 230,
-			frame: false,
-			bodyStyle:'padding:5px;font-size:11px;background-color:#f4f4f4;',
-			rootVisible: false,
-			loader: new Ext.tree.TreeLoader(),
-			border: false,
-			id: 'firstItem',
-			root: new Ext.tree.AsyncTreeNode({
-				children: [{
-					icon: '/images/icons/note_go.png',
-					leaf: true,
-					text: '<span style="font-size:14px;">Dokumentenuml&auml;ufe</span>'
-				}]
-			})
+	initTree: function () {
+		var url =  '<?php echo url_for('menue/loadMenue')?>';
+		Ext.Ajax.request({  
+			url : url,
+			success: function(objServerResponse){
+				theJsonTreeData = Ext.util.JSON.decode(objServerResponse.responseText);
+				cf.Navigation.initNavigation(theJsonTreeData);
+			}
 		});
 	},
-	
-	initSecondItems: function () {
-		this.theSecondItemTree = new Ext.tree.TreePanel({
-			width: 230,
-			frame: false,
-			bodyStyle:'padding:5px;font-size:11px;background-color:#f4f4f4;',
-			rootVisible: false,
-			loader: new Ext.tree.TreeLoader(),
-			border: false,
-			id: 'secondItem',
-			root: new Ext.tree.AsyncTreeNode({
-				children: [{
-					icon: '/images/icons/note_go.png',
-					leaf: true,
-					text: '<span style="font-size:14px;">Dokumentenuml&auml;ufe</span>'
-				}]
-			})
-		});
-	},
-	
-	initThirdItems: function () {
-		this.theThirdItemTree = new Ext.tree.TreePanel({
-			width: 230,
-			frame: false,
-			bodyStyle:'padding:5px;font-size:11px;background-color:#f4f4f4;',
-			rootVisible: false,
-			loader: new Ext.tree.TreeLoader(),
-			border: false,
-			id: 'thirdItem',
-			root: new Ext.tree.AsyncTreeNode({
-				children: [{
-					icon: '/images/icons/group.png',
-					leaf: true,
-					id: 'nodeUser',
-					disabled: <?php $arr = $sf_user->getAttribute('credential');echo $arr['administration_usermanagement_showModule'];?>,
-					text: '<span style="font-size:14px;"><?php echo __('User management',null,'layout'); ?></span>'
-				},{
-					icon: '/images/icons/user_edit.png',
-					disabled: <?php $arr = $sf_user->getAttribute('credential');echo $arr['administration_myprofile_showModule'];?>,
-					leaf: true,
-					text: '<span style="font-size:14px;"><?php echo __('My Profile',null,'layout'); ?></span>'
-				},{
-					icon: '/images/icons/wrench.png',
-					leaf: true,
-					text: '<span style="font-size:14px;"><?php echo __('System settings',null,'layout'); ?></span>'
-				},{
-					icon: '/images/icons/cog_add.png',
-					id: 'nodeRoleManagement',
-					leaf: true,
-					disabled: <?php $arr = $sf_user->getAttribute('credential');echo $arr['administration_userrolemanagement_showModule'];?>,
-					text: '<span style="font-size:14px;"><?php echo __('Userrole management',null,'layout'); ?></span>'
-				},{
-					icon: '/images/icons/note_go.png',
-					leaf: true,
-					text: '<span style="font-size:14px;"><?php echo __('Send Message',null,'layout'); ?></span>'
-				}]
-			})
-		});
-		this.theThirdItemTree.on('click', function(node){
-			cf.Navigation.handleTreeClick(node);
-		});
-	},
-	
-	initAccordionLayout: function () {
-		if (this.isInitialized == false) {
-			this.isInitialized = true;
-			
-			this.theFirstItem = new Ext.Panel({
-                title: '<table><tr><td><img src="/images/icons/world.png" /></td><td style="font-size:15px;">&nbsp;&nbsp;<b>Uml&auml;ufe</b></td></tr></table>',
+
+	initNavigation: function (theJsonTreeData) {
+		for(var a=0;a<theJsonTreeData.result.length;a++) {
+			var panel = new Ext.Panel({
+                title: '<table><tr><td><div id="' + theJsonTreeData.result[a].usermodule.icon + '"></div></td><td style="font-size:15px;">&nbsp;&nbsp;<b>'+theJsonTreeData.result[a].usermodule.translation+'</b></td></tr></table>',
 				collapsed: true
             });
+            var tree = new Ext.tree.TreePanel({
+				width: 230,
+				frame: false,
+				animate: true,
+			    enableDD: true,
+				bodyStyle:'padding:5px;',
+				rootVisible: false,
+				border: false,
+				expanded: true,
+				id: theJsonTreeData.result[a].usermodule.id
+        	});
+        	var root = new Ext.tree.TreeNode({
+        		text: 'root',
+        		expanded: true
+        	});
 
-            this.theSecondItem = new Ext.Panel({
-                title: '<table><tr><td><img src="/images/icons/brick.png" /></td><td style="font-size:15px;">&nbsp;&nbsp;<b>Management</b></td></tr></table>',
-				collapsed: true
-            });
-
-            this.theThirdItem = new Ext.Panel({
-                title: '<table><tr><td><img src="/images/icons/tux.png" /></td><td style="font-size:15px;">&nbsp;&nbsp;<b>Verwaltung</b></td></tr></table>'
-            });
-
-			this.theAccordion = new Ext.Panel({
-                margins:'5 0 5 5',
-                split:true,
-                width: 240,
-				layoutConfig: {
-					titleCollapse: true,
-					animate: true
-				},
-				layout:'accordion'
-			
-            });
-			this.theAccordion.add([cf.Navigation.theFirstItem, cf.Navigation.theSecondItem, cf.Navigation.theThirdItem]);
+        	for (var b=0;b<theJsonTreeData.result[a].usermodule.usergroup.length;b++) {
+        		var myTreeItem = theJsonTreeData.result[a].usermodule.usergroup[b];
+        		
+        		root.appendChild({
+					leaf: true,
+					id: myTreeItem.object,
+					disabled: myTreeItem.disabled,
+					iconCls: myTreeItem.icon,
+					//text:  '&nbsp;<span style="font-size:13px;">' + myTreeItem.translation + '</span>',
+					text:  '&nbsp;<span style="font-size:13px;">' + myTreeItem.translation + '</span>',
+					listeners: {
+						click: {
+							fn:function(node,value) {
+								cf.Navigation.handleClick(node);
+							}
+						}
+					}
+        		});
+        		
+        		/*var item = new Ext.tree.TreeNode({
+					leaf: true,
+					id: myTreeItem.object,
+					disabled: myTreeItem.disabled,
+					iconCls: myTreeItem.icon,
+					text:  '&nbsp;' + myTreeItem.translation,
+					listeners: {
+						click: {
+							fn:function(node,value) {
+								cf.Navigation.handleClick(node);
+							}
+						}
+					}
+    			});*/
+        		//root.appendChild(item);
+        	}
+        	tree.setRootNode(root);
+            panel.add(tree);
+			this.theAccordion.add(panel);
 		}
+		this.theAccordion.doLayout();
 	},
 	
-	handleTreeClick: function (node) {
-		if(node.leaf == true && node.disabled == false) {
-			var windowObject;
-			if(node.id == 'nodeUser') {
-				windowObject = cf.UserManagement;
-			}
-			else if (node.id == 'nodeRoleManagement') {
-				windowObject = cf.UserRoleManagement;
-			}
-			
-			
-			
-			if(cf.TabPanel.theTabPanel.items.length > 0) {
-				if (windowObject.isInitialized == false) {
-					windowObject.init();
-					cf.TabPanel.theTabPanel.add(windowObject.getInstance());	
-					cf.TabPanel.theTabPanel.setActiveTab(windowObject.getInstance());
-				}
-				else {
-					var windowLabel = windowObject.getInstance();
-					var tab = cf.TabPanel.theTabPanel.findById(windowLabel.id);
-					if(tab == null) {
-						windowObject.setInitialized(false);
-						windowObject.init();
-						cf.TabPanel.theTabPanel.add(windowObject.getInstance());
-						cf.TabPanel.theTabPanel.setActiveTab(windowObject.getInstance());
-						cf.TabPanel.theTabPanel.doLayout();
-					}
-					else {
-						cf.TabPanel.theTabPanel.setActiveTab(windowObject.getInstance());
-					}
-				}
+	
+	
+	handleClick: function (node) {
+		var c = ('cf.'+node.id);
+		var windowObject = eval(c);
+		if(cf.TabPanel.theTabPanel.items.length > 0) {
+			if (windowObject.isInitialized == false) {
+				windowObject.init();
+				cf.TabPanel.theTabPanel.add(windowObject.getInstance());	
+				cf.TabPanel.theTabPanel.setActiveTab(windowObject.getInstance());
 			}
 			else {
-				cf.Layout.theRegionCenter.remove(cf.TabPanel.theTabPanel);
-				cf.TabPanel.setInitialized(false);
-				cf.TabPanel.init();
-				windowObject.setInitialized(false);
-				windowObject.init();
-				cf.TabPanel.theTabPanel.add(windowObject.getInstance());
-				cf.Layout.theRegionCenter.add(cf.TabPanel.theTabPanel);
-				cf.Layout.theRegionCenter.doLayout();
+				var windowLabel = windowObject.getInstance();
+				var tab = cf.TabPanel.theTabPanel.findById(windowLabel.id);
+				if(tab == null) {
+					windowObject.setInitialized(false);
+					windowObject.init();
+					cf.TabPanel.theTabPanel.add(windowObject.getInstance());
+					cf.TabPanel.theTabPanel.setActiveTab(windowObject.getInstance());
+					cf.TabPanel.theTabPanel.doLayout();
+				}
+				else {
+					cf.TabPanel.theTabPanel.setActiveTab(windowObject.getInstance());
+				}
 			}
 		}
-		// if user has no rights
 		else {
-			if (node.disabled == true) {
-				Ext.MessageBox.alert('<?php echo __('Error',null,'layout'); ?>','<?php echo __('Insufficient rights',null,'layout');?>');
-			}
+			cf.Layout.theRegionCenter.remove(cf.TabPanel.theTabPanel);
+			cf.TabPanel.setInitialized(false);
+			cf.TabPanel.init();
+			windowObject.setInitialized(false);
+			windowObject.init();
+			cf.TabPanel.theTabPanel.add(windowObject.getInstance());
+			cf.Layout.theRegionCenter.add(cf.TabPanel.theTabPanel);
+			cf.Layout.theRegionCenter.doLayout();
 		}
+		
+		
+	},
+	
+	initAccordion: function () {
+		this.theAccordion = new Ext.Panel({
+            margins:'5 0 5 5',
+            split:true,
+            width: 240,
+			layoutConfig: {
+				titleCollapse: true,
+				animate: true
+			},
+			layout:'accordion'
+        });
 	}
+	
+	
+	
+	
 };}();
