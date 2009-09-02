@@ -3,7 +3,7 @@
 *
 */
 
-cf.UserRoleManagement = function(){return {
+cf.administration_userrolemanagement = function(){return {
 	
 	isInitialized 	                 : false,
 	theManagementWindow              : false,
