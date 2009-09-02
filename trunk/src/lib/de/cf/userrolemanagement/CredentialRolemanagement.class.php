@@ -6,12 +6,12 @@
  */
 class CredentialRolemanagement {
 
-        private $records;
-        private $moduleCounter;
-        private $groupCounter;
-        private $firstRun;
-        private $rightCounter;
-        private $context;
+        public $records;
+        public $moduleCounter;
+        public $groupCounter;
+        public $firstRun;
+        public $rightCounter;
+        public $context;
 
         /**
          *
@@ -37,10 +37,12 @@ class CredentialRolemanagement {
          *
          * Function builds out of the data, a tree to display all tabs, groups and rights
          * to the extjs popwindow
+         *
+         * @param array $credentials, array is set in editmode
          * 
          * @return array $result, resultset
          */
-        public function buildTabpanel(array $credentials = NULL) {
+        public function buildTree(array $credentials = NULL) {
             $result = array();
             $a=1;
             foreach($this->records as $item) {
@@ -102,7 +104,7 @@ class CredentialRolemanagement {
          * @param array $credentials, credentials for the role.....
          * @return boolean, true if role is active, false if not.
          */
-        private function checkChecked($item, array $credentials) {
+        public function checkChecked($item, array $credentials) {
             if(in_array($item, $credentials) == true) {
                 return 1;
             }
@@ -121,7 +123,7 @@ class CredentialRolemanagement {
          * @param string $item, value of the current item
          * @return string $item, retursn item or nothing.
          */
-        private function checkGroup($result, $item) {
+        public function checkGroup($result, $item) {
             $flag = false;
             if ($this->firstRun == false OR $this->groupCounter > 0) {
                 foreach($result['usermodule']['usergroup'] as $group) {
@@ -152,7 +154,7 @@ class CredentialRolemanagement {
          * @param string $item, value of the current item
          * @return string $item, retursn item or nothing.
          */
-        private function checkModule($result, $item) {
+        public function checkModule($result, $item) {
             $flag = false;
             if ($this->firstRun == false OR $this->moduleCounter > 0) {
                 foreach($result as $module) {
@@ -185,7 +187,7 @@ class CredentialRolemanagement {
          * @param String $item
          * @return boolean, 1 for is Parent, 0 for non-parent
          */
-        private function checkParent($item) {
+        public function checkParent($item) {
             if($item == 'showModule') {
                 return 1;
             }
@@ -201,7 +203,7 @@ class CredentialRolemanagement {
          * @param array $data
          * @return array $data
          */
-        private function sortGroup(array $data) {
+        public function sortGroup(array $data) {
             $store_showModule = array();
             $store_firtsElement = array();
             
