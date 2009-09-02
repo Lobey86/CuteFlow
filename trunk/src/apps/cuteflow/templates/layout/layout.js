@@ -46,10 +46,10 @@ cf.Layout = function(){return {
 			cf.Navigation.init();
 			cf.TabPanel.init();
 			
-			this.theRegionWest.add(cf.Navigation.theAccordion);
+			cf.Layout.theRegionWest.add(cf.Navigation.theAccordion);
 			cf.TabPanel.theTabPanel.add({title: 'Welcome', closable: 'false', html: 'fewfwe'});
 			this.theRegionCenter.add(cf.TabPanel.theTabPanel);
-			
+	
 			
 			this.theMainLayout.doLayout();
 		}
