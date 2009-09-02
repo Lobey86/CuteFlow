@@ -3,7 +3,7 @@
 * where all data will be displayed.
 *
 */
-cf.UserManagement = function(){return {
+cf.administration_usermanagement = function(){return {
 	
 	isInitialized              : false,
 	theUserWindow              : false,
