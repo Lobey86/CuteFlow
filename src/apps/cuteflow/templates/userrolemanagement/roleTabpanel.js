@@ -81,7 +81,7 @@ cf.AddRoleTabpanel = function(){return {
 				var tabCategory = theJsonTreeData.result[a].usermodule.usergroup[b];
 				tabItem.add({
 					xtype: 'fieldset',
-					title: '<table><tr><td><div id="'+tabCategory.icon+'">&nbsp;</div></td><td><div>' + tabCategory.translation + '</div></td></tr></table>',
+					title: '<table><tr><td><div class="'+tabCategory.icon+'">&nbsp;</div></td><td><div>' + tabCategory.translation + '</div></td></tr></table>',
 					id: tabCategory.id,
 					labelWidth: 180, 
 					style:'margin-top:5px;margin-left:5px;margin-right:5px;'
