@@ -133,7 +133,7 @@ class userrolemanagementActions extends sfActions {
         
         $credentialmanagement->setRecords($result);
         $credentialmanagement->setContext($this->getContext());
-        $json_result = $credentialmanagement->buildTabpanel($credentials);
+        $json_result = $credentialmanagement->buildTree($credentials);
 
         if ($request->getParameter('role_id') != '') {
            $this->renderText('{"result":'.json_encode($json_result).',"name":"'.$roleName[0]->getDescription().'"}');
