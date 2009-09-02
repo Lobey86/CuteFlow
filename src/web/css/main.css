@@ -16,3 +16,40 @@
 	height:16px;
 }
 
+.usermanagement_usermodule_administration_usergroupIcon_usermanagement{
+	background-image: url(/images/icons/group.png) !important; 
+	width: 16px;
+	height:16px;
+}
+
+.usermanagement_usermodule_administration_usergroupIcon_userrolemanagement{
+	background-image: url(/images/icons/cog_add.png) !important; 
+	width: 16px;
+	height:16px;
+}
+
+.usermanagement_usermodule_administration_usergroupIcon_myprofile{
+	background-image: url(/images/icons/user_edit.png) !important; 
+	width: 16px;
+	height:16px;
+}
+
+
+
+.no-icon {
+	display : none;
+	background-image:url('/images/default/s.gif') !important;
+}
+
+#usermodule_administration_Icon {
+	background-image: url(/images/icons/tux.png); 
+	width: 17px;
+	height:17px;
+}
+
+
+#usermodule_administration_Icon {
+	background-image: url(/images/icons/tux.png); 
+	width: 17px;
+	height:17px;
+}
