@@ -8,7 +8,7 @@
     </trans-unit>
     <trans-unit id="2">
         <source>usermanagement</source>
-        <target>Usermanagement</target>
+        <target>User management</target>
     </trans-unit>
     <trans-unit id="3">
         <source>userrolemanagement</source>
