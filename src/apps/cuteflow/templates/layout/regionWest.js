@@ -36,8 +36,8 @@ cf.Navigation = function(){return {
 				collapsed: true
             });
             var tree = new Ext.tree.TreePanel({
-				width: 230,
 				frame: false,
+				width: 230,
 				animate: true,
 			    enableDD: true,
 				bodyStyle:'padding:5px;',
@@ -51,9 +51,10 @@ cf.Navigation = function(){return {
         		expanded: true
         	});
 
+
         	for (var b=0;b<theJsonTreeData.result[a].usermodule.usergroup.length;b++) {
         		var myTreeItem = theJsonTreeData.result[a].usermodule.usergroup[b];
-        		
+
         		root.appendChild({
 					leaf: true,
 					id: myTreeItem.object,
