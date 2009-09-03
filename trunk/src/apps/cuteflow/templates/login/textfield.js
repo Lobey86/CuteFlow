@@ -57,6 +57,7 @@ cf.Textfield = function(){return {
 			height: 104,
 			buttonAlign: 'center',
 			style: 'border:none;',
+			border: 'none',
 		    layout: 'form'
 		});
 	}
