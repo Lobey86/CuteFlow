@@ -17,7 +17,7 @@ cf.AddUserSecondTab = function(){return {
 			layout: 'form',
 			labelWidth : 200,
 			width: 500,
-			height: 600,
+			height: 590,
 			items:[{
 				xtype: 'fieldset',
 				title: 'Anschrift',

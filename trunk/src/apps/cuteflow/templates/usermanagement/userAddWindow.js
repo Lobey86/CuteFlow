@@ -53,7 +53,7 @@ cf.AddUserWindow = function(){return {
 			modal: true,
 			closable: true,
 			modal: true,
-			height: 700,
+			height: 600,
 			width: 650,
 			autoScroll: true,
 			title: title,
