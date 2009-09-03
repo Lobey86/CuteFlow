@@ -89,6 +89,10 @@
 	 <trans-unit id="22">
         <source>Edit user</source>
         <target>Benutzer bearbeiten</target>
+     </trans-unit>		
+	 <trans-unit id="23">
+        <source>Discard</source>
+        <target>Verwerfen</target>
      </trans-unit>		 
     </body>
   </file>
