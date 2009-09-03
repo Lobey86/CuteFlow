@@ -111,13 +111,13 @@ class usermanagementActions extends sfActions {
     * @return <type>
     */
     public function executeLoadAllRole(sfWebRequest $request) {
-        $userrolemanagement = new Usermanagement();
+        $usermanagement = new Usermanagement();
 
         $result = Doctrine_Query::create()
                     ->select('r.*')
                     ->from('Role r')
                     ->execute();
-        $json_result = $userrolemanagement->buildRole($result,0);
+        $json_result = $usermanagement->buildRole($result,0);
 
         $this->renderText('({"result":'.json_encode($json_result).'})');
         return sfView::NONE;
@@ -142,4 +142,70 @@ class usermanagementActions extends sfActions {
     }
 
     
+    /**
+     * Function loads Users for SuperComboBox
+     * 
+     * @param sfWebRequest $reques
+     * @return <type> 
+     */
+    public function executeLoadSuperComboboxUser(sfWebRequest $request) {
+        $usermanagement = new Usermanagement();
+
+        $result = Doctrine_Query::create()
+            ->select('u.id, CONCAT(u.firstname,\' \',u.lastname) AS text')
+            ->from('User u')
+            ->execute();
+
+        $json_result = $usermanagement->buildSuperBoxUser($result);
+        $this->renderText('({"result":'.json_encode($json_result).'})');
+        return sfView::NONE;
+    }
+
+
+    /**
+     * Checks if an user is already in database stored
+     *
+     * @param sfWebRequest $request
+     * @return <type>
+     */
+    public function executeCheckForExistingUser(sfWebRequest $request) {
+        $result = Doctrine_Query::create()
+            ->from('User u')
+            ->where('u.username = ?', $request->getParameter('username'))
+            ->execute();
+
+        if($result[0]->getUsername() == $request->getParameter('username')) {
+            $this->renderText('0'); // no write access
+        }
+        else {
+            $this->renderText('1'); // write access
+        }
+        return sfView::NONE;
+    }
+
+
+    /**
+     * Stores new user to databse
+     * 
+     * @param sfWebRequest $reques
+     */
+    public function executeAddUser(sfWebRequest $request) {
+        $this->renderText('{success:true}');
+        return sfView::NONE;
+    }
+
+
+    /**
+     *
+     * Loads Data to edit a single User
+     * 
+     * @param sfWebRequest $request
+     */
+    public function executeLoadSingleUser(sfWebRequest $request) {
+
+        $this->renderText('Username und so');
+        #$this->renderText('{"result":'.json_encode($json_result).'}');
+        return sfView::NONE;
+    }
+   
 }
