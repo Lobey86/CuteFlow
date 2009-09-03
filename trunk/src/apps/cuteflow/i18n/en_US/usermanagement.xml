@@ -90,6 +90,10 @@
         <source>Edit user</source>
         <target>Edit user</target>
      </trans-unit>		 
+	 <trans-unit id="23">
+        <source>Discard</source>
+        <target>Discard</target>
+     </trans-unit>	
     </body>
   </file>
 </xliff>
