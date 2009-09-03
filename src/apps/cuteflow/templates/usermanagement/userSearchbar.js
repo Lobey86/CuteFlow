@@ -67,49 +67,72 @@ cf.UserSearchbar = function(){return {
 						allowBlank: true,
 						width: 150
 					},{
-						xtype: 'button',
-						text: '<?php echo __('Search',null,'usermanagement'); ?>',
-						name: 'search',
-						id: 'search',
-						style:'margin-bottom:5px;margin-left:3px;',
-						handler: function (){
-							
-							var flag = false;
-							var append = '';
-							
-							if(Ext.getCmp('firstname').getValue() != '') {
-								append += '/firstname/' + Ext.getCmp('firstname').getValue();
-								flag = true;
+				        xtype: 'fieldset',
+						autoHeight: true,
+				        border: false,
+				        defaultType: 'textfield',
+				        layout: 'column',
+				        items:[{
+							xtype: 'button',
+							text: '<?php echo __('Search',null,'usermanagement'); ?>',
+							name: 'search',
+							id: 'search',
+							width: 70,
+							style:'margin-bottom:5px;margin-left:35px;',
+							handler: function (){
+								
+								var flag = false;
+								var append = '';
+								
+								if(Ext.getCmp('firstname').getValue() != '') {
+									append += '/firstname/' + Ext.getCmp('firstname').getValue();
+									flag = true;
+								}
+								if(Ext.getCmp('lastname').getValue() != '') {
+									append += '/lastname/' + Ext.getCmp('lastname').getValue();
+									flag = true;
+								}
+								if(Ext.getCmp('email').getValue() != '') {
+									append += '/email/' + Ext.getCmp('email').getValue();
+									flag = true;
+								}
+								if(Ext.getCmp('username').getValue() != '') {
+									append += '/username/' + Ext.getCmp('username').getValue();
+									flag = true;
+								}
+								if(Ext.getCmp('userrole').getValue() != '') {
+									append += '/userrole/' + Ext.getCmp('userrole').getValue();
+									flag = true;
+								}
+	
+								if (flag == true) {
+									var url = encodeURI('<?php echo url_for('usermanagement/LoadAllUserFilter')?>' + append);
+									cf.UserGrid.theUserStore.proxy.setApi(Ext.data.Api.actions.read,url);
+									cf.UserGrid.theUserStore.reload();
+								}
+								else {
+									var url = encodeURI('<?php echo url_for('usermanagement/LoadAllUser')?>');
+									cf.UserGrid.theUserStore.proxy.setApi(Ext.data.Api.actions.read,url);
+								}
 							}
-							if(Ext.getCmp('lastname').getValue() != '') {
-								append += '/lastname/' + Ext.getCmp('lastname').getValue();
-								flag = true;
-							}
-							if(Ext.getCmp('email').getValue() != '') {
-								append += '/email/' + Ext.getCmp('email').getValue();
-								flag = true;
-							}
-							if(Ext.getCmp('username').getValue() != '') {
-								append += '/username/' + Ext.getCmp('username').getValue();
-								flag = true;
-							}
-							if(Ext.getCmp('userrole').getValue() != '') {
-								append += '/userrole/' + Ext.getCmp('userrole').getValue();
-								flag = true;
-							}
-
-							if (flag == true) {
-								var url = encodeURI('<?php echo url_for('usermanagement/LoadAllUserFilter')?>' + append);
+						},{
+							xtype: 'button',
+							text: '<?php echo __('Discard',null,'usermanagement'); ?>',
+							name: 'search',
+							id: 'discard',
+							width: 70,
+							style:'margin-bottom:5px;margin-left:25px;',
+							handler: function () {
+								Ext.getCmp('firstname').setValue();
+								Ext.getCmp('lastname').setValue();
+								Ext.getCmp('email').setValue();
+								Ext.getCmp('username').setValue();
+								Ext.getCmp('userrole').setValue();
+								var url = encodeURI('<?php echo url_for('usermanagement/LoadAllUser')?>');
 								cf.UserGrid.theUserStore.proxy.setApi(Ext.data.Api.actions.read,url);
 								cf.UserGrid.theUserStore.reload();
 							}
-							else {
-								var url = encodeURI('<?php echo url_for('usermanagement/LoadAllUser')?>');
-								cf.UserGrid.theUserStore.proxy.setApi(Ext.data.Api.actions.read,url);
-							}
-							
-						},
-						width: 70
+						}]
 					}]
 				}]
 		});
