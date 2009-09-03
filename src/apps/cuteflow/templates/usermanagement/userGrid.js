@@ -58,7 +58,7 @@ cf.UserGrid = function(){return {
                 tooltip:'<?php echo __('Add new user',null,'usermanagement'); ?>',
                 disabled: <?php $arr = $sf_user->getAttribute('credential');echo $arr['administration_usermanagement_addUser'];?>,
                 handler: function () {
-                	cf.AddUserWindow.init(); // pop will be displayed to add new User
+                	cf.AddUserWindow.init(1,''); // pop will be displayed to add new User
                 }
 		    },'-',
             {
@@ -178,7 +178,7 @@ cf.UserGrid = function(){return {
 					  c.getEl().on({
 						click: function(el){
 							if (Ext.getCmp(id).disabled == false) {
-								cf.UserCRUD.editUser(id);
+								cf.AddUserWindow.init(0,id);
 							}
 						},
 					scope: c

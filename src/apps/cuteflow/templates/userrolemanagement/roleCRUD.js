@@ -45,7 +45,7 @@ cf.RoleCRUD = function(){return {
 					url : '<?php echo url_for('userrolemanagement/CheckForExistingRole')?>/description/' + textfield.getValue(),
 					success: function(objServerResponse){
 						if(objServerResponse.responseText == 1) { // save Role
-							cf.AddRoleTabpanel.theFormPanel.getForm().submit({
+							cf.theAddUserWindow.theFormPanel.getForm().submit({
 								url: '<?php echo url_for('userrolemanagement/AddRole')?>',
 								method: 'POST',
 								success: function() {
