@@ -23,7 +23,7 @@ cf.AddUserFirstTab = function(){return {
 			autoScroll: true,
 			labelWidth : 200,
 			width: 500,
-			height: 600,
+			height: 500,
 			items:[{
 				xtype: 'hidden',
 				id: 'hiddenfield',
