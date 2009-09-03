@@ -41,8 +41,8 @@ class Usermanagement {
      * Function builds Role for Extjs
      *
      * @param Doctrine_Collection $data
-     * @param <type> $index
-     * @return <type>
+     * @param int $index, index for counter
+     * @return array $result, resultset
      */
     public function buildRole(Doctrine_Collection $data, $index) {
 
@@ -54,6 +54,18 @@ class Usermanagement {
             $result[$a++]['description'] = $item->getDescription();
         }
         return $result;
+    }
+
+
+    public function buildSuperBoxUser(Doctrine_Collection $data) {
+        $result = array();
+        $a = 0;
+        foreach($data as $item) {
+            $result[$a]['id'] = $item->getId();
+            $result[$a++]['text'] = $item->getText();
+        }
+        return $result;
+
     }
 
 
