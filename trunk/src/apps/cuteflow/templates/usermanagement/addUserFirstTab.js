@@ -23,7 +23,7 @@ cf.AddUserFirstTab = function(){return {
 			autoScroll: true,
 			labelWidth : 200,
 			width: 500,
-			height: 500,
+			height: 600,
 			items:[{
 				xtype: 'hidden',
 				id: 'hiddenfield',
@@ -99,6 +99,7 @@ cf.AddUserFirstTab = function(){return {
 					labelStyle: 'font-weight:bolder;',
 					valueField: 'id',
 					mode: 'local',
+					hiddenName : 'roleid',
 					displayField: 'description',
 					store: this.theComboRoleStore,
 					editable: false,
@@ -143,11 +144,13 @@ cf.AddUserFirstTab = function(){return {
 						width: 35
         			},{
 						xtype: 'combo', // number of records to display in grid
-						id: 'durationtype',
+						id: 'type',
+						name: 'type',
 						mode: 'local',
-						value: 'Tage(n)',
+						//value: 'Tage(n)',
 						editable:false,
 						allowBlank: true,
+						hiddenName: 'durationtype',
 						triggerAction: 'all',
 						foreSelection: true,
 						store: new Ext.data.SimpleStore({
@@ -161,6 +164,7 @@ cf.AddUserFirstTab = function(){return {
 				}]
 			}]
 		});
+		Ext.getCmp('type').setValue('DAYS');
 		
 	},
 	
