@@ -54,7 +54,7 @@ cf.Textfield = function(){return {
 		this.thePanel = new Ext.Panel({
 			plain: false,
 			frame: true,
-			height: 106,
+			height: 105,
 			layout : 'fit',
 			buttonAlign: 'center',
 		    layout: 'form'
