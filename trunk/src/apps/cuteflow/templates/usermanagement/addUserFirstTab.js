@@ -1,3 +1,7 @@
+/**
+* Class adds the first Tab when editing and creating new user
+*
+*/
 cf.AddUserFirstTab = function(){return {
 	
 	theFirstPanel					: false,
@@ -6,13 +10,14 @@ cf.AddUserFirstTab = function(){return {
 	
 	
 	
-	
+	/** calls all necessary functions **/
 	init: function() {
 		this.initRoleStore();
 		this.initUserStore();
 		this.initPanel();
 	},
 	
+	/** builds panel and its elements **/
 	initPanel: function () {
 		this.theFirstPanel = new Ext.Panel({
 			title: 'Benutzerdaten',
@@ -169,6 +174,7 @@ cf.AddUserFirstTab = function(){return {
 	},
 	
 	
+	/** Store for superselectbox **/
 	initUserStore: function () {
 		this.theComboUserStore = new Ext.data.JsonStore({
 			root: 'result',
@@ -182,6 +188,7 @@ cf.AddUserFirstTab = function(){return {
 		cf.AddUserFirstTab.theComboUserStore.load();
 	},
 	
+	/** store for roles **/
 	initRoleStore: function () {
 		this.theComboRoleStore = new Ext.data.JsonStore({
 				root: 'result',
