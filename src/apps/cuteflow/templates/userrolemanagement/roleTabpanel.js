@@ -72,6 +72,8 @@ cf.AddRoleTabpanel = function(){return {
 			var tabItem = new Ext.Panel({
 				title: theJsonTreeData.result[a].usermodule.translation,
 				id: theJsonTreeData.result[a].usermodule.id,
+				height: 529,
+				autoScroll:true,
 				layout: 'form',
 				frame: true
 			});
@@ -142,6 +144,8 @@ cf.AddRoleTabpanel = function(){return {
 		this.theRoleNameText = new Ext.Panel({
 			title: '<?php echo __('Description',null,'userrolemanagementpopup'); ?>',
 			frame: true,
+			height: 529,
+			style: 'border:none;',
 			items:[{
 				xtype: 'fieldset',
 				title: '<?php echo __('Userrole description',null,'userrolemanagementpopup'); ?>',
