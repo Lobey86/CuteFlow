@@ -1,13 +1,18 @@
+/**
+* Class adds the second Tab when editing and creating new user
+*
+*/
 cf.AddUserSecondTab = function(){return {
 	
 	theSecondPanel					: false,
 	
 	
-	
+	/** calls all necessary functions **/
 	init: function() {
 		this.initPanel();
 	},
 	
+	/** builds panel and its elements **/
 	initPanel: function () {
 		this.theSecondPanel = new Ext.Panel({
 			title: 'Benutzerdetails',
@@ -17,7 +22,7 @@ cf.AddUserSecondTab = function(){return {
 			layout: 'form',
 			labelWidth : 200,
 			width: 500,
-			height: 590,
+			height: 600,
 			items:[{
 				xtype: 'fieldset',
 				title: 'Anschrift',
