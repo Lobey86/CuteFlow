@@ -74,7 +74,15 @@ cf.UserCRUD = function(){return {
 				});
 			}
 			else {
-				// edit
+				cf.AddUserWindow.theFormPanel.getForm().submit({
+					url: '<?php echo url_for('usermanagement/EditUser')?>',
+					method: 'POST',
+					success: function(objServerResponse){
+						cf.UserGrid.theUserStore.reload();
+						cf.AddUserWindow.theAddUserWindow.hide();
+						cf.AddUserWindow.theAddUserWindow.destroy();
+					}
+				});
 			}
 			
 		}
