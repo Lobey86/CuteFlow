@@ -39,15 +39,16 @@ User:
     street: { type: string(100) }
     zip: { type: string(100) }
     city: { type: string(100) }
+    country: { type: string(100) }
     phone1: { type: string(100) }
     phone2: { type: string(100) }
     mobile: { type: string(100) }
     fax: { type: string(100) }
     organisation: { type: string(100) }
     department: { type: string(100) }
-    burdenCenter: { type: string(100) }
+    burdencenter: { type: string(100) }
     emailFormat: { type: string(100) }
-    comment: { type: object }
+    comment: { type: string(1000) }
   relations:
     Role: { class: Role, local: role_id, foreign: id, foreignType: many, type: one }
 
