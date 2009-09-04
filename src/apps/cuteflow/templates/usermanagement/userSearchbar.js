@@ -10,6 +10,7 @@ cf.UserSearchbar = function(){return {
 	theUserRoleStore			:false,
 	theUserRoleStoreInitialized :false,
 	
+	/** init searchbar function, handles also search functioniality**/
 	init: function () {
 		this.initRoleStore();
 		this.theUserSearchbar = new Ext.Panel({
@@ -138,6 +139,7 @@ cf.UserSearchbar = function(){return {
 		});
 	},
 	
+	/** store for roles in searchbar **/
 	initRoleStore: function () {
 		this.theUserRoleStoreInitialized = true;
 		this.theUserRoleStore = new Ext.data.JsonStore({

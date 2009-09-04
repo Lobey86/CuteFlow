@@ -1,5 +1,5 @@
 /**
-* Class opens new window, to add a new user
+* Class opens new window, to add a new user or edit an exisiting user
 */
 cf.AddUserWindow = function(){return {
 	
@@ -8,6 +8,14 @@ cf.AddUserWindow = function(){return {
 	theFormPanel						:false,
 	theTabpanel							:false,
 	
+	/**
+	*
+	* function calls all necesarry function to init the tab for editing / creating a user
+	*
+	* @param boolean new_flag, 1 if new user, 0 if edit user
+	* @param int id, id is set, if in edit mode
+	*
+	*/
 	init: function (new_flag, id) {
 		cf.AddUserFirstTab.init();
 		cf.AddUserSecondTab.init();
@@ -23,8 +31,15 @@ cf.AddUserWindow = function(){return {
 		this.theAddUserWindow.show();
 	},
 	
+	/**
+	*
+	* function sets the default values when editing a user. when new user is created , nothing is done.
+	*
+	* @param boolean new_flag, 1 if new user, 0 if edit user
+	* @param int id, id is set, if in edit mode
+	*
+	*/
 	addValues: function (new_flag, id) {
-		
 		if (new_flag != 1) {
 			Ext.getCmp('username').setDisabled(true);
 			Ext.Ajax.request({  
@@ -61,6 +76,14 @@ cf.AddUserWindow = function(){return {
 		}
 	},
 	
+	/**
+	*
+	* function inits the tabwindow, and contains an save and cancel button
+	*
+	* @param boolean new_flag, 1 if new user, 0 if edit user
+	* @param int id, id is set, if in edit mode
+	*
+	*/
 	initWindow: function(new_flag, id) {
 		if(new_flag == 1) {
 			var title = 'Neuer Benutzer anlegen';
@@ -110,12 +133,14 @@ cf.AddUserWindow = function(){return {
 		});
 	},
 	
+	/** Form Panel **/
 	initFormPanel: function () {
 		this.theFormPanel = new Ext.FormPanel({
 			id: 'submitUser'
 		})
 		
 	},
+	/** Tabpanel to store the tabs **/
 	initTabpanel: function () {
 		this.theTabpanel = new Ext.TabPanel({
 			frame: true,
