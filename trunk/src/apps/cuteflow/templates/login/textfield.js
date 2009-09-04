@@ -52,12 +52,11 @@ cf.Textfield = function(){return {
 	/** Panel, where all textfields and combo will be added **/
 	initPanel: function() {
 		this.thePanel = new Ext.Panel({
-			plain: true,
+			plain: false,
 			frame: true,
-			height: 104,
+			height: 106,
+			layout : 'fit',
 			buttonAlign: 'center',
-			style: 'border:none;',
-			border: 'none',
 		    layout: 'form'
 		});
 	}
