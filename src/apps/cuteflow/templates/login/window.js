@@ -15,6 +15,7 @@ cf.Window = function(){return {
 		title: '<div style="float:left;"><img src="/images/icons/key.png" /></div><div>&nbsp;&nbsp;CuteFlow - <?php echo __('Login',null,'login') ?></div>',
 		closable: false,
 		draggable: true,
+		border: false,
 		buttonAlign: 'center', 
                 buttons: [{ 
                     id: 'loginButton',
