@@ -192,8 +192,8 @@ class userrolemanagementActions extends sfActions {
 
             foreach($values as $item) {
                 $rolecredObj = new CredentialRole();
-                $rolecredObj->setRole_id($id);
-                $rolecredObj->setCredential_id($item);
+                $rolecredObj->setRolId($id);
+                $rolecredObj->setCredentialId($item);
                 $rolecredObj->save();
             }
         }
@@ -227,8 +227,8 @@ class userrolemanagementActions extends sfActions {
 
         foreach($values as $item) {
             $rolecredObj = new CredentialRole();
-            $rolecredObj->setRole_id($id);
-            $rolecredObj->setCredential_id($item);
+            $rolecredObj->setRoleId($id);
+            $rolecredObj->setCredentialId($item);
             $rolecredObj->save();
         }
         $this->renderText('{success:true}');
