@@ -56,7 +56,12 @@ class Usermanagement {
         return $result;
     }
 
-
+    /**
+     *  Builds data for the superselectbox in edit / new User
+     *
+     * @param Doctrine_Collection $data, data
+     * @return array $result
+     */
     public function buildSuperBoxUser(Doctrine_Collection $data) {
         $result = array();
         $a = 0;
@@ -67,6 +72,80 @@ class Usermanagement {
         return $result;
 
     }
+
+
+    public function buildSingleUser(Doctrine_Collection $data) {
+        $result = array();
+
+        foreach($data as $item) {
+            $result['id'] = $item->getId();
+            $result['username'] = $item->getUsername();
+            $result['firstname'] = $item->getFirstname();
+            $result['lastname'] = $item->getLastname();
+            $result['email'] = $item->getEmail();
+            $result['password'] = $item->getPassword();
+            $result['role_id'] = $item->getRoleId();
+            $result['street'] = $item->getStreet();
+            $result['zip'] = $item->getZip();
+            $result['city'] = $item->getCity();
+            $result['country'] = $item->getCountry();
+            $result['phone1'] = $item->getPhone1();
+            $result['phone2'] = $item->getPhone2();
+            $result['mobil'] = $item->getMobile();
+            $result['fax'] = $item->getFax();
+            $result['organisation'] = $item->getOrganisation();
+            $result['department'] = $item->getDepartment();
+            $result['burdencenter'] = $item->getBurdencenter();
+            $result['comment'] = $item->getComment();
+            $useragentItem = $item->getUserAgent();
+            $userrole = $item->getRole();
+            $result['rolename'] = $userrole->getDescription();
+            $result['useragent'] = $this->buildUserAgent($item->getUserAgent());
+            $result['durationlength'] = $useragentItem[0]->getDurationlength();
+            $result['durationtype'] = $useragentItem[0]->getDurationtype();
+        }
+        return $result;
+    }
+
+    /**
+     *
+     * function builds for one user, an all useragnet and returns a string. this is needed
+     * for superselectbox in extjs gui
+     *
+     * @param Doctrine_Collection $useragent, data for useragents
+     * @return string $result, returns an string that contains all useragents
+     */
+    public function buildUserAgent(Doctrine_Collection $useragent) {
+        $string = '';
+
+        $result = array();
+        foreach ($useragent as $item) {
+            $result[] = $item->getUseragentId();
+        }
+       
+        if (count($result) == 1) {
+            return $result[0];
+        }
+        elseif (count($result) > 1) {
+            $string = $result[0];
+            for($a=1;$a<count($result);$a++){
+                $string = $string .','. $result[$a];
+            }
+            return $string;
+        }
+        else {
+            return '';
+        }
+        
+    }
+
+
+
+
+
+
+
+
 
 
 }
