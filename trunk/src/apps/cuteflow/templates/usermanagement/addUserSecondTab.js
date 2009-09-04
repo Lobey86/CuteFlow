@@ -153,7 +153,7 @@ cf.AddUserSecondTab = function(){return {
 					name: 'comment',
 					allowBlank: true,
 					width: 200,
-					height: 80
+					height: 70
 				}]
 			}]
 		});
