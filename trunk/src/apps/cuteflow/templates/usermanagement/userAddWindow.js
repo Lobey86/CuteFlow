@@ -30,9 +30,32 @@ cf.AddUserWindow = function(){return {
 			Ext.Ajax.request({  
 				url : '<?php echo url_for('usermanagement/LoadSingleUser')?>/id/' + id,
 				success: function(objServerResponse){
-					//userData = Ext.util.JSON.decode(objServerResponse.responseText);
-					Ext.getCmp('username').setValue(objServerResponse.responseText);
-					Ext.getCmp('agent').setValue('5,6');
+				
+					userData = Ext.util.JSON.decode(objServerResponse.responseText);
+					Ext.getCmp('firstname').setValue(userData.result.firstname);
+					Ext.getCmp('lastname').setValue(userData.result.lastname);
+					Ext.getCmp('email').setValue(userData.result.email);
+					Ext.getCmp('username').setValue(userData.result.username);
+					Ext.getCmp('password').setValue(userData.result.password);
+					Ext.getCmp('passwordAgain').setValue(userData.result.password);
+					Ext.getCmp('userrole').setValue(userData.result.role_id);
+					Ext.getCmp('agent').setValue(userData.result.useragent);
+					if(userData.result.useragent != '') {
+						Ext.getCmp('type').setValue(userData.result.durationtype);
+						Ext.getCmp('durationlength').setValue(userData.result.durationlength);
+					}
+					Ext.getCmp('street').setValue(userData.result.street);
+					Ext.getCmp('zip').setValue(userData.result.zip);
+					Ext.getCmp('city').setValue(userData.result.city);
+					Ext.getCmp('country').setValue(userData.result.country);
+					Ext.getCmp('phone1').setValue(userData.result.phone1);
+					Ext.getCmp('phone2').setValue(userData.result.phone2);
+					Ext.getCmp('mobil').setValue(userData.result.mobil);
+					Ext.getCmp('fax').setValue(userData.result.fax);
+					Ext.getCmp('organisation').setValue(userData.result.organisation);
+					Ext.getCmp('department').setValue(userData.result.department);
+					Ext.getCmp('burdencenter').setValue(userData.result.burdencenter);
+					Ext.getCmp('comment').setValue(userData.result.comment);
 				}
 			});
 		}
@@ -53,7 +76,7 @@ cf.AddUserWindow = function(){return {
 			modal: true,
 			closable: true,
 			modal: true,
-			height: 600,
+			height: 700,
 			width: 650,
 			autoScroll: true,
 			title: title,
