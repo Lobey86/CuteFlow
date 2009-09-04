@@ -10,14 +10,14 @@ cf.Navigation = function(){return {
 	theAccordion            	  : false, // stores the left Navigationpabel
 
 	
-	/*********************************/
-	
+	/** functions loads accordion for region west **/
 	init: function () {
 		this.initAccordion();
 		this.initTree();
 		
 	},
 	
+	/** functions loads all data for the navigation **/
 	initTree: function () {
 		var url =  '<?php echo url_for('menue/loadMenue')?>';
 		Ext.Ajax.request({  
@@ -29,6 +29,7 @@ cf.Navigation = function(){return {
 		});
 	},
 
+	/** functions inits the left navigation out of the ext data **/
 	initNavigation: function (theJsonTreeData) {
 		for(var a=0;a<theJsonTreeData.result.length;a++) {
 			var panel = new Ext.Panel({
@@ -48,44 +49,30 @@ cf.Navigation = function(){return {
         	});
         	var root = new Ext.tree.TreeNode({
         		text: 'root',
+        		loaded: true,
         		expanded: true
         	});
 
 
         	for (var b=0;b<theJsonTreeData.result[a].usermodule.usergroup.length;b++) {
         		var myTreeItem = theJsonTreeData.result[a].usermodule.usergroup[b];
-
-        		root.appendChild({
+				var disabled = myTreeItem.disabled == 'true' ? true : false;
+				root.appendChild(new Ext.tree.TreeNode({
 					leaf: true,
 					id: myTreeItem.object,
-					disabled: myTreeItem.disabled,
+					disabled: disabled,
 					iconCls: myTreeItem.icon,
-					//text:  '&nbsp;<span style="font-size:13px;">' + myTreeItem.translation + '</span>',
 					text:  '&nbsp;<span style="font-size:13px;">' + myTreeItem.translation + '</span>',
 					listeners: {
 						click: {
 							fn:function(node,value) {
-								cf.Navigation.handleClick(node);
+								if(node.disabled == false) {
+									cf.Navigation.handleClick(node);
+								}
 							}
 						}
 					}
-        		});
-        		
-        		/*var item = new Ext.tree.TreeNode({
-					leaf: true,
-					id: myTreeItem.object,
-					disabled: myTreeItem.disabled,
-					iconCls: myTreeItem.icon,
-					text:  '&nbsp;' + myTreeItem.translation,
-					listeners: {
-						click: {
-							fn:function(node,value) {
-								cf.Navigation.handleClick(node);
-							}
-						}
-					}
-    			});*/
-        		//root.appendChild(item);
+				}));
         	}
         	tree.setRootNode(root);
             panel.add(tree);
@@ -95,7 +82,12 @@ cf.Navigation = function(){return {
 	},
 	
 	
-	
+	/**
+	* Function handles the click of a node an generates the window object
+	*
+	* @param Ext.tree.TreeNode node, Treenode object
+	*
+	*/
 	handleClick: function (node) {
 		var c = ('cf.'+node.id);
 		var windowObject = eval(c);
@@ -134,6 +126,7 @@ cf.Navigation = function(){return {
 		
 	},
 	
+	/** function inits the accordion panel **/
 	initAccordion: function () {
 		this.theAccordion = new Ext.Panel({
             margins:'5 0 5 5',
