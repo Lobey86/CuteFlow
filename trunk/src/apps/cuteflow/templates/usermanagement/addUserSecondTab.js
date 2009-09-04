@@ -22,7 +22,7 @@ cf.AddUserSecondTab = function(){return {
 			layout: 'form',
 			labelWidth : 200,
 			width: 500,
-			height: 600,
+			height: 530,
 			items:[{
 				xtype: 'fieldset',
 				title: 'Anschrift',
@@ -153,7 +153,7 @@ cf.AddUserSecondTab = function(){return {
 					name: 'comment',
 					allowBlank: true,
 					width: 200,
-					height: 100
+					height: 80
 				}]
 			}]
 		});
