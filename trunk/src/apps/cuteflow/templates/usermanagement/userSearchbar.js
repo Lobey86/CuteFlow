@@ -33,31 +33,31 @@ cf.UserSearchbar = function(){return {
 						xtype:'textfield',
 						fieldLabel: '&nbsp;<?php echo __('Firstname',null,'usermanagement'); ?>',
 						style:'margin-top:2px;',
-						name: 'firstname',
-						id: 'firstname',
+						name: 'searchbar_firstname',
+						id: 'searchbar_firstname',
 						width:150
 					},{
 						xtype:'textfield',
 						fieldLabel: '&nbsp;<?php echo __('Lastname',null,'usermanagement'); ?>',
-						name: 'lastname',
-						id: 'lastname',
+						name: 'searchbar_lastname',
+						id: 'searchbar_lastname',
 						width:150
 					},{
 						xtype:'textfield',
 						fieldLabel: '&nbsp;<?php echo __('Email',null,'usermanagement'); ?>',
-						name: 'email',
-						id: 'email',
+						name: 'searchbar_email',
+						id: 'searchbar_email',
 						width:150
 					},{
 						xtype:'textfield',
 						fieldLabel: '&nbsp;<?php echo __('Username',null,'usermanagement'); ?>',
-						name: 'username',
-						id: 'username',
+						name: 'searchbar_username',
+						id: 'searchbar_username',
 						width:150
 					},{
 						xtype: 'combo',
 						fieldLabel : '&nbsp;<?php echo __('Userrole',null,'usermanagement'); ?>',
-						id: 'userrole',
+						id: 'searchbar_userrole',
 						valueField: 'id',
 						mode: 'remote',
 						displayField: 'description',
@@ -85,24 +85,24 @@ cf.UserSearchbar = function(){return {
 								var flag = false;
 								var append = '';
 								
-								if(Ext.getCmp('firstname').getValue() != '') {
+								if(Ext.getCmp('searchbar_firstname').getValue() != '') {
 									append += '/firstname/' + Ext.getCmp('firstname').getValue();
 									flag = true;
 								}
-								if(Ext.getCmp('lastname').getValue() != '') {
-									append += '/lastname/' + Ext.getCmp('lastname').getValue();
+								if(Ext.getCmp('searchbar_lastname').getValue() != '') {
+									append += '/lastname/' + Ext.getCmp('searchbar_lastname').getValue();
 									flag = true;
 								}
-								if(Ext.getCmp('email').getValue() != '') {
-									append += '/email/' + Ext.getCmp('email').getValue();
+								if(Ext.getCmp('searchbar_email').getValue() != '') {
+									append += '/email/' + Ext.getCmp('searchbar_email').getValue();
 									flag = true;
 								}
-								if(Ext.getCmp('username').getValue() != '') {
-									append += '/username/' + Ext.getCmp('username').getValue();
+								if(Ext.getCmp('searchbar_username').getValue() != '') {
+									append += '/username/' + Ext.getCmp('searchbar_username').getValue();
 									flag = true;
 								}
-								if(Ext.getCmp('userrole').getValue() != '') {
-									append += '/userrole/' + Ext.getCmp('userrole').getValue();
+								if(Ext.getCmp('searchbar_userrole').getValue() != '') {
+									append += '/userrole/' + Ext.getCmp('searchbar_userrole').getValue();
 									flag = true;
 								}
 	
@@ -124,11 +124,11 @@ cf.UserSearchbar = function(){return {
 							width: 70,
 							style:'margin-bottom:5px;margin-left:25px;',
 							handler: function () {
-								Ext.getCmp('firstname').setValue();
-								Ext.getCmp('lastname').setValue();
-								Ext.getCmp('email').setValue();
-								Ext.getCmp('username').setValue();
-								Ext.getCmp('userrole').setValue();
+								Ext.getCmp('searchbar_firstname').setValue();
+								Ext.getCmp('searchbar_lastname').setValue();
+								Ext.getCmp('searchbar_email').setValue();
+								Ext.getCmp('searchbar_username').setValue();
+								Ext.getCmp('searchbar_userrole').setValue();
 								var url = encodeURI('<?php echo url_for('usermanagement/LoadAllUser')?>');
 								cf.UserGrid.theUserStore.proxy.setApi(Ext.data.Api.actions.read,url);
 								cf.UserGrid.theUserStore.reload();
