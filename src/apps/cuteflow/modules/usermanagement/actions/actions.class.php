@@ -190,6 +190,42 @@ class usermanagementActions extends sfActions {
      * @param sfWebRequest $reques
      */
     public function executeAddUser(sfWebRequest $request) {
+        $data = $request->getPostParameters();
+        $userObj = new User();
+        $userObj->setFirstname($data['firstname']);
+        $userObj->setLastname($data['lastname']);
+        $userObj->setUsername($data['username']);
+        $userObj->setEmail($data['email']);
+        $userObj->setRoleId($data['roleid']);
+        $userObj->setPassword($data['password']);
+        $userObj->setStreet($data['street']);
+        $userObj->setZip($data['zip']);
+        $userObj->setCity($data['city']);
+        $userObj->setCountry($data['country']);
+        $userObj->setPhone1($data['phone1']);
+        $userObj->setPhone2($data['phone2']);
+        $userObj->setMobile($data['mobil']);
+        $userObj->setFax($data['fax']);
+        $userObj->setDepartment($data['department']);
+        $userObj->setBurdencenter($data['burdencenter']);
+        $userObj->setOrganisation($data['organisation']);
+        $userObj->setComment($data['comment']);
+        $userObj->save();
+        $id = $userObj->getId();
+        $agent = $data['agent'];
+
+        if (count($agent)>1) {
+            array_pop($agent);
+            foreach($agent as $item) {
+                $agentObj = new UserAgent();
+                $agentObj->setUserId($id);
+                $agentObj->setUseragentId($item);
+                $agentObj->setDurationtype($data['durationtype']);
+                $agentObj->setDurationlength($data['durationlength']);
+                $agentObj->save();
+            }
+        }
+
         $this->renderText('{success:true}');
         return sfView::NONE;
     }
@@ -203,9 +239,69 @@ class usermanagementActions extends sfActions {
      */
     public function executeLoadSingleUser(sfWebRequest $request) {
 
-        $this->renderText('Username und so');
-        #$this->renderText('{"result":'.json_encode($json_result).'}');
+        $usermanagement = new Usermanagement();
+
+        //$this->renderText($request->getParameter('id'));
+        $result = Doctrine_Query::create()
+            ->select('u.*')
+            ->from('User u')
+            ->where('u.id = ?',$request->getParameter('id'))
+            ->execute();
+        $json_result = $usermanagement->buildSingleUser($result);
+        $this->renderText('{"result":'.json_encode($json_result).'}');
         return sfView::NONE;
     }
-   
+
+    /**
+     * Store function when edit user
+     *
+     * @param sfWebRequest $request
+     */
+    public function executeEditUser(sfWebRequest $request) {
+        $data = $request->getPostParameters();
+
+        Doctrine_Query::create()
+            ->delete('UserAgent')
+            ->from('UserAgent ua')
+            ->where('ua.user_id = ?',$data['hiddenfield'])
+            ->execute();
+
+        Doctrine_Query::create()
+            ->update('User u')
+            ->set('u.firstname','?',$data['firstname'])
+            ->set('u.lastname','?',$data['lastname'])
+            ->set('u.email','?',$data['email'])
+            ->set('u.role_id','?',$data['roleid'])
+            ->set('u.password','?',$data['password'])
+            ->set('u.street','?',$data['street'])
+            ->set('u.zip','?',$data['zip'])
+            ->set('u.city','?',$data['city'])
+            ->set('u.country','?',$data['country'])
+            ->set('u.phone1','?',$data['phone1'])
+            ->set('u.phone2','?',$data['phone2'])
+            ->set('u.mobile','?',$data['mobil'])
+            ->set('u.fax','?',$data['fax'])
+            ->set('u.department','?',$data['department'])
+            ->set('u.organisation','?',$data['organisation'])
+            ->set('u.comment','?',$data['comment'])
+            ->set('u.burdencenter','?',$data['burdencenter'])
+            ->where ('u.id = ?',$data['hiddenfield'])
+            ->execute();
+
+        $agent = $data['agent'];
+        if (count($agent)>1) {
+            array_pop($agent);
+            foreach($agent as $item) {
+                $agentObj = new UserAgent();
+                $agentObj->setUserId($data['hiddenfield']);
+                $agentObj->setUseragentId($item);
+                $agentObj->setDurationtype($data['durationtype']);
+                $agentObj->setDurationlength($data['durationlength']);
+                $agentObj->save();
+            }
+        }
+        
+        $this->renderText('{success:true}');
+        return sfView::NONE;
+    }
 }
