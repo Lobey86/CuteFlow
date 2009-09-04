@@ -29,11 +29,13 @@ cf.UserCRUD = function(){return {
 		}
 	},
 	
-	/** edit user **/
-	editUser: function (userId) {
-		alert(userId);
-	},
-	
+	/**
+	* Function saves user to databse or saves changes in userprofile to database
+	*
+	* @param boolean new_flag, if 1 then new user will be created, if 0 then edit function is called and userprofile update will be done
+	* @param int id, id is set, when editing user.
+	*
+	*/
 	saveUser: function (new_flag, id) {
 		var firstname = Ext.getCmp('firstname');
 		var lastname = Ext.getCmp('lastname');
@@ -42,15 +44,20 @@ cf.UserCRUD = function(){return {
 		var password1 = Ext.getCmp('password');
 		var password2 = Ext.getCmp('passwordAgain');
 		var role = Ext.getCmp('userrole');
+		var checkPW = this.checkPassword(password1.getValue(), password2.getValue());
 		
-		if (firstname.getValue() == '' || lastname.getValue() == '' || email.getValue() == '' || username.getValue() == '' || password1.getValue() == '' || password2.getValue() == '' || role.getValue() == '') {
+		if (firstname.getValue() == '' || lastname.getValue() == '' || email.getValue() == '' || username.getValue() == '' || password1.getValue() == '' || password2.getValue() == '' || role.getValue() == '' || checkPW == false) {
+			if (checkPW == false) {
+				Ext.Msg.minWidth = 200;
+				Ext.MessageBox.alert('Passwort Fehler', 'Pa&szlig;w&ouml;rter nicht identisch');
+			}
 			cf.AddUserWindow.theTabpanel.setActiveTab(0);
 		}
-		else {
+		else { // start of save process
 			if(new_flag == 1) {
 				// new
 				var url = '<?php echo url_for('usermanagement/CheckForExistingUser')?>/username/' + username.getValue();
-				Ext.Ajax.request({  
+				Ext.Ajax.request({  // check if username is already stored in database
 					url: url,
 					success: function(objServerResponse){
 						if(objServerResponse.responseText == 1) {
@@ -74,6 +81,7 @@ cf.UserCRUD = function(){return {
 				});
 			}
 			else {
+				// edit
 				cf.AddUserWindow.theFormPanel.getForm().submit({
 					url: '<?php echo url_for('usermanagement/EditUser')?>',
 					method: 'POST',
@@ -86,8 +94,15 @@ cf.UserCRUD = function(){return {
 			}
 			
 		}
-		
-		
+	},
+	/** checks for equals password **/
+	checkPassword: function (pw1,pw2) {
+		if (pw2 == pw1) {
+			return true;
+		}
+		else {
+			return false;
+		}
 		
 	}
 
