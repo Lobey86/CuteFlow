@@ -166,10 +166,10 @@ cf.UserGrid = function(){return {
 	* Problem is, that a button has ugly borders, a label not.
 	* @param int id, ID of the current record
 	*/
-	createButton:function (id) {
+	createButton:function (user_editid) {
 		var btn_edit = new Ext.form.Label({
-			renderTo: 'user_edit' + id,
-			id: id,
+			renderTo: 'user_edit' + user_editid,
+			id: user_editid,
 			disabled: <?php $arr = $sf_user->getAttribute('credential');echo $arr['administration_usermanagement_editUser'];?>,
 			html: '<span style="cursor:pointer;"><img src="/images/icons/pencil.png" /></span>',
 			tooltip: '<?php echo __('Edit user',null,'usermanagement'); ?>',
@@ -177,8 +177,8 @@ cf.UserGrid = function(){return {
 				render: function(c){
 					  c.getEl().on({
 						click: function(el){
-							if (Ext.getCmp(id).disabled == false) {
-								cf.AddUserWindow.init(0,id);
+							if (c.disabled == false) {
+								cf.AddUserWindow.init(0,user_editid);
 							}
 						},
 					scope: c
