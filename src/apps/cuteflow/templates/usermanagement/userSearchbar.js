@@ -17,7 +17,7 @@ cf.UserSearchbar = function(){return {
 				closable: false,
 				plain: false,
 				frame: false,
-				title: '<?php echo __('Searchbar',null,'user'); ?>',
+				title: '<?php echo __('Searchbar',null,'usermanagement'); ?>',
 				style:'margin-top:5px;margin-left:5px;margin-right:10px;',
 				collapsible:true,
 				collapsed: true,
@@ -79,6 +79,7 @@ cf.UserSearchbar = function(){return {
 							name: 'search',
 							id: 'search',
 							width: 70,
+							height:25,
 							style:'margin-bottom:5px;margin-left:35px;',
 							handler: function (){
 								
@@ -122,6 +123,7 @@ cf.UserSearchbar = function(){return {
 							name: 'search',
 							id: 'discard',
 							width: 70,
+							height:25,
 							style:'margin-bottom:5px;margin-left:25px;',
 							handler: function () {
 								Ext.getCmp('searchbar_firstname').setValue();
