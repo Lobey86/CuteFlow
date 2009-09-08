@@ -24,30 +24,11 @@ class UserRolemanagement {
         foreach($data as $item) {
             $result[$a]['#'] = $index++;
             $result[$a]['id'] = $item->getId();
-            $result[$a]['deleteable'] = $item->getDeleteable();
-            $result[$a]['editable'] = $item->getEditable();
-            $result[$a]['users'] = $item->getUsers();
-            $result[$a]['action'] = $this->buildRoleAction($item);
             $result[$a++]['description'] = $item->getDescription();
         }
         return $result;
     }
 
-    /**
-     *
-     * Function checks if ROle is deletable and Editable
-     *
-     * @param <type> $item
-     * @return <type>
-     */
-    private function buildRoleAction($item) {
-        if($item->getEditable() == 0 AND $item->getDeleteable() == 0) {
-            return 0;
-        }
-        else {
-            return 1;
-        }
-    }
 
 
     /**

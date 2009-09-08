@@ -66,7 +66,7 @@ class Usermanagement {
         $result = array();
         $a = 0;
         foreach($data as $item) {
-            $result[$a]['id'] = $item->getId();
+            $result[$a]['database_id'] = $item->getId();
             $result[$a++]['text'] = $item->getText();
         }
         return $result;
