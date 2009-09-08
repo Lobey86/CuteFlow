@@ -76,7 +76,7 @@
      </trans-unit>
 	 <trans-unit id="19">
         <source>Deleting own account not working</source>
-        <target>Eigens Profil kann nicht gel&#246;scht werden</target>
+        <target>Eigenes Profil kann nicht gel&#246;scht werden</target>
      </trans-unit>
 	 <trans-unit id="20">
         <source>Add new user</source>
