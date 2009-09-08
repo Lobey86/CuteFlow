@@ -93,7 +93,8 @@ class userrolemanagementActions extends sfActions {
 
         Doctrine_Query::create()
                     ->delete('Role')
-                    ->from('Role r')->where('id = ?', $request->getParameter('deleteid'))
+                    ->from('Role r')
+                    ->where('id = ?', $request->getParameter('deleteid'))
                     ->execute();
         $this->renderText($rows);
         return sfView::NONE;

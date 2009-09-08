@@ -54,6 +54,7 @@ cf.UserCRUD = function(){return {
 			cf.AddUserWindow.theTabpanel.setActiveTab(0);
 		}
 		else { // start of save process
+			this.buildUserAgentFields();
 			if(new_flag == 1) {
 				// new
 				var url = '<?php echo url_for('usermanagement/CheckForExistingUser')?>/username/' + username.getValue();
@@ -104,6 +105,19 @@ cf.UserCRUD = function(){return {
 			return false;
 		}
 		
+	},
+	
+	buildUserAgentFields: function() {
+		for(var a=0;a<cf.AddUserThirdTab.theRightGrid.store.getCount();a++) {
+		
+			var row = cf.AddUserThirdTab.theRightGrid.getStore().getAt(a);
+			var hiddenfield = new Ext.form.Field({
+				autoCreate : {tag:'input', type: 'hidden', name: 'grid[]', value:row.data.user_id, width: 0}			
+			});
+			cf.AddUserWindow.theFormPanel.add(hiddenfield);
+			
+		}
+		cf.AddUserWindow.theFormPanel.doLayout();
 	}
 
 

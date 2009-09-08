@@ -117,21 +117,6 @@ cf.AddUserFirstTab = function(){return {
 				xtype: 'fieldset',
 				title: 'Stellvertreter',
 				items:[{
-				    xtype: 'superboxselect',
-				    fieldLabel: 'Stellvertreter',
-				    name: 'agent[]',
-				    id: 'agent',
-				    width: 200,
-				    labelWidth: 150,
-				    hideOnSelect: false,
-				    maxHeight: 500,
-				    store: this.theComboUserStore,
-				    labelStyle: 'font-weight:bolder;',
-				    triggerAction: 'all',
-				    valueField: 'id',
-				    displayField: 'text',
-				    mode: 'local'
-				},{
 					xtype: 'panel',
 					layout: 'column',
 					border: 'none',
@@ -145,7 +130,7 @@ cf.AddUserFirstTab = function(){return {
 						id: 'durationlength',
 						style: 'margin-right:5px;',
 						value: 1,
-						allowBlank: true,
+						allowBlank: false,
 						width: 35
         			},{
 						xtype: 'combo', // number of records to display in grid
