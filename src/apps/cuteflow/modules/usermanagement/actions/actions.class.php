@@ -143,12 +143,12 @@ class usermanagementActions extends sfActions {
 
     
     /**
-     * Function loads Users for SuperComboBox
+     * Function loads Users for left grid when adding user agents
      * 
      * @param sfWebRequest $reques
      * @return <type> 
      */
-    public function executeLoadRightTree(sfWebRequest $request) {
+    public function executeLoadLeftGrid(sfWebRequest $request) {
         $usermanagement = new Usermanagement();
 
         $result = Doctrine_Query::create()
@@ -156,11 +156,29 @@ class usermanagementActions extends sfActions {
             ->from('User u')
             ->execute();
 
-        $json_result = $usermanagement->buildSuperBoxUser($result);
+        $json_result = $usermanagement->buildUserGrid($result);
         $this->renderText('{"result":'.json_encode($json_result).'}');
         return sfView::NONE;
     }
 
+    /**
+     * Functions loads useragents when in edit mode
+     *
+     * @param sfWebRequest $request
+     */
+    public function executeLoadRightGrid(sfWebRequest $request) {
+        $usermanagement = new Usermanagement();
+        $result = Doctrine_Query::create()
+            ->select('ua.*')
+            ->from('UserAgent ua')
+            ->where('ua.user_id = ?', $request->getParameter('id'))
+            ->orderBy('ua.position asc')
+            ->execute();
+        
+        $json_result = $usermanagement->builUserAgentGrid($result);
+        $this->renderText('{"result":'.json_encode($json_result).'}');
+        return sfView::NONE;
+    }
 
     /**
      * Checks if an user is already in database stored
@@ -209,19 +227,20 @@ class usermanagementActions extends sfActions {
         $userObj->setDepartment($data['department']);
         $userObj->setBurdencenter($data['burdencenter']);
         $userObj->setOrganisation($data['organisation']);
+        $userObj->setDurationlength($data['durationlength']);
+        $userObj->setDurationtype($data['durationtype']);
         $userObj->setComment($data['comment']);
         $userObj->save();
         $id = $userObj->getId();
-        $agent = $data['agent'];
+        $agent = $data['grid'];
 
-        if (count($agent)>1) {
-            array_pop($agent);
+        if (count($agent)>0) {
+            $pos = 1;
             foreach($agent as $item) {
                 $agentObj = new UserAgent();
                 $agentObj->setUserId($id);
                 $agentObj->setUseragentId($item);
-                $agentObj->setDurationtype($data['durationtype']);
-                $agentObj->setDurationlength($data['durationlength']);
+                $agentObj->setPosition($pos++);
                 $agentObj->save();
             }
         }
@@ -285,18 +304,19 @@ class usermanagementActions extends sfActions {
             ->set('u.organisation','?',$data['organisation'])
             ->set('u.comment','?',$data['comment'])
             ->set('u.burdencenter','?',$data['burdencenter'])
+            ->set('u.durationlength','?',$data['durationlength'])
+            ->set('u.durationtype','?',$data['durationtype'])
             ->where ('u.id = ?',$data['hiddenfield'])
             ->execute();
 
-        $agent = $data['agent'];
-        if (count($agent)>1) {
-            array_pop($agent);
+        $agent = $data['grid'];
+        if (count($agent)>0) {
+            $pos = 1;
             foreach($agent as $item) {
                 $agentObj = new UserAgent();
                 $agentObj->setUserId($data['hiddenfield']);
                 $agentObj->setUseragentId($item);
-                $agentObj->setDurationtype($data['durationtype']);
-                $agentObj->setDurationlength($data['durationlength']);
+                $agentObj->setPosition($pos++);
                 $agentObj->save();
             }
         }

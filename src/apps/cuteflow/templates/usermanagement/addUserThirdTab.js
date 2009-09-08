@@ -16,32 +16,19 @@ cf.AddUserThirdTab = function(){return {
 	
 	theViewPort						:false,
 	
+	theRightBottomToolbar			:false,
+	theLeftBottomToolbar			:false,
+	
 	theUniqueId						:0,
 	
 	init: function (new_flag, id) {
-		this.initPanel();
-		this.initLeftGridStore();
-		
-		this.initLeftToolbar();
-		this.initRightToolbar();
-		
-		
-		this.initLeftGridCM();
-		this.initLeftGrid();
-		
-		this.initRightGridStore();
-		this.initRightGridCM();
-		this.initRightGrid();
-		
-		this.theThirdPanel.add(this.theLeftGrid);
-		this.theThirdPanel.add(this.theRightGrid);
-
+		this.initPanel(new_flag, id);
 	},
 	
 	
 
 	
-	initPanel:function() {
+	initPanel:function(new_flag, id) {
 		this.theThirdPanel = new Ext.Panel({
 			title: 'Stellvertreter',
 			frame: true,
@@ -49,41 +36,57 @@ cf.AddUserThirdTab = function(){return {
 			layout: 'column',
 			labelWidth : 200,
 			width: 500,
-			height: 530
+			height: 530,
+			listeners:{
+ 			   activate : function(){ 
+					cf.AddUserThirdTab.initLeftGridStore();
+					cf.AddUserThirdTab.initLeftToolbar();
+					cf.AddUserThirdTab.initRightToolbar();
+					cf.AddUserThirdTab.initLeftGridCM();
+					cf.AddUserThirdTab.initLeftGrid();
+					cf.AddUserThirdTab.initRightGridStore(new_flag, id);
+					cf.AddUserThirdTab.initRightGridCM();
+					cf.AddUserThirdTab.initRightGrid();
+					cf.AddUserThirdTab.theThirdPanel.add(cf.AddUserThirdTab .theLeftGrid);
+					cf.AddUserThirdTab.theThirdPanel.add(cf.AddUserThirdTab .theRightGrid);
+					
+		   		} 
+			}
 		})
 	},
 	
 	initLeftGridStore: function () {	
 		this.theLeftUserStore = new Ext.data.JsonStore({
-				totalProperty: 'total',
 				root: 'result',
-				url: '<?php echo url_for('usermanagement/LoadRightTree')?>',
+				url: '<?php echo url_for('usermanagement/LoadLeftGrid')?>',
 				fields: [
-					{name: 'database_id'},
+					{name: 'id'},
 					{name: 'text'}
 				]
 		});	
 		cf.AddUserThirdTab.theLeftUserStore.load();
+		
 	},
 	
-	initRightGridStore: function () {
+	initRightGridStore: function (new_flag, id) {
 		this.theRightUserStore = new Ext.data.JsonStore({
-				totalProperty: 'total',
 				root: 'result',
-				url: '<?php echo url_for('usermanagement/LoadRightTree')?>',
+				url: '<?php echo url_for('usermanagement/LoadRightGrid')?>/id/'+id,
 				fields: [
 					{name: 'unique_id'},
-				    {name: 'database_id'},
+				    {name: 'user_id'},
 					{name: 'text'}
 				]
 		});	
-		//cf.AddUserThirdTab.theRightUserStore.load();
+		if(new_flag != 1) {
+			cf.AddUserThirdTab.theRightUserStore.load();
+		}
 	},
 	
 	
 	initRightGridCM: function () {
 		this.theRightCM	=  new Ext.grid.ColumnModel([
-			{header: "Name", width: 150, sortable: true, dataIndex: 'text', css : "text-align : left;font-size:12px;align:center;"},
+			{header: "Name", width: 200, sortable: true, dataIndex: 'text', css : "text-align : left;font-size:12px;align:center;"},
 			{header: "Aktion", width: 60, sortable: true, dataIndex: 'unique_id', css : "text-align : left;font-size:12px;align:center;", renderer:cf.AddUserThirdTab.deleteUseragentButton}
 		]);
 	
@@ -92,7 +95,7 @@ cf.AddUserThirdTab = function(){return {
 	
 	initLeftGridCM: function () {
 		this.theLeftCM	=  new Ext.grid.ColumnModel([
-			{header: "Name", width: 200, sortable: true, dataIndex: 'text', css : "text-align : left;font-size:12px;align:center;height:26px;"}
+			{header: "Name", width: 255, sortable: true, dataIndex: 'text', css : "text-align : left;font-size:12px;align:center;height:26px;"}
 		]);
 	
 	},
@@ -110,7 +113,7 @@ cf.AddUserThirdTab = function(){return {
             ddText: 'drag and drop to change order', 
 			title: '<table><tr><td><img src="/images/icons/user_gray.png" /></td><td>Stellvertreter</td></tr></table>',
 			height:'false',
-			width:250,
+			width:290,
 			height: 490,
 			border: true,
 			style: 'border:1px solid #99bbe8;',
@@ -124,6 +127,8 @@ cf.AddUserThirdTab = function(){return {
 		});
 		
 		this.theRightGrid.on('render', function(grid) {
+			
+			
 			var secondGridDropTargetEl = grid.getView().scroller.dom;
 			var secondGridDropTarget = new Ext.dd.DropTarget(secondGridDropTargetEl, {
 					ddGroup    : 'rightGridDDGroup',
@@ -132,8 +137,8 @@ cf.AddUserThirdTab = function(){return {
 						if (ddSource.grid != grid){
 							for(var a=0;a<data.selections.length;a++) {
 								var item = data.selections[a].data;
-								var Rec = Ext.data.Record.create({name: 'unique_id'},{name: 'database_id'}, {name: 'text'});
-								grid.store.add(new Rec({unique_id: cf.AddUserThirdTab.theUniqueId++, database_id: item.database_id,text: item.text}));
+								var Rec = Ext.data.Record.create({name: 'unique_id'},{name: 'user_id'}, {name: 'text'});
+								grid.store.add(new Rec({unique_id: cf.AddUserThirdTab.theUniqueId++, user_id: item.id,text: item.text}));
 							}
 						}
 						else {
@@ -170,16 +175,16 @@ cf.AddUserThirdTab = function(){return {
 			autoScroll: true,
 			collapsible:false,
 			closable: false,
-			width: 'auto',
             ddText: 'drag and drop to change order',  
 			title: '<table><tr><td><img src="/images/icons/user_suit.png" /></td><td>Benutzer</td></tr></table>',
 			height: 490,
-			width:250,
+			width:290,
 			border: true,
-			style: 'margin-right:20px;border:1px solid #99bbe8;',
+			style: 'margin-left:8px;margin-right:20px;border:1px solid #99bbe8;',
 			ddGroup : 'rightGridDDGroup',
 			plain: false,
 			enableDragDrop:true,
+			expand: true,
 			store: this.theLeftUserStore,
 			tbar: this.theLeftToolbar,
 			cm: this.theLeftCM
@@ -188,9 +193,9 @@ cf.AddUserThirdTab = function(){return {
 	},
 	
 	deleteUseragentButton: function (data, cell, record, rowIndex, columnIndex, store, grid) {
-			
+			cf.AddUserThirdTab.theUniqueId++;
 			var id = record.data['unique_id'];
-			cf.AddUserThirdTab.createDeleteButton.defer(200,this, [id]);
+			var btn = cf.AddUserThirdTab.createDeleteButton.defer(1,this, [id]);
 			return '<center><table><tr><td><div id="remove_useragent'+ id +'"></div></td></tr></table></center>';
 	},
 	
@@ -263,11 +268,12 @@ cf.AddUserThirdTab = function(){return {
 				tooltip: 'clear Field',
 				handler: function () {
 					Ext.getCmp('useragentright_textfield').setValue();
-					f.AddUserThirdTab.theRightGrid.store.filter('text', '');
+					cf.AddUserThirdTab.theRightGrid.store.filter('text', '');
                 }
 			}
 			]
 		});
+
 	}
 };}();
 

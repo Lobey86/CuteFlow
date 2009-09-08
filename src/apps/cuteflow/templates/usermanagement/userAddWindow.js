@@ -56,11 +56,8 @@ cf.AddUserWindow = function(){return {
 					Ext.getCmp('password').setValue(userData.result.password);
 					Ext.getCmp('passwordAgain').setValue(userData.result.password);
 					Ext.getCmp('userrole').setValue(userData.result.role_id);
-					Ext.getCmp('agent').setValue(userData.result.useragent);
-					if(userData.result.useragent != '') {
-						Ext.getCmp('type').setValue(userData.result.durationtype);
-						Ext.getCmp('durationlength').setValue(userData.result.durationlength);
-					}
+					Ext.getCmp('type').setValue(userData.result.durationtype);
+					Ext.getCmp('durationlength').setValue(userData.result.durationlength);		
 					Ext.getCmp('street').setValue(userData.result.street);
 					Ext.getCmp('zip').setValue(userData.result.zip);
 					Ext.getCmp('city').setValue(userData.result.city);
