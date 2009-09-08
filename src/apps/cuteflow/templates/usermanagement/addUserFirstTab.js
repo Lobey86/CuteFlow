@@ -178,14 +178,14 @@ cf.AddUserFirstTab = function(){return {
 	initUserStore: function () {
 		this.theComboUserStore = new Ext.data.JsonStore({
 			root: 'result',
-			url: '<?php echo url_for('usermanagement/LoadSuperComboboxUser')?>',
-			autoload: true,
+			//url: '<?php echo url_for('usermanagement/LoadSuperComboboxUser')?>',
+			//autoload: true,
 			fields: [
 				{name: 'id'},
 				{name: 'text'}
 			]
 		});
-		cf.AddUserFirstTab.theComboUserStore.load();
+		//cf.AddUserFirstTab.theComboUserStore.load();
 	},
 	
 	/** store for roles **/

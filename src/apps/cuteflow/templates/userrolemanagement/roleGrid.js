@@ -74,10 +74,7 @@ cf.UserRoleGrid = function(){return {
 					{name: '#'},
 					{name: 'id'},
 					{name: 'description'},
-					{name: 'users'},
-					{name: 'deletable'},
-					{name: 'editable'},
-					{name: 'action'}
+					{name: 'users'}
 				]
 		});
 	},
@@ -127,14 +124,9 @@ cf.UserRoleGrid = function(){return {
 	
 	/** render both buttons to grid **/
 	renderAction: function (data, cell, record, rowIndex, columnIndex, store, grid) {
-		var action = record.data['action'];
-		if (action == 1) { // item is deleteable and editable!
-			cf.UserRoleGrid.createButtons.defer(500, this, [record.data['id']]);
-			return '<center><table><tr><td><div id="role_edit_'+ record.data['id'] +'"></div></td><td><div style="float:left;" id="role_del_'+ record.data['id'] +'"></div></td></tr></table></center>'
-		}
-		else {
-			return '<div style="height:18px;"></div>';
-		}
+		cf.UserRoleGrid.createButtons.defer(500, this, [record.data['id']]);
+		return '<center><table><tr><td><div id="role_edit_'+ record.data['id'] +'"></div></td><td><div style="float:left;" id="role_del_'+ record.data['id'] +'"></div></td></tr></table></center>'
+
 		
 	}
 
