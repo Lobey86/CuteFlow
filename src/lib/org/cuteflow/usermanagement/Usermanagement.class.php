@@ -62,11 +62,12 @@ class Usermanagement {
      * @param Doctrine_Collection $data, data
      * @return array $result
      */
-    public function buildSuperBoxUser(Doctrine_Collection $data) {
+    public function buildUserGrid(Doctrine_Collection $data) {
         $result = array();
         $a = 0;
         foreach($data as $item) {
-            $result[$a]['database_id'] = $item->getId();
+            $result[$a]['id'] = $item->getId();
+            $result[$a]['unique_id'] = $a;
             $result[$a++]['text'] = $item->getText();
         }
         return $result;
@@ -74,6 +75,38 @@ class Usermanagement {
     }
 
 
+    /**
+     * Function loads useragents when in editmode.
+     *
+     * @param Doctrine_Collection $data, data with all useragents
+     * @return array $result, resultset for the grid
+     * @todo, problem mit useragent_id, query nur beispielhaft.
+     */
+    public function builUserAgentGrid(Doctrine_Collection $data) {
+        $result = array();
+        $a = 0;
+        foreach($data as $item) {
+            $username = Doctrine_Query::create()
+                ->select('CONCAT(u.firstname,\' \',u.lastname) AS text')
+                ->from('User u')
+                ->where('u.id = ?', $item->getUseragentId())
+                ->execute();
+
+            $user = $item->getUser();
+            $result[$a]['unique_id'] = $a;
+            $result[$a]['user_id'] = $item->getUseragentId();
+            $result[$a++]['text'] = $username[0]->getText();
+        }
+        return $result;
+    }
+
+
+    /**
+    * Loads all data for a user, when editing user
+    *
+    * @param Doctrine_Collection $data, data for a single user
+    * @return array $result, returns an resultset with items
+    */
     public function buildSingleUser(Doctrine_Collection $data) {
         $result = array();
 
@@ -97,55 +130,13 @@ class Usermanagement {
             $result['department'] = $item->getDepartment();
             $result['burdencenter'] = $item->getBurdencenter();
             $result['comment'] = $item->getComment();
-            $useragentItem = $item->getUserAgent();
             $userrole = $item->getRole();
             $result['rolename'] = $userrole->getDescription();
-            $result['useragent'] = $this->buildUserAgent($item->getUserAgent());
-            $result['durationlength'] = $useragentItem[0]->getDurationlength();
-            $result['durationtype'] = $useragentItem[0]->getDurationtype();
+            $result['durationlength'] = $item->getDurationlength();
+            $result['durationtype'] = $item->getDurationtype();
         }
         return $result;
     }
-
-    /**
-     *
-     * function builds for one user, an all useragnet and returns a string. this is needed
-     * for superselectbox in extjs gui
-     *
-     * @param Doctrine_Collection $useragent, data for useragents
-     * @return string $result, returns an string that contains all useragents
-     */
-    public function buildUserAgent(Doctrine_Collection $useragent) {
-        $string = '';
-
-        $result = array();
-        foreach ($useragent as $item) {
-            $result[] = $item->getUseragentId();
-        }
-       
-        if (count($result) == 1) {
-            return $result[0];
-        }
-        elseif (count($result) > 1) {
-            $string = $result[0];
-            for($a=1;$a<count($result);$a++){
-                $string = $string .','. $result[$a];
-            }
-            return $string;
-        }
-        else {
-            return '';
-        }
-        
-    }
-
-
-
-
-
-
-
-
 
 
 }
