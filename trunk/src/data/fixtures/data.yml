@@ -30,16 +30,10 @@ Credential:
 Role:
   r1:
     description: admin
-    deleteable: 0
-    editable: 0
   r2:
     description: user
-    deleteable: 1
-    editable: 1
   r3:
     description: gartenzwerg
-    deleteable: 1
-    editable: 1
 
 CredentialRole:
   rc1:
@@ -79,38 +73,42 @@ User:
     role_id: 1
     firstname: lucky
     lastname: luke
+    email: test@test.de
   u2:
     username: admin1
     password: admin1
     role_id: 1
     firstname: onkel
     lastname: jürgen
+    email: test@test.de
   u3:
     username: admin2
     password: admin2
     role_id: 1
     firstname: jürgen
     lastname: drews
+    email: test@test.de
   u4:
     username: admin3
     password: admin3
     role_id: 1
     firstname: krööte
     lastname: flööte
-
+    email: test@test.de
   u5:
     username: admin4
     password: admin4
     role_id: 2
     firstname: grüß
     lastname: gott
+    email: test@test.de
   u6:
     username: admin5
     password: admin5
     role_id: 3
     firstname: schnitzel
     lastname: mit pommes
-
+    email: test@test.de
 UserSetting:
   us1:
      user_id: 1
