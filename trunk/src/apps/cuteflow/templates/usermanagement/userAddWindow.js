@@ -19,9 +19,11 @@ cf.AddUserWindow = function(){return {
 	init: function (new_flag, id) {
 		cf.AddUserFirstTab.init();
 		cf.AddUserSecondTab.init();
+		cf.AddUserThirdTab.init(new_flag, id);
 		this.initTabpanel();
 		this.theTabpanel.add(cf.AddUserFirstTab.theFirstPanel);
 		this.theTabpanel.add(cf.AddUserSecondTab.theSecondPanel);
+		this.theTabpanel.add(cf.AddUserThirdTab.theThirdPanel);
 		this.theTabpanel.setActiveTab(0);
 		this.initFormPanel();
 		this.theFormPanel.add(this.theTabpanel);
