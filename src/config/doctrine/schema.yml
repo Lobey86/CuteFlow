@@ -49,6 +49,8 @@ User:
     burdencenter: { type: string(100) }
     emailFormat: { type: string(100) }
     comment: { type: string(1000) }
+    durationtype: { type: string(45) }
+    durationlength: { type: string(45) }
   relations:
     Role: { class: Role, local: role_id, foreign: id, foreignType: many, type: one }
 
@@ -71,7 +73,6 @@ UserAgent:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
     user_id: { type: integer, length: 10}
     useragent_id: { type: integer, length: 10 }
-    durationtype: { type: string(100) }
-    durationlength: { type: string(100) }
+    position: {type: integer(1), length: 3}
   relations:
     User: { class: User, local: user_id, foreign: id, foreignType: many, type: one, onDelete: CASCADE }
