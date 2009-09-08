@@ -148,7 +148,7 @@ class usermanagementActions extends sfActions {
      * @param sfWebRequest $reques
      * @return <type> 
      */
-    public function executeLoadSuperComboboxUser(sfWebRequest $request) {
+    public function executeLoadRightTree(sfWebRequest $request) {
         $usermanagement = new Usermanagement();
 
         $result = Doctrine_Query::create()
@@ -157,7 +157,7 @@ class usermanagementActions extends sfActions {
             ->execute();
 
         $json_result = $usermanagement->buildSuperBoxUser($result);
-        $this->renderText('({"result":'.json_encode($json_result).'})');
+        $this->renderText('{"result":'.json_encode($json_result).'}');
         return sfView::NONE;
     }
 
