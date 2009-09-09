@@ -1,5 +1,6 @@
 cf.AddUserThirdTab = function(){return {
 
+	isInitialized 					:false,
 	theThirdPanel					:false,
 	
 	theLeftUserStore				:false,
@@ -21,12 +22,28 @@ cf.AddUserThirdTab = function(){return {
 	
 	theUniqueId						:0,
 	
+	
+	/**
+	* Inits only the tab, that not all data needs to be loaded when opening the new/edit user window
+	*
+	*
+	* @param boolean new_flag, 1 if new user, 0 if edit user
+	* @param int id, id is set, if in edit mode
+	*
+	*/
 	init: function (new_flag, id) {
 		this.initPanel(new_flag, id);
 	},
 	
 	
 
+	/**
+	* When Tab is clicked on tabpanel, the data gets loaded and isInitialized flag is set to true,
+	* that data is not reloaded when switching window.
+	* 
+	* @param boolean new_flag, 1 if new user, 0 if edit user
+	* @param int id, id is set, if in edit mode
+	*/
 	
 	initPanel:function(new_flag, id) {
 		this.theThirdPanel = new Ext.Panel({
@@ -39,22 +56,25 @@ cf.AddUserThirdTab = function(){return {
 			height: 530,
 			listeners:{
  			   activate : function(){ 
-					cf.AddUserThirdTab.initLeftGridStore();
-					cf.AddUserThirdTab.initLeftToolbar();
-					cf.AddUserThirdTab.initRightToolbar();
-					cf.AddUserThirdTab.initLeftGridCM();
-					cf.AddUserThirdTab.initLeftGrid();
-					cf.AddUserThirdTab.initRightGridStore(new_flag, id);
-					cf.AddUserThirdTab.initRightGridCM();
-					cf.AddUserThirdTab.initRightGrid();
-					cf.AddUserThirdTab.theThirdPanel.add(cf.AddUserThirdTab .theLeftGrid);
-					cf.AddUserThirdTab.theThirdPanel.add(cf.AddUserThirdTab .theRightGrid);
-					
+					if(cf.AddUserThirdTab.isInitialized == false) {
+	 			   		cf.AddUserThirdTab.isInitialized = true;
+	 			   		cf.AddUserThirdTab.initLeftGridStore();
+						cf.AddUserThirdTab.initLeftToolbar();
+						cf.AddUserThirdTab.initRightToolbar();
+						cf.AddUserThirdTab.initLeftGridCM();
+						cf.AddUserThirdTab.initLeftGrid();
+						cf.AddUserThirdTab.initRightGridStore(new_flag, id);
+						cf.AddUserThirdTab.initRightGridCM();
+						cf.AddUserThirdTab.initRightGrid();
+						cf.AddUserThirdTab.theThirdPanel.add(cf.AddUserThirdTab .theLeftGrid);
+						cf.AddUserThirdTab.theThirdPanel.add(cf.AddUserThirdTab .theRightGrid);
+					}
 		   		} 
 			}
 		})
 	},
 	
+	/** init store for left grid, that contains all users **/
 	initLeftGridStore: function () {	
 		this.theLeftUserStore = new Ext.data.JsonStore({
 				root: 'result',
@@ -67,6 +87,16 @@ cf.AddUserThirdTab = function(){return {
 		cf.AddUserThirdTab.theLeftUserStore.load();
 		
 	},
+	
+	
+	/** 
+	*
+	* init store for right grid, 
+	* that contains all useragent, only loaded on startup in edit mode 
+	*
+	* @param boolean new_flag, 1 if new user, 0 if edit user
+	* @param int id, id is set, if in edit mode
+	**/
 	
 	initRightGridStore: function (new_flag, id) {
 		this.theRightUserStore = new Ext.data.JsonStore({
@@ -84,6 +114,7 @@ cf.AddUserThirdTab = function(){return {
 	},
 	
 	
+	/** ColumnModel for useragent(right) grid **/
 	initRightGridCM: function () {
 		this.theRightCM	=  new Ext.grid.ColumnModel([
 			{header: "Name", width: 200, sortable: true, dataIndex: 'text', css : "text-align : left;font-size:12px;align:center;"},
@@ -92,7 +123,7 @@ cf.AddUserThirdTab = function(){return {
 	
 	},
 	
-	
+	/** ColumnModel for user(left) grid **/
 	initLeftGridCM: function () {
 		this.theLeftCM	=  new Ext.grid.ColumnModel([
 			{header: "Name", width: 255, sortable: true, dataIndex: 'text', css : "text-align : left;font-size:12px;align:center;height:26px;"}
@@ -100,7 +131,7 @@ cf.AddUserThirdTab = function(){return {
 	
 	},
 	
-	
+	/** init useragent (right) grid **/
 	initRightGrid:function () {
 		this.theRightGrid = new Ext.grid.GridPanel({
 			frame:false,
@@ -126,22 +157,21 @@ cf.AddUserThirdTab = function(){return {
 			cm: this.theRightCM
 		});
 		
+		/** render Drag and Drog and Sort functionality to right grid **/
 		this.theRightGrid.on('render', function(grid) {
-			
-			
 			var secondGridDropTargetEl = grid.getView().scroller.dom;
 			var secondGridDropTarget = new Ext.dd.DropTarget(secondGridDropTargetEl, {
 					ddGroup    : 'rightGridDDGroup',
 					copy:false,
-					notifyDrop  : function(ddSource, e, data){
+					notifyDrop  : function(ddSource, e, data){ // when droppping a container in the right grid
 						if (ddSource.grid != grid){
-							for(var a=0;a<data.selections.length;a++) {
+							for(var a=0;a<data.selections.length;a++) { // if data is from left grid, add it to store. 
 								var item = data.selections[a].data;
 								var Rec = Ext.data.Record.create({name: 'unique_id'},{name: 'user_id'}, {name: 'text'});
-								grid.store.add(new Rec({unique_id: cf.AddUserThirdTab.theUniqueId++, user_id: item.id,text: item.text}));
+								grid.store.add(new Rec({unique_id: cf.AddUserThirdTab.theUniqueId++, user_id: item.id,text: item.text})); // important to add unique ID's
 							}
 						}
-						else {
+						else { // if data is coming from right, then reorder is done.
 							var sm = grid.getSelectionModel();
 							var rows = sm.getSelections();
 							var cindex = ddSource.getDragData(e).rowIndex;
@@ -152,7 +182,7 @@ cf.AddUserThirdTab = function(){return {
 									if(cindex) {
 										grid.store.insert(cindex,rowData);
 									}
-									else {
+									else { // moves items to last position
 										var totalItems = grid.store.data.length;
 										grid.store.insert(totalItems,rowData);
 									}
@@ -167,7 +197,7 @@ cf.AddUserThirdTab = function(){return {
 	},
 	
 	
-
+	/** inits the grid for all users (left) **/
 	initLeftGrid:function () {		
 		this.theLeftGrid = new Ext.grid.GridPanel({
 			frame:false,
@@ -192,6 +222,7 @@ cf.AddUserThirdTab = function(){return {
 		
 	},
 	
+	/** render Delete Button to right grid in each row **/
 	deleteUseragentButton: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 			cf.AddUserThirdTab.theUniqueId++;
 			var id = record.data['unique_id'];
@@ -199,6 +230,12 @@ cf.AddUserThirdTab = function(){return {
 			return '<center><table><tr><td><div id="remove_useragent'+ id +'"></div></td></tr></table></center>';
 	},
 	
+	/**
+	* build the label and the button for the grid
+	*
+	*
+	*@param int id, id of the record
+	*/
 	createDeleteButton: function (id) {
 		var btn_edit = new Ext.form.Label({
 			renderTo: 'remove_useragent' + id,
@@ -221,6 +258,8 @@ cf.AddUserThirdTab = function(){return {
 		});
 	},
 	
+	
+	/** init toolbar for left (user) grid, with livesearch and clear button **/
 	initLeftToolbar:function () {
 		this.theLeftToolbar = new Ext.Toolbar({
 			//style:'margin-bottom:5px;',
@@ -248,6 +287,7 @@ cf.AddUserThirdTab = function(){return {
 		});
 	},
 	
+	/** init toolbar for right (useragent) grid, with livesearch and clear button **/
 	initRightToolbar: function () {
 		//style:'margin-bottom:5px;',
 		this.theRightToolbar = new Ext.Toolbar({
@@ -277,6 +317,7 @@ cf.AddUserThirdTab = function(){return {
 	}
 };}();
 
+/** override findExact method, to return a dataset **/
 Ext.override( Ext.data.Store, {
     findExact: function( fld, val ) {
         var hit = null;
