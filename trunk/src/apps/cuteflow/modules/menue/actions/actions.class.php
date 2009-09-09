@@ -24,7 +24,7 @@ class menueActions extends sfActions {
 
         $result = Doctrine_Query::create()
             ->from('Credential c')
-            ->orderby('c.usermodule asc,c.usergroup asc, c.id asc')
+            ->orderby('c.usermodule asc,c.usergroup asc')
             ->execute();
         
         $menueObject->setRecords($result);

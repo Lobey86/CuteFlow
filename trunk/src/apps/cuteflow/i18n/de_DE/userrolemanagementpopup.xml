@@ -70,6 +70,10 @@
         <source>Close</source>
         <target>Verwerfen</target>
     </trans-unit>
+    <trans-unit id="18">
+        <source>sendmessage</source>
+        <target>Nachricht versenden</target>
+    </trans-unit> 
 	</body>
   </file>
 </xliff>
