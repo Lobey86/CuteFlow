@@ -71,7 +71,7 @@ cf.UserGrid = function(){return {
             },'->',
             {
 				xtype: 'combo', // number of records to display in grid
-				id: 'itemsDisplay',
+				//id: 'itemsDisplay',
 				mode: 'local',
 				value: '<?php echo $sf_user->getAttribute('userSettings')->getDisplayeditem();?>',
 				editable:false,

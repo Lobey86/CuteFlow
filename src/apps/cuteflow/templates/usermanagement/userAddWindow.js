@@ -110,6 +110,7 @@ cf.AddUserWindow = function(){return {
 			id: 'mainWindow_id',
 	        buttonAlign: 'center',
 			close : function(){
+				cf.AddUserThirdTab.isInitialized  = false;
 				cf.AddUserWindow.theAddUserWindow.hide();
 				cf.AddUserWindow.theAddUserWindow.destroy();
 			},
@@ -118,6 +119,7 @@ cf.AddUserWindow = function(){return {
 				text:'<?php echo __('Store',null,'userrolemanagementpopup'); ?>', 
 				icon: '/images/icons/accept.png',
 				handler: function () {
+					cf.AddUserThirdTab.isInitialized  = false;
 					cf.UserCRUD.saveUser(new_flag,id);
 				}
 			},{
@@ -125,6 +127,7 @@ cf.AddUserWindow = function(){return {
 				text:'<?php echo __('Close',null,'userrolemanagementpopup'); ?>', 
 				icon: '/images/icons/cancel.png',
 				handler: function () {
+					cf.AddUserThirdTab.isInitialized  = false;
 					cf.AddUserWindow.theAddUserWindow.hide();
 					cf.AddUserWindow.theAddUserWindow.destroy();
 				}
