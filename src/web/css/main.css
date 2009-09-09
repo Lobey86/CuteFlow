@@ -16,6 +16,12 @@
 	height:16px;
 }
 
+.usermanagement_usermodule_administration_usergroupIcon_sendmessage{
+	background-image: url(/images/icons/note.png) !important; 
+	width: 16px;
+	height:16px;
+}
+
 
 
 .no-icon {
@@ -29,9 +35,3 @@
 	height:17px;
 }
 
-
-#usermodule_administration_Icon {
-	background-image: url(/images/icons/tux.png); 
-	width: 17px;
-	height:17px;
-}
