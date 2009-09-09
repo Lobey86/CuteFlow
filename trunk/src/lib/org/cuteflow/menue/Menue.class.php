@@ -3,7 +3,7 @@
  * Class builds the Menue for RegionWest in Extjs
  */
 
-class Menue extends CredentialRolemanagement {
+class Menue extends MenueCredential {
 
     private $userright;
     
@@ -14,6 +14,7 @@ class Menue extends CredentialRolemanagement {
         $this->firstRun = true;
     }
 
+    
     public function setUserright($right_in) {
         $this->userright = $right_in;
     }
@@ -26,7 +27,7 @@ class Menue extends CredentialRolemanagement {
      * @param array $credentials, is null
      * @return array $result, resultset
      */
-    public function buildTree(array $credentials = NULL) {
+    public function buildTree() {
         $result = array();
         foreach($this->records as $item) {
             $module = '';
@@ -54,7 +55,6 @@ class Menue extends CredentialRolemanagement {
                 $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['translation'] = $this->context->getI18N()->__($group ,null,'userrolemanagementpopup');
             }
         }
-       # print_r ($result);die;
         return $result;
      }
 
