@@ -16,14 +16,15 @@ class layoutActions extends sfActions {
     * @param sfRequest $request A request object
     */
     public function executeIndex(sfWebRequest $request) {
-
+         // Loads Userrights to session
+        $loginObject = new Login();
         // stores usersettings to session
         $userSettings = Doctrine::getTable('UserSetting')->find($this->getUser()->getAttribute('id'));
+        //$userData = $loginObject->loadUserData();
         $this->getUser()->setAttribute('userSettings', $userSettings);
 
 
-        // Loads Userrights to session
-        $loginObject = new Login();
+     
         $credentials = Doctrine_Query::create()
             ->select('c.*')
             ->from('Credential c')
@@ -38,7 +39,6 @@ class layoutActions extends sfActions {
             ->execute();
 
         $rights = $loginObject->loadUserRight($credentials, $userrights);
-        #print_r ($rights);die;
         $this->getUser()->setAttribute('credential', $rights);
         return sfView::SUCCESS;
     }
