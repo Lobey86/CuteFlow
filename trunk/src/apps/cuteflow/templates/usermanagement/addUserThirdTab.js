@@ -1,3 +1,4 @@
+/** class for the third tabpanle to add and remove useragents **/
 cf.AddUserThirdTab = function(){return {
 
 	isInitialized 					:false,
