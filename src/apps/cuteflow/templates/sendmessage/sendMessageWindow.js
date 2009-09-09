@@ -1,3 +1,4 @@
+/** class creates a panel to send message to all users **/
 cf.administration_sendmessage = function(){return {
 	
 	theSystemMessageWindow			:false,
@@ -9,7 +10,7 @@ cf.administration_sendmessage = function(){return {
 	theButtons						:false,
 	
 	
-	
+	/** init function **/
 	init:function () {
 		if (this.isInitialized == false) {
 			this.isInitialized = true;
@@ -29,7 +30,7 @@ cf.administration_sendmessage = function(){return {
 	},
 	
 	
-	
+	/** set the tab to the window **/
 	initWindow: function () {
 		this.theSystemMessageWindow =  new Ext.Panel({
 			modal: true,
@@ -44,11 +45,11 @@ cf.administration_sendmessage = function(){return {
 	        width: 620,
 	        height: 600,
 	        title: 'Send Message'
-	        
 	    });
 		
 	},
 	
+	/** init Formpanel **/
 	initPanel: function () {
 		this.theSendMessagePanel = new Ext.FormPanel({
 			closable: false,
@@ -63,6 +64,7 @@ cf.administration_sendmessage = function(){return {
 		});
 	},
 	
+	/** init subject textareat **/
 	initSubject: function () {
 		this.theTxtfield = new Ext.form.FieldSet({
 			title: 'Betreff',
@@ -80,6 +82,7 @@ cf.administration_sendmessage = function(){return {
 		});
 	},
 	
+	/** init the messagebox and comboxbox **/
 	initMessagebox: function () {
 		this.theMessageBox = new Ext.form.FieldSet({
 			title: 'Format und Nachricht',
@@ -103,7 +106,7 @@ cf.administration_sendmessage = function(){return {
 				width:70,
 				listeners: {
 		    		select: {
-		    			fn:function(combo, value) {
+		    			fn:function(combo, value) { // change the textarea and htmlarea
 		    				if (combo.getValue() == 'PLAIN') {
 		    					var checkField = cf.administration_sendmessage.theMessageBox.findById('systemMessageTextarea');
 		    					if (!checkField) {
@@ -159,6 +162,7 @@ cf.administration_sendmessage = function(){return {
 		
 	},
 	
+	/** set receiver panel **/
 	initReceiver: function () {
 		this.theReceiver = new Ext.form.FieldSet({
 			title: 'Format und Nachricht',
@@ -185,7 +189,7 @@ cf.administration_sendmessage = function(){return {
 		});
 	},
 	
-	
+	/** add buttons to form **/
 	initButtons: function () {
 		this.theButtons = new Ext.form.FieldSet({
 			style:'margin-top:5px;margin-left:10px;',
