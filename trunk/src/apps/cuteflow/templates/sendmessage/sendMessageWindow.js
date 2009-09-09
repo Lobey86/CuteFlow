@@ -92,7 +92,7 @@ cf.administration_sendmessage = function(){return {
 			items:[{
 				xtype: 'combo',
 				mode: 'local',
-				value: 'plain',
+				value: 'Plain',
 				editable:false,
 				triggerAction: 'all',
 				foreSelection: true,
