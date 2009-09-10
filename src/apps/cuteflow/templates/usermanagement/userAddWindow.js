@@ -115,7 +115,6 @@ cf.AddUserWindow = function(){return {
 				cf.AddUserWindow.theAddUserWindow.destroy();
 			},
 			buttons:[{
-				id: 'addButton',
 				text:'<?php echo __('Store',null,'userrolemanagementpopup'); ?>', 
 				icon: '/images/icons/accept.png',
 				handler: function () {
@@ -123,7 +122,6 @@ cf.AddUserWindow = function(){return {
 					cf.UserCRUD.saveUser(new_flag,id);
 				}
 			},{
-				id: 'cancelButton',
 				text:'<?php echo __('Close',null,'userrolemanagementpopup'); ?>', 
 				icon: '/images/icons/cancel.png',
 				handler: function () {
