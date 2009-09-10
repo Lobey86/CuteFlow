@@ -28,7 +28,7 @@ cf.menueSettingModuleGrid = function(){return {
 		    ddText: 'drag and drop to change order', 
 			width: 550,
 			height: 450,
-			style: 'margin-top:10px;margin-left:5px;',
+			style: 'margin-top:10px;margin-left:7px;',
 			border: true,
 			store: this.theModuleStore,
 			cm: this.theModuleCM,

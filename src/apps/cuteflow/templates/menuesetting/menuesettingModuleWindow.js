@@ -43,10 +43,11 @@ cf.administration_menuesetting = function(){return {
 			closable: false,
 			plain: false,
 			frame: false,
-			height: 600,
+			height: 500,
+			width: 572,
 			layout: 'form',
 			title: 'Menue Settings',
-			style:'margin-top:5px;margin-left:5px;margin-right:5px;',
+			style:'margin-top:5px;margin-left:6px;',
 			collapsible:false
 		});
 	},
