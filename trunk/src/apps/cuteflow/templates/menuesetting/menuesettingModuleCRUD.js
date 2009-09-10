@@ -39,8 +39,18 @@ cf.menueSettingModuleCRUD = function(){return {
 				Ext.getCmp('menueSettingModuleCRUDSavePanel').destroy();
 				cf.administration_menuesetting.theModulePanel.doLayout();
 				cf.menueSettingModuleGrid.theModuleStore.reload();
+				
+				cf.Navigation.isInitialized = false;
+				cf.Layout.theRegionWest.remove(cf.Navigation.theAccordion);
+				cf.Navigation.theAccordion.destroy();
+				cf.Navigation.init();
+				cf.Layout.theRegionWest.add(cf.Navigation.theAccordion);
+				cf.Layout.theRegionWest.doLayout();	
+		
 			}
 		});
+		
+
 	}
 	
 	

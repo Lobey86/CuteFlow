@@ -43,6 +43,14 @@ cf.menueSettingGroupCRUD = function(){return {
 			success: function() {
 				cf.menueSettingGroupWindow.theMenueSettingGroupWindow.hide();
 				cf.menueSettingGroupWindow.theMenueSettingGroupWindow.destroy();
+				
+				
+				cf.Navigation.isInitialized = false;
+				cf.Layout.theRegionWest.remove(cf.Navigation.theAccordion);
+				cf.Navigation.theAccordion.destroy();
+				cf.Navigation.init();
+				cf.Layout.theRegionWest.add(cf.Navigation.theAccordion);
+				cf.Layout.theRegionWest.doLayout();
 			}
 		});
 	}

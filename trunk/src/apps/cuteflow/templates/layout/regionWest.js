@@ -34,6 +34,7 @@ cf.Navigation = function(){return {
 		for(var a=0;a<theJsonTreeData.result.length;a++) {
 			var panel = new Ext.Panel({
                 title: '<table><tr><td><div id="' + theJsonTreeData.result[a].usermodule.icon + '"></div></td><td style="font-size:15px;">&nbsp;&nbsp;<b>'+theJsonTreeData.result[a].usermodule.translation+'</b></td></tr></table>',
+                id: 'regionWest_' + theJsonTreeData.result[a].usermodule.title,
 				collapsed: true
             });
             var tree = new Ext.tree.TreePanel({
