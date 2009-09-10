@@ -10,9 +10,11 @@ Credential:
   tableName: cf_credential
   columns:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
-    userModule: { type: string(100) }
-    userGroup: { type: string(100) }
-    userRight: { type: string(100) }
+    usermodule: { type: string(100) }
+    usergroup: { type: string(100) }
+    userright: { type: string(100) }
+    usermoduleposition: { type: integer(1), length: 3 }
+    usergroupposition: { type: integer(1), length: 3 }
   relations:
     Roles:
       foreignAlias: Credentials
