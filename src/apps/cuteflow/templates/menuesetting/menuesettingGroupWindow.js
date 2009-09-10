@@ -6,6 +6,7 @@ cf.menueSettingGroupWindow = function(){return {
 	
 	init: function (id) {
 		
+		
 		cf.menueSettingGroupGrid.init(id);
 		
 		this.initWindow(id);
