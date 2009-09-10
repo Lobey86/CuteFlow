@@ -241,14 +241,10 @@ cf.AddUserThirdTab = function(){return {
 		var btn_edit = new Ext.form.Label({
 			renderTo: 'remove_useragent' + id,
 			html: '<span style="cursor:pointer;"><img src="/images/icons/user_delete.png" /></span>',
-			tooltip: 'Entferne',
-			id: 'remove_' + id,
 			listeners: {
 				render: function(c){
 					  c.getEl().on({
 						click: function(el){
-							id = c.id;
-							id = id.replace('remove_','');
 							var item = cf.AddUserThirdTab.theRightGrid.store.findExact('unique_id', id );
 							cf.AddUserThirdTab.theRightGrid.store.remove(item);
 						},

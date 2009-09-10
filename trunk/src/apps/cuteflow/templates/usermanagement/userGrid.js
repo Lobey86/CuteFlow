@@ -169,7 +169,6 @@ cf.UserGrid = function(){return {
 	createButton:function (user_editid) {
 		var btn_edit = new Ext.form.Label({
 			renderTo: 'user_edit' + user_editid,
-			id: user_editid,
 			disabled: <?php $arr = $sf_user->getAttribute('credential');echo $arr['administration_usermanagement_editUser'];?>,
 			html: '<span style="cursor:pointer;"><img src="/images/icons/pencil.png" /></span>',
 			tooltip: '<?php echo __('Edit user',null,'usermanagement'); ?>',
