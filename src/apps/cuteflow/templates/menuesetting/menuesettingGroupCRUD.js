@@ -51,9 +51,20 @@ cf.menueSettingGroupCRUD = function(){return {
 				cf.Navigation.init();
 				cf.Layout.theRegionWest.add(cf.Navigation.theAccordion);
 				cf.Layout.theRegionWest.doLayout();
+				
+				cf.menueSettingGroupWindow.theMenueSettingGroupWindow.hide();
+				cf.menueSettingGroupWindow.theMenueSettingGroupWindow.destroy();
+				
+				cf.menueSettingModuleCRUD.expandNavigation.defer(500,this);
+
 			}
 		});
+	},
+	
+	expandNavigation: function () {
+		Ext.getCmp('regionWest_administration').expand();
 	}
+
 	
 	
 	
