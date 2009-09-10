@@ -31,6 +31,18 @@ Credential:
     userModule: administration
     userGroup: sendmessage
     userRight: showModule
+  c9:
+    userModule: administration
+    userGroup: menuesetting
+    userRight: showModule
+  c10:
+    userModule: test
+    userGroup: menuesetting
+    userRight: showModule
+  c11:
+    userModule: test2
+    userGroup: menuesetting
+    userRight: showModule
 Role:
   r1:
     description: admin
@@ -73,6 +85,9 @@ CredentialRole:
   rc11:
      role_id: 1
      credential_id: 8
+  rc12:
+     role_id: 1
+     credential_id: 9
 User:
   u1:
     username: admin
