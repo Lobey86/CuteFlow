@@ -40,18 +40,26 @@ cf.menueSettingModuleCRUD = function(){return {
 				cf.administration_menuesetting.theModulePanel.doLayout();
 				cf.menueSettingModuleGrid.theModuleStore.reload();
 				
+				
+				
 				cf.Navigation.isInitialized = false;
 				cf.Layout.theRegionWest.remove(cf.Navigation.theAccordion);
 				cf.Navigation.theAccordion.destroy();
 				cf.Navigation.init();
+				
 				cf.Layout.theRegionWest.add(cf.Navigation.theAccordion);
 				cf.Layout.theRegionWest.doLayout();	
+				cf.menueSettingModuleCRUD.expandNavigation.defer(2000,this);
 		
 			}
 		});
-		
-
+	},
+	
+	expandNavigation: function () {
+		Ext.getCmp('regionWest_administration').expand();
 	}
+
+
 	
 	
 };}();

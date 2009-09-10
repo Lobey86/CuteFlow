@@ -18,9 +18,9 @@ cf.menueSettingGroupGrid = function(){return {
 	
 	initCM: function () {
 		this.theGroupCM  =  new Ext.grid.ColumnModel([
-			{header: "#", width: 50, sortable: true, dataIndex: '#', css : "text-align : left;font-size:12px;align:center;"},
-			{header: "Modul", width: 225, sortable: true, dataIndex: 'module', css : "text-align : left;font-size:12px;align:center;"},
-			{header: "Gruppe", width: 225, sortable: true, dataIndex: 'group', css : "text-align : left;font-size:12px;align:center;"}
+			{header: "#", width: 50, sortable: false, dataIndex: '#', css : "text-align : left;font-size:12px;align:center;"},
+			{header: "Modul", width: 225, sortable: false, dataIndex: 'module', css : "text-align : left;font-size:12px;align:center;"},
+			{header: "Gruppe", width: 225, sortable: false, dataIndex: 'group', css : "text-align : left;font-size:12px;align:center;"}
 		]);
 		
 	},

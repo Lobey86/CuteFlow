@@ -7,13 +7,10 @@ cf.menueSettingModuleGrid = function(){return {
 	
 	
 	init:function () {
-		
 		this.initCM();
 		this.initStore();
 		this.initTopToolBar();
 		this.initGrid();
-		
-		
 	},
 	
 	initGrid: function () {
@@ -82,9 +79,9 @@ cf.menueSettingModuleGrid = function(){return {
 	
 	initCM: function () {
 		this.theModuleCM  =  new Ext.grid.ColumnModel([
-			{header: "#", width: 50, sortable: true, dataIndex: '#', css : "text-align : left;font-size:12px;align:center;"},
-			{header: "Men&uuml; Eintrag", width: 420, sortable: true, dataIndex: 'group', css : "text-align : left;font-size:12px;align:center;"},
-			{header: "Aktion", width: 50, sortable: true, tooltip: 'Module bearbeiten', dataIndex: 'module', css : "text-align : left;font-size:12px;align:center;", renderer: cf.menueSettingModuleGrid.editButtonRenderer}
+			{header: "#", width: 50, sortable: false, dataIndex: '#', css : "text-align : left;font-size:12px;align:center;"},
+			{header: "Men&uuml; Eintrag", width: 410, sortable: false, dataIndex: 'group', css : "text-align : left;font-size:12px;align:center;"},
+			{header: "Aktion", width: 60, sortable: false, tooltip: 'Module bearbeiten', dataIndex: 'module', css : "text-align : left;font-size:12px;align:center;", renderer: cf.menueSettingModuleGrid.editButtonRenderer}
 		]);
 		
 	}, 
