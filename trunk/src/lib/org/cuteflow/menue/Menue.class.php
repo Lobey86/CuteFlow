@@ -45,6 +45,7 @@ class Menue extends MenueCredential {
             $group = '';
             $group = $this->checkGroup($result[$this->moduleCounter],$item->getUserGroup());
             if($group != ''){
+                $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['database_id'] = $item->getId();
                 $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['title'] = $group;
                 $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['id'] = $result[$this->moduleCounter]['usermodule']['id'] . '_usergroup_' . $group;
                 $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['icon'] = 'usermanagement_' . $result[$this->moduleCounter]['usermodule']['id'] . '_usergroupIcon_' . $group;
@@ -53,11 +54,45 @@ class Menue extends MenueCredential {
                 $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['disabled'] = $this->checkRight($result[$this->moduleCounter]['usermodule']['title'] . '_' . $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['title'] . '_showModule');
                 $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['object'] = $result[$this->moduleCounter]['usermodule']['title'] .'_' .$group;
                 $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['translation'] = $this->context->getI18N()->__($group ,null,'userrolemanagementpopup');
+                $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['position'] = $item->getUsergroupposition();
             }
         }
+        $result = $this->sortMenue($result);
         return $result;
      }
 
+
+     /**
+      * Function rebuilds whole array, to sort it.
+      *
+      * @param array $data, $data with unsorted menue
+      * @return array $data, $data sorted.
+      */
+     private function sortMenue(array $data) {
+        $sort = array();
+        $count = 0;
+        for($a=0;$a<count($data);$a++) {
+            for($b=0;$b<count($data[$a]['usermodule']['usergroup']);$b++) {
+                $sort = $this->sortArray($data[$a]['usermodule']['usergroup']);
+                $data[$a]['usermodule']['usergroup'] = $sort;
+            }
+        }
+        return $data;
+     }
+
+     /**
+      *
+      * Function sorts the navigation of groups by position
+      *
+      * @param array $data
+      * @return <type>
+      */
+     private function sortArray(array $data) {
+
+        usort($data, "cmp");
+        return $data;
+     }
+         
      /**
       *
       * @param String $item, The right
@@ -70,5 +105,15 @@ class Menue extends MenueCredential {
 
 
 
+}
+
+/**
+ * Sort function
+ * @param String $a
+ * @param String $b
+ * @return <type>
+ */
+function cmp($a, $b) {
+    return strcmp($a["position"], $b["position"]);
 }
 ?>
