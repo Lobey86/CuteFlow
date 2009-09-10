@@ -87,9 +87,7 @@ cf.UserRoleGrid = function(){return {
 	createButtons: function (id) {
 		var btn_delete = new Ext.form.Label(  {
 			renderTo: 'role_del_' + id,
-			id: id,
 			html: '<span style="cursor:pointer;"><img src="/images/icons/delete.png" /></span>',
-			tooltip: '<?php echo __('Delete Role',null,'userrolemanagement'); ?>',
 			listeners: {
 				render: function(c){
 					c.getEl().on({
@@ -104,8 +102,6 @@ cf.UserRoleGrid = function(){return {
 		
 		var btn_edit = new Ext.form.Label(  {
 			renderTo: 'role_edit_' + id,
-			id: id,
-			tooltip: '<?php echo __('Edit Role',null,'userrolemanagement'); ?>',
 			html: '<span style="cursor:pointer;"><img src="/images/icons/pencil.png" /></span>',
 			listeners: {
 				render: function(c){
