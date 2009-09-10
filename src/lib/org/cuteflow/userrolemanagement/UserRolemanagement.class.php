@@ -14,8 +14,8 @@ class UserRolemanagement {
      * Function loads all Roles and builds output for ExtJS
      *
      * @param Doctrine_Collection $data
-     * @param <type> $index
-     * @return <type>
+     * @param int $index, number to count
+     * @return array $result, resultset for grid
      */
     public function buildRole(Doctrine_Collection $data, $index) {
 
@@ -24,6 +24,7 @@ class UserRolemanagement {
         foreach($data as $item) {
             $result[$a]['#'] = $index++;
             $result[$a]['id'] = $item->getId();
+            $result[$a]['users'] = $item->getUsers();
             $result[$a++]['description'] = $item->getDescription();
         }
         return $result;
@@ -36,7 +37,7 @@ class UserRolemanagement {
      * Builds role for extjs combobox
      *
      * @param Doctrine_Collection $data, resultset
-     * @return <type>
+     * @return array $result, resultset for role combox
      */
     public function buildRoleCombobox(Doctrine_Collection $data) {
 
