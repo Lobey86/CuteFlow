@@ -15,18 +15,25 @@ cf.UserRoleGrid = function(){return {
 	/** inits all necessary functions to build the grid and its toolbars **/
 	init: function () {
 			this.isInitialized = true;
-			this.initToolTip();
+			this.initUserRoleCM();
 			this.initUserRoleStore();
 			this.theUserRoleStore.load();
-			this.initUserRoleCM();
 			this.initTopToolBar();
 			this.initUserRoleGrid();
+			this.initToolTip();
 	},
 	
 	initToolTip: function () {
-		this.theToolTip = new Ext.ToolTip({
-			title: 'tip'
+		var test = new Ext.ToolTip({
+	        target: 'test',
+	        title: 'Mouse Track',
+	        width:200,
+	        html: 'This tip will follow the mouse while it is over the element',
+	        trackMouse:true
 		});
+		
+
+
 	},
 	
 	/** Grid and store, toolbar and cm are binded **/
@@ -43,6 +50,7 @@ cf.UserRoleGrid = function(){return {
 			cm: this.theUserRoleCM
 
 		});	
+		
 	},
 	
 
@@ -54,7 +62,7 @@ cf.UserRoleGrid = function(){return {
 			{header: "#", width: 50, sortable: true, dataIndex: '#', css : "text-align : left;font-size:12px;align:center;"},
 			{header: "<?php echo __('Role description',null,'userrolemanagement'); ?>", width: 220, sortable: false, dataIndex: 'description', css : "text-align : left;font-size:12px;align:center;"},
 			{header: "<?php echo __('currently used by',null,'userrolemanagement'); ?>", width: 150, sortable: false, dataIndex: 'users', css : "text-align:center;font-size:12px;align:center;"},
-			{header: "<?php echo __('Action',null,'userrolemanagement'); ?>", width: 80, sortable: false, dataIndex: 'action', css : "text-align : left;font-size:12px;align:center;" ,renderer: this.renderAction }
+			{header: "<div ext:qtip=\"<table><tr><td><img src='/images/icons/pencil.png' />&nbsp;&nbsp;</td><td><?php echo __('Edit record',null,'userrolemanagement'); ?></td></tr><tr><td><img src='/images/icons/delete.png' />&nbsp;&nbsp;</td><td><?php echo __('Remove record',null,'userrolemanagement'); ?></td></tr></table>\" ext:qwidth=\"200\"><?php echo __('Action',null,'userrolemanagement'); ?></div>", width: 80, sortable: false, dataIndex: 'action', css : "text-align : left;font-size:12px;align:center;" ,renderer: this.renderAction }
 		]);
 
 		
