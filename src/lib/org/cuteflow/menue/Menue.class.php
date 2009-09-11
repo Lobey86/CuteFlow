@@ -38,6 +38,7 @@ class Menue extends MenueCredential {
                 $result[$this->moduleCounter]['usermodule']['server_id'] = $module;
                 $result[$this->moduleCounter]['usermodule']['usermodule'] = $module;
                 $result[$this->moduleCounter]['usermodule']['icon'] = 'usermodule_' . $module . '_Icon';
+                $result[$this->moduleCounter]['usermodule']['position'] = $item->getUsermoduleposition();
                 $result[$this->moduleCounter]['usermodule']['translation'] = $this->context->getI18N()->__($module ,null,'userrolemanagementpopup');
                 $result[$this->moduleCounter]['usermodule']['usergroup'] = '';
             }
@@ -57,6 +58,7 @@ class Menue extends MenueCredential {
                 $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['position'] = $item->getUsergroupposition();
             }
         }
+       // print_r ($result);die;
         $result = $this->sortMenue($result);
         return $result;
      }
@@ -72,8 +74,9 @@ class Menue extends MenueCredential {
         $sort = array();
         $count = 0;
         for($a=0;$a<count($data);$a++) {
+            $data = $this->sortArray($data, 'cmpModule');
             for($b=0;$b<count($data[$a]['usermodule']['usergroup']);$b++) {
-                $sort = $this->sortArray($data[$a]['usermodule']['usergroup']);
+                $sort = $this->sortArray($data[$a]['usermodule']['usergroup'], 'cmpGroup');
                 $data[$a]['usermodule']['usergroup'] = $sort;
             }
         }
@@ -87,9 +90,8 @@ class Menue extends MenueCredential {
       * @param array $data
       * @return <type>
       */
-     private function sortArray(array $data) {
-
-        usort($data, "cmp");
+     private function sortArray(array $data, $function) {
+        usort($data, $function);
         return $data;
      }
          
@@ -108,12 +110,21 @@ class Menue extends MenueCredential {
 }
 
 /**
- * Sort function
+ * Sort function for Menue
  * @param String $a
  * @param String $b
  * @return <type>
  */
-function cmp($a, $b) {
-    return strcmp($a["position"], $b["position"]);
+function cmpModule($a, $b) {
+    return strcmp($a['usermodule']['position'], $b['usermodule']['position']);
+}
+/**
+ * Sort function for Groups
+ * @param String $a
+ * @param String $b
+ * @return <type>
+ */
+function cmpGroup ($a, $b) {
+    return strcmp($a['position'], $b['position']);
 }
 ?>
