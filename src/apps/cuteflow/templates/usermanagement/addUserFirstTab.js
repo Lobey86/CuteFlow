@@ -18,7 +18,7 @@ cf.AddUserFirstTab = function(){return {
 	/** builds panel and its elements **/
 	initPanel: function () {
 		this.theFirstPanel = new Ext.Panel({
-			title: 'Benutzerdaten',
+			title: '<?php echo __('Userdata',null,'usermanagementpopup'); ?>',
 			frame: true,
 			enableTabScroll:true,
 			plain: true,
@@ -33,10 +33,10 @@ cf.AddUserFirstTab = function(){return {
 				name: 'hiddenfield'
 			},{
 				xtype: 'fieldset',
-				title: 'pers&ouml;nliche Daten',
+				title: '<?php echo __('Personel data',null,'usermanagementpopup'); ?>',
 				items:[{
 					xtype: 'textfield',
-					fieldLabel: 'Vorname',
+					fieldLabel: '<?php echo __('Firstname',null,'usermanagementpopup'); ?>',
 					labelStyle: 'font-weight:bolder;',
 					labelWidth: 150,
 					name: 'firstname',
@@ -45,7 +45,7 @@ cf.AddUserFirstTab = function(){return {
 					width: 200
 				},{
 					xtype: 'textfield',
-					fieldLabel: 'Nachname',
+					fieldLabel: '<?php echo __('Lastname',null,'usermanagementpopup'); ?>',
 					labelStyle: 'font-weight:bolder;',
 					labelWidth: 150,
 					name: 'lastname',
@@ -54,7 +54,7 @@ cf.AddUserFirstTab = function(){return {
 					width: 200
 				},{
 					xtype: 'textfield',
-					fieldLabel: 'E-Mail',
+					fieldLabel: '<?php echo __('Email',null,'usermanagementpopup'); ?>',
 					labelStyle: 'font-weight:bolder;',
 					labelWidth: 150,
 					name: 'email',
@@ -64,10 +64,10 @@ cf.AddUserFirstTab = function(){return {
 				}]
 			},{
 				xtype: 'fieldset',
-				title: 'Anmeldedaten',
+				title: '<?php echo __('Login data',null,'usermanagementpopup'); ?>',
 				items:[{
 					xtype: 'textfield',
-					fieldLabel: 'Benutzername',
+					fieldLabel: '<?php echo __('Username',null,'usermanagementpopup'); ?>',
 					labelStyle: 'font-weight:bolder;',
 					name: 'username',
 					labelWidth: 150,
@@ -76,7 +76,7 @@ cf.AddUserFirstTab = function(){return {
 					width: 200
 				},{
 					xtype: 'textfield',
-					fieldLabel: 'Passwort',
+					fieldLabel: '<?php echo __('Password',null,'usermanagementpopup'); ?>',
 					labelStyle: 'font-weight:bolder;',
 					labelWidth: 150,
 					inputType: 'password',
@@ -86,7 +86,7 @@ cf.AddUserFirstTab = function(){return {
 					width: 200
 				},{
 					xtype: 'textfield',
-					fieldLabel: 'Passwort&nbsp;(Wdh)',
+					fieldLabel: '<?php echo __('Password (again)',null,'usermanagementpopup'); ?>',
 					labelStyle: 'font-weight:bolder;',
 					labelWidth: 150,
 					inputType: 'password',
@@ -96,7 +96,7 @@ cf.AddUserFirstTab = function(){return {
 					width: 200
 				},{
 					xtype: 'combo',
-					fieldLabel : 'Benutzerrolle',
+					fieldLabel : '<?php echo __('Userrole',null,'usermanagementpopup'); ?>',
 					id: 'userrole',
 					name: 'userrole',
 					labelStyle: 'font-weight:bolder;',
@@ -113,13 +113,13 @@ cf.AddUserFirstTab = function(){return {
 				}]
 			},{
 				xtype: 'fieldset',
-				title: 'Stellvertreterzeit',
+				title: '<?php echo __('Useragent time',null,'usermanagementpopup'); ?>',
 				items:[{
 					xtype: 'panel',
 					layout: 'column',
 					border: 'none',
 					labelWidth: 150,
-					fieldLabel: 'Stellvertreterzeit',
+					fieldLabel: '<?php echo __('Useragent time',null,'usermanagementpopup'); ?>',
 					labelStyle: 'font-weight:bolder;',
 					width: 200,
 					items: [{
@@ -142,7 +142,7 @@ cf.AddUserFirstTab = function(){return {
 						foreSelection: true,
 						store: new Ext.data.SimpleStore({
 							 fields:['id','text'],
-		       				 data:[['DAYS', 'Tage(n)'],['HOURS', 'Stunde(n)'],['MINUTES', 'Minute(n)']]
+		       				 data:[['DAYS', '<?php echo __('Day(s)',null,'usermanagementpopup'); ?>'],['HOURS', '<?php echo __('Hour(s)',null,'usermanagementpopup'); ?>'],['MINUTES', '<?php echo __('Minute(s)',null,'usermanagementpopup'); ?>']]
 		   				}),
 		 				valueField:'id',
 						displayField:'text',

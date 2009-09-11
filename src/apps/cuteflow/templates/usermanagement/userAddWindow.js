@@ -85,11 +85,11 @@ cf.AddUserWindow = function(){return {
 	*/
 	initWindow: function(new_flag, id) {
 		if(new_flag == 1) {
-			var title = 'Neuer Benutzer anlegen';
+			var title = '<?php echo __('Create new user',null,'usermanagementpopup'); ?>';
 			Ext.getCmp('hiddenfield').setValue('');
 		}
 		else {
-			var title = 'Benutzer editieren';
+			var title = '<?php echo __('Edit exisitng user',null,'usermanagementpopup'); ?>';
 			Ext.getCmp('hiddenfield').setValue(id);
 		}
 		
@@ -114,13 +114,13 @@ cf.AddUserWindow = function(){return {
 				cf.AddUserWindow.theAddUserWindow.destroy();
 			},
 			buttons:[{
-				text:'<?php echo __('Store',null,'userrolemanagementpopup'); ?>', 
+				text:'<?php echo __('Store',null,'usermanagementpopup'); ?>', 
 				icon: '/images/icons/accept.png',
 				handler: function () {
 					cf.UserCRUD.saveUser(new_flag,id);
 				}
 			},{
-				text:'<?php echo __('Close',null,'userrolemanagementpopup'); ?>', 
+				text:'<?php echo __('Close',null,'usermanagementpopup'); ?>', 
 				icon: '/images/icons/cancel.png',
 				handler: function () {
 					cf.AddUserThirdTab.isInitialized  = false;

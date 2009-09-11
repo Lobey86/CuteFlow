@@ -6,7 +6,7 @@ cf.UserCRUD = function(){return {
 	
 	/** delete selected users from the grid and database **/
 	deleteUser: function () {
-		var grid = Ext.getCmp('grid');
+		var grid = cf.UserGrid.theUserGrid;
 		var rows = grid.getSelectionModel().getSelections();
 		if (rows.length > 0) {
 			for(var i=0;i<rows.length;i++) {
@@ -49,7 +49,7 @@ cf.UserCRUD = function(){return {
 		if (firstname.getValue() == '' || lastname.getValue() == '' || email.getValue() == '' || username.getValue() == '' || password1.getValue() == '' || password2.getValue() == '' || role.getValue() == '' || checkPW == false) {
 			if (checkPW == false) {
 				Ext.Msg.minWidth = 200;
-				Ext.MessageBox.alert('Passwort Fehler', 'Pa&szlig;w&ouml;rter nicht identisch');
+				Ext.MessageBox.alert('<?php echo __('Password Failure',null,'usermanagementpopup'); ?>', '<?php echo __('Passwords are not equal',null,'usermanagementpopup'); ?>');
 			}
 			cf.AddUserWindow.theTabpanel.setActiveTab(0);
 		}
@@ -84,7 +84,7 @@ cf.UserCRUD = function(){return {
 							});
 						}
 						else {
-							Ext.MessageBox.alert('Error', 'Benutzername existiert bereits');
+							Ext.MessageBox.alert('<?php echo __('Error',null,'usermanagementpopup'); ?>', '<?php echo __('Username is alreasy existing',null,'usermanagementpopup'); ?>');
 							cf.AddUserWindow.theTabpanel.setActiveTab(0);
 							username.focus();
 							username.setValue();

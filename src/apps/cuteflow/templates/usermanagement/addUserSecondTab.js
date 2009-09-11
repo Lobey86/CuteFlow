@@ -15,7 +15,7 @@ cf.AddUserSecondTab = function(){return {
 	/** builds panel and its elements **/
 	initPanel: function () {
 		this.theSecondPanel = new Ext.Panel({
-			title: 'Benutzerdetails',
+			title: '<?php echo __('User details',null,'usermanagementpopup'); ?>',
 			frame: true,
 			enableTabScroll:true,
 			plain: true,
@@ -25,10 +25,10 @@ cf.AddUserSecondTab = function(){return {
 			height: 530,
 			items:[{
 				xtype: 'fieldset',
-				title: 'Anschrift',
+				title: '<?php echo __('Address',null,'usermanagementpopup'); ?>',
 				items:[{
 					xtype: 'textfield',
-					fieldLabel: 'Stra&szlig;e',
+					fieldLabel: '<?php echo __('Street',null,'usermanagementpopup'); ?>',
 					labelStyle: 'font-weight:bolder;',
 					labelWidth: 150,
 					name: 'street',
@@ -37,7 +37,7 @@ cf.AddUserSecondTab = function(){return {
 					width: 200
 				},{
 					xtype: 'panel',
-					fieldLabel: 'PLZ / Ort',
+					fieldLabel: '<?php echo __('Zip / City',null,'usermanagementpopup'); ?>',
 					labelStyle: 'font-weight:bolder;',
 					labelWidth: 150,
 					layout: 'column',
@@ -63,7 +63,7 @@ cf.AddUserSecondTab = function(){return {
 					}]
 				},{
 					xtype: 'textfield',
-					fieldLabel: 'Land',
+					fieldLabel: '<?php echo __('Country',null,'usermanagementpopup'); ?>',
 					labelStyle: 'font-weight:bolder;',
 					labelWidth: 150,
 					name: 'country',
@@ -73,10 +73,10 @@ cf.AddUserSecondTab = function(){return {
 				}]		
 			},{
 				xtype: 'fieldset',
-				title: 'Telefon und Fax',
+				title: '<?php echo __('Phone and Fax',null,'usermanagementpopup'); ?>',
 				items: [{
 					xtype: 'textfield',
-					fieldLabel: 'Telefon 1',
+					fieldLabel: '<?php echo __('Phone 1',null,'usermanagementpopup'); ?>',
 					labelStyle: 'font-weight:bolder;',
 					labelWidth: 150,
 					name: 'phone1',
@@ -85,7 +85,7 @@ cf.AddUserSecondTab = function(){return {
 					width: 200	
 				},{
 					xtype: 'textfield',
-					fieldLabel: 'Telefon 2',
+					fieldLabel: '<?php echo __('Phone 2',null,'usermanagementpopup'); ?>',
 					labelStyle: 'font-weight:bolder;',
 					labelWidth: 150,
 					name: 'phone2',
@@ -94,7 +94,7 @@ cf.AddUserSecondTab = function(){return {
 					width: 200
 				},{
 					xtype: 'textfield',
-					fieldLabel: 'Mobilnummer',
+					fieldLabel: '<?php echo __('Mobile',null,'usermanagementpopup'); ?>',
 					labelStyle: 'font-weight:bolder;',
 					labelWidth: 150,
 					name: 'mobil',
@@ -103,7 +103,7 @@ cf.AddUserSecondTab = function(){return {
 					width: 200
 				},{
 					xtype: 'textfield',
-					fieldLabel: 'Fax',
+					fieldLabel: '<?php echo __('Fax',null,'usermanagementpopup'); ?>',
 					labelStyle: 'font-weight:bolder;',
 					labelWidth: 150,
 					name: 'fax',
@@ -113,10 +113,10 @@ cf.AddUserSecondTab = function(){return {
 				}]
 			},{
 				xtype: 'fieldset',
-				title: 'Organisation, Abteilung und Kostenstelle',
+				title: '<?php echo __('Organisation, Department and Burdence center',null,'usermanagementpopup'); ?>',
 				items:[{
 					xtype: 'textfield',
-					fieldLabel: 'Organisation',
+					fieldLabel: '<?php echo __('Organisation',null,'usermanagementpopup'); ?>',
 					labelStyle: 'font-weight:bolder;',
 					labelWidth: 150,
 					name: 'organisation',
@@ -125,7 +125,7 @@ cf.AddUserSecondTab = function(){return {
 					width: 200
 				},{
 					xtype: 'textfield',
-					fieldLabel: 'Abteilung',
+					fieldLabel: '<?php echo __('Department',null,'usermanagementpopup'); ?>',
 					labelStyle: 'font-weight:bolder;',
 					labelWidth: 150,
 					name: 'department',
@@ -134,7 +134,7 @@ cf.AddUserSecondTab = function(){return {
 					width: 200
 				},{
 					xtype: 'textfield',
-					fieldLabel: 'Kostenstelle',
+					fieldLabel: '<?php echo __('Burdence center',null,'usermanagementpopup'); ?>',
 					labelStyle: 'font-weight:bolder;',
 					labelWidth: 150,
 					name: 'burdencenter',
@@ -144,10 +144,10 @@ cf.AddUserSecondTab = function(){return {
 				}]
 			},{
 				xtype: 'fieldset',
-				title: 'Kommentar',
+				title: '<?php echo __('Comment',null,'usermanagementpopup'); ?>',
 				items:[{
 					xtype: 'textarea',
-					fieldLabel: 'Kommentar',
+					fieldLabel: '<?php echo __('Comment',null,'usermanagementpopup'); ?>',
 					labelStyle: 'font-weight:bolder;',
 					id:'comment',
 					name: 'comment',
