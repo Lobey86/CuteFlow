@@ -279,11 +279,13 @@ class usermanagementActions extends sfActions {
     public function executeEditUser(sfWebRequest $request) {
         $data = $request->getPostParameters();
 
-        Doctrine_Query::create()
-            ->delete('UserAgent')
-            ->from('UserAgent ua')
-            ->where('ua.user_id = ?',$data['hiddenfield'])
-            ->execute();
+        if($data['useragent_edit'] != -1)  {
+            Doctrine_Query::create()
+                ->delete('UserAgent')
+                ->from('UserAgent ua')
+                ->where('ua.user_id = ?',$data['hiddenfield'])
+                ->execute();
+        }
 
         Doctrine_Query::create()
             ->update('User u')
