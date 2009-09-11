@@ -1,3 +1,4 @@
+/** loads grid for changing order of the Module Menue **/
 cf.menueSettingModuleGrid = function(){return {
 	
 	theModuleGrid 				:false,
@@ -5,7 +6,7 @@ cf.menueSettingModuleGrid = function(){return {
 	theModuleCM					:false,
 	theTopToolBar				:false,
 	
-	
+	/** init function **/
 	init:function () {
 		this.initCM();
 		this.initStore();
@@ -13,6 +14,8 @@ cf.menueSettingModuleGrid = function(){return {
 		this.initGrid();
 	},
 	
+	
+	/** build grid **/
 	initGrid: function () {
 		this.theModuleGrid = new Ext.grid.GridPanel({
 			frame:false,
@@ -32,6 +35,7 @@ cf.menueSettingModuleGrid = function(){return {
 			tbar: this.theTopToolBar
 		});
 		
+		/** add Drag Drop functionality **/
 		this.theModuleGrid.on('render', function(grid) {
 			var secondGridDropTargetEl = grid.getView().scroller.dom;
 			var secondGridDropTarget = new Ext.dd.DropTarget(secondGridDropTargetEl, {
@@ -62,6 +66,7 @@ cf.menueSettingModuleGrid = function(){return {
 		
 	},
 	
+	/** init store **/
 	initStore: function () {
 		this.theModuleStore = new Ext.data.JsonStore({
 				root: 'result',
@@ -77,6 +82,7 @@ cf.menueSettingModuleGrid = function(){return {
 		
 	},
 	
+	/** init Column model **/
 	initCM: function () {
 		this.theModuleCM  =  new Ext.grid.ColumnModel([
 			{header: "#", width: 50, sortable: false, dataIndex: '#', css : "text-align : left;font-size:12px;align:center;"},
@@ -86,6 +92,7 @@ cf.menueSettingModuleGrid = function(){return {
 		
 	}, 
 	
+	/** init Toolbar **/
 	initTopToolBar: function () {
 		this.theTopToolBar = new Ext.Toolbar({
 			items: [{
@@ -98,6 +105,7 @@ cf.menueSettingModuleGrid = function(){return {
 		});
 	},
 	
+	/** render and create editbutton on the right **/
 	editButtonRenderer: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 		var action = record.data['module'];
 		cf.menueSettingModuleGrid.createButton.defer(500,this, [record.data['module']]);

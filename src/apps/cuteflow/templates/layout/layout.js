@@ -17,12 +17,10 @@ cf.Layout = function(){return {
 	if (this.isInitialized == false) {
 			this.isInitialized = true;
 			this.theMainLayout = new Ext.Viewport({
-				id:'MainLayout',
 				layout:'border',
 				border:false,
 				items:[{
 					region:'west',
-					id: 'westRegion',
 					width:240,
 					border:true,
 					autoScroll:true,
@@ -34,7 +32,6 @@ cf.Layout = function(){return {
 					collapseMode:'mini'
 				},{
 					region:'center',
-					id: 'centerRegion',
 					border:false,
 					layout:'fit',							
 					bodyStyle:'background-color:#f0f0f0;',

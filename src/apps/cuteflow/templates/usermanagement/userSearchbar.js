@@ -22,7 +22,6 @@ cf.UserSearchbar = function(){return {
 				collapsible:true,
 				collapsed: true,
 				tools: [{
-					id:'close',
 					handler: function(e, target, panel){
 						panel.ownerCt.remove(panel, true);
 					}
@@ -76,8 +75,6 @@ cf.UserSearchbar = function(){return {
 				        items:[{
 							xtype: 'button',
 							text: '<?php echo __('Search',null,'usermanagement'); ?>',
-							name: 'search',
-							id: 'search',
 							width: 70,
 							height:25,
 							style:'margin-bottom:5px;margin-left:35px;',
@@ -120,8 +117,6 @@ cf.UserSearchbar = function(){return {
 						},{
 							xtype: 'button',
 							text: '<?php echo __('Discard',null,'usermanagement'); ?>',
-							name: 'search',
-							id: 'discard',
 							width: 70,
 							height:25,
 							style:'margin-bottom:5px;margin-left:25px;',

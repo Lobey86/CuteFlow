@@ -54,7 +54,17 @@ cf.UserCRUD = function(){return {
 			cf.AddUserWindow.theTabpanel.setActiveTab(0);
 		}
 		else { // start of save process
-			this.buildUserAgentFields();
+			if(cf.AddUserThirdTab.isInitialized == true) {
+				this.buildUserAgentFields();
+			}
+			else  {
+				var hiddenfield = new Ext.form.Field({
+					autoCreate : {tag:'input', type: 'hidden', name: 'useragent_edit', value:-1, width: 0}			
+				});
+				cf.AddUserWindow.theFormPanel.add(hiddenfield);
+				cf.AddUserWindow.theFormPanel.doLayout();
+			}
+			
 			if(new_flag == 1) {
 				// new
 				var url = '<?php echo url_for('usermanagement/CheckForExistingUser')?>/username/' + username.getValue();
@@ -66,6 +76,7 @@ cf.UserCRUD = function(){return {
 								url: '<?php echo url_for('usermanagement/AddUser')?>',
 								method: 'POST',
 								success: function() {
+									cf.AddUserThirdTab.isInitialized  = false;
 									cf.UserGrid.theUserStore.reload();
 									cf.AddUserWindow.theAddUserWindow.hide();
 									cf.AddUserWindow.theAddUserWindow.destroy();
@@ -87,6 +98,7 @@ cf.UserCRUD = function(){return {
 					url: '<?php echo url_for('usermanagement/EditUser')?>',
 					method: 'POST',
 					success: function(objServerResponse){
+						cf.AddUserThirdTab.isInitialized  = false;
 						cf.UserGrid.theUserStore.reload();
 						cf.AddUserWindow.theAddUserWindow.hide();
 						cf.AddUserWindow.theAddUserWindow.destroy();

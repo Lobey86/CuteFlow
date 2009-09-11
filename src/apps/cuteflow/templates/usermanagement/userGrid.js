@@ -35,7 +35,6 @@ cf.UserGrid = function(){return {
 		
 		this.theUserGrid = new Ext.grid.GridPanel({
 			frame:false,
-			id: 'grid',
 			autoScroll: true,
 			collapsible:true,
 			closable: true,
@@ -71,7 +70,6 @@ cf.UserGrid = function(){return {
             },'->',
             {
 				xtype: 'combo', // number of records to display in grid
-				//id: 'itemsDisplay',
 				mode: 'local',
 				value: '<?php echo $sf_user->getAttribute('userSettings')->getDisplayeditem();?>',
 				editable:false,
@@ -123,12 +121,12 @@ cf.UserGrid = function(){return {
 	initColumnModel: function () {
 		this.theGridCm  =  new Ext.grid.ColumnModel([
 			{header: "#", width: 50, sortable: true, dataIndex: '#', css : "text-align : left;font-size:12px;align:center;"},
-			{header: "<?php echo __('Firstname',null,'usermanagement'); ?>", width: 150, sortable: true, dataIndex: 'firstname', css : "text-align : left;font-size:12px;align:center;"},
-			{header: "<?php echo __('Lastname',null,'usermanagement'); ?>", width: 150, sortable: true, dataIndex: 'lastname', css : "text-align : left;font-size:12px;align:center;"},
-			{header: "<?php echo __('Email',null,'usermanagement'); ?>", width: 150, sortable: true, dataIndex: 'email', css : "text-align : left;font-size:12px;align:center;"},
-			{header: "<?php echo __('Username',null,'usermanagement'); ?>", width: 150, sortable: true, dataIndex: 'username', css : "text-align : left;font-size:12px;align:center;"},
-			{header: "<?php echo __('Userrole',null,'usermanagement'); ?>", width: 150, sortable: true, dataIndex: 'role_description', css : "text-align : left;font-size:12px;align:center;"},
-			{header: "<?php echo __('Action',null,'usermanagement'); ?>", width: 80, sortable: true, dataIndex: 'action', css : "text-align :center; font-size:12px;",  renderer: cf.UserGrid.renderAction}
+			{header: "<?php echo __('Firstname',null,'usermanagement'); ?>", width: 150, sortable: false, dataIndex: 'firstname', css : "text-align : left;font-size:12px;align:center;"},
+			{header: "<?php echo __('Lastname',null,'usermanagement'); ?>", width: 150, sortable: false, dataIndex: 'lastname', css : "text-align : left;font-size:12px;align:center;"},
+			{header: "<?php echo __('Email',null,'usermanagement'); ?>", width: 150, sortable: false, dataIndex: 'email', css : "text-align : left;font-size:12px;align:center;"},
+			{header: "<?php echo __('Username',null,'usermanagement'); ?>", width: 150, sortable: false, dataIndex: 'username', css : "text-align : left;font-size:12px;align:center;"},
+			{header: "<?php echo __('Userrole',null,'usermanagement'); ?>", width: 150, sortable: false, dataIndex: 'role_description', css : "text-align : left;font-size:12px;align:center;"},
+			{header: "<?php echo __('Action',null,'usermanagement'); ?>", width: 80, sortable: false, dataIndex: 'action', css : "text-align :center; font-size:12px;", tooltip: '<?php echo __('Edit user',null,'usermanagement'); ?>', renderer: cf.UserGrid.renderAction}
 		]);
      },
 	
@@ -171,7 +169,6 @@ cf.UserGrid = function(){return {
 			renderTo: 'user_edit' + user_editid,
 			disabled: <?php $arr = $sf_user->getAttribute('credential');echo $arr['administration_usermanagement_editUser'];?>,
 			html: '<span style="cursor:pointer;"><img src="/images/icons/pencil.png" /></span>',
-			tooltip: '<?php echo __('Edit user',null,'usermanagement'); ?>',
 			listeners: {
 				render: function(c){
 					  c.getEl().on({

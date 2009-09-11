@@ -1,3 +1,4 @@
+/** class builds grid for Menueitems in one group **/
 cf.menueSettingGroupGrid = function(){return {
 	
 	theGroupGrid 				:false,
@@ -7,6 +8,12 @@ cf.menueSettingGroupGrid = function(){return {
 	
 	
 	
+	/**
+	*
+	* init function
+	*
+	* @param int id, id of the loaded Group
+	*/
 	init: function (id) {
 		this.initCM();
 		this.initStore(id);
@@ -15,7 +22,7 @@ cf.menueSettingGroupGrid = function(){return {
 	},
 	
 	
-	
+	/** init cm **/
 	initCM: function () {
 		this.theGroupCM  =  new Ext.grid.ColumnModel([
 			{header: "#", width: 50, sortable: false, dataIndex: '#', css : "text-align : left;font-size:12px;align:center;"},
@@ -24,6 +31,13 @@ cf.menueSettingGroupGrid = function(){return {
 		]);
 		
 	},
+	
+	/**
+	*
+	* init Store for grid
+	*
+	* @param int id, id of the loaded Group
+	*/
 	
 	initStore: function (id) {
 		this.theGroupStore = new Ext.data.JsonStore({
@@ -42,6 +56,7 @@ cf.menueSettingGroupGrid = function(){return {
 		
 	},
 	
+	/** toolbar **/
 	initTopToolBar: function () {
 		this.theGroupTopToolBar = new Ext.Toolbar({
 			items: [{
@@ -55,6 +70,7 @@ cf.menueSettingGroupGrid = function(){return {
 		
 	},
 	
+	/** init grid for displaying items **/
 	initGrid: function () {
 		this.theGroupGrid = new Ext.grid.GridPanel({
 			frame:false,
@@ -75,6 +91,7 @@ cf.menueSettingGroupGrid = function(){return {
 			tbar: this.theGroupTopToolBar
 		});
 		
+		// drag drop functionality added
 		this.theGroupGrid.on('render', function(grid) {
 		var secondGridDropTargetEl = grid.getView().scroller.dom;
 		var secondGridDropTarget = new Ext.dd.DropTarget(secondGridDropTargetEl, {
@@ -100,8 +117,8 @@ cf.menueSettingGroupGrid = function(){return {
 					}
 					return true;
 				}
+			});
 		});
-	});
 		
 	}
 	

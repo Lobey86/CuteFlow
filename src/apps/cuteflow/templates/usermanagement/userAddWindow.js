@@ -107,7 +107,6 @@ cf.AddUserWindow = function(){return {
 			draggable: true,
 			resizable: true,
 	        plain: false,
-			id: 'mainWindow_id',
 	        buttonAlign: 'center',
 			close : function(){
 				cf.AddUserThirdTab.isInitialized  = false;
@@ -118,7 +117,6 @@ cf.AddUserWindow = function(){return {
 				text:'<?php echo __('Store',null,'userrolemanagementpopup'); ?>', 
 				icon: '/images/icons/accept.png',
 				handler: function () {
-					cf.AddUserThirdTab.isInitialized  = false;
 					cf.UserCRUD.saveUser(new_flag,id);
 				}
 			},{
@@ -136,7 +134,6 @@ cf.AddUserWindow = function(){return {
 	/** Form Panel **/
 	initFormPanel: function () {
 		this.theFormPanel = new Ext.FormPanel({
-			id: 'submitUser'
 		})
 		
 	},
@@ -146,7 +143,6 @@ cf.AddUserWindow = function(){return {
 			frame: true,
 			enableTabScroll:true,
 			plain: false,
-			id: 'addUserTabPanel',
 			deferredRender:false
 		});
 	}

@@ -8,7 +8,6 @@ cf.TabPanel = function(){return {
 			this.isInitialized = true;
 			this.theTabPanel = new Ext.TabPanel({
 				activeTab: 0,
-				id: 'TabpanelCenter',
 				enableTabScroll:true,
 				deferredRender:false,
 				frame: true,

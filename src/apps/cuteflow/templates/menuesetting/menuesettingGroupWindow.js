@@ -1,14 +1,18 @@
+/** class for pop, when changing order of menue items **/
 cf.menueSettingGroupWindow = function(){return {
 	
 	theMenueSettingGroupWindow 			:false,
 	theFormPanel						:false,
 	
 	
+	/** 
+	*
+	* init function 
+	*
+	* @param int id, id of the loaded record
+	**/
 	init: function (id) {
-		
-		
 		cf.menueSettingGroupGrid.init(id);
-		
 		this.initWindow(id);
 		this.initFormPanel();
 		this.theMenueSettingGroupWindow.add(this.theFormPanel);
@@ -16,12 +20,17 @@ cf.menueSettingGroupWindow = function(){return {
 		this.theMenueSettingGroupWindow.show();	
 	},
 	
-	
+	/** formpanel **/
 	initFormPanel: function () {
 		this.theFormPanel = new Ext.FormPanel({
 		});
 	},
 	
+	/**
+	* inits popup window with buttons
+	*
+	* @param int id, id of the loaded record
+	*/
 	initWindow: function (id) {
 		this.theMenueSettingGroupWindow = new Ext.Window({
 			modal: true,
