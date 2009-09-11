@@ -69,7 +69,15 @@
 	 <trans-unit id="17">
         <source>Move all users to</source>
         <target>Alle Benutzer zuordnen in</target>
-     </trans-unit>		 
+     </trans-unit>
+	 <trans-unit id="18">
+        <source>Remove record</source>
+        <target>Datensatz entfernen</target>
+     </trans-unit>
+	 <trans-unit id="19">
+        <source>Edit record</source>
+        <target>Datensatz bearbeiten</target>
+     </trans-unit>	 
     </body>
   </file>
 </xliff>
