@@ -119,7 +119,7 @@ cf.AddUserThirdTab = function(){return {
 	initRightGridCM: function () {
 		this.theRightCM	=  new Ext.grid.ColumnModel([
 			{header: "Name", width: 200, sortable: true, dataIndex: 'text', css : "text-align : left;font-size:12px;align:center;"},
-			{header: "Aktion", width: 60, sortable: true, dataIndex: 'unique_id', css : "text-align : left;font-size:12px;align:center;", renderer:cf.AddUserThirdTab.deleteUseragentButton}
+			{header: "Aktion", width: 60, sortable: true, dataIndex: 'unique_id', css : "text-align : left;font-size:12px;align:center;", tooltip: 'remove user' ,renderer:cf.AddUserThirdTab.deleteUseragentButton}
 		]);
 	
 	},
@@ -136,7 +136,6 @@ cf.AddUserThirdTab = function(){return {
 	initRightGrid:function () {
 		this.theRightGrid = new Ext.grid.GridPanel({
 			frame:false,
-			id: 'rightusergrid',
 			autoScroll: true,
 			collapsible:false,
 			closable: false,
@@ -202,7 +201,6 @@ cf.AddUserThirdTab = function(){return {
 	initLeftGrid:function () {		
 		this.theLeftGrid = new Ext.grid.GridPanel({
 			frame:false,
-			id: 'leftusergrid',
 			autoScroll: true,
 			collapsible:false,
 			closable: false,
@@ -259,7 +257,6 @@ cf.AddUserThirdTab = function(){return {
 	/** init toolbar for left (user) grid, with livesearch and clear button **/
 	initLeftToolbar:function () {
 		this.theLeftToolbar = new Ext.Toolbar({
-			//style:'margin-bottom:5px;',
 			items: [{
 				xtype: 'textfield',
 				id: 'useragentleft_textfield',
@@ -286,7 +283,6 @@ cf.AddUserThirdTab = function(){return {
 	
 	/** init toolbar for right (useragent) grid, with livesearch and clear button **/
 	initRightToolbar: function () {
-		//style:'margin-bottom:5px;',
 		this.theRightToolbar = new Ext.Toolbar({
 			items: [{
 				xtype: 'textfield',

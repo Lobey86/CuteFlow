@@ -57,7 +57,7 @@ cf.DeleteRoleWindow = function(){return {
 				displayField: 'text',
 				editable: false,
 				mode: 'local',
-				id: 'deleteCombo',
+				id: 'deleteUserRightCombo',
 				triggerAction: 'all',
 				selectOnFocus:true,
 				allowBlank: false,
@@ -97,8 +97,8 @@ cf.DeleteRoleWindow = function(){return {
 				text:'<?php echo __('Delete',null,'userrolemanagement'); ?>', 
 				icon: '/images/icons/accept.png',
 				handler: function () { // delete role
-					if(Ext.getCmp('deleteCombo').getValue() != '') {
-						var updateid = (Ext.getCmp('deleteCombo').getValue());
+					if(Ext.getCmp('deleteUserRightCombo').getValue() != '') {
+						var updateid = (Ext.getCmp('deleteUserRightCombo').getValue());
 						Ext.Ajax.request({ 
 							url : '<?php echo url_for('userrolemanagement/DeleteRole')?>/deleteid/' + deleteid + '/updateid/' + updateid, 
 							success: function(objServerResponse){

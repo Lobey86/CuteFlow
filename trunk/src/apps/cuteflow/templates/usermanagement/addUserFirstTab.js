@@ -5,7 +5,6 @@
 cf.AddUserFirstTab = function(){return {
 	
 	theFirstPanel					: false,
-	theComboUserStore				: false,
 	theComboRoleStore				: false,
 	
 	
@@ -13,7 +12,6 @@ cf.AddUserFirstTab = function(){return {
 	/** calls all necessary functions **/
 	init: function() {
 		this.initRoleStore();
-		this.initUserStore();
 		this.initPanel();
 	},
 	
@@ -115,7 +113,7 @@ cf.AddUserFirstTab = function(){return {
 				}]
 			},{
 				xtype: 'fieldset',
-				title: 'Stellvertreter',
+				title: 'Stellvertreterzeit',
 				items:[{
 					xtype: 'panel',
 					layout: 'column',
@@ -137,7 +135,6 @@ cf.AddUserFirstTab = function(){return {
 						id: 'type',
 						name: 'type',
 						mode: 'local',
-						//value: 'Tage(n)',
 						editable:false,
 						allowBlank: true,
 						hiddenName: 'durationtype',
@@ -149,7 +146,7 @@ cf.AddUserFirstTab = function(){return {
 		   				}),
 		 				valueField:'id',
 						displayField:'text',
-						width:165
+						width:90
 					}]
 				}]
 			}]
@@ -158,20 +155,7 @@ cf.AddUserFirstTab = function(){return {
 		
 	},
 	
-	
-	/** Store for superselectbox **/
-	initUserStore: function () {
-		this.theComboUserStore = new Ext.data.JsonStore({
-			root: 'result',
-			//url: '<?php echo url_for('usermanagement/LoadSuperComboboxUser')?>',
-			//autoload: true,
-			fields: [
-				{name: 'id'},
-				{name: 'text'}
-			]
-		});
-		//cf.AddUserFirstTab.theComboUserStore.load();
-	},
+
 	
 	/** store for roles **/
 	initRoleStore: function () {

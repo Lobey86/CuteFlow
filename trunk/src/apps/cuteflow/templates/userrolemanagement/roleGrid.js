@@ -44,7 +44,7 @@ cf.UserRoleGrid = function(){return {
 			{header: "#", width: 50, sortable: true, dataIndex: '#', css : "text-align : left;font-size:12px;align:center;"},
 			{header: "<?php echo __('Role description',null,'userrolemanagement'); ?>", width: 220, sortable: true, dataIndex: 'description', css : "text-align : left;font-size:12px;align:center;"},
 			{header: "<?php echo __('currently used by',null,'userrolemanagement'); ?>", width: 150, sortable: true, dataIndex: 'users', css : "text-align:center;font-size:12px;align:center;"},
-			{header: "<?php echo __('Action',null,'userrolemanagement'); ?>", width: 80, sortable: true, dataIndex: 'action', css : "text-align : left;font-size:12px;align:center;", renderer: this.renderAction}
+			{header: "<?php echo __('Action',null,'userrolemanagement'); ?>", width: 80, sortable: true, dataIndex: 'action', css : "text-align : left;font-size:12px;align:center;", tooltip: 'edit and delete', renderer: this.renderAction}
 		]);
 	},
 	

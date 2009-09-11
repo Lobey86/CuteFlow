@@ -1,3 +1,4 @@
+/** inits the main window for centerRegion **/
 cf.administration_menuesetting = function(){return {
 	
 		
@@ -20,7 +21,7 @@ cf.administration_menuesetting = function(){return {
 		
 	},
 	
-	
+	/** Panel for the tabbar **/
 	initModuleWindow: function () {
 		this.themenueSettingModuleWindow =  new Ext.Panel({
 			modal: true,
@@ -37,7 +38,7 @@ cf.administration_menuesetting = function(){return {
 		
 	},
 	
-	
+	/** formpanel, where grid is rendered to **/
 	initModulePanel: function () {
 		this.theModulePanel = new Ext.FormPanel({
 			closable: false,

@@ -1,13 +1,24 @@
+/** save functionality for menuitems **/
 cf.menueSettingGroupCRUD = function(){return {
 	
-	
+	/**
+	*
+	* init function to save 
+	*
+	* @param int id, id of the loaded Group
+	*/
 	saveGroupOrder: function (id) {
 		this.buildGroupFields(id);
 		this.saveGroup();
 	},
 	
 	
-		
+	/**
+	*
+	* function to build all hiddenfields to store
+	*
+	* @param int id, id of the loaded Group
+	*/	
 	buildGroupFields: function(id) {
 		var myPanel = new Ext.Panel ({
 			id: 'menueSettingGroupCRUDSavePanel',
@@ -16,6 +27,7 @@ cf.menueSettingGroupCRUD = function(){return {
 			autoScroll: false
 		});
 		
+		// hiddenfield with id of Parent Menue Item
 		var hiddenfield = new Ext.form.Field({
 				autoCreate : {tag:'input', type: 'hidden', name: 'module', value:id, width: 0}			
 		});
@@ -32,10 +44,12 @@ cf.menueSettingGroupCRUD = function(){return {
 			myPanel.add(hiddenfield);
 			
 		}
+		// add items to formpanel
 		cf.menueSettingGroupWindow.theFormPanel.add(myPanel);
 		cf.menueSettingGroupWindow.theFormPanel.doLayout();
 	},
 	
+	/** save items **/
 	saveGroup: function () {		
 		cf.menueSettingGroupWindow.theFormPanel.getForm().submit({
 			url: '<?php echo url_for('menuesetting/SaveGroup')?>',
@@ -61,6 +75,7 @@ cf.menueSettingGroupCRUD = function(){return {
 		});
 	},
 	
+	/** expand Administration menue after rendering **/
 	expandNavigation: function () {
 		Ext.getCmp('regionWest_administration').expand();
 	}

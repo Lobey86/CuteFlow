@@ -1,13 +1,15 @@
+/** save function for Modules **/
 cf.menueSettingModuleCRUD = function(){return {
 	
 	
+	/** main save function **/
 	saveModuleOrder: function () {
 		this.buildModuleFields();
 		this.saveModule();
 	},
 	
 	
-	
+	/** buildPabnel, where all hiddenfields will be added **/
 	buildModuleFields: function() {
 		var myPanel = new Ext.Panel ({
 			id: 'menueSettingModuleCRUDSavePanel',
@@ -16,6 +18,7 @@ cf.menueSettingModuleCRUD = function(){return {
 			autoScroll: false
 		});
 		
+		// add hiddenfields
 		for(var a=0;a<cf.menueSettingModuleGrid.theModuleGrid.store.getCount();a++) {
 		
 			var row = cf.menueSettingModuleGrid.theModuleGrid.getStore().getAt(a);
@@ -26,10 +29,12 @@ cf.menueSettingModuleCRUD = function(){return {
 			myPanel.add(hiddenfield);
 			
 		}
+		// add Panel to formpanel
 		cf.administration_menuesetting.theModulePanel.add(myPanel);
 		cf.administration_menuesetting.theModulePanel.doLayout();
 	},
 	
+	/** save function of the hiddenfields **/
 	saveModule: function () {
 		cf.administration_menuesetting.theModulePanel.getForm().submit({
 			url: '<?php echo url_for('menuesetting/SaveModule')?>',
@@ -55,6 +60,7 @@ cf.menueSettingModuleCRUD = function(){return {
 		});
 	},
 	
+	/** expand west navigation **/
 	expandNavigation: function () {
 		Ext.getCmp('regionWest_administration').expand();
 	}

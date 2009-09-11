@@ -57,7 +57,6 @@ cf.AddRoleTabpanel = function(){return {
 	/** formpanel to submit all values **/
 	initFormPanel: function () {
 		this.theFormPanel = new Ext.FormPanel({
-			id: 'submitNewUserrole'
 		})
 	},
 	
@@ -134,7 +133,6 @@ cf.AddRoleTabpanel = function(){return {
 			frame: false,
 			enableTabScroll:true,
 			plain: false,
-			id: 'tabpanel_id',
 			deferredRender:false
 		});
 	},
@@ -160,7 +158,6 @@ cf.AddRoleTabpanel = function(){return {
             	},{
 					xtype: 'hidden',
 					name: 'hiddenfield',
-					id: 'hiddenfield',
 					value: id
 				}]
 			}]

@@ -18,9 +18,9 @@ cf.Window = function(){return {
 		border: false,
 		buttonAlign: 'center', 
                 buttons: [{ 
-                    id: 'loginButton',
 					text:'<?php echo __('Login',null,'login'); ?>', 
 					icon: '/images/icons/lock.png',
+					id: 'loginButton',
 					handler: function () {
 						if(cf.Textfield.theUsernameField.getValue() != '' && cf.Textfield.theUserpasswordField.getValue() != '') {
 							Ext.Ajax.request({
@@ -41,9 +41,9 @@ cf.Window = function(){return {
 						}
 					}
                 },{ 
-					id: 'cancelButton',
                     text: '<?php echo __('Close',null,'login'); ?>', 
 					icon: '/images/icons/cancel.png',
+					id: 'cancelButton',
                     handler: function(){ 
                     	cf.Window.theWindow.hide(); 
                     } 

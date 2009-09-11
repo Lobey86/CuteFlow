@@ -50,21 +50,18 @@ cf.AddRoleWindow = function(){return {
 			draggable: true,
 			resizable: true,
 	        plain: false,
-			id: 'mainWindow_id',
 	        buttonAlign: 'center',
 			close : function(){
 				cf.AddRoleWindow.theAddRoleWin.hide();
 				cf.AddRoleWindow.theAddRoleWin.destroy();
 			},
 			buttons:[{
-				id: 'addButton',
 				text:'<?php echo __('Store',null,'userrolemanagementpopup'); ?>', 
 				icon: '/images/icons/accept.png',
 				handler: function () {
 					cf.RoleCRUD.saveRole(new_flag,id);
 				}
 			},{
-				id: 'cancelButton',
 				text:'<?php echo __('Close',null,'userrolemanagementpopup'); ?>', 
 				icon: '/images/icons/cancel.png',
 				handler: function () {

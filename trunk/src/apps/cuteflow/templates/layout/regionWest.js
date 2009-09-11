@@ -45,8 +45,7 @@ cf.Navigation = function(){return {
 				bodyStyle:'padding:5px;',
 				rootVisible: false,
 				border: false,
-				expanded: true,
-				id: theJsonTreeData.result[a].usermodule.id
+				expanded: true
         	});
         	var root = new Ext.tree.TreeNode({
         		text: 'root',
