@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.0">
+  <file original="global" source-language="en_US" target-language="en_US" datatype="plaintext">
+    <body>     
+	  <trans-unit id="1">
+        <source>Create new user</source>
+        <target>Create new user</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Edit exisitng user</source>
+        <target>Edit exisitng user</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Store</source>
+        <target>Store</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>Close</source>
+        <target>Close</target>
+      </trans-unit> 	  
+		<trans-unit id="5">
+        <source>Userdata</source>
+        <target>Userdata</target>
+      </trans-unit> 
+	  <trans-unit id="6">
+        <source>Personel data</source>
+        <target>Personel data</target>
+      </trans-unit> 
+	  <trans-unit id="7">
+        <source>Firstname</source>
+        <target>Firstname</target>
+      </trans-unit> 
+	  <trans-unit id="8">
+        <source>Lastname</source>
+        <target>Lastname</target>
+      </trans-unit> 
+	 <trans-unit id="9">
+        <source>Email</source>
+        <target>Email</target>
+     </trans-unit> 
+	 <trans-unit id="10">
+        <source>Login data</source>
+        <target>Login data</target>
+	</trans-unit> 
+	<trans-unit id="11">
+        <source>Username</source>
+        <target>Username</target>
+    </trans-unit> 
+	<trans-unit id="12">
+        <source>Password</source>
+        <target>Password</target>
+    </trans-unit> 
+	<trans-unit id="13">
+        <source>Password (again)</source>
+        <target>Password&#160;(again)</target>
+    </trans-unit>
+	<trans-unit id="14">
+        <source>Userrole</source>
+        <target>Userrole</target>
+    </trans-unit>
+	<trans-unit id="15">
+        <source>Useragent time</source>
+        <target>Useragent&#160;time</target>
+    </trans-unit>
+	<trans-unit id="16">
+        <source>Day(s)</source>
+        <target>Day(s)</target>
+    </trans-unit>
+	<trans-unit id="17">
+        <source>Hour(s)</source>
+        <target>Hour(s)</target>
+    </trans-unit>
+    <trans-unit id="18">
+        <source>Minute(s)</source>
+        <target>Minute(s)</target>
+    </trans-unit>
+    <trans-unit id="19">
+        <source>User details</source>
+        <target>User details</target>
+    </trans-unit> 	
+	 <trans-unit id="20">
+        <source>Address</source>
+        <target>Address</target>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>Zip / City</source>
+        <target>Zip / City</target>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>Street</source>
+        <target>Street</target>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>Country</source>
+        <target>Country</target>
+      </trans-unit> 	  
+		<trans-unit id="24">
+        <source>Phone and Fax</source>
+        <target>Phone and Fax</target>
+      </trans-unit> 
+	  <trans-unit id="25">
+        <source>Phone 1</source>
+        <target>Phone 1</target>
+      </trans-unit> 
+	  <trans-unit id="26">
+        <source>Phone 2</source>
+        <target>Phone 2</target>
+      </trans-unit> 
+	  <trans-unit id="27">
+        <source>Mobile</source>
+        <target>Mobile</target>
+      </trans-unit> 
+	 <trans-unit id="28">
+        <source>Fax</source>
+        <target>Fax</target>
+     </trans-unit> 
+	 <trans-unit id="29">
+        <source>Organisation, Department and Burdence center</source>
+        <target>Organisation, Department and Burdence center</target>
+	</trans-unit> 
+	<trans-unit id="30">
+        <source>Comment</source>
+        <target>Comment</target>
+    </trans-unit> 
+	<trans-unit id="31">
+        <source>Organisation</source>
+        <target>Organisation</target>
+    </trans-unit> 
+	<trans-unit id="32">
+        <source>Department</source>
+        <target>Department</target>
+    </trans-unit>
+	<trans-unit id="33">
+        <source>Burdence center</source>
+        <target>Burdence&#160;center</target>
+    </trans-unit>
+	<trans-unit id="34">
+        <source>Useragent</source>
+        <target>Useragent</target>
+    </trans-unit>
+	<trans-unit id="35">
+        <source>Name</source>
+        <target>Name</target>
+    </trans-unit>
+	<trans-unit id="36">
+        <source>Action</source>
+        <target>Action</target>
+    </trans-unit>
+    <trans-unit id="37">
+        <source>Remove user</source>
+        <target>Remove user</target>
+    </trans-unit>
+    <trans-unit id="38">
+        <source>Drag Drop to change order</source>
+        <target>Drag Drop to change order</target>
+    </trans-unit> 
+	    <trans-unit id="39">
+        <source>Move right please</source>
+        <target>Move right please</target>
+    </trans-unit>
+	    <trans-unit id="40">
+        <source>User</source>
+        <target>User</target>
+    </trans-unit>
+	    <trans-unit id="41">
+        <source>Search for User...</source>
+        <target>Search for User...</target>
+    </trans-unit>
+	<trans-unit id="42">
+        <source>Search for Useragent...</source>
+        <target>Search for Useragent...</target>
+    </trans-unit>
+	<trans-unit id="43">
+        <source>Password Failure</source>
+        <target>Password Failure</target>
+    </trans-unit>
+		<trans-unit id="44">
+        <source>Passwords are not equal</source>
+        <target>Passwords are not equal</target>
+    </trans-unit>
+		<trans-unit id="45">
+        <source>Error</source>
+        <target>Error</target>
+    </trans-unit>
+		<trans-unit id="46">
+        <source>Username is alreasy existing</source>
+        <target>Username is alreasy existing</target>
+    </trans-unit>
+	</body>
+  </file>
+</xliff>
