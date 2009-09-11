@@ -10,10 +10,12 @@ cf.UserRoleGrid = function(){return {
 	theUserRoleStoreIsInitialized	:false,
 	theUserRoleCM					:false,
 	theTopToolBar					:false,
+	theToolTip						:false,
 	
 	/** inits all necessary functions to build the grid and its toolbars **/
 	init: function () {
 			this.isInitialized = true;
+			this.initToolTip();
 			this.initUserRoleStore();
 			this.theUserRoleStore.load();
 			this.initUserRoleCM();
@@ -21,32 +23,44 @@ cf.UserRoleGrid = function(){return {
 			this.initUserRoleGrid();
 	},
 	
+	initToolTip: function () {
+		this.theToolTip = new Ext.ToolTip({
+			title: 'tip'
+		});
+	},
 	
 	/** Grid and store, toolbar and cm are binded **/
 	initUserRoleGrid: function () {
 		this.theUserRoleGrid = new Ext.grid.GridPanel({
-				title: '<?php echo __('Role management',null,'userrolemanagement'); ?>',
-				stripeRows: true,
-				border: true,
-				collapsible: true,
-				height: cf.Layout.theRegionWest.getHeight()-65,
-				style:'margin-top:5px;margin-left:5px;margin-right:5px;',
-				store: this.theUserRoleStore,
-				tbar: this.theTopToolBar,
-				cm: this.theUserRoleCM
-			});
+			title: '<?php echo __('Role management',null,'userrolemanagement'); ?>',
+			stripeRows: true,
+			border: true,
+			collapsible: true,
+			height: cf.Layout.theRegionWest.getHeight()-65,
+			style:'margin-top:5px;margin-left:5px;margin-right:5px;',
+			store: this.theUserRoleStore,
+			tbar: this.theTopToolBar,
+			cm: this.theUserRoleCM
+
+		});	
+	},
+	
+
+
+	/** columnModel **/
+	initUserRoleCM: function() {
+
+		this.theUserRoleCM  =  new Ext.grid.ColumnModel([
+			{header: "#", width: 50, sortable: true, dataIndex: '#', css : "text-align : left;font-size:12px;align:center;"},
+			{header: "<?php echo __('Role description',null,'userrolemanagement'); ?>", width: 220, sortable: false, dataIndex: 'description', css : "text-align : left;font-size:12px;align:center;"},
+			{header: "<?php echo __('currently used by',null,'userrolemanagement'); ?>", width: 150, sortable: false, dataIndex: 'users', css : "text-align:center;font-size:12px;align:center;"},
+			{header: "<?php echo __('Action',null,'userrolemanagement'); ?>", width: 80, sortable: false, dataIndex: 'action', css : "text-align : left;font-size:12px;align:center;" ,renderer: this.renderAction }
+		]);
+
+		
 		
 	},
 	
-	/** columnModel **/
-	initUserRoleCM: function() {
-		this.theUserRoleCM  =  new Ext.grid.ColumnModel([
-			{header: "#", width: 50, sortable: true, dataIndex: '#', css : "text-align : left;font-size:12px;align:center;"},
-			{header: "<?php echo __('Role description',null,'userrolemanagement'); ?>", width: 220, sortable: true, dataIndex: 'description', css : "text-align : left;font-size:12px;align:center;"},
-			{header: "<?php echo __('currently used by',null,'userrolemanagement'); ?>", width: 150, sortable: true, dataIndex: 'users', css : "text-align:center;font-size:12px;align:center;"},
-			{header: "<?php echo __('Action',null,'userrolemanagement'); ?>", width: 80, sortable: true, dataIndex: 'action', css : "text-align : left;font-size:12px;align:center;", tooltip: 'edit and delete', renderer: this.renderAction}
-		]);
-	},
 	
 	/** Toolbar, to add new role **/
 	initTopToolBar: function () {
@@ -61,6 +75,7 @@ cf.UserRoleGrid = function(){return {
 			}]
 		});	
 	},
+	
 	
 	/** the store for grid **/
 	initUserRoleStore: function () {
@@ -127,3 +142,10 @@ cf.UserRoleGrid = function(){return {
 	}
 
 };}();
+
+
+
+
+
+
+

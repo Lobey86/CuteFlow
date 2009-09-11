@@ -48,7 +48,7 @@ cf.AddUserThirdTab = function(){return {
 	
 	initPanel:function(new_flag, id) {
 		this.theThirdPanel = new Ext.Panel({
-			title: 'Stellvertreter',
+			title: '<?php echo __('Useragent',null,'usermanagementpopup'); ?>',
 			frame: true,
 			plain: true,
 			layout: 'column',
@@ -118,8 +118,8 @@ cf.AddUserThirdTab = function(){return {
 	/** ColumnModel for useragent(right) grid **/
 	initRightGridCM: function () {
 		this.theRightCM	=  new Ext.grid.ColumnModel([
-			{header: "Name", width: 200, sortable: true, dataIndex: 'text', css : "text-align : left;font-size:12px;align:center;"},
-			{header: "Aktion", width: 60, sortable: true, dataIndex: 'unique_id', css : "text-align : left;font-size:12px;align:center;", tooltip: 'remove user' ,renderer:cf.AddUserThirdTab.deleteUseragentButton}
+			{header: "<?php echo __('Name',null,'usermanagementpopup'); ?>", width: 200, sortable: true, dataIndex: 'text', css : "text-align : left;font-size:12px;align:center;"},
+			{header: "<?php echo __('Action',null,'usermanagementpopup'); ?>", width: 60, sortable: true, dataIndex: 'unique_id', css : "text-align : left;font-size:12px;align:center;", tooltip: '<?php echo __('Remove user',null,'usermanagementpopup'); ?>' ,renderer:cf.AddUserThirdTab.deleteUseragentButton}
 		]);
 	
 	},
@@ -127,7 +127,7 @@ cf.AddUserThirdTab = function(){return {
 	/** ColumnModel for user(left) grid **/
 	initLeftGridCM: function () {
 		this.theLeftCM	=  new Ext.grid.ColumnModel([
-			{header: "Name", width: 255, sortable: true, dataIndex: 'text', css : "text-align : left;font-size:12px;align:center;height:26px;"}
+			{header: "<?php echo __('Name',null,'usermanagementpopup'); ?>", width: 255, sortable: true, dataIndex: 'text', css : "text-align : left;font-size:12px;align:center;height:26px;"}
 		]);
 	
 	},
@@ -141,8 +141,8 @@ cf.AddUserThirdTab = function(){return {
 			closable: false,
 			ddGroup : 'rightGridDDGroup',
 			allowContainerDrop : true,
-            ddText: 'drag and drop to change order', 
-			title: '<table><tr><td><img src="/images/icons/user_gray.png" /></td><td>Stellvertreter</td></tr></table>',
+            ddText: '<?php echo __('Drag Drop to change order',null,'usermanagementpopup'); ?>', 
+			title: '<table><tr><td><img src="/images/icons/user_gray.png" /></td><td><?php echo __('Useragent',null,'usermanagementpopup'); ?></td></tr></table>',
 			height:'false',
 			width:290,
 			height: 490,
@@ -204,8 +204,8 @@ cf.AddUserThirdTab = function(){return {
 			autoScroll: true,
 			collapsible:false,
 			closable: false,
-            ddText: 'drag and drop to change order',  
-			title: '<table><tr><td><img src="/images/icons/user_suit.png" /></td><td>Benutzer</td></tr></table>',
+            ddText: '<?php echo __('Move right please',null,'usermanagementpopup'); ?>',  
+			title: '<table><tr><td><img src="/images/icons/user_suit.png" /></td><td><?php echo __('User',null,'usermanagementpopup'); ?></td></tr></table>',
 			height: 490,
 			width:290,
 			border: true,
@@ -260,7 +260,7 @@ cf.AddUserThirdTab = function(){return {
 			items: [{
 				xtype: 'textfield',
 				id: 'useragentleft_textfield',
-				emptyText:'Search for a Useragent...',
+				emptyText:'<?php echo __('Search for User...',null,'usermanagementpopup'); ?>',
 				width: 200,
 				enableKeyEvents: true,
 				listeners: {
@@ -271,7 +271,7 @@ cf.AddUserThirdTab = function(){return {
 				}
 			},'-',{
 				icon: '/images/icons/delete.png',
-				tooltip: 'clear Field',
+				tooltip: '<?php echo __('Clear field',null,'usermanagementpopup'); ?>',
 				handler: function () {
 					Ext.getCmp('useragentleft_textfield').setValue();
 					cf.AddUserThirdTab.theLeftGrid.store.filter('text', '');
@@ -287,7 +287,7 @@ cf.AddUserThirdTab = function(){return {
 			items: [{
 				xtype: 'textfield',
 				id: 'useragentright_textfield',
-				emptyText:'Search for a Useragent...',
+				emptyText:'<?php echo __('Search for Useragent...',null,'usermanagementpopup'); ?>',
 				width: 200,
 				enableKeyEvents: true,
 				listeners: {
@@ -298,7 +298,7 @@ cf.AddUserThirdTab = function(){return {
 				}
 		    },'-',{
 				icon: '/images/icons/delete.png',
-				tooltip: 'clear Field',
+				tooltip: '<?php echo __('Clear field',null,'usermanagementpopup'); ?>',
 				handler: function () {
 					Ext.getCmp('useragentright_textfield').setValue();
 					cf.AddUserThirdTab.theRightGrid.store.filter('text', '');
