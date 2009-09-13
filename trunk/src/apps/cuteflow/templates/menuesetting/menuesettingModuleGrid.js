@@ -87,7 +87,7 @@ cf.menueSettingModuleGrid = function(){return {
 		this.theModuleCM  =  new Ext.grid.ColumnModel([
 			{header: "#", width: 50, sortable: false, dataIndex: '#', css : "text-align : left;font-size:12px;align:center;"},
 			{header: "Men&uuml; Eintrag", width: 410, sortable: false, dataIndex: 'group', css : "text-align : left;font-size:12px;align:center;"},
-			{header: "Aktion", width: 60, sortable: false, tooltip: 'Module bearbeiten', dataIndex: 'module', css : "text-align : left;font-size:12px;align:center;", renderer: cf.menueSettingModuleGrid.editButtonRenderer}
+			{header: "<div ext:qtip=\"<table><tr><td><img src='/images/icons/pencil.png' />&nbsp;&nbsp;</td><td><?php echo __('Edit user',null,'usermanagement'); ?></td></tr></table>\" ext:qwidth=\"200\"><?php echo __('Action',null,'usermanagement'); ?></div>", width: 60, sortable: false, tooltip: 'Module bearbeiten', dataIndex: 'module', css : "text-align : left;font-size:12px;align:center;", renderer: cf.menueSettingModuleGrid.editButtonRenderer}
 		]);
 		
 	}, 

@@ -20,21 +20,8 @@ cf.UserRoleGrid = function(){return {
 			this.theUserRoleStore.load();
 			this.initTopToolBar();
 			this.initUserRoleGrid();
-			this.initToolTip();
 	},
-	
-	initToolTip: function () {
-		var test = new Ext.ToolTip({
-	        target: 'test',
-	        title: 'Mouse Track',
-	        width:200,
-	        html: 'This tip will follow the mouse while it is over the element',
-	        trackMouse:true
-		});
-		
 
-
-	},
 	
 	/** Grid and store, toolbar and cm are binded **/
 	initUserRoleGrid: function () {

@@ -119,9 +119,8 @@ cf.AddUserThirdTab = function(){return {
 	initRightGridCM: function () {
 		this.theRightCM	=  new Ext.grid.ColumnModel([
 			{header: "<?php echo __('Name',null,'usermanagementpopup'); ?>", width: 200, sortable: true, dataIndex: 'text', css : "text-align : left;font-size:12px;align:center;"},
-			{header: "<?php echo __('Action',null,'usermanagementpopup'); ?>", width: 60, sortable: true, dataIndex: 'unique_id', css : "text-align : left;font-size:12px;align:center;", tooltip: '<?php echo __('Remove user',null,'usermanagementpopup'); ?>' ,renderer:cf.AddUserThirdTab.deleteUseragentButton}
+			{header: "<div ext:qtip=\"<table><tr><td><img src='/images/icons/user_delete.png' />&nbsp;&nbsp;</td><td><?php echo __('Remove user',null,'usermanagementpopup'); ?></td></tr></table>\" ext:qwidth=\"200\"><?php echo __('Action',null,'usermanagementpopup'); ?></div>", width: 60, sortable: true, dataIndex: 'unique_id', css : "text-align : left;font-size:12px;align:center;", renderer:cf.AddUserThirdTab.deleteUseragentButton}
 		]);
-	
 	},
 	
 	/** ColumnModel for user(left) grid **/
