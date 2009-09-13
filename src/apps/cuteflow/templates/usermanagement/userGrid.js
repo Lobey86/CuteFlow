@@ -126,8 +126,9 @@ cf.UserGrid = function(){return {
 			{header: "<?php echo __('Email',null,'usermanagement'); ?>", width: 150, sortable: false, dataIndex: 'email', css : "text-align : left;font-size:12px;align:center;"},
 			{header: "<?php echo __('Username',null,'usermanagement'); ?>", width: 150, sortable: false, dataIndex: 'username', css : "text-align : left;font-size:12px;align:center;"},
 			{header: "<?php echo __('Userrole',null,'usermanagement'); ?>", width: 150, sortable: false, dataIndex: 'role_description', css : "text-align : left;font-size:12px;align:center;"},
-			{header: "<?php echo __('Action',null,'usermanagement'); ?>", width: 80, sortable: false, dataIndex: 'action', css : "text-align :center; font-size:12px;", tooltip: '<?php echo __('Edit user',null,'usermanagement'); ?>', renderer: cf.UserGrid.renderAction}
+			{header: "<div ext:qtip=\"<table><tr><td><img src='/images/icons/pencil.png' />&nbsp;&nbsp;</td><td><?php echo __('Edit user',null,'usermanagement'); ?></td></tr></table>\" ext:qwidth=\"200\"><?php echo __('Action',null,'usermanagement'); ?></div>",  width: 80, sortable: false, dataIndex: 'action', css : "text-align :center; font-size:12px;", renderer: cf.UserGrid.renderAction}
 		]);
+		
      },
 	
      /** Store for grid **/

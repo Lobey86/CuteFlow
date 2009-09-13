@@ -41,7 +41,7 @@ cf.Navigation = function(){return {
 				frame: false,
 				width: 230,
 				animate: true,
-			    enableDD: true,
+			    enableDD: false,
 				bodyStyle:'padding:5px;',
 				rootVisible: false,
 				border: false,
