@@ -15,6 +15,9 @@ class loginActions extends sfActions {
     * @param sfRequest $request A request object
     */
     public function executeIndex(sfWebRequest $request) {
+        sfLoader::loadHelpers('Url');
+        //$env = $request->getPathInfo();
+        $this->getUser()->setAttribute('env', str_replace('/', '', url_for('')));
         $data = sfYaml::Load(sfConfig::get('sf_app_dir') . '/config/i18n.yml');
         $this->getUser()->setCulture($data['all']['default_culture']);
         return sfView::SUCCESS;
