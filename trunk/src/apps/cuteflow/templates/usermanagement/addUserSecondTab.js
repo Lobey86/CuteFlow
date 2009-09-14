@@ -22,7 +22,7 @@ cf.AddUserSecondTab = function(){return {
 			layout: 'form',
 			labelWidth : 200,
 			width: 500,
-			height: 530,
+			height: 529,
 			items:[{
 				xtype: 'fieldset',
 				title: '<?php echo __('Address',null,'usermanagementpopup'); ?>',
