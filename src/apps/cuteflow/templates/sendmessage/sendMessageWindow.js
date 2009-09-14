@@ -57,7 +57,7 @@ cf.administration_sendmessage = function(){return {
 			frame: false,
 			layout: 'form',
 			width: 620,
-			height: 560,
+			height: 590,
 			title: 'Send Message',
 			style:'margin-top:5px;margin-left:5px;margin-right:10px;',
 			collapsible:false
@@ -77,7 +77,7 @@ cf.administration_sendmessage = function(){return {
 				fieldLabel: 'Betreff',
 				name: 'betreff',
 				style:'margin-right:10px;',
-				width: 470
+				width: 460
 			}]
 		});
 	},
@@ -149,7 +149,7 @@ cf.administration_sendmessage = function(){return {
 				
 				
 			},{
-				xtype: 'textarea',
+				xtype: 'htmleditor',
 				name: 'description',
 				fieldLabel: 'Betreff:',
 				id: 'systemMessageTextarea',
