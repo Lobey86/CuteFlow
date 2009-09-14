@@ -37,7 +37,7 @@ cf.menueSettingModuleCRUD = function(){return {
 	/** save function of the hiddenfields **/
 	saveModule: function () {
 		cf.administration_menuesetting.theModulePanel.getForm().submit({
-			url: '<?php echo url_for('menuesetting/SaveModule')?>',
+			url: '<?php echo build_dynamic_javascript_url('menuesetting/SaveModule')?>',
 			method: 'POST',
 			success: function() {
 				var ac_item_id = cf.Navigation.theAccordion.layout.activeItem.id;

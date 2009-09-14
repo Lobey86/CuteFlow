@@ -31,7 +31,7 @@ cf.RoleCRUD = function(){return {
 			if (new_flag != 1) { // edit role
 				
 				cf.AddRoleTabpanel.theFormPanel.getForm().submit({
-					url: '<?php echo url_for('userrolemanagement/EditRole')?>',
+					url: '<?php echo build_dynamic_javascript_url('userrolemanagement/EditRole')?>',
 					method: 'POST',
 					success: function() {
 						//cf.UserRoleGrid.theUserRoleStore.reload();
@@ -42,11 +42,11 @@ cf.RoleCRUD = function(){return {
 			}
 			else { // new role
 				Ext.Ajax.request({  
-					url : '<?php echo url_for('userrolemanagement/CheckForExistingRole')?>/description/' + textfield.getValue(),
+					url : '<?php echo build_dynamic_javascript_url('userrolemanagement/CheckForExistingRole')?>/description/' + textfield.getValue(),
 					success: function(objServerResponse){
 						if(objServerResponse.responseText == 1) { // save Role
 							cf.theAddUserWindow.theFormPanel.getForm().submit({
-								url: '<?php echo url_for('userrolemanagement/AddRole')?>',
+								url: '<?php echo build_dynamic_javascript_url('userrolemanagement/AddRole')?>',
 								method: 'POST',
 								success: function() {
 									cf.UserRoleGrid.theUserRoleStore.reload();

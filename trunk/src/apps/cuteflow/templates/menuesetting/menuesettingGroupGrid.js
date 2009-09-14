@@ -4,7 +4,6 @@ cf.menueSettingGroupGrid = function(){return {
 	theGroupGrid 				:false,
 	theGroupStore				:false,
 	theGroupCM					:false,
-	theGroupTopToolBar			:false,
 	
 	
 	
@@ -17,7 +16,6 @@ cf.menueSettingGroupGrid = function(){return {
 	init: function (id) {
 		this.initCM();
 		this.initStore(id);
-		this.initTopToolBar();
 		this.initGrid();
 	},
 	
@@ -42,7 +40,7 @@ cf.menueSettingGroupGrid = function(){return {
 	initStore: function (id) {
 		this.theGroupStore = new Ext.data.JsonStore({
 				root: 'result',
-				url: '<?php echo url_for('menuesetting/LoadGroup')?>/id/' + id,
+				url: '<?php echo build_dynamic_javascript_url('menuesetting/LoadGroup')?>/id/' + id,
 				fields: [
 					{name: '#'},
 					{name: 'id'},
@@ -56,19 +54,7 @@ cf.menueSettingGroupGrid = function(){return {
 		
 	},
 	
-	/** toolbar **/
-	initTopToolBar: function () {
-		this.theGroupTopToolBar = new Ext.Toolbar({
-			items: [{
-                icon: '/images/icons/accept.png',
-                tooltip:'<?php echo __('Save order',null,'menuesetting'); ?>',
-                handler: function () {
-                	cf.menueSettingModuleCRUD.saveModuleOrder();
-                }
-		    }]
-		});
-		
-	},
+
 	
 	/** init grid for displaying items **/
 	initGrid: function () {
@@ -87,8 +73,7 @@ cf.menueSettingGroupGrid = function(){return {
 			style: 'margin-top:10px;margin-left:10px;',
 			border: true,
 			store: this.theGroupStore,
-			cm: this.theGroupCM,
-			tbar: this.theGroupTopToolBar
+			cm: this.theGroupCM
 		});
 		
 		// drag drop functionality added

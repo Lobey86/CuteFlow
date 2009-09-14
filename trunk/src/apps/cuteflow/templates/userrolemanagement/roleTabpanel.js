@@ -34,10 +34,10 @@ cf.AddRoleTabpanel = function(){return {
 	*/
 	initTree: function (id) {
 		if(id == '') {
-			var url = '<?php echo url_for('userrolemanagement/LoadRoleTree')?>';
+			var url = '<?php echo build_dynamic_javascript_url('userrolemanagement/LoadRoleTree')?>';
 		}
 		else {
-			var url = '<?php echo url_for('userrolemanagement/LoadRoleTree')?>/role_id/' + id;
+			var url = '<?php echo build_dynamic_javascript_url('userrolemanagement/LoadRoleTree')?>/role_id/' + id;
 		}
 		
 		// load tree here

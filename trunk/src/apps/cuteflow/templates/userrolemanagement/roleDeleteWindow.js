@@ -32,7 +32,7 @@ cf.DeleteRoleWindow = function(){return {
 		this.theComboStore = new Ext.data.JsonStore({
 			mode: 'local',
 			autoload: true,
-			url: '<?php echo url_for('userrolemanagement/LoadDeletableRoles')?>/id/' + id,
+			url: '<?php echo build_dynamic_javascript_url('userrolemanagement/LoadDeletableRoles')?>/id/' + id,
 			root: 'result',
 			fields: [
 				{name: 'value'},
@@ -100,7 +100,7 @@ cf.DeleteRoleWindow = function(){return {
 					if(Ext.getCmp('deleteUserRightCombo').getValue() != '') {
 						var updateid = (Ext.getCmp('deleteUserRightCombo').getValue());
 						Ext.Ajax.request({ 
-							url : '<?php echo url_for('userrolemanagement/DeleteRole')?>/deleteid/' + deleteid + '/updateid/' + updateid, 
+							url : '<?php echo build_dynamic_javascript_url('userrolemanagement/DeleteRole')?>/deleteid/' + deleteid + '/updateid/' + updateid, 
 							success: function(objServerResponse){
 								cf.UserRoleGrid.theUserRoleStore.reload();
 								if(cf.UserGrid.theUserStoreIsInitialized == true) {

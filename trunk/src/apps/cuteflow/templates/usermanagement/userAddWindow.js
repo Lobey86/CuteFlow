@@ -45,7 +45,7 @@ cf.AddUserWindow = function(){return {
 		if (new_flag != 1) {
 			Ext.getCmp('username').setDisabled(true);
 			Ext.Ajax.request({  
-				url : '<?php echo url_for('usermanagement/LoadSingleUser')?>/id/' + id,
+				url : '<?php echo build_dynamic_javascript_url('usermanagement/LoadSingleUser')?>/id/' + id,
 				success: function(objServerResponse){
 				
 					userData = Ext.util.JSON.decode(objServerResponse.responseText);

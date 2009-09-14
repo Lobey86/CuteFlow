@@ -149,7 +149,7 @@ cf.administration_sendmessage = function(){return {
 				
 				
 			},{
-				xtype: 'htmleditor',
+				xtype: 'textarea',
 				name: 'description',
 				fieldLabel: 'Betreff:',
 				id: 'systemMessageTextarea',

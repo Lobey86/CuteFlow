@@ -11,7 +11,7 @@ cf.UserCRUD = function(){return {
 		if (rows.length > 0) {
 			for(var i=0;i<rows.length;i++) {
 				var r = rows[i];
-				var deleteurl = '<?php echo url_for('usermanagement/DeleteUser')?>/id/' + r.get('id');
+				var deleteurl = '<?php echo build_dynamic_javascript_url('usermanagement/DeleteUser')?>/id/' + r.get('id');
 				if(r.get('id') != '<?php echo $sf_user->getAttribute('id')?>') {
 					cf.UserGrid.theUserStore.remove(rows[i]);
 					Ext.Ajax.request({  
@@ -67,13 +67,13 @@ cf.UserCRUD = function(){return {
 			
 			if(new_flag == 1) {
 				// new
-				var url = '<?php echo url_for('usermanagement/CheckForExistingUser')?>/username/' + username.getValue();
+				var url = '<?php echo build_dynamic_javascript_url('usermanagement/CheckForExistingUser')?>/username/' + username.getValue();
 				Ext.Ajax.request({  // check if username is already stored in database
 					url: url,
 					success: function(objServerResponse){
 						if(objServerResponse.responseText == 1) {
 							cf.AddUserWindow.theFormPanel.getForm().submit({
-								url: '<?php echo url_for('usermanagement/AddUser')?>',
+								url: '<?php echo build_dynamic_javascript_url('usermanagement/AddUser')?>',
 								method: 'POST',
 								success: function() {
 									cf.AddUserThirdTab.isInitialized  = false;
@@ -95,7 +95,7 @@ cf.UserCRUD = function(){return {
 			else {
 				// edit
 				cf.AddUserWindow.theFormPanel.getForm().submit({
-					url: '<?php echo url_for('usermanagement/EditUser')?>',
+					url: '<?php echo build_dynamic_javascript_url('usermanagement/EditUser')?>',
 					method: 'POST',
 					success: function(objServerResponse){
 						cf.AddUserThirdTab.isInitialized  = false;

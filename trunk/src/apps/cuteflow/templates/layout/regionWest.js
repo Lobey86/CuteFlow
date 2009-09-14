@@ -19,7 +19,7 @@ cf.Navigation = function(){return {
 	
 	/** functions loads all data for the navigation **/
 	initTree: function () {
-		var url =  '<?php echo url_for('menue/loadMenue')?>';
+		var url =  '<?php echo build_dynamic_javascript_url('menue/loadMenue')?>';
 		Ext.Ajax.request({  
 			url : url,
 			success: function(objServerResponse){

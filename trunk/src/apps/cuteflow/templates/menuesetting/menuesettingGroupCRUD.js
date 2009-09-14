@@ -52,7 +52,7 @@ cf.menueSettingGroupCRUD = function(){return {
 	/** save items **/
 	saveGroup: function () {		
 		cf.menueSettingGroupWindow.theFormPanel.getForm().submit({
-			url: '<?php echo url_for('menuesetting/SaveGroup')?>',
+			url: '<?php echo build_dynamic_javascript_url('menuesetting/SaveGroup')?>',
 			method: 'POST',
 			success: function() {
 				var ac_item_id = cf.Navigation.theAccordion.layout.activeItem.id;

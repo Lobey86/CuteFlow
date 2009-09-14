@@ -24,11 +24,10 @@ cf.Window = function(){return {
 					handler: function () {
 						if(cf.Textfield.theUsernameField.getValue() != '' && cf.Textfield.theUserpasswordField.getValue() != '') {
 							Ext.Ajax.request({
-								url: '<?php echo url_for('login/DoLogin')?>/username/' + cf.Textfield.theUsernameField.getValue() + '/password/' + cf.Textfield.theUserpasswordField.getValue() + '/language/' + cf.Textfield.theHiddenField.getValue(),						
+								url: '<?php echo build_dynamic_javascript_url('login/DoLogin')?>/username/' + cf.Textfield.theUsernameField.getValue() + '/password/' + cf.Textfield.theUserpasswordField.getValue() + '/language/' + cf.Textfield.theHiddenField.getValue(),						
 								success: function(objServerResponse){  
 									if(objServerResponse.responseText == 1) { // login TRUE
-										var url = Ext.get('url').dom.value;
-										window.location.href = url;
+										window.location.href = '<?php echo build_dynamic_javascript_url('layout/Index');?>'
 									}
 									else { // login FALSE
 										var ServerResult = Ext.util.JSON.decode(objServerResponse.responseText);

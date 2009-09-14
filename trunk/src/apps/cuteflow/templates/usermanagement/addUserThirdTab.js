@@ -79,7 +79,7 @@ cf.AddUserThirdTab = function(){return {
 	initLeftGridStore: function () {	
 		this.theLeftUserStore = new Ext.data.JsonStore({
 				root: 'result',
-				url: '<?php echo url_for('usermanagement/LoadLeftGrid')?>',
+				url: '<?php echo build_dynamic_javascript_url('usermanagement/LoadLeftGrid')?>',
 				fields: [
 					{name: 'id'},
 					{name: 'text'}
@@ -102,7 +102,7 @@ cf.AddUserThirdTab = function(){return {
 	initRightGridStore: function (new_flag, id) {
 		this.theRightUserStore = new Ext.data.JsonStore({
 				root: 'result',
-				url: '<?php echo url_for('usermanagement/LoadRightGrid')?>/id/'+id,
+				url: '<?php echo build_dynamic_javascript_url('usermanagement/LoadRightGrid')?>/id/'+id,
 				fields: [
 					{name: 'unique_id'},
 				    {name: 'user_id'},
