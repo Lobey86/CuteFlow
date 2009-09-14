@@ -3,8 +3,6 @@ Role:
   columns:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
     description: { type: string(100) }
-    deleteable: { type: integer(1), default: 1 }
-    editable: { type: integer(1), default: 1 }
 
 Credential:
   tableName: cf_credential
