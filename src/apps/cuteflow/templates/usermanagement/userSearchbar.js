@@ -105,12 +105,12 @@ cf.UserSearchbar = function(){return {
 								}
 	
 								if (flag == true) {
-									var url = encodeURI('<?php echo url_for('usermanagement/LoadAllUserFilter')?>' + append);
+									var url = encodeURI('<?php echo build_dynamic_javascript_url('usermanagement/LoadAllUserFilter')?>' + append);
 									cf.UserGrid.theUserStore.proxy.setApi(Ext.data.Api.actions.read,url);
 									cf.UserGrid.theUserStore.reload();
 								}
 								else {
-									var url = encodeURI('<?php echo url_for('usermanagement/LoadAllUser')?>');
+									var url = encodeURI('<?php echo build_dynamic_javascript_url('usermanagement/LoadAllUser')?>');
 									cf.UserGrid.theUserStore.proxy.setApi(Ext.data.Api.actions.read,url);
 								}
 							}
@@ -126,7 +126,7 @@ cf.UserSearchbar = function(){return {
 								Ext.getCmp('searchbar_email').setValue();
 								Ext.getCmp('searchbar_username').setValue();
 								Ext.getCmp('searchbar_userrole').setValue();
-								var url = encodeURI('<?php echo url_for('usermanagement/LoadAllUser')?>');
+								var url = encodeURI('<?php echo build_dynamic_javascript_url('usermanagement/LoadAllUser')?>');
 								cf.UserGrid.theUserStore.proxy.setApi(Ext.data.Api.actions.read,url);
 								cf.UserGrid.theUserStore.reload();
 							}
@@ -141,7 +141,7 @@ cf.UserSearchbar = function(){return {
 		this.theUserRoleStoreInitialized = true;
 		this.theUserRoleStore = new Ext.data.JsonStore({
 				root: 'result',
-				url: '<?php echo url_for('usermanagement/LoadAllRole')?>',
+				url: '<?php echo build_dynamic_javascript_url('usermanagement/LoadAllRole')?>',
 				autoload: true,
 				fields: [
 					{name: 'id'},

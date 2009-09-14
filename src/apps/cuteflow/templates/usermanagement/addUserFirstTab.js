@@ -161,7 +161,7 @@ cf.AddUserFirstTab = function(){return {
 	initRoleStore: function () {
 		this.theComboRoleStore = new Ext.data.JsonStore({
 				root: 'result',
-				url: '<?php echo url_for('usermanagement/LoadAllRole')?>',
+				url: '<?php echo build_dynamic_javascript_url('usermanagement/LoadAllRole')?>',
 				autoload: true,
 				fields: [
 					{name: 'id'},

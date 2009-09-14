@@ -71,7 +71,7 @@ cf.menueSettingModuleGrid = function(){return {
 	initStore: function () {
 		this.theModuleStore = new Ext.data.JsonStore({
 				root: 'result',
-				url: '<?php echo url_for('menuesetting/LoadModule')?>',
+				url: '<?php echo build_dynamic_javascript_url('menuesetting/LoadModule')?>',
 				fields: [
 					{name: '#'},
 					{name: 'id'},

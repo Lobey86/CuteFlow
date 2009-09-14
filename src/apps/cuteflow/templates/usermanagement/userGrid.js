@@ -137,7 +137,7 @@ cf.UserGrid = function(){return {
 		this.theUserStore = new Ext.data.JsonStore({
 				totalProperty: 'total',
 				root: 'result',
-				url: '<?php echo url_for('usermanagement/LoadAllUser')?>',
+				url: '<?php echo build_dynamic_javascript_url('usermanagement/LoadAllUser')?>',
 				fields: [
 					{name: '#'},
 					{name: 'id'},

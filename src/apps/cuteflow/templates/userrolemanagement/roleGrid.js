@@ -78,7 +78,7 @@ cf.UserRoleGrid = function(){return {
 		this.theUserRoleStore = new Ext.data.JsonStore({
 				totalProperty: 'total',
 				root: 'result',
-				url: '<?php echo url_for('userrolemanagement/LoadAllRoles')?>',
+				url: '<?php echo build_dynamic_javascript_url('userrolemanagement/LoadAllRoles')?>',
 				autoload: true,
 				fields: [
 					{name: '#'},
