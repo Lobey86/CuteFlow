@@ -160,37 +160,39 @@ cf.AddUserThirdTab = function(){return {
 		this.theRightGrid.on('render', function(grid) {
 			var secondGridDropTargetEl = grid.getView().scroller.dom;
 			var secondGridDropTarget = new Ext.dd.DropTarget(secondGridDropTargetEl, {
-					ddGroup    : 'rightGridDDGroup',
-					copy:false,
-					notifyDrop  : function(ddSource, e, data){ // when droppping a container in the right grid
-						if (ddSource.grid != grid){
-							for(var a=0;a<data.selections.length;a++) { // if data is from left grid, add it to store. 
-								var item = data.selections[a].data;
-								var Rec = Ext.data.Record.create({name: 'unique_id'},{name: 'user_id'}, {name: 'text'});
-								grid.store.add(new Rec({unique_id: cf.AddUserThirdTab.theUniqueId++, user_id: item.id,text: item.text})); // important to add unique ID's
-							}
+				ddGroup: 'rightGridDDGroup',
+				copy: false,
+				notifyDrop: function(ddSource, e, data){ // when droppping a container in the right grid
+					if (ddSource.grid != grid){
+						for(var a=0;a<data.selections.length;a++) { // if data is from left grid, add it to store. 
+							var item = data.selections[a].data;
+							var Rec = Ext.data.Record.create({name: 'unique_id'},{name: 'user_id'}, {name: 'text'});
+							grid.store.add(new Rec({unique_id: cf.AddUserThirdTab.theUniqueId++, user_id: item.id,text: item.text})); // important to add unique ID's
 						}
-						else { // if data is coming from right, then reorder is done.
-							var sm = grid.getSelectionModel();
-							var rows = sm.getSelections();
-							var cindex = ddSource.getDragData(e).rowIndex;
-							for (i = 0; i < rows.length; i++) {
-								rowData = grid.store.getById(rows[i].id);
-								if(!this.copy) {
-									grid.store.remove(grid.store.getById(rows[i].id));
-									if(cindex) {
-										grid.store.insert(cindex,rowData);
-									}
-									else { // moves items to last position
-										var totalItems = grid.store.data.length;
-										grid.store.insert(totalItems,rowData);
-									}
-									
-								}
-							}
-						}
-						return true;
 					}
+					else { // if data is coming from right, then reorder is done.
+						var sm = grid.getSelectionModel();  
+						var rows = sm.getSelections();  
+						var cindex = ddSource.getDragData(e).rowIndex;  
+						 if (sm.hasSelection()) {  
+							if(typeof(cindex) != "undefined") {
+								for (i = 0; i < rows.length; i++) {  
+									grid.store.remove(grid.store.getById(rows[i].id));  
+									grid.store.insert(cindex,rows[i]);  
+								}  
+							}
+							else { // when trying to add data to the end of the grid
+								var total_length = grid.store.data.length+1;
+								for (i = 0; i < rows.length; i++) {  
+									grid.store.remove(grid.store.getById(rows[i].id));
+								}
+								grid.store.add(rows);
+							}
+						} 
+						sm.clearSelections();
+					}
+					return true;
+				}
 			});
 		});
 	},
