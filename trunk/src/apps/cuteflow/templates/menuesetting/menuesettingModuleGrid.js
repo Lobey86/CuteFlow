@@ -44,22 +44,21 @@ cf.menueSettingModuleGrid = function(){return {
 					var sm = grid.getSelectionModel();  
 					var rows = sm.getSelections();  
 					var cindex = ddSource.getDragData(e).rowIndex;  
-					if (sm.hasSelection()) {  
+					 if (sm.hasSelection()) {  
 						if(typeof(cindex) != "undefined") {
 							for (i = 0; i < rows.length; i++) {  
 								grid.store.remove(grid.store.getById(rows[i].id));  
 								grid.store.insert(cindex,rows[i]);  
 							}  
 						}
-					}
-					else {
-						var total_length = grid.store.data.length+1;
-						for (i = 0; i < rows.length; i++) {  
-							grid.store.remove(grid.store.getById(rows[i].id));
+						else { // when trying to add data to the end of the grid
+							var total_length = grid.store.data.length+1;
+							for (i = 0; i < rows.length; i++) {  
+								grid.store.remove(grid.store.getById(rows[i].id));
+							}
+							grid.store.add(rows);
 						}
-						grid.store.add(rows);
-												
-					}
+					} 
 					sm.clearSelections();
 				}
 			   }); 
