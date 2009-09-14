@@ -39,7 +39,7 @@ cf.menueSettingGroupWindow = function(){return {
 			width: 563,
 			height: 550,
 			autoScroll: true,
-			title: 'Edit',
+			title: '<?php echo __('Change order of module items',null,'menuesetting'); ?>',
 			shadow: false,
 			minimizable: false,
 			draggable: true,
@@ -51,13 +51,13 @@ cf.menueSettingGroupWindow = function(){return {
 				cf.menueSettingGroupWindow.theMenueSettingGroupWindow.destroy();
 			},
 			buttons:[{
-				text:'Speichern', 
+				text:'<?php echo __('Store',null,'menuesetting'); ?>', 
 				icon: '/images/icons/accept.png',
 				handler: function () {
 					cf.menueSettingGroupCRUD.saveGroupOrder(id);
 				}
 			},{
-				text:'Zu', 
+				text:'<?php echo __('Close',null,'menuesetting'); ?>', 
 				icon: '/images/icons/cancel.png',
 				handler: function () {
 					cf.menueSettingGroupWindow.theMenueSettingGroupWindow.hide();
