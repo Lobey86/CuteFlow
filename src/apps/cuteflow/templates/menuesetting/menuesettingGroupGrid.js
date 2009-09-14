@@ -93,29 +93,31 @@ cf.menueSettingGroupGrid = function(){return {
 		
 		// drag drop functionality added
 		this.theGroupGrid.on('render', function(grid) {
-		var secondGridDropTargetEl = grid.getView().scroller.dom;
-		var secondGridDropTarget = new Ext.dd.DropTarget(secondGridDropTargetEl, {
-				ddGroup    : 'theGroupGridDD',
+			var secondGridDropTargetEl = grid.getView().scroller.dom;
+			var secondGridDropTarget = new Ext.dd.DropTarget(secondGridDropTargetEl, {
+				ddGroup: 'theGroupGridDD',
 				copy:false,
-				notifyDrop  : function(ddSource, e, data){ // when droppping a container in the right grid
-					var sm = grid.getSelectionModel();
-					var rows = sm.getSelections();
-					var cindex = ddSource.getDragData(e).rowIndex;
-					for (i = 0; i < rows.length; i++) {
-						rowData = grid.store.getById(rows[i].id);
-						if(!this.copy) {
-							grid.store.remove(grid.store.getById(rows[i].id));
-							if(cindex) {
-								grid.store.insert(cindex,rowData);
-							}
-							else { // moves items to last position
-								var totalItems = grid.store.data.length;
-								grid.store.insert(totalItems,rowData);
-							}
-							
+				notifyDrop: function(ddSource, e, data){
+					var sm = grid.getSelectionModel();  
+					var rows = sm.getSelections();  
+					var cindex = ddSource.getDragData(e).rowIndex;  
+					if (sm.hasSelection()) {  
+						if(typeof(cindex) != "undefined") {
+							for (i = 0; i < rows.length; i++) {  
+								 grid.store.remove(grid.store.getById(rows[i].id));  
+								 grid.store.insert(cindex,rows[i]);  
+							}  
 						}
 					}
-					return true;
+					else {
+						var total_length = grid.store.data.length+1;
+						for (i = 0; i < rows.length; i++) {  
+							grid.store.remove(grid.store.getById(rows[i].id));
+						}
+						grid.store.add(rows);
+																
+					} 
+					sm.clearSelections();
 				}
 			});
 		});

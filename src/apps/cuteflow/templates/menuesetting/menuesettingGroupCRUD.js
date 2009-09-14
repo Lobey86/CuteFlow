@@ -55,9 +55,9 @@ cf.menueSettingGroupCRUD = function(){return {
 			url: '<?php echo url_for('menuesetting/SaveGroup')?>',
 			method: 'POST',
 			success: function() {
+				var ac_item_id = cf.Navigation.theAccordion.layout.activeItem.id;
 				cf.menueSettingGroupWindow.theMenueSettingGroupWindow.hide();
 				cf.menueSettingGroupWindow.theMenueSettingGroupWindow.destroy();
-				
 				
 				cf.Navigation.isInitialized = false;
 				cf.Layout.theRegionWest.remove(cf.Navigation.theAccordion);
@@ -69,15 +69,15 @@ cf.menueSettingGroupCRUD = function(){return {
 				cf.menueSettingGroupWindow.theMenueSettingGroupWindow.hide();
 				cf.menueSettingGroupWindow.theMenueSettingGroupWindow.destroy();
 				
-				cf.menueSettingModuleCRUD.expandNavigation.defer(500,this);
+				cf.menueSettingModuleCRUD.expandNavigation.defer(500,this,[ac_item_id]);
 
 			}
 		});
 	},
 	
 	/** expand Administration menue after rendering **/
-	expandNavigation: function () {
-		Ext.getCmp('regionWest_administration').expand();
+	expandNavigation: function (id) {
+		Ext.getCmp(id).expand();
 	}
 
 	
