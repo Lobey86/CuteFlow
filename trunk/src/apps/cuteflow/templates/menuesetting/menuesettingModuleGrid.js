@@ -25,7 +25,7 @@ cf.menueSettingModuleGrid = function(){return {
 			ddGroup : 'theModuleGridDD',
 			allowContainerDrop : true,
 			enableDragDrop:true,
-		    ddText: 'drag and drop to change order', 
+		    ddText: '<?php echo __('Drag Drop to change order',null,'menuesetting'); ?>', 
 			width: 550,
 			height: 450,
 			style: 'margin-top:10px;margin-left:7px;',
@@ -87,8 +87,8 @@ cf.menueSettingModuleGrid = function(){return {
 	initCM: function () {
 		this.theModuleCM  =  new Ext.grid.ColumnModel([
 			{header: "#", width: 50, sortable: false, dataIndex: '#', css : "text-align : left;font-size:12px;align:center;"},
-			{header: "Men&uuml; Eintrag", width: 410, sortable: false, dataIndex: 'group', css : "text-align : left;font-size:12px;align:center;"},
-			{header: "<div ext:qtip=\"<table><tr><td><img src='/images/icons/pencil.png' />&nbsp;&nbsp;</td><td><?php echo __('Edit user',null,'usermanagement'); ?></td></tr></table>\" ext:qwidth=\"200\"><?php echo __('Action',null,'usermanagement'); ?></div>", width: 60, sortable: false, tooltip: 'Module bearbeiten', dataIndex: 'module', css : "text-align : left;font-size:12px;align:center;", renderer: cf.menueSettingModuleGrid.editButtonRenderer}
+			{header: "<?php echo __('Menue entry',null,'menuesetting'); ?>", width: 410, sortable: false, dataIndex: 'group', css : "text-align : left;font-size:12px;align:center;"},
+			{header: "<div ext:qtip=\"<table><tr><td><img src='/images/icons/pencil.png' />&nbsp;&nbsp;</td><td><?php echo __('Change item order',null,'menuesetting'); ?></td></tr></table>\" ext:qwidth=\"200\"><?php echo __('Action',null,'menuesetting'); ?></div>", width: 60, sortable: false, tooltip: 'Module bearbeiten', dataIndex: 'module', css : "text-align : left;font-size:12px;align:center;", renderer: cf.menueSettingModuleGrid.editButtonRenderer}
 		]);
 		
 	}, 
@@ -98,7 +98,7 @@ cf.menueSettingModuleGrid = function(){return {
 		this.theTopToolBar = new Ext.Toolbar({
 			items: [{
                 icon: '/images/icons/accept.png',
-                tooltip:'Reihenfolge speichern',
+                tooltip:'<?php echo __('Save order',null,'menuesetting'); ?>',
                 handler: function () {
                 	cf.menueSettingModuleCRUD.saveModuleOrder();
                 }

@@ -26,8 +26,8 @@ cf.menueSettingGroupGrid = function(){return {
 	initCM: function () {
 		this.theGroupCM  =  new Ext.grid.ColumnModel([
 			{header: "#", width: 50, sortable: false, dataIndex: '#', css : "text-align : left;font-size:12px;align:center;"},
-			{header: "Modul", width: 225, sortable: false, dataIndex: 'module', css : "text-align : left;font-size:12px;align:center;"},
-			{header: "Gruppe", width: 225, sortable: false, dataIndex: 'group', css : "text-align : left;font-size:12px;align:center;"}
+			{header: "<?php echo __('Module',null,'menuesetting'); ?>", width: 225, sortable: false, dataIndex: 'module', css : "text-align : left;font-size:12px;align:center;"},
+			{header: "<?php echo __('Group',null,'menuesetting'); ?>", width: 225, sortable: false, dataIndex: 'group', css : "text-align : left;font-size:12px;align:center;"}
 		]);
 		
 	},
@@ -61,7 +61,7 @@ cf.menueSettingGroupGrid = function(){return {
 		this.theGroupTopToolBar = new Ext.Toolbar({
 			items: [{
                 icon: '/images/icons/accept.png',
-                tooltip:'Reihenfolge speichern',
+                tooltip:'<?php echo __('Save order',null,'menuesetting'); ?>',
                 handler: function () {
                 	cf.menueSettingModuleCRUD.saveModuleOrder();
                 }
@@ -80,9 +80,9 @@ cf.menueSettingGroupGrid = function(){return {
 			ddGroup : 'theGroupGridDD',
 			allowContainerDrop : true,
 			enableDragDrop:true,
-		    ddText: 'drag and drop to change order', 
+		    ddText: '<?php echo __('Drag Drop to change order',null,'menuesetting'); ?>', 
 			width: 530,
-			title: 'Bearbeiten',
+			title: '<?php echo __('Change order of module items',null,'menuesetting'); ?>',
 			height: 450,
 			style: 'margin-top:10px;margin-left:10px;',
 			border: true,

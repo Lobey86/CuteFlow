@@ -33,7 +33,7 @@ cf.administration_menuesetting = function(){return {
 			draggable: false,
 			resizable: false,
 	        plain: false,
-	        title: 'Menue Settings'
+	        title: '<?php echo __('Menue Settings',null,'menuesetting'); ?>'
 	    });
 		
 	},
@@ -47,7 +47,7 @@ cf.administration_menuesetting = function(){return {
 			height: 500,
 			width: 572,
 			layout: 'form',
-			title: 'Menue Settings',
+			title: '<?php echo __('Menue Settings',null,'menuesetting'); ?>',
 			style:'margin-top:5px;margin-left:6px;',
 			collapsible:false
 		});
