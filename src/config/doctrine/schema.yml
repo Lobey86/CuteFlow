@@ -51,6 +51,7 @@ User:
     comment: { type: string(1000) }
     durationtype: { type: string(45) }
     durationlength: { type: string(45) }
+    lastaction: timestamp
   relations:
     Role: { class: Role, local: role_id, foreign: id, foreignType: many, type: one }
 
