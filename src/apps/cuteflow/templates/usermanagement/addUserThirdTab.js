@@ -53,7 +53,7 @@ cf.AddUserThirdTab = function(){return {
 			plain: true,
 			layout: 'column',
 			labelWidth : 200,
-			width: 500,
+			width: 'auto',
 			height: 530,
 			listeners:{
  			   activate : function(){ 

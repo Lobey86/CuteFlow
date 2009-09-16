@@ -131,7 +131,7 @@ cf.UserRoleGrid = function(){return {
 	/** render both buttons to grid **/
 	renderAction: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 		cf.UserRoleGrid.createButtons.defer(500, this, [record.data['id']]);
-		return '<center><table><tr><td><div id="role_edit_'+ record.data['id'] +'"></div></td><td><div style="float:left;" id="role_del_'+ record.data['id'] +'"></div></td></tr></table></center>'
+		return '<center><table><tr><td width="16"><div id="role_edit_'+ record.data['id'] +'"></div></td><td><div style="float:left;" id="role_del_'+ record.data['id'] +'"></div></td></tr></table></center>'
 
 		
 	}

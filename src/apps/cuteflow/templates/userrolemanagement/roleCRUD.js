@@ -45,7 +45,7 @@ cf.RoleCRUD = function(){return {
 					url : '<?php echo build_dynamic_javascript_url('userrolemanagement/CheckForExistingRole')?>/description/' + textfield.getValue(),
 					success: function(objServerResponse){
 						if(objServerResponse.responseText == 1) { // save Role
-							cf.theAddUserWindow.theFormPanel.getForm().submit({
+							cf.AddRoleTabpanel.theFormPanel.getForm().submit({
 								url: '<?php echo build_dynamic_javascript_url('userrolemanagement/AddRole')?>',
 								method: 'POST',
 								success: function() {

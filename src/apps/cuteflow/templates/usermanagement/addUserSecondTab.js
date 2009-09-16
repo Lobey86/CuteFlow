@@ -21,7 +21,7 @@ cf.AddUserSecondTab = function(){return {
 			plain: true,
 			layout: 'form',
 			labelWidth : 200,
-			width: 500,
+			width: 'auto',
 			height: 529,
 			items:[{
 				xtype: 'fieldset',
@@ -40,13 +40,15 @@ cf.AddUserSecondTab = function(){return {
 					fieldLabel: '<?php echo __('Zip / City',null,'usermanagementpopup'); ?>',
 					labelStyle: 'font-weight:bolder;',
 					labelWidth: 150,
+					border: 'none',
+					id: 'testpanel',
 					layout: 'column',
 					allowBlank: true,
-					width: 210,
+					height: 'auto',
+					width: 200,
 					items:[{
 						xtype: 'textfield',
 						labelStyle: 'font-weight:bolder;',
-						labelWidth: 150,
 						style: 'margin-right:5px;',
 						name: 'zip',
 						id: 'zip',
@@ -55,7 +57,6 @@ cf.AddUserSecondTab = function(){return {
 					},{
 						xtype: 'textfield',
 						labelStyle: 'font-weight:bolder;',
-						labelWidth: 150,
 						name: 'city',
 						id: 'city',
 						allowBlank: true,
@@ -157,7 +158,8 @@ cf.AddUserSecondTab = function(){return {
 				}]
 			}]
 		});
-		
+		Ext.getCmp('testpanel').setSize();
+
 		
 	}
 	

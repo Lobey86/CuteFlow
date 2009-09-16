@@ -154,6 +154,8 @@ cf.UserGrid = function(){return {
 	
 	/** Function to render "Edit Button" into datagrid **/
 	renderAction: function (data, cell, record, rowIndex, columnIndex, store, grid) {
+		if (Ext.isIE6 == true) {
+		}
 		var action = record.data['action'];
 		cf.UserGrid.createButton.defer(500,this, [record.data['action']]);
 		return '<center><table><tr><td><div id="user_edit'+ record.data['id'] +'"></div></td></tr></table></center>';

@@ -25,7 +25,7 @@ cf.AddUserFirstTab = function(){return {
 			layout: 'form',
 			autoScroll: true,
 			labelWidth : 200,
-			width: 500,
+			width: 'auto',
 			height: 529,
 			items:[{
 				xtype: 'hidden',
@@ -33,6 +33,7 @@ cf.AddUserFirstTab = function(){return {
 				name: 'hiddenfield'
 			},{
 				xtype: 'fieldset',
+				defaults:{height:22},
 				title: '<?php echo __('Personel data',null,'usermanagementpopup'); ?>',
 				items:[{
 					xtype: 'textfield',
@@ -65,6 +66,7 @@ cf.AddUserFirstTab = function(){return {
 			},{
 				xtype: 'fieldset',
 				title: '<?php echo __('Login data',null,'usermanagementpopup'); ?>',
+				defaults:{height:22},
 				items:[{
 					xtype: 'textfield',
 					fieldLabel: '<?php echo __('Username',null,'usermanagementpopup'); ?>',
@@ -118,6 +120,11 @@ cf.AddUserFirstTab = function(){return {
 					xtype: 'panel',
 					layout: 'column',
 					border: 'none',
+					layoutConfig: {
+						columns: 2,
+						fitHeight: true,
+						split: true
+					},
 					labelWidth: 150,
 					fieldLabel: '<?php echo __('Useragent time',null,'usermanagementpopup'); ?>',
 					labelStyle: 'font-weight:bolder;',
@@ -129,7 +136,8 @@ cf.AddUserFirstTab = function(){return {
 						style: 'margin-right:5px;',
 						value: 1,
 						allowBlank: false,
-						width: 35
+						height: 22,
+						width:40				
         			},{
 						xtype: 'combo', // number of records to display in grid
 						id: 'type',
@@ -137,6 +145,7 @@ cf.AddUserFirstTab = function(){return {
 						mode: 'local',
 						editable:false,
 						allowBlank: true,
+						autoHeight:true,
 						hiddenName: 'durationtype',
 						triggerAction: 'all',
 						foreSelection: true,
@@ -146,13 +155,19 @@ cf.AddUserFirstTab = function(){return {
 		   				}),
 		 				valueField:'id',
 						displayField:'text',
-						width:90
+						width:100
 					}]
 				}]
 			}]
 		});
+		// Problem with layout in all browsers :(
+		if (Ext.isIE6 == true) {
+			Ext.getCmp('durationlength').setSize({width:40, height: 25});
+		}
+		else if(Ext.isOpera == true || Ext.isSafari == true) {
+			Ext.getCmp('durationlength').setSize({width:40, height: 24});
+		}
 		Ext.getCmp('type').setValue('DAYS');
-		
 	},
 	
 
