@@ -80,22 +80,15 @@ class Usermanagement {
      *
      * @param Doctrine_Collection $data, data with all useragents
      * @return array $result, resultset for the grid
-     * @todo, problem mit useragent_id, query nur beispielhaft.
      */
     public function builUserAgentGrid(Doctrine_Collection $data) {
         $result = array();
         $a = 0;
         foreach($data as $item) {
-            $username = Doctrine_Query::create()
-                ->select('CONCAT(u.firstname,\' \',u.lastname) AS text')
-                ->from('User u')
-                ->where('u.id = ?', $item->getUseragentId())
-                ->execute();
-
             $user = $item->getUser();
             $result[$a]['unique_id'] = $a;
             $result[$a]['user_id'] = $item->getUseragentId();
-            $result[$a++]['text'] = $username[0]->getText();
+            $result[$a++]['text'] = $user[0]->getFirstname() . ' ' . $user[0]->getLastname();
         }
         return $result;
     }
