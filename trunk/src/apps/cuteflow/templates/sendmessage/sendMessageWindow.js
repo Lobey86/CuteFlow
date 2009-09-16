@@ -44,7 +44,7 @@ cf.administration_sendmessage = function(){return {
 	        plain: false,
 	        width: 620,
 	        height: 600,
-	        title: 'Send Message'
+	        title: '<?php echo __('Send Message',null,'sendmessage'); ?>'
 	    });
 		
 	},
@@ -58,7 +58,7 @@ cf.administration_sendmessage = function(){return {
 			layout: 'form',
 			width: 620,
 			height: 590,
-			title: 'Send Message',
+			title: '<?php echo __('Send Message',null,'sendmessage'); ?>',
 			style:'margin-top:5px;margin-left:5px;margin-right:10px;',
 			collapsible:false
 		});
@@ -67,14 +67,14 @@ cf.administration_sendmessage = function(){return {
 	/** init subject textareat **/
 	initSubject: function () {
 		this.theTxtfield = new Ext.form.FieldSet({
-			title: 'Betreff',
+			title: '<?php echo __('Subject',null,'sendmessage'); ?>',
 			allowBlank: false,
 			style:'margin-top:5px;margin-left:10px;',
 			width: 600,
 			items:[{
 				xtype: 'textfield',
 				allowBlank: true,
-				fieldLabel: 'Betreff',
+				fieldLabel: '<?php echo __('Subject',null,'sendmessage'); ?>',
 				name: 'betreff',
 				style:'margin-right:10px;',
 				width: 460
@@ -85,21 +85,21 @@ cf.administration_sendmessage = function(){return {
 	/** init the messagebox and comboxbox **/
 	initMessagebox: function () {
 		this.theMessageBox = new Ext.form.FieldSet({
-			title: 'Format und Nachricht',
+			title: '<?php echo __('Email format and message',null,'sendmessage'); ?>',
 			allowBlank: false,
 			style:'margin-top:5px;margin-left:10px;',
 			width: 600,
 			items:[{
 				xtype: 'combo',
 				mode: 'local',
-				value: 'Plain',
+				value: '<?php echo __('Plain',null,'sendmessage'); ?>',
 				editable:false,
 				triggerAction: 'all',
 				foreSelection: true,
-				fieldLabel: 'Art',
+				fieldLabel: '<?php echo __('Type',null,'sendmessage'); ?>',
 				store: new Ext.data.SimpleStore({
 					 fields:['type','text'],
-       				 data:[['PLAIN', 'Plain'],['HTML', 'HTML']]
+       				 data:[['PLAIN', '<?php echo __('Plain',null,'sendmessage'); ?>'],['HTML', '<?php echo __('HTML',null,'sendmessage'); ?>']]
    				}),
  				valueField:'type',
 				displayField:'text',
@@ -113,7 +113,7 @@ cf.administration_sendmessage = function(){return {
 		    					cf.administration_sendmessage.theMessageBox.add({
 		    										xtype: 'textarea',
 													name: 'description',
-													fieldLabel: 'Betreff:',
+													fieldLabel: '<?php echo __('Subject',null,'sendmessage'); ?>:',
 													id: 'systemMessageTextarea',
 													labelSeparator: '',
 													height: 250,
@@ -131,7 +131,7 @@ cf.administration_sendmessage = function(){return {
 			    					cf.administration_sendmessage.theMessageBox.add({
 										xtype: 'htmleditor',
 										name: 'description',
-										fieldLabel: 'Betreff:',
+										fieldLabel: '<?php echo __('Subject',null,'sendmessage'); ?>:',
 										id: 'systemMessageHTMLArea',
 										labelSeparator: '',
 										height: 250,
@@ -151,7 +151,7 @@ cf.administration_sendmessage = function(){return {
 			},{
 				xtype: 'textarea',
 				name: 'description',
-				fieldLabel: 'Betreff:',
+				fieldLabel: '<?php echo __('Subject',null,'sendmessage'); ?>:',
 				id: 'systemMessageTextarea',
 				labelSeparator: '',
 				height: 250,
@@ -165,22 +165,22 @@ cf.administration_sendmessage = function(){return {
 	/** set receiver panel **/
 	initReceiver: function () {
 		this.theReceiver = new Ext.form.FieldSet({
-			title: 'Format und Nachricht',
+			title: '<?php echo __('Receiver',null,'sendmessage'); ?>',
 			allowBlank: false,
 			style:'margin-top:5px;margin-left:10px;',
 			width: 600,
 			items: [{
 				xtype: 'combo',
 				mode: 'local',
-				value: 'Alle',
+				value: '<?php echo __('All',null,'sendmessage'); ?>',
 				editable:false,
 				name: 'receiver',
 				triggerAction: 'all',
 				foreSelection: true,
-				fieldLabel: 'Art',
+				fieldLabel: '<?php echo __('Send to',null,'sendmessage'); ?>',
 				store: new Ext.data.SimpleStore({
 					 fields:['type','text'],
-       				 data:[['ALL', 'Alle'],['SENDER', 'nur Sender'],['ONLINE', 'Benutzer die gerade online sind']]
+       				 data:[['ALL', '<?php echo __('All',null,'sendmessage'); ?>'],['SENDER', '<?php echo __('Sender only',null,'sendmessage'); ?>'],['ONLINE', '<?php echo __('to online users',null,'sendmessage'); ?>']]
    				}),
  				valueField:'type',
 				displayField:'text',
@@ -197,13 +197,13 @@ cf.administration_sendmessage = function(){return {
 			border: false,
 			buttonAlign: 'center',
 			buttons:[{
-				text:'Abschicken', 
+				text:'<?php echo __('Send',null,'sendmessage'); ?>', 
 				icon: '/images/icons/accept.png',
 				handler: function () {
 					alert("moep");
 				}
 			},{
-				text:'Verwerfen', 
+				text:'<?php echo __('Close',null,'sendmessage'); ?>', 
 				icon: '/images/icons/cancel.png',
 				handler: function () {
 					cf.TabPanel.theTabPanel.remove(cf.administration_sendmessage.theSystemMessageWindow);
