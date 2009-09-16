@@ -21,23 +21,9 @@ cf.Window = function(){return {
 					text:'<?php echo __('Login',null,'login'); ?>', 
 					icon: '/images/icons/lock.png',
 					id: 'loginButton',
+					type: 'submit',
 					handler: function () {
-						if(cf.Textfield.theUsernameField.getValue() != '' && cf.Textfield.theUserpasswordField.getValue() != '') {
-							cf.Textfield.thePanel.getForm().submit({
-								url: '<?php echo build_dynamic_javascript_url('login/DoLogin')?>',
-								method: 'POST',
-								success: function(form, objServerResponse) {
-									if (objServerResponse.result.value == 1) {
-										window.location.href = '<?php echo build_dynamic_javascript_url('layout/Index');?>'
-									}
-									else {
-										Ext.MessageBox.alert(objServerResponse.result.title, objServerResponse.result.text);
-										cf.Textfield.theUsernameField.setValue();
-										cf.Textfield.theUserpasswordField.setValue();
-									}
-								}
-							});
-						}
+						cf.Window.handleLogin();
 					}
                 },{ 
                     text: '<?php echo __('Close',null,'login'); ?>', 
@@ -47,6 +33,23 @@ cf.Window = function(){return {
                     	cf.Window.theWindow.hide(); 
                     } 
                 }] 
+		});
+	},
+	
+	handleLogin: function () {
+		cf.Textfield.thePanel.getForm().submit({
+			url: '<?php echo build_dynamic_javascript_url('login/DoLogin')?>',
+			method: 'POST',
+			success: function(form, objServerResponse) {
+				if (objServerResponse.result.value == 1) {
+					window.location.href = '<?php echo build_dynamic_javascript_url('layout/Index');?>'
+				}
+				else {
+					Ext.MessageBox.alert(objServerResponse.result.title, objServerResponse.result.text);
+					cf.Textfield.theUsernameField.setValue();
+					cf.Textfield.theUserpasswordField.setValue();
+				}
+			}
 		});
 	}
 };}();
