@@ -73,17 +73,7 @@ cf.menueSettingGroupCRUD = function(){return {
 
 			}
 		});
-	},
-	
-	/** expand Administration menue after rendering **/
-	expandNavigation: function (id) {
-		try {
-			Ext.getCmp(id).expand();
-		}
-		catch(e) {
-		}
 	}
-
 	
 	
 	
