@@ -77,3 +77,4 @@ UserAgent:
     position: {type: integer(1), length: 3}
   relations:
     User: { class: User, local: user_id, foreign: id, foreignType: many, type: one, onDelete: CASCADE }
+    User: { class: User, local: useragent_id, foreign: id, foreignType: many, type: many, onDelete: CASCADE }
