@@ -2,7 +2,7 @@ rendering: ~
 security:  ~
 
 useraction:                 # Filters need a unique name
-  class: useractionFilter
+  enabled: off
 
 
 

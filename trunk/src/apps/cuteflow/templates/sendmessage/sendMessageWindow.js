@@ -137,7 +137,7 @@ cf.administration_sendmessage = function(){return {
 										height: 250,
 										width: 400,
 										value: Ext.getCmp('systemMessageTextarea').getValue(),
-										anchor: '100%'
+										anchor: '98%'
 		    						});	
 		    						cf.administration_sendmessage.theMessageBox.remove('systemMessageTextarea');
 		    						cf.administration_sendmessage.theSystemMessageWindow.doLayout();

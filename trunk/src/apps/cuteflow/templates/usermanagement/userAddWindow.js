@@ -141,6 +141,7 @@ cf.AddUserWindow = function(){return {
 	initTabpanel: function () {
 		this.theTabpanel = new Ext.TabPanel({
 			frame: true,
+			width: 'auto',
 			enableTabScroll:true,
 			plain: false,
 			deferredRender:false

@@ -55,6 +55,11 @@ cf.UserCRUD = function(){return {
 		}
 		else { // start of save process
 			if(cf.AddUserThirdTab.isInitialized == true) {
+				var hiddenfield = new Ext.form.Field({
+					autoCreate : {tag:'input', type: 'hidden', name: 'useragent_edit', value:1, width: 0}			
+				});
+				cf.AddUserWindow.theFormPanel.add(hiddenfield);
+				cf.AddUserWindow.theFormPanel.doLayout();
 				this.buildUserAgentFields();
 			}
 			else  {
