@@ -44,9 +44,7 @@ class loginActions extends sfActions {
         $this->renderText('{success:true,value:"1"}');
     }
     else {
-        $return['errorMessage'] = $this->getContext()->getI18N()->__('Failure during login process',null,'login');
-        $return['errorTitle'] = $this->getContext()->getI18N()->__('Error',null,'login');
-        $this->renderText('{success:true, text:"'.$return['errorMessage'].'", title: "'.$return['errorTitle'] .'"}');
+        $this->renderText('{success:true, text:"'.$this->getContext()->getI18N()->__('Failure during login process',null,'login').'", title: "'.$this->getContext()->getI18N()->__('Error',null,'login').'"}');
     }
     return sfView::NONE;
   }
