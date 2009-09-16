@@ -40,7 +40,11 @@ cf.menueSettingModuleCRUD = function(){return {
 			url: '<?php echo build_dynamic_javascript_url('menuesetting/SaveModule')?>',
 			method: 'POST',
 			success: function() {
-				var ac_item_id = cf.Navigation.theAccordion.layout.activeItem.id;
+				try {
+					var ac_item_id = cf.Navigation.theAccordion.layout.activeItem.id;
+				}
+				catch(e) {
+				}
 				Ext.getCmp('menueSettingModuleCRUDSavePanel').remove();
 				Ext.getCmp('menueSettingModuleCRUDSavePanel').destroy();
 				cf.administration_menuesetting.theModulePanel.doLayout();
