@@ -286,6 +286,8 @@ class usermanagementActions extends sfActions {
                 ->where('ua.user_id = ?',$data['hiddenfield'])
                 ->execute();
         }
+        
+
 
         Doctrine_Query::create()
             ->update('User u')
@@ -311,7 +313,15 @@ class usermanagementActions extends sfActions {
             ->where ('u.id = ?',$data['hiddenfield'])
             ->execute();
 
-        $agent = $data['grid'];
+
+        if (isset($data['grid'])) {
+             $agent = $data['grid'];
+        }
+        else {
+            $agent = array();
+        }
+
+
         if (count($agent)>0) {
             $pos = 1;
             foreach($agent as $item) {
