@@ -63,7 +63,11 @@ cf.menueSettingModuleCRUD = function(){return {
 	
 	/** expand west navigation **/
 	expandNavigation: function (id) {
-		Ext.getCmp(id).expand();
+		try {
+			Ext.getCmp(id).expand();
+		}
+		catch(e) {
+		}
 	}
 
 
