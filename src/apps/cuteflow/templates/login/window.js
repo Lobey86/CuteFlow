@@ -23,15 +23,15 @@ cf.Window = function(){return {
 					id: 'loginButton',
 					handler: function () {
 						if(cf.Textfield.theUsernameField.getValue() != '' && cf.Textfield.theUserpasswordField.getValue() != '') {
-							Ext.Ajax.request({
-								url: '<?php echo build_dynamic_javascript_url('login/DoLogin')?>/username/' + cf.Textfield.theUsernameField.getValue() + '/password/' + cf.Textfield.theUserpasswordField.getValue() + '/language/' + cf.Textfield.theHiddenField.getValue(),						
-								success: function(objServerResponse){  
-									if(objServerResponse.responseText == 1) { // login TRUE
+							cf.Textfield.thePanel.getForm().submit({
+								url: '<?php echo build_dynamic_javascript_url('login/DoLogin')?>',
+								method: 'POST',
+								success: function(form, objServerResponse) {
+									if (objServerResponse.result.value == 1) {
 										window.location.href = '<?php echo build_dynamic_javascript_url('layout/Index');?>'
 									}
-									else { // login FALSE
-										var ServerResult = Ext.util.JSON.decode(objServerResponse.responseText);
-										Ext.MessageBox.alert(ServerResult.result.errorTitle, ServerResult.result.errorMessage);
+									else {
+										Ext.MessageBox.alert(objServerResponse.result.title, objServerResponse.result.text);
 										cf.Textfield.theUsernameField.setValue();
 										cf.Textfield.theUserpasswordField.setValue();
 									}

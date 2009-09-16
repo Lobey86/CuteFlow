@@ -31,7 +31,7 @@ cf.Textfield = function(){return {
 	/** Hiddenfield **/
 	initHiddenField: function () {
 		this.theHiddenField =  new Ext.form.Hidden({
-			id: 'hiddenfield',
+			name: 'hiddenfield_language',
 			allowBlank: true,
 			value: '<?php echo $sf_user->getCulture()?>',
 			width: 225
@@ -51,7 +51,7 @@ cf.Textfield = function(){return {
 	
 	/** Panel, where all textfields and combo will be added **/
 	initPanel: function() {
-		this.thePanel = new Ext.Panel({
+		this.thePanel = new Ext.FormPanel({
 			plain: false,
 			frame: true,
 			height: 105,
