@@ -32,21 +32,21 @@ class loginActions extends sfActions {
     $result = Doctrine_Query::create()
                 ->select('u.*')
                 ->from('User u')
-                ->where('u.username = ?', $request->getParameter('username'))
-                ->andwhere('u.password = ?',$request->getParameter('password'))
+                ->where('u.username = ?', $request->getPostParameter('username'))
+                ->andwhere('u.password = ?',$request->getPostParameter('userpassword'))
                 ->execute();
-      
-    if($result[0]->getUserName() == $request->getParameter('username') AND $result[0]->getPassword() == $request->getParameter('password') AND trim($request->getParameter('password')) != '' AND trim($request->getParameter('username'))) {
+    //echo $result[0]->getUserName();die;
+    if($result[0]->getUserName() == $request->getPostParameter('username') AND $result[0]->getPassword() == $request->getPostParameter('userpassword')) {
         $this->getUser()->setAuthenticated(true);
         $this->getUser()->setAttribute('id',$result[0]->getId());
         $this->getUser()->setAttribute('userrole',$result[0]->getRoleId());
-        $this->getUser()->setCulture($request->getParameter('language'));
-        $this->renderText('1');
+        $this->getUser()->setCulture($request->getPostParameter('hiddenfield_language'));
+        $this->renderText('{success:true,value:"1"}');
     }
     else {
         $return['errorMessage'] = $this->getContext()->getI18N()->__('Failure during login process',null,'login');
         $return['errorTitle'] = $this->getContext()->getI18N()->__('Error',null,'login');
-        $this->renderText('{"result":'.json_encode($return).'}');
+        $this->renderText('{success:true, text:"'.$return['errorMessage'].'", title: "'.$return['errorTitle'] .'"}');
     }
     return sfView::NONE;
   }
