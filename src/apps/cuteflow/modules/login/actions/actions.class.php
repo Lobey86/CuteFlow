@@ -35,7 +35,7 @@ class loginActions extends sfActions {
                 ->where('u.username = ?', $request->getPostParameter('username'))
                 ->andwhere('u.password = ?',$request->getPostParameter('userpassword'))
                 ->execute();
-    //echo $result[0]->getUserName();die;
+        
     if($result[0]->getUserName() == $request->getPostParameter('username') AND $result[0]->getPassword() == $request->getPostParameter('userpassword')) {
         $this->getUser()->setAuthenticated(true);
         $this->getUser()->setAttribute('id',$result[0]->getId());
