@@ -54,6 +54,14 @@
         <source>Receiver</source>
         <target>Empf&#228;nger</target>
      </trans-unit> 
+	 <trans-unit id="14">
+        <source>OK</source>
+        <target>Ok</target>
+     </trans-unit> 
+	 <trans-unit id="15">
+        <source>Emails send</source>
+        <target>Email versendet</target>
+     </trans-unit> 
     </body>
   </file>
 </xliff>
