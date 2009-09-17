@@ -1,0 +1,2393 @@
+version: 0.9.6
+cmd: /Users/chris/Sites/swiftmailer_v4/bench/utf8_decode-new.php
+part: 1
+
+events: Time
+
+fl=php:internal
+fn=php::dirname
+3 11
+
+fl=php:internal
+fn=php::defined
+22 8
+
+fl=php:internal
+fn=php::dirname
+23 0
+
+fl=php:internal
+fn=php::define
+23 2
+
+fl=php:internal
+fn=php::define
+26 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift.php
+fn=require_once::/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift.php
+1 6
+
+fl=php:internal
+fn=php::spl_autoload_functions
+62 0
+
+fl=php:internal
+fn=php::spl_autoload_register
+70 14
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift.php
+fn=Swift::registerAutoload
+32 62
+cfn=php::spl_autoload_functions
+calls=1 0 0
+62 0
+cfn=php::spl_autoload_register
+calls=1 0 0
+70 14
+
+fl=php:internal
+fn=php::defined
+22 0
+
+fl=php:internal
+fn=php::define
+26 1
+
+fl=php:internal
+fn=php::strlen
+42 4
+
+fl=php:internal
+fn=php::substr
+42 5
+
+fl=php:internal
+fn=php::str_replace
+47 9
+
+fl=php:internal
+fn=php::file_exists
+49 25
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=require_once::/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+1 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift.php
+fn=Swift::autoload
+0 936
+cfn=php::strlen
+calls=1 0 0
+42 4
+cfn=php::substr
+calls=1 0 0
+42 5
+cfn=php::str_replace
+calls=1 0 0
+47 9
+cfn=php::file_exists
+calls=1 0 0
+49 25
+cfn=require_once::/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+calls=1 0 0
+51 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->__construct
+66 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer::getInstance
+3 43
+cfn=Swift_DependencyContainer->__construct
+calls=1 0 0
+66 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->register
+5 16
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+175 5
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->asAliasOf
+6 21
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+175 5
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->register
+8 2
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+162 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->asValue
+9 17
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+162 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->register
+11 3
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+207 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->asSharedInstanceOf
+12 16
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+207 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->register
+14 2
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+207 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->asSharedInstanceOf
+15 16
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+207 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+223 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+261 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->addConstructorLookup
+227 52
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+261 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->withDependencies
+16 57
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+223 1
+cfn=Swift_DependencyContainer->addConstructorLookup
+calls=1 0 0
+227 53
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->register
+18 5
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+207 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->asSharedInstanceOf
+19 23
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+207 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+223 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+261 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->addConstructorLookup
+227 23
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+261 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+261 2
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->addConstructorLookup
+227 21
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+261 2
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->withDependencies
+20 68
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+223 1
+cfn=Swift_DependencyContainer->addConstructorLookup
+calls=1 0 0
+227 25
+cfn=Swift_DependencyContainer->addConstructorLookup
+calls=1 0 0
+227 23
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->register
+22 4
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+193 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->asNewInstanceOf
+23 23
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+193 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/dependency_maps/cache_deps.php
+fn=require_once::/Users/chris/Sites/swiftmailer_v4/lib/dependency_maps/cache_deps.php
+1 348
+cfn=Swift::autoload
+calls=1 0 0
+0 982
+cfn=Swift_DependencyContainer::getInstance
+calls=1 0 0
+3 44
+cfn=Swift_DependencyContainer->register
+calls=1 0 0
+5 16
+cfn=Swift_DependencyContainer->asAliasOf
+calls=1 0 0
+6 27
+cfn=Swift_DependencyContainer->register
+calls=1 0 0
+8 2
+cfn=Swift_DependencyContainer->asValue
+calls=1 0 0
+9 19
+cfn=Swift_DependencyContainer->register
+calls=1 0 0
+11 3
+cfn=Swift_DependencyContainer->asSharedInstanceOf
+calls=1 0 0
+12 18
+cfn=Swift_DependencyContainer->register
+calls=1 0 0
+14 2
+cfn=Swift_DependencyContainer->asSharedInstanceOf
+calls=1 0 0
+15 17
+cfn=Swift_DependencyContainer->withDependencies
+calls=1 0 0
+16 113
+cfn=Swift_DependencyContainer->register
+calls=1 0 0
+18 5
+cfn=Swift_DependencyContainer->asSharedInstanceOf
+calls=1 0 0
+19 25
+cfn=Swift_DependencyContainer->withDependencies
+calls=1 0 0
+20 118
+cfn=Swift_DependencyContainer->register
+calls=1 0 0
+22 4
+cfn=Swift_DependencyContainer->asNewInstanceOf
+calls=1 0 0
+23 24
+
+fl=php:internal
+fn=php::dirname
+3 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/mime_types.php
+fn=require_once::/Users/chris/Sites/swiftmailer_v4/lib/mime_types.php
+1 18
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer::getInstance
+5 2
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->register
+7 5
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+162 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->asValue
+8 19
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+162 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->register
+10 2
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+193 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->asNewInstanceOf
+11 17
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+193 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+223 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+261 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->addConstructorLookup
+227 20
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+261 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+261 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->addConstructorLookup
+227 18
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+261 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+261 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->addConstructorLookup
+227 19
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+261 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+261 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->addConstructorLookup
+227 18
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+261 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->withDependencies
+17 91
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+223 0
+cfn=Swift_DependencyContainer->addConstructorLookup
+calls=1 0 0
+227 20
+cfn=Swift_DependencyContainer->addConstructorLookup
+calls=1 0 0
+227 19
+cfn=Swift_DependencyContainer->addConstructorLookup
+calls=1 0 0
+227 20
+cfn=Swift_DependencyContainer->addConstructorLookup
+calls=1 0 0
+227 19
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->register
+19 3
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+193 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->asNewInstanceOf
+20 17
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+193 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+223 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+261 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->addConstructorLookup
+227 18
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+261 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+261 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->addConstructorLookup
+227 18
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+261 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+261 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->addConstructorLookup
+227 19
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+261 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+261 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->addConstructorLookup
+227 17
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+261 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->withDependencies
+26 106
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+223 1
+cfn=Swift_DependencyContainer->addConstructorLookup
+calls=1 0 0
+227 20
+cfn=Swift_DependencyContainer->addConstructorLookup
+calls=1 0 0
+227 20
+cfn=Swift_DependencyContainer->addConstructorLookup
+calls=1 0 0
+227 20
+cfn=Swift_DependencyContainer->addConstructorLookup
+calls=1 0 0
+227 18
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->register
+28 4
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+193 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->asNewInstanceOf
+29 17
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+193 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+223 2
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+261 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->addConstructorLookup
+227 19
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+261 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+261 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->addConstructorLookup
+227 18
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+261 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+261 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->addConstructorLookup
+227 25
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+261 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->withDependencies
+34 70
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+223 2
+cfn=Swift_DependencyContainer->addConstructorLookup
+calls=1 0 0
+227 20
+cfn=Swift_DependencyContainer->addConstructorLookup
+calls=1 0 0
+227 19
+cfn=Swift_DependencyContainer->addConstructorLookup
+calls=1 0 0
+227 26
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+242 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->addConstructorValue
+35 27
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+242 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->register
+37 4
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+193 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->asNewInstanceOf
+38 17
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+193 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+223 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+261 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->addConstructorLookup
+227 17
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+261 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+261 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->addConstructorLookup
+227 17
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+261 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+261 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->addConstructorLookup
+227 20
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+261 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->withDependencies
+43 88
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+223 1
+cfn=Swift_DependencyContainer->addConstructorLookup
+calls=1 0 0
+227 19
+cfn=Swift_DependencyContainer->addConstructorLookup
+calls=1 0 0
+227 19
+cfn=Swift_DependencyContainer->addConstructorLookup
+calls=1 0 0
+227 20
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+242 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->addConstructorValue
+44 16
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+242 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->register
+46 3
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+193 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->asNewInstanceOf
+47 17
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+193 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+223 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+261 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->addConstructorLookup
+227 18
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+261 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+261 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->addConstructorLookup
+227 18
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+261 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+261 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->addConstructorLookup
+227 17
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+261 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->withDependencies
+52 72
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+223 0
+cfn=Swift_DependencyContainer->addConstructorLookup
+calls=1 0 0
+227 20
+cfn=Swift_DependencyContainer->addConstructorLookup
+calls=1 0 0
+227 19
+cfn=Swift_DependencyContainer->addConstructorLookup
+calls=1 0 0
+227 18
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->register
+54 4
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+193 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->asNewInstanceOf
+55 18
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+193 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+223 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+261 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->addConstructorLookup
+227 37
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+261 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+261 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->addConstructorLookup
+227 37
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+261 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->withDependencies
+56 54
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+223 0
+cfn=Swift_DependencyContainer->addConstructorLookup
+calls=1 0 0
+227 38
+cfn=Swift_DependencyContainer->addConstructorLookup
+calls=1 0 0
+227 39
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->register
+58 4
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+193 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->asNewInstanceOf
+59 17
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+193 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+223 2
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+261 2
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->addConstructorLookup
+227 30
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+261 2
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->withDependencies
+60 581
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+223 2
+cfn=Swift_DependencyContainer->addConstructorLookup
+calls=1 0 0
+227 32
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->register
+62 4
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+193 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->asNewInstanceOf
+63 18
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+193 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+223 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+261 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->addConstructorLookup
+227 25
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+261 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+261 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->addConstructorLookup
+227 18
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+261 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->withDependencies
+64 102
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+223 0
+cfn=Swift_DependencyContainer->addConstructorLookup
+calls=1 0 0
+227 26
+cfn=Swift_DependencyContainer->addConstructorLookup
+calls=1 0 0
+227 20
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->register
+66 4
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+207 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->asSharedInstanceOf
+67 19
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+207 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+242 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->addConstructorValue
+68 20
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+242 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+242 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->addConstructorValue
+69 51
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+242 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->register
+71 5
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+207 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->asSharedInstanceOf
+72 17
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+207 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->register
+74 4
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+193 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->asNewInstanceOf
+75 18
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+193 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+223 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+261 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->addConstructorLookup
+227 19
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+261 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+261 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->addConstructorLookup
+227 25
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+261 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->withDependencies
+76 53
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+223 1
+cfn=Swift_DependencyContainer->addConstructorLookup
+calls=1 0 0
+227 20
+cfn=Swift_DependencyContainer->addConstructorLookup
+calls=1 0 0
+227 25
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->register
+78 3
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+193 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->asNewInstanceOf
+79 16
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+193 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+242 2
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->addConstructorValue
+80 17
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+242 2
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+242 2
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->addConstructorValue
+81 16
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+242 2
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->register
+83 4
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+193 2
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->asNewInstanceOf
+84 16
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+193 2
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+242 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->addConstructorValue
+85 30
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+242 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+242 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->addConstructorValue
+86 18
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+242 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->register
+88 4
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+207 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->asSharedInstanceOf
+89 16
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+207 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->register
+91 4
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+193 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->asNewInstanceOf
+92 22
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+193 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+223 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+261 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->addConstructorLookup
+227 18
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+261 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->withDependencies
+93 36
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+223 1
+cfn=Swift_DependencyContainer->addConstructorLookup
+calls=1 0 0
+227 19
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/dependency_maps/mime_deps.php
+fn=require_once::/Users/chris/Sites/swiftmailer_v4/lib/dependency_maps/mime_deps.php
+1 1212
+cfn=php::dirname
+calls=1 0 0
+3 0
+cfn=require_once::/Users/chris/Sites/swiftmailer_v4/lib/mime_types.php
+calls=1 0 0
+3 18
+cfn=Swift_DependencyContainer::getInstance
+calls=1 0 0
+5 2
+cfn=Swift_DependencyContainer->register
+calls=1 0 0
+7 5
+cfn=Swift_DependencyContainer->asValue
+calls=1 0 0
+8 20
+cfn=Swift_DependencyContainer->register
+calls=1 0 0
+10 2
+cfn=Swift_DependencyContainer->asNewInstanceOf
+calls=1 0 0
+11 19
+cfn=Swift_DependencyContainer->withDependencies
+calls=1 0 0
+17 172
+cfn=Swift_DependencyContainer->register
+calls=1 0 0
+19 3
+cfn=Swift_DependencyContainer->asNewInstanceOf
+calls=1 0 0
+20 19
+cfn=Swift_DependencyContainer->withDependencies
+calls=1 0 0
+26 186
+cfn=Swift_DependencyContainer->register
+calls=1 0 0
+28 4
+cfn=Swift_DependencyContainer->asNewInstanceOf
+calls=1 0 0
+29 19
+cfn=Swift_DependencyContainer->withDependencies
+calls=1 0 0
+34 138
+cfn=Swift_DependencyContainer->addConstructorValue
+calls=1 0 0
+35 28
+cfn=Swift_DependencyContainer->register
+calls=1 0 0
+37 4
+cfn=Swift_DependencyContainer->asNewInstanceOf
+calls=1 0 0
+38 18
+cfn=Swift_DependencyContainer->withDependencies
+calls=1 0 0
+43 149
+cfn=Swift_DependencyContainer->addConstructorValue
+calls=1 0 0
+44 18
+cfn=Swift_DependencyContainer->register
+calls=1 0 0
+46 3
+cfn=Swift_DependencyContainer->asNewInstanceOf
+calls=1 0 0
+47 18
+cfn=Swift_DependencyContainer->withDependencies
+calls=1 0 0
+52 131
+cfn=Swift_DependencyContainer->register
+calls=1 0 0
+54 4
+cfn=Swift_DependencyContainer->asNewInstanceOf
+calls=1 0 0
+55 19
+cfn=Swift_DependencyContainer->withDependencies
+calls=1 0 0
+56 133
+cfn=Swift_DependencyContainer->register
+calls=1 0 0
+58 4
+cfn=Swift_DependencyContainer->asNewInstanceOf
+calls=1 0 0
+59 19
+cfn=Swift_DependencyContainer->withDependencies
+calls=1 0 0
+60 616
+cfn=Swift_DependencyContainer->register
+calls=1 0 0
+62 4
+cfn=Swift_DependencyContainer->asNewInstanceOf
+calls=1 0 0
+63 20
+cfn=Swift_DependencyContainer->withDependencies
+calls=1 0 0
+64 150
+cfn=Swift_DependencyContainer->register
+calls=1 0 0
+66 4
+cfn=Swift_DependencyContainer->asSharedInstanceOf
+calls=1 0 0
+67 20
+cfn=Swift_DependencyContainer->addConstructorValue
+calls=1 0 0
+68 21
+cfn=Swift_DependencyContainer->addConstructorValue
+calls=1 0 0
+69 51
+cfn=Swift_DependencyContainer->register
+calls=1 0 0
+71 5
+cfn=Swift_DependencyContainer->asSharedInstanceOf
+calls=1 0 0
+72 18
+cfn=Swift_DependencyContainer->register
+calls=1 0 0
+74 4
+cfn=Swift_DependencyContainer->asNewInstanceOf
+calls=1 0 0
+75 19
+cfn=Swift_DependencyContainer->withDependencies
+calls=1 0 0
+76 101
+cfn=Swift_DependencyContainer->register
+calls=1 0 0
+78 3
+cfn=Swift_DependencyContainer->asNewInstanceOf
+calls=1 0 0
+79 18
+cfn=Swift_DependencyContainer->addConstructorValue
+calls=1 0 0
+80 20
+cfn=Swift_DependencyContainer->addConstructorValue
+calls=1 0 0
+81 19
+cfn=Swift_DependencyContainer->register
+calls=1 0 0
+83 4
+cfn=Swift_DependencyContainer->asNewInstanceOf
+calls=1 0 0
+84 18
+cfn=Swift_DependencyContainer->addConstructorValue
+calls=1 0 0
+85 31
+cfn=Swift_DependencyContainer->addConstructorValue
+calls=1 0 0
+86 20
+cfn=Swift_DependencyContainer->register
+calls=1 0 0
+88 4
+cfn=Swift_DependencyContainer->asSharedInstanceOf
+calls=1 0 0
+89 17
+cfn=Swift_DependencyContainer->register
+calls=1 0 0
+91 4
+cfn=Swift_DependencyContainer->asNewInstanceOf
+calls=1 0 0
+92 24
+cfn=Swift_DependencyContainer->withDependencies
+calls=1 0 0
+93 56
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer::getInstance
+3 3
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->register
+5 6
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+193 3
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->asNewInstanceOf
+6 17
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+193 3
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+223 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+261 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->addConstructorLookup
+227 19
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+261 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+261 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->addConstructorLookup
+227 17
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+261 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+261 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->addConstructorLookup
+227 17
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+261 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->withDependencies
+11 73
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+223 1
+cfn=Swift_DependencyContainer->addConstructorLookup
+calls=1 0 0
+227 20
+cfn=Swift_DependencyContainer->addConstructorLookup
+calls=1 0 0
+227 19
+cfn=Swift_DependencyContainer->addConstructorLookup
+calls=1 0 0
+227 19
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->register
+13 7
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+193 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->asNewInstanceOf
+14 18
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+193 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+223 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+261 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->addConstructorLookup
+227 19
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+261 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+261 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->addConstructorLookup
+227 17
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+261 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->withDependencies
+18 79
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+223 0
+cfn=Swift_DependencyContainer->addConstructorLookup
+calls=1 0 0
+227 20
+cfn=Swift_DependencyContainer->addConstructorLookup
+calls=1 0 0
+227 18
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->register
+20 3
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+193 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->asNewInstanceOf
+21 17
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+193 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+223 2
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+261 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->addConstructorLookup
+227 18
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+261 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+261 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->addConstructorLookup
+227 18
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+261 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->withDependencies
+22 51
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+223 2
+cfn=Swift_DependencyContainer->addConstructorLookup
+calls=1 0 0
+227 20
+cfn=Swift_DependencyContainer->addConstructorLookup
+calls=1 0 0
+227 20
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->register
+24 4
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+193 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->asNewInstanceOf
+25 16
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+193 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->register
+27 4
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+193 2
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->asNewInstanceOf
+28 16
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+193 2
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->register
+30 4
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+207 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->asSharedInstanceOf
+31 17
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+207 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->register
+33 3
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+193 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->asNewInstanceOf
+34 35
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+193 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+223 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+261 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->addConstructorLookup
+227 19
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+261 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->withDependencies
+35 36
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+223 0
+cfn=Swift_DependencyContainer->addConstructorLookup
+calls=1 0 0
+227 20
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->register
+37 4
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+193 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->asNewInstanceOf
+38 18
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+193 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+223 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+261 2
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->addConstructorLookup
+227 16
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+261 2
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->withDependencies
+45 36
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+223 1
+cfn=Swift_DependencyContainer->addConstructorLookup
+calls=1 0 0
+227 19
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->register
+47 3
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+193 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->asNewInstanceOf
+48 17
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+193 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->register
+50 3
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+193 2
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->asNewInstanceOf
+51 16
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+193 2
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->register
+53 5
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+193 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->asNewInstanceOf
+54 16
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+193 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->register
+56 3
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+193 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->asNewInstanceOf
+57 16
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+193 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->register
+59 4
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+207 2
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->asSharedInstanceOf
+60 16
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+207 2
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/dependency_maps/transport_deps.php
+fn=require_once::/Users/chris/Sites/swiftmailer_v4/lib/dependency_maps/transport_deps.php
+1 555
+cfn=Swift_DependencyContainer::getInstance
+calls=1 0 0
+3 3
+cfn=Swift_DependencyContainer->register
+calls=1 0 0
+5 6
+cfn=Swift_DependencyContainer->asNewInstanceOf
+calls=1 0 0
+6 20
+cfn=Swift_DependencyContainer->withDependencies
+calls=1 0 0
+11 134
+cfn=Swift_DependencyContainer->register
+calls=1 0 0
+13 7
+cfn=Swift_DependencyContainer->asNewInstanceOf
+calls=1 0 0
+14 19
+cfn=Swift_DependencyContainer->withDependencies
+calls=1 0 0
+18 120
+cfn=Swift_DependencyContainer->register
+calls=1 0 0
+20 3
+cfn=Swift_DependencyContainer->asNewInstanceOf
+calls=1 0 0
+21 18
+cfn=Swift_DependencyContainer->withDependencies
+calls=1 0 0
+22 93
+cfn=Swift_DependencyContainer->register
+calls=1 0 0
+24 4
+cfn=Swift_DependencyContainer->asNewInstanceOf
+calls=1 0 0
+25 17
+cfn=Swift_DependencyContainer->register
+calls=1 0 0
+27 4
+cfn=Swift_DependencyContainer->asNewInstanceOf
+calls=1 0 0
+28 19
+cfn=Swift_DependencyContainer->register
+calls=1 0 0
+30 4
+cfn=Swift_DependencyContainer->asSharedInstanceOf
+calls=1 0 0
+31 18
+cfn=Swift_DependencyContainer->register
+calls=1 0 0
+33 3
+cfn=Swift_DependencyContainer->asNewInstanceOf
+calls=1 0 0
+34 36
+cfn=Swift_DependencyContainer->withDependencies
+calls=1 0 0
+35 56
+cfn=Swift_DependencyContainer->register
+calls=1 0 0
+37 4
+cfn=Swift_DependencyContainer->asNewInstanceOf
+calls=1 0 0
+38 19
+cfn=Swift_DependencyContainer->withDependencies
+calls=1 0 0
+45 56
+cfn=Swift_DependencyContainer->register
+calls=1 0 0
+47 3
+cfn=Swift_DependencyContainer->asNewInstanceOf
+calls=1 0 0
+48 18
+cfn=Swift_DependencyContainer->register
+calls=1 0 0
+50 3
+cfn=Swift_DependencyContainer->asNewInstanceOf
+calls=1 0 0
+51 19
+cfn=Swift_DependencyContainer->register
+calls=1 0 0
+53 5
+cfn=Swift_DependencyContainer->asNewInstanceOf
+calls=1 0 0
+54 18
+cfn=Swift_DependencyContainer->register
+calls=1 0 0
+56 3
+cfn=Swift_DependencyContainer->asNewInstanceOf
+calls=1 0 0
+57 17
+cfn=Swift_DependencyContainer->register
+calls=1 0 0
+59 4
+cfn=Swift_DependencyContainer->asSharedInstanceOf
+calls=1 0 0
+60 19
+
+fl=php:internal
+fn=php::strlen
+42 0
+
+fl=php:internal
+fn=php::substr
+42 0
+
+fl=php:internal
+fn=php::str_replace
+47 1
+
+fl=php:internal
+fn=php::file_exists
+49 11
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/Preferences.php
+fn=require_once::/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/Preferences.php
+1 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift.php
+fn=Swift::autoload
+0 306
+cfn=php::strlen
+calls=1 0 0
+42 0
+cfn=php::substr
+calls=1 0 0
+42 0
+cfn=php::str_replace
+calls=1 0 0
+47 1
+cfn=php::file_exists
+calls=1 0 0
+49 11
+cfn=require_once::/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/Preferences.php
+calls=1 0 0
+51 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/Preferences.php
+fn=Swift_Preferences->__construct
+45 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/Preferences.php
+fn=Swift_Preferences::getInstance
+10 19
+cfn=Swift_Preferences->__construct
+calls=1 0 0
+45 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer::getInstance
+57 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->register
+58 5
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+162 2
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->asValue
+58 17
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+162 2
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/Preferences.php
+fn=Swift_Preferences->setCharset
+10 49
+cfn=Swift_DependencyContainer::getInstance
+calls=1 0 0
+57 1
+cfn=Swift_DependencyContainer->register
+calls=1 0 0
+58 5
+cfn=Swift_DependencyContainer->asValue
+calls=1 0 0
+58 20
+
+fl=php:internal
+fn=php::function_exists
+15 0
+
+fl=php:internal
+fn=php::sys_get_temp_dir
+15 8
+
+fl=php:internal
+fn=php::is_writable
+15 16
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/Preferences.php
+fn=Swift_Preferences::getInstance
+17 1
+
+fl=php:internal
+fn=php::sys_get_temp_dir
+18 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer::getInstance
+69 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->register
+70 4
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+162 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->asValue
+70 17
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+162 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/Preferences.php
+fn=Swift_Preferences->setTempDir
+18 68
+cfn=Swift_DependencyContainer::getInstance
+calls=1 0 0
+69 0
+cfn=Swift_DependencyContainer->register
+calls=1 0 0
+70 4
+cfn=Swift_DependencyContainer->asValue
+calls=1 0 0
+70 19
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer::getInstance
+81 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->register
+82 4
+
+fl=php:internal
+fn=php::sprintf
+82 13
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->_getEndPoint
+175 2
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/DependencyContainer.php
+fn=Swift_DependencyContainer->asAliasOf
+82 18
+cfn=Swift_DependencyContainer->_getEndPoint
+calls=1 0 0
+175 2
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift/Preferences.php
+fn=Swift_Preferences->setCacheType
+19 63
+cfn=Swift_DependencyContainer::getInstance
+calls=1 0 0
+81 0
+cfn=Swift_DependencyContainer->register
+calls=1 0 0
+82 4
+cfn=php::sprintf
+calls=1 0 0
+82 13
+cfn=Swift_DependencyContainer->asAliasOf
+calls=1 0 0
+82 20
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/preferences.php
+fn=require_once::/Users/chris/Sites/swiftmailer_v4/lib/preferences.php
+1 293
+cfn=Swift::autoload
+calls=1 0 0
+0 321
+cfn=Swift_Preferences::getInstance
+calls=1 0 0
+10 19
+cfn=Swift_Preferences->setCharset
+calls=1 0 0
+10 76
+cfn=php::function_exists
+calls=1 0 0
+15 0
+cfn=php::sys_get_temp_dir
+calls=1 0 0
+15 8
+cfn=php::is_writable
+calls=1 0 0
+15 16
+cfn=Swift_Preferences::getInstance
+calls=1 0 0
+17 1
+cfn=php::sys_get_temp_dir
+calls=1 0 0
+18 0
+cfn=Swift_Preferences->setTempDir
+calls=1 0 0
+18 92
+cfn=Swift_Preferences->setCacheType
+calls=1 0 0
+19 102
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/swift_init.php
+fn=require_once::/Users/chris/Sites/swiftmailer_v4/lib/swift_init.php
+1 1626
+cfn=php::defined
+calls=1 0 0
+22 0
+cfn=php::define
+calls=1 0 0
+26 1
+cfn=require_once::/Users/chris/Sites/swiftmailer_v4/lib/dependency_maps/cache_deps.php
+calls=1 0 0
+29 1774
+cfn=require_once::/Users/chris/Sites/swiftmailer_v4/lib/dependency_maps/mime_deps.php
+calls=1 0 0
+30 3657
+cfn=require_once::/Users/chris/Sites/swiftmailer_v4/lib/dependency_maps/transport_deps.php
+calls=1 0 0
+31 1339
+cfn=require_once::/Users/chris/Sites/swiftmailer_v4/lib/preferences.php
+calls=1 0 0
+34 935
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/swift_required.php
+fn=require_once::/Users/chris/Sites/swiftmailer_v4/lib/swift_required.php
+1 559
+cfn=php::defined
+calls=1 0 0
+22 8
+cfn=php::dirname
+calls=1 0 0
+23 0
+cfn=php::define
+calls=1 0 0
+23 2
+cfn=php::define
+calls=1 0 0
+26 0
+cfn=require_once::/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift.php
+calls=1 0 0
+29 6
+cfn=Swift::registerAutoload
+calls=1 0 0
+32 77
+cfn=require_once::/Users/chris/Sites/swiftmailer_v4/lib/swift_init.php
+calls=1 0 0
+35 9335
+
+fl=php:internal
+fn=php::strlen
+42 0
+
+fl=php:internal
+fn=php::substr
+42 0
+
+fl=php:internal
+fn=php::str_replace
+47 0
+
+fl=php:internal
+fn=php::file_exists
+49 8
+
+fl=php:internal
+fn=php::strlen
+42 0
+
+fl=php:internal
+fn=php::substr
+42 0
+
+fl=php:internal
+fn=php::str_replace
+47 0
+
+fl=php:internal
+fn=php::file_exists
+49 9
+
+fl=php:internal
+fn=php::strlen
+42 0
+
+fl=php:internal
+fn=php::substr
+42 0
+
+fl=php:internal
+fn=php::str_replace
+47 0
+
+fl=php:internal
+fn=php::file_exists
+49 11
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/SwiftX/InputByteStream.php
+fn=require_once::/Users/chris/Sites/swiftmailer_v4/lib/classes/SwiftX/InputByteStream.php
+1 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift.php
+fn=Swift::autoload
+0 549
+cfn=php::strlen
+calls=1 0 0
+42 0
+cfn=php::substr
+calls=1 0 0
+42 0
+cfn=php::str_replace
+calls=1 0 0
+47 0
+cfn=php::file_exists
+calls=1 0 0
+49 11
+cfn=require_once::/Users/chris/Sites/swiftmailer_v4/lib/classes/SwiftX/InputByteStream.php
+calls=1 0 0
+51 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/SwiftX/AbstractInputByteStream.php
+fn=require_once::/Users/chris/Sites/swiftmailer_v4/lib/classes/SwiftX/AbstractInputByteStream.php
+1 66
+cfn=Swift::autoload
+calls=1 0 0
+0 562
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift.php
+fn=Swift::autoload
+0 828
+cfn=php::strlen
+calls=1 0 0
+42 0
+cfn=php::substr
+calls=1 0 0
+42 0
+cfn=php::str_replace
+calls=1 0 0
+47 0
+cfn=php::file_exists
+calls=1 0 0
+49 9
+cfn=require_once::/Users/chris/Sites/swiftmailer_v4/lib/classes/SwiftX/AbstractInputByteStream.php
+calls=1 0 0
+51 628
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/SwiftX/StringInputByteStream.php
+fn=require_once::/Users/chris/Sites/swiftmailer_v4/lib/classes/SwiftX/StringInputByteStream.php
+1 73
+cfn=Swift::autoload
+calls=1 0 0
+0 1466
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift.php
+fn=Swift::autoload
+0 468
+cfn=php::strlen
+calls=1 0 0
+42 0
+cfn=php::substr
+calls=1 0 0
+42 0
+cfn=php::str_replace
+calls=1 0 0
+47 0
+cfn=php::file_exists
+calls=1 0 0
+49 8
+cfn=require_once::/Users/chris/Sites/swiftmailer_v4/lib/classes/SwiftX/StringInputByteStream.php
+calls=1 0 0
+51 1540
+
+fl=php:internal
+fn=php::dirname
+5 0
+
+fl=php:internal
+fn=php::file_get_contents
+5 431
+
+fl=php:internal
+fn=php::strlen
+50 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/SwiftX/StringInputByteStream.php
+fn=SwiftX_StringInputByteStream->__construct
+5 33
+cfn=php::strlen
+calls=1 0 0
+50 0
+
+fl=php:internal
+fn=php::strlen
+42 0
+
+fl=php:internal
+fn=php::substr
+42 0
+
+fl=php:internal
+fn=php::str_replace
+47 2
+
+fl=php:internal
+fn=php::file_exists
+49 10
+
+fl=php:internal
+fn=php::strlen
+42 0
+
+fl=php:internal
+fn=php::substr
+42 0
+
+fl=php:internal
+fn=php::str_replace
+47 0
+
+fl=php:internal
+fn=php::file_exists
+49 6
+
+fl=php:internal
+fn=php::strlen
+42 0
+
+fl=php:internal
+fn=php::substr
+42 0
+
+fl=php:internal
+fn=php::str_replace
+47 0
+
+fl=php:internal
+fn=php::file_exists
+49 6
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/SwiftX/Charset.php
+fn=require_once::/Users/chris/Sites/swiftmailer_v4/lib/classes/SwiftX/Charset.php
+1 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift.php
+fn=Swift::autoload
+0 273
+cfn=php::strlen
+calls=1 0 0
+42 0
+cfn=php::substr
+calls=1 0 0
+42 0
+cfn=php::str_replace
+calls=1 0 0
+47 0
+cfn=php::file_exists
+calls=1 0 0
+49 6
+cfn=require_once::/Users/chris/Sites/swiftmailer_v4/lib/classes/SwiftX/Charset.php
+calls=1 0 0
+51 0
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/SwiftX/AbstractCharset.php
+fn=require_once::/Users/chris/Sites/swiftmailer_v4/lib/classes/SwiftX/AbstractCharset.php
+1 27
+cfn=Swift::autoload
+calls=1 0 0
+0 282
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift.php
+fn=Swift::autoload
+0 320
+cfn=php::strlen
+calls=1 0 0
+42 0
+cfn=php::substr
+calls=1 0 0
+42 0
+cfn=php::str_replace
+calls=1 0 0
+47 0
+cfn=php::file_exists
+calls=1 0 0
+49 6
+cfn=require_once::/Users/chris/Sites/swiftmailer_v4/lib/classes/SwiftX/AbstractCharset.php
+calls=1 0 0
+51 309
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/SwiftX/Charset/UTF8.php
+fn=require_once::/Users/chris/Sites/swiftmailer_v4/lib/classes/SwiftX/Charset/UTF8.php
+1 30
+cfn=Swift::autoload
+calls=1 0 0
+0 638
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/Swift.php
+fn=Swift::autoload
+0 329
+cfn=php::strlen
+calls=1 0 0
+42 0
+cfn=php::substr
+calls=1 0 0
+42 0
+cfn=php::str_replace
+calls=1 0 0
+47 2
+cfn=php::file_exists
+calls=1 0 0
+49 10
+cfn=require_once::/Users/chris/Sites/swiftmailer_v4/lib/classes/SwiftX/Charset/UTF8.php
+calls=1 0 0
+51 669
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/SwiftX/AbstractCharset.php
+fn=SwiftX_AbstractCharset->__construct
+11 1
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/SwiftX/Charset/UTF8.php
+fn=SwiftX_Charset_UTF8->__construct
+7 18
+cfn=SwiftX_AbstractCharset->__construct
+calls=1 0 0
+11 1
+
+fl=php:internal
+fn=php::microtime
+9 10
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/SwiftX/StringInputByteStream.php
+fn=SwiftX_StringInputByteStream->read
+11 14482
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/SwiftX/StringInputByteStream.php
+fn=SwiftX_StringInputByteStream->read
+11 14975
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/SwiftX/StringInputByteStream.php
+fn=SwiftX_StringInputByteStream->read
+11 14675
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/SwiftX/StringInputByteStream.php
+fn=SwiftX_StringInputByteStream->read
+11 14061
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/SwiftX/StringInputByteStream.php
+fn=SwiftX_StringInputByteStream->read
+11 16115
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/SwiftX/StringInputByteStream.php
+fn=SwiftX_StringInputByteStream->read
+11 15058
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/SwiftX/StringInputByteStream.php
+fn=SwiftX_StringInputByteStream->read
+11 9037
+
+fl=/Users/chris/Sites/swiftmailer_v4/lib/classes/SwiftX/StringInputByteStream.php
+fn=SwiftX_StringInputByteStream->read
+11 4
+
+fl=php:internal
+fn=php::microtime
+19 2
+
+fl=php:internal
+fn=php::printf
+19 56
+
+fl=/Users/chris/Sites/swiftmailer_v4/bench/utf8_decode-new.php
+fn={main}
+
+summary: 113131
+
+0 1131
+cfn=php::dirname
+calls=1 0 0
+3 11
+cfn=require_once::/Users/chris/Sites/swiftmailer_v4/lib/swift_required.php
+calls=1 0 0
+3 9990
+cfn=Swift::autoload
+calls=1 0 0
+0 2019
+cfn=php::dirname
+calls=1 0 0
+5 0
+cfn=php::file_get_contents
+calls=1 0 0
+5 431
+cfn=SwiftX_StringInputByteStream->__construct
+calls=1 0 0
+5 34
+cfn=Swift::autoload
+calls=1 0 0
+0 1013
+cfn=SwiftX_Charset_UTF8->__construct
+calls=1 0 0
+7 20
+cfn=php::microtime
+calls=1 0 0
+9 10
+cfn=SwiftX_StringInputByteStream->read
+calls=1 0 0
+11 14482
+cfn=SwiftX_StringInputByteStream->read
+calls=1 0 0
+11 14975
+cfn=SwiftX_StringInputByteStream->read
+calls=1 0 0
+11 14675
+cfn=SwiftX_StringInputByteStream->read
+calls=1 0 0
+11 14061
+cfn=SwiftX_StringInputByteStream->read
+calls=1 0 0
+11 16115
+cfn=SwiftX_StringInputByteStream->read
+calls=1 0 0
+11 15058
+cfn=SwiftX_StringInputByteStream->read
+calls=1 0 0
+11 9037
+cfn=SwiftX_StringInputByteStream->read
+calls=1 0 0
+11 4
+cfn=php::microtime
+calls=1 0 0
+19 2
+cfn=php::printf
+calls=1 0 0
+19 56
+
