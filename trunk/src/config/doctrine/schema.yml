@@ -78,3 +78,17 @@ UserAgent:
   relations:
     User: { class: User, local: user_id, foreign: id, foreignType: many, type: one, onDelete: CASCADE }
     User: { class: User, local: useragent_id, foreign: id, foreignType: many, type: many, onDelete: CASCADE }
+
+EmailConfiguration:
+  tableName: cf_emailconfiguration
+  columns:
+    id: { type: integer, length: 10, primary: true, autoincrement: true }
+    smtphost: { type: string(100)}
+    smtpuseauth: { type: string(100)}
+    smtpport: { type: string(100), default: '25'}
+    smtpusername: { type: string(100)}
+    smtppassword: { type: string(100)}
+    smtpencryption: { type: string(100)}
+    sendmailpath: { type: string(100)}
+    activetype: { type: string(20), default: 'SMTP'}
+    
