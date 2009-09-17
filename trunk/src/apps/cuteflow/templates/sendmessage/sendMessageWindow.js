@@ -75,7 +75,8 @@ cf.administration_sendmessage = function(){return {
 				xtype: 'textfield',
 				allowBlank: true,
 				fieldLabel: '<?php echo __('Subject',null,'sendmessage'); ?>',
-				name: 'betreff',
+				name: 'subject',
+				id: 'subject',
 				style:'margin-right:10px;',
 				width: 460
 			}]
@@ -92,14 +93,15 @@ cf.administration_sendmessage = function(){return {
 			items:[{
 				xtype: 'combo',
 				mode: 'local',
-				value: '<?php echo __('Plain',null,'sendmessage'); ?>',
+				value: 'plain',
 				editable:false,
+				hiddenName : 'type',
 				triggerAction: 'all',
 				foreSelection: true,
 				fieldLabel: '<?php echo __('Type',null,'sendmessage'); ?>',
 				store: new Ext.data.SimpleStore({
 					 fields:['type','text'],
-       				 data:[['PLAIN', '<?php echo __('Plain',null,'sendmessage'); ?>'],['HTML', '<?php echo __('HTML',null,'sendmessage'); ?>']]
+       				 data:[['plain', '<?php echo __('Plain',null,'sendmessage'); ?>'],['html', '<?php echo __('HTML',null,'sendmessage'); ?>']]
    				}),
  				valueField:'type',
 				displayField:'text',
@@ -116,6 +118,7 @@ cf.administration_sendmessage = function(){return {
 													fieldLabel: '<?php echo __('Subject',null,'sendmessage'); ?>:',
 													id: 'systemMessageTextarea',
 													labelSeparator: '',
+													allowBlank: false,
 													height: 250,
 													width: 400,
 													value: Ext.getCmp('systemMessageHTMLArea').getValue(),
@@ -136,6 +139,7 @@ cf.administration_sendmessage = function(){return {
 										labelSeparator: '',
 										height: 250,
 										width: 400,
+										allowBlank: false,
 										value: Ext.getCmp('systemMessageTextarea').getValue(),
 										anchor: '98%'
 		    						});	
@@ -154,6 +158,7 @@ cf.administration_sendmessage = function(){return {
 				fieldLabel: '<?php echo __('Subject',null,'sendmessage'); ?>:',
 				id: 'systemMessageTextarea',
 				labelSeparator: '',
+				allowBlank: false,
 				height: 250,
 				width: 400,
 				anchor: '100%'
@@ -172,9 +177,9 @@ cf.administration_sendmessage = function(){return {
 			items: [{
 				xtype: 'combo',
 				mode: 'local',
-				value: '<?php echo __('All',null,'sendmessage'); ?>',
+				value: 'ALL',
 				editable:false,
-				name: 'receiver',
+				hiddenName : 'receiver',
 				triggerAction: 'all',
 				foreSelection: true,
 				fieldLabel: '<?php echo __('Send to',null,'sendmessage'); ?>',
@@ -200,7 +205,15 @@ cf.administration_sendmessage = function(){return {
 				text:'<?php echo __('Send',null,'sendmessage'); ?>', 
 				icon: '/images/icons/accept.png',
 				handler: function () {
-					alert("moep");
+	
+					cf.administration_sendmessage.theSendMessagePanel.getForm().submit({
+						url: '<?php echo build_dynamic_javascript_url('sendmessage/SendMail')?>',
+						method: 'POST',
+						success: function() {
+							Ext.MessageBox.alert('<?php echo __('OK',null,'sendmessage'); ?>', '<?php echo __('Emails send',null,'sendmessage'); ?>');
+						}
+					});
+					
 				}
 			},{
 				text:'<?php echo __('Close',null,'sendmessage'); ?>', 
