@@ -28,6 +28,12 @@
 	height:16px;
 }
 
+.usermanagement_usermodule_administration_usergroupIcon_systemsetting{
+	background-image: url(/images/icons/computer.png) !important; 
+	width: 16px;
+	height:16px;
+}
+
 
 
 .no-icon {
