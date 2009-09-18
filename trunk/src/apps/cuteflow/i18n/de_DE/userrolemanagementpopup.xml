@@ -77,7 +77,11 @@
     <trans-unit id="19">
         <source>menuesetting</source>
         <target>Men&#252; Einstellungen</target>
-    </trans-unit> 	
+    </trans-unit>
+    <trans-unit id="20">
+        <source>systemsetting</source>
+        <target>System Einstellungen</target>
+    </trans-unit> 	 	
 	</body>
   </file>
 </xliff>

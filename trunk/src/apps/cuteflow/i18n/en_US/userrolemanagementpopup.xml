@@ -8,11 +8,11 @@
     </trans-unit>
     <trans-unit id="2">
         <source>usermanagement</source>
-        <target>User management</target>
+        <target>User Management</target>
     </trans-unit>
     <trans-unit id="3">
         <source>userrolemanagement</source>
-        <target>Userrole management</target>
+        <target>Userrole Management</target>
     </trans-unit>
     <trans-unit id="4">
         <source>myprofile</source>
@@ -77,6 +77,10 @@
 	<trans-unit id="19">
         <source>menuesetting</source>
         <target>Menue Settings</target>
+    </trans-unit> 
+	    <trans-unit id="20">
+        <source>systemsetting</source>
+        <target>System Settings</target>
     </trans-unit> 
 	</body>
   </file>
