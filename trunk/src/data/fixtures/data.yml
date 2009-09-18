@@ -43,6 +43,10 @@ Credential:
     userModule: test2
     userGroup: menuesetting
     userRight: showModule
+  c12:
+    userModule: administration
+    userGroup: systemsetting
+    userRight: showModule
 Role:
   r1:
     description: admin
@@ -88,6 +92,9 @@ CredentialRole:
   rc12:
      role_id: 1
      credential_id: 9
+  rc13:
+     role_id: 1
+     credential_id: 12
 User:
   u1:
     username: admin
