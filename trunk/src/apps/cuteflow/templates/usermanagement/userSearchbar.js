@@ -84,7 +84,7 @@ cf.UserSearchbar = function(){return {
 								var append = '';
 								
 								if(Ext.getCmp('searchbar_firstname').getValue() != '') {
-									append += '/firstname/' + Ext.getCmp('firstname').getValue();
+									append += '/firstname/' + Ext.getCmp('searchbar_firstname').getValue();
 									flag = true;
 								}
 								if(Ext.getCmp('searchbar_lastname').getValue() != '') {
