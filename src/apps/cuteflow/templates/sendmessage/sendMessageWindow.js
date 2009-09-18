@@ -109,7 +109,7 @@ cf.administration_sendmessage = function(){return {
 				listeners: {
 		    		select: {
 		    			fn:function(combo, value) { // change the textarea and htmlarea
-		    				if (combo.getValue() == 'PLAIN') {
+		    				if (combo.getValue() == 'plain') {
 		    					var checkField = cf.administration_sendmessage.theMessageBox.findById('systemMessageTextarea');
 		    					if (!checkField) {
 		    					cf.administration_sendmessage.theMessageBox.add({
