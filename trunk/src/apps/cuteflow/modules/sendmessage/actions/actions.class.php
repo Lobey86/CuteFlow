@@ -21,9 +21,9 @@ class sendmessageActions extends sfActions {
     public function executeSendMail(sfWebRequest $request) {
         $sendmail = new SendMessage();
 
-        $user = new Doctrine_Query();
-        $user->from('User u')
-             ->select('u.*');
+        $user = Doctrine_Query::create()
+                ->from('User u')
+                ->select('u.*');
         
         if($request->getPostParameter('receiver') == 'ALL') {
             // do nothing
@@ -34,8 +34,8 @@ class sendmessageActions extends sfActions {
         else {
             
         }
-        $result = $user->execute();
-        $recevier = $sendmail->buildReceiver($result);
+        $data = $user->execute();
+        $recevier = $sendmail->buildReceiver($data);
 
         $mail = new MailDaemon('SMTP');
         $mailObject = $mail->getInstance();
