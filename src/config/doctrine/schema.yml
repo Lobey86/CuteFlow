@@ -85,10 +85,11 @@ EmailConfiguration:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
     smtphost: { type: string(100)}
     smtpuseauth: { type: string(100)}
-    smtpport: { type: string(100), default: '25'}
+    smtpport: { type: string(100)}
     smtpusername: { type: string(100)}
     smtppassword: { type: string(100)}
     smtpencryption: { type: string(100)}
     sendmailpath: { type: string(100)}
-    activetype: { type: string(20), default: 'SMTP'}
+    systemreplyaddress: { type: string(100)}
+    activetype: { type: string(20)}
     
