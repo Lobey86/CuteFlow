@@ -163,3 +163,9 @@ UserSetting:
      user_id: 5
   us6:
      user_id: 6
+
+EmailConfiguration:
+  ec1:
+     activetype: SMTP
+     smtpport: 25
+     smtpencryption: NONE
