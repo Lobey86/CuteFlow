@@ -75,7 +75,7 @@ cf.UserGrid = function(){return {
 				editable:false,
 				triggerAction: 'all',
 				foreSelection: true,
-				fieldLabel: 'fewfew',
+				fieldLabel: '',
 				store: new Ext.data.SimpleStore({
 					 fields:['id','text'],
        				 data:[[25, '25'],[50, '50'],[75, '75'],[100, '100']]
@@ -86,7 +86,10 @@ cf.UserGrid = function(){return {
 				listeners: {
 		    		select: {
 		    			fn:function(combo, value) {
+
+		    				cf.UserGrid.theGridBottomToolbar.pageSize = combo.getValue();
 		    				cf.UserGrid.theUserStore.load({params:{start: 0, limit: combo.getValue()}});
+		    				
 		    			}
 		    		}
 		    	}
@@ -154,8 +157,6 @@ cf.UserGrid = function(){return {
 	
 	/** Function to render "Edit Button" into datagrid **/
 	renderAction: function (data, cell, record, rowIndex, columnIndex, store, grid) {
-		if (Ext.isIE6 == true) {
-		}
 		var action = record.data['action'];
 		cf.UserGrid.createButton.defer(500,this, [record.data['action']]);
 		return '<center><table><tr><td><div id="user_edit'+ record.data['id'] +'"></div></td></tr></table></center>';
