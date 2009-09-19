@@ -67,7 +67,13 @@ class menuesettingActions extends sfActions {
     }
 
 
-    
+
+    /**
+     * Functions loads menue elements for regionWest
+     *
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeLoadGroup (sfWebRequest $request) {
         $settingObj = new MenueSetting();
 
