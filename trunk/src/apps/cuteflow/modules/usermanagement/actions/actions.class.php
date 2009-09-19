@@ -321,7 +321,7 @@ class usermanagementActions extends sfActions {
             $agent = array();
         }
 
-
+        // save user agents
         if (count($agent)>0) {
             $pos = 1;
             foreach($agent as $item) {

@@ -59,7 +59,7 @@ cf.menueSettingModuleCRUD = function(){return {
 				
 				cf.Layout.theRegionWest.add(cf.Navigation.theAccordion);
 				cf.Layout.theRegionWest.doLayout();	
-				cf.menueSettingModuleCRUD.expandNavigation.defer(500,this,[ac_item_id]);
+				cf.menueSettingModuleCRUD.expandNavigation.defer(1000,this,[ac_item_id]);
 		
 			}
 		});
