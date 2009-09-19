@@ -19,6 +19,13 @@ class menueActions extends sfActions {
     }
 
 
+
+    /**
+     *
+     * Loads Data for Navigation in Region West
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeLoadMenue(sfWebRequest $request) {
         $menueObject = new Menue();
 

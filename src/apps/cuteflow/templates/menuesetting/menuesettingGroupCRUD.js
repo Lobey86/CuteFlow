@@ -72,8 +72,7 @@ cf.menueSettingGroupCRUD = function(){return {
 				
 				cf.menueSettingGroupWindow.theMenueSettingGroupWindow.hide();
 				cf.menueSettingGroupWindow.theMenueSettingGroupWindow.destroy();
-				
-				cf.menueSettingModuleCRUD.expandNavigation.defer(500,this,[ac_item_id]);
+				cf.menueSettingModuleCRUD.expandNavigation.defer(1000,this,[ac_item_id]);
 
 			}
 		});

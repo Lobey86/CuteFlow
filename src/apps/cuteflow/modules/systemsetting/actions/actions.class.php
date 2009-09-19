@@ -9,12 +9,12 @@
  * @version    SVN: $Id: actions.class.php 12479 2008-10-31 10:54:40Z fabien $
  */
 class systemsettingActions extends sfActions {
-/**
- *
-* Executes index action
-*
-* @param sfRequest $request A request object
-*/
+    /**
+     *
+    * Executes index action
+    *
+    * @param sfRequest $request A request object
+    */
     public function executeIndex(sfWebRequest $request) {
         $this->forward('default', 'module');
     }
@@ -38,7 +38,7 @@ class systemsettingActions extends sfActions {
 
     /**
      *
-     * Saves SystemSettings
+     * Saves SystemSettings to additional Tables in database
      * @param sfWebRequest $request
      * @return <type>
      */
@@ -57,7 +57,6 @@ class systemsettingActions extends sfActions {
         if (isset($data['emailtab_emailtype'])) { // store Email tab
         
         $data['emailtab_encryption'] = $data['emailtab_encryption'] == 'NONE' ? '' : $data['emailtab_encryption'];
-
         Doctrine_Query::create()
             ->update('EmailConfiguration ec')
             ->set('ec.systemreplyaddress', '?', $data['emailtab_systemreplyaddress'])

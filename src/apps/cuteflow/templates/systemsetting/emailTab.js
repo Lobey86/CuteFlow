@@ -152,7 +152,7 @@ cf.emailTab = function(){return {
    				width:200,
 				store: new Ext.data.SimpleStore({
 					 fields:['id','text'],
-       				 data:[['NONE', '<?php echo __('no encryption',null,'systemsetting'); ?>'],['SSL', '<?php echo __('SSL',null,'systemsetting'); ?>'],['TLS', '<?php echo __('TLS',null,'systemsetting'); ?>']]
+       				 data:[['NONE', '<?php echo __('no encryption',null,'systemsetting'); ?>'],['ssl', '<?php echo __('SSL',null,'systemsetting'); ?>'],['tls', '<?php echo __('TLS',null,'systemsetting'); ?>']]
    				})
 				
 			},{
