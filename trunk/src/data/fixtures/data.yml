@@ -169,3 +169,4 @@ EmailConfiguration:
      activetype: SMTP
      smtpport: 25
      smtpencryption: NONE
+     smtphost: cuteflow
