@@ -7,6 +7,12 @@ class SendMessage {
     }
 
 
+    /**
+     * Function builds receiver for sending emails
+     *
+     * @param Doctrine_Collection $data, data with all receivers
+     * @return array $result, data with all receivers
+     */
     public function buildReceiver(Doctrine_Collection $data) {
         $result = array();
         $a = 0;

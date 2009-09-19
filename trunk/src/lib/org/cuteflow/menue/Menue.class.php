@@ -14,7 +14,10 @@ class Menue extends MenueCredential {
         $this->firstRun = true;
     }
 
-    
+    /**
+     * Store userrights
+     * @param array $right_in , set Userrights to an array
+     */
     public function setUserright($right_in) {
         $this->userright = $right_in;
     }
@@ -96,7 +99,7 @@ class Menue extends MenueCredential {
      }
          
      /**
-      *
+      * return the right, according to an item
       * @param String $item, The right
       * @return boolean, true or false, if right is set
       */

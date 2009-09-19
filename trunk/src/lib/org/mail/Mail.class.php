@@ -1,6 +1,7 @@
 <?php
 /**
- * Parent Class for Email, that handles sending all functionality 
+ * Parent Class for Email, that handles sending emails.
+ * 
  *
  */
 class Mail {
