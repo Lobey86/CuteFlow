@@ -12,7 +12,12 @@ class MenueSetting extends MenueCredential {
     }
 
 
-    
+    /**
+     * Function builds Data for Menue Settings Grid
+     *
+     * @param Doctrine_Collection $data, Data with all Menues
+     * @return array $result, resultset with all elements
+     */
     public function buildModule(Doctrine_Collection $data) {
         $result = array();
         $a = 0;
@@ -26,6 +31,12 @@ class MenueSetting extends MenueCredential {
        return $result;
     }
 
+    /**
+     * Function builds all data for the Grid of an Module
+     *
+     * @param Doctrine_Collection $data, data with data of all SubMenues (groups)
+     * @return array $result, resultset with all elements
+     */
     public function buildGroup(Doctrine_Collection $data) {
         $result = array();
         $a = 0;
@@ -36,9 +47,7 @@ class MenueSetting extends MenueCredential {
             $result[$a]['module'] = $this->context->getI18N()->__($item->getUsermodule() ,null,'userrolemanagementpopup');
             $result[$a]['group_id'] = $item->getUsergroup();
             $result[$a++]['group'] = $this->context->getI18N()->__($item->getUsergroup() ,null,'userrolemanagementpopup');
-
         }
-
         return $result;
     }
 

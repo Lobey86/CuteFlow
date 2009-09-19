@@ -10,6 +10,10 @@ class MailDaemon {
     private $mailType;
     private $mailObject;
 
+    /**
+     * When creating new MailDeamon instance, sending type is set.
+     * @param String $mailTypeIn, Choose between SMTP, SENDMAIL and MAIL
+     */
     public function __construct($mailTypeIn) {
         $this->mailType = $mailTypeIn;
         $this->setMailObject();
@@ -17,7 +21,7 @@ class MailDaemon {
 
 
     /**
-     * Function checks sendingtype of email
+     * Function checks sendingtype of email and creates the necessary
      * 
      */
     private function setMailObject() {

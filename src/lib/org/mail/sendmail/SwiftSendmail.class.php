@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Class handles Sendmail() function , using Swiftmailer
+ */
 class SwiftSendmail extends Mail {
 
 
@@ -14,7 +16,11 @@ class SwiftSendmail extends Mail {
         $this->setSwiftObject();
     }
 
-
+    /**
+     * Create SendmailTransport instance
+     * @param Doctrine_Collection $sendmailConfig, has absolute path of sendmail
+     *
+     */
     public function configConnection(Doctrine_Collection $sendmailConfig) {
         $this->swiftTransport = Swift_SendmailTransport::newInstance($sendmailConfig[0]->getSendmailpath());
     }

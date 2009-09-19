@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Class handles SMTP Sending function , using Swiftmailer
+ */
 class SwiftSmtp extends Mail{
 
     public $swiftTransport;
@@ -12,7 +14,10 @@ class SwiftSmtp extends Mail{
         $this->setSwiftObject();
     }
 
-
+    /**
+     * Create SmtpTransport Transport instance
+     * @param Doctrine_Collection $smtpConfig , has SMTP connection information
+     */
     private function configConnection(Doctrine_Collection $smtpConfig) {
         $this->swiftTransport = Swift_SmtpTransport::newInstance($smtpConfig[0]->getSmtphost(), $smtpConfig[0]->getSmtpport(), $smtpConfig[0]->getSmtpencryption());
         $this->swiftTransport->setPassword($smtpConfig[0]->getSmtppassword());

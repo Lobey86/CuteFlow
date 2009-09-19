@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Class handles Mail() function , using Swiftmailer
+ */
 
 class SwiftMail extends Mail{
 
@@ -14,7 +16,9 @@ class SwiftMail extends Mail{
         $this->setSwiftObject();
     }
 
-
+    /**
+     * Create MailTransport instance
+     */
     public function configConnection() {
         $this->swiftTransport = Swift_MailTransport::newInstance();
     }
