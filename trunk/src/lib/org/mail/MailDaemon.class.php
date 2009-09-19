@@ -1,6 +1,10 @@
 <?php
 
-
+/**
+ * Class is the MailDaemon that handles SMTP, Sendmail or mail sending action
+ *
+ * @author Manuel Schäfer
+ */
 class MailDaemon {
 
     private $mailType;
@@ -12,7 +16,10 @@ class MailDaemon {
     }
 
 
-
+    /**
+     * Function checks sendingtype of email
+     * 
+     */
     private function setMailObject() {
         if($this->mailType == 'SMTP') { // smtp
             $result = Doctrine_Query::create()
@@ -33,6 +40,11 @@ class MailDaemon {
         }
     }
 
+    /**
+     * Function returns an Object
+     *
+     * @return object, returns SMTP, SENDMAIL or MAIL Object
+     */
     public function getInstance() {
         return $this->mailObject;
     }
