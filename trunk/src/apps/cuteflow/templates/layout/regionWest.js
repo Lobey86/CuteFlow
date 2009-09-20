@@ -131,6 +131,7 @@ cf.Navigation = function(){return {
 		this.theAccordion = new Ext.Panel({
             margins:'5 0 5 5',
             split:true,
+            autoScroll: false,
             width: 240,
 			layoutConfig: {
 				titleCollapse: true,
