@@ -31,7 +31,7 @@ class sendmessageActions extends sfActions {
 
         $user = Doctrine_Query::create()
                 ->from('User u')
-                ->select('u.*');
+                ->select('CONCAT(u.firstname,\' \',u.lastname) AS name, u.email');
         
         if($request->getPostParameter('receiver') == 'ALL') {
             // do nothing
@@ -42,9 +42,8 @@ class sendmessageActions extends sfActions {
         else {
             
         }
-        $data = $user->execute();
-        $recevier = $sendmail->buildReceiver($data);
-
+        $recevier = $user->fetchArray();
+       
         $mail = new MailDaemon('SMTP');
         $mailObject = $mail->getInstance();
         $mailObject->setCharset(sfConfig::get('sf_charset'));
