@@ -36,14 +36,10 @@ Credential:
     userGroup: menuesetting
     userRight: showModule
   c10:
-    userModule: test
-    userGroup: menuesetting
+    userModule: management
+    userGroup: additionaltext
     userRight: showModule
   c11:
-    userModule: test2
-    userGroup: menuesetting
-    userRight: showModule
-  c12:
     userModule: administration
     userGroup: systemsetting
     userRight: showModule
@@ -94,7 +90,10 @@ CredentialRole:
      credential_id: 9
   rc13:
      role_id: 1
-     credential_id: 12
+     credential_id: 11
+  rc14:
+     role_id: 1
+     credential_id: 10
 User:
   u1:
     username: admin
@@ -170,3 +169,12 @@ EmailConfiguration:
      smtpport: 25
      smtpencryption: NONE
      smtphost: cuteflow
+     systemreplyaddress: mschaefer1982@gmx.de
+
+SystemConfiguration:
+   sc1:
+     language: en_US
+
+AuthenticationConfiguration:
+  ac:
+    authenticationtype: DBONLY
