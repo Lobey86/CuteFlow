@@ -79,5 +79,20 @@ class Language {
             return $result;
         }
 
+
+        /**
+         * Load default system language from database.
+         *
+         * @return String, culture in form of de_DE or en_US etc.
+         */
+        public static function loadDefaultLanguage() {
+            $lang = Doctrine_Query::create()
+                ->select('sc.*')
+                ->from('SystemConfiguration sc')
+                ->where('sc.id = ?', 1)
+                ->execute();
+            return $lang[0]->getLanguage();
+        }
+
 }
 ?>
