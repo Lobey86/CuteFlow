@@ -82,6 +82,14 @@
         <source>systemsetting</source>
         <target>System Settings</target>
     </trans-unit> 
+	<trans-unit id="21">
+        <source>management</source>
+        <target>Management</target>
+    </trans-unit>
+	<trans-unit id="22">
+        <source>additionaltext</source>
+        <target>Additional Text</target>
+    </trans-unit> 	
 	</body>
   </file>
 </xliff>
