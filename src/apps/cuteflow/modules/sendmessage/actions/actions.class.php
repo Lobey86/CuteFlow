@@ -43,16 +43,21 @@ class sendmessageActions extends sfActions {
             
         }
         $recevier = $user->fetchArray();
-       
-        $mail = new MailDaemon('SMTP');
-        $mailObject = $mail->getInstance();
+
+
+        $email = Doctrine_Query::create()
+                ->select('ec.*')
+                ->from('EmailConfiguration ec')
+                ->execute();
+        $mail = new MailDaemon($email);
+        $mailObject = $mail->getSwiftObject();
         $mailObject->setCharset(sfConfig::get('sf_charset'));
         $mailObject->setContentType('text/' . $request->getPostParameter('type'));
         $mailObject->setSubject( $request->getPostParameter('subject'));
-        $mailObject->setFrom(array('displayname'=>'Manuel','email'=>'mschaefer1982@gmx.de'));
+        $mailObject->setFrom(array($email[0]->getSystemreplyaddress() => $email[0]->getSystemreplyaddress()));
         $mailObject->setBody( $request->getPostParameter('description'));
-        $mailObject->setTo($recevier);
-        $mailObject->send();
+        $mailObject->setTo($mail->buildReceiver($recevier));
+        $mail->send();
 
         
         $this->renderText('{success:true}');
