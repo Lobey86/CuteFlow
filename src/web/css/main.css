@@ -1,35 +1,41 @@
-.usermanagement_usermodule_administration_usergroupIcon_usermanagement{
+.usermodule_administration_usergroupIcon_usermanagement{
 	background-image: url(/images/icons/group.png) !important; 
 	width: 16px;
 	height:16px;
 }
 
-.usermanagement_usermodule_administration_usergroupIcon_userrolemanagement{
+.usermodule_administration_usergroupIcon_userrolemanagement{
 	background-image: url(/images/icons/cog.png) !important; 
 	width: 16px;
 	height:16px;
 }
 
-.usermanagement_usermodule_administration_usergroupIcon_myprofile{
+.usermodule_administration_usergroupIcon_myprofile{
 	background-image: url(/images/icons/user_edit.png) !important; 
 	width: 16px;
 	height:16px;
 }
 
-.usermanagement_usermodule_administration_usergroupIcon_sendmessage{
+.usermodule_administration_usergroupIcon_sendmessage{
 	background-image: url(/images/icons/note.png) !important; 
 	width: 16px;
 	height:16px;
 }
 
-.usermanagement_usermodule_administration_usergroupIcon_menuesetting{
+.usermodule_administration_usergroupIcon_menuesetting{
 	background-image: url(/images/icons/layout.png) !important; 
 	width: 16px;
 	height:16px;
 }
 
-.usermanagement_usermodule_administration_usergroupIcon_systemsetting{
+.usermodule_administration_usergroupIcon_systemsetting{
 	background-image: url(/images/icons/computer.png) !important; 
+	width: 16px;
+	height:16px;
+}
+
+.usermodule_management_usergroupIcon_additionaltext{
+	background-image: url(/images/icons/script.png) !important; 
 	width: 16px;
 	height:16px;
 }
@@ -47,3 +53,8 @@
 	height:17px;
 }
 
+#usermodule_management_Icon {
+	background-image: url(/images/icons/world.png); 
+	width: 17px;
+	height:17px;
+}
