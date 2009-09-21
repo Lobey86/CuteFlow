@@ -20,12 +20,16 @@ cf.administration_systemsetting = function(){return {
 			this.initLoadData();
 			cf.databaseTab.init();
 			cf.emailTab.init();
+			cf.systemTab.init();
+			cf.authTab.init();
 			this.initTabPanel();
 			this.initFormPanel();
 			this.initPanel();
 			this.initMainPanel();
 			this.theTabPanel.add(cf.databaseTab.theDatabaseTab);
 			this.theTabPanel.add(cf.emailTab.theEmailTab);
+			this.theTabPanel.add(cf.systemTab.theSystemTab);
+			this.theTabPanel.add(cf.authTab.theAuthTab);
 			this.theFormPanel.add(this.theTabPanel);
 			this.theMainPanel.add(this.theSystemSettingPanel);
 			this.theSystemSettingPanel.add(this.theFormPanel);
@@ -40,6 +44,7 @@ cf.administration_systemsetting = function(){return {
 			success: function(objServerResponse){  
 				var data = Ext.util.JSON.decode(objServerResponse.responseText);
 				cf.emailTab.addData(data.email);
+				cf.authTab.addData(data.auth);
 			}
 		});
 	},
@@ -76,7 +81,7 @@ cf.administration_systemsetting = function(){return {
 			closable: true,
 			modal: true,
 			width: 700,
-			height: 600,
+			height: 700,
 			autoScroll: true,
 			title: '<?php echo __('System Settings',null,'systemsetting'); ?>',
 			shadow: false,
