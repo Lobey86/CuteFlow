@@ -60,9 +60,9 @@ UserSetting:
   columns:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
     user_id: { type: integer, length: 10}
-    menue1expand: { type: string(10), default: 'true'}
-    menue2expand: { type: string(10), default: 'true'}
-    menue3expand: { type: string(10), default: 'true'}
+    markyellow: { type: string(45)}
+    markred: { type: string(45)}
+    markorange: { type: string(45)}
     refreshtime: { type: integer, default: 180}
     displayeditem: { type: integer, default: 25}
   relations:
@@ -92,4 +92,33 @@ EmailConfiguration:
     sendmailpath: { type: string(100)}
     systemreplyaddress: { type: string(100)}
     activetype: { type: string(20)}
+
+SystemConfiguration:
+  tableName: cf_systemconfiguration
+  columns:
+    id: { type: integer, length: 10, primary: true, autoincrement: true }
+    language: { type: string(20), default: en_US}
+
+AuthenticationConfiguration:
+  tableName: cf_authenticationconfiguration
+  columns:
+    id: { type: integer, length: 10, primary: true, autoincrement: true }
+    authenticationtype: { type: string(100)}
+    ldaphost: { type: string(100)}
+    ldapdomain: { type: string(100)}
+    ldapbindusernameandcontext: { type: string(100)}
+    ldappassword: { type: string(100)}
+    ldaprootcontext: { type: string(100)}
+    ldapusersearchattribute: { type: string(100)}
+    ldapfirstname: { type: string(100)}
+    ldaphost: { type: string(100)}
+    ldaplastname: { type: string(100)}
+    ldapusername: { type: string(100)}
+    ldapemail: { type: string(100)}
+    ldapoffice: { type: string(100)}
+    ldapphone: { type: string(100)}
+    ldapcontext: { type: string(100)}
+    openidserver: { type: string(100)}
+
+
     
