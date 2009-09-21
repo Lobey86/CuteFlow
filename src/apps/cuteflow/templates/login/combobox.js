@@ -29,7 +29,7 @@ cf.ComboBox = function(){return {
 			allowBlank: true,
 			forceSelection:true,
 			id:'language',
-			value: '<?php echo Language::buildDefaultLanguage($sf_user->getCulture())?>',
+			value: '<?php echo Language::buildDefaultLanguage(Language::loadDefaultLanguage());?>',
 			width: 225,
 			listeners: {
 				select: {

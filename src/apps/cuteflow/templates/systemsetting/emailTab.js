@@ -19,7 +19,7 @@ cf.emailTab = function(){return {
 			closable: false,
 			modal: true,
 			width: 650,
-			height: 500,
+			height: 600,
 			autoScroll: true,
 			title: '<?php echo __('Email',null,'systemsetting'); ?>',
 			shadow: false,
@@ -41,6 +41,8 @@ cf.emailTab = function(){return {
 				xtype: 'textfield',
 				width: 200,
 				id: 'emailtab_systemreplyaddress',
+				allowBlank: false,
+				vtype:'email',
 				fieldLabel: '<?php echo __('System reply address',null,'systemsetting'); ?>'
 			}]
 		});
@@ -172,7 +174,8 @@ cf.emailTab = function(){return {
 			Ext.getCmp('email_smtp_port').setValue(data.smtpport);
 			Ext.getCmp('email_smtp_username').setValue(data.smtpusername);
 			Ext.getCmp('email_smtp_password').setValue(data.smtppassword);
-			Ext.getCmp('email_smtp_auth').setValue();
+			//alert(data.smtpuseauth);
+			Ext.getCmp('email_smtp_auth').setValue(data.smtpuseauth);
 			Ext.getCmp('emailtab_encryption_id').setValue(data.smtpencryption);
 			Ext.getCmp('emailtab_emailtype_id').setValue(data.activetype);
 			Ext.getCmp('emailtab_systemreplyaddress').setValue(data.systemreplyaddress);
