@@ -2,11 +2,11 @@
 /**
  * Class that handles the language operation
  *
- * @author Manuel Schäfer
+ * @author Manuel Schaefer
  */
 class Language {
 
-        public function __construct() {
+	public function __construct() {
             sfLoader::loadHelpers('I18N');
 	}
 
