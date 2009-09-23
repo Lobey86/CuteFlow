@@ -120,5 +120,15 @@ AuthenticationConfiguration:
     ldapcontext: { type: string(100)}
     openidserver: { type: string(100)}
 
+AdditionalText:
+  tableName: cf_additionaltext
+  columns:
+    id: { type: integer, length: 10, primary: true, autoincrement: true }
+    title: { type: string(100)}
+    content: { type: string(5000)}
+    contenttype: { type: string(45)}
+    isactive: { type: integer(1), length: 3 }
+
+
 
     
