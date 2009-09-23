@@ -4,7 +4,6 @@ cf.administration_menuesetting = function(){return {
 		
 	themenueSettingModuleWindow			:false,
 	isInitialized						:false,
-	theModulePanel						:false,
 
 	
 	
@@ -13,21 +12,20 @@ cf.administration_menuesetting = function(){return {
 		if (this.isInitialized == false) {
 			this.isInitialized = true;
 			cf.menueSettingModuleGrid.init();			
-			this.initModulePanel();
 			this.initModuleWindow();
-			this.theModulePanel.add(cf.menueSettingModuleGrid.theModuleGrid);
-			this.themenueSettingModuleWindow.add(this.theModulePanel);
+			this.themenueSettingModuleWindow.add(cf.menueSettingModuleGrid.theModuleGrid);
 		}
 		
 	},
 	
+	
 	/** Panel for the tabbar **/
 	initModuleWindow: function () {
-		this.themenueSettingModuleWindow =  new Ext.Panel({
+		this.themenueSettingModuleWindow =  new Ext.FormPanel({
 			modal: true,
 			closable: true,
 			modal: true,
-			autoScroll: true,
+			autoScroll: false,
 			shadow: false,
 			minimizable: false,
 			draggable: false,
@@ -38,20 +36,6 @@ cf.administration_menuesetting = function(){return {
 		
 	},
 	
-	/** formpanel, where grid is rendered to **/
-	initModulePanel: function () {
-		this.theModulePanel = new Ext.FormPanel({
-			closable: false,
-			plain: false,
-			frame: false,
-			height: 500,
-			width: 572,
-			layout: 'form',
-			title: '<?php echo __('Menue Settings',null,'menuesetting'); ?>',
-			style:'margin-top:5px;margin-left:6px;',
-			collapsible:false
-		});
-	},
 	
 	
 	/** 

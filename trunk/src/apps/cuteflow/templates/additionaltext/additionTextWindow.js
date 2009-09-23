@@ -1,7 +1,6 @@
 /** init the main window where grid is added **/
 cf.management_additionaltext = function(){return {
 
-	theAdditionTextPanel				:false,
 	theMainPanel						:false,
 	isInitialized						:false,
 
@@ -12,10 +11,8 @@ cf.management_additionaltext = function(){return {
 	/** load all necessarry functions **/
 	init:function () {
 		cf.additionalTextGrid.init();
-		this.initAdditionalTextPanel();
-		this.theAdditionTextPanel.add(cf.additionalTextGrid.theTextGrid);
 		this.initMainPanel();
-		this.theMainPanel.add(this.theAdditionTextPanel);
+		this.theMainPanel.add(cf.additionalTextGrid.theTextGrid);
 	},
 	
 	
@@ -27,7 +24,7 @@ cf.management_additionaltext = function(){return {
 				modal: true,
 				closable: true,
 				modal: true,
-				margins:'5 5 5 5',
+				style:'margin-top:5px;margin-left:5px;',
 				layout: 'fit',
 				autoScroll: true,
 				title: '<?php echo __('Additional Text',null,'additionaltext'); ?>',
@@ -41,26 +38,6 @@ cf.management_additionaltext = function(){return {
 		}
 	},
 	
-	/** panel is added to mainpanel. this panel contains the grid **/
-	initAdditionalTextPanel: function () {
-		this.theAdditionTextPanel = new Ext.Panel({
-			modal: true,
-			closable: true,
-			modal: true,
-			layout: 'fit',
-			margins:'5 5 5 5',
-			autoScroll: false,
-			title: '<?php echo __('Additional Text',null,'additionaltext'); ?>',
-			shadow: false,
-			minimizable: false,
-			draggable: false,
-			resizable: false,
-	        plain: false,
-	        buttonAlign: 'center'
-		}); 
-	
-	
-	},
 	
 
 	/** 

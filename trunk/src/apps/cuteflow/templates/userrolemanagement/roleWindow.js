@@ -26,8 +26,9 @@ cf.administration_userrolemanagement = function(){return {
 			closable: true,
 			plain: true,
 			frame: false,
-			autoScroll:true,
-			bodyStyle:'margin-top:10px'
+			layout: 'fit',
+			autoScroll:false,
+			bodyStyle:'margin-top:1px'
 		});
 	},
 	
