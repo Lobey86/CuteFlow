@@ -52,7 +52,7 @@
      </trans-unit>
 	 <trans-unit id="13">
         <source>Content</source>
-        <target>Inhakt</target>
+        <target>Inhalt</target>
      </trans-unit>
 	 <trans-unit id="14">
         <source>Set HTML Body</source>
@@ -68,7 +68,7 @@
      </trans-unit>
 	 <trans-unit id="17">
         <source>Insert Placeholder</source>
-        <target>Platzhalter enf&#252;gen</target>
+        <target>Platzhalter einf&#252;gen</target>
      </trans-unit>
 	 <trans-unit id="18">
         <source>Action</source>

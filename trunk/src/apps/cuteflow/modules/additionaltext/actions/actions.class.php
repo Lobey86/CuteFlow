@@ -44,6 +44,13 @@ class additionaltextActions extends sfActions {
      */
     public function executeSaveText(sfWebRequest $request) {
         $data = $request->getPostParameters();
+        if($data['contenttype'] == 'plain') {
+            $data['content'] = $data['content_textarea'];
+        }
+        else {
+            $data['content'] = $data['content_htmleditor'];
+        }
+
         $textObj = new AdditionalText();
         $textObj->setTitle($data['title']);
         $textObj->setContent($data['content']);
@@ -98,6 +105,12 @@ class additionaltextActions extends sfActions {
      */
     public function executeUpdateText(sfWebRequest $request) {
         $data = $request->getPostParameters();
+        if($data['contenttype'] == 'plain') {
+            $data['content'] = $data['content_textarea'];
+        }
+        else {
+            $data['content'] = $data['content_htmleditor'];
+        }
         Doctrine_Query::create()
             ->update('AdditionalText at')
             ->set('at.title','?',$data['title'])
