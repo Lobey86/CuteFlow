@@ -213,7 +213,7 @@ cf.additionalTextPopUpWindow = function(){return {
 			height: 290,
 			items: [{
 				xtype: 'textarea',
-				name: 'content',
+				name: 'content_textarea',
 				fieldLabel: '&nbsp;&nbsp;<?php echo __('Content',null,'additionaltext'); ?>:',
 				id: 'additionalTextPopUpWindow_textarea',
 				labelSeparator: '',
@@ -237,7 +237,7 @@ cf.additionalTextPopUpWindow = function(){return {
 			hidden: true,
 			items: [{
 				xtype: 'htmleditor',
-				name: 'content',
+				name: 'content_htmleditor',
 				fieldLabel: '&nbsp;&nbsp;<?php echo __('Content',null,'additionaltext'); ?>:',
 				id: 'additionalTextPopUpWindow_HTMLarea',
 				labelSeparator: '',			
