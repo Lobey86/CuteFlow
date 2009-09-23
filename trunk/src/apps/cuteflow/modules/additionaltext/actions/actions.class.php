@@ -32,7 +32,7 @@ class additionaltextActions extends sfActions {
             ->select('at.*')
             ->orderBy('at.id DESC')
             ->execute();
-       $json_result = $addTextObj->buildAllText($result);
+       $json_result = $addTextObj->buildAllText($result, $this->getContext());
        $this->renderText('{"result":'.json_encode($json_result).'}');
        return sfView::NONE;
     }
