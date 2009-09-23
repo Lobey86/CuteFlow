@@ -69,13 +69,13 @@ class Language {
          * @param user $conext
          * @return array $result
          */
-        public function loadAjaxLanguage($conext) {
+        public function loadAjaxLanguage(sfContext $context) {
             $result = array();
-            $result['login'] = $conext->getI18N()->__('Login',null,'login');
-            $result['username'] = $conext->getI18N()->__('Username',null,'login');
-            $result['password'] = $conext->getI18N()->__('Password',null,'login');
-            $result['language'] = $conext->getI18N()->__('Language',null,'login');
-            $result['close'] = $conext->getI18N()->__('Close',null,'login');
+            $result['login'] = $context->getI18N()->__('Login',null,'login');
+            $result['username'] = $context->getI18N()->__('Username',null,'login');
+            $result['password'] = $context->getI18N()->__('Password',null,'login');
+            $result['language'] = $context->getI18N()->__('Language',null,'login');
+            $result['close'] = $context->getI18N()->__('Close',null,'login');
             return $result;
         }
 
