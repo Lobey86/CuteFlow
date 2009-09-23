@@ -1,3 +1,4 @@
+/** tab to change authentication settings **/
 cf.authTab = function(){return {
 
 	theAuthTab				:false,
@@ -6,7 +7,7 @@ cf.authTab = function(){return {
 	theLdapFieldset			:false,
 
 	
-	
+	/** init all needed functions **/
 	init: function () {
 		this.initOpenIdFieldset();
 		this.initLdapFieldset();
@@ -17,6 +18,7 @@ cf.authTab = function(){return {
 		this.theAuthTab.add(this.theLdapFieldset);
 	},
 	
+	/** fieldset for ldap authentication **/
 	initLdapFieldset: function () {
 		this.theLdapFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('LDAP Settings',null,'systemsetting'); ?>',
@@ -106,6 +108,7 @@ cf.authTab = function(){return {
 		});
 	},
 	
+	/** fieldset for OpenID authentication **/
 	initOpenIdFieldset: function () {
 		this.theOpenIdFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('OpenID Settings',null,'systemsetting'); ?>',
@@ -123,7 +126,7 @@ cf.authTab = function(){return {
 		});
 	},
 	
-	
+	/** init the panel **/
 	initAuthTab: function () {
 		this.theAuthTab = new Ext.Panel({
 			modal: true,
@@ -141,6 +144,7 @@ cf.authTab = function(){return {
 		});
 	},
 	
+	/** init fieldset, with combo to change the authentication type **/
 	initTypeFieldset: function () {
 		this.theFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('Authentication type',null,'systemsetting'); ?>',
@@ -187,6 +191,11 @@ cf.authTab = function(){return {
 		});
 	},
 	
+	/** 
+	*
+	* write all data to auth Tab 
+	* @param json_collection data, json data
+	*/
 	addData: function (data) {
 		
 		Ext.getCmp('auth_openid_server').setValue(data.openidserver);

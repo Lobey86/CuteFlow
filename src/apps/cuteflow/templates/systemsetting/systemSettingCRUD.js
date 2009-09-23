@@ -1,10 +1,7 @@
+/** save system settings **/
 cf.systemSettingCRUD = function(){return {
-	
-	
-	
-	
-	initSave: function () {
-			
+	/** functions calls save provess **/
+	initSave: function () {		
 		cf.administration_systemsetting.theFormPanel.getForm().submit({
 			url: '<?php echo build_dynamic_javascript_url('systemsetting/SaveSystem')?>',
 			method: 'POST',
@@ -13,7 +10,5 @@ cf.systemSettingCRUD = function(){return {
 				Ext.MessageBox.alert('<?php echo __('OK',null,'systemsetting'); ?>', '<?php echo __('Settings saved',null,'systemsetting'); ?>');
 			}
 		});
-		
-		
 	}
 };}();
