@@ -23,6 +23,7 @@ cf.menueSettingGroupWindow = function(){return {
 	/** formpanel **/
 	initFormPanel: function () {
 		this.theFormPanel = new Ext.FormPanel({
+			hidden:true
 		});
 	},
 	

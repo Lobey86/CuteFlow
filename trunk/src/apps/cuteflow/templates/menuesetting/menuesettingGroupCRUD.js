@@ -45,6 +45,7 @@ cf.menueSettingGroupCRUD = function(){return {
 			
 		}
 		// add items to formpanel
+		cf.menueSettingGroupWindow.theFormPanel.setVisible(true);
 		cf.menueSettingGroupWindow.theFormPanel.add(myPanel);
 		cf.menueSettingGroupWindow.theFormPanel.doLayout();
 	},
