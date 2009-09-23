@@ -1,3 +1,4 @@
+/** functions loads the tab to edit database settings **/
 cf.databaseTab = function(){return {
 	
 	theDatabaseTab				:false,
@@ -5,7 +6,7 @@ cf.databaseTab = function(){return {
 	theDevFieldset				:false,
 	theCheckbox					:false,
 	
-	
+	/** load all necessarry functions **/
 	init: function () {
 		this.initProd();
 		this.initDatabaseTab();
@@ -13,6 +14,7 @@ cf.databaseTab = function(){return {
 		this.theDatabaseTab.add(this.theProdFieldset);
 	},
 	
+	/** init tab **/
 	initDatabaseTab: function () {
 		this.theDatabaseTab = new Ext.Panel({
 			modal: true,
@@ -30,6 +32,7 @@ cf.databaseTab = function(){return {
 		});
 	},
 	
+	/** init function to create fieldset with the settings for the database **/
 	initProd: function () {
 		this.theProdFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('Database Settings',null,'systemsetting'); ?>',

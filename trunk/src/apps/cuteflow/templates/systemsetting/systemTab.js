@@ -1,3 +1,4 @@
+/** tab to change systemsettings **/
 cf.systemTab = function(){return {
 
 	theSystemTab				:false,
@@ -6,6 +7,7 @@ cf.systemTab = function(){return {
 	theComboStore				:false,
 	
 	
+	/** load all nedded functions **/
 	init: function () {
 		this.initStore();
 		this.initFieldset();
@@ -13,6 +15,7 @@ cf.systemTab = function(){return {
 		this.theSystemTab.add(this.theLanguageFieldset);
 	},
 	
+	/** init the tab **/
 	initSystemTab: function () {
 		this.theSystemTab = new Ext.Panel({
 			modal: true,
@@ -30,6 +33,7 @@ cf.systemTab = function(){return {
 		});
 	},
 	
+	/** init language fieldset with combo **/
 	initFieldset: function () {
 		this.theLanguageFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('Default system language',null,'systemsetting'); ?>',
@@ -54,6 +58,7 @@ cf.systemTab = function(){return {
 		});
 	},
 	
+	/** load store with all languages in the sysetm **/
 	initStore: function () {
 		this.theComboStore = new Ext.data.JsonStore({
 			mode: 'local',

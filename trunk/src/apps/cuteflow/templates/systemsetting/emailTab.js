@@ -1,10 +1,11 @@
+/** tab to change emailsending settings **/
 cf.emailTab = function(){return {
 	
 	theEmailTab				:false,
 	theEmailReplay			:false,
 	theEmailSendingType		:false,
 	
-	
+	/** call all necessary functions **/
 	init: function () {
 		this.initEmail();
 		this.initSendingType();
@@ -13,6 +14,7 @@ cf.emailTab = function(){return {
 		this.theEmailTab.add(this.theEmailSendingType);
 	},
 	
+	/** builds the tab **/
 	initEmailTab: function () {
 		this.theEmailTab = new Ext.Panel({
 			modal: true,
@@ -30,6 +32,7 @@ cf.emailTab = function(){return {
 		});
 	},
 	
+	/** set Fieldset with textfield to enter Systemreplayaddress **/
 	initEmail: function () {
 		this.theEmailReplay = new Ext.form.FieldSet({
 			title: '<?php echo __('Reply Settings',null,'systemsetting'); ?>',
@@ -48,7 +51,11 @@ cf.emailTab = function(){return {
 		});
 	},
 	
-
+	/** 
+	*
+	* inits fieldset with combo to change the sending type. choose between smtp, mail, sendmail 
+	* functions contains changing code
+	**/
 	initSendingType: function () {
 		this.theEmailSendingType = new Ext.form.FieldSet({
 			title: '<?php echo __('Email Settings',null,'systemsetting'); ?>',
@@ -168,6 +175,7 @@ cf.emailTab = function(){return {
 		
 	},
 	
+	/** add data for email tab to the combo and textfields **/
 	addData: function (data) {
 			Ext.getCmp('email_sendmail').setValue(data.sendmailpath);
 			Ext.getCmp('email_smtp_server').setValue(data.smtphost);

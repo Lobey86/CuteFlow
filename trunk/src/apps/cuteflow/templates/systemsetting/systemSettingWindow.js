@@ -38,6 +38,7 @@ cf.administration_systemsetting = function(){return {
 		
 	},
 	
+	/** functions loads all system data and calls addData function to add data **/
 	initLoadData: function () {
 		Ext.Ajax.request({  
 			url : '<?php echo build_dynamic_javascript_url('systemsetting/LoadSystem')?>',
@@ -49,6 +50,7 @@ cf.administration_systemsetting = function(){return {
 		});
 	},
 	
+	/** init tabpanel for all tabs **/
 	initTabPanel: function () {
 		this.theTabPanel = new Ext.TabPanel({
 			activeTab: 0,
@@ -117,6 +119,7 @@ cf.administration_systemsetting = function(){return {
 		
 	},
 	
+	/** init main panel **/
 	initMainPanel: function () {
 		this.theMainPanel = new Ext.Panel({
 			modal: true,
