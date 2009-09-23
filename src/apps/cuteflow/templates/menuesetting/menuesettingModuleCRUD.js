@@ -4,8 +4,8 @@ cf.menueSettingModuleCRUD = function(){return {
 	
 	/** main save function **/
 	saveModuleOrder: function () {
-		this.buildModuleFields();
-		this.saveModule();
+		var panel = this.buildModuleFields();
+		this.saveModule(panel);
 	},
 	
 	
@@ -23,20 +23,22 @@ cf.menueSettingModuleCRUD = function(){return {
 		
 			var row = cf.menueSettingModuleGrid.theModuleGrid.getStore().getAt(a);
 			var hiddenfield = new Ext.form.Field({
-				autoCreate : {tag:'input', type: 'hidden', name: 'grid[]', value:row.data.id, width: 0}			
+				autoCreate : {tag:'input', type: 'hidden', name: 'grid[]', value:row.data.id, width: 0,heigth:0 }			
 			});
 			
 			myPanel.add(hiddenfield);
 			
 		}
 		// add Panel to formpanel
-		cf.administration_menuesetting.theModulePanel.add(myPanel);
-		cf.administration_menuesetting.theModulePanel.doLayout();
+		cf.administration_menuesetting.themenueSettingModuleWindow.add(myPanel);
+		cf.administration_menuesetting.themenueSettingModuleWindow.doLayout();
+		return myPanel;
 	},
 	
 	/** save function of the hiddenfields **/
-	saveModule: function () {
-		cf.administration_menuesetting.theModulePanel.getForm().submit({
+	saveModule: function (panel) {
+		
+		cf.administration_menuesetting.themenueSettingModuleWindow.getForm().submit({
 			url: '<?php echo build_dynamic_javascript_url('menuesetting/SaveModule')?>',
 			method: 'POST',
 			success: function() {
@@ -47,7 +49,7 @@ cf.menueSettingModuleCRUD = function(){return {
 				}
 				Ext.getCmp('menueSettingModuleCRUDSavePanel').remove();
 				Ext.getCmp('menueSettingModuleCRUDSavePanel').destroy();
-				cf.administration_menuesetting.theModulePanel.doLayout();
+				cf.administration_menuesetting.themenueSettingModuleWindow.doLayout();
 				cf.menueSettingModuleGrid.theModuleStore.reload();
 				
 				
@@ -60,6 +62,9 @@ cf.menueSettingModuleCRUD = function(){return {
 				cf.Layout.theRegionWest.add(cf.Navigation.theAccordion);
 				cf.Layout.theRegionWest.doLayout();	
 				cf.menueSettingModuleCRUD.expandNavigation.defer(1000,this,[ac_item_id]);
+				cf.administration_menuesetting.themenueSettingModuleWindow.remove(panel);
+				cf.administration_menuesetting.themenueSettingModuleWindow.setSize();
+				cf.administration_menuesetting.themenueSettingModuleWindow.doLayout();
 		
 			}
 		});

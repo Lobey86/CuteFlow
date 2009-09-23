@@ -17,8 +17,9 @@ cf.UserSearchbar = function(){return {
 				closable: false,
 				plain: false,
 				frame: false,
+				height:220,
 				title: '<?php echo __('Searchbar',null,'usermanagement'); ?>',
-				style:'margin-top:5px;margin-left:5px;margin-right:10px;',
+				style:'margin-top:5px;margin-left:5px;',
 				collapsible:true,
 				collapsed: true,
 				tools: [{

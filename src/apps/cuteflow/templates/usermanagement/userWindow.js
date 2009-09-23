@@ -27,8 +27,9 @@ cf.administration_usermanagement = function(){return {
 				closable: true,
 				plain: false,
 				frame: false,
-				autoScroll:true,
-				bodyStyle:'margin-top:10px'
+				autoScroll:false,
+				//layout: 'fit',
+				style:'margin-top:1px'
 		});
 	},
 	

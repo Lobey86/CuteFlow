@@ -48,10 +48,7 @@ cf.additionalTextGrid = function(){return {
 			autoScroll: true,
 			collapsible:false,
 			closable: false,
-			width: 700,
 			title: '<?php echo __('Available Additional Textes',null,'additionaltext'); ?>',
-			height: 652,
-			style: 'margin-top:10px;margin-left:10px;',
 			border: true,
 			store: this.theTextStore,
 			cm: this.theTextCM,
@@ -67,7 +64,7 @@ cf.additionalTextGrid = function(){return {
 			items: [{
 				xtype: 'textfield',
 				id: 'additionaltext_searchtextfield',
-				emptyText:'<?php echo __('Search for ',null,'additionaltext'); ?>',
+				emptyText:'<?php echo __('Search for...',null,'additionaltext'); ?>',
 				width: 150,
 				enableKeyEvents: true,
 				listeners: {

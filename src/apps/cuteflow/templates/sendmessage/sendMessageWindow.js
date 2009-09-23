@@ -36,14 +36,15 @@ cf.administration_sendmessage = function(){return {
 			modal: true,
 			closable: true,
 			modal: true,
-			autoScroll: true,
+			autoScroll: false,
 			shadow: false,
 			minimizable: false,
 			draggable: false,
 			resizable: false,
 	        plain: false,
-	        width: 620,
-	        height: 600,
+	        //width: 620,
+	        //height: 600,
+	        layout: 'fit',
 	        title: '<?php echo __('Send Message',null,'sendmessage'); ?>'
 	    });
 		

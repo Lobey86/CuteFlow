@@ -19,7 +19,6 @@ cf.additionalTextPopUpWindow = function(){return {
 	init: function (id) {
 		cf.additionalTextPopUpGrid.init();
 		this.initTitle();
-		
 		this.initContentPlain();
 		this.initContentHTML();
 		this.initType();
@@ -29,7 +28,6 @@ cf.additionalTextPopUpWindow = function(){return {
 		this.theContentPanel.add(this.theHTMLFieldset);
 		this.theContentPanel.add(this.thePlainFieldset);
 		this.theContentPanel.add(cf.additionalTextPopUpGrid.thePopUpGridFieldset);
-		
 		this.theFormPanel.add(this.theTitleFieldset);
 		this.theFormPanel.add(this.theTypeFieldset);
 		this.theFormPanel.add(this.theContentPanel);
@@ -98,7 +96,7 @@ cf.additionalTextPopUpWindow = function(){return {
 			var title = '<?php echo __('Create new additional Text',null,'additionaltext'); ?>';
 		}
 		else {
-			var title = '<?php echo __('Edit  additional Text',null,'additionaltext'); ?>';
+			var title = '<?php echo __('Edit additional Text',null,'additionaltext'); ?>';
 		}
 		
 		this.thePopUpWindow = new Ext.Window({

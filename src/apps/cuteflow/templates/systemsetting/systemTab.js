@@ -23,7 +23,7 @@ cf.systemTab = function(){return {
 			modal: true,
 			width: 650,
 			height: 600,
-			autoScroll: true,
+			autoScroll: false,
 			title: '<?php echo __('System settings',null,'systemsetting'); ?>',
 			shadow: false,
 			minimizable: false,
