@@ -206,11 +206,13 @@ cf.administration_sendmessage = function(){return {
 				text:'<?php echo __('Send',null,'sendmessage'); ?>', 
 				icon: '/images/icons/accept.png',
 				handler: function () {
-	
 					cf.administration_sendmessage.theSendMessagePanel.getForm().submit({
 						url: '<?php echo build_dynamic_javascript_url('sendmessage/SendMail')?>',
 						method: 'POST',
 						success: function() {
+							cf.TabPanel.theTabPanel.remove(cf.administration_sendmessage.theSystemMessageWindow);
+							cf.administration_sendmessage.theSystemMessageWindow.hide();
+							cf.administration_sendmessage.theSystemMessageWindow.destroy();
 							Ext.MessageBox.alert('<?php echo __('OK',null,'sendmessage'); ?>', '<?php echo __('Emails send',null,'sendmessage'); ?>');
 						}
 					});
