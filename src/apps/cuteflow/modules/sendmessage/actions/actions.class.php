@@ -27,8 +27,6 @@ class sendmessageActions extends sfActions {
      * @return <type>
      */
     public function executeSendMail(sfWebRequest $request) {
-        $sendmail = new SendMessage();
-
         $user = Doctrine_Query::create()
                 ->from('User u')
                 ->select('CONCAT(u.firstname,\' \',u.lastname) AS name, u.email');
