@@ -167,7 +167,6 @@ EmailConfiguration:
   ec1:
      activetype: SMTP
      smtpport: 25
-     smtpencryption: NONE
      smtphost: cuteflow
      systemreplyaddress: mschaefer1982@gmx.de
 
