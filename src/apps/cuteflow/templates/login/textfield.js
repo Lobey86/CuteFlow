@@ -25,6 +25,7 @@ cf.Textfield = function(){return {
 			id: 'username',
 			fieldLabel: '<?php echo __('Username',null,'login'); ?>',
 			allowBlank: false,
+			style: 'margin-top:2px;',
 			width: 225
 		});
 	},

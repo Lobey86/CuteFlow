@@ -17,11 +17,13 @@ cf.administration_systemsetting = function(){return {
 	init: function () {
 		if (this.isInitialized == false) {
 
-			this.initLoadData();
+			
 			cf.databaseTab.init();
 			cf.emailTab.init();
 			cf.systemTab.init();
 			cf.authTab.init();
+			cf.userTab.init();
+			cf.guiTab.init();
 			this.initTabPanel();
 			this.initFormPanel();
 			this.initPanel();
@@ -30,9 +32,12 @@ cf.administration_systemsetting = function(){return {
 			this.theTabPanel.add(cf.emailTab.theEmailTab);
 			this.theTabPanel.add(cf.systemTab.theSystemTab);
 			this.theTabPanel.add(cf.authTab.theAuthTab);
+			this.theTabPanel.add(cf.userTab.theUserTab);
+			this.theTabPanel.add(cf.guiTab.theGuiTab);
 			this.theFormPanel.add(this.theTabPanel);
 			this.theMainPanel.add(this.theSystemSettingPanel);
 			this.theSystemSettingPanel.add(this.theFormPanel);
+			this.initLoadData();
 			
 		}
 		
@@ -45,7 +50,9 @@ cf.administration_systemsetting = function(){return {
 			success: function(objServerResponse){  
 				var data = Ext.util.JSON.decode(objServerResponse.responseText);
 				cf.emailTab.addData(data.email);
+				cf.systemTab.addData(data.system);
 				cf.authTab.addData(data.auth);
+				cf.userTab.addData(data.user);
 			}
 		});
 	},
@@ -61,7 +68,17 @@ cf.administration_systemsetting = function(){return {
 			layoutOnTabChange: true,
 			style: 'margin-top:5px;',
 			plain: false,
-			closable:false
+			closable:false,
+	        listeners:{
+                beforetabchange: function(tp, newTab, currentTab){ 
+					if(newTab == cf.guiTab.theGuiTab) {
+						Ext.getCmp('administration_systemsetting_acceptbutton').setVisible(false);
+					}
+					else {
+						Ext.getCmp('administration_systemsetting_acceptbutton').setVisible(true);
+					}
+                }
+        }
 		});	
 		
 	},
@@ -105,6 +122,7 @@ cf.administration_systemsetting = function(){return {
 			buttons:[{
 				text:'<?php echo __('Store',null,'systemsetting'); ?>', 
 				icon: '/images/icons/accept.png',
+				id: 'administration_systemsetting_acceptbutton',
 				handler: function () {
 					cf.systemSettingCRUD.initSave();
 				}
