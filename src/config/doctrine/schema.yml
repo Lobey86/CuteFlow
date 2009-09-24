@@ -79,6 +79,10 @@ UserAgent:
     User: { class: User, local: user_id, foreign: id, foreignType: many, type: one, onDelete: CASCADE }
     User: { class: User, local: useragent_id, foreign: id, foreignType: many, type: many, onDelete: CASCADE }
 
+
+
+
+
 EmailConfiguration:
   tableName: cf_emailconfiguration
   columns:
@@ -98,6 +102,11 @@ SystemConfiguration:
   columns:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
     language: { type: string(20), default: en_US}
+    showpositioninmail: { type: integer(1), length: 3}
+    allowunencryptedrequest: { type: integer(1), length: 3}
+    sendreceivermail: { type: integer(1), length: 3}
+    sendremindermail: {type: integer(1), length: 3}
+    visibleslots: { type: string(45) }
 
 AuthenticationConfiguration:
   tableName: cf_authenticationconfiguration
@@ -119,6 +128,34 @@ AuthenticationConfiguration:
     ldapphone: { type: string(100)}
     ldapcontext: { type: string(100)}
     openidserver: { type: string(100)}
+
+UserConfiguration:
+  tableName: cf_userconfiguration
+  columns:
+    id: { type: integer, length: 10, primary: true, autoincrement: true }
+    role_id: { type: integer, length: 10}
+    durationtype: { type: string(45) }
+    durationlength: { type: string(45) }
+    displayeditem: { type: string(45) }
+    refreshtime: { type: string(45) }
+    markyellow: { type: string(45) }
+    markred: { type: string(45) }
+    markorange: { type: string(45) }
+    password: { type: string(45) }
+    emailformat: { type: string(45) }
+    emailtype: { type: string(45) }
+    circulationdefaultsortcolumn: { type: string(45) }
+    circulationdefaultsortdirection: { type: string(45) }
+  relations:
+    Role: { class: Role, local: role_id, foreign: id, foreignType: many, type: one }
+
+WorkflowConfiguration:
+  tableName: cf_workflowconfiguration
+  columns:
+    id: { type: integer, length: 10, primary: true, autoincrement: true }
+    columns: { type: string(45)}
+    isactive: { type: integer(1), length: 3}
+    position: { type: integer(1), length: 3}
 
 AdditionalText:
   tableName: cf_additionaltext
