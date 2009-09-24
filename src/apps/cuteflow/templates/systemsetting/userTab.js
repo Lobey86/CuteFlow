@@ -86,11 +86,11 @@ cf.userTab = function(){return {
 				layout: 'column',
 				border: false,
 				layoutConfig: {
-					columns: 3
+					columns:3
 				},
 				labelWidth: 150,
 				fieldLabel: '<?php echo __('Circulations default sort',null,'systemsetting'); ?>',
-				width: 300,
+				width: 200,
 				items: [{
 					xtype: 'combo', // number of records to display in grid
 					id: 'userTab_circulationdefaultsortcolumn_id',
@@ -99,6 +99,7 @@ cf.userTab = function(){return {
 					value: 'NAME',
 					editable:false,
 					allowBlank: true,
+					style: 'margin-top:1px;margin-bottom:1px;',
 					autoHeight:true,
 					hiddenName: 'userTab_circulationdefaultsortcolumn',
 					triggerAction: 'all',
@@ -109,13 +110,18 @@ cf.userTab = function(){return {
 	   				}),
 	 				valueField:'id',
 					displayField:'text',
-					width:100				
+					width:85				
 				},{
+    				xtype: 'panel',
+    				html : '&nbsp;',
+    				border: false
+    			},{
 					xtype: 'combo', // number of records to display in grid
 					id: 'userTab_circulationdefaultsortdirection_id',
 					name: 'type',
 					mode: 'local',
 					value: 'ASC',
+					style: 'margin-top:1px;margin-bottom:1px;',
 					editable:false,
 					allowBlank: true,
 					autoHeight:true,
@@ -163,34 +169,38 @@ cf.userTab = function(){return {
 				xtype: 'textfield',
 				fieldLabel: '<?php echo __('Default Password',null,'systemsetting'); ?>',
 				id: 'userTab_defaultpassword',
-				width:200
+				width:198
 			},{
 				xtype: 'panel',
 				layout: 'column',
 				border: false,
-				layoutConfig: {
-					columns: 2,
-					fitHeight: true,
-					split: true
-				},
 				labelWidth: 150,
 				fieldLabel: '<?php echo __('Useragent time',null,'systemsetting'); ?>',
 				width: 200,
+				layoutConfig: {
+					columns: 3
+				},
 				items: [{
 					xtype: 'textfield',
 					id: 'userTab_defaultdurationlength',
-					style: 'margin-right:5px;',
 					value: 1,
 					allowBlank: false,
-					height: 22,
-					width:40				
+					style: 'margin-top:1px;',
+					width:40
     			},{
+    				xtype: 'panel',
+    				html : '&nbsp;',
+    				border: false
+    			},{
+   
 					xtype: 'combo', // number of records to display in grid
 					id: 'userTab_defaultdurationtype_id',
 					name: 'type',
 					mode: 'local',
 					value: 'DAYS',
+					style: 'margin-top:1px;margin-bottom:1px;',
 					editable:false,
+					height: 24,
 					allowBlank: true,
 					autoHeight:true,
 					hiddenName: 'userTab_defaultdurationtype',
@@ -202,16 +212,16 @@ cf.userTab = function(){return {
 	   				}),
 	 				valueField:'id',
 					displayField:'text',
-					width:159
-					}]
+					width:159,
+					height: 22
+		
+				}]
 				},{
 				xtype: 'panel',
 				layout: 'column',
 				border: false,
 				layoutConfig: {
-					columns: 2,
-					fitHeight: true,
-					split: true
+					columns: 3
 				},
 				labelWidth: 150,
 				fieldLabel: '<?php echo __('Email format',null,'systemsetting'); ?>',
@@ -220,10 +230,10 @@ cf.userTab = function(){return {
 					xtype: 'combo',
 					id: 'userTab_emailformat_id',
 					mode: 'local',
-					//style: 'margin-right:5px;',
 					value: 'plain',
 					editable:false,
 					allowBlank: true,
+					style: 'margin-top:1px;margin-bottom:1px;',
 					autoHeight:true,
 					hiddenName: 'userTab_emailformat',
 					triggerAction: 'all',
@@ -236,11 +246,16 @@ cf.userTab = function(){return {
 					displayField:'text',
 					width:60				
     			},{
+    				xtype: 'panel',
+    				html : '&nbsp;',
+    				border: false
+    			},{
 					xtype: 'combo', // number of records to display in grid
 					id: 'userTab_emailtype_id',
 					mode: 'local',
 					value: 'NONE',
 					editable:false,
+					style: 'margin-top:1px;margin-bottom:1px;',
 					allowBlank: true,
 					autoHeight:true,
 					hiddenName: 'userTab_emailtype',
@@ -252,7 +267,7 @@ cf.userTab = function(){return {
 	   				}),
 	 				valueField:'id',
 					displayField:'text',
-					width:111
+					width:132
 					}]
 				},{
 					xtype: 'combo',
@@ -268,13 +283,16 @@ cf.userTab = function(){return {
 					allowBlank: true,
 					triggerAction: 'all',
 					foreSelection: true,
-					width: 200
+					width: 198
 				}]
 		});
 		if (Ext.isIE6 == true) {
 			Ext.getCmp('userTab_defaultdurationlength').setSize({width:40, height: 25});
 		}
 		else if(Ext.isOpera == true || Ext.isSafari == true) {
+			Ext.getCmp('userTab_defaultdurationlength').setSize({width:40, height: 24});
+		}
+		else if (Ext.isIE7 == true) {
 			Ext.getCmp('userTab_defaultdurationlength').setSize({width:40, height: 24});
 		}
 		
@@ -320,3 +338,13 @@ cf.userTab = function(){return {
 	
 	
 };}();
+
+
+
+
+
+
+
+
+
+
