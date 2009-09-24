@@ -99,7 +99,6 @@ cf.userTab = function(){return {
 					value: 'NAME',
 					editable:false,
 					allowBlank: true,
-					style: 'margin-top:1px;margin-bottom:1px;',
 					autoHeight:true,
 					hiddenName: 'userTab_circulationdefaultsortcolumn',
 					triggerAction: 'all',
@@ -121,7 +120,6 @@ cf.userTab = function(){return {
 					name: 'type',
 					mode: 'local',
 					value: 'ASC',
-					style: 'margin-top:1px;margin-bottom:1px;',
 					editable:false,
 					allowBlank: true,
 					autoHeight:true,
@@ -169,7 +167,7 @@ cf.userTab = function(){return {
 				xtype: 'textfield',
 				fieldLabel: '<?php echo __('Default Password',null,'systemsetting'); ?>',
 				id: 'userTab_defaultpassword',
-				width:198
+				width:197
 			},{
 				xtype: 'panel',
 				layout: 'column',
@@ -198,7 +196,6 @@ cf.userTab = function(){return {
 					name: 'type',
 					mode: 'local',
 					value: 'DAYS',
-					style: 'margin-top:1px;margin-bottom:1px;',
 					editable:false,
 					height: 24,
 					allowBlank: true,
@@ -233,7 +230,6 @@ cf.userTab = function(){return {
 					value: 'plain',
 					editable:false,
 					allowBlank: true,
-					style: 'margin-top:1px;margin-bottom:1px;',
 					autoHeight:true,
 					hiddenName: 'userTab_emailformat',
 					triggerAction: 'all',
@@ -255,7 +251,6 @@ cf.userTab = function(){return {
 					mode: 'local',
 					value: 'NONE',
 					editable:false,
-					style: 'margin-top:1px;margin-bottom:1px;',
 					allowBlank: true,
 					autoHeight:true,
 					hiddenName: 'userTab_emailtype',
@@ -267,7 +262,7 @@ cf.userTab = function(){return {
 	   				}),
 	 				valueField:'id',
 					displayField:'text',
-					width:132
+					width:133
 					}]
 				},{
 					xtype: 'combo',
@@ -283,18 +278,9 @@ cf.userTab = function(){return {
 					allowBlank: true,
 					triggerAction: 'all',
 					foreSelection: true,
-					width: 198
+					width: 197
 				}]
 		});
-		if (Ext.isIE6 == true) {
-			Ext.getCmp('userTab_defaultdurationlength').setSize({width:40, height: 25});
-		}
-		else if(Ext.isOpera == true || Ext.isSafari == true) {
-			Ext.getCmp('userTab_defaultdurationlength').setSize({width:40, height: 24});
-		}
-		else if (Ext.isIE7 == true) {
-			Ext.getCmp('userTab_defaultdurationlength').setSize({width:40, height: 24});
-		}
 		
 	},
 	
@@ -327,6 +313,31 @@ cf.userTab = function(){return {
 		Ext.getCmp('userTab_markorange').setValue(data.markorange);
 		Ext.getCmp('userTab_markred').setValue(data.markred);
 		
+		
+		
+		if (Ext.isIE6 == true) {
+			Ext.getCmp('userTab_defaultdurationlength').setSize({width:40, height: 25});
+		}
+		else if(Ext.isOpera == true || Ext.isSafari == true) {
+			Ext.getCmp('userTab_defaultdurationlength').setSize({width:40, height: 24});
+			Ext.getCmp('userTab_defaultdurationlength').style = 'margin-bottom:1px;';
+		}
+		else if (Ext.isIE7 == true) {
+			Ext.getCmp('userTab_defaultdurationlength').setSize({width:40, height: 24});
+			Ext.getCmp('userTab_defaultdurationlength').style = 'margin-top:0px;margin-bottom:1px;';
+			Ext.getCmp('userTab_circulationdefaultsortdirection_id').style = 'margin-top:0px;margin-bottom:1px;';
+			Ext.getCmp('userTab_defaultdurationtype_id').style = 'margin-top:0px;margin-bottom:1px;';
+			Ext.getCmp('userTab_emailformat_id').style = 'margin-top:0px;margin-bottom:1px;';
+			Ext.getCmp('userTab_emailtype_id').style = 'margin-top:0px;margin-bottom:1px;';
+			Ext.getCmp('userTab_circulationdefaultsortcolumn_id').style = 'margin-top:0px;margin-bottom:1px;';
+			Ext.getCmp('userTab_userrole_id').style = 'margin-top:0px;margin-bottom:1px;';
+			Ext.getCmp('userTab_itemsperpage_id').style = 'margin-top:0px;margin-bottom:1px;';
+			Ext.getCmp('userTab_refreshtime_id').style = 'margin-top:0px;margin-bottom:1px;';
+		}
+		else if (Ext.isGecko == true) {
+			Ext.getCmp('userTab_defaultdurationlength').style = 'margin-bottom:1px;';
+			
+		}
 		
 		
 		

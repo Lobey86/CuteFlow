@@ -201,6 +201,10 @@ cf.additionalTextPopUpWindow = function(){return {
 				}
 			}]
 		});
+		
+		if (Ext.isIE7 == true) {
+			Ext.getCmp('additionalTextPopUpWindow_typecombobox').style = 'margin-top:0px;margin-bottom:1px;';
+		}
 	},
 	
 	/** init fieldset for textarea (plain)**/

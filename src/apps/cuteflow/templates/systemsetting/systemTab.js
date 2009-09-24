@@ -40,7 +40,7 @@ cf.systemTab = function(){return {
 		this.theWorkflowFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('Workflow settings',null,'systemsetting'); ?>',
 			width: 600,
-			height: 180,
+			height: 190,
 			style: 'margin-top:20px;margin-left:5px;',
 			labelWidth: 330,
 			items:[{
@@ -135,6 +135,10 @@ cf.systemTab = function(){return {
 		Ext.getCmp('systemsetting_sendremindermail').setValue(data.sendremindermail);
 		Ext.getCmp('systemsetting_slotvisible_id').setValue(data.visibleslots);
 		
+		if (Ext.isIE7 == true) {
+			Ext.getCmp('systemsetting_language_id').style = 'margin-top:0px;margin-bottom:1px;';
+			Ext.getCmp('systemsetting_slotvisible_id').style = 'margin-top:0px;margin-bottom:1px;';
+		}
 		
 	}
 	
