@@ -64,6 +64,9 @@ cf.ComboBox = function(){return {
 				}
 			}
 		});
+		if (Ext.isIE7 == true) {
+			Ext.getCmp('language').style = 'margin-top:0px;margin-bottom:1px;';
+		}
 	}, 
 	
 	/** Store for combo **/

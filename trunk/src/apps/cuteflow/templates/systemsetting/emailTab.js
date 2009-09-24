@@ -214,6 +214,10 @@ cf.emailTab = function(){return {
 				cf.emailTab.theEmailSendingType.setHeight(80);
 				cf.emailTab.theEmailSendingType.setWidth(600);
 			}
+			if (Ext.isIE7 == true) {
+				Ext.getCmp('emailtab_emailtype_id').style = 'margin-top:0px;margin-bottom:1px;';
+				Ext.getCmp('emailtab_encryption_id').style = 'margin-top:0px;margin-bottom:1px;';
+			}
 		}
 
 };}();

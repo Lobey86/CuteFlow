@@ -47,6 +47,11 @@ cf.administration_sendmessage = function(){return {
 	        layout: 'fit',
 	        title: '<?php echo __('Send Message',null,'sendmessage'); ?>'
 	    });
+	    
+		if (Ext.isIE7 == true) {
+				Ext.getCmp('administration_sendmessage_type_id').style = 'margin-top:0px;margin-bottom:1px;';
+				Ext.getCmp('administration_sendmessage_sendto_id').style = 'margin-top:0px;margin-bottom:1px;';
+		}
 		
 	},
 	
@@ -96,6 +101,7 @@ cf.administration_sendmessage = function(){return {
 				mode: 'local',
 				value: 'plain',
 				editable:false,
+				id:'administration_sendmessage_type_id',
 				hiddenName : 'type',
 				triggerAction: 'all',
 				foreSelection: true,
@@ -178,6 +184,7 @@ cf.administration_sendmessage = function(){return {
 			items: [{
 				xtype: 'combo',
 				mode: 'local',
+				id: 'administration_sendmessage_sendto_id',
 				value: 'ALL',
 				editable:false,
 				hiddenName : 'receiver',
