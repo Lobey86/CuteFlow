@@ -26,6 +26,7 @@ class systemsettingActions extends sfActions {
      * @param sfRequest $request A request object
      */
     public function executeLoadSystem(sfWebRequest $request) {
+        $systemObj = new SystemSetting();
         $email = Doctrine_Query::create()
                 ->select('ec.*')
                 ->from('EmailConfiguration ec')
@@ -34,8 +35,18 @@ class systemsettingActions extends sfActions {
                 ->select('ac.*')
                 ->from('AuthenticationConfiguration ac')
                 ->fetchArray();
+        $system = Doctrine_Query::create()
+                ->select('sc.*')
+                ->from('SystemConfiguration sc')
+                ->fetchArray();
+        $usersettings = Doctrine_Query::create()
+                ->select('uc.*')
+                ->from('UserConfiguration uc')
+                ->fetchArray();
+ 
+
         $email[0]['smtpencryption'] =  $email[0]['smtpencryption'] == '' ? 'NONE' :  $email[0]['smtpencryption'];
-        $this->renderText('{"email":'.json_encode($email[0]).',"auth":'.json_encode($auth[0]).'}');
+        $this->renderText('{"email":'.json_encode($email[0]).',"auth":'.json_encode($auth[0]).',"system" : '.json_encode($system[0]).',"user" : '.json_encode($usersettings[0]).'}');
         return sfView::NONE;
     }
 
@@ -93,15 +104,26 @@ class systemsettingActions extends sfActions {
             }
         }
 
+        // save systemsetting
         if (isset($data['systemsetting_language'])) {
+            $data['systemsetting_showposition'] = isset($data['systemsetting_showposition']) ? $data['systemsetting_showposition'] : 0;
+            $data['systemsetting_allowunencryptedrequest'] = isset($data['systemsetting_allowunencryptedrequest']) ? $data['systemsetting_allowunencryptedrequest'] : 0;
+            $data['systemsetting_sendreceivermail'] = isset($data['systemsetting_sendreceivermail']) ? $data['systemsetting_sendreceivermail'] : 0;
+            $data['systemsetting_sendremindermail'] = isset($data['systemsetting_sendremindermail']) ? $data['systemsetting_sendremindermail'] : 0;
+            
             Doctrine_Query::create()
                 ->update('SystemConfiguration sc')
                 ->set('sc.language','?',$data['systemsetting_language'])
+                ->set('sc.showpositioninmail','?',$data['systemsetting_showposition'])
+                ->set('sc.allowunencryptedrequest','?',$data['systemsetting_allowunencryptedrequest'])
+                ->set('sc.sendreceivermail','?',$data['systemsetting_sendreceivermail'])
+                ->set('sc.sendremindermail','?',$data['systemsetting_sendremindermail'])
+                ->set('sc.visibleslots','?',$data['systemsetting_slotvisible'])
                 ->where ('sc.id = ?',1)
                 ->execute();
         }
-        
-        if (isset($data['emailtab_emailtype'])) { // store Email tab
+        // store Email tab
+        if (isset($data['emailtab_emailtype'])) { 
 
             $data['emailtab_encryption'] = $data['emailtab_encryption'] == 'NONE' ? '' : $data['emailtab_encryption'];
             $emailAuth = isset($data['email_smtp_auth']) ? 1 : 0;
@@ -119,6 +141,37 @@ class systemsettingActions extends sfActions {
                 ->where('ec.id = ?',1)
                 ->execute();
         }
+
+
+
+        if (isset($data['userTab_defaultdurationtype'])) {
+            $data['userTab_markred'] = $data['userTab_markred'] == '' ? 12 : $data['userTab_markred'];
+            $data['userTab_markyellow'] = $data['userTab_markyellow'] == '' ? 7 : $data['userTab_markyellow'];
+            $data['userTab_markorange'] = $data['userTab_markorange'] == '' ? 10 : $data['userTab_markorange'];
+            $data['userTab_defaultdurationlength'] = $data['userTab_defaultdurationlength'] == '' ? 3 : $data['userTab_defaultdurationlength'];
+
+            Doctrine_Query::create()
+                ->update('UserConfiguration uc')
+                ->set('uc.durationtype', '?', $data['userTab_defaultdurationtype'])
+                ->set('uc.durationlength', '?', $data['userTab_defaultdurationlength'])
+                ->set('uc.displayeditem', '?', $data['userTab_itemsperpage'])
+                ->set('uc.refreshtime', '?', $data['userTab_refreshtime'])
+                ->set('uc.markyellow', '?', $data['userTab_markyellow'])
+                ->set('uc.markred', '?', $data['userTab_markred'])
+                ->set('uc.markorange', '?', $data['userTab_markorange'])
+                ->set('uc.password', '?', $data['userTab_defaultpassword'])
+                ->set('uc.emailformat', '?', $data['userTab_emailformat'])
+                ->set('uc.emailtype', '?', $data['userTab_emailtype'])
+                ->set('uc.circulationdefaultsortcolumn', '?', $data['userTab_circulationdefaultsortcolumn'])
+                ->set('uc.circulationdefaultsortdirection', '?', $data['userTab_circulationdefaultsortdirection'])
+                ->set('uc.role_id', '?', $data['userTab_userrole'])
+                ->where('uc.id = ?',1)
+                ->execute();
+
+            
+        }
+
+
         $this->renderText('{success:true}');
         return sfView::NONE;
     }

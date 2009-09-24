@@ -41,7 +41,7 @@ cf.AddRoleWindow = function(){return {
 			modal: true,
 			closable: true,
 			modal: true,
-			height: 630,
+			height: 800,
 			width: 650,
 			autoScroll: true,
 			title: title,
