@@ -173,7 +173,25 @@ EmailConfiguration:
 SystemConfiguration:
    sc1:
      language: en_US
+     visibleslots: CURRENT
 
 AuthenticationConfiguration:
   ac:
     authenticationtype: DBONLY
+
+
+UserConfiguration:
+  uc:
+    role_id: 1
+    durationtype: DAYS
+    durationlength: 3
+    displayeditem: 25
+    refreshtime: 120
+    markyellow: 7
+    markred: 12
+    markorange: 10
+    password: testen
+    emailformat: plain
+    emailtype: VALUES
+    circulationdefaultsortcolumn: START
+    circulationdefaultsortdirection: ASC
