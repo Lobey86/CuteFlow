@@ -66,7 +66,7 @@ class Usermanagement {
         $result = array();
         $a = 0;
         foreach($data as $item) {
-            $result[$a]['id'] = $item->getId();
+            $result[$a]['id'] = $item->getUserId();
             $result[$a]['unique_id'] = $a;
             $result[$a++]['text'] = $item->getText();
         }
@@ -85,7 +85,7 @@ class Usermanagement {
         $result = array();
         $a = 0;
         foreach($data as $item) {
-            $user = $item->getUser();
+            $user = $item->getUserData();
             $result[$a]['unique_id'] = $a;
             $result[$a]['user_id'] = $item->getUseragentId();
             $result[$a++]['text'] = $user[0]->getFirstname() . ' ' . $user[0]->getLastname();
@@ -104,29 +104,45 @@ class Usermanagement {
         $result = array();
 
         foreach($data as $item) {
+
+            $userdata = $item->getUserData();
+            $usersettings = $item->getUserSetting();
+            $userrole = $item->getRole();
+            
             $result['id'] = $item->getId();
             $result['username'] = $item->getUsername();
-            $result['firstname'] = $item->getFirstname();
-            $result['lastname'] = $item->getLastname();
+            $result['firstname'] = $userdata->getFirstname();
+            $result['lastname'] = $userdata->getLastname();
             $result['email'] = $item->getEmail();
             $result['password'] = $item->getPassword();
             $result['role_id'] = $item->getRoleId();
-            $result['street'] = $item->getStreet();
-            $result['zip'] = $item->getZip();
-            $result['city'] = $item->getCity();
-            $result['country'] = $item->getCountry();
-            $result['phone1'] = $item->getPhone1();
-            $result['phone2'] = $item->getPhone2();
-            $result['mobil'] = $item->getMobile();
-            $result['fax'] = $item->getFax();
-            $result['organisation'] = $item->getOrganisation();
-            $result['department'] = $item->getDepartment();
-            $result['burdencenter'] = $item->getBurdencenter();
-            $result['comment'] = $item->getComment();
-            $userrole = $item->getRole();
             $result['rolename'] = $userrole->getDescription();
-            $result['durationlength'] = $item->getDurationlength();
-            $result['durationtype'] = $item->getDurationtype();
+            $result['street'] = $userdata->getStreet();
+            $result['zip'] = $userdata->getZip();
+            $result['city'] = $userdata->getCity();
+            $result['country'] = $userdata->getCountry();
+            $result['phone1'] = $userdata->getPhone1();
+            $result['phone2'] = $userdata->getPhone2();
+            $result['mobil'] = $userdata->getMobile();
+            $result['fax'] = $userdata->getFax();
+            $result['organisation'] = $userdata->getOrganisation();
+            $result['department'] = $userdata->getDepartment();
+            $result['burdencenter'] = $userdata->getBurdencenter();
+            $result['comment'] = $userdata->getComment();
+            
+            
+            $result['durationlength'] = $usersettings->getDurationlength();
+            $result['durationtype'] = $usersettings->getDurationtype();
+            $result['markyellow'] = $usersettings->getMarkyellow();
+            $result['markred'] = $usersettings->getMarkred();
+            $result['markorange'] = $usersettings->getMarkorange();
+            $result['refreshtime'] = $usersettings->getRefreshtime();
+            $result['displayeditem'] = $usersettings->getDisplayeditem();
+            $result['emailformat'] = $usersettings->getEmailformat();
+            $result['emailtype'] = $usersettings->getEmailtype();
+            $result['circulationdefaultsortcolumn'] = $usersettings->getCirculationdefaultsortcolumn();
+            $result['circulationdefaultsortdirection'] = $usersettings->getCirculationdefaultsortdirection();
+            $result['showcirculationinpopup'] = $usersettings->getShowcirculationinpopup();
         }
         return $result;
     }
