@@ -32,10 +32,10 @@ class layoutActions extends sfActions {
 
         $userrights = Doctrine_Query::create()
             ->select('cr.*')
-            ->from('CredentialRole cr, Role r, User u')
-            ->where ('u.role_id = r.id')
+            ->from('CredentialRole cr, Role r, UserLogin ul')
+            ->where ('ul.role_id = r.id')
             ->andwhere('r.id = cr.role_id')
-            ->andwhere('u.id = ?', $this->getUser()->getAttribute('id'))
+            ->andwhere('ul.id = ?', $this->getUser()->getAttribute('id'))
             ->execute();
 
         $rights = $loginObject->loadUserRight($credentials, $userrights);

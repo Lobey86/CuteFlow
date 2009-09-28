@@ -40,7 +40,7 @@ cf.userTab = function(){return {
 		this.theUserGuiFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('Default user GUI settings',null,'systemsetting'); ?>',
 			width: 600,
-			height: 190,
+			height: 220,
 			style: 'margin-top:20px;margin-left:5px;',
 			labelWidth: 330,
 			items:[{
@@ -113,7 +113,8 @@ cf.userTab = function(){return {
 				},{
     				xtype: 'panel',
     				html : '&nbsp;',
-    				border: false
+    				border: false,
+					id: 'userTab_spacepanel1'
     			},{
 					xtype: 'combo', // number of records to display in grid
 					id: 'userTab_circulationdefaultsortdirection_id',
@@ -134,6 +135,12 @@ cf.userTab = function(){return {
 					displayField:'text',
 					width:100
 				}]
+			},{
+				xtype: 'checkbox',
+				fieldLabel: '<?php echo __('Show Circulationdetails in PopUp?',null,'systemsetting'); ?>',
+				inputValue: "1",
+				id: 'userTab_showinpopup'
+			
 			},{
 				xtype:'textfield',
 				fieldLabel: '<?php echo __('Change yellow after...days',null,'systemsetting'); ?>',
@@ -188,6 +195,7 @@ cf.userTab = function(){return {
     			},{
     				xtype: 'panel',
     				html : '&nbsp;',
+					id: 'userTab_spacepanel3',
     				border: false
     			},{
    
@@ -221,7 +229,7 @@ cf.userTab = function(){return {
 					columns: 3
 				},
 				labelWidth: 150,
-				fieldLabel: '<?php echo __('Email format',null,'systemsetting'); ?>',
+				fieldLabel: '<?php echo __('Email Format',null,'systemsetting'); ?>',
 				width: 200,
 				items: [{
 					xtype: 'combo',
@@ -244,7 +252,8 @@ cf.userTab = function(){return {
     			},{
     				xtype: 'panel',
     				html : '&nbsp;',
-    				border: false
+    				border: false,
+					id: 'userTab_spacepanel2'
     			},{
 					xtype: 'combo', // number of records to display in grid
 					id: 'userTab_emailtype_id',
@@ -262,7 +271,18 @@ cf.userTab = function(){return {
 	   				}),
 	 				valueField:'id',
 					displayField:'text',
-					width:133
+					width:133,
+					listeners: {
+						select: {
+							fn:function(combo, value) {
+								if (Ext.getCmp('userTab_emailformat_id').getValue() == 'plain' && combo.getValue() == 'IFRAME') {
+									Ext.Msg.minWidth = 200;
+									Ext.MessageBox.alert('<?php echo __('Notice',null,'systemsetting'); ?>', '<?php echo __('Plain cannot be combined with IFrame',null,'systemsetting'); ?>');
+									combo.setValue('VALUES');
+								}
+							}
+						}
+					}
 					}]
 				},{
 					xtype: 'combo',
@@ -312,11 +332,22 @@ cf.userTab = function(){return {
 		Ext.getCmp('userTab_markyellow').setValue(data.markyellow);
 		Ext.getCmp('userTab_markorange').setValue(data.markorange);
 		Ext.getCmp('userTab_markred').setValue(data.markred);
+		Ext.getCmp('userTab_showinpopup').setValue(data.showcirculationinpopup);
 		
 		
 		
 		if (Ext.isIE6 == true) {
-			Ext.getCmp('userTab_defaultdurationlength').setSize({width:40, height: 25});
+			Ext.getCmp('userTab_defaultdurationlength').setSize({width:40, height: 24});
+			Ext.getCmp('userTab_defaultdurationlength').style = ('margin-bottom:1px;margin-top:0px;margin-right:5px;');
+			
+			
+			Ext.getCmp('userTab_spacepanel1').html = '';
+			Ext.getCmp('userTab_spacepanel1').setSize({width:5,height:0});
+			Ext.getCmp('userTab_spacepanel2').html = '';
+			Ext.getCmp('userTab_spacepanel2').setSize({width:5,height:0});
+			Ext.getCmp('userTab_spacepanel3').html = '';
+			Ext.getCmp('userTab_spacepanel3').setSize({width:20,height:0});
+			
 		}
 		else if(Ext.isOpera == true || Ext.isSafari == true) {
 			Ext.getCmp('userTab_defaultdurationlength').setSize({width:40, height: 24});
@@ -325,6 +356,10 @@ cf.userTab = function(){return {
 		else if (Ext.isIE7 == true) {
 			Ext.getCmp('userTab_defaultdurationlength').setSize({width:40, height: 24});
 			Ext.getCmp('userTab_defaultdurationlength').style = 'margin-top:0px;margin-bottom:1px;';
+			
+			
+			
+			
 			Ext.getCmp('userTab_circulationdefaultsortdirection_id').style = 'margin-top:0px;margin-bottom:1px;';
 			Ext.getCmp('userTab_defaultdurationtype_id').style = 'margin-top:0px;margin-bottom:1px;';
 			Ext.getCmp('userTab_emailformat_id').style = 'margin-top:0px;margin-bottom:1px;';

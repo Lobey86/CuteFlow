@@ -148,12 +148,12 @@ class usermanagementActions extends sfActions {
      * @param sfWebRequest $reques
      * @return <type> 
      */
-    public function executeLoadLeftGrid(sfWebRequest $request) {
+    public function executeLoadUserGrid(sfWebRequest $request) {
         $usermanagement = new Usermanagement();
 
         $result = Doctrine_Query::create()
-            ->select('u.id, CONCAT(u.firstname,\' \',u.lastname) AS text')
-            ->from('User u')
+            ->select('ud.user_id, CONCAT(ud.firstname,\' \',ud.lastname) AS text')
+            ->from('UserData ud')
             ->execute();
 
         $json_result = $usermanagement->buildUserGrid($result);
@@ -166,7 +166,7 @@ class usermanagementActions extends sfActions {
      *
      * @param sfWebRequest $request
      */
-    public function executeLoadRightGrid(sfWebRequest $request) {
+    public function executeLoadUserAgentGrid(sfWebRequest $request) {
         $usermanagement = new Usermanagement();
         $result = Doctrine_Query::create()
             ->select('ua.*')
@@ -188,8 +188,8 @@ class usermanagementActions extends sfActions {
      */
     public function executeCheckForExistingUser(sfWebRequest $request) {
         $result = Doctrine_Query::create()
-            ->from('User u')
-            ->where('u.username = ?', $request->getParameter('username'))
+            ->from('UserLogin ul')
+            ->where('ul.username = ?', $request->getParameter('username'))
             ->execute();
 
         if($result[0]->getUsername() == $request->getParameter('username')) {
@@ -208,43 +208,7 @@ class usermanagementActions extends sfActions {
      * @param sfWebRequest $reques
      */
     public function executeAddUser(sfWebRequest $request) {
-        $data = $request->getPostParameters();
-        $userObj = new User();
-        $userObj->setFirstname($data['firstname']);
-        $userObj->setLastname($data['lastname']);
-        $userObj->setUsername($data['username']);
-        $userObj->setEmail($data['email']);
-        $userObj->setRoleId($data['roleid']);
-        $userObj->setPassword($data['password']);
-        $userObj->setStreet($data['street']);
-        $userObj->setZip($data['zip']);
-        $userObj->setCity($data['city']);
-        $userObj->setCountry($data['country']);
-        $userObj->setPhone1($data['phone1']);
-        $userObj->setPhone2($data['phone2']);
-        $userObj->setMobile($data['mobil']);
-        $userObj->setFax($data['fax']);
-        $userObj->setDepartment($data['department']);
-        $userObj->setBurdencenter($data['burdencenter']);
-        $userObj->setOrganisation($data['organisation']);
-        $userObj->setDurationlength($data['durationlength']);
-        $userObj->setDurationtype($data['durationtype']);
-        $userObj->setComment($data['comment']);
-        $userObj->save();
-        $id = $userObj->getId();
-        $agent = $data['grid'];
-
-        if (count($agent)>0) {
-            $pos = 1;
-            foreach($agent as $item) {
-                $agentObj = new UserAgent();
-                $agentObj->setUserId($id);
-                $agentObj->setUseragentId($item);
-                $agentObj->setPosition($pos++);
-                $agentObj->save();
-            }
-        }
-
+       
         $this->renderText('{success:true}');
         return sfView::NONE;
     }
@@ -259,12 +223,10 @@ class usermanagementActions extends sfActions {
     public function executeLoadSingleUser(sfWebRequest $request) {
 
         $usermanagement = new Usermanagement();
-
-        //$this->renderText($request->getParameter('id'));
         $result = Doctrine_Query::create()
-            ->select('u.*')
-            ->from('User u')
-            ->where('u.id = ?',$request->getParameter('id'))
+            ->select('ul.*')
+            ->from('UserLogin ul')
+            ->where('ul.id = ?',$request->getParameter('id'))
             ->execute();
         $json_result = $usermanagement->buildSingleUser($result);
         $this->renderText('{"result":'.json_encode($json_result).'}');
@@ -276,63 +238,7 @@ class usermanagementActions extends sfActions {
      *
      * @param sfWebRequest $request
      */
-    public function executeEditUser(sfWebRequest $request) {
-        $data = $request->getPostParameters();
-
-        if($data['useragent_edit'] != -1)  {
-            Doctrine_Query::create()
-                ->delete('UserAgent')
-                ->from('UserAgent ua')
-                ->where('ua.user_id = ?',$data['hiddenfield'])
-                ->execute();
-        }
-        
-
-
-        Doctrine_Query::create()
-            ->update('User u')
-            ->set('u.firstname','?',$data['firstname'])
-            ->set('u.lastname','?',$data['lastname'])
-            ->set('u.email','?',$data['email'])
-            ->set('u.role_id','?',$data['roleid'])
-            ->set('u.password','?',$data['password'])
-            ->set('u.street','?',$data['street'])
-            ->set('u.zip','?',$data['zip'])
-            ->set('u.city','?',$data['city'])
-            ->set('u.country','?',$data['country'])
-            ->set('u.phone1','?',$data['phone1'])
-            ->set('u.phone2','?',$data['phone2'])
-            ->set('u.mobile','?',$data['mobil'])
-            ->set('u.fax','?',$data['fax'])
-            ->set('u.department','?',$data['department'])
-            ->set('u.organisation','?',$data['organisation'])
-            ->set('u.comment','?',$data['comment'])
-            ->set('u.burdencenter','?',$data['burdencenter'])
-            ->set('u.durationlength','?',$data['durationlength'])
-            ->set('u.durationtype','?',$data['durationtype'])
-            ->where ('u.id = ?',$data['hiddenfield'])
-            ->execute();
-
-
-        if (isset($data['grid'])) {
-             $agent = $data['grid'];
-        }
-        else {
-            $agent = array();
-        }
-
-        // save user agents
-        if (count($agent)>0) {
-            $pos = 1;
-            foreach($agent as $item) {
-                $agentObj = new UserAgent();
-                $agentObj->setUserId($data['hiddenfield']);
-                $agentObj->setUseragentId($item);
-                $agentObj->setPosition($pos++);
-                $agentObj->save();
-            }
-        }
-        
+    public function executeEditUser(sfWebRequest $request) {  
         $this->renderText('{success:true}');
         return sfView::NONE;
     }
