@@ -94,74 +94,58 @@ CredentialRole:
   rc14:
      role_id: 1
      credential_id: 10
-User:
-  u1:
+
+UserLogin:
+  ul1:
     username: admin
     password: admin
+    email: cuteflow@cuteflow
     role_id: 1
-    firstname: lucky
-    lastname: luke
-    email: cuteflow@cuteflow.de
-    durationtype: DAYS
-    durationlength: 2
-  u2:
-    username: admin1
-    password: admin1
-    role_id: 1
-    firstname: onkel
-    lastname: jürgen
-    email: cuteflow@cuteflow.de
-    durationtype: DAYS
-    durationlength: 2
-  u3:
+  ul2:
     username: admin2
     password: admin2
-    role_id: 1
-    firstname: jürgen
-    lastname: drews
-    email: cuteflow@cuteflow.de
-    durationtype: DAYS
-    durationlength: 2
-  u4:
-    username: admin3
-    password: admin3
-    role_id: 1
-    firstname: krööte
-    lastname: flööte
-    email: cuteflow@cuteflow.de
-    durationtype: DAYS
-    durationlength: 2
-  u5:
-    username: admin4
-    password: admin4
+    email: cuteflow@cuteflow
     role_id: 2
-    firstname: grüß
-    lastname: gott
-    email: cuteflow@cuteflow.de
-    durationtype: DAYS
-    durationlength: 2
-  u6:
-    username: admin5
-    password: admin5
-    role_id: 3
-    firstname: schnitzel
-    lastname: mit pommes
-    email: cuteflow@cuteflow.de
-    durationtype: DAYS
-    durationlength: 2
+
+UserData:
+  ud1:
+    user_id: 1
+    firstname: Admin1 Vorname
+    lastname: Admin1 Nachname
+  ud2:
+    user_id: 2
+    firstname: Admin2 Vorname
+    lastname: Admin2 Nachname
+
 UserSetting:
   us1:
      user_id: 1
+     markyellow: 7
+     markred: 12
+     markorange: 10
+     refreshtime: 180
+     displayeditem: 25
+     durationtype: DAYS
+     durationlength: 5
+     emailformat: plain
+     emailtype: VALUES
+     circulationdefaultsortcolumn: NAME
+     circulationdefaultsortdirection: ASC
+     showcirculationinpopup: 1
   us2:
      user_id: 2
-  us3:
-     user_id: 3
-  us4:
-     user_id: 4
-  us5:
-     user_id: 5
-  us6:
-     user_id: 6
+     markyellow: 9
+     markred: 11
+     markorange: 13
+     refreshtime: 30
+     displayeditem: 75
+     durationtype: MINUTES
+     durationlength: 50
+     emailformat: html
+     emailtype: IFRAME
+     circulationdefaultsortcolumn: STATION
+     circulationdefaultsortdirection: DESC
+     showcirculationinpopup: 0
 
 EmailConfiguration:
   ec1:
@@ -195,3 +179,38 @@ UserConfiguration:
     emailtype: VALUES
     circulationdefaultsortcolumn: START
     circulationdefaultsortdirection: ASC
+
+WorkflowConfiguration:
+  wc1:
+    columntext: NAME
+    isactive: 'true'
+    position: 1
+  wc2:
+    columntext: STATION
+    isactive: 'true'
+    position: 2
+  wc3:
+    columntext: DAYS
+    isactive: 'true'
+    position: 3
+  wc4:
+    columntext: START
+    isactive: 'true'
+    position: 4
+  wc5:
+    columntext: SENDER
+    isactive: 'false'
+    position: 5
+  wc6:
+    columntext: TOTALTIME
+    isactive: 'false'
+    position: 6
+  wc7:
+    columntext: MAILINGLIST
+    isactive: 'false'
+    position: 7
+  wc8:
+    columntext: TEMPLATE
+    isactive: 'false'
+    position: 8
+
