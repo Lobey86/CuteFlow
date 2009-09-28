@@ -30,10 +30,10 @@ class loginActions extends sfActions {
     public function executeDoLogin(sfWebRequest $request) {
     
     $result = Doctrine_Query::create()
-                ->select('u.*')
-                ->from('User u')
-                ->where('u.username = ?', $request->getPostParameter('username'))
-                ->andwhere('u.password = ?',$request->getPostParameter('userpassword'))
+                ->select('ul.*')
+                ->from('UserLogin ul')
+                ->where('ul.username = ?', $request->getPostParameter('username'))
+                ->andwhere('ul.password = ?',$request->getPostParameter('userpassword'))
                 ->execute();
         
     if($result[0]->getUserName() == $request->getPostParameter('username') AND $result[0]->getPassword() == $request->getPostParameter('userpassword')) {

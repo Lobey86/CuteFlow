@@ -60,7 +60,7 @@ cf.systemTab = function(){return {
 				id: 'systemsetting_sendreceivermail'
 			},{
 				xtype: 'checkbox',
-				fieldLabel: '<?php echo __('Send Reminder-EMails with all open circulations<br>(You need to activate the notification Cronjob, see manual)',null,'systemsetting'); ?>',
+				fieldLabel: '<?php echo __('Send Reminder-EMails with all open circulations<br>(Activated Cronjob needed)',null,'systemsetting'); ?>',
 				inputValue: "1",
 				id: 'systemsetting_sendremindermail'
 			},{
@@ -134,7 +134,6 @@ cf.systemTab = function(){return {
 		Ext.getCmp('systemsetting_sendreceivermail').setValue(data.sendreceivermail);
 		Ext.getCmp('systemsetting_sendremindermail').setValue(data.sendremindermail);
 		Ext.getCmp('systemsetting_slotvisible_id').setValue(data.visibleslots);
-		
 		if (Ext.isIE7 == true) {
 			Ext.getCmp('systemsetting_language_id').style = 'margin-top:0px;margin-bottom:1px;';
 			Ext.getCmp('systemsetting_slotvisible_id').style = 'margin-top:0px;margin-bottom:1px;';

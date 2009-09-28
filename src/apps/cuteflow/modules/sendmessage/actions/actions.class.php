@@ -28,8 +28,8 @@ class sendmessageActions extends sfActions {
      */
     public function executeSendMail(sfWebRequest $request) {
         $user = Doctrine_Query::create()
-                ->from('User u')
-                ->select('CONCAT(u.firstname,\' \',u.lastname) AS name, u.email');
+                ->from('UserData ud')
+                ->select('CONCAT(ud.firstname,\' \',ud.lastname) AS name, ud.email');
         
         if($request->getPostParameter('receiver') == 'ALL') {
             // do nothing

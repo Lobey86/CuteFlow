@@ -111,6 +111,8 @@ class systemsettingActions extends sfActions {
             $data['systemsetting_sendreceivermail'] = isset($data['systemsetting_sendreceivermail']) ? $data['systemsetting_sendreceivermail'] : 0;
             $data['systemsetting_sendremindermail'] = isset($data['systemsetting_sendremindermail']) ? $data['systemsetting_sendremindermail'] : 0;
             
+
+
             Doctrine_Query::create()
                 ->update('SystemConfiguration sc')
                 ->set('sc.language','?',$data['systemsetting_language'])
@@ -149,6 +151,7 @@ class systemsettingActions extends sfActions {
             $data['userTab_markyellow'] = $data['userTab_markyellow'] == '' ? 7 : $data['userTab_markyellow'];
             $data['userTab_markorange'] = $data['userTab_markorange'] == '' ? 10 : $data['userTab_markorange'];
             $data['userTab_defaultdurationlength'] = $data['userTab_defaultdurationlength'] == '' ? 3 : $data['userTab_defaultdurationlength'];
+            $data['userTab_showinpopup'] = isset($data['userTab_showinpopup']) ? $data['userTab_showinpopup'] : 0;
 
             Doctrine_Query::create()
                 ->update('UserConfiguration uc')
@@ -165,15 +168,31 @@ class systemsettingActions extends sfActions {
                 ->set('uc.circulationdefaultsortcolumn', '?', $data['userTab_circulationdefaultsortcolumn'])
                 ->set('uc.circulationdefaultsortdirection', '?', $data['userTab_circulationdefaultsortdirection'])
                 ->set('uc.role_id', '?', $data['userTab_userrole'])
+                ->set('uc.showcirculationinpopup','?',$data['userTab_showinpopup'])
                 ->where('uc.id = ?',1)
                 ->execute();
 
             
         }
-
-
         $this->renderText('{success:true}');
         return sfView::NONE;
     }
 
+    /**
+     * Build store for Column in systemsettings and useredit/creation
+     * @param sfWebRequest $request
+     * @return <type>
+     */
+    public function executeLoadCirculationColumns(sfWebRequest $request) {
+        $sysObj = new SystemSetting();
+        $worklfosettings = Doctrine_Query::create()
+            ->select('wc.*')
+            ->from('WorkflowConfiguration wc')
+            ->orderBy('wc.position ASC')
+            ->fetchArray();
+        $worklfosettings = $sysObj->buildColumns($worklfosettings, $this->getContext());
+        
+        $this->renderText('{"result":'.json_encode($worklfosettings).'}');
+        return sfView::NONE;
+    }
 }

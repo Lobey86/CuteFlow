@@ -32,9 +32,9 @@ class userrolemanagementActions extends sfActions {
         $userrolemanagement = new UserRolemanagement();
 
         $result = Doctrine_Query::create()
-                    ->select('r.*, count(u.id) AS users')
+                    ->select('r.*, count(ul.id) AS users')
                     ->from('Role r')
-                    ->leftJoin('r.User u')
+                    ->leftJoin('r.UserLogin ul')
                     ->groupby('r.id')
                     ->execute();
 
@@ -79,7 +79,7 @@ class userrolemanagementActions extends sfActions {
     public function executeDeleteRole(sfWebRequest $request) {
         
         $rows = Doctrine_Query::create()
-                    ->update('User')
+                    ->update('UserLogin')
                     ->set('role_id',$request->getParameter('updateid'))
                     ->where('role_id = ?', $request->getParameter('deleteid'))
                     ->execute();
