@@ -24,10 +24,11 @@ class Usermanagement {
 
         foreach($data as $item) {
             $role = $item->getRole();
+            $userdata = $item->getUserData();
             $result[$a]['id'] = $item->getId();
             $result[$a]['#'] = $index++;
-            $result[$a]['firstname'] = $item->getFirstname();
-            $result[$a]['lastname'] = $item->getLastname();
+            $result[$a]['firstname'] = $userdata->getFirstname();
+            $result[$a]['lastname'] = $userdata->getLastname();
             $result[$a]['email'] = $item->getEmail();
             $result[$a]['username'] = $item->getUsername();
             $result[$a]['role_id'] = $role->getId();
