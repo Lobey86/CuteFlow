@@ -42,7 +42,7 @@ UserData:
     comment: { type: string(1000) }
     lastaction: timestamp
   relations:
-    UserLogin: { class: UserLogin, local: user_id, foreign: id, foreignType: one, type: one }
+    UserLogin: { class: UserLogin, local: user_id, foreign: id, foreignType: one, type: one, onDelete: CASCADE }
 
 UserLogin:
   tableName: cf_userlogin
@@ -60,7 +60,7 @@ UserLogin:
 UserSetting:
   tableName: cf_usersetting
   columns:
-    user_id: { type: integer, length: 10}
+    user_id: { type: integer, length: 10,  primary: tru}
     markyellow: { type: string(45)}
     markred: { type: string(45)}
     markorange: { type: string(45)}
@@ -84,8 +84,8 @@ UserAgent:
     useragent_id: { type: integer, length: 10 }
     position: {type: integer(1), length: 3}
   relations:
-    UserLogin: { class: UserLogin, local: user_id, foreign: id, foreignType: many, type: one, onDelete: CASCADE }
-    UserLogin: { class: UserLogin, local: useragent_id, foreign: id, foreignType: many, type: many, onDelete: CASCADE }
+    UserData: { class: UserData, local: user_id, foreign: user_id, foreignType: many, type: one, onDelete: CASCADE }
+    UserData: { class: UserData, local: useragent_id, foreign: user_id, foreignType: many, type: many, onDelete: CASCADE }
 
 
 
@@ -162,7 +162,8 @@ UserConfiguration:
 UserWorkflowConfiguration:
   tableName: cf_userworkflowconfiguration
   columns:
-    user_id: { type: integer, length: 10, primary: true  }
+    id: { type: integer, length: 10, primary: true, autoincrement: true }
+    user_id: { type: integer, length: 10 }
     columntext: { type: string(45)}
     isactive: { type: string(10)}
     position: { type: integer(1), length: 3}
