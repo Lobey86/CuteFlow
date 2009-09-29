@@ -43,6 +43,10 @@ Credential:
     userModule: administration
     userGroup: systemsetting
     userRight: showModule
+  c12:
+    userModule: administration
+    userGroup: myprofile
+    userRight: changeUseragent
 Role:
   r1:
     description: admin
@@ -94,6 +98,9 @@ CredentialRole:
   rc14:
      role_id: 1
      credential_id: 10
+  rc15:
+    role_id: 1
+    credential_id: 12
 
 UserLogin:
   ul1:
@@ -146,6 +153,89 @@ UserSetting:
      circulationdefaultsortcolumn: STATION
      circulationdefaultsortdirection: DESC
      showcirculationinpopup: 0
+
+UserWorkflowConfiguration:
+  uwc1:
+    user_id: 1
+    columntext: NAME
+    isactive: 'true'
+    position: 1
+  uwc2:
+    user_id: 1
+    columntext: STATION
+    isactive: 'true'
+    position: 2
+  uwc3:
+    user_id: 1
+    columntext: DAYS
+    isactive: 'true'
+    position: 3
+  uwc4:
+    user_id: 1
+    columntext: START
+    isactive: 'true'
+    position: 4
+  uwc5:
+    user_id: 1
+    columntext: SENDER
+    isactive: 'false'
+    position: 5
+  uwc6:
+    user_id: 1
+    columntext: TOTALTIME
+    isactive: 'false'
+    position: 6
+  uwc7:
+    user_id: 1
+    columntext: MAILINGLIST
+    isactive: 'false'
+    position: 7
+  uwc8:
+    user_id: 1
+    columntext: TEMPLATE
+    isactive: 'false'
+    position: 8
+  uwc9:
+    user_id: 2
+    columntext: NAME
+    isactive: 'true'
+    position: 1
+  uwc10:
+    user_id: 2
+    columntext: STATION
+    isactive: 'true'
+    position: 2
+  uwc11:
+    user_id: 2
+    columntext: DAYS
+    isactive: 'true'
+    position: 3
+  uwc12:
+    user_id: 2
+    columntext: START
+    isactive: 'true'
+    position: 4
+  uwc13:
+    user_id: 2
+    columntext: SENDER
+    isactive: 'false'
+    position: 5
+  uwc14:
+    user_id: 2
+    columntext: TOTALTIME
+    isactive: 'false'
+    position: 6
+  uwc15:
+    user_id: 2
+    columntext: MAILINGLIST
+    isactive: 'false'
+    position: 7
+  uwc16:
+    user_id: 2
+    columntext: TEMPLATE
+    isactive: 'false'
+    position: 8
+    
 
 EmailConfiguration:
   ec1:
