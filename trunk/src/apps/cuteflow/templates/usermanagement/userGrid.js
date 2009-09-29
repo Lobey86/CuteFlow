@@ -70,7 +70,7 @@ cf.UserGrid = function(){return {
             {
 				xtype: 'combo', // number of records to display in grid
 				mode: 'local',
-				value: '<?php echo $sf_user->getAttribute('userSettings')->getDisplayeditem();?>',
+				value: '<?php $arr = $sf_user->getAttribute('userSettings'); echo $arr['displayeditem'];?>',
 				editable:false,
 				triggerAction: 'all',
 				foreSelection: true,
@@ -99,7 +99,7 @@ cf.UserGrid = function(){return {
 	/** Paging toolbar **/
 	initBottomToolBar: function () {
 		this.theGridBottomToolbar =  new Ext.PagingToolbar({
-			pageSize: <?php echo $sf_user->getAttribute('userSettings')->getDisplayeditem();?>,
+			pageSize: <?php $arr = $sf_user->getAttribute('userSettings'); echo $arr['displayeditem'];?>,
 			store: this.theUserStore,
 			displayInfo: true,
 			displayMsg: '<?php echo __('Displaying topics',null,'usermanagement'); ?> {0} - {1} <?php echo __('of',null,'usermanagement'); ?> {2}',
