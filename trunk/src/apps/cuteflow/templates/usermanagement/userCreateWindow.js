@@ -1,150 +1,141 @@
 /**
 * Class opens new window, to add a new user or edit an exisiting user
 */
-cf.AddUserWindow = function(){return {
+cf.createUserWindow = function(){return {
+	isInitialized 	                 : false,
+	theUserId						 : false,
+	theAddUserWindow	  	         : false,
+	theTabPanel						 : false,
+	theFormPanel				     : false,
+
 	
-	theAddUserWindow					:false,
-	theAddUserWindowIsInitialized		:false,
-	theFormPanel						:false,
-	theTabpanel							:false,
-	
-	/**
-	*
-	* function calls all necesarry function to init the tab for editing / creating a user
-	*
-	* @param boolean new_flag, 1 if new user, 0 if edit user
-	* @param int id, id is set, if in edit mode
-	*
-	*/
-	init: function (new_flag, id) {
-		cf.AddUserFirstTab.init();
-		cf.AddUserSecondTab.init();
-		cf.AddUserThirdTab.init(new_flag, id);
-		this.initTabpanel();
-		this.theTabpanel.add(cf.AddUserFirstTab.theFirstPanel);
-		this.theTabpanel.add(cf.AddUserSecondTab.theSecondPanel);
-		this.theTabpanel.add(cf.AddUserThirdTab.theThirdPanel);
-		this.theTabpanel.setActiveTab(0);
-		this.initFormPanel();
-		this.theFormPanel.add(this.theTabpanel);
-		this.addValues(new_flag,id);
-		this.initWindow(new_flag, id);
-		this.theAddUserWindow.add(this.theFormPanel);
-		this.theAddUserWindow.show();
-	},
-	
-	/**
-	*
-	* function sets the default values when editing a user. when new user is created , nothing is done.
-	*
-	* @param boolean new_flag, 1 if new user, 0 if edit user
-	* @param int id, id is set, if in edit mode
-	*
-	*/
-	addValues: function (new_flag, id) {
-		if (new_flag != 1) {
-			Ext.getCmp('username').setDisabled(true);
-			Ext.Ajax.request({  
-				url : '<?php echo build_dynamic_javascript_url('usermanagement/LoadSingleUser')?>/id/' + id,
-				success: function(objServerResponse){
-				
-					userData = Ext.util.JSON.decode(objServerResponse.responseText);
-					Ext.getCmp('firstname').setValue(userData.result.firstname);
-					Ext.getCmp('lastname').setValue(userData.result.lastname);
-					Ext.getCmp('email').setValue(userData.result.email);
-					Ext.getCmp('username').setValue(userData.result.username);
-					Ext.getCmp('password').setValue(userData.result.password);
-					Ext.getCmp('passwordAgain').setValue(userData.result.password);
-					Ext.getCmp('userrole').setValue(userData.result.role_id);
-					Ext.getCmp('type').setValue(userData.result.durationtype);
-					Ext.getCmp('durationlength').setValue(userData.result.durationlength);		
-					Ext.getCmp('street').setValue(userData.result.street);
-					Ext.getCmp('zip').setValue(userData.result.zip);
-					Ext.getCmp('city').setValue(userData.result.city);
-					Ext.getCmp('country').setValue(userData.result.country);
-					Ext.getCmp('phone1').setValue(userData.result.phone1);
-					Ext.getCmp('phone2').setValue(userData.result.phone2);
-					Ext.getCmp('mobil').setValue(userData.result.mobil);
-					Ext.getCmp('fax').setValue(userData.result.fax);
-					Ext.getCmp('organisation').setValue(userData.result.organisation);
-					Ext.getCmp('department').setValue(userData.result.department);
-					Ext.getCmp('burdencenter').setValue(userData.result.burdencenter);
-					Ext.getCmp('comment').setValue(userData.result.comment);
-				}
-			});
+	init:function () {
+		if(cf.administration_myprofile.isInitialized == false) {
+			this.theUserId = '';
+			cf.userFirstTab.init();
+			cf.userSecondTab.init(this.theUserId);
+			cf.userThirdTab.init();
+			cf.userFourthTab.init('<?php echo build_dynamic_javascript_url('systemsetting/LoadCirculationColumns')?>');
+			this.initFormPanel();
+			this.initTabPanel();
+			this.initWindow();
+			this.theTabPanel.add(cf.userFirstTab.thePanel);
+			this.theTabPanel.add(cf.userSecondTab.thePanel);
+			this.theTabPanel.add(cf.userThirdTab.thePanel);
+			this.theTabPanel.add(cf.userFourthTab.thePanel);
+			this.theFormPanel.add(this.theTabPanel);
+			this.theAddUserWindow.add(this.theFormPanel);
+			this.addData();
 		}
 	},
 	
-	/**
-	*
-	* function inits the tabwindow, and contains an save and cancel button
-	*
-	* @param boolean new_flag, 1 if new user, 0 if edit user
-	* @param int id, id is set, if in edit mode
-	*
-	*/
-	initWindow: function(new_flag, id) {
-		if(new_flag == 1) {
-			var title = '<?php echo __('Create new user',null,'usermanagementpopup'); ?>';
-			Ext.getCmp('hiddenfield').setValue('');
-		}
-		else {
-			var title = '<?php echo __('Edit exisitng user',null,'usermanagementpopup'); ?>';
-			Ext.getCmp('hiddenfield').setValue(id);
-		}
+	
+	initTabPanel: function () {
+		this.theTabPanel = new Ext.TabPanel({
+			activeTab: 0,
+			enableTabScroll:true,
+			border: false,
+			deferredRender:true,
+			frame: true,
+			layoutOnTabChange: true,
+			forceLayout : true,
+			plain: false,
+			closable:false
+		});	
 		
-		this.theAddUserWindowIsInitialized = true;
+	},
+	
+	addData: function () {
+		Ext.Ajax.request({  
+			url : '<?php echo build_dynamic_javascript_url('usermanagement/LoadDefaultData')?>',
+			success: function(objServerResponse){  
+				var data = Ext.util.JSON.decode(objServerResponse.responseText);
+				// first Tab
+				Ext.getCmp('userFirstTab_username').setValue(data.result.username);
+				Ext.getCmp('userFirstTab_password').setValue(data.result.password);
+				Ext.getCmp('userFirstTab_passwordagain').setValue(data.result.password);
+				
+				Ext.getCmp('userFirstTab_emailformat_id').setValue(data.result.emailformat);
+				Ext.getCmp('userFirstTab_emailtype_id').setValue(data.result.emailtype);
+				
+				
+				// second Tab, load Grid here
+				Ext.getCmp('userSecondTab_durationlength').setValue(data.result.durationlength);
+				Ext.getCmp('userSecondTab_durationlength_type_id').setValue(data.result.durationtype);
+
+				// fourth tab
+				Ext.getCmp('userFourthTab_itemsperpage_id').setValue(data.result.displayeditem);
+				Ext.getCmp('userFourthTab_refreshtime_id').setValue(data.result.refreshtime);
+				Ext.getCmp('userFourthTab_circulationdefaultsortcolumn_id').setValue(data.result.circulationdefaultsortcolumn);
+				Ext.getCmp('userFourthTab_circulationdefaultsortdirection_id').setValue(data.result.circulationdefaultsortdirection);
+				Ext.getCmp('userFourthTab_showinpopup').setValue(data.result.showcirculationinpopup);
+				Ext.getCmp('userFourthTab_markyellow').setValue(data.result.markyellow);
+				Ext.getCmp('userFourthTab_markorange').setValue(data.result.markorange);
+				Ext.getCmp('userFourthTab_markred').setValue(data.result.markred);
+				
+				cf.userFirstTab.thePanel.frame = true;
+				cf.userSecondTab.thePanel.frame = true;
+				cf.userThirdTab.thePanel.frame = true;
+				cf.userFourthTab.thePanel.frame = true;
+				cf.createUserWindow.theAddUserWindow.show();
+				cf.createUserWindow.setRole.defer(1000, this, [data.result.role_id]);
+			}
+		});
+	},
+	setRole: function (value) {
+		Ext.getCmp('userFirstTab_userrole_id').setValue(value);
+	},
+	
+	initFormPanel: function () {
+		this.theFormPanel = new Ext.FormPanel({
+			frame:true       
+		});
+		
+	},
+	
+	initWindow: function () {
+		this.isInitialized = true;
 		this.theAddUserWindow = new Ext.Window({
 			modal: true,
 			closable: true,
 			modal: true,
-			height: 630,
-			width: 670,
+			height: 800,
+			width: 900,
 			autoScroll: true,
-			title: title,
 			shadow: false,
 			minimizable: false,
-			draggable: true,
-			resizable: true,
-	        plain: false,
+			draggable: false,
+			resizable: false,
+	        plain: true,
+			title: '<?php echo __('Create new User',null,'usermanagement'); ?>',
 	        buttonAlign: 'center',
-			close : function(){
-				cf.AddUserThirdTab.isInitialized  = false;
-				cf.AddUserWindow.theAddUserWindow.hide();
-				cf.AddUserWindow.theAddUserWindow.destroy();
-			},
 			buttons:[{
-				text:'<?php echo __('Store',null,'usermanagementpopup'); ?>', 
+				text:'<?php echo __('Store',null,'myprofile'); ?>', 
 				icon: '/images/icons/accept.png',
 				handler: function () {
-					cf.UserCRUD.saveUser(new_flag,id);
+					if(Ext.getCmp('userFirstTab_password').getValue() == Ext.getCmp('userFirstTab_passwordagain').getValue()) {
+						cf.saveUser.initSave(cf.createUserWindow.theFormPanel);
+						cf.createUserWindow.isInitialized = false;
+					}
+					else {
+						Ext.MessageBox.alert('<?php echo __('Error',null,'usermanagement'); ?>', '<?php echo __('Passwords not equal',null,'usermanagement'); ?>');
+						cf.createUserWindow.theTabPanel.setActiveTab(0);
+					}
 				}
 			},{
-				text:'<?php echo __('Close',null,'usermanagementpopup'); ?>', 
+				text:'<?php echo __('Close',null,'usermanagement'); ?>', 
 				icon: '/images/icons/cancel.png',
 				handler: function () {
-					cf.AddUserThirdTab.isInitialized  = false;
-					cf.AddUserWindow.theAddUserWindow.hide();
-					cf.AddUserWindow.theAddUserWindow.destroy();
+					cf.createUserWindow.isInitialized = false;
+					cf.createUserWindow.theAddUserWindow.hide();
+					cf.createUserWindow.theAddUserWindow.destroy();
 				}
 			}]
 		});
-	},
-	
-	/** Form Panel **/
-	initFormPanel: function () {
-		this.theFormPanel = new Ext.FormPanel({
-		})
-		
-	},
-	/** Tabpanel to store the tabs **/
-	initTabpanel: function () {
-		this.theTabpanel = new Ext.TabPanel({
-			frame: true,
-			width: 'auto',
-			enableTabScroll:true,
-			plain: false,
-			deferredRender:false
+		this.theAddUserWindow.on('close', function() {
+			cf.createUserWindow.isInitialized = false;
+			cf.createUserWindow.theAddUserWindow.hide();
+			cf.createUserWindow.theAddUserWindow.destroy();
 		});
 	}
 	

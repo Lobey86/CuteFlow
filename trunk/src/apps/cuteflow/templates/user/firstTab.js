@@ -147,7 +147,18 @@ cf.userFirstTab = function(){return {
 	   				}),
 	 				valueField:'id',
 					displayField:'text',
-					width:60				
+					width:60,
+					listeners: {
+						select: {
+							fn:function(combo, value) {
+								if (Ext.getCmp('userFirstTab_emailformat_id').getValue() == 'plain' && Ext.getCmp('userFirstTab_emailtype_id').getValue() == 'IFRAME') {
+									Ext.Msg.minWidth = 200;
+									Ext.MessageBox.alert('<?php echo __('Notice',null,'usermanagement'); ?>', '<?php echo __('Plain cannot be combined with IFrame',null,'usermanagement'); ?>');
+									Ext.getCmp('userFirstTab_emailtype_id').setValue('VALUES');
+								}
+							}
+						}
+					}				
     			},{
     				xtype: 'panel',
     				html : '&nbsp;',
@@ -198,18 +209,15 @@ cf.userFirstTab = function(){return {
 	
 	initFirstPanel: function () {
 		this.thePanel = new Ext.Panel ({
-			modal: true,
 			closable: false,
-			modal: true,
 			width: 650,
-			height: 600,
+			height: 680,
 			autoScroll: false,
 			title: '<?php echo __('Login Data',null,'usermanagement'); ?>',
 			shadow: false,
 			minimizable: false,
 			draggable: false,
-			resizable: false,
-	        plain: false
+			resizable: false
 		});
 	},
 	

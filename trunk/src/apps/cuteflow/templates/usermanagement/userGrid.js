@@ -56,7 +56,7 @@ cf.UserGrid = function(){return {
                 tooltip:'<?php echo __('Add new user',null,'usermanagement'); ?>',
                 disabled: <?php $arr = $sf_user->getAttribute('credential');echo $arr['administration_usermanagement_addUser'];?>,
                 handler: function () {
-                	cf.AddUserWindow.init(1,''); // pop will be displayed to add new User
+                	cf.createUserWindow.init();
                 }
 		    },'-',
             {
@@ -64,7 +64,7 @@ cf.UserGrid = function(){return {
                 tooltip:'<?php echo __('Delete existing user',null,'usermanagement'); ?>',
                 disabled: <?php $arr = $sf_user->getAttribute('credential');echo $arr['administration_usermanagement_removeUser'];?>,
                 handler: function () {
-					cf.UserCRUD.deleteUser(); // calls Delete function to remove
+					alert('add LDAP user');
                 }
             },'->',
             {
@@ -177,7 +177,7 @@ cf.UserGrid = function(){return {
 					  c.getEl().on({
 						click: function(el){
 							if (c.disabled == false) {
-								cf.AddUserWindow.init(0,user_editid);
+								cf.editUserWindow.init(user_editid);
 							}
 						},
 					scope: c

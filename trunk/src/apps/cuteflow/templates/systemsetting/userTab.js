@@ -248,7 +248,18 @@ cf.userTab = function(){return {
 	   				}),
 	 				valueField:'id',
 					displayField:'text',
-					width:60				
+					width:60,
+					listeners: {
+						select: {
+							fn:function(combo, value) {
+								if (Ext.getCmp('userTab_emailformat_id').getValue() == 'plain' && Ext.getCmp('userTab_emailtype_id').getValue() == 'IFRAME') {
+									Ext.Msg.minWidth = 200;
+									Ext.MessageBox.alert('<?php echo __('Notice',null,'usermanagement'); ?>', '<?php echo __('Plain cannot be combined with IFrame',null,'usermanagement'); ?>');
+									Ext.getCmp('userTab_emailtype_id').setValue('VALUES');
+								}
+							}
+						}
+					}					
     			},{
     				xtype: 'panel',
     				html : '&nbsp;',

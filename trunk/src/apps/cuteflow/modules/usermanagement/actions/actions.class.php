@@ -33,14 +33,15 @@ class usermanagementActions extends sfActions {
 
         $anz = Doctrine_Query::create()
                 ->select('COUNT(*) AS anzahl')
-                ->from('User u')
+                ->from('UserLogin ul')
                 ->execute();
 
+        $limit = $this->getUser()->getAttribute('userSettings');
         $result = Doctrine_Query::create()
-                ->select('u.*')
-                ->from('User u')
-                ->orderby('u.id DESC')
-                ->limit($request->getParameter('limit',$this->getUser()->getAttribute('userSettings')->getDisplayeditem()))
+                ->select('ul.*')
+                ->from('UserLogin ul')
+                ->orderby('ul.id DESC')
+                ->limit($request->getParameter('limit',$limit['displayeditem']))
                 ->offset($request->getParameter('start',0))
                 ->execute();
 
@@ -66,30 +67,30 @@ class usermanagementActions extends sfActions {
 
         $query = new Doctrine_Query();
         $query->select('COUNT(*) AS anzahl')
-              ->from('User u');
+              ->from('UserLogin ul, UserData ud');
 
         if($request->getParameter('username')){
-            $query->andwhere('u.username LIKE ?','%'.$request->getParameter('username').'%');
+            $query->andwhere('ul.username LIKE ?','%'.$request->getParameter('username').'%');
         }
         if($request->getParameter('firstname')){
-            $query->andwhere('u.firstname LIKE ?','%'.$request->getParameter('firstname').'%');
+            $query->andwhere('ud.firstname LIKE ?','%'.$request->getParameter('firstname').'%');
         }
         if($request->getParameter('lastname')){
-            $query->andwhere('u.lastname LIKE ?','%'.$request->getParameter('lastname').'%');
+            $query->andwhere('ud.lastname LIKE ?','%'.$request->getParameter('lastname').'%');
         }
         if($request->getParameter('email')){
-            $query->andwhere('u.email LIKE ?','%'.$request->getParameter('email').'%');
+            $query->andwhere('ul.email LIKE ?','%'.$request->getParameter('email').'%');
         }
 
         if($request->getParameter('userrole')){
-            $query->andwhere('u.role_id = ?',$request->getParameter('userrole'));
+            $query->andwhere('ul.role_id = ?',$request->getParameter('userrole'));
         }
 
         $anz = $query->execute();
-        $result = $query->select('u.*')
-                        ->orderby('u.id DESC')
-                        ->limit($request->getParameter('limit',$this->getUser()
-                        ->getAttribute('userSettings')->getDisplayeditem()))
+        $limit = $this->getUser()->getAttribute('userSettings');
+        $result = $query->select('ul.*')
+                        ->orderby('ul.id DESC')
+                        ->limit($request->getParameter('limit',$limit['displayeditem']))
                         ->offset($request->getParameter('start',0))
                         ->execute();
 
@@ -174,7 +175,6 @@ class usermanagementActions extends sfActions {
             ->where('ua.user_id = ?', $request->getParameter('id'))
             ->orderBy('ua.position asc')
             ->execute();
-        
         $json_result = $usermanagement->builUserAgentGrid($result);
         $this->renderText('{"result":'.json_encode($json_result).'}');
         return sfView::NONE;
@@ -238,8 +238,55 @@ class usermanagementActions extends sfActions {
      *
      * @param sfWebRequest $request
      */
-    public function executeEditUser(sfWebRequest $request) {  
+    public function executeUpdateUser(sfWebRequest $request) {
+        $store = new UserCRUD();
+        $data = $request->getPostParameters();
+        $store->updateLoginDataTab($data, $request->getParameter('id')); // update first tab
+        $store->updateAdditionalDataTab($data, $request->getParameter('id'));
+        $store->updateGUISettingsTab($data, $request->getParameter('id'));
+        $store->updateUseragentSettings($data, $request->getParameter('id'));
         $this->renderText('{success:true}');
         return sfView::NONE;
     }
+
+
+    /**
+     * Create new user
+     * @param sfWebRequest $request
+     * @return <type>
+     */
+    public function executeSaveUser(sfWebRequest $request) {
+        $store = new UserCRUD();
+        $data = $request->getPostParameters();
+        $user_id = $store->saveLoginDataTab($data);
+        $store->updateAdditionalDataTab($data, $user_id);
+        $store->updateGUISettingsTab($data, $user_id);
+        $store->updateUseragentSettings($data, $user_id);
+
+        $this->renderText('{success:true}');
+        return sfView::NONE;
+    }
+
+
+    /**
+     * Load default system settings for creating new user.
+     * 
+     * @param sfWebRequest $request
+     * @return <type>
+     */
+    public function executeLoadDefaultData(sfWebRequest $request) {
+        $result = Doctrine_Query::create()
+            ->select('uc.*')
+            ->from('UserConfiguration uc')
+            ->fetchArray();
+        $this->renderText('{"result":'.json_encode($result[0]).'}');
+        return sfView::NONE;
+    }
+
+
+
+
+
+
+
 }
