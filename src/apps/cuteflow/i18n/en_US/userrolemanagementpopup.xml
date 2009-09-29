@@ -89,7 +89,11 @@
 	<trans-unit id="22">
         <source>additionaltext</source>
         <target>Additional Text</target>
-    </trans-unit> 	
+    </trans-unit>
+	<trans-unit id="23">
+        <source>changeUseragent</source>
+        <target>Manage Useragents</target>
+    </trans-unit>  	
 	</body>
   </file>
 </xliff>

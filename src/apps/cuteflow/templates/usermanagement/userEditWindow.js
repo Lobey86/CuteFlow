@@ -1,36 +1,34 @@
-cf.administration_myprofile = function(){return {
-	
+/**
+* Class opens new window, to add a new user or edit an exisiting user
+*/
+cf.editUserWindow = function(){return {
 	isInitialized 	                 : false,
 	theUserId						 : false,
-	theMyProfilePanel	  	         : false,
+	theEditUserWindow	  	         : false,
 	theTabPanel						 : false,
+	theFormPanel				     : false,
 
 	
-	init:function () {
-		if(cf.editUserWindow.isInitialized == false && cf.createUserWindow.isInitialized == false) {
-			this.theUserId = '<?php echo $sf_user->getAttribute('id')?>';
+	init:function (id) {
+		if(cf.administration_myprofile.isInitialized == false) {
+			this.theUserId = id;
 			cf.userFirstTab.init();
 			cf.userSecondTab.init(this.theUserId);
 			cf.userThirdTab.init();
 			cf.userFourthTab.init('<?php echo build_dynamic_javascript_url('myprofile/LoadUserCirculationColumns')?>/id/' + this.theUserId);
+			this.initFormPanel();
 			this.initTabPanel();
 			this.initWindow();
 			this.theTabPanel.add(cf.userFirstTab.thePanel);
 			this.theTabPanel.add(cf.userSecondTab.thePanel);
 			this.theTabPanel.add(cf.userThirdTab.thePanel);
 			this.theTabPanel.add(cf.userFourthTab.thePanel);
-			this.theMyProfilePanel.add(this.theTabPanel);
+			this.theFormPanel.add(this.theTabPanel);
+			this.theEditUserWindow.add(this.theFormPanel);
 			this.addData();
-			this.initUserRight();
 		}
-		
-
 	},
 	
-	initUserRight: function () {
-		cf.userSecondTab.thePanel.setDisabled(<?php $arr = $sf_user->getAttribute('credential');echo $arr['administration_myprofile_changeUseragent'];?>);
-		Ext.getCmp('userFirstTab_userrole_id').setDisabled(<?php $arr = $sf_user->getAttribute('credential');echo $arr['administration_myprofile_changeRole'];?>);
-	},
 	
 	initTabPanel: function () {
 		this.theTabPanel = new Ext.TabPanel({
@@ -38,9 +36,10 @@ cf.administration_myprofile = function(){return {
 			enableTabScroll:true,
 			border: false,
 			deferredRender:true,
+			frame: true,
 			layoutOnTabChange: true,
 			forceLayout : true,
-			style: 'margin-top:5px;',
+			plain: false,
 			closable:false
 		});	
 		
@@ -48,7 +47,7 @@ cf.administration_myprofile = function(){return {
 	
 	addData: function () {
 		Ext.Ajax.request({  
-			url : '<?php echo build_dynamic_javascript_url('usermanagement/LoadSingleUser')?>/id/' + cf.administration_myprofile.theUserId,
+			url : '<?php echo build_dynamic_javascript_url('usermanagement/LoadSingleUser')?>/id/' + cf.editUserWindow.theUserId,
 			success: function(objServerResponse){  
 				var data = Ext.util.JSON.decode(objServerResponse.responseText);
 				// first Tab
@@ -89,84 +88,72 @@ cf.administration_myprofile = function(){return {
 				Ext.getCmp('userFourthTab_markyellow').setValue(data.result.markyellow);
 				Ext.getCmp('userFourthTab_markorange').setValue(data.result.markorange);
 				Ext.getCmp('userFourthTab_markred').setValue(data.result.markred);
-			
-				cf.userSecondTab.theUserAgentStore.load();
-				cf.administration_myprofile.setRole.defer(1000, this, [data.result.role_id]);
 				
-				
+				cf.userFirstTab.thePanel.frame = true;
+				cf.userSecondTab.thePanel.frame = true;
+				cf.userThirdTab.thePanel.frame = true;
+				cf.userFourthTab.thePanel.frame = true;
+				cf.editUserWindow.theEditUserWindow.show();
+				cf.editUserWindow.setRole.defer(1000, this, [data.result.role_id]);
 			}
 		});
 	},
-	
 	setRole: function (value) {
 		Ext.getCmp('userFirstTab_userrole_id').setValue(value);
 	},
 	
+	initFormPanel: function () {
+		this.theFormPanel = new Ext.FormPanel({
+			frame:true       
+		});
+		
+	},
+	
 	initWindow: function () {
 		this.isInitialized = true;
-		this.theMyProfilePanel = new Ext.FormPanel({
+		this.theEditUserWindow = new Ext.Window({
 			modal: true,
 			closable: true,
 			modal: true,
-			layout: 'fit',
-			autoScroll: false,
-			title: '<?php echo __('Profile Settings',null,'myprofile'); ?>',
+			height: 800,
+			width: 900,
+			autoScroll: true,
 			shadow: false,
 			minimizable: false,
 			draggable: false,
-			border: true,
 			resizable: false,
-	        plain: false,
+	        plain: true,
+			title: '<?php echo __('Create new User',null,'usermanagement'); ?>',
 	        buttonAlign: 'center',
 			buttons:[{
 				text:'<?php echo __('Store',null,'myprofile'); ?>', 
 				icon: '/images/icons/accept.png',
 				handler: function () {
 					if(Ext.getCmp('userFirstTab_password').getValue() == Ext.getCmp('userFirstTab_passwordagain').getValue()) {
-						cf.updateUser.initSave(cf.administration_myprofile.theMyProfilePanel,cf.administration_myprofile.theUserId);
-						cf.administration_myprofile.isInitialized = false;
+						cf.updateUser.initSave(cf.editUserWindow.theFormPanel,cf.editUserWindow.theUserId);
 					}
 					else {
-						Ext.MessageBox.alert('<?php echo __('Error',null,'myprofile'); ?>', '<?php echo __('Passwords not equal',null,'systemsetting'); ?>');
-						cf.administration_myprofile.theTabPanel.setActiveTab(0);
+						Ext.MessageBox.alert('<?php echo __('Error',null,'usermanagement'); ?>', '<?php echo __('Passwords not equal',null,'usermanagement'); ?>');
+						cf.editUserWindow.theTabPanel.setActiveTab(0);
 					}
 				}
 			},{
-				text:'<?php echo __('Close',null,'myprofile'); ?>', 
+				text:'<?php echo __('Close',null,'usermanagement'); ?>', 
 				icon: '/images/icons/cancel.png',
-				handler: function () {
-					var activeTab = cf.TabPanel.theTabPanel.getActiveTab();
-					cf.TabPanel.theTabPanel.remove(activeTab);
-					cf.administration_myprofile.isInitialized = false;
-					cf.administration_myprofile.theMyProfilePanel.hide();
-					cf.administration_myprofile.theMyProfilePanel.destroy();
+				handler: function () {	
+					cf.editUserWindow.isInitialized = false;
+					cf.editUserWindow.theEditUserWindow.hide();
+					cf.editUserWindow.theEditUserWindow.destroy();
 				}
 			}]
 		});
-		this.theMyProfilePanel.on('close', function() {
-				cf.administration_myprofile.isInitialized = false;
-				cf.administration_myprofile.theMyProfilePanel.hide();
-				cf.administration_myprofile.theMyProfilePanel.destroy();
+		this.theEditUserWindow.on('close', function() {
+			cf.editUserWindow.isInitialized = false;	
+			cf.editUserWindow.theEditUserWindow.hide();
+			cf.editUserWindow.theEditUserWindow.destroy();		
 		});
-	},
-
-	/** 
-	 * Part of the API
-	 * set value if class is already initialized. 
-	 * @param boolean value
-	 *
-	 **/
-	setInitialized: function (value) {
-		this.isInitialized = value;
-	},
-	
-	/**
-	* Part of the API
-	* This function returns the window, to add it into tabpanel
-	*
-	*/
-	getInstance: function() {
-		return this.theMyProfilePanel;
 	}
+	
+	
 	
 };}();

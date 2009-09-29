@@ -19,9 +19,13 @@ class layoutActions extends sfActions {
          // Loads Userrights to session
         $loginObject = new Login();
         // stores usersettings to session
-        $userSettings = Doctrine::getTable('UserSetting')->find($this->getUser()->getAttribute('id'));
+        $userSettings = Doctrine_Query::create()
+                        ->select('us.*')
+                        ->from('UserSetting us')
+                        ->where('us.user_id = ?',$this->getUser()->getAttribute('id'))
+                        ->fetchArray();
         //$userData = $loginObject->loadUserData();
-        $this->getUser()->setAttribute('userSettings', $userSettings);
+        $this->getUser()->setAttribute('userSettings', $userSettings[0]);
 
 
      

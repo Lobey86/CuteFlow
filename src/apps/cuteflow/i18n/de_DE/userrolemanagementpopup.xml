@@ -90,6 +90,10 @@
         <source>additionaltext</source>
         <target>Einleitender Text</target>
     </trans-unit>  	
+	<trans-unit id="23">
+        <source>changeUseragent</source>
+        <target>Stellvertreter verwalten</target>
+    </trans-unit> 
 	</body>
   </file>
 </xliff>
