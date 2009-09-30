@@ -104,8 +104,7 @@ cf.editUserWindow = function(){return {
 					cf.userFourthTab.thePanel.frame = true;
 					cf.editUserWindow.theEditUserWindow.show();
 					cf.userSecondTab.theUserAgentStore.load();
-					cf.editUserWindow.setRole.defer(1000, this, [data.result.role_id]);
-					cf.editUserWindow.theLoadingMask.hide();
+					cf.editUserWindow.setRole.defer(1000, this, [data.result.role_id]);					
 				}
 				catch(e) {
 					
@@ -115,6 +114,7 @@ cf.editUserWindow = function(){return {
 	},
 	setRole: function (value) {
 		Ext.getCmp('userFirstTab_userrole_id').setValue(value);
+		cf.editUserWindow.theLoadingMask.hide();
 	},
 	
 	initFormPanel: function () {

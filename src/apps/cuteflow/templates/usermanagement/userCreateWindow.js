@@ -88,7 +88,6 @@ cf.createUserWindow = function(){return {
 					cf.userFourthTab.thePanel.frame = true;
 					cf.createUserWindow.theAddUserWindow.show();
 					cf.createUserWindow.setRole.defer(1000, this, [data.result.role_id]);
-					cf.createUserWindow.theLoadingMask.hide();
 				}
 				catch(e) {
 					
@@ -98,6 +97,7 @@ cf.createUserWindow = function(){return {
 	},
 	setRole: function (value) {
 		Ext.getCmp('userFirstTab_userrole_id').setValue(value);
+		cf.createUserWindow.theLoadingMask.hide();
 	},
 	
 	initFormPanel: function () {
