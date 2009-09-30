@@ -4,10 +4,14 @@ cf.administration_myprofile = function(){return {
 	theUserId						 : false,
 	theMyProfilePanel	  	         : false,
 	theTabPanel						 : false,
+	theUserGridMask					 : false,
 
 	
 	init:function () {
 		if(cf.editUserWindow.isInitialized == false && cf.createUserWindow.isInitialized == false) {
+			cf.administration_myprofile.theUserGridMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loadin Data...',null,'usermanagement'); ?>'});
+			cf.administration_myprofile.theUserGridMask.show();
+			
 			this.theUserId = '<?php echo $sf_user->getAttribute('id')?>';
 			cf.userFirstTab.init();
 			cf.userSecondTab.init(this.theUserId);
@@ -96,6 +100,7 @@ cf.administration_myprofile = function(){return {
 				
 					cf.userSecondTab.theUserAgentStore.load();
 					cf.administration_myprofile.setRole.defer(1000, this, [data.result.role_id]);
+					cf.administration_myprofile.theUserGridMask.hide();
 				}
 				catch(e) {
 					

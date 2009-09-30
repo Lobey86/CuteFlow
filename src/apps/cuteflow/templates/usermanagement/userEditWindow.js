@@ -7,10 +7,14 @@ cf.editUserWindow = function(){return {
 	theEditUserWindow	  	         : false,
 	theTabPanel						 : false,
 	theFormPanel				     : false,
+	theLoadingMask					 : false,
 
 	
 	init:function (id) {
 		if(cf.administration_myprofile.isInitialized == false) {
+			this.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loadin Data...',null,'usermanagement'); ?>'});					
+			this.theLoadingMask.show();
+			
 			this.theUserId = id;
 			cf.userFirstTab.init();
 			cf.userSecondTab.init(this.theUserId);
@@ -101,6 +105,7 @@ cf.editUserWindow = function(){return {
 					cf.editUserWindow.theEditUserWindow.show();
 					cf.userSecondTab.theUserAgentStore.load();
 					cf.editUserWindow.setRole.defer(1000, this, [data.result.role_id]);
+					cf.editUserWindow.theLoadingMask.hide();
 				}
 				catch(e) {
 					
@@ -126,7 +131,7 @@ cf.editUserWindow = function(){return {
 			closable: true,
 			modal: true,
 			height: 800,
-			width: 900,
+			width: 680,
 			autoScroll: true,
 			shadow: false,
 			minimizable: false,

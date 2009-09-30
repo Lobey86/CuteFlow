@@ -7,10 +7,14 @@ cf.createUserWindow = function(){return {
 	theAddUserWindow	  	         : false,
 	theTabPanel						 : false,
 	theFormPanel				     : false,
+	theLoadingMask					 : false,
 
 	
 	init:function () {
 		if(cf.administration_myprofile.isInitialized == false) {
+			this.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loadin Data...',null,'usermanagement'); ?>'});					
+			this.theLoadingMask.show();
+			
 			this.theUserId = '';
 			cf.userFirstTab.init();
 			cf.userSecondTab.init(this.theUserId);
@@ -84,6 +88,7 @@ cf.createUserWindow = function(){return {
 					cf.userFourthTab.thePanel.frame = true;
 					cf.createUserWindow.theAddUserWindow.show();
 					cf.createUserWindow.setRole.defer(1000, this, [data.result.role_id]);
+					cf.createUserWindow.theLoadingMask.hide();
 				}
 				catch(e) {
 					
@@ -109,7 +114,7 @@ cf.createUserWindow = function(){return {
 			closable: true,
 			modal: true,
 			height: 800,
-			width: 900,
+			width: 680,
 			autoScroll: true,
 			shadow: false,
 			minimizable: false,
