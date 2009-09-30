@@ -111,6 +111,17 @@ cf.userFirstTab = function(){return {
 				
 				}]
 		});
+		if (Ext.isIE6 == true) {
+			
+		}
+		else if(Ext.isOpera == true || Ext.isSafari == true) {
+		}
+		else if (Ext.isIE7 == true) {
+			Ext.getCmp('userFirstTab_userrole_id').style = 'margin-top:0px;margin-bottom:1px;';
+		}
+
+		
+		
 	},
 	
 	initEmailformat:function () {
@@ -204,6 +215,8 @@ cf.userFirstTab = function(){return {
 		else if(Ext.isOpera == true || Ext.isSafari == true) {
 		}
 		else if (Ext.isIE7 == true) {
+			Ext.getCmp('userFirstTab_emailformat_id').style = 'margin-top:0px;margin-bottom:1px;';
+			Ext.getCmp('userFirstTab_emailtype_id').style = 'margin-top:0px;margin-bottom:1px;';
 		}
 	},
 	

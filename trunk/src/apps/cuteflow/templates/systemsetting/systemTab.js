@@ -134,6 +134,7 @@ cf.systemTab = function(){return {
 		Ext.getCmp('systemsetting_sendreceivermail').setValue(data.sendreceivermail);
 		Ext.getCmp('systemsetting_sendremindermail').setValue(data.sendremindermail);
 		Ext.getCmp('systemsetting_slotvisible_id').setValue(data.visibleslots);
+		
 		if (Ext.isIE7 == true) {
 			Ext.getCmp('systemsetting_language_id').style = 'margin-top:0px;margin-bottom:1px;';
 			Ext.getCmp('systemsetting_slotvisible_id').style = 'margin-top:0px;margin-bottom:1px;';

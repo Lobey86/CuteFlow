@@ -27,6 +27,10 @@ cf.createUserWindow = function(){return {
 			this.theAddUserWindow.add(this.theFormPanel);
 			this.addData();
 		}
+		else {
+			Ext.Msg.minWidth = 200;
+			Ext.MessageBox.alert('<?php echo __('Error',null,'usermanagement'); ?>', '<?php echo __('Profile changes and editing/creating user at same time is not supported',null,'usermanagement'); ?>');
+		}
 	},
 	
 	
@@ -49,36 +53,41 @@ cf.createUserWindow = function(){return {
 		Ext.Ajax.request({  
 			url : '<?php echo build_dynamic_javascript_url('usermanagement/LoadDefaultData')?>',
 			success: function(objServerResponse){  
-				var data = Ext.util.JSON.decode(objServerResponse.responseText);
-				// first Tab
-				Ext.getCmp('userFirstTab_username').setValue(data.result.username);
-				Ext.getCmp('userFirstTab_password').setValue(data.result.password);
-				Ext.getCmp('userFirstTab_passwordagain').setValue(data.result.password);
-				
-				Ext.getCmp('userFirstTab_emailformat_id').setValue(data.result.emailformat);
-				Ext.getCmp('userFirstTab_emailtype_id').setValue(data.result.emailtype);
-				
-				
-				// second Tab, load Grid here
-				Ext.getCmp('userSecondTab_durationlength').setValue(data.result.durationlength);
-				Ext.getCmp('userSecondTab_durationlength_type_id').setValue(data.result.durationtype);
-
-				// fourth tab
-				Ext.getCmp('userFourthTab_itemsperpage_id').setValue(data.result.displayeditem);
-				Ext.getCmp('userFourthTab_refreshtime_id').setValue(data.result.refreshtime);
-				Ext.getCmp('userFourthTab_circulationdefaultsortcolumn_id').setValue(data.result.circulationdefaultsortcolumn);
-				Ext.getCmp('userFourthTab_circulationdefaultsortdirection_id').setValue(data.result.circulationdefaultsortdirection);
-				Ext.getCmp('userFourthTab_showinpopup').setValue(data.result.showcirculationinpopup);
-				Ext.getCmp('userFourthTab_markyellow').setValue(data.result.markyellow);
-				Ext.getCmp('userFourthTab_markorange').setValue(data.result.markorange);
-				Ext.getCmp('userFourthTab_markred').setValue(data.result.markred);
-				
-				cf.userFirstTab.thePanel.frame = true;
-				cf.userSecondTab.thePanel.frame = true;
-				cf.userThirdTab.thePanel.frame = true;
-				cf.userFourthTab.thePanel.frame = true;
-				cf.createUserWindow.theAddUserWindow.show();
-				cf.createUserWindow.setRole.defer(1000, this, [data.result.role_id]);
+				try {
+					var data = Ext.util.JSON.decode(objServerResponse.responseText);
+					// first Tab
+					Ext.getCmp('userFirstTab_username').setValue(data.result.username);
+					Ext.getCmp('userFirstTab_password').setValue(data.result.password);
+					Ext.getCmp('userFirstTab_passwordagain').setValue(data.result.password);
+					
+					Ext.getCmp('userFirstTab_emailformat_id').setValue(data.result.emailformat);
+					Ext.getCmp('userFirstTab_emailtype_id').setValue(data.result.emailtype);
+					
+					
+					// second Tab, load Grid here
+					Ext.getCmp('userSecondTab_durationlength').setValue(data.result.durationlength);
+					Ext.getCmp('userSecondTab_durationlength_type_id').setValue(data.result.durationtype);
+	
+					// fourth tab
+					Ext.getCmp('userFourthTab_itemsperpage_id').setValue(data.result.displayeditem);
+					Ext.getCmp('userFourthTab_refreshtime_id').setValue(data.result.refreshtime);
+					Ext.getCmp('userFourthTab_circulationdefaultsortcolumn_id').setValue(data.result.circulationdefaultsortcolumn);
+					Ext.getCmp('userFourthTab_circulationdefaultsortdirection_id').setValue(data.result.circulationdefaultsortdirection);
+					Ext.getCmp('userFourthTab_showinpopup').setValue(data.result.showcirculationinpopup);
+					Ext.getCmp('userFourthTab_markyellow').setValue(data.result.markyellow);
+					Ext.getCmp('userFourthTab_markorange').setValue(data.result.markorange);
+					Ext.getCmp('userFourthTab_markred').setValue(data.result.markred);
+					
+					cf.userFirstTab.thePanel.frame = true;
+					cf.userSecondTab.thePanel.frame = true;
+					cf.userThirdTab.thePanel.frame = true;
+					cf.userFourthTab.thePanel.frame = true;
+					cf.createUserWindow.theAddUserWindow.show();
+					cf.createUserWindow.setRole.defer(1000, this, [data.result.role_id]);
+				}
+				catch(e) {
+					
+				}
 			}
 		});
 	},

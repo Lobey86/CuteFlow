@@ -27,9 +27,9 @@ cf.saveUser = function(){return {
 			var hiddenfield = new Ext.form.Field({
 				autoCreate : {tag:'input', type: 'hidden', name: 'useragents[]', value:row.data.user_id, width: 0}			
 			});
-			cf.updateUser.theHiddenPanel.add(hiddenfield);
+			cf.saveUser.theHiddenPanel.add(hiddenfield);
 		}
-		theFormpanel.add(cf.updateUser.theHiddenPanel);
+		theFormpanel.add(cf.saveUser.theHiddenPanel);
 		theFormpanel.doLayout();
 	},
 	
@@ -44,9 +44,9 @@ cf.saveUser = function(){return {
 						method: 'POST',
 						success: function(objServerResponse){
 							try {
-								Ext.destroy.apply(Ext, cf.updateUser.theHiddenPanel.items.items);
-								cf.updateUser.theHiddenPanel.items.clear();
-								cf.updateUser.theHiddenPanel.body.update('');
+								Ext.destroy.apply(Ext, cf.saveUser.theHiddenPanel.items.items);
+								cf.saveUser.theHiddenPanel.items.clear();
+								cf.saveUser.theHiddenPanel.body.update('');
 							}
 							catch(e) {}
 							Ext.Msg.minWidth = 200;

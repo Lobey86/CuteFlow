@@ -87,7 +87,7 @@ cf.menueSettingModuleGrid = function(){return {
 		this.theModuleCM  =  new Ext.grid.ColumnModel([
 			{header: "#", width: 50, sortable: false, dataIndex: '#', css : "text-align : left;font-size:12px;align:center;"},
 			{header: "<?php echo __('Menue entry',null,'menuesetting'); ?>", width: 410, sortable: false, dataIndex: 'group', css : "text-align : left;font-size:12px;align:center;"},
-			{header: "<div ext:qtip=\"<table><tr><td><img src='/images/icons/pencil.png' />&nbsp;&nbsp;</td><td><?php echo __('Change item order',null,'menuesetting'); ?></td></tr></table>\" ext:qwidth=\"200\"><?php echo __('Action',null,'menuesetting'); ?></div>", width: 60, sortable: false, dataIndex: 'module', css : "text-align : left;font-size:12px;align:center;", renderer: cf.menueSettingModuleGrid.editButtonRenderer}
+			{header: "<div ext:qtip=\"<table><tr><td><img src='/images/icons/layout_edit.png' />&nbsp;&nbsp;</td><td><?php echo __('Change item order',null,'menuesetting'); ?></td></tr></table>\" ext:qwidth=\"200\"><?php echo __('Action',null,'menuesetting'); ?></div>", width: 60, sortable: false, dataIndex: 'module', css : "text-align : left;font-size:12px;align:center;", renderer: cf.menueSettingModuleGrid.editButtonRenderer}
 		]);
 		
 	}, 
@@ -115,7 +115,7 @@ cf.menueSettingModuleGrid = function(){return {
 	createButton: function (id) {
 		var btn_edit = new Ext.form.Label({
 			renderTo: 'menuesetting_groupbutton' + id,
-			html: '<span style="cursor:pointer;"><img src="/images/icons/pencil.png" /></span>',
+			html: '<span style="cursor:pointer;"><img src="/images/icons/layout_edit.png" /></span>',
 			listeners: {
 				render: function(c){
 					  c.getEl().on({
