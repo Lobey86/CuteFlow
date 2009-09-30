@@ -48,7 +48,7 @@ cf.UserRoleGrid = function(){return {
 			{header: "#", width: 50, sortable: true, dataIndex: '#', css : "text-align : left;font-size:12px;align:center;"},
 			{header: "<?php echo __('Role description',null,'userrolemanagement'); ?>", width: 220, sortable: false, dataIndex: 'description', css : "text-align : left;font-size:12px;align:center;"},
 			{header: "<?php echo __('currently used by',null,'userrolemanagement'); ?>", width: 150, sortable: false, dataIndex: 'users', css : "text-align:center;font-size:12px;align:center;"},
-			{header: "<div ext:qtip=\"<table><tr><td><img src='/images/icons/pencil.png' />&nbsp;&nbsp;</td><td><?php echo __('Edit record',null,'userrolemanagement'); ?></td></tr><tr><td><img src='/images/icons/delete.png' />&nbsp;&nbsp;</td><td><?php echo __('Remove record',null,'userrolemanagement'); ?></td></tr></table>\" ext:qwidth=\"200\"><?php echo __('Action',null,'userrolemanagement'); ?></div>", width: 80, sortable: false, dataIndex: 'action', css : "text-align : left;font-size:12px;align:center;" ,renderer: this.renderAction }
+			{header: "<div ext:qtip=\"<table><tr><td><img src='/images/icons/cog_edit.png' />&nbsp;&nbsp;</td><td><?php echo __('Edit record',null,'userrolemanagement'); ?></td></tr><tr><td><img src='/images/icons/cog_delete.png' />&nbsp;&nbsp;</td><td><?php echo __('Remove record',null,'userrolemanagement'); ?></td></tr></table>\" ext:qwidth=\"200\"><?php echo __('Action',null,'userrolemanagement'); ?></div>", width: 80, sortable: false, dataIndex: 'action', css : "text-align : left;font-size:12px;align:center;" ,renderer: this.renderAction }
 		]);
 
 		
@@ -96,7 +96,7 @@ cf.UserRoleGrid = function(){return {
 	createButtons: function (id) {
 		var btn_delete = new Ext.form.Label(  {
 			renderTo: 'role_del_' + id,
-			html: '<span style="cursor:pointer;"><img src="/images/icons/delete.png" /></span>',
+			html: '<span style="cursor:pointer;"><img src="/images/icons/cog_delete.png" /></span>',
 			listeners: {
 				render: function(c){
 					c.getEl().on({
@@ -111,7 +111,7 @@ cf.UserRoleGrid = function(){return {
 		
 		var btn_edit = new Ext.form.Label(  {
 			renderTo: 'role_edit_' + id,
-			html: '<span style="cursor:pointer;"><img src="/images/icons/pencil.png" /></span>',
+			html: '<span style="cursor:pointer;"><img src="/images/icons/cog_edit.png" /></span>',
 			listeners: {
 				render: function(c){
 					c.getEl().on({
@@ -131,8 +131,6 @@ cf.UserRoleGrid = function(){return {
 	renderAction: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 		cf.UserRoleGrid.createButtons.defer(500, this, [record.data['id']]);
 		return '<center><table><tr><td width="16"><div id="role_edit_'+ record.data['id'] +'"></div></td><td><div style="float:left;" id="role_del_'+ record.data['id'] +'"></div></td></tr></table></center>'
-
-		
 	}
 
 };}();

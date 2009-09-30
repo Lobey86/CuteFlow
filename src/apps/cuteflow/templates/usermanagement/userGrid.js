@@ -60,8 +60,8 @@ cf.UserGrid = function(){return {
                 }
 		    },'-',
             {
-				icon: '/images/icons/user_delete.png',
-                tooltip:'<?php echo __('Delete existing user',null,'usermanagement'); ?>',
+				icon: '/images/icons/group_key.png',
+                tooltip:'<?php echo __('Add LDAP User',null,'usermanagement'); ?>',
                 disabled: <?php $arr = $sf_user->getAttribute('credential');echo $arr['administration_usermanagement_removeUser'];?>,
                 handler: function () {
 					alert('add LDAP user');
@@ -85,10 +85,8 @@ cf.UserGrid = function(){return {
 				listeners: {
 		    		select: {
 		    			fn:function(combo, value) {
-
 		    				cf.UserGrid.theGridBottomToolbar.pageSize = combo.getValue();
 		    				cf.UserGrid.theUserStore.load({params:{start: 0, limit: combo.getValue()}});
-		    				
 		    			}
 		    		}
 		    	}
@@ -128,7 +126,7 @@ cf.UserGrid = function(){return {
 			{header: "<?php echo __('Email',null,'usermanagement'); ?>", width: 150, sortable: false, dataIndex: 'email', css : "text-align : left;font-size:12px;align:center;"},
 			{header: "<?php echo __('Username',null,'usermanagement'); ?>", width: 150, sortable: false, dataIndex: 'username', css : "text-align : left;font-size:12px;align:center;"},
 			{header: "<?php echo __('Userrole',null,'usermanagement'); ?>", width: 150, sortable: false, dataIndex: 'role_description', css : "text-align : left;font-size:12px;align:center;"},
-			{header: "<div ext:qtip=\"<table><tr><td><img src='/images/icons/pencil.png' />&nbsp;&nbsp;</td><td><?php echo __('Edit user',null,'usermanagement'); ?></td></tr></table>\" ext:qwidth=\"200\"><?php echo __('Action',null,'usermanagement'); ?></div>",  width: 80, sortable: false, dataIndex: 'action', css : "text-align :center; font-size:12px;", renderer: cf.UserGrid.renderAction}
+			{header: "<div ext:qtip=\"<table><tr><td><img src='/images/icons/user_edit.png' />&nbsp;&nbsp;</td><td><?php echo __('Edit user',null,'usermanagement'); ?></td></tr><tr><td><img src='/images/icons/user_delete.png' />&nbsp;&nbsp;</td><td><?php echo __('Delete user',null,'usermanagement'); ?></td></tr></table>\" ext:qwidth=\"200\"><?php echo __('Action',null,'usermanagement'); ?></div>",  width: 80, sortable: false, dataIndex: 'action', css : "text-align :center; font-size:12px;", renderer: cf.UserGrid.renderAction}
 		]);
 		
      },
@@ -157,21 +155,21 @@ cf.UserGrid = function(){return {
 	/** Function to render "Edit Button" into datagrid **/
 	renderAction: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 		var action = record.data['action'];
-		cf.UserGrid.createButton.defer(500,this, [record.data['action']]);
-		return '<center><table><tr><td><div id="user_edit'+ record.data['id'] +'"></div></td></tr></table></center>';
+		cf.UserGrid.createAddButton.defer(500,this, [record.data['action']]);
+		cf.UserGrid.createDeleteButton.defer(500,this, [record.data['action']]);
+		return '<center><table><tr><td width="16"><div id="user_edit'+ record.data['id'] +'"></div></td><td width="16"><div id="user_delete'+ record.data['id'] +'"></div></td></tr></table></center>';
 	},
 	
 	
 	/**
-	* Function loads a label that includes an image into grid.
-	* Problem is, that a button has ugly borders, a label not.
+	* Function loads a label that includes an image into grid. Builds edit button
 	* @param int id, ID of the current record
 	*/
-	createButton:function (user_editid) {
+	createAddButton:function (user_editid) {
 		var btn_edit = new Ext.form.Label({
 			renderTo: 'user_edit' + user_editid,
 			disabled: <?php $arr = $sf_user->getAttribute('credential');echo $arr['administration_usermanagement_editUser'];?>,
-			html: '<span style="cursor:pointer;"><img src="/images/icons/pencil.png" /></span>',
+			html: '<span style="cursor:pointer;"><img src="/images/icons/user_edit.png" /></span>',
 			listeners: {
 				render: function(c){
 					  c.getEl().on({
@@ -185,6 +183,54 @@ cf.UserGrid = function(){return {
 				}
 			}
 		});
+		
+	},
+		/**
+	* Function loads a label that includes an image into grid. Builds delete button
+	* @param int id, ID of the current record
+	*/
+	createDeleteButton:function (user_id) {
+		var btn_edit = new Ext.form.Label({
+			renderTo: 'user_delete' + user_id,
+			disabled: <?php $arr = $sf_user->getAttribute('credential');echo $arr['administration_usermanagement_removeUser'];?>,
+			html: '<span style="cursor:pointer;"><img src="/images/icons/user_delete.png" /></span>',
+			listeners: {
+				render: function(c){
+					  c.getEl().on({
+						click: function(el){
+							if (c.disabled == false) {
+								cf.UserGrid.deleteUser(user_id);
+							}
+						},
+					scope: c
+				});
+				}
+			}
+		});
+		
+	},
+	/**
+	* Function deletes User
+	*
+	*@param int user_id, user to delete
+	*/
+	
+	deleteUser: function (user_id) {
+		if (user_id != <?php echo $sf_user->getAttribute('id'); ?>) {
+			Ext.Ajax.request({  
+				url : '<?php echo build_dynamic_javascript_url('usermanagement/DeleteUser')?>/id/' + user_id,
+				success: function(objServerResponse){ 
+					cf.UserGrid.theUserStore.reload();
+					Ext.Msg.minWidth = 200;
+					Ext.MessageBox.alert('<?php echo __('OK',null,'usermanagement'); ?>', '<?php echo __('User deleted',null,'usermanagement'); ?>');
+				}
+			});
+		}
+		else {
+			Ext.Msg.minWidth = 200;
+			Ext.MessageBox.alert('<?php echo __('Error',null,'usermanagement'); ?>', '<?php echo __('Own profile cannot be deleted',null,'usermanagement'); ?>');
+		}
+		
 		
 	}
 

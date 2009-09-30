@@ -27,6 +27,10 @@ cf.editUserWindow = function(){return {
 			this.theEditUserWindow.add(this.theFormPanel);
 			this.addData();
 		}
+		else {
+			Ext.Msg.minWidth = 200;
+			Ext.MessageBox.alert('<?php echo __('Error',null,'usermanagement'); ?>', '<?php echo __('Profile changes and editing/creating user at same time is not supported',null,'usermanagement'); ?>');
+		}
 	},
 	
 	
@@ -49,52 +53,58 @@ cf.editUserWindow = function(){return {
 		Ext.Ajax.request({  
 			url : '<?php echo build_dynamic_javascript_url('usermanagement/LoadSingleUser')?>/id/' + cf.editUserWindow.theUserId,
 			success: function(objServerResponse){  
-				var data = Ext.util.JSON.decode(objServerResponse.responseText);
-				// first Tab
-				Ext.getCmp('userFirstTab_firstname').setValue(data.result.firstname);
-				Ext.getCmp('userFirstTab_lastname').setValue(data.result.lastname);
-				Ext.getCmp('userFirstTab_email').setValue(data.result.email);
-				Ext.getCmp('userFirstTab_username').setValue(data.result.username);
-				Ext.getCmp('userFirstTab_username').setDisabled(true);
-				Ext.getCmp('userFirstTab_password').setValue(data.result.password);
-				Ext.getCmp('userFirstTab_passwordagain').setValue(data.result.password);
-				Ext.getCmp('userFirstTab_emailformat_id').setValue(data.result.emailformat);
-				Ext.getCmp('userFirstTab_emailtype_id').setValue(data.result.emailtype);
-				
-				
-				// second Tab, load Grid here
-				Ext.getCmp('userSecondTab_durationlength').setValue(data.result.durationlength);
-				Ext.getCmp('userSecondTab_durationlength_type_id').setValue(data.result.durationtype);
-				
-				// third tab
-				Ext.getCmp('userThirdTab_street').setValue(data.result.street);
-				Ext.getCmp('userThirdTab_zip').setValue(data.result.zip);
-				Ext.getCmp('userThirdTab_city').setValue(data.result.city);
-				Ext.getCmp('userThirdTab_country').setValue(data.result.country);
-				Ext.getCmp('userThirdTab_phone1').setValue(data.result.phone1);
-				Ext.getCmp('userThirdTab_phone2').setValue(data.result.phone1);
-				Ext.getCmp('userThirdTab_mobil').setValue(data.result.mobil);
-				Ext.getCmp('userThirdTab_fax').setValue(data.result.fax);
-				Ext.getCmp('userThirdTab_organisation').setValue(data.result.organisation);
-				Ext.getCmp('userThirdTab_department').setValue(data.result.department);
-				Ext.getCmp('userThirdTab_burdencenter').setValue(data.result.burdencenter);
-				Ext.getCmp('userThirdTab_comment').setValue(data.result.comment);
-				// fourth tab
-				Ext.getCmp('userFourthTab_itemsperpage_id').setValue(data.result.displayeditem);
-				Ext.getCmp('userFourthTab_refreshtime_id').setValue(data.result.refreshtime);
-				Ext.getCmp('userFourthTab_circulationdefaultsortcolumn_id').setValue(data.result.circulationdefaultsortcolumn);
-				Ext.getCmp('userFourthTab_circulationdefaultsortdirection_id').setValue(data.result.circulationdefaultsortdirection);
-				Ext.getCmp('userFourthTab_showinpopup').setValue(data.result.showcirculationinpopup);
-				Ext.getCmp('userFourthTab_markyellow').setValue(data.result.markyellow);
-				Ext.getCmp('userFourthTab_markorange').setValue(data.result.markorange);
-				Ext.getCmp('userFourthTab_markred').setValue(data.result.markred);
-				
-				cf.userFirstTab.thePanel.frame = true;
-				cf.userSecondTab.thePanel.frame = true;
-				cf.userThirdTab.thePanel.frame = true;
-				cf.userFourthTab.thePanel.frame = true;
-				cf.editUserWindow.theEditUserWindow.show();
-				cf.editUserWindow.setRole.defer(1000, this, [data.result.role_id]);
+				try {
+					var data = Ext.util.JSON.decode(objServerResponse.responseText);
+					// first Tab
+					Ext.getCmp('userFirstTab_firstname').setValue(data.result.firstname);
+					Ext.getCmp('userFirstTab_lastname').setValue(data.result.lastname);
+					Ext.getCmp('userFirstTab_email').setValue(data.result.email);
+					Ext.getCmp('userFirstTab_username').setValue(data.result.username);
+					Ext.getCmp('userFirstTab_username').setDisabled(true);
+					Ext.getCmp('userFirstTab_password').setValue(data.result.password);
+					Ext.getCmp('userFirstTab_passwordagain').setValue(data.result.password);
+					Ext.getCmp('userFirstTab_emailformat_id').setValue(data.result.emailformat);
+					Ext.getCmp('userFirstTab_emailtype_id').setValue(data.result.emailtype);
+					
+					
+					// second Tab, load Grid here
+					Ext.getCmp('userSecondTab_durationlength').setValue(data.result.durationlength);
+					Ext.getCmp('userSecondTab_durationlength_type_id').setValue(data.result.durationtype);
+					
+					// third tab
+					Ext.getCmp('userThirdTab_street').setValue(data.result.street);
+					Ext.getCmp('userThirdTab_zip').setValue(data.result.zip);
+					Ext.getCmp('userThirdTab_city').setValue(data.result.city);
+					Ext.getCmp('userThirdTab_country').setValue(data.result.country);
+					Ext.getCmp('userThirdTab_phone1').setValue(data.result.phone1);
+					Ext.getCmp('userThirdTab_phone2').setValue(data.result.phone1);
+					Ext.getCmp('userThirdTab_mobil').setValue(data.result.mobil);
+					Ext.getCmp('userThirdTab_fax').setValue(data.result.fax);
+					Ext.getCmp('userThirdTab_organisation').setValue(data.result.organisation);
+					Ext.getCmp('userThirdTab_department').setValue(data.result.department);
+					Ext.getCmp('userThirdTab_burdencenter').setValue(data.result.burdencenter);
+					Ext.getCmp('userThirdTab_comment').setValue(data.result.comment);
+					// fourth tab
+					Ext.getCmp('userFourthTab_itemsperpage_id').setValue(data.result.displayeditem);
+					Ext.getCmp('userFourthTab_refreshtime_id').setValue(data.result.refreshtime);
+					Ext.getCmp('userFourthTab_circulationdefaultsortcolumn_id').setValue(data.result.circulationdefaultsortcolumn);
+					Ext.getCmp('userFourthTab_circulationdefaultsortdirection_id').setValue(data.result.circulationdefaultsortdirection);
+					Ext.getCmp('userFourthTab_showinpopup').setValue(data.result.showcirculationinpopup);
+					Ext.getCmp('userFourthTab_markyellow').setValue(data.result.markyellow);
+					Ext.getCmp('userFourthTab_markorange').setValue(data.result.markorange);
+					Ext.getCmp('userFourthTab_markred').setValue(data.result.markred);
+					
+					cf.userFirstTab.thePanel.frame = true;
+					cf.userSecondTab.thePanel.frame = true;
+					cf.userThirdTab.thePanel.frame = true;
+					cf.userFourthTab.thePanel.frame = true;
+					cf.editUserWindow.theEditUserWindow.show();
+					cf.userSecondTab.theUserAgentStore.load();
+					cf.editUserWindow.setRole.defer(1000, this, [data.result.role_id]);
+				}
+				catch(e) {
+					
+				}
 			}
 		});
 	},
@@ -123,7 +133,7 @@ cf.editUserWindow = function(){return {
 			draggable: false,
 			resizable: false,
 	        plain: true,
-			title: '<?php echo __('Create new User',null,'usermanagement'); ?>',
+			title: '<?php echo __('Edit existing User',null,'usermanagement'); ?>',
 	        buttonAlign: 'center',
 			buttons:[{
 				text:'<?php echo __('Store',null,'myprofile'); ?>', 

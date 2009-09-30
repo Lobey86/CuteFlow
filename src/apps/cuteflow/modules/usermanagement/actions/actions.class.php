@@ -134,10 +134,10 @@ class usermanagementActions extends sfActions {
     public function executeDeleteUser(sfWebRequest $request) {
     
         Doctrine_Query::create()
-            ->delete('User')
-            ->from('User u')
-            ->where('u.id = ?',$request->getParameter('id'))
-            ->andwhere('u.id != ?', $this->getUser()->getAttribute('id'))
+            ->delete('UserLogin')
+            ->from('UserLogin ul')
+            ->where('ul.id = ?',$request->getParameter('id'))
+            ->andwhere('ul.id != ?', $this->getUser()->getAttribute('id'))
             ->execute();
         return sfView::NONE;
     }
@@ -257,11 +257,15 @@ class usermanagementActions extends sfActions {
      */
     public function executeSaveUser(sfWebRequest $request) {
         $store = new UserCRUD();
+        $result = Doctrine_Query::create()
+            ->select('uc.*')
+            ->from('UserConfiguration uc')
+            ->fetchArray();
         $data = $request->getPostParameters();
         $user_id = $store->saveLoginDataTab($data);
         $store->updateAdditionalDataTab($data, $user_id);
-        $store->updateGUISettingsTab($data, $user_id);
-        $store->updateUseragentSettings($data, $user_id);
+        $store->saveGUISettingsTab($data, $user_id, $result[0]);
+        $store->saveUseragentSettings($data, $user_id, $result[0]);
 
         $this->renderText('{success:true}');
         return sfView::NONE;
