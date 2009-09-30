@@ -189,7 +189,92 @@ class UserCRUD {
         $userSetting->setEmailtype($data['userFirstTab_emailtype']);
         $userSetting->save();
         return $id;
+
     }
+
+    /**
+     * Save changes when creating new user
+     * 
+     * @param array $data, POST data
+     * @param int $user_id, user_id
+     * @param array $defaultdata, default systemdata
+     * @return true
+     */
+    public function saveGUISettingsTab(array $data, $user_id, array $defaultdata) {
+
+        $data['userFourthTab_markyellow'] = isset($data['userFourthTab_markyellow']) ? $data['userFourthTab_markyellow'] : $defaultdata['markyellow'];
+        $data['userFourthTab_markorange'] = isset($data['userFourthTab_markorange']) ? $data['userFourthTab_markorange'] : $defaultdata['markorange'];
+        $data['userFourthTab_markred'] = isset($data['userFourthTab_markred']) ? $data['userFourthTab_markred'] : $defaultdata['markred'];
+
+
+        $data['userFourthTab_markyellow'] = $data['userFourthTab_markyellow'] == '' ? $defaultdata['markyellow'] : $data['userFourthTab_markyellow'];
+        $data['userFourthTab_markorange'] = $data['userFourthTab_markorange'] == '' ? $defaultdata['markorange'] : $data['userFourthTab_markorange'];
+        $data['userFourthTab_markred'] = $data['userFourthTab_markred'] == '' ? $defaultdata['markred'] : $data['userFourthTab_markred'];
+        $data['userFourthTab_showinpopup'] = isset($data['userFourthTab_showinpopup']) ? $data['userFourthTab_showinpopup'] : $defaultdata['showcirculationinpopup'];
+
+        $data['userFourthTab_circulationdefaultsortcolumn'] = isset($data['userFourthTab_circulationdefaultsortcolumn']) ? $data['userFourthTab_circulationdefaultsortcolumn'] : $defaultdata['circulationdefaultsortcolumn'];
+        $data['userFourthTab_circulationdefaultsortdirection'] = isset($data['userFourthTab_circulationdefaultsortdirection']) ? $data['userFourthTab_circulationdefaultsortdirection'] : $defaultdata['circulationdefaultsortdirection'];
+        $data['userFourthTab_itemsperpage'] = isset($data['userFourthTab_itemsperpage']) ? $data['userFourthTab_itemsperpage'] : $defaultdata['displayeditem'];
+        $data['userFourthTab_refreshtime'] = isset($data['userFourthTab_refreshtime']) ? $data['userFourthTab_refreshtime'] : $defaultdata['refreshtime'];
+
+
+
+        $addData = Doctrine_Query::create()
+           ->update('UserSetting us')
+           ->set('us.markyellow','?',$data['userFourthTab_markyellow'])
+           ->set('us.markred','?',$data['userFourthTab_markred'])
+           ->set('us.markorange','?',$data['userFourthTab_markorange'])
+           ->set('us.refreshtime','?',$data['userFourthTab_refreshtime'])
+           ->set('us.displayeditem','?',$data['userFourthTab_itemsperpage'])
+           ->set('us.circulationdefaultsortcolumn','?',$data['userFourthTab_circulationdefaultsortcolumn'])
+           ->set('us.circulationdefaultsortdirection','?',$data['userFourthTab_circulationdefaultsortdirection'])
+           ->set('us.showcirculationinpopup','?',$data['userFourthTab_showinpopup'])
+           ->where('us.user_id = ?', $user_id)
+           ->execute();
+        
+        return true;
+    }
+
+    /**
+     *
+     * @param array $data, POST data
+     * @param int $user_id, user_id
+     * @param array $defaultdata, default systemdata
+     * @return true
+     */
+    public function saveUseragentSettings(array $data, $user_id, array $defaultdata) {
+            $data['userSecondTab_durationlength'] = isset($data['userSecondTab_durationlength']) ? $data['userSecondTab_durationlength'] : $defaultdata['durationlength'];
+            $data['userSecondTab_durationlength_type'] = isset($data['userSecondTab_durationlength_type']) ? $data['userSecondTab_durationlength_type'] : $defaultdata['durationtype'];
+            $data['userSecondTab_durationlength'] = $data['userSecondTab_durationlength'] == '' ? $defaultdata['durationlength'] : $data['userSecondTab_durationlength'];
+         
+            $addData = Doctrine_Query::create()
+               ->update('UserSetting us')
+               ->set('us.durationtype','?',$data['userSecondTab_durationlength_type'])
+               ->set('us.durationlength','?',$data['userSecondTab_durationlength'])
+               ->where('us.user_id = ?', $user_id)
+               ->execute();
+
+            Doctrine_Query::create()
+                ->delete('UserAgent')
+                ->from('UserAgent ua')
+                ->where('ua.user_id = ?',$user_id)
+                ->execute();
+            $agents = array();
+            if(isset($data['useragents'])) {
+                $agents = $data['useragents'];
+            }
+            $position = 1;
+            foreach($agents as $item) {
+                $userAgent = new UserAgent();
+                $userAgent->setUseragentId($item);
+                $userAgent->setUserId($user_id);
+                $userAgent->setPosition($position++);
+                $userAgent->save();
+            }
+        
+        return true;
+    }
+
 
     
 
