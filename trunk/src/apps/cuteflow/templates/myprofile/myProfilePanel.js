@@ -100,7 +100,6 @@ cf.administration_myprofile = function(){return {
 				
 					cf.userSecondTab.theUserAgentStore.load();
 					cf.administration_myprofile.setRole.defer(1000, this, [data.result.role_id]);
-					cf.administration_myprofile.theUserGridMask.hide();
 				}
 				catch(e) {
 					
@@ -112,6 +111,7 @@ cf.administration_myprofile = function(){return {
 	
 	setRole: function (value) {
 		Ext.getCmp('userFirstTab_userrole_id').setValue(value);
+		cf.administration_myprofile.theUserGridMask.hide();
 	},
 	
 	initWindow: function () {
