@@ -39,7 +39,7 @@ cf.UserGrid = function(){return {
 			collapsible:true,
 			closable: true,
 			title: '<?php echo __('User overview',null,'usermanagement'); ?>',
-			height: cf.Layout.theRegionWest.getHeight() - 290,
+			//height: cf.Layout.theRegionWest.getHeight() - 85,
 			border: true,
 			store: this.theUserStore,
 			cm: this.theGridCm,
@@ -170,6 +170,7 @@ cf.UserGrid = function(){return {
 			renderTo: 'user_edit' + user_editid,
 			disabled: <?php $arr = $sf_user->getAttribute('credential');echo $arr['administration_usermanagement_editUser'];?>,
 			html: '<span style="cursor:pointer;"><img src="/images/icons/user_edit.png" /></span>',
+			waitMsg:'Loading',
 			listeners: {
 				render: function(c){
 					  c.getEl().on({

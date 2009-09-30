@@ -22,11 +22,6 @@ cf.UserSearchbar = function(){return {
 				style:'margin-top:5px;margin-left:5px;',
 				collapsible:true,
 				collapsed: true,
-				tools: [{
-					handler: function(e, target, panel){
-						panel.ownerCt.remove(panel, true);
-					}
-				}],
 				items:[{
 					layout: 'form',
 					items: [{
@@ -134,6 +129,12 @@ cf.UserSearchbar = function(){return {
 						}]
 					}]
 				}]
+		});
+		this.theUserSearchbar.on('expand', function() {
+			cf.UserGrid.theUserGrid.setSize({width: 'auto', height: cf.Layout.theRegionWest.getHeight() - 282});
+		});
+		this.theUserSearchbar.on('collapse', function() {
+			cf.UserGrid.theUserGrid.setSize({width: 'auto', height: cf.Layout.theRegionWest.getHeight() - 85});
 		});
 	},
 	
