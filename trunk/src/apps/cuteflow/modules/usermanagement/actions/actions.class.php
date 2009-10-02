@@ -34,6 +34,7 @@ class usermanagementActions extends sfActions {
         $anz = Doctrine_Query::create()
                 ->select('COUNT(*) AS anzahl')
                 ->from('UserLogin ul')
+                ->where('ul.deleted = ?', 0)
                 ->execute();
 
         $limit = $this->getUser()->getAttribute('userSettings');
@@ -43,6 +44,7 @@ class usermanagementActions extends sfActions {
                 ->orderby('ul.id DESC')
                 ->limit($request->getParameter('limit',$limit['displayeditem']))
                 ->offset($request->getParameter('start',0))
+                ->where('ul.deleted = ?', 0)
                 ->execute();
 
         $json_result = $usermanagement->buildUser($result, $this->getRequestParameter('start',0)+1);
@@ -67,46 +69,25 @@ class usermanagementActions extends sfActions {
 
         $query = new Doctrine_Query();
         $query->select('COUNT(*) AS anzahl')
-              ->from('UserLogin ul')
-              ->innerJoin('ul.UserData ud');
+              ->where('ul.deleted = ?', 0)
+              ->leftJoin('ul.UserData ud')
+              ->from('UserLogin ul, UserData ud');
 
         if($request->hasParameter('username')){
-            $query->andwhere('ul.username LIKE ?','%'.$request->getParameter('username').'%');
+            $query->andWhere('ul.username LIKE ?','%'.$request->getParameter('username').'%');
         }
         if($request->hasParameter('firstname')){
-            $query->andwhere('ud.firstname LIKE ?','%'.$request->getParameter('firstname').'%');
+            $query->andWhere('ud.firstname LIKE ?','%'.$request->getParameter('firstname').'%');
         }
-        if($request->hasParameter('lastname')){
-            $query->andwhere('ud.lastname LIKE ?','%'.$request->getParameter('lastname').'%');
+        if($request->hastParameter('lastname')){
+            $query->andWhere('ud.lastname LIKE ?','%'.$request->getParameter('lastname').'%');
         }
         if($request->hasParameter('email')){
             $query->andWhere('ul.email LIKE ?','%'.$request->getParameter('email').'%');
         }
 
-        if($request->hastParameter('userrole')){
-            $query->andwhere('ul.role_id = ?',$request->getParameter('userrole'));
-        }
-
-
-        $query = new Doctrine_Query();
-        $query->select('COUNT(*) AS anzahl')
-              ->from('UserLogin ul, UserData ud');
-
-        if($request->getParameter('username')){
-            $query->andwhere('ul.username LIKE ?','%'.$request->getParameter('username').'%');
-        }
-        if($request->getParameter('firstname')){
-            $query->andwhere('ud.firstname LIKE ?','%'.$request->getParameter('firstname').'%');
-        }
-        if($request->getParameter('lastname')){
-            $query->andwhere('ud.lastname LIKE ?','%'.$request->getParameter('lastname').'%');
-        }
-        if($request->getParameter('email')){
-            $query->andwhere('ul.email LIKE ?','%'.$request->getParameter('email').'%');
-        }
-
-        if($request->getParameter('userrole')){
-            $query->andwhere('ul.role_id = ?',$request->getParameter('userrole'));
+        if($request->hasParameter('userrole')){
+            $query->andWhere('ul.role_id = ?',$request->getParameter('userrole'));
         }
 
         $anz = $query->execute();
@@ -140,6 +121,7 @@ class usermanagementActions extends sfActions {
         $result = Doctrine_Query::create()
                     ->select('r.*')
                     ->from('Role r')
+                    ->where('r.deleted = ?', 0)
                     ->execute();
         $json_result = $usermanagement->buildRole($result,0);
 
@@ -155,13 +137,12 @@ class usermanagementActions extends sfActions {
     * @return <type>
     */
     public function executeDeleteUser(sfWebRequest $request) {
-    
-        Doctrine_Query::create()
-            ->delete('UserLogin')
-            ->from('UserLogin ul')
-            ->where('ul.id = ?',$request->getParameter('id'))
-            ->andwhere('ul.id != ?', $this->getUser()->getAttribute('id'))
-            ->execute();
+    Doctrine_Query::create()
+                    ->update('UserLogin ul')
+                    ->set('ul.deleted','?',1)
+                    ->where('ul.id = ?', $request->getParameter('id'))
+                    ->andWhere('ul.id != ?', $this->getUser()->getAttribute('id'))
+                    ->execute();
         return sfView::NONE;
     }
 
@@ -178,6 +159,8 @@ class usermanagementActions extends sfActions {
         $result = Doctrine_Query::create()
             ->select('ud.user_id, CONCAT(ud.firstname,\' \',ud.lastname) AS text')
             ->from('UserData ud')
+            ->leftJoin('ud.UserLogin ul')
+            ->where('ul.deleted = ?', 0)
             ->execute();
 
         $json_result = $usermanagement->buildUserGrid($result);
@@ -196,7 +179,10 @@ class usermanagementActions extends sfActions {
             ->select('ua.*')
             ->from('UserAgent ua')
             ->where('ua.user_id = ?', $request->getParameter('id'))
+            ->leftJoin('ua.UserData ud')
+            ->leftJoin('ud.UserLogin ul')
             ->orderBy('ua.position asc')
+            ->where('ul.deleted = ?', 0)
             ->execute();
         $json_result = $usermanagement->builUserAgentGrid($result);
         $this->renderText('{"result":'.json_encode($json_result).'}');
@@ -226,18 +212,6 @@ class usermanagementActions extends sfActions {
 
 
     /**
-     * Stores new user to databse
-     * 
-     * @param sfWebRequest $reques
-     */
-    public function executeAddUser(sfWebRequest $request) {
-       
-        $this->renderText('{success:true}');
-        return sfView::NONE;
-    }
-
-
-    /**
      *
      * Loads Data to edit a single User
      * 
@@ -250,6 +224,7 @@ class usermanagementActions extends sfActions {
             ->select('ul.*')
             ->from('UserLogin ul')
             ->where('ul.id = ?',$request->getParameter('id'))
+            ->andWhere('ul.deleted = ?', 0)
             ->execute();
         $json_result = $usermanagement->buildSingleUser($result);
         $this->renderText('{"result":'.json_encode($json_result).'}');
