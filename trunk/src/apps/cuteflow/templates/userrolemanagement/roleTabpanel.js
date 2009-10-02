@@ -22,7 +22,6 @@ cf.AddRoleTabpanel = function(){return {
 		this.initTabpanel();
 		this.theTabpanel.add(this.theRoleNameText);
 		this.initTree(id);
-		this.theTabpanel.setActiveTab(this.theRoleNameText);
 		this.initFormPanel();
 		this.theFormPanel.add(this.theTabpanel);
 	},
@@ -45,7 +44,7 @@ cf.AddRoleTabpanel = function(){return {
 			url : url,
 			success: function(objServerResponse){
 				theJsonTreeData = Ext.util.JSON.decode(objServerResponse.responseText);
-				cf.AddRoleTabpanel.buildTabs(theJsonTreeData);
+				cf.AddRoleTabpanel.buildTabs(theJsonTreeData,id);
 				Ext.getCmp('userrole_title_id').setValue(theJsonTreeData.name);
 				if (Ext.getCmp('userrole_title_id').getValue() != '') {
 					Ext.getCmp('userrole_title_id').setDisabled(true);
@@ -65,7 +64,7 @@ cf.AddRoleTabpanel = function(){return {
 	*
 	* @param json_object theJsonTreeData,  tree stored as json object
 	*/
-	buildTabs: function (theJsonTreeData) {
+	buildTabs: function (theJsonTreeData,id) {
 		for(var a=0;a<theJsonTreeData.result.length;a++) {
 			// build tab item here
 			var tabItem = new Ext.Panel({
@@ -125,6 +124,12 @@ cf.AddRoleTabpanel = function(){return {
 				}
 			}
 			this.theTabpanel.add(tabItem);
+		}
+		if (id != '') {
+			this.theTabpanel.setActiveTab(1);
+		}
+		else {
+			this.theTabpanel.setActiveTab(0);
 		}
 	},
 	
