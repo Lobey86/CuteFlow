@@ -1,4 +1,5 @@
 Role:
+  actAs: [SoftDelete]
   tableName: cf_role
   columns:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
@@ -17,6 +18,7 @@ Credential:
     Roles: {class: Role, foreignAlias: Credentials, local: credential_id, refClass: CredentialRole}
       
 CredentialRole:
+   actAs: [SoftDelete]
    tableName: cf_credentialrole
    columns:
      role_id: { type: integer(10), primary: true }
@@ -42,9 +44,10 @@ UserData:
     comment: { type: string(1000) }
     lastaction: timestamp
   relations:
-    UserLogin: { class: UserLogin, local: user_id, foreign: id, foreignType: one, type: one, onDelete: CASCADE }
+    UserLogin: { class: UserLogin, local: user_id, foreign: id, foreignType: one, type: one }
 
 UserLogin:
+  actAs: [SoftDelete]
   tableName: cf_userlogin
   columns:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
@@ -55,7 +58,16 @@ UserLogin:
   relations:
     Role: { class: Role, local: role_id, foreign: id, foreignType: many, type: one }
 
-
+UserWorkflowConfiguration:
+  tableName: cf_userworkflowconfiguration
+  columns:
+    id: { type: integer, length: 10, primary: true, autoincrement: true }
+    user_id: { type: integer, length: 10 }
+    columntext: { type: string(45)}
+    isactive: { type: string(10)}
+    position: { type: integer(1), length: 3}
+  relations:
+    UserLogin: { class: UserLogin, local: user_id, foreign: id, foreignType: one, type: one}
 
 UserSetting:
   tableName: cf_usersetting
@@ -74,7 +86,7 @@ UserSetting:
     circulationdefaultsortdirection: { type: string(45) }
     showcirculationinpopup: {type: integer(1), length: 3}
   relations:
-    UserLogin: { class: UserLogin, local: user_id, foreign: id, foreignType: one, type: one, onDelete: CASCADE }
+    UserLogin: { class: UserLogin, local: user_id, foreign: id, foreignType: one, type: one }
 
 UserAgent:
   tableName: cf_useragent
@@ -157,20 +169,6 @@ UserConfiguration:
     circulationdefaultsortdirection: { type: string(45) }
   relations:
     Role: { class: Role, local: role_id, foreign: id, foreignType: many, type: one }
-
-
-UserWorkflowConfiguration:
-  tableName: cf_userworkflowconfiguration
-  columns:
-    id: { type: integer, length: 10, primary: true, autoincrement: true }
-    user_id: { type: integer, length: 10 }
-    columntext: { type: string(45)}
-    isactive: { type: string(10)}
-    position: { type: integer(1), length: 3}
-  relations:
-    UserLogin: { class: UserLogin, local: user_id, foreign: id, foreignType: one, type: one, onDelete: CASCADE }
-
-
 
 WorkflowConfiguration:
   tableName: cf_workflowconfiguration
