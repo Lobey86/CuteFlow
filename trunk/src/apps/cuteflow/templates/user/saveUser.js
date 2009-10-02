@@ -6,6 +6,7 @@ cf.saveUser = function(){return {
 	initSave: function (theFormpanel) {
 		this.initHiddenPanel();
 		this.buildUserAgent(theFormpanel);
+		this.buildWorkflow(theFormpanel);
 		this.doSubmit(theFormpanel);
 
 	},
@@ -19,6 +20,18 @@ cf.saveUser = function(){return {
 		
 	},
 	
+	buildWorkflow: function (theFormpanel) {
+		var grid =cf.userFourthTab.theFourthGrid;
+		for(var a=0;a<grid.store.getCount();a++) {
+			var row = grid.getStore().getAt(a);
+			var hiddenfield = new Ext.form.Field({
+				autoCreate : {tag:'input', type: 'hidden', name: 'worklfow['+row.data.column+']', value:row.data.isactive, width: 0}			
+			});
+			cf.saveUser.theHiddenPanel.add(hiddenfield);
+		}
+		theFormpanel.add(cf.saveUser.theHiddenPanel);
+		theFormpanel.doLayout();	
+	},
 	
 	buildUserAgent: function (theFormpanel) {
 		var grid = cf.userSecondTab.theUserAgentGrid;

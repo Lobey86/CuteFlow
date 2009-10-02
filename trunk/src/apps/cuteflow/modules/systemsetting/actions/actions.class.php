@@ -145,7 +145,7 @@ class systemsettingActions extends sfActions {
         }
 
 
-
+        // store user tab
         if (isset($data['userTab_defaultdurationtype'])) {
             $data['userTab_markred'] = $data['userTab_markred'] == '' ? 12 : $data['userTab_markred'];
             $data['userTab_markyellow'] = $data['userTab_markyellow'] == '' ? 7 : $data['userTab_markyellow'];
@@ -174,6 +174,23 @@ class systemsettingActions extends sfActions {
 
             
         }
+
+        // store gui Settings
+        Doctrine_Query::create()
+            ->delete('WorkflowConfiguration')
+            ->from ('WorkflowConfiguration wc')
+            ->execute();
+
+        $worklfow = $data['worklfow'];
+        $position = 1;
+        foreach($worklfow as $item => $key) {
+            $workflow = new WorkflowConfiguration();
+            $workflow->setColumntext($item);
+            $workflow->setIsactive($key);
+            $workflow->setPosition($position++);
+            $workflow->save();
+        }
+
         $this->renderText('{success:true}');
         return sfView::NONE;
     }

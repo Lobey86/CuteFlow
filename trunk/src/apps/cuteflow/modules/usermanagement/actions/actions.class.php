@@ -243,6 +243,8 @@ class usermanagementActions extends sfActions {
         $store->updateAdditionalDataTab($data, $request->getParameter('id'));
         $store->updateGUISettingsTab($data, $request->getParameter('id'));
         $store->updateUseragentSettings($data, $request->getParameter('id'));
+        $store->deleteWorklfowSettings($request->getParameter('id'));
+        $store->saveWorklfowSettings($data, $request->getParameter('id'));
         $this->renderText('{success:true}');
         return sfView::NONE;
     }
@@ -264,6 +266,7 @@ class usermanagementActions extends sfActions {
         $store->updateAdditionalDataTab($data, $user_id);
         $store->saveGUISettingsTab($data, $user_id, $result[0]);
         $store->saveUseragentSettings($data, $user_id, $result[0]);
+        $store->saveWorklfowSettings($data, $user_id);
 
         $this->renderText('{success:true}');
         return sfView::NONE;

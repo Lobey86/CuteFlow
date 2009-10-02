@@ -5,7 +5,6 @@ cf.guiTab = function(){return {
 	theGuiGrid					:false,
 	theGuiCM					:false,
 	theGuiStore					:false,
-	theTopToolBar				:false,
 	thePanel					:false,
 	
 	
@@ -13,7 +12,6 @@ cf.guiTab = function(){return {
 		/** load all nedded functions **/
 	init: function () {
 		this.initCM();
-		this.initTopToolBar();
 		this.initStore();
 		this.initGrid();
 		this.initPanel();
@@ -22,18 +20,6 @@ cf.guiTab = function(){return {
 		this.thePanel.add(this.theGuiGrid);
 		this.theGuiFieldset.add(this.thePanel);
 		this.theGuiTab.add(this.theGuiFieldset);
-	},
-	
-	initTopToolBar: function () {
-		this.theTopToolBar =  new Ext.Toolbar({
-			items: [{
-                icon: '/images/icons/accept.png',
-                tooltip:'<?php echo __('Save order',null,'systemsetting'); ?>',
-                handler: function () {
-                	alert("save");
-                }
-		    }]
-		});
 	},
 	
 	initPanel: function () {
@@ -86,8 +72,7 @@ cf.guiTab = function(){return {
 			enableDragDrop:true,
 			border: true,
 			store: this.theGuiStore,
-			cm: this.theGuiCM,
-			tbar: this.theTopToolBar
+			cm: this.theGuiCM
 		});
 		
 		this.theGuiGrid.on('render', function(grid) {
@@ -127,6 +112,7 @@ cf.guiTab = function(){return {
 				fields: [
 					{name: 'id'},
 					{name: 'columntext'},
+					{name: 'column'},
 					{name: 'isactive',type: 'bool'}
 				]
 		});
@@ -135,7 +121,7 @@ cf.guiTab = function(){return {
 	
 	initCM : function () {
 		this.theGuiCM  =  new Ext.grid.ColumnModel([
-			{header: "<center><div ext:qtip=\"<table><tr><td><img src='/images/icons/checkbox.png' />&nbsp;&nbsp;</td><td><?php echo __('Activate Item',null,'systemsetting'); ?></td></tr></table>\" ext:qwidth=\"200\"><?php echo __('Action',null,'usermanagement'); ?></div></center>",  width: 90, sortable: false, dataIndex: 'id', css : "text-align :left; font-size:12px;", renderer: cf.guiTab.renderAction},
+			{header: "<center><div ext:qtip=\"<table><tr><td><img src='/images/icons/checkbox.png' />&nbsp;&nbsp;</td><td><?php echo __('Activate Item',null,'systemsetting'); ?></td></tr></table>\" ext:qwidth=\"200\"><?php echo __('Activate Item',null,'usermanagement'); ?></div></center>",  width: 90, sortable: false, dataIndex: 'id', css : "text-align :left; font-size:12px;", renderer: cf.guiTab.renderAction},
 			{header: "<?php echo __('Column',null,'usermanagement'); ?>",  width: 200, sortable: false, dataIndex: 'columntext', css : "text-align :left; font-size:12px;"}
 		]);	
 		
@@ -152,7 +138,7 @@ cf.guiTab = function(){return {
 			renderTo: 'guiTabCheckbox_' + id,
 			checked: check_value,
 			handler: function (checkbox) {
-				cf.guiTab.theGuiGrid.store.findExact('id', id ).data.checked = checkbox.checked;
+				cf.guiTab.theGuiGrid.store.findExact('id', id ).data.isactive = checkbox.checked;
             }
 		});
 	}
