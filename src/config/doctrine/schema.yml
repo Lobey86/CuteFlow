@@ -67,7 +67,7 @@ UserWorkflowConfiguration:
     isactive: { type: string(10)}
     position: { type: integer(1), length: 3}
   relations:
-    UserLogin: { class: UserLogin, local: user_id, foreign: id, foreignType: one, type: one}
+    UserLogin: { class: UserLogin, local: user_id, foreign: id, foreignType: one, type: many}
 
 UserSetting:
   tableName: cf_usersetting
@@ -96,8 +96,8 @@ UserAgent:
     useragent_id: { type: integer, length: 10 }
     position: {type: integer(1), length: 3}
   relations:
-    UserData: { class: UserData, local: user_id, foreign: user_id, foreignType: many, type: one, onDelete: CASCADE }
-    UserData: { class: UserData, local: useragent_id, foreign: user_id, foreignType: many, type: many, onDelete: CASCADE }
+    UserData: { class: UserData, local: user_id, foreign: user_id, foreignType: many, type: one }
+    UserData: { class: UserData, local: useragent_id, foreign: user_id, foreignType: many, type: many }
 
 
 
