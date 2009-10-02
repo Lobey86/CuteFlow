@@ -35,6 +35,7 @@ class userrolemanagementActions extends sfActions {
                     ->select('r.*, count(ul.id) AS users')
                     ->from('Role r')
                     ->leftJoin('r.UserLogin ul')
+                    ->where ('r.deleted = ?',0)
                     ->groupby('r.id')
                     ->execute();
 
@@ -59,6 +60,7 @@ class userrolemanagementActions extends sfActions {
                     ->select('r.*')
                     ->from('Role r')
                     ->where('r.id != ?', $request->getParameter('id'))
+                    ->andWhere('r.deleted = ?', 0)
                     ->execute();
 
         $json_result = $userrolemanagement->buildRoleCombobox($result);
@@ -79,22 +81,21 @@ class userrolemanagementActions extends sfActions {
     public function executeDeleteRole(sfWebRequest $request) {
         
         $rows = Doctrine_Query::create()
-                    ->update('UserLogin')
-                    ->set('role_id',$request->getParameter('updateid'))
+                    ->update('UserLogin ul')
+                    ->set('ul.role_id','?',$request->getParameter('updateid'))
+                    ->where('ul.role_id = ?', $request->getParameter('deleteid'))
+                    ->execute();
+         
+        Doctrine_Query::create()
+                    ->update('CredentialRole cr')
+                    ->set('cr.deleted','?',1)
                     ->where('role_id = ?', $request->getParameter('deleteid'))
                     ->execute();
 
- 
         Doctrine_Query::create()
-                    ->delete('CredentialRole')
-                    ->from ('CredentialRole cr')
-                    ->where('role_id = ?', $request->getParameter('deleteid'))
-                    ->execute();
-
-        Doctrine_Query::create()
-                    ->delete('Role')
-                    ->from('Role r')
-                    ->where('id = ?', $request->getParameter('deleteid'))
+                    ->update('Role r')
+                    ->set('r.deleted','?',1)
+                    ->where('r.id = ?', $request->getParameter('deleteid'))
                     ->execute();
         $this->renderText($rows);
         return sfView::NONE;
@@ -116,6 +117,7 @@ class userrolemanagementActions extends sfActions {
                     ->select('cr.credential_id')
                     ->from('CredentialRole cr')
                     ->where('cr.role_id = ?', $request->getParameter('role_id'))
+                    ->andWhere('cr.deleted = ?',0)
                     ->execute();
             $credentials = $credentialmanagement->buildCredentials($res);
 
@@ -123,10 +125,10 @@ class userrolemanagementActions extends sfActions {
                     ->select('r.description')
                     ->from('Role r')
                     ->where('r.id = ?', $request->getParameter('role_id'))
+                    ->andWhere('r.deleted = ?',0)
                     ->execute();
         }
    
- 
         $result = Doctrine_Query::create()
                     ->from('Credential c')
                     ->orderby('c.usermodule asc,c.usergroup asc')
