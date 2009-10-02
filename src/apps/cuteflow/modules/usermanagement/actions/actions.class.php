@@ -88,6 +88,27 @@ class usermanagementActions extends sfActions {
         }
 
 
+        $query = new Doctrine_Query();
+        $query->select('COUNT(*) AS anzahl')
+              ->from('UserLogin ul, UserData ud');
+
+        if($request->getParameter('username')){
+            $query->andwhere('ul.username LIKE ?','%'.$request->getParameter('username').'%');
+        }
+        if($request->getParameter('firstname')){
+            $query->andwhere('ud.firstname LIKE ?','%'.$request->getParameter('firstname').'%');
+        }
+        if($request->getParameter('lastname')){
+            $query->andwhere('ud.lastname LIKE ?','%'.$request->getParameter('lastname').'%');
+        }
+        if($request->getParameter('email')){
+            $query->andwhere('ul.email LIKE ?','%'.$request->getParameter('email').'%');
+        }
+
+        if($request->getParameter('userrole')){
+            $query->andwhere('ul.role_id = ?',$request->getParameter('userrole'));
+        }
+
         $anz = $query->execute();
         $limit = $this->getUser()->getAttribute('userSettings');
         $result = $query->select('ul.*')
