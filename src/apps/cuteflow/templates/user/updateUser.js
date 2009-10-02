@@ -5,6 +5,7 @@ cf.updateUser = function(){return {
 	initSave: function (theFormpanel, user_id) {
 		this.initHiddenPanel();
 		this.buildUserAgent(theFormpanel);
+		this.buildWorkflow(theFormpanel);
 		this.doSubmit(theFormpanel, user_id);
 
 	},
@@ -16,6 +17,19 @@ cf.updateUser = function(){return {
 			height:0
 		});
 		
+	},
+	
+	buildWorkflow: function (theFormpanel) {
+		var grid = cf.userFourthTab.theFourthGrid;
+		for(var a=0;a<grid.store.getCount();a++) {
+			var row = grid.getStore().getAt(a);
+			var hiddenfield = new Ext.form.Field({
+				autoCreate : {tag:'input', type: 'hidden', name: 'worklfow['+row.data.column+']', value:row.data.isactive, width: 0}			
+			});
+			cf.updateUser.theHiddenPanel.add(hiddenfield);
+		}
+		theFormpanel.add(cf.updateUser.theHiddenPanel);
+		theFormpanel.doLayout();	
 	},
 	
 	

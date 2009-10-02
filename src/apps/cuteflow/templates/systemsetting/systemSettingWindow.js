@@ -68,17 +68,7 @@ cf.administration_systemsetting = function(){return {
 			layoutOnTabChange: true,
 			style: 'margin-top:5px;',
 			plain: false,
-			closable:false,
-	        listeners:{
-                beforetabchange: function(tp, newTab, currentTab){ 
-					if(newTab == cf.guiTab.theGuiTab) {
-						Ext.getCmp('administration_systemsetting_acceptbutton').setVisible(false);
-					}
-					else {
-						Ext.getCmp('administration_systemsetting_acceptbutton').setVisible(true);
-					}
-                }
-        }
+			closable:false
 		});	
 		
 	},
@@ -122,7 +112,6 @@ cf.administration_systemsetting = function(){return {
 			buttons:[{
 				text:'<?php echo __('Store',null,'systemsetting'); ?>', 
 				icon: '/images/icons/accept.png',
-				id: 'administration_systemsetting_acceptbutton',
 				handler: function () {
 					cf.systemSettingCRUD.initSave();
 				}
