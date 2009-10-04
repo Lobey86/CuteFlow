@@ -224,8 +224,8 @@ cf.userFirstTab = function(){return {
 		this.thePanel = new Ext.Panel ({
 			closable: false,
 			width: 650,
-			height: 680,
-			autoScroll: false,
+			height: 515,
+			autoScroll: true,
 			title: '<?php echo __('Login Data',null,'usermanagement'); ?>',
 			shadow: false,
 			minimizable: false,
