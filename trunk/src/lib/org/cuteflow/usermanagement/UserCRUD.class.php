@@ -277,6 +277,41 @@ class UserCRUD {
 
 
     
+    /**
+     * Save worklfow settings for a user
+     * @param array $data, POST Data
+     * @param int $user_id, user id
+     * @return true
+     */
+    public function saveWorklfowSettings(array $data, $user_id) {
+        $worklfow = $data['worklfow'];
+        $position = 1;
+        foreach($worklfow as $item => $key) {
+            $workflow = new UserWorkflowConfiguration();
+            $workflow->setUserId($user_id);
+            $workflow->setColumntext($item);
+            $workflow->setIsactive($key);
+            $workflow->setPosition($position++);
+            $workflow->save();
+        }
+        return true;
+    }
+
+    /**
+     * Delete worklfowsettings for a user
+     * @param int $user_id, user_id
+     * @return true
+     */
+    public function deleteWorklfowSettings($user_id) {
+        Doctrine_Query::create()
+            ->delete('UserWorkflowConfiguration')
+            ->from('UserWorkflowConfiguration uwc')
+            ->where('uwc.user_id = ?', $user_id)
+            ->execute();
+        return true;
+    }
+
+    
 
 }
 ?>
