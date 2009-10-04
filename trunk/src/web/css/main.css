@@ -41,6 +41,12 @@
 }
 
 
+.usermodule_management_usergroupIcon_field{
+	background-image: url(/images/icons/application_form.png) !important; 
+	width: 16px;
+	height:16px;
+}
+
 
 .no-icon {
 	display : none;
