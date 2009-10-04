@@ -102,6 +102,7 @@ cf.editUserWindow = function(){return {
 					cf.userSecondTab.thePanel.frame = true;
 					cf.userThirdTab.thePanel.frame = true;
 					cf.userFourthTab.thePanel.frame = true;
+					cf.userFourthTab.thePanel.autoScroll = false;
 					cf.editUserWindow.theEditUserWindow.show();
 					cf.userSecondTab.theUserAgentStore.load();
 					cf.editUserWindow.setRole.defer(1000, this, [data.result.role_id]);					
@@ -130,8 +131,8 @@ cf.editUserWindow = function(){return {
 			modal: true,
 			closable: true,
 			modal: true,
-			height: 800,
-			width: 680,
+			height: 630,
+			width: 700,
 			autoScroll: true,
 			shadow: false,
 			minimizable: false,
