@@ -21,7 +21,7 @@ cf.authTab = function(){return {
 	/** fieldset for ldap authentication **/
 	initLdapFieldset: function () {
 		this.theLdapFieldset = new Ext.form.FieldSet({
-			title: '<?php echo __('LDAP Settings',null,'systemsetting'); ?>',
+			title: '<table><tr><td><img src="/images/icons/information.png"  ext:qtip=\" ewfew\" ext:qwidth=\"500\"/></td><td>&nbsp;&nbsp;<?php echo __('LDAP Settings',null,'systemsetting'); ?></td></tr></table>',
 			width: 600,
 			height: 420,
 			style: 'margin-top:20px;margin-left:5px;',
@@ -147,7 +147,7 @@ cf.authTab = function(){return {
 	/** init fieldset, with combo to change the authentication type **/
 	initTypeFieldset: function () {
 		this.theFieldset = new Ext.form.FieldSet({
-			title: '<?php echo __('Authentication type',null,'systemsetting'); ?>',
+			title: '<table><tr><td><img src="/images/icons/information.png"  ext:qtip=\"<table><tr><td><b><?php echo __('use only CuteFLow Database',null,'systemsetting'); ?>:</b></td><td>&nbsp;&nbsp;&nbsp;only CuteFlow database will be used.<br>&nbsp;&nbsp;&nbsp;No LDAP / OpenID authentication used</td></tr></table>\" ext:qwidth=\"500\"/></td><td>&nbsp;&nbsp;<?php echo __('Authentication type',null,'systemsetting'); ?></td></tr></table>',
 			width: 600,
 			height: 80,
 			style: 'margin-top:20px;margin-left:5px;',

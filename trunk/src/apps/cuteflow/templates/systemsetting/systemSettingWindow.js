@@ -49,10 +49,12 @@ cf.administration_systemsetting = function(){return {
 			url : '<?php echo build_dynamic_javascript_url('systemsetting/LoadSystem')?>',
 			success: function(objServerResponse){  
 				var data = Ext.util.JSON.decode(objServerResponse.responseText);
-				cf.emailTab.addData(data.email);
-				cf.systemTab.addData(data.system);
-				cf.authTab.addData(data.auth);
-				cf.userTab.addData(data.user);
+				
+				cf.emailTab.addData.defer(1000, this, [data.email]);
+				cf.systemTab.addData.defer(1000, this, [data.system]);
+				cf.authTab.addData.defer(1000, this, [data.auth]);
+				cf.userTab.addData.defer(1000, this, [data.user]);
+				
 			}
 		});
 	},

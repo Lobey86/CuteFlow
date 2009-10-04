@@ -129,7 +129,7 @@ cf.guiTab = function(){return {
 	
 	renderAction: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 		var id = record.data['id'];
-		cf.guiTab.createCheckbox.defer(1,this, [id,  record.data['isactive']]);
+		cf.guiTab.createCheckbox.defer(500,this, [id,  record.data['isactive']]);
 		return '<center><table><tr><td><div id="guiTabCheckbox_'+ id +'"></div></td></tr></table></center>';
 	},
 	
