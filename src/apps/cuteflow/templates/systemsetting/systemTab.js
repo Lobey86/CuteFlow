@@ -38,7 +38,7 @@ cf.systemTab = function(){return {
 	
 	initWorkflowSettingsFieldset: function () {
 		this.theWorkflowFieldset = new Ext.form.FieldSet({
-			title: '<?php echo __('Workflow settings',null,'systemsetting'); ?>',
+			title: '<table><tr><td><img src="/images/icons/information.png"  ext:qtip=\"<table><tr><td><b><?php echo __('Show position in Mail?',null,'systemsetting'); ?></b></td><td>&nbsp;&nbsp;&nbsp;Show Position in Mail</td></tr><tr><td><b><?php echo __('Allow unenctypted requests?',null,'systemsetting'); ?></b></td><td>&nbsp;&nbsp;&nbsp;Show Position in Mail</td></tr><tr><td><b><?php echo __('Send Mails to circulation receivers',null,'systemsetting'); ?></b></td><td>&nbsp;&nbsp;&nbsp;Show Position in Mail</td></tr><tr><td><b><?php echo __('Send Reminder-EMails with all open circulations<br>(Activated Cronjob needed)',null,'systemsetting'); ?></b></td><td>&nbsp;&nbsp;&nbsp;Show Position in Mail</td></tr><tr><td><b><?php echo __('Slot-Visibility',null,'systemsetting'); ?></b></td><td>&nbsp;&nbsp;&nbsp;Show Position in Mail</td></tr></table>\" ext:qwidth=\"500\"/>&nbsp;&nbsp;</td><td><?php echo __('Workflow settings',null,'systemsetting'); ?></td></tr></table>',
 			width: 600,
 			height: 190,
 			style: 'margin-top:20px;margin-left:5px;',
@@ -88,7 +88,7 @@ cf.systemTab = function(){return {
 	/** init language fieldset with combo **/
 	initLanguageFieldset: function () {
 		this.theLanguageFieldset = new Ext.form.FieldSet({
-			title: '<?php echo __('Default system language',null,'systemsetting'); ?>',
+			title: '<table><tr><td><img src="/images/icons/information.png"  ext:qtip=\"<table><tr><td><b><?php echo __('Default system language',null,'systemsetting'); ?>:</b></td><td>&nbsp;&nbsp;&nbsp;Change the default language on Login-Page</td></tr></table>\" ext:qwidth=\"500\"/>&nbsp;&nbsp;</td><td><?php echo __('Default system language',null,'systemsetting'); ?></td></tr></table>',
 			width: 600,
 			height: 80,
 			style: 'margin-top:20px;margin-left:5px;',
@@ -139,7 +139,6 @@ cf.systemTab = function(){return {
 			Ext.getCmp('systemsetting_language_id').style = 'margin-top:0px;margin-bottom:1px;';
 			Ext.getCmp('systemsetting_slotvisible_id').style = 'margin-top:0px;margin-bottom:1px;';
 		}
-		
 	}
 	
 
