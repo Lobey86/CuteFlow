@@ -93,7 +93,11 @@
 	<trans-unit id="23">
         <source>changeUseragent</source>
         <target>Stellvertreter verwalten</target>
-    </trans-unit> 
+    </trans-unit>
+	<trans-unit id="24">
+        <source>field</source>
+        <target>Felder</target>
+    </trans-unit> 	
 	</body>
   </file>
 </xliff>
