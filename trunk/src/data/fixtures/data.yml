@@ -47,6 +47,10 @@ Credential:
     userModule: administration
     userGroup: myprofile
     userRight: changeUseragent
+  c13:
+    userModule: management
+    userGroup: field
+    userRight: showModule
 Role:
   r1:
     description: admin
@@ -101,6 +105,9 @@ CredentialRole:
   rc15:
     role_id: 1
     credential_id: 12
+  rc16:
+    role_id: 1
+    credential_id: 13
 
 UserLogin:
   ul1:
