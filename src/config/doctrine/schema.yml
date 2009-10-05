@@ -179,6 +179,7 @@ WorkflowConfiguration:
     position: { type: integer(1), length: 3}
 
 AdditionalText:
+  actAs: [SoftDelete]
   tableName: cf_additionaltext
   columns:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
