@@ -77,8 +77,7 @@ class additionaltextActions extends sfActions {
      * @param sfWebRequest $request
      */
     public function executeLoadText(sfWebRequest $request) {
-       $result = AdditionalTextTable::instance()->getSingleText($request->getParameter('id'));
-
+       $result = AdditionalTextTable::instance()->findSingleTextById($request->getParameter('id'));
        $this->renderText('{"result":'.json_encode($result[0]->toArray()).'}');
        return sfView::NONE;
     }
@@ -113,7 +112,7 @@ class additionaltextActions extends sfActions {
      * @return <type>
      */
     public function executeCopyText(sfWebRequest $request) {
-        $result = AdditionalTextTable::instance()->getSingleText($request->getParameter('id'));
+        $result = AdditionalTextTable::instance()->findSingleTextById($request->getParameter('id'));
         $result->toArray();
         
         $textObj = new AdditionalText();
