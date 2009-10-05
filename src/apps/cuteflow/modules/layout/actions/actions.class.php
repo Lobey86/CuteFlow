@@ -16,34 +16,20 @@ class layoutActions extends sfActions {
     * @param sfRequest $request A request object
     */
     public function executeIndex(sfWebRequest $request) {
-         // Loads Userrights to session
         $loginObject = new Login();
-        // stores usersettings to session
-        $userSettings = Doctrine_Query::create()
-                        ->select('us.*')
-                        ->from('UserSetting us')
-                        ->where('us.user_id = ?',$this->getUser()->getAttribute('id'))
-                        ->fetchArray();
-        //$userData = $loginObject->loadUserData();
-        $this->getUser()->setAttribute('userSettings', $userSettings[0]);
 
+        // Load UserSetting and Store to session here
+        $userSettings = UserSettingTable::instance()->getUserSettingById($this->getUser()->getAttribute('id'));
+        $this->getUser()->setAttribute('userSettings', $userSettings[0]->toArray());
 
-     
-        $credentials = Doctrine_Query::create()
-            ->select('c.*')
-            ->from('Credential c')
-            ->execute();
-
-        $userrights = Doctrine_Query::create()
-            ->select('cr.*')
-            ->from('CredentialRole cr, Role r, UserLogin ul')
-            ->where ('ul.role_id = r.id')
-            ->andwhere('r.id = cr.role_id')
-            ->andwhere('ul.id = ?', $this->getUser()->getAttribute('id'))
-            ->execute();
-
+        
+        // Load credentials and store them to session here
+        $credentials = CredentialTable::instance()->getAllCredentials();
+        $userrights = CredentialRoleTable::instance()->getCredentialRoleById($this->getUser()->getAttribute('id'));
         $rights = $loginObject->loadUserRight($credentials, $userrights);
         $this->getUser()->setAttribute('credential', $rights);
+
+        
         return sfView::SUCCESS;
     }
 }

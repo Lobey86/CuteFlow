@@ -31,21 +31,9 @@ class usermanagementActions extends sfActions {
         $usermanagement = new Usermanagement();
 
 
-        $anz = Doctrine_Query::create()
-                ->select('COUNT(*) AS anzahl')
-                ->from('UserLogin ul')
-                ->where('ul.deleted = ?', 0)
-                ->execute();
-
+        $anz = UserLoginTable::instance()->getTotalSumOfUser();
         $limit = $this->getUser()->getAttribute('userSettings');
-        $result = Doctrine_Query::create()
-                ->select('ul.*')
-                ->from('UserLogin ul')
-                ->orderby('ul.id DESC')
-                ->limit($request->getParameter('limit',$limit['displayeditem']))
-                ->offset($request->getParameter('start',0))
-                ->where('ul.deleted = ?', 0)
-                ->execute();
+        $result = UserLoginTable::instance()->getAllUser($request->getParameter('limit',$limit['displayeditem']),$request->getParameter('start',0));
 
         $json_result = $usermanagement->buildUser($result, $this->getRequestParameter('start',0)+1);
 
@@ -117,14 +105,8 @@ class usermanagementActions extends sfActions {
     */
     public function executeLoadAllRole(sfWebRequest $request) {
         $usermanagement = new Usermanagement();
-
-        $result = Doctrine_Query::create()
-                    ->select('r.*')
-                    ->from('Role r')
-                    ->where('r.deleted = ?', 0)
-                    ->execute();
+        $result = RoleTable::instance()->getAllRole();
         $json_result = $usermanagement->buildRole($result,0);
-
         $this->renderText('({"result":'.json_encode($json_result).'})');
         return sfView::NONE;
     }
@@ -137,12 +119,7 @@ class usermanagementActions extends sfActions {
     * @return <type>
     */
     public function executeDeleteUser(sfWebRequest $request) {
-    Doctrine_Query::create()
-                    ->update('UserLogin ul')
-                    ->set('ul.deleted','?',1)
-                    ->where('ul.id = ?', $request->getParameter('id'))
-                    ->andWhere('ul.id != ?', $this->getUser()->getAttribute('id'))
-                    ->execute();
+        UserLoginTable::instance()->deleteUser($request->getParameter('id'), $this->getUser()->getAttribute('id'));
         return sfView::NONE;
     }
 
@@ -155,14 +132,7 @@ class usermanagementActions extends sfActions {
      */
     public function executeLoadUserGrid(sfWebRequest $request) {
         $usermanagement = new Usermanagement();
-
-        $result = Doctrine_Query::create()
-            ->select('ud.user_id, CONCAT(ud.firstname,\' \',ud.lastname) AS text')
-            ->from('UserData ud')
-            ->leftJoin('ud.UserLogin ul')
-            ->where('ul.deleted = ?', 0)
-            ->execute();
-
+        $result = UserDataTable::instance()->getAllUserFullname();
         $json_result = $usermanagement->buildUserGrid($result);
         $this->renderText('{"result":'.json_encode($json_result).'}');
         return sfView::NONE;
@@ -175,15 +145,7 @@ class usermanagementActions extends sfActions {
      */
     public function executeLoadUserAgentGrid(sfWebRequest $request) {
         $usermanagement = new Usermanagement();
-        $result = Doctrine_Query::create()
-            ->select('ua.*')
-            ->from('UserAgent ua')
-            ->where('ua.user_id = ?', $request->getParameter('id'))
-            ->leftJoin('ua.UserData ud')
-            ->leftJoin('ud.UserLogin ul')
-            ->orderBy('ua.position asc')
-            ->where('ul.deleted = ?', 0)
-            ->execute();
+        $result = UserAgentTable::instance()->getAllUserAgentForSingleUser($request->getParameter('id'));
         $json_result = $usermanagement->builUserAgentGrid($result);
         $this->renderText('{"result":'.json_encode($json_result).'}');
         return sfView::NONE;
@@ -196,11 +158,7 @@ class usermanagementActions extends sfActions {
      * @return <type>
      */
     public function executeCheckForExistingUser(sfWebRequest $request) {
-        $result = Doctrine_Query::create()
-            ->from('UserLogin ul')
-            ->where('ul.username = ?', $request->getParameter('username'))
-            ->execute();
-
+        $result = UserLoginTable::instance()->findUserByUsername($request->getParameter('username'));
         if($result[0]->getUsername() == $request->getParameter('username')) {
             $this->renderText('0'); // no write access
         }
@@ -218,14 +176,8 @@ class usermanagementActions extends sfActions {
      * @param sfWebRequest $request
      */
     public function executeLoadSingleUser(sfWebRequest $request) {
-
         $usermanagement = new Usermanagement();
-        $result = Doctrine_Query::create()
-            ->select('ul.*')
-            ->from('UserLogin ul')
-            ->where('ul.id = ?',$request->getParameter('id'))
-            ->andWhere('ul.deleted = ?', 0)
-            ->execute();
+        $result = UserLoginTable::instance()->findUserById($request->getParameter('id'));
         $json_result = $usermanagement->buildSingleUser($result);
         $this->renderText('{"result":'.json_encode($json_result).'}');
         return sfView::NONE;
@@ -238,13 +190,17 @@ class usermanagementActions extends sfActions {
      */
     public function executeUpdateUser(sfWebRequest $request) {
         $store = new UserCRUD();
-        $data = $request->getPostParameters();
-        $store->updateLoginDataTab($data, $request->getParameter('id')); // update first tab
-        $store->updateAdditionalDataTab($data, $request->getParameter('id'));
-        $store->updateGUISettingsTab($data, $request->getParameter('id'));
-        $store->updateUseragentSettings($data, $request->getParameter('id'));
-        $store->deleteWorklfowSettings($request->getParameter('id'));
-        $store->saveWorklfowSettings($data, $request->getParameter('id'));
+        $data = $store->prepareUpdateData($request->getPostParameters());
+        UserLoginTable::instance()->updateUser($data, $request->getParameter('id'));
+        UserDataTable::instance()->updateUserFirstnameAndLastname($data, $request->getParameter('id'));
+        UserSettingTable::instance()->updateUserEmailformatAndEmailtype($data, $request->getParameter('id'));
+        isset($data['userThirdTab_street']) ? UserDataTable::instance()->updateUserAdditinalData($data, $request->getParameter('id')) : '';
+        isset($data['userSecondTab_durationlength_type']) ? UserSettingTable::instance()->updateUserSettingDurationtypeAndDurationlength($data, $request->getParameter('id')) : '';
+        isset($data['userFourthTab_itemsperpage']) ? UserSettingTable::instance()->updateUserSetting($data, $request->getParameter('id')) : '';
+        isset($data['userSecondTab_durationlength_type']) ? UserAgentTable::instance()->deleteAllUserAgentForId($data, $request->getParameter('id')) : '';
+        isset($data['userSecondTab_durationlength_type']) ? $store->addUserAgent($data, $request->getParameter('id')) : '';
+        isset($data['userFourthTab_itemsperpage']) ? UserWorkflowConfigurationTable::instance()->deleteSingleUserWorkflowConfigurattion($request->getParameter('id')) : '';
+        isset($data['userFourthTab_itemsperpage']) ? $store->saveWorklfowSettings($data['worklfow'], $request->getParameter('id'), 1) : '';
         $this->renderText('{success:true}');
         return sfView::NONE;
     }

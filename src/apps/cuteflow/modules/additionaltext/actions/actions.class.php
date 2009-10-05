@@ -27,11 +27,8 @@ class additionaltextActions extends sfActions {
      */
     public function executeLoadAllText(sfWebRequest $request) {
        $addTextObj = new AddText();
-       $result = Doctrine_Query::create()
-            ->from('AdditionalText at')
-            ->select('at.*')
-            ->orderBy('at.id DESC')
-            ->execute();
+       $result = AdditionalTextTable::instance()->getAllAdditionalTextes();
+       
        $json_result = $addTextObj->buildAllText($result, $this->getContext());
        $this->renderText('{"result":'.json_encode($json_result).'}');
        return sfView::NONE;
@@ -71,15 +68,7 @@ class additionaltextActions extends sfActions {
      * @return <type>
      */
     public function executeSetStandard(sfWebRequest $request) {
-        Doctrine_Query::create()
-            ->update('AdditionalText at')
-            ->set('at.isactive','?',0)
-            ->execute();
-        Doctrine_Query::create()
-            ->update('AdditionalText at')
-            ->set('at.isactive','?',1)
-            ->where('at.id = ?', $request->getParameter('id'))
-            ->execute();
+        $result = AdditionalTextTable::instance()->setActive($request->getParameter('id'));
         return sfView::NONE;
     }
 
@@ -88,13 +77,9 @@ class additionaltextActions extends sfActions {
      * @param sfWebRequest $request
      */
     public function executeLoadText(sfWebRequest $request) {
-       $result = Doctrine_Query::create()
-            ->from('AdditionalText at')
-            ->select('at.*')
-            ->where('at.id = ?', $request->getParameter('id'))
-            ->fetchArray();
+       $result = AdditionalTextTable::instance()->getSingleText($request->getParameter('id'));
 
-       $this->renderText('{"result":'.json_encode($result[0]).'}');
+       $this->renderText('{"result":'.json_encode($result[0]->toArray()).'}');
        return sfView::NONE;
     }
 
@@ -105,19 +90,8 @@ class additionaltextActions extends sfActions {
      */
     public function executeUpdateText(sfWebRequest $request) {
         $data = $request->getPostParameters();
-        if($data['contenttype'] == 'plain') {
-            $data['content'] = $data['content_textarea'];
-        }
-        else {
-            $data['content'] = $data['content_htmleditor'];
-        }
-        Doctrine_Query::create()
-            ->update('AdditionalText at')
-            ->set('at.title','?',$data['title'])
-            ->set('at.contenttype','?',$data['contenttype'])
-            ->set('at.content','?',$data['content'])
-            ->where('at.id = ?', $request->getParameter('id'))
-            ->execute();
+        $data['content'] = $data['contenttype'] == 'plain' ? $data['content_textarea'] : $data['content_htmleditor'];        
+        $result = AdditionalTextTable::instance()->updateText($data,$request->getParameter('id'));
         $this->renderText('{success:true}');
         return sfView::NONE;
     }
@@ -129,21 +103,18 @@ class additionaltextActions extends sfActions {
      * @return <type>
      */
     public function executeDeleteText(sfWebRequest $request) {
-        Doctrine_Query::create()
-            ->delete('AdditionalText')
-            ->from('AdditionalText at')
-            ->where('at.id = ?',$request->getParameter('id'))
-            ->execute();
+        AdditionalTextTable::instance()->deleteText($request->getParameter('id'));
         return sfView::NONE;
     }
 
+    /**
+     * Copy an additional text
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeCopyText(sfWebRequest $request) {
-       $result = Doctrine_Query::create()
-            ->from('AdditionalText at')
-            ->select('at.*')
-            ->where('at.id = ?', $request->getParameter('id'))
-            ->fetchArray();
-
+        $result = AdditionalTextTable::instance()->getSingleText($request->getParameter('id'));
+        $result->toArray();
         
         $textObj = new AdditionalText();
         $textObj->setTitle('Kopie ' . $result[0]['title']);
@@ -151,8 +122,6 @@ class additionaltextActions extends sfActions {
         $textObj->setContenttype($result[0]['contenttype']);
         $textObj->setIsactive(0);
         $textObj->save();
-
-    
         return sfView::NONE;
     }
 
