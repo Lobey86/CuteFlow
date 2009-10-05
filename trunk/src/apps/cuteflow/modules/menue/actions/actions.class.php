@@ -29,11 +29,8 @@ class menueActions extends sfActions {
     public function executeLoadMenue(sfWebRequest $request) {
         $menueObject = new Menue();
 
-        $result = Doctrine_Query::create()
-            ->from('Credential c')
-            ->orderby('c.usermodule asc,c.usergroup asc')
-            ->execute();
-        
+        $result = CredentialTable::instance()->getAllCredentials('c.usermodule asc,c.usergroup asc');
+
         $menueObject->setRecords($result);
         $menueObject->setUserright($this->getUser()->getAttribute('credential'));
         $menueObject->setContext($this->getContext());

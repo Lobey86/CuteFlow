@@ -15,13 +15,6 @@ class loginActions extends sfActions {
     * @param sfRequest $request A request object
     */
     public function executeIndex(sfWebRequest $request) {
-
-       # $test = new UserLoginTable();
-       # $test->doLogin('admin','admin');
-
-
-
-
         $this->getUser()->setAttribute('env','cuteflow_dev.php');
         sfLoader::loadHelpers('Url');
         //$data = sfYaml::Load(sfConfig::get('sf_app_dir') . '/config/i18n.yml');
@@ -35,14 +28,7 @@ class loginActions extends sfActions {
     *
     */
     public function executeDoLogin(sfWebRequest $request) {
-    
-    $result = Doctrine_Query::create()
-                ->select('ul.*')
-                ->from('UserLogin ul')
-                ->where('ul.username = ?', $request->getPostParameter('username'))
-                ->andwhere('ul.password = ?',$request->getPostParameter('userpassword'))
-                ->andwhere('ul.deleted = ?', 0)
-                ->execute();
+    $result = UserLoginTable::instance()->findUserByNameAndPassword($request->getPostParameter('username'), $request->getPostParameter('userpassword'));
         
     if($result[0]->getUserName() == $request->getPostParameter('username') AND $result[0]->getPassword() == $request->getPostParameter('userpassword')) {
         $this->getUser()->setAuthenticated(true);

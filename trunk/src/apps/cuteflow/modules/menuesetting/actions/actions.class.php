@@ -28,12 +28,7 @@ class menuesettingActions extends sfActions {
     public function executeLoadModule (sfWebRequest $request) {
         $settingObj = new MenueSetting();
 
-
-        $module = Doctrine_Query::create()
-            ->select('DISTINCT c.usermodule as usermodule')
-            ->from('Credential c')
-            ->orderBy('c.usermoduleposition asc')
-            ->execute();
+        $module = CredentialTable::instance()->getAllUsermodule('c.usermoduleposition asc');
 
         $settingObj->setContext($this->getContext());
         $json_result = $settingObj->buildModule($module);
@@ -50,18 +45,8 @@ class menuesettingActions extends sfActions {
      * @return <type>
      */
     public function executeSaveModule(sfWebRequest $request) {
-        $data = $request->getPostParameters();
-        $order = $data['grid'];
-
-        $position = 1;
-        foreach($order as $item) {
-            $module = Doctrine_Query::create()
-                ->update('Credential c')
-                ->set('c.usermoduleposition','?',$position++)
-                ->where('c.usermodule = ?', $item)
-                ->execute();
-        }
-
+        $data = $request->getPostParameters();      
+        CredentialTable::instance()->saveOrderOfModules($data['grid'], 1);
         $this->renderText('{success:true}');
         return sfView::NONE;
     }
@@ -76,16 +61,8 @@ class menuesettingActions extends sfActions {
      */
     public function executeLoadGroup (sfWebRequest $request) {
         $settingObj = new MenueSetting();
-
-
-        $groups = Doctrine_Query::create()
-            ->select('c.*')
-            ->from('Credential c')
-            ->where('c.usermodule = ?', $request->getParameter('id'))
-            ->andWhere('c.userright = ?', 'showModule')
-            ->orderBy ('c.usergroupposition ASC')
-            ->execute();
-
+        $groups = CredentialTable::instance()->getAllGroups($request->getParameter('id'),'c.usergroupposition ASC');
+        
         $settingObj->setContext($this->getContext());
         $json_result = $settingObj->buildGroup($groups);
 
@@ -100,20 +77,8 @@ class menuesettingActions extends sfActions {
      * @param sfWebRequest $request
      * @return <type>
      */
-    public function executeSaveGroup(sfWebRequest $request) {
-        $data = $request->getPostParameters();
-        $order = $data['grid'];
-        $position = 1;
-
-        foreach($order as $item) {
-            $module = Doctrine_Query::create()
-                ->update('Credential c')
-                ->set('c.usergroupposition','?',$position++)
-                ->where('c.usermodule = ?', $data['module'])
-                ->andWhere('c.usergroup = ?', $item)
-                ->execute();
-        }
-
+    public function executeSaveGroup(sfWebRequest $request) {     
+        CredentialTable::instance()->saveOrderOfGroups($request->getPostParameters(), 1);
         $this->renderText('{success:true}');
         return sfView::NONE;
     }

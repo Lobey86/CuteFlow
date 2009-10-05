@@ -116,7 +116,7 @@
      </trans-unit>	
 	 <trans-unit id="29">
         <source>Delete successful</source>
-        <target>>Delete successful</target>
+        <target>Delete successful</target>
      </trans-unit>		
 	 <trans-unit id="30">
         <source>Copy successful</source>

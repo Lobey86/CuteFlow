@@ -26,13 +26,8 @@ class myprofileActions extends sfActions {
      */
     public function executeLoadUserCirculationColumns(sfWebRequest $request) {
         $sysObj = new SystemSetting();
-        $worklfosettings = Doctrine_Query::create()
-            ->select('uwc.*')
-            ->from('UserWorkflowConfiguration uwc')
-            ->where('uwc.user_id = ?', $request->getParameter('id'))
-            ->orderBy('uwc.position ASC')
-            ->fetchArray();
-        $worklfosettings = $sysObj->buildColumns($worklfosettings, $this->getContext());
+        $worklfosettings = UserWorkflowConfigurationTable::instance()->getSingleUserWorkflowConfigurattion($request->getParameter('id'));
+        $worklfosettings = $sysObj->buildColumns($worklfosettings->toArray(), $this->getContext());
 
         $this->renderText('{"result":'.json_encode($worklfosettings).'}');
         return sfView::NONE;

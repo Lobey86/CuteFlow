@@ -27,27 +27,14 @@ class sendmessageActions extends sfActions {
      * @return <type>
      */
     public function executeSendMail(sfWebRequest $request) {
-        $user = Doctrine_Query::create()
-                ->from('UserData ud')
-                ->select('CONCAT(ud.firstname,\' \',ud.lastname) AS name, ud.email');
+
+
+        $user = UserLoginTable::instance()->getUserDataByReceiver($request->getPostParameter('receiver'));
+        $recevier = $user->toArray();
         
-        if($request->getPostParameter('receiver') == 'ALL') {
-            // do nothing
-        }
-        elseif($request->getPostParameter('receiver') == 'SENDER') {
-            
-        }
-        else {
-            
-        }
-        $recevier = $user->fetchArray();
-
-
-        $email = Doctrine_Query::create()
-                ->select('ec.*')
-                ->from('EmailConfiguration ec')
-                ->execute();
+        $email = EmailConfigurationTable::instance()->getEmailConfiguration();
         $mail = new MailDaemon($email);
+
         $mailObject = $mail->getSwiftObject();
         $mailObject->setCharset(sfConfig::get('sf_charset'));
         $mailObject->setContentType('text/' . $request->getPostParameter('type'));
@@ -56,8 +43,6 @@ class sendmessageActions extends sfActions {
         $mailObject->setBody( $request->getPostParameter('description'));
         $mailObject->setTo($mail->buildReceiver($recevier));
         $mail->send();
-
-        
         $this->renderText('{success:true}');
         return sfView::NONE;
     }
