@@ -27,6 +27,47 @@ class SystemSetting {
         return $data;
     }
 
+
+    /**
+     * Cleans data updating the system settings
+     *
+     * @param array $data
+     * @return array $data
+     */
+    public function buildSystemSetting(array $data) {
+        $data['systemsetting_showposition'] = isset($data['systemsetting_showposition']) ? $data['systemsetting_showposition'] : 0;
+        $data['systemsetting_allowunencryptedrequest'] = isset($data['systemsetting_allowunencryptedrequest']) ? $data['systemsetting_allowunencryptedrequest'] : 0;
+        $data['systemsetting_sendreceivermail'] = isset($data['systemsetting_sendreceivermail']) ? $data['systemsetting_sendreceivermail'] : 0;
+        $data['systemsetting_sendremindermail'] = isset($data['systemsetting_sendremindermail']) ? $data['systemsetting_sendremindermail'] : 0;
+        return $data;
+    }
+
+    /**
+     * Cleans data for updating email settings
+     * @param array $data
+     * @return array $data
+     */
+    public function buildEmailSetting(array $data) {
+        $data['emailtab_encryption'] = $data['emailtab_encryption'] == 'NONE' ? '' : $data['emailtab_encryption'];
+        $data['email_smtp_auth'] = isset($data['email_smtp_auth']) ? 1 : 0;
+        return $data;
+    }
+
+
+    /**
+     * Cleans data for updating user settings
+     * @param array $data
+     * @return array $data
+     */
+    public function buildUserSetting(array $data) {
+        $data['userTab_markred'] = $data['userTab_markred'] == '' ? 12 : $data['userTab_markred'];
+        $data['userTab_markyellow'] = $data['userTab_markyellow'] == '' ? 7 : $data['userTab_markyellow'];
+        $data['userTab_markorange'] = $data['userTab_markorange'] == '' ? 10 : $data['userTab_markorange'];
+        $data['userTab_defaultdurationlength'] = $data['userTab_defaultdurationlength'] == '' ? 3 : $data['userTab_defaultdurationlength'];
+        $data['userTab_showinpopup'] = isset($data['userTab_showinpopup']) ? $data['userTab_showinpopup'] : 0;
+        return $data;
+    }
+
   
 }
 ?>
