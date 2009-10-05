@@ -24,6 +24,7 @@ class AdditionalTextTable extends Doctrine_Table {
             ->from('AdditionalText at')
             ->select('at.*')
             ->orderBy('at.id DESC')
+            ->where('at.deleted = ?' ,0)
             ->execute();
     }
 
@@ -49,15 +50,16 @@ class AdditionalTextTable extends Doctrine_Table {
 
 
     /**
-     * Loads a single Additional Text as array
+     * Loads a single Additional Text by its Id
      * @param int $id, id of the text to load
-     * @return array
+     * @return Doctrine_Collection
      */
-    public function getSingleText($id) {
+    public function findSingleTextById($id) {
         return Doctrine_Query::create()
             ->from('AdditionalText at')
             ->select('at.*')
             ->where('at.id = ?', $id)
+            ->andWhere('at.deleted = ?' ,0)
             ->execute();
     }
 
@@ -87,8 +89,8 @@ class AdditionalTextTable extends Doctrine_Table {
      */
     public function deleteText($id) {
         Doctrine_Query::create()
-            ->delete('AdditionalText')
-            ->from('AdditionalText at')
+            ->update('AdditionalText at')
+            ->set('at.deleted','?',1)
             ->where('at.id = ?',$id)
             ->execute();
         return true;
