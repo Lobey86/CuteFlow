@@ -38,6 +38,16 @@ class Usermanagement {
         return $result;
     }
 
+    public static function checkLDAP () {
+        $result = AuthenticationConfigurationTable::instance()->getAuthenticationType();
+        if($result[0]->getAuthenticationtype() == 'DATABASE_LDAP') {
+            return 'false';
+        }
+        else {
+            return 'true';
+        }
+    }
+
     /**
      * Function builds Role for Extjs
      *
