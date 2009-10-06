@@ -51,6 +51,10 @@ Credential:
     userModule: management
     userGroup: field
     userRight: showModule
+  c14:
+    userModule: administration
+    userGroup: usermanagement
+    userRight: addldap
 Role:
   r1:
     description: admin
@@ -108,6 +112,9 @@ CredentialRole:
   rc16:
     role_id: 1
     credential_id: 13
+  rc17:
+    role_id: 1
+    credential_id: 14
 
 UserLogin:
   ul1:
@@ -146,6 +153,7 @@ UserSetting:
      circulationdefaultsortcolumn: NAME
      circulationdefaultsortdirection: ASC
      showcirculationinpopup: 1
+     firstlogin: 1
   us2:
      user_id: 2
      markyellow: 9
@@ -160,6 +168,7 @@ UserSetting:
      circulationdefaultsortcolumn: STATION
      circulationdefaultsortdirection: DESC
      showcirculationinpopup: 0
+     firstlogin: 1
 
 UserWorkflowConfiguration:
   uwc1:
@@ -259,6 +268,7 @@ SystemConfiguration:
 AuthenticationConfiguration:
   ac:
     authenticationtype: DBONLY
+    firstlogin: 1
 
 
 UserConfiguration:
