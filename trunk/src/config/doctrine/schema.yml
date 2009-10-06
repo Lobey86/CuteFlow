@@ -193,5 +193,84 @@ AdditionalText:
     isactive: { type: integer(1), length: 3 }
 
 
+Field:
+  actAs: [SoftDelete]
+  tableName: cf_field
+  columns:
+    id: { type: integer, length: 10, primary: true, autoincrement: true }
+    title: { type: string(100)}
+    type: { type: string(20)}
+    writeprotected: { type: integer(1), length: 3 }
+    color: { type: string(20)}
 
-    
+FieldTextfield:
+  tableName: cf_fieldtextfield
+  columns:
+    id: { type: integer, length: 10, primary: true, autoincrement: true }
+    field_id: { type: integer, length: 10 }
+  relations:
+    Field: { class: Field, local: field_id, foreign: id, foreignType: many, type: one }
+
+FieldCheckbox:
+  tableName: cf_fieldcheckbox
+  columns:
+    id: { type: integer, length: 10, primary: true, autoincrement: true }
+    field_id: { type: integer, length: 10 }
+  relations:
+    Field: { class: Field, local: field_id, foreign: id, foreignType: many, type: one }
+
+FieldNumber:
+  tableName: cf_fieldnumber
+  columns:
+    id: { type: integer, length: 10, primary: true, autoincrement: true }
+    field_id: { type: integer, length: 10 }
+  relations:
+    Field: { class: Field, local: field_id, foreign: id, foreignType: many, type: one }
+
+FieldDate:
+  tableName: cf_fielddate
+  columns:
+    id: { type: integer, length: 10, primary: true, autoincrement: true }
+    field_id: { type: integer, length: 10 }
+  relations:
+    Field: { class: Field, local: field_id, foreign: id, foreignType: many, type: one }
+
+FieldFile:
+  tableName: cf_fieldfile
+  columns:
+    id: { type: integer, length: 10, primary: true, autoincrement: true }
+    field_id: { type: integer, length: 10 }
+  relations:
+    Field: { class: Field, local: field_id, foreign: id, foreignType: many, type: one }
+
+FieldCombobox:
+  tableName: cf_fieldcombobox
+  columns:
+    id: { type: integer, length: 10, primary: true, autoincrement: true }
+    field_id: { type: integer, length: 10 }
+  relations:
+    Field: { class: Field, local: field_id, foreign: id, foreignType: many, type: one }
+
+FieldCheckboxgroup:
+  tableName: cf_fieldcheckboxgroup
+  columns:
+    id: { type: integer, length: 10, primary: true, autoincrement: true }
+    field_id: { type: integer, length: 10 }
+  relations:
+    Field: { class: Field, local: field_id, foreign: id, foreignType: many, type: one }
+
+FieldRadiogroup:
+  tableName: cf_fieldradiogroup
+  columns:
+    id: { type: integer, length: 10, primary: true, autoincrement: true }
+    field_id: { type: integer, length: 10 }
+  relations:
+    Field: { class: Field, local: field_id, foreign: id, foreignType: many, type: one }
+
+FieldTextarea:
+  tableName: cf_fieldtextarea
+  columns:
+    id: { type: integer, length: 10, primary: true, autoincrement: true }
+    field_id: { type: integer, length: 10 }
+  relations:
+    Field: { class: Field, local: field_id, foreign: id, foreignType: many, type: one }
