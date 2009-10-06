@@ -85,6 +85,7 @@ UserSetting:
     circulationdefaultsortcolumn: { type: string(45) }
     circulationdefaultsortdirection: { type: string(45) }
     showcirculationinpopup: {type: integer(1), length: 3}
+    firstlogin: {type: integer(1), length: 3}
   relations:
     UserLogin: { class: UserLogin, local: user_id, foreign: id, foreignType: one, type: one }
 
@@ -132,7 +133,7 @@ AuthenticationConfiguration:
   tableName: cf_authenticationconfiguration
   columns:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
-    authenticationtype: { type: string(100)}
+    authenticationtype: { type: string(20)}
     ldaphost: { type: string(100)}
     ldapdomain: { type: string(100)}
     ldapbindusernameandcontext: { type: string(100)}
@@ -147,7 +148,10 @@ AuthenticationConfiguration:
     ldapoffice: { type: string(100)}
     ldapphone: { type: string(100)}
     ldapcontext: { type: string(100)}
+    ldapadduser: {type: integer(1), length: 3}
     openidserver: { type: string(100)}
+    firstlogin: {type: integer(1), length: 3}
+
 
 UserConfiguration:
   tableName: cf_userconfiguration
