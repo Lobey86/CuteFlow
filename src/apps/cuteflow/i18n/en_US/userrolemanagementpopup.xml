@@ -97,7 +97,11 @@
 		<trans-unit id="24">
         <source>field</source>
         <target>Fields</target>
-    </trans-unit> 
+    </trans-unit> 	
+	<trans-unit id="25">
+        <source>addldap</source>
+        <target>Add LDAP User</target>
+    </trans-unit> 	
 	</body>
   </file>
 </xliff>
