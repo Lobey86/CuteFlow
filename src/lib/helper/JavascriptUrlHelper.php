@@ -7,8 +7,6 @@
  * @return String, correct url
  */
 function build_dynamic_javascript_url($js) {
-
-     (sfContext::getInstance()->getUser()->getAttribute('env'));
     if(sfContext::getInstance()->getUser()->getAttribute('env') == '') {
         return sfContext::getInstance()->getUser()->getAttribute('env') . url_for($js);
     }
