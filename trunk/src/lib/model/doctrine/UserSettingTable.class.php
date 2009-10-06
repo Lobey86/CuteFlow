@@ -47,20 +47,18 @@ class UserSettingTable extends Doctrine_Table {
      * @return true
      */
     public function updateUserSetting($data, $user_id) {
-        if(isset($data['userFourthTab_itemsperpage'])) {
-            Doctrine_Query::create()
-               ->update('UserSetting us')
-               ->set('us.markyellow','?',$data['userFourthTab_markyellow'])
-               ->set('us.markred','?',$data['userFourthTab_markred'])
-               ->set('us.markorange','?',$data['userFourthTab_markorange'])
-               ->set('us.refreshtime','?',$data['userFourthTab_refreshtime'])
-               ->set('us.displayeditem','?',$data['userFourthTab_itemsperpage'])
-               ->set('us.circulationdefaultsortcolumn','?',$data['userFourthTab_circulationdefaultsortcolumn'])
-               ->set('us.circulationdefaultsortdirection','?',$data['userFourthTab_circulationdefaultsortdirection'])
-               ->set('us.showcirculationinpopup','?',$data['userFourthTab_showinpopup'])
-               ->where('us.user_id = ?', $user_id)
-               ->execute();
-        }
+        Doctrine_Query::create()
+           ->update('UserSetting us')
+           ->set('us.markyellow','?',$data['userFourthTab_markyellow'])
+           ->set('us.markred','?',$data['userFourthTab_markred'])
+           ->set('us.markorange','?',$data['userFourthTab_markorange'])
+           ->set('us.refreshtime','?',$data['userFourthTab_refreshtime'])
+           ->set('us.displayeditem','?',$data['userFourthTab_itemsperpage'])
+           ->set('us.circulationdefaultsortcolumn','?',$data['userFourthTab_circulationdefaultsortcolumn'])
+           ->set('us.circulationdefaultsortdirection','?',$data['userFourthTab_circulationdefaultsortdirection'])
+           ->set('us.showcirculationinpopup','?',$data['userFourthTab_showinpopup'])
+           ->where('us.user_id = ?', $user_id)
+           ->execute();
         return true;
     }
 
@@ -78,6 +76,33 @@ class UserSettingTable extends Doctrine_Table {
            ->where('us.user_id = ?', $user_id)
            ->execute();
         return true;
+    }
+
+    /**
+     * Function sets firstlogin flag to 0, -> user is logged in.
+     * @param id $user_id, user_id
+     * @return true
+     */
+    public function setFirstLogin($user_id) {
+        Doctrine_Query::create()
+           ->update('UserSetting us')
+           ->set('us.firstlogin','?',0)
+           ->where('us.user_id = ?', $user_id)
+           ->execute();
+        return true;
+    }
+
+    /**
+     * Load firstlogin flag
+     * @param int $user_id, user_id
+     * @return Doctrine_Collection
+     */
+    public function getFirstLogin($user_id) {
+        return Doctrine_Query::create()
+            ->select('us.firstlogin')
+            ->from('UserSetting us')
+            ->where('us.user_id = ?',$user_id)
+            ->execute();
     }
 
 
