@@ -71,12 +71,12 @@
         <target>Move all users to</target>
      </trans-unit>	
 	 <trans-unit id="18">
-        <source>Remove record</source>
-        <target>Remove record</target>
+        <source>Remove role</source>
+        <target>Remove role</target>
      </trans-unit>
 	 <trans-unit id="19">
-        <source>Edit record</source>
-        <target>Edit record</target>
+        <source>Edit role</source>
+        <target>Edit role</target>
      </trans-unit>	 
     </body>
   </file>
