@@ -213,17 +213,15 @@ class usermanagementActions extends sfActions {
      */
     public function executeSaveUser(sfWebRequest $request) {
         $store = new UserCRUD();
-        $result = Doctrine_Query::create()
-            ->select('uc.*')
-            ->from('UserConfiguration uc')
-            ->fetchArray();
+        $result = UserConfigurationTable::instance()->getUserConfiguration()->toArray();
         $data = $request->getPostParameters();
+        $data = $store->prepareCreateData($data, $result[0]);
         $user_id = $store->saveLoginDataTab($data);
-        $store->updateAdditionalDataTab($data, $user_id);
-        $store->saveGUISettingsTab($data, $user_id, $result[0]);
-        $store->saveUseragentSettings($data, $user_id, $result[0]);
-        $store->saveWorklfowSettings($data, $user_id);
-
+        UserSettingTable::instance()->updateUserSettingDurationtypeAndDurationlength($data, $user_id);
+        UserDataTable::instance()->updateUserAdditinalData($data,$user_id);
+        UserSettingTable::instance()->updateUserSetting($data,$user_id);
+        $store->addUserAgent($data, $user_id);
+        $store->saveWorklfowSettings($data['worklfow'], $user_id, 1);
         $this->renderText('{success:true}');
         return sfView::NONE;
     }
@@ -236,10 +234,7 @@ class usermanagementActions extends sfActions {
      * @return <type>
      */
     public function executeLoadDefaultData(sfWebRequest $request) {
-        $result = Doctrine_Query::create()
-            ->select('uc.*')
-            ->from('UserConfiguration uc')
-            ->fetchArray();
+        $result = UserConfigurationTable::instance()->getUserConfiguration()->toArray();
         $this->renderText('{"result":'.json_encode($result[0]).'}');
         return sfView::NONE;
     }

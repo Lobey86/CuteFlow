@@ -28,8 +28,7 @@ class layoutActions extends sfActions {
         $userrights = CredentialRoleTable::instance()->getCredentialRoleById($this->getUser()->getAttribute('id'));
         $rights = $loginObject->loadUserRight($credentials, $userrights);
         $this->getUser()->setAttribute('credential', $rights);
-
-        
+        //UserSettingTable::instance()->setFirstLogin($this->getUser()->getAttribute('id'));
         return sfView::SUCCESS;
     }
 }
