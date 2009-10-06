@@ -21,12 +21,17 @@ cf.authTab = function(){return {
 	/** fieldset for ldap authentication **/
 	initLdapFieldset: function () {
 		this.theLdapFieldset = new Ext.form.FieldSet({
-			title: '<table><tr><td><img src="/images/icons/information.png"  ext:qtip=\" ewfew\" ext:qwidth=\"500\"/></td><td>&nbsp;&nbsp;<?php echo __('LDAP Settings',null,'systemsetting'); ?></td></tr></table>',
+			title: '<table><tr><td><img src="/images/icons/information.png"  ext:qtip=\"<table><tr><td><b><?php echo __('Add User automatic to Cuteflowdatabase when in LDAP?',null,'systemsetting'); ?></b></td><td>&nbsp;&nbsp;&nbsp;<?php echo __('User is added automatic to CuteFlow database, when is authenticated to ldap directory',null,'systemsetting'); ?></td></tr></table>\" ext:qwidth=\"800\"/></td><td>&nbsp;&nbsp;<?php echo __('LDAP Settings',null,'systemsetting'); ?></td></tr></table>',
 			width: 600,
 			height: 420,
 			style: 'margin-top:20px;margin-left:5px;',
 			labelWidth: 330,
 			items: [{
+				xtype: 'checkbox',
+				fieldLabel: '<?php echo __('Add User automatic to Cuteflowdatabase when in LDAP?',null,'systemsetting'); ?>',
+				inputValue: "1",
+				id: 'auth_ladp_adduser'	
+			},{
 				xtype:'textfield',
 				allowBlank: true,
 				width: 230, 
@@ -111,7 +116,7 @@ cf.authTab = function(){return {
 	/** fieldset for OpenID authentication **/
 	initOpenIdFieldset: function () {
 		this.theOpenIdFieldset = new Ext.form.FieldSet({
-			title: '<?php echo __('OpenID Settings',null,'systemsetting'); ?>',
+			title: '<table><tr><td><img src="/images/icons/information.png"  ext:qtip=\"<table><tr><td><b><?php echo __('OpenID Server',null,'systemsetting'); ?></b></td><td>&nbsp;&nbsp;&nbsp;<?php echo __('Authenticate using OpenID',null,'systemsetting'); ?></td></tr></table>\" ext:qwidth=\"600\"/></td><td>&nbsp;&nbsp;<?php echo __('OpenID Server',null,'systemsetting'); ?></td></tr></table>',
 			width: 600,
 			height: 80,
 			style: 'margin-top:20px;margin-left:5px;',
@@ -147,7 +152,7 @@ cf.authTab = function(){return {
 	/** init fieldset, with combo to change the authentication type **/
 	initTypeFieldset: function () {
 		this.theFieldset = new Ext.form.FieldSet({
-			title: '<table><tr><td><img src="/images/icons/information.png"  ext:qtip=\"<table><tr><td><b><?php echo __('use only CuteFLow Database',null,'systemsetting'); ?>:</b></td><td>&nbsp;&nbsp;&nbsp;only CuteFlow database will be used.<br>&nbsp;&nbsp;&nbsp;No LDAP / OpenID authentication used</td></tr></table>\" ext:qwidth=\"500\"/></td><td>&nbsp;&nbsp;<?php echo __('Authentication type',null,'systemsetting'); ?></td></tr></table>',
+			title: '<table><tr><td><img src="/images/icons/information.png"  ext:qtip=\"<table><tr><td><b><?php echo __('use only CuteFLow Database',null,'systemsetting'); ?>:</b></td><td>&nbsp;&nbsp;&nbsp;<?php echo __('internal CuteFlow Database will be used.',null,'systemsetting'); ?></td></tr><tr><td><b><?php echo __('use CuteFLow Database and LDAP',null,'systemsetting'); ?>:</b></td><td>&nbsp;&nbsp;&nbsp;<?php echo __('use LDAP for authentication and CuteFlow Database to login.',null,'systemsetting'); ?></td></tr><tr><td><b><?php echo __('use CuteFlow Database and OpenID',null,'systemsetting'); ?>:</b></td><td>&nbsp;&nbsp;&nbsp;<?php echo __('use OpenID service to authenticate and CuteFlow Database to login.',null,'systemsetting'); ?></td></tr><tr><td><b><?php echo __('Show MyProfile Tab on Users First-Login?',null,'systemsetting'); ?>:</b></td><td>&nbsp;&nbsp;&nbsp;<?php echo __('on First-Login MyProfile panel is loaded.',null,'systemsetting'); ?></td></tr></table>\" ext:qwidth=\"700\"/></td><td>&nbsp;&nbsp;<?php echo __('Authentication type',null,'systemsetting'); ?></td></tr></table>',
 			width: 600,
 			height: 100,
 			style: 'margin-top:20px;margin-left:5px;',
@@ -205,7 +210,7 @@ cf.authTab = function(){return {
 		
 		Ext.getCmp('auth_openid_server').setValue(data.openidserver);
 		
-	
+		Ext.getCmp('auth_ladp_adduser').setValue(data.ldapadduser);
 		Ext.getCmp('auth_ladp_host').setValue(data.ldaphost);
 		Ext.getCmp('auth_ladp_domain').setValue(data.ldapdomain);
 		Ext.getCmp('auth_ladp_bindusernameandcontext').setValue(data.ldapbindusernameandcontext);
