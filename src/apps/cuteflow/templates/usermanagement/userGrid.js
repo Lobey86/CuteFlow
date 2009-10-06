@@ -171,7 +171,6 @@ cf.UserGrid = function(){return {
 			renderTo: 'user_edit' + user_editid,
 			disabled: <?php $arr = $sf_user->getAttribute('credential');echo $arr['administration_usermanagement_editUser'];?>,
 			html: '<span style="cursor:pointer;"><img src="/images/icons/user_edit.png" /></span>',
-			waitMsg:'Loading',
 			listeners: {
 				render: function(c){
 					  c.getEl().on({
