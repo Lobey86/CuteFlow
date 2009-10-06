@@ -149,7 +149,7 @@ cf.authTab = function(){return {
 		this.theFieldset = new Ext.form.FieldSet({
 			title: '<table><tr><td><img src="/images/icons/information.png"  ext:qtip=\"<table><tr><td><b><?php echo __('use only CuteFLow Database',null,'systemsetting'); ?>:</b></td><td>&nbsp;&nbsp;&nbsp;only CuteFlow database will be used.<br>&nbsp;&nbsp;&nbsp;No LDAP / OpenID authentication used</td></tr></table>\" ext:qwidth=\"500\"/></td><td>&nbsp;&nbsp;<?php echo __('Authentication type',null,'systemsetting'); ?></td></tr></table>',
 			width: 600,
-			height: 80,
+			height: 100,
 			style: 'margin-top:20px;margin-left:5px;',
 			labelWidth: 330,
 			items: [{
@@ -187,6 +187,11 @@ cf.authTab = function(){return {
 						}
 					}
 				}
+			},{
+				xtype: 'checkbox',
+				fieldLabel: '<?php echo __('Show MyProfile Tab on Users First-Login?',null,'systemsetting'); ?>',
+				inputValue: "1",
+				id: 'authentication_firstlogin'
 			}]
 		});
 	},
@@ -214,7 +219,7 @@ cf.authTab = function(){return {
 		Ext.getCmp('auth_ladp_office').setValue(data.ldapoffice);
 		Ext.getCmp('auth_ladp_phone').setValue(data.ldapphone);
 		Ext.getCmp('auth_ladp_context').setValue(data.ldapcontext);
-		
+		Ext.getCmp('authentication_firstlogin').setValue(data.firstlogin);
 		
 		
 		if(data.authenticationtype == 'DBONLY') {

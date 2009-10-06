@@ -128,7 +128,8 @@ cf.systemTab = function(){return {
 	
 	
 	addData: function (data) {
-		Ext.getCmp('systemsetting_language_id').setValue(data.language);
+		cf.systemTab.addLanguage.defer(500, this, [data.language]);
+		
 		Ext.getCmp('systemsetting_showposition').setValue(data.showpositioninmail);
 		Ext.getCmp('systemsetting_allowunencryptedrequest').setValue(data.allowunencryptedrequest);
 		Ext.getCmp('systemsetting_sendreceivermail').setValue(data.sendreceivermail);
@@ -139,6 +140,10 @@ cf.systemTab = function(){return {
 			Ext.getCmp('systemsetting_language_id').style = 'margin-top:0px;margin-bottom:1px;';
 			Ext.getCmp('systemsetting_slotvisible_id').style = 'margin-top:0px;margin-bottom:1px;';
 		}
+	},
+	
+	addLanguage: function (data) {
+		Ext.getCmp('systemsetting_language_id').setValue(data);
 	}
 	
 
