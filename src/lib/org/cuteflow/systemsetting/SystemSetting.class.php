@@ -68,6 +68,17 @@ class SystemSetting {
         return $data;
     }
 
+
+    /**
+     * Loads firstlogin flag
+     *
+     * @return bool true/false
+     */
+    public static function getFirstLogin() {
+        $result = AuthenticationConfigurationTable::instance()->getFirstLogin()->toArray();
+        return $result[0]['firstlogin'];
+    }
+
   
 }
 ?>
