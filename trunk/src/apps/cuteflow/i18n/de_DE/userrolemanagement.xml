@@ -71,11 +71,11 @@
         <target>Alle Benutzer zuordnen in</target>
      </trans-unit>
 	 <trans-unit id="18">
-        <source>Remove record</source>
+        <source>Remove role</source>
         <target>Datensatz entfernen</target>
      </trans-unit>
 	 <trans-unit id="19">
-        <source>Edit record</source>
+        <source>Edit role</source>
         <target>Datensatz bearbeiten</target>
      </trans-unit>	 
     </body>
