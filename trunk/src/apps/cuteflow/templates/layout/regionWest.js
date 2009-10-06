@@ -8,13 +8,24 @@ cf.Navigation = function(){return {
 	
 	isInitialized                 : false,
 	theAccordion            	  : false, // stores the left Navigationpabel
+	theUserFirstLogin			  : false,
+	theFirstLogin				  : false,
 
 	
 	/** functions loads accordion for region west **/
 	init: function () {
+		this.theUserFirstLogin = '<?php echo UserSettingClass::getFirstLogin();?>';
+		this.theFirstLogin = '<?php echo SystemSetting::getFirstLogin();?>';
 		this.initAccordion();
 		this.initTree();
+		cf.Navigation.initMyProfilePanel.defer(2000, this,'');
 		
+	},
+	
+	/** reloads navigation west **/
+	reloadNavigation: function () {
+		this.initAccordion();
+		this.initTree();
 	},
 	
 	/** functions loads all data for the navigation **/
@@ -81,6 +92,18 @@ cf.Navigation = function(){return {
 		this.theAccordion.doLayout();
 	},
 	
+	/** init my profile panel, when firstlogin is set **/
+	initMyProfilePanel: function () {
+		if(cf.Navigation.theFirstLogin == 1 && cf.Navigation.theUserFirstLogin == 1) {
+			cf.Navigation.theUserFirstLogin = 0;
+			cf.Navigation.theFirstLogin = 0;
+			
+			cf.administration_myprofile.init();
+			cf.TabPanel.theTabPanel.add(cf.administration_myprofile.getInstance());	
+			cf.TabPanel.theTabPanel.setActiveTab(cf.administration_myprofile.getInstance());
+		}
+		
+	},
 	
 	/**
 	* Function handles the click of a node an generates the window object

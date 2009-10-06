@@ -67,7 +67,7 @@ cf.menueSettingGroupCRUD = function(){return {
 				cf.Navigation.isInitialized = false;
 				cf.Layout.theRegionWest.remove(cf.Navigation.theAccordion);
 				cf.Navigation.theAccordion.destroy();
-				cf.Navigation.init();
+				cf.Navigation.reloadNavigation();
 				cf.Layout.theRegionWest.add(cf.Navigation.theAccordion);
 				cf.Layout.theRegionWest.doLayout();
 				

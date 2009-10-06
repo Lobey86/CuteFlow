@@ -1,20 +1,19 @@
 /** save function for Modules **/
 cf.menueSettingModuleCRUD = function(){return {
-	
+	thePanel 				:false,
 	
 	/** main save function **/
 	saveModuleOrder: function () {
-		var panel = this.buildModuleFields();
-		this.saveModule(panel);
+		this.buildModuleFields();
+		this.saveModule();
 	},
 	
 	
 	/** buildPabnel, where all hiddenfields will be added **/
 	buildModuleFields: function() {
-		var myPanel = new Ext.Panel ({
-			id: 'menueSettingModuleCRUDSavePanel',
-			width:'5',
-			height: '5',
+		this.thePanel = new Ext.Panel ({
+			width:5,
+			height: 5,
 			autoScroll: false
 		});
 		
@@ -26,17 +25,16 @@ cf.menueSettingModuleCRUD = function(){return {
 				autoCreate : {tag:'input', type: 'hidden', name: 'grid[]', value:row.data.id, width: 0,heigth:0 }			
 			});
 			
-			myPanel.add(hiddenfield);
+			this.thePanel.add(hiddenfield);
 			
 		}
 		// add Panel to formpanel
-		cf.administration_menuesetting.themenueSettingModuleWindow.add(myPanel);
+		cf.administration_menuesetting.themenueSettingModuleWindow.add(this.thePanel);
 		cf.administration_menuesetting.themenueSettingModuleWindow.doLayout();
-		return myPanel;
 	},
 	
 	/** save function of the hiddenfields **/
-	saveModule: function (panel) {
+	saveModule: function () {
 		
 		cf.administration_menuesetting.themenueSettingModuleWindow.getForm().submit({
 			url: '<?php echo build_dynamic_javascript_url('menuesetting/SaveModule')?>',
@@ -47,8 +45,12 @@ cf.menueSettingModuleCRUD = function(){return {
 				}
 				catch(e) {
 				}
-				Ext.getCmp('menueSettingModuleCRUDSavePanel').remove();
-				Ext.getCmp('menueSettingModuleCRUDSavePanel').destroy();
+				
+				Ext.destroy.apply(Ext, cf.menueSettingModuleCRUD.thePanel.items.items);
+				cf.menueSettingModuleCRUD.thePanel.items.clear();
+				cf.menueSettingModuleCRUD.thePanel.body.update('');
+				
+				
 				cf.administration_menuesetting.themenueSettingModuleWindow.doLayout();
 				cf.menueSettingModuleGrid.theModuleStore.reload();
 				
@@ -57,12 +59,13 @@ cf.menueSettingModuleCRUD = function(){return {
 				cf.Navigation.isInitialized = false;
 				cf.Layout.theRegionWest.remove(cf.Navigation.theAccordion);
 				cf.Navigation.theAccordion.destroy();
-				cf.Navigation.init();
+				cf.Navigation.reloadNavigation();
 				
 				cf.Layout.theRegionWest.add(cf.Navigation.theAccordion);
 				cf.Layout.theRegionWest.doLayout();	
 				cf.menueSettingModuleCRUD.expandNavigation.defer(1000,this,[ac_item_id]);
-				cf.administration_menuesetting.themenueSettingModuleWindow.remove(panel);
+				
+				
 				cf.administration_menuesetting.themenueSettingModuleWindow.setSize();
 				cf.administration_menuesetting.themenueSettingModuleWindow.doLayout();
 		
