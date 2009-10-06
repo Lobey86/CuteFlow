@@ -30,15 +30,7 @@ class userrolemanagementActions extends sfActions {
     */
     public function executeLoadAllRoles(sfWebRequest $request) {
         $userrolemanagement = new UserRolemanagement();
-
-        $result = Doctrine_Query::create()
-                    ->select('r.*, count(ul.id) AS users')
-                    ->from('Role r')
-                    ->leftJoin('r.UserLogin ul')
-                    ->where ('r.deleted = ?',0)
-                    ->groupby('r.id')
-                    ->execute();
-
+        $result = RoleTable::instance()->getAllRoleWithUser();
         $json_result = $userrolemanagement->buildRole($result, 1);
 
         $this->renderText('({"result":'.json_encode($json_result).'})');
@@ -55,16 +47,8 @@ class userrolemanagementActions extends sfActions {
     */
     public function executeLoadDeletableRoles(sfWebRequest $request){
         $userrolemanagement = new UserRolemanagement();
-
-        $result = Doctrine_Query::create()
-                    ->select('r.*')
-                    ->from('Role r')
-                    ->where('r.id != ?', $request->getParameter('id'))
-                    ->andWhere('r.deleted = ?', 0)
-                    ->execute();
-
+        $result = RoleTable::instance()->getAllRole($request->getParameter('id'));
         $json_result = $userrolemanagement->buildRoleCombobox($result);
-
         $this->renderText('({"result":'.json_encode($json_result).'})');
         return sfView::NONE;
     }
@@ -80,23 +64,9 @@ class userrolemanagementActions extends sfActions {
     */
     public function executeDeleteRole(sfWebRequest $request) {
         
-        $rows = Doctrine_Query::create()
-                    ->update('UserLogin ul')
-                    ->set('ul.role_id','?',$request->getParameter('updateid'))
-                    ->where('ul.role_id = ?', $request->getParameter('deleteid'))
-                    ->execute();
-         
-        Doctrine_Query::create()
-                    ->update('CredentialRole cr')
-                    ->set('cr.deleted','?',1)
-                    ->where('role_id = ?', $request->getParameter('deleteid'))
-                    ->execute();
-
-        Doctrine_Query::create()
-                    ->update('Role r')
-                    ->set('r.deleted','?',1)
-                    ->where('r.id = ?', $request->getParameter('deleteid'))
-                    ->execute();
+        $rows = UserLoginTable::instance()->changeRole($request->getParameter('updateid'),$request->getParameter('deleteid'));
+        CredentialRoleTable::instance()->deleteRoleById($request->getParameter('deleteid'));
+        RoleTable::instance()->deleteRole($request->getParameter('deleteid'));
         $this->renderText($rows);
         return sfView::NONE;
     }
@@ -113,27 +83,12 @@ class userrolemanagementActions extends sfActions {
         $credentials = NULL;
         // Part when role was edited
         if ($request->getParameter('role_id') != '') {
-            $res = Doctrine_Query::create()
-                    ->select('cr.credential_id')
-                    ->from('CredentialRole cr')
-                    ->where('cr.role_id = ?', $request->getParameter('role_id'))
-                    ->andWhere('cr.deleted = ?',0)
-                    ->execute();
+            $res =  CredentialRoleTable::instance()->getCredentialById($request->getParameter('role_id'));
             $credentials = $credentialmanagement->buildCredentials($res);
-
-            $roleName = Doctrine_Query::create()
-                    ->select('r.description')
-                    ->from('Role r')
-                    ->where('r.id = ?', $request->getParameter('role_id'))
-                    ->andWhere('r.deleted = ?',0)
-                    ->execute();
+            $roleName = RoleTable::instance()->getRoleById($request->getParameter('role_id'));
         }
-   
-        $result = Doctrine_Query::create()
-                    ->from('Credential c')
-                    ->orderby('c.usermodule asc,c.usergroup asc')
-                    ->execute();
-        
+
+        $result = CredentialTable::instance()->getAllCredentials('c.usermodule asc,c.usergroup asc');
         $credentialmanagement->setRecords($result);
         $credentialmanagement->setContext($this->getContext());
         $json_result = $credentialmanagement->buildTree($credentials);
@@ -158,10 +113,7 @@ class userrolemanagementActions extends sfActions {
     * @return <type>
     */
     public function executeCheckForExistingRole(sfWebRequest $request)  {
-        $result = Doctrine_Query::create()
-                    ->from('Role r')
-                    ->where('r.description = ?', $request->getParameter('description'))
-                    ->execute();
+        $result = RoleTable::instance()->getRoleByDescription($request->getParameter('description'));
         
         if($result[0]->getDescription() == $request->getParameter('description')) {
             $this->renderText('0'); // no write access
@@ -218,19 +170,12 @@ class userrolemanagementActions extends sfActions {
     */
     public function executeEditRole(sfWebRequest $request) {
         $data = $request->getPostParameters();
-        $id = $this->getRequestParameter('hiddenfield');
-        
-        Doctrine_Query::create()
-                    ->delete('CredentialRole')
-                    ->from('CredentialRole cr')
-                    ->where('cr.role_id = ?',$id)
-                    ->execute();
+        CredentialRoleTable::instance()->deleteCredentialRole($this->getRequestParameter('hiddenfield'));
         unset($data['hiddenfield']);
         $values = array_keys($data);
-
         foreach($values as $item) {
             $rolecredObj = new CredentialRole();
-            $rolecredObj->setRoleId($id);
+            $rolecredObj->setRoleId($this->getRequestParameter('hiddenfield'));
             $rolecredObj->setCredentialId($item);
             $rolecredObj->save();
         }
