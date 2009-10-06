@@ -54,38 +54,11 @@ class usermanagementActions extends sfActions {
     public function executeLoadAllUserFilter(sfWebRequest $request) {
         $json_result = array();
         $usermanagement = new Usermanagement();
-
-        $query = new Doctrine_Query();
-        $query->select('COUNT(*) AS anzahl')
-              ->where('ul.deleted = ?', 0)
-              ->leftJoin('ul.UserData ud')
-              ->from('UserLogin ul, UserData ud');
-
-        if($request->hasParameter('username')){
-            $query->andWhere('ul.username LIKE ?','%'.$request->getParameter('username').'%');
-        }
-        if($request->hasParameter('firstname')){
-            $query->andWhere('ud.firstname LIKE ?','%'.$request->getParameter('firstname').'%');
-        }
-        if($request->hastParameter('lastname')){
-            $query->andWhere('ud.lastname LIKE ?','%'.$request->getParameter('lastname').'%');
-        }
-        if($request->hasParameter('email')){
-            $query->andWhere('ul.email LIKE ?','%'.$request->getParameter('email').'%');
-        }
-
-        if($request->hasParameter('userrole')){
-            $query->andWhere('ul.role_id = ?',$request->getParameter('userrole'));
-        }
-
-        $anz = $query->execute();
         $limit = $this->getUser()->getAttribute('userSettings');
-        $result = $query->select('ul.*')
-                        ->orderby('ul.id DESC')
-                        ->limit($request->getParameter('limit',$limit['displayeditem']))
-                        ->offset($request->getParameter('start',0))
-                        ->execute();
-
+        
+        $anz = UserLoginTable::instance()->getTotalSumOfUserByFilter($request);
+        $result = UserLoginTable::instance()->getAllUserByFilter($limit['displayeditem'],$request->getParameter('start',0),$request);
+        
         $json_result = $usermanagement->buildUser($result, $this->getRequestParameter('start',0)+1);
 
         $data = '({"total":"'.$anz[0]->getAnzahl().'","result":'.json_encode($json_result).'})';
