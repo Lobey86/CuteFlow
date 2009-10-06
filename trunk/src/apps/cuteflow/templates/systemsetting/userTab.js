@@ -38,7 +38,7 @@ cf.userTab = function(){return {
 	
 	initDefaultUserGuiFieldset: function () {
 		this.theUserGuiFieldset = new Ext.form.FieldSet({
-			title: '<?php echo __('Default user GUI settings',null,'systemsetting'); ?>',
+			title: '<table><tr><td><img src="/images/icons/information.png"  ext:qtip=\"Settings will automatic be loaded,<br>when a new user is added to database\" ext:qwidth=\"300\"/></td><td>&nbsp;&nbsp;<?php echo __('Default user GUI settings',null,'systemsetting'); ?></td></tr></table>',
 			width: 600,
 			height: 220,
 			style: 'margin-top:20px;margin-left:5px;',
@@ -165,7 +165,7 @@ cf.userTab = function(){return {
 	
 	initDefaultUserSystemFieldset: function () {
 		this.theUserSystemFieldset = new Ext.form.FieldSet({
-			title: '<?php echo __('Default user system settings',null,'systemsetting'); ?>',
+			title: '<table><tr><td><img src="/images/icons/information.png"  ext:qtip=\"Settings will automatic be loaded,<br>when a new user is added to database\" ext:qwidth=\"300\"/></td><td>&nbsp;&nbsp;<?php echo __('Default user system settings',null,'systemsetting'); ?></td></tr></table>',
 			width: 600,
 			height: 160,
 			style: 'margin-top:20px;margin-left:5px;',

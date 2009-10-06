@@ -97,10 +97,14 @@ cf.Navigation = function(){return {
 		if(cf.Navigation.theFirstLogin == 1 && cf.Navigation.theUserFirstLogin == 1) {
 			cf.Navigation.theUserFirstLogin = 0;
 			cf.Navigation.theFirstLogin = 0;
-			
 			cf.administration_myprofile.init();
 			cf.TabPanel.theTabPanel.add(cf.administration_myprofile.getInstance());	
 			cf.TabPanel.theTabPanel.setActiveTab(cf.administration_myprofile.getInstance());
+			Ext.Ajax.request({  
+				url :  '<?php echo build_dynamic_javascript_url('layout/ChangeFirstLogin')?>',
+				success: function(objServerResponse){
+				}
+			});
 		}
 		
 	},

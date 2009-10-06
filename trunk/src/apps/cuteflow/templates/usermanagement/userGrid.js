@@ -63,6 +63,7 @@ cf.UserGrid = function(){return {
 				icon: '/images/icons/group_key.png',
                 tooltip:'<?php echo __('Add LDAP User',null,'usermanagement'); ?>',
                 disabled: <?php $arr = $sf_user->getAttribute('credential');echo $arr['administration_usermanagement_removeUser'];?>,
+                disabled: <?php echo Usermanagement::checkLDAP(); ?>,
                 handler: function () {
 					alert('add LDAP user');
                 }

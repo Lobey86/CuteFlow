@@ -49,7 +49,7 @@ cf.guiTab = function(){return {
 	
 	initGuiFieldset: function () {
 		this.theGuiFieldset = new Ext.form.FieldSet({
-			title: '<?php echo __('GUI Worfklow Settings',null,'systemsetting'); ?>',
+			title: '<table><tr><td><img src="/images/icons/information.png"  ext:qtip=\"Settings will automatic be loaded,<br>when a new user is added to database\" ext:qwidth=\"300\"/></td><td>&nbsp;&nbsp;<?php echo __('GUI Workflow Settings',null,'systemsetting'); ?></td></tr></table>',
 			width: 430,
 			height: 520,
 			style: 'margin-top:20px;margin-left:5px;',
