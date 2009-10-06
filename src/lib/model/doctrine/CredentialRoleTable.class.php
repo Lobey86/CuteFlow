@@ -28,4 +28,47 @@ class CredentialRoleTable extends Doctrine_Table {
                     ->execute();
     }
 
+    /**
+     * Delete CredentialROle
+     * @param role to delete $id
+     * @return true
+     */
+    public function deleteRoleById($id) {
+        Doctrine_Query::create()
+                ->update('CredentialRole cr')
+                ->set('cr.deleted','?',1)
+                ->where('role_id = ?', $id)
+                ->execute();
+        return true;
+    }
+
+
+    /**
+     * Loads credential by its id
+     * @param int $id
+     * @return Doctrine_Collection
+     */
+    public function getCredentialById($id) {
+        return Doctrine_Query::create()
+                    ->select('cr.credential_id')
+                    ->from('CredentialRole cr')
+                    ->where('cr.role_id = ?',$id)
+                    ->andWhere('cr.deleted = ?',0)
+                    ->execute();
+    }
+
+    /**
+     *
+     * @param int $id, id of role to delete
+     * @return true
+     */
+    public function deleteCredentialRole($id) {
+        Doctrine_Query::create()
+            ->delete('CredentialRole')
+            ->from('CredentialRole cr')
+            ->where('cr.role_id = ?',$id)
+            ->execute();
+        return true;
+    }
+
 }

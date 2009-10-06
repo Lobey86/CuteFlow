@@ -150,7 +150,88 @@ class UserLoginTable extends Doctrine_Table {
         return true;
     }
 
-    
-    
 
+
+    /**
+     * Function changes role for exisiting user
+     * 
+     * @param id $updateid, new role id
+     * @param id $deleteid, old role id
+     * @return Doctrine_Collection
+     */
+    public function changeRole($updateid, $deleteid) {
+         return Doctrine_Query::create()
+                ->update('UserLogin ul')
+                ->set('ul.role_id','?',$updateid)
+                ->where('ul.role_id = ?', $deleteid)
+                ->execute();
+    }
+
+    /**
+     * get total sum of user by filter
+     * @param sfWebRequest $request
+     * @return Doctrine_Collection
+     */
+    public function getTotalSumOfUserByFilter(sfWebRequest $request) {
+        $query = Doctrine_Query::create()
+              ->select('COUNT(*) AS anzahl')
+              ->from('UserLogin ul')
+              ->where('ul.deleted = ?', 0)
+              ->leftJoin('ul.UserData ud');
+             
+        if($request->hasParameter('username')){
+            $query->andWhere('ul.username LIKE ?','%'.$request->getParameter('username').'%');
+        }
+        if($request->hasParameter('firstname')){
+            $query->andWhere('ud.firstname LIKE ?','%'.$request->getParameter('firstname').'%');
+        }
+        if($request->hasParameter('lastname')){
+            $query->andWhere('ud.lastname LIKE ?','%'.$request->getParameter('lastname').'%');
+        }
+        if($request->hasParameter('email')){
+            $query->andWhere('ul.email LIKE ?','%'.$request->getParameter('email').'%');
+        }
+
+        if($request->hasParameter('userrole')){
+            $query->andWhere('ul.role_id = ?',$request->getParameter('userrole'));
+        }
+        return $query->execute();
+    }
+
+
+    /**
+     * Function loads user by filter
+     * @param int $limit
+     * @param int $offset
+     * @param sfWebRequest $request
+     * @return Doctrine_Collection
+     */
+    public function getAllUserByFilter($limit, $offset, sfWebRequest $request) {
+        $query = Doctrine_Query::create()
+               ->select('ul.*')
+               ->from('UserLogin ul')
+               ->where('ul.deleted = ?', 0)
+               ->leftJoin('ul.UserData ud');
+        if($request->hasParameter('username')){
+            $query->andWhere('ul.username LIKE ?','%'.$request->getParameter('username').'%');
+        }
+        if($request->hasParameter('firstname')){
+            $query->andWhere('ud.firstname LIKE ?','%'.$request->getParameter('firstname').'%');
+        }
+        if($request->hasParameter('lastname')){
+            $query->andWhere('ud.lastname LIKE ?','%'.$request->getParameter('lastname').'%');
+        }
+        if($request->hasParameter('email')){
+            $query->andWhere('ul.email LIKE ?','%'.$request->getParameter('email').'%');
+        }
+
+        if($request->hasParameter('userrole')){
+            $query->andWhere('ul.role_id = ?',$request->getParameter('userrole'));
+        }
+        
+        return $query->orderby('ul.id DESC')
+                ->limit($limit)
+                ->offset($offset)
+                ->execute();
+    }
 }

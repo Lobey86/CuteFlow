@@ -30,4 +30,59 @@ class RoleTable extends Doctrine_Table {
     }
 
 
+   /**
+    * Load all Roles with sum users in it
+    *
+    * @return Doctrine_Collection
+    */
+   public function getAllRoleWithUser() {
+       return Doctrine_Query::create()
+                ->select('r.*, count(ul.id) AS users')
+                ->from('Role r')
+                ->leftJoin('r.UserLogin ul')
+                ->where ('r.deleted = ?',0)
+                ->groupby('r.id')
+                ->execute();
+   }
+
+   /**
+    * Delete role
+    * @param id $id, Role id
+    * @return true
+    */
+   public function deleteRole($id) {
+      Doctrine_Query::create()
+            ->update('Role r')
+            ->set('r.deleted','?',1)
+            ->where('r.id = ?', $id)
+            ->execute();
+       return true;
+   }
+
+   /**
+    * Function loads a single role
+    * @param int $id , role id
+    * @return Doctrine_Collection
+    */
+   public function getRoleById($id) {
+       return Doctrine_Query::create()
+            ->select('r.description')
+            ->from('Role r')
+            ->where('r.id = ?', $id)
+            ->andWhere('r.deleted = ?',0)
+            ->execute();
+   }
+
+   /**
+    *
+    * @param string $name, Rolename
+    * @return Doctrine_Collection
+    */
+   public function getRoleByDescription($name) {
+       return Doctrine_Query::create()
+                ->from('Role r')
+                ->where('r.description = ?', $name)
+                ->execute();
+   }
+
 }
