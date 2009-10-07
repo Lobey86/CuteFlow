@@ -70,7 +70,9 @@ cf.createFileWindow = function(){return {
 	
 	initFormPanel: function () {
 		this.theFormPanel = new Ext.FormPanel({
-			frame:true 
+			frame:true,
+			height: 556
+			
 		});
 		
 	},
