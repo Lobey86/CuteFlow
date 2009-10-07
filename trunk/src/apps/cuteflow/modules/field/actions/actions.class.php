@@ -39,4 +39,11 @@ class fieldActions extends sfActions {
     }
 
 
+    
+    public function executeSaveField(sfWebRequest $request) {
+        $data = $request->getPostParameters();
+        $this->renderText('{success:true}');
+        return sfView::NONE;
+    }
+
 }
