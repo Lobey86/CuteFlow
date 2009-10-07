@@ -47,7 +47,7 @@ cf.fieldPanelGrid = function(){return {
 					 fields:['id','text'],
        				 data:[
        					 ['TEXTFIELD', '<?php echo __('Textfield',null,'field'); ?>'],
-	       				 ['CHECKBOX', '<?php echo __('Checkbox',null,'field'); ?>'],
+	       				 ['CHECKBOX', '<?php echo __('Checkbox (yes/no)',null,'field'); ?>'],
 	       				 ['NUMBER', '<?php echo __('Number',null,'field'); ?>'],
 	       				 ['DATE', '<?php echo __('Date',null,'field'); ?>'],
 	       				 ['TEXTAREA', '<?php echo __('Textarea',null,'field'); ?>'],
@@ -152,7 +152,7 @@ cf.fieldPanelGrid = function(){return {
 				icon: '/images/icons/application_form_add.png',
 	            tooltip:'<?php echo __('Add new Field',null,'field'); ?>',
 	            handler: function () {
-					cf.fieldCRUD.initDelete(id);
+					cf.createFileWindow.init('');
 	            }
 				
 			}]
@@ -191,7 +191,7 @@ cf.fieldPanelGrid = function(){return {
 					  c.getEl().on({
 						click: function(el){
 							if (c.disabled == false) {
-								alert(id);
+								cf.createFileWindow.init(id);
 							}
 						},
 					scope: c
