@@ -27,8 +27,7 @@ class scriptActions extends sfActions
    * @param sfWebRequest $request
    * @return <type>
    */
-  public function executeLoad(sfWebRequest $request)
-  {
+    public function executeLoad(sfWebRequest $request) {
         $path = $request->getPathInfo();
         $path = str_replace('/djs', '', $path);
         $path = str_replace($request->getParameter('filename') . '.js', '', $path);
@@ -37,5 +36,7 @@ class scriptActions extends sfActions
 	$this->setLayout(false);
 	$this->setTemplate($template);
 	return '.js' . chr(0);
-  }
+    }
+
+
 }
