@@ -8,7 +8,7 @@
       </trans-unit>
       <trans-unit id="2">
         <source>CHECKBOX</source>
-        <target>Checkbox</target>
+        <target>Checkbox (yes/no)</target>
       </trans-unit>
       <trans-unit id="3">
         <source>NUMBER</source>
