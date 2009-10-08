@@ -33,19 +33,23 @@ class FieldClass {
     public function prepareSaveData(array $data) {
         $data['createFileWindow_color'] = $data['createFileWindow_color'] == '' ? '#FFFFFF' : $data['createFileWindow_color'];
         $data['createFileWindow_writeprotected'] = isset($data['createFileWindow_writeprotected']) ? $data['createFileWindow_writeprotected'] : 0 ;
-
-        if($data['createFileWindow_fieldtype'] == 'NUMBER') {
-            
-
-            
-        }
-
-
-
-
-
-
         return $data;
+    }
+
+
+    public function buildTextfield(Doctrine_Collection $data) {
+        $result = array();
+        foreach($data as $item) {
+            $textfield = $item->getFieldTextfield();
+            $result['id'] = $item->getId();
+            $result['title'] = $item->getTitle();
+            $result['type'] = $item->getType();
+            $result['writeprotected'] = $item->getWriteprotected();
+            $result['color'] = $item->getColor();
+            $result['regex'] = $textfield[0]->getRegex();
+            $result['defaultvalue'] = $textfield[0]->getDefaultvalue();
+        }
+        return $result;
     }
 
 
