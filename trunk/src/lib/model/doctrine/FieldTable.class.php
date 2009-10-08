@@ -42,5 +42,13 @@ class FieldTable extends Doctrine_Table {
         return true;
     }
 
+    public function getFieldById($id) {
+        return Doctrine_Query::create()
+            ->from('Field f')
+            ->select('f.*')
+            ->where('f.deleted = ?' ,0)
+            ->andWhere('f.id = ?', $id)
+            ->execute();
+    }
 
 }
