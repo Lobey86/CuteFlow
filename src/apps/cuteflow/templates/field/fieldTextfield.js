@@ -11,7 +11,7 @@ cf.fieldTextfield = function(){return {
 			title: '<?php echo __('Textfield settings',null,'field'); ?>',
 			width: 600,
 			height: 100,
-			style: 'margin-top:20px;margin-left:5px;margin-right:5px;',
+			style: 'margin-top:20px;margin-left:5px;',
 			labelWidth: 170,
 			items:[{
 				xtype: 'combo',
@@ -28,9 +28,19 @@ cf.fieldTextfield = function(){return {
    				fieldLabel: '<?php echo __('Default value',null,'field'); ?>',
 				store: new Ext.data.SimpleStore({
 					 fields:['id','text'],
-       				 data:[['', '{%DATE_SENDING%}'],['', '{%TIME%}'],['', '{%CIRCULATION_TITLE%}'],['', '{%CIRCULATION_ID%}']]
+       				 data:[['EMPTY', '<font color="#808080"><?php echo __('Input default value',null,'field'); ?></font>'],['{%DATE_SENDING%}', '{%DATE_SENDING%}'],['{%TIME%}', '{%TIME%}'],['{%CIRCULATION_TITLE%}', '{%CIRCULATION_TITLE%}'],['{%CIRCULATION_ID%}', '{%CIRCULATION_ID%}']]
 				}),
-   				width:230		
+   				width:230,
+				listeners: {
+					select: {
+						fn:function(combo) {
+							if (combo.getValue() == 'EMPTY') {
+								combo.setValue();
+							}
+						}
+					}
+				}
+						
 			},{
 				xtype: 'textfield',
 				allowBlank:true,
@@ -40,6 +50,11 @@ cf.fieldTextfield = function(){return {
 			}]
 		});
 		
+	},
+	
+	/** nothing to check at the moment **/
+	checkBeforeSubmit: function() {
+		return true;
 	}
 	
 	

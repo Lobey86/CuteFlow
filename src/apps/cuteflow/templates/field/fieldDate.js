@@ -17,13 +17,13 @@ cf.fieldDate = function(){return {
 			width: 600,
 			height: 130,
 			hidden: true,
-			style: 'margin-top:20px;margin-left:5px;margin-right:5px;',
+			style: 'margin-top:20px;margin-left:5px;',
 			labelWidth: 170,
 			items:[{
 				xtype: 'combo',
 				mode: 'local',
 				editable:false,
-				value: 'dd-mm-yyyy',
+				value: 'd-m-Y',
  				valueField:'id',
  				id: 'fieldDate_format_id',
  				hiddenName : 'fieldDate_format',
@@ -35,13 +35,21 @@ cf.fieldDate = function(){return {
    				fieldLabel: '<?php echo __('Default value',null,'field'); ?>',
 				store: new Ext.data.SimpleStore({
 					 fields:['id','text'],
-       				 data:[['dd/mm/yyyy', 'dd-mm-yyyy'],['mm/dd/yyyy', 'dd-mm-yyyy'],['yyyy/mm/dd', 'yyyy-mm-dd']]
+       				 data:[['d-m-Y', 'dd-mm-yyyy'],['m-d-Y', 'mm-dd-yyyy'],['Y-m-d', 'yyyy-mm-dd']]
 				}),
-   				width:230		
+   				width:230,
+				listeners: {
+					select: {
+						fn:function(combo, value) {
+							cf.fieldDate.buildDate(combo,Ext.getCmp('fieldDate_date'));
+						}
+					}
+				}					
 			},{
 				xtype: 'datefield',
 				allowBlank:true,
 				id: 'fieldDate_date',
+				format:'d-m-Y',
    				fieldLabel: '<?php echo __('Default value',null,'field'); ?>',
    				width:230	
 			},{
@@ -52,6 +60,12 @@ cf.fieldDate = function(){return {
    				width:230	
 			}]
 		});		
+	},
+	
+	buildDate: function (combo, datefield) {
+		var currentDate = datefield.getValue();
+		datefield.format = combo.getValue();
+		datefield.setValue(currentDate);	
 	}
 	
 	

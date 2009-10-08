@@ -24,7 +24,7 @@ cf.fieldTextarea = function(){return {
 			width: 600,
 			height: 220,
 			hidden: true,
-			style: 'margin-top:20px;margin-left:5px;margin-right:5px;',
+			style: 'margin-top:20px;margin-left:5px;',
 			labelWidth: 170
 		});
 	},

@@ -3,15 +3,19 @@ cf.createFileWindow = function(){return {
 	theFieldPopUpWindow				:false,
 	theGeneralSettingsFieldset		:false,
 	theFormPanel					:false,
+	theCurrentObject				:false,
 
 	
-	init: function (id) {
+	initNewField: function (id) {
 		cf.fieldTextfield.init();
 		cf.fieldCheckbox.init();
 		cf.fieldNumber.init();
 		cf.fieldDate.init();
 		cf.fieldTextarea.init();
 		cf.fieldFile.init();
+		cf.fieldRadiogroup.init(id);
+		cf.fieldCheckboxgroup.init(id);
+		cf.fieldCombobox.init(id);
 		
 				
 		this.initFormPanel();		
@@ -25,10 +29,18 @@ cf.createFileWindow = function(){return {
 		this.theFormPanel.add(cf.fieldDate.theDateFieldset);
 		this.theFormPanel.add(cf.fieldTextarea.theTextareaFieldset);
 		this.theFormPanel.add(cf.fieldFile.theFileFieldset);
+		this.theFormPanel.add(cf.fieldRadiogroup.theRadiogroupFieldset);
+		this.theFormPanel.add(cf.fieldCheckboxgroup.theCheckboxgroupFieldset);
+		this.theFormPanel.add(cf.fieldCombobox.theComboboxFieldset);
 		this.theFieldPopUpWindow.add(this.theFormPanel);
+		
+		this.theCurrentObject = cf.fieldTextfield;
 		this.theFieldPopUpWindow.show();
 	},
 	
+	initUpdateField: function (id) {
+	
+	},
 	
 	
 	
@@ -38,7 +50,7 @@ cf.createFileWindow = function(){return {
 			closable: true,
 			modal: true,
 			height: 630,
-			width: 'auto',
+			width: 700,
 			autoScroll: true,
 			shadow: false,
 			minimizable: false,
@@ -51,7 +63,7 @@ cf.createFileWindow = function(){return {
 				text:'<?php echo __('Store',null,'myprofile'); ?>', 
 				icon: '/images/icons/accept.png',
 				handler: function () {
-					cf.fieldCRUD.initSave(id);
+					cf.fieldCRUD.initSave(id,cf.createFileWindow.theCurrentObject);
 				}
 			},{
 				text:'<?php echo __('Close',null,'usermanagement'); ?>', 
@@ -82,7 +94,7 @@ cf.createFileWindow = function(){return {
 			title: '<?php echo __('General Field Settings',null,'field'); ?>',
 			width: 600,
 			height: 150,
-			style: 'margin-top:20px;margin-left:5px;margin-right:5px;',
+			style: 'margin-top:20px;margin-left:5px;',
 			labelWidth: 170,
 			items: [{
 				xtype: 'textfield',
@@ -121,51 +133,57 @@ cf.createFileWindow = function(){return {
 					select: {
 						fn:function(combo) {
 							cf.createFileWindow.disableAll();
-							if(combo.getValue() == 'TEXTFIELD') {
-								cf.fieldTextfield.theTextfieldFieldset.setVisible(true);
-								
-							}
-							else if(combo.getValue() == 'CHECKBOX'){
-								
-								cf.createFileWindow.saveURL = cf.fieldCheckbox.theSubmitUrl;
-							}
-							else if(combo.getValue() == 'NUMBER'){
-								cf.fieldNumber.theNumberFieldset.setVisible(true);
-								
-							}
-							else if(combo.getValue() == 'DATE'){
-								cf.fieldDate.theDateFieldset.setVisible(true);
-								
-							}
-							else if(combo.getValue() == 'TEXTAREA'){
-								cf.fieldTextarea.theTextareaFieldset.setVisible(true);
-								
-							}
-							else if(combo.getValue() == 'RADIOGROUP'){
-								//cf.fieldCheckbox.theHiddenPanel.setVisible(true);
-								//cf.theDefaultFieldset = cf.fieldCheckbox.theHiddenPanel;
-							}
-							else if(combo.getValue() == 'CHECKBOXGROUP'){
-								//cf.fieldCheckbox.theHiddenPanel.setVisible(true);
-								//cf.theDefaultFieldset = cf.fieldCheckbox.theHiddenPanel;
-							}
-							else if(combo.getValue() == 'COMBOBOX'){
-								//cf.fieldCheckbox.theHiddenPanel.setVisible(true);
-								//cf.theDefaultFieldset = cf.fieldCheckbox.theHiddenPanel;
-							}
-							else if(combo.getValue() == 'FILE'){
-								cf.fieldFile.theFileFieldset.setVisible(true);
-								
+							switch (combo.getValue()) {
+								case "TEXTFIELD":
+									cf.fieldTextfield.theTextfieldFieldset.setVisible(true);
+									cf.createFileWindow.theCurrentObject = cf.fieldTextfield;
+								    break;
+								case "CHECKBOX":
+									cf.createFileWindow.theCurrentObject = cf.fieldCheckbox;
+									break;
+								case "NUMBER":
+									cf.fieldNumber.theNumberFieldset.setVisible(true);
+									cf.createFileWindow.theCurrentObject = cf.fieldNumber;
+									break;
+								case "DATE":
+									cf.fieldDate.theDateFieldset.setVisible(true);
+									cf.createFileWindow.theCurrentObject = cf.fieldDate;
+									break;
+								case "TEXTAREA":
+									cf.fieldTextarea.theTextareaFieldset.setVisible(true);
+									cf.createFileWindow.theCurrentObject = cf.fieldTextarea;
+									break;
+								case "RADIOGROUP":
+									cf.fieldRadiogroup.theRadiogroupFieldset.setVisible(true);
+									cf.createFileWindow.theCurrentObject = cf.fieldRadiogroup;
+									break;
+								case "CHECKBOXGROUP":
+									cf.fieldCheckboxgroup.theCheckboxgroupFieldset.setVisible(true);
+									cf.createFileWindow.theCurrentObject = cf.fieldCheckboxgroup;
+									break;
+								case "COMBOBOX":
+									cf.fieldCombobox.theComboboxFieldset.setVisible(true);
+									cf.createFileWindow.theCurrentObject = cf.fieldCombobox;
+									break;
+								case "FILE":
+									cf.fieldFile.theFileFieldset.setVisible(true);
+									cf.createFileWindow.theCurrentObject = cf.fieldFile;
+									break;
+								default: 
+									'';
 							}
 						}
 					}
 				}
-			},{
-				xtype: 'textfield',
-				id:'createFileWindow_color',
+			},
+			new Ext.form.ColorField({
 				fieldLabel: '<?php echo __('Select color',null,'field'); ?>',
-				width:230	
-			},{
+				id: 'createFileWindow_color',
+				width: 230,
+
+				allowBlank: true
+			})
+			,{
 				xtype: 'checkbox',
 				fieldLabel: '<?php echo __('Write protected?',null,'field'); ?>',
 				inputValue: "1",
@@ -182,6 +200,9 @@ cf.createFileWindow = function(){return {
 		cf.fieldDate.theDateFieldset.setVisible(false);
 		cf.fieldTextarea.theTextareaFieldset.setVisible(false);
 		cf.fieldFile.theFileFieldset.setVisible(false);
+		cf.fieldRadiogroup.theRadiogroupFieldset.setVisible(false);
+		cf.fieldCheckboxgroup.theCheckboxgroupFieldset.setVisible(false);
+		cf.fieldCombobox.theComboboxFieldset.setVisible(false);
 	}
 	
 };}();
