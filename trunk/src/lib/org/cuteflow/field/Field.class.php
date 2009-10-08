@@ -30,5 +30,24 @@ class FieldClass {
     }
 
 
+    public function prepareSaveData(array $data) {
+        $data['createFileWindow_color'] = $data['createFileWindow_color'] == '' ? '#FFFFFF' : $data['createFileWindow_color'];
+        $data['createFileWindow_writeprotected'] = isset($data['createFileWindow_writeprotected']) ? $data['createFileWindow_writeprotected'] : 0 ;
+
+        if($data['createFileWindow_fieldtype'] == 'NUMBER') {
+            
+
+            
+        }
+
+
+
+
+
+
+        return $data;
+    }
+
+
 }
 ?>
