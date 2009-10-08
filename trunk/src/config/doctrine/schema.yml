@@ -208,6 +208,8 @@ FieldTextfield:
   columns:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
     field_id: { type: integer, length: 10 }
+    regex: {type: string(100) }
+    defaultvalue: {type: string(100) }
   relations:
     Field: { class: Field, local: field_id, foreign: id, foreignType: many, type: one }
 
