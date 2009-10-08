@@ -1,6 +1,10 @@
 cf.fieldDate = function(){return {
 	
 	theDateFieldset			:false,
+	theDDMMYYYY						:'^[0-9]{2}[\-]{1}[0-9]{2}[\-]{1}[0-9]{4}$',
+	theMMDDYYYY						:'^[0-9]{2}[\-]{1}[0-9]{2}[\-]{1}[0-9]{4}$',
+	theYYYYMMDD						:'^[0-9]{4}[\-]{1}[0-9]{2}[\-]{1}[0-9]{2}$',
+	theRegExStore					:'^[0-9]{2}[\-]{1}[0-9]{2}[\-]{1}[0-9]{4}$',
 
 	
 	
@@ -32,16 +36,30 @@ cf.fieldDate = function(){return {
 				triggerAction: 'all',
 				emptyText:'<?php echo __('Input default value or select one',null,'field'); ?>',
 				foreSelection: false,
-   				fieldLabel: '<?php echo __('Default value',null,'field'); ?>',
+   				fieldLabel: '<?php echo __('Date format',null,'field'); ?>',
 				store: new Ext.data.SimpleStore({
 					 fields:['id','text'],
        				 data:[['d-m-Y', 'dd-mm-yyyy'],['m-d-Y', 'mm-dd-yyyy'],['Y-m-d', 'yyyy-mm-dd']]
 				}),
-   				width:230,
+   				width:280,
 				listeners: {
 					select: {
 						fn:function(combo, value) {
 							cf.fieldDate.buildDate(combo,Ext.getCmp('fieldDate_date'));
+							switch (combo.getValue()) {
+								case "d-m-Y":
+									Ext.getCmp('fieldDate_regularexpression').setValue(cf.fieldDate.theDDMMYYYY);
+									cf.fieldDate.theRegExStore = cf.fieldDate.theDDMMYYYY;
+									break;
+								case "m-d-Y":
+									Ext.getCmp('fieldDate_regularexpression').setValue(cf.fieldDate.theMMDDYYYY);
+									cf.fieldDate.theRegExStore = cf.fieldDate.theMMDDYYYY;
+									break;
+								case "Y-m-d":
+									Ext.getCmp('fieldDate_regularexpression').setValue(cf.fieldDate.theYYYYMMDD);
+									cf.fieldDate.theRegExStore = cf.fieldDate.theYYYYMMDD;
+									break;
+							}
 						}
 					}
 				}					
@@ -51,13 +69,14 @@ cf.fieldDate = function(){return {
 				id: 'fieldDate_date',
 				format:'d-m-Y',
    				fieldLabel: '<?php echo __('Default value',null,'field'); ?>',
-   				width:230	
+   				width:280	
 			},{
 				xtype: 'textfield',
 				allowBlank:true,
 				id: 'fieldDate_regularexpression',
    				fieldLabel: '<?php echo __('Regular expression',null,'field'); ?>',
-   				width:230	
+   				value: cf.fieldDate.theDDMMYYYY,
+   				width:280	
 			}]
 		});		
 	},
@@ -66,11 +85,47 @@ cf.fieldDate = function(){return {
 		var currentDate = datefield.getValue();
 		datefield.format = combo.getValue();
 		datefield.setValue(currentDate);	
+	},
+	
+	/**checks dat**/
+	checkBeforeSubmit: function() {
+		var input = Ext.getCmp('fieldDate_date').getRawValue();
+		var regex = Ext.getCmp('fieldDate_regularexpression').getValue();
+		var regexStore = cf.fieldDate.theRegExStore;
+		if(regex == '') {
+			if(input == '') {
+				return true;
+			}
+			else {
+				var regObject = new RegExp(regexStore,"m");
+				if(regObject.test(input) == true) {
+					Ext.getCmp('fieldDate_regularexpression').setValue(regexStore);
+					return true;
+				}
+				else {
+					Ext.Msg.minWidth = 200;
+					Ext.MessageBox.alert('<?php echo __('Error',null,'field'); ?>', '<?php echo __('Input value is no valid date format',null,'field'); ?>');
+					return false;
+				}
+			}
+		}
+		else {
+			if(input == '') {
+				return true;
+			}
+			else {
+				var regObject = new RegExp(regex,"m");
+				if(regObject.test(input) == true) {
+					return true;
+				}
+				else {
+					Ext.Msg.minWidth = 200;
+					Ext.MessageBox.alert('<?php echo __('Error',null,'field'); ?>', '<?php echo __('Input value is no valid date format',null,'field'); ?>');
+					return false;
+				}
+			}
+			
+		}
 	}
-	
-	
-	
-	
-	
-	
+
 };}();

@@ -30,7 +30,7 @@ cf.fieldTextfield = function(){return {
 					 fields:['id','text'],
        				 data:[['EMPTY', '<font color="#808080"><?php echo __('Input default value',null,'field'); ?></font>'],['{%DATE_SENDING%}', '{%DATE_SENDING%}'],['{%TIME%}', '{%TIME%}'],['{%CIRCULATION_TITLE%}', '{%CIRCULATION_TITLE%}'],['{%CIRCULATION_ID%}', '{%CIRCULATION_ID%}']]
 				}),
-   				width:230,
+   				width:280,
 				listeners: {
 					select: {
 						fn:function(combo) {
@@ -46,7 +46,7 @@ cf.fieldTextfield = function(){return {
 				allowBlank:true,
 				id: 'fieldTextfield_regularexpression',
    				fieldLabel: '<?php echo __('Regular expression',null,'field'); ?>',
-   				width:230	
+   				width:280	
 			}]
 		});
 		

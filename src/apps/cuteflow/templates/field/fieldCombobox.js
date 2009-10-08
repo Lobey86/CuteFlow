@@ -8,6 +8,7 @@ cf.fieldCombobox = function(){return {
 	theComboboxStore			:false,
 	theComboboxToolbar			:false,
 	theUniqueId					:false,
+	theComboboxgroupSavePanel	:false,
 
 
 	init: function (id) {
@@ -167,6 +168,62 @@ cf.fieldCombobox = function(){return {
 				});
 				}
 			}
+		});
+	},
+	
+	/** function checks numbers **/
+	checkBeforeSubmit: function() {
+		if(cf.fieldCombobox.theComboboxGrid.store.getCount() == 0){
+			Ext.Msg.minWidth = 200;
+			Ext.MessageBox.alert('<?php echo __('Error',null,'field'); ?>', '<?php echo __('Please add some fields',null,'field'); ?>');
+			return false;
+		}
+		else {
+			return this.buildPanel();
+		}
+	},
+	
+	
+	buildPanel: function () {
+		if(Ext.getCmp('createFileWindow_fieldname').getValue() != '') {
+			this.initPanel();
+			var save = false;
+			var grid = cf.fieldCombobox.theComboboxGrid;
+			for(var a=0;a<grid.store.getCount();a++) {
+				var row = grid.getStore().getAt(a);
+				if(row.data.value != '') {
+					save = true;
+					if(row.data.checked == 0 || row.data.checked == false) {
+						var checkValue = 0;
+					}
+					else {
+						var checkValue = 1;
+					}
+					var hiddenfield = new Ext.form.Field({
+						autoCreate : {tag:'input', type: 'hidden', name: 'grid['+row.data.value+']', value:checkValue, width: 0}			
+					});
+					cf.fieldCombobox.theComboboxgroupSavePanel.add(hiddenfield);
+				}
+			}
+			if(save == true) {
+				cf.createFileWindow.theFormPanel.add(cf.fieldCombobox.theComboboxgroupSavePanel);
+				cf.createFileWindow.theFieldPopUpWindow.doLayout();
+				return true;
+			}
+			else {
+				Ext.Msg.minWidth = 200;
+				Ext.MessageBox.alert('<?php echo __('Error',null,'field'); ?>', '<?php echo __('Please add some content to your fields',null,'field'); ?>');
+				return false;
+			}	
+		}
+		else {
+			return false;
+		}
+	},
+	
+	initPanel: function () {
+		this.theComboboxgroupSavePanel = new Ext.Panel({
+			
 		});
 	}
 

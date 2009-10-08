@@ -20,7 +20,7 @@ cf.createFileWindow = function(){return {
 				
 		this.initFormPanel();		
 		this.initGeneralSettings();
-		this.initWindow(id);
+		this.initWindow(id, '<?php echo __('Create new field',null,'field'); ?>');
 		
 		
 		this.theFormPanel.add(this.theGeneralSettingsFieldset); // default Fieldset which is shown everytime ;)
@@ -39,12 +39,19 @@ cf.createFileWindow = function(){return {
 	},
 	
 	initUpdateField: function (id) {
-	
+		Ext.Ajax.request({
+			url : '<?php echo build_dynamic_javascript_url('field/LoadSingleField')?>/id/' + id,
+			success: function(objServerResponse){ 
+				var data = Ext.util.JSON.decode(objServerResponse.responseText);
+				
+				
+			}
+		);
 	},
 	
 	
 	
-	initWindow: function (id) {
+	initWindow: function (id, title) {
 		this.theFieldPopUpWindow = new Ext.Window({
 			modal: true,
 			closable: true,
@@ -57,7 +64,7 @@ cf.createFileWindow = function(){return {
 			draggable: true,
 			resizable: true,
 	        plain: true,
-			title: '<?php echo __('Create new field',null,'field'); ?>',
+			title: title,
 	        buttonAlign: 'center',
 			buttons:[{
 				text:'<?php echo __('Store',null,'myprofile'); ?>', 
@@ -101,7 +108,7 @@ cf.createFileWindow = function(){return {
 				id:'createFileWindow_fieldname',
 				allowBlank: false,
 				fieldLabel: '<?php echo __('Field name',null,'field'); ?>',
-				width:230
+				width:280
 			},{
 				xtype: 'combo',
 				mode: 'local',
@@ -128,7 +135,7 @@ cf.createFileWindow = function(){return {
        				 ]
    				}),
    				fieldLabel: '<?php echo __('Fieldtype',null,'field'); ?>',
-   				width:230,
+   				width:280,
 				listeners: {
 					select: {
 						fn:function(combo) {
@@ -179,7 +186,7 @@ cf.createFileWindow = function(){return {
 			new Ext.form.ColorField({
 				fieldLabel: '<?php echo __('Select color',null,'field'); ?>',
 				id: 'createFileWindow_color',
-				width: 230,
+				width: 280,
 
 				allowBlank: true
 			})
