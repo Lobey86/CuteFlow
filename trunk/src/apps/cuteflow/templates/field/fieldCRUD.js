@@ -12,7 +12,14 @@ cf.fieldCRUD = function(){return {
 		});  	
 	},
 	
-	initSave: function (id) {
+	initSave: function (id, saveObject) {
+		var check = this.checkValues(saveObject);
+		if(check == true) {
+			this.doSubmit(id);
+		}
+	},
+	
+	doSubmit: function (id) {	
 		if(id != '') {
 			var url = '<?php echo build_dynamic_javascript_url('field/UpdateField')?>/id/' + id;
 		}
@@ -24,9 +31,18 @@ cf.fieldCRUD = function(){return {
 			url: url,
 			method: 'POST',
 			success: function(objServerResponse){
-				
+				cf.fieldPanelGrid.theFieldStore.reload();
 			}
 		});
+	},
+	
+	checkValues: function (saveObject) {
+		if(saveObject.checkBeforeSubmit() == true) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 

@@ -152,7 +152,7 @@ cf.fieldPanelGrid = function(){return {
 				icon: '/images/icons/application_form_add.png',
 	            tooltip:'<?php echo __('Add new Field',null,'field'); ?>',
 	            handler: function () {
-					cf.createFileWindow.init('');
+					cf.createFileWindow.initNewField('');
 	            }
 				
 			}]
@@ -191,7 +191,7 @@ cf.fieldPanelGrid = function(){return {
 					  c.getEl().on({
 						click: function(el){
 							if (c.disabled == false) {
-								cf.createFileWindow.init(id);
+								cf.createFileWindow.initUpdateField(id);
 							}
 						},
 					scope: c

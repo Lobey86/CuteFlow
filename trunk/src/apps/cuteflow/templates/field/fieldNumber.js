@@ -14,9 +14,9 @@ cf.fieldNumber = function(){return {
 		this.theNumberFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('Number settings',null,'field'); ?>',
 			width: 600,
-			height: 100,
+			height: 130,
 			hidden: true,
-			style: 'margin-top:20px;margin-left:5px;margin-right:5px;',
+			style: 'margin-top:20px;margin-left:5px;',
 			labelWidth: 170,
 			items:[{
 				xtype: 'textfield',
@@ -27,33 +27,68 @@ cf.fieldNumber = function(){return {
 			},{
 				xtype: 'combo',
 				mode: 'local',
-				editable:true,
+				editable:false,
  				valueField:'id',
- 				id: 'fieldNumber_regularexpression_id',
- 				hiddenName : 'fieldNumber_regularexpression',
+ 				id: 'fieldNumber_regularexpressioncombo_id',
+ 				hiddenName : 'fieldNumber_regularexpressioncombo',
  				allowBlank:true,
 				displayField:'text',
 				triggerAction: 'all',
-				emptyText:'<?php echo __('Input regular Expression or select one',null,'field'); ?>',
+				value: 'EMPTY',
 				foreSelection: false,
-   				fieldLabel: '<?php echo __('Regular Expression',null,'field'); ?>',
+   				fieldLabel: '<?php echo __('Select regular Expression',null,'field'); ?>',
 				store: new Ext.data.SimpleStore({
 					 fields:['id','text'],
-       				 data:[['CLEAR','input regular expression'],['CLEAR','-----------'],['', 'no restriction'],['', 'only positive numbers'],['', 'only negative numbers']]
+       				 data:[['EMPTY','<?php echo __('define own regular expression',null,'field'); ?>'],['NORESTRICTION', '<?php echo __('no restriction',null,'field'); ?>'],['2', '<?php echo __('positive numbers only',null,'field'); ?>'],['3', '<?php echo __('negative numbers only',null,'field'); ?>']]
 				}),
    				width:230,
 				listeners: {
-						select: {
-							fn:function(combo, value) {
-								if(combo.getValue() == 'CLEAR') {
-									Ext.getCmp('fieldNumber_regularexpression_id').setValue();
-								}
+					select: {
+						fn:function(combo, value) {
+							if(combo.getValue() == 'EMPTY') {
+								Ext.getCmp('fieldNumber_regularexpression').setValue();
+								Ext.getCmp('fieldNumber_regularexpression').setDisabled(false);
+							}
+							else if(combo.getValue() == 'NORESTRICTION') {
+								Ext.getCmp('fieldNumber_regularexpression').setValue();
+								Ext.getCmp('fieldNumber_regularexpression').setDisabled(true);
+							}
+							else {
+								Ext.getCmp('fieldNumber_regularexpression').setValue(combo.getValue());
+								Ext.getCmp('fieldNumber_regularexpression').setDisabled(false);
 							}
 						}
-					}		
+					}
+				}		
+			},{
+				xtype: 'textfield',
+ 				id: 'fieldNumber_regularexpression',
+ 				allowBlank:true,
+				disabled: false,
+ 				fieldLabel: '<?php echo __('Regular expression',null,'field'); ?>',
+   				width:230
 			}]
 		});
 		
+	},
+	/** nothing to check at the moment **/
+	checkBeforeSubmit: function() {
+		if(Ext.getCmp('fieldNumber_regularexpressioncombo_id').getValue() == 'NORESTRICTION') {
+			// check nach größer und kleiner regEx
+			// speicher regulären ausdruck der größer und kleiner prüft
+		}
+		else if (Ext.getCmp('fieldNumber_regularexpressioncombo_id').getValue() == 'EMPTY' && Ext.getCmp('fieldNumber_regularexpression').getValue() == '') {
+			// speicher regulären ausdruck der größer und kleiner prüft
+		}
+		else {
+			// prüfe eingabe mit regulärem ausdruck ab
+			// speicher den regulären ausdruck aus der combo ab
+			
+			// zahlen größer > ^\d*$
+		}
+		
+		
+		return true;
 	}
 	
 	
