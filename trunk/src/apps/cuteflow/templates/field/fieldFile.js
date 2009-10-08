@@ -27,9 +27,12 @@ cf.fieldFile = function(){return {
    				width:230		
 			}]
 		});
+	},
+	
+	/** function checks numbers **/
+	checkBeforeSubmit: function() {
+		return true;
 	}
-	
-	
 	
 	
 	

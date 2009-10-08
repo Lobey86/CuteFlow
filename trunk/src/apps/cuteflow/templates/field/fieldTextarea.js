@@ -33,6 +33,7 @@ cf.fieldTextarea = function(){return {
 		this.theTextarea = new Ext.form.TextArea({
 			fieldLabel: '<?php echo __('Input default Text',null,'field'); ?>',
 			width: 350,
+			id: 'fieldTextarea_textarea',
 			height: 150
 		});
 	},
@@ -42,6 +43,7 @@ cf.fieldTextarea = function(){return {
 			fieldLabel: '<?php echo __('Input default HTML-Text',null,'field'); ?>',
 			width: 350,
 			hidden:true,
+			id: 'fieldTextarea_htmlarea',
 			height: 150
 		});
 	},
@@ -54,6 +56,8 @@ cf.fieldTextarea = function(){return {
 			editable:false,
 			triggerAction: 'all',
 			foreSelection: true,
+			hiddenName: 'fieldTextarea_contenttype',
+			id: 'fieldTextarea_contenttype_id',
 			mode: 'local',
 			value: 'plain',
 			store: new Ext.data.SimpleStore({
@@ -82,6 +86,10 @@ cf.fieldTextarea = function(){return {
 	    		}
 	    	}
 		});
+	},
+	/** function checks numbers **/
+	checkBeforeSubmit: function() {
+		return true;
 	}
 	
 	

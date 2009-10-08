@@ -1,6 +1,9 @@
 cf.fieldNumber = function(){return {
 	
-	theNumberFieldset			:false,
+	theNumberFieldset					:false,
+	theRegularExpressionPositive		: '^[0-9]$',
+	theRegularExpressionNegative		: '^[\\-]{1}[0-9]$',
+	theRegularExpressionAll				: '^[\\-]{0,1}[0-9]$',
 	
 	
 	
@@ -23,7 +26,7 @@ cf.fieldNumber = function(){return {
  				id: 'fieldNumber_standard',
  				allowBlank:true,
  				fieldLabel: '<?php echo __('Default value',null,'field'); ?>',
-   				width:230		
+   				width:280		
 			},{
 				xtype: 'combo',
 				mode: 'local',
@@ -39,9 +42,9 @@ cf.fieldNumber = function(){return {
    				fieldLabel: '<?php echo __('Select regular Expression',null,'field'); ?>',
 				store: new Ext.data.SimpleStore({
 					 fields:['id','text'],
-       				 data:[['EMPTY','<?php echo __('define own regular expression',null,'field'); ?>'],['NORESTRICTION', '<?php echo __('no restriction',null,'field'); ?>'],['2', '<?php echo __('positive numbers only',null,'field'); ?>'],['3', '<?php echo __('negative numbers only',null,'field'); ?>']]
+       				 data:[['EMPTY','<?php echo __('define own regular expression',null,'field'); ?>'],['NORESTRICTION', '<?php echo __('no restriction',null,'field'); ?>'],['POSITIVE', '<?php echo __('positive numbers only',null,'field'); ?>'],['NEGATIVE', '<?php echo __('negative numbers only',null,'field'); ?>']]
 				}),
-   				width:230,
+   				width:280,
 				listeners: {
 					select: {
 						fn:function(combo, value) {
@@ -50,12 +53,16 @@ cf.fieldNumber = function(){return {
 								Ext.getCmp('fieldNumber_regularexpression').setDisabled(false);
 							}
 							else if(combo.getValue() == 'NORESTRICTION') {
-								Ext.getCmp('fieldNumber_regularexpression').setValue();
+								Ext.getCmp('fieldNumber_regularexpression').setValue(cf.fieldNumber.theRegularExpressionAll);
+								Ext.getCmp('fieldNumber_regularexpression').setDisabled(true);
+							}
+							else if(combo.getValue() == 'POSITIVE'){
+								Ext.getCmp('fieldNumber_regularexpression').setValue(cf.fieldNumber.theRegularExpressionPositive);
 								Ext.getCmp('fieldNumber_regularexpression').setDisabled(true);
 							}
 							else {
-								Ext.getCmp('fieldNumber_regularexpression').setValue(combo.getValue());
-								Ext.getCmp('fieldNumber_regularexpression').setDisabled(false);
+								Ext.getCmp('fieldNumber_regularexpression').setValue(cf.fieldNumber.theRegularExpressionNegative);
+								Ext.getCmp('fieldNumber_regularexpression').setDisabled(true);
 							}
 						}
 					}
@@ -66,29 +73,102 @@ cf.fieldNumber = function(){return {
  				allowBlank:true,
 				disabled: false,
  				fieldLabel: '<?php echo __('Regular expression',null,'field'); ?>',
-   				width:230
+   				width:280
 			}]
 		});
 		
 	},
-	/** nothing to check at the moment **/
+	/** function checks numbers **/
 	checkBeforeSubmit: function() {
-		if(Ext.getCmp('fieldNumber_regularexpressioncombo_id').getValue() == 'NORESTRICTION') {
-			// check nach größer und kleiner regEx
-			// speicher regulären ausdruck der größer und kleiner prüft
+		var combobox = Ext.getCmp('fieldNumber_regularexpressioncombo_id').getValue();
+		var regEx = Ext.getCmp('fieldNumber_regularexpression').getValue();
+		var input = Ext.getCmp('fieldNumber_standard').getValue();
+
+		
+		if(combobox == 'NORESTRICTION') {
+			if(input != '') { // default value is set
+				var regObject = new RegExp(cf.fieldNumber.theRegularExpressionAll,"m");
+				if(regObject.test(input) == true) {
+					Ext.getCmp('fieldNumber_regularexpression').setDisabled(false);
+					return true;
+				}
+				else {
+					Ext.Msg.minWidth = 200;
+					Ext.MessageBox.alert('<?php echo __('Error',null,'field'); ?>', '<?php echo __('Input value is no number',null,'field'); ?>');
+					return false;
+				}
+			}
+			else {
+				Ext.getCmp('fieldNumber_regularexpression').setDisabled(false);
+				return true;
+			}
 		}
-		else if (Ext.getCmp('fieldNumber_regularexpressioncombo_id').getValue() == 'EMPTY' && Ext.getCmp('fieldNumber_regularexpression').getValue() == '') {
-			// speicher regulären ausdruck der größer und kleiner prüft
+		else if (combobox == 'EMPTY') {
+			if(regEx == '') {
+				if(input == ''){
+					Ext.getCmp('fieldNumber_regularexpression').setValue(cf.fieldNumber.theRegularExpressionAll);
+					Ext.getCmp('fieldNumber_regularexpression').setDisabled(false);
+					return true;
+				}
+				else {
+					var regObject = new RegExp(cf.fieldNumber.theRegularExpressionAll,"m");
+					if(regObject.test(input) == true) {
+						Ext.getCmp('fieldNumber_regularexpression').setDisabled(false);
+						return true;
+					}
+					else {
+						Ext.Msg.minWidth = 200;
+						Ext.MessageBox.alert('<?php echo __('Error',null,'field'); ?>', '<?php echo __('Input value is no number',null,'field'); ?>');
+						return false;
+					}
+				}
+			}
+			else {
+				if(input == ''){
+					Ext.getCmp('fieldNumber_regularexpression').setDisabled(false);
+					return true;
+				}
+				else {
+					try {
+						var regObject = new RegExp(regEx,"m");
+						if(regObject.test(input) == true) {
+							Ext.getCmp('fieldNumber_regularexpression').setDisabled(false);
+							return true;
+						}
+						else {
+							Ext.Msg.minWidth = 200;
+							Ext.MessageBox.alert('<?php echo __('Error',null,'field'); ?>', '<?php echo __('Input value is no number<br>or RegEx is not valid',null,'field'); ?>');
+							return false;
+						}
+					}
+					catch(e) {
+						Ext.Msg.minWidth = 200;
+						Ext.MessageBox.alert('<?php echo __('Error',null,'field'); ?>', '<?php echo __('RegEx is not valid',null,'field'); ?>');
+						return false;
+					}
+				}
+				
+			}
 		}
 		else {
-			// prüfe eingabe mit regulärem ausdruck ab
-			// speicher den regulären ausdruck aus der combo ab
-			
-			// zahlen größer > ^\d*$
+			if(input == ''){
+				Ext.getCmp('fieldNumber_regularexpression').setDisabled(false);
+				return true;
+			}
+			else {
+				var object = new RegExp(regEx,"m");
+				if(object.test(input) == true) {
+					Ext.getCmp('fieldNumber_regularexpression').setDisabled(false);
+					return true;
+				}
+				else {
+					Ext.Msg.minWidth = 200;
+					Ext.MessageBox.alert('<?php echo __('Error',null,'field'); ?>', '<?php echo __('Input does not match to RegEx',null,'field'); ?>');
+					return false;
+				}
+				
+			}
 		}
-		
-		
-		return true;
 	}
 	
 	
