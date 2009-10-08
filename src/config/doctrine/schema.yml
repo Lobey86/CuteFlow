@@ -226,6 +226,9 @@ FieldNumber:
   columns:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
     field_id: { type: integer, length: 10 }
+    regex: {type: string(100) }
+    defaultvalue: {type: string(100) }
+    comboboxvalue: {type: string(40) }
   relations:
     Field: { class: Field, local: field_id, foreign: id, foreignType: many, type: one }
 
@@ -234,6 +237,9 @@ FieldDate:
   columns:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
     field_id: { type: integer, length: 10 }
+    regex: {type: string(100) }
+    defaultvalue: {type: string(100) }
+    dateformat: {type: string(40) }
   relations:
     Field: { class: Field, local: field_id, foreign: id, foreignType: many, type: one }
 
@@ -242,6 +248,7 @@ FieldFile:
   columns:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
     field_id: { type: integer, length: 10 }
+    regex: {type: string(100) }
   relations:
     Field: { class: Field, local: field_id, foreign: id, foreignType: many, type: one }
 
@@ -250,6 +257,9 @@ FieldCombobox:
   columns:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
     field_id: { type: integer, length: 10 }
+    value: {type: string(100) }
+    isactive: { type: integer(1), length: 3 }
+    position: { type: integer(1), length: 3 }
   relations:
     Field: { class: Field, local: field_id, foreign: id, foreignType: many, type: one }
 
@@ -258,6 +268,9 @@ FieldCheckboxgroup:
   columns:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
     field_id: { type: integer, length: 10 }
+    value: {type: string(100) }
+    isactive: { type: integer(1), length: 3 }
+    position: { type: integer(1), length: 3 }
   relations:
     Field: { class: Field, local: field_id, foreign: id, foreignType: many, type: one }
 
@@ -266,6 +279,9 @@ FieldRadiogroup:
   columns:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
     field_id: { type: integer, length: 10 }
+    value: {type: string(100) }
+    isactive: { type: integer(1), length: 3 }
+    position: { type: integer(1), length: 3 }
   relations:
     Field: { class: Field, local: field_id, foreign: id, foreignType: many, type: one }
 
@@ -274,5 +290,7 @@ FieldTextarea:
   columns:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
     field_id: { type: integer, length: 10 }
+    contenttype: {type: string(45) }
+    content: {type: string(5000) }
   relations:
     Field: { class: Field, local: field_id, foreign: id, foreignType: many, type: one }
