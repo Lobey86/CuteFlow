@@ -50,8 +50,14 @@
 
 .no-icon {
 	display : none;
-	background-image:url('/images/default/s.gif') !important;
+	background-image:url(/images/default/s.gif) !important;
 }
+
+.x-form-color-trigger {
+	background-image: url(/images/default/form/color-trigger.gif);
+	border-bottom-color:#b5b8c8;
+}
+
 
 #usermodule_administration_Icon {
 	background-image: url(/images/icons/tux.png); 

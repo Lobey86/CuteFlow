@@ -18,7 +18,11 @@ html,body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,p,bloc
 }
 .my-icon { 
 	background-image: url(/images/default/formexclamation.gif) 0 6px no-repeat; 
+
 }
+
+
+
 
 .ext-el-mask-msg {
     z-index: 20001;
@@ -5558,6 +5562,11 @@ ul.x-tab-strip-bottom{
 
 .x-form-field-wrap .x-form-date-trigger{
     background-image: url(../images/default/form/date-trigger.gif);
+}
+
+.x-form-field-wrap .x-form-color-trigger{
+	background-image: url(../images/default/form/color-trigger.gif);
+	border-bottom-color:#b5b8c8;
 }
 
 .x-form-field-wrap .x-form-clear-trigger{
