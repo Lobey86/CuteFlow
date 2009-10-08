@@ -42,6 +42,52 @@ class fieldActions extends sfActions {
     
     public function executeSaveField(sfWebRequest $request) {
         $data = $request->getPostParameters();
+        $fieldClass = new FieldClass();
+        $data = $fieldClass->prepareSaveData($data);
+        
+        $fieldObj = new Field();
+        $fieldObj->setTitle($data['createFileWindow_fieldname']);
+        $fieldObj->setType($data['createFileWindow_fieldtype']);
+        $fieldObj->setwriteprotected($data['createFileWindow_writeprotected']);
+        $fieldObj->setColor($data['createFileWindow_color']);
+        $fieldObj->save();
+        $id = $fieldObj->getId();
+
+
+
+        switch ($data['createFileWindow_fieldtype']) {
+            case 'TEXTFIELD':
+                $textfield = new FieldTextfield();
+                $textfield->setFieldId($id);
+                $textfield->setRegex($data['fieldTextfield_regularexpression']);
+                $textfield->setDefaultvalue($data['fieldTextfield_standard']);
+                $textfield->save();
+                break;
+            case 'CHECKBOX':
+                // do nothing
+                break;
+            case 'NUMBER':
+                break;
+            case 'DATE':
+                break;
+            case 'TEXTAREA':
+                break;
+            case 'RADIOGROUP':
+                break;
+            case 'CHECKBOXGROUP':
+                break;
+            case 'COMBOBOX':
+                break;
+            case 'FILE':
+                break;
+        }
+
+
+
+
+
+
+
         $this->renderText('{success:true}');
         return sfView::NONE;
     }
