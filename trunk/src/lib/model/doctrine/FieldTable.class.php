@@ -26,8 +26,6 @@ class FieldTable extends Doctrine_Table {
             ->where('f.deleted = ?' ,0)
             ->execute();
     }
-
-
     /**
      *
      * @param int $id, id of record to delete
@@ -42,6 +40,11 @@ class FieldTable extends Doctrine_Table {
         return true;
     }
 
+    /**
+     * Get field by id
+     * @param int $id, id of the field
+     * @return Doctrine_Collection
+     */
     public function getFieldById($id) {
         return Doctrine_Query::create()
             ->from('Field f')
@@ -50,5 +53,23 @@ class FieldTable extends Doctrine_Table {
             ->andWhere('f.id = ?', $id)
             ->execute();
     }
+
+    /**
+     *
+     * @param int $id, id of field to update
+     * @param array $data, data to update
+     * @return true
+     */
+    public function updateFieldById($id, $data) {
+        Doctrine_Query::create()
+            ->update('Field f')
+            ->set('f.color','?', $data['createFileWindow_color'])
+            ->set('f.writeprotected','?',$data['createFileWindow_writeprotected'])
+            ->set('f.title','?',$data['createFileWindow_fieldname'])
+            ->where('f.id = ?',$id)
+            ->execute();
+        return true;
+    }
+
 
 }
