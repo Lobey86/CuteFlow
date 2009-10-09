@@ -2,8 +2,8 @@ cf.fieldNumber = function(){return {
 	
 	theNumberFieldset					:false,
 	theRegularExpressionPositive		: '^[0-9]$',
-	theRegularExpressionNegative		: '^[\\-]{1}[0-9]$',
-	theRegularExpressionAll				: '^[\\-]{0,1}[0-9]$',
+	theRegularExpressionNegative		: '^[-]{1}[0-9]$',
+	theRegularExpressionAll				: '^[-]{0,1}[0-9]$',
 	
 	
 	
@@ -113,6 +113,7 @@ cf.fieldNumber = function(){return {
 				else {
 					var regObject = new RegExp(cf.fieldNumber.theRegularExpressionAll,"m");
 					if(regObject.test(input) == true) {
+						Ext.getCmp('fieldNumber_regularexpression').setValue(cf.fieldNumber.theRegularExpressionAll);
 						Ext.getCmp('fieldNumber_regularexpression').setDisabled(false);
 						return true;
 					}
@@ -169,7 +170,18 @@ cf.fieldNumber = function(){return {
 				
 			}
 		}
+	},
+	
+	addData: function (data) {
+		Ext.getCmp('fieldNumber_standard').setValue(data.defaultvalue);
+		Ext.getCmp('fieldNumber_regularexpressioncombo_id').setValue(data.comboboxvalue);
+		Ext.getCmp('fieldNumber_regularexpression').setValue(data.regex);
+		if(data.comboboxvalue == 'POSITIVE' || data.comboboxvalue == 'NEGATIVE' || data.comboboxvalue == 'NORESTRICTION') {
+			Ext.getCmp('fieldNumber_regularexpression').setDisabled(true);
+		}
+		
 	}
+	
 	
 	
 	

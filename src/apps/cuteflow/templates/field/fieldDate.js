@@ -126,6 +126,14 @@ cf.fieldDate = function(){return {
 			}
 			
 		}
+	},
+	
+	addData: function (data) {
+		Ext.getCmp('fieldDate_format_id').setValue(data.dateformat);
+		Ext.getCmp('fieldDate_date').format = data.dateformat;
+		Ext.getCmp('fieldDate_date').setValue(data.defaultvalue);
+		Ext.getCmp('fieldDate_regularexpression').setValue(data.regex);
 	}
+	
 
 };}();

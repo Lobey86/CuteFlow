@@ -11,7 +11,7 @@ cf.fieldCombobox = function(){return {
 	theComboboxgroupSavePanel	:false,
 
 
-	init: function (id) {
+	init: function () {
 		this.theUniqueId  = 0;
 		this.initToolbar();
 		this.initCM();
@@ -42,10 +42,7 @@ cf.fieldCombobox = function(){return {
 	},
 	
 	initStore: function () {
-		this.theComboboxStore = new Ext.data.JsonStore({
-			root: 'result',
-			url: '<?php echo build_dynamic_javascript_url('field/LoadAllFields')?>',
-			autoload: false,
+		this.theComboboxStore = new Ext.data.SimpleStore({
 			fields: [
 				{name: 'unique_id'},
 				{name: 'value'},
@@ -225,6 +222,26 @@ cf.fieldCombobox = function(){return {
 		this.theComboboxgroupSavePanel = new Ext.Panel({
 			
 		});
+	},
+	
+	addData: function (data) {
+		for(var a = 0;a<data.items.length;a++) {
+			var row = data.items[a];
+			var grid = cf.fieldCombobox.theComboboxGrid;
+		    var Record = grid.getStore().recordType;
+		    if(row.isactive == 0) {
+		    	row.isactive = false;
+		    }
+		    else {
+		    	row.isactive = true;
+		    }
+			var r = new Record({
+				value: row.value,
+				unique_id: cf.fieldCombobox.theUniqueId++,
+				checked : row.isactive
+			});
+			grid.store.add(r);
+		}
 	}
 
 

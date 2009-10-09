@@ -4,6 +4,7 @@ cf.createFileWindow = function(){return {
 	theGeneralSettingsFieldset		:false,
 	theFormPanel					:false,
 	theCurrentObject				:false,
+	theLoadingMask					:false,
 
 	
 	initNewField: function (id) {
@@ -39,14 +40,90 @@ cf.createFileWindow = function(){return {
 	},
 	
 	initUpdateField: function (id) {
+		this.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loadin Data...',null,'usermanagement'); ?>'});					
+		this.theLoadingMask.show();
 		Ext.Ajax.request({
 			url : '<?php echo build_dynamic_javascript_url('field/LoadSingleField')?>/id/' + id,
 			success: function(objServerResponse){ 
 				var data = Ext.util.JSON.decode(objServerResponse.responseText);
+				cf.createFileWindow.initFormPanel();		
+				cf.createFileWindow.initGeneralSettings();
+				cf.createFileWindow.initWindow(id, '<?php echo __('Edit field',null,'field'); ?>');
+				cf.createFileWindow.theFormPanel.add(cf.createFileWindow.theGeneralSettingsFieldset); // default Fieldset which is shown everytime ;)
 				
+				Ext.getCmp('createFileWindow_fieldtype_id').setDisabled(true);
+				Ext.getCmp('createFileWindow_fieldname').setValue(data.result.title);
+				Ext.getCmp('createFileWindow_fieldtype_id').setValue(data.result.type);
+				Ext.getCmp('createFileWindow_color').setValue(data.result.color);
+				Ext.getCmp('createFileWindow_writeprotected').setValue(data.result.writeprotected);
 				
+				switch (data.result.type) {
+					case "TEXTFIELD":
+						cf.fieldTextfield.init();
+						cf.createFileWindow.theFormPanel.add(cf.fieldTextfield.theTextfieldFieldset);
+						cf.fieldTextfield.addData(data.result);
+						cf.createFileWindow.theCurrentObject = cf.fieldTextfield;
+					    break;
+					case "CHECKBOX":
+						cf.fieldCheckbox.init();
+						cf.createFileWindow.theCurrentObject = cf.fieldCheckbox;
+						break;
+					case "NUMBER":
+						cf.fieldNumber.init();
+						cf.createFileWindow.theFormPanel.add(cf.fieldNumber.theNumberFieldset);
+						cf.fieldNumber.theNumberFieldset.setVisible(true);
+						cf.fieldNumber.addData(data.result);
+						cf.createFileWindow.theCurrentObject = cf.fieldNumber;
+						break;
+					case "DATE":
+						cf.fieldDate.init();
+						cf.createFileWindow.theFormPanel.add(cf.fieldDate.theDateFieldset);
+						cf.fieldDate.theDateFieldset.setVisible(true);
+						cf.fieldDate.addData(data.result);
+						cf.createFileWindow.theCurrentObject = cf.fieldDate;							
+						break;
+					case "TEXTAREA":
+						cf.fieldTextarea.init();
+						cf.createFileWindow.theFormPanel.add(cf.fieldTextarea.theTextareaFieldset);
+						cf.fieldTextarea.theTextareaFieldset.setVisible(true);
+						cf.fieldTextarea.addData(data.result);
+						cf.createFileWindow.theCurrentObject = cf.fieldTextarea;
+						break;
+					case "RADIOGROUP":
+						cf.fieldRadiogroup.init();
+						cf.createFileWindow.theFormPanel.add(cf.fieldRadiogroup.theRadiogroupFieldset);
+						cf.fieldRadiogroup.theRadiogroupFieldset.setVisible(true);
+						cf.fieldRadiogroup.addData(data.result);
+						cf.createFileWindow.theCurrentObject = cf.fieldRadiogroup;
+						break;
+					case "CHECKBOXGROUP":
+						cf.fieldCheckboxgroup.init();
+						cf.createFileWindow.theFormPanel.add(cf.fieldCheckboxgroup.theCheckboxgroupFieldset);
+						cf.fieldCheckboxgroup.theCheckboxgroupFieldset.setVisible(true);
+						cf.fieldCheckboxgroup.addData(data.result);
+						cf.createFileWindow.theCurrentObject = cf.fieldCheckboxgroup;
+						break;
+					case "COMBOBOX":
+						cf.fieldCombobox.init();
+						cf.fieldCombobox.theComboboxFieldset.setVisible(true);
+						cf.createFileWindow.theFormPanel.add(cf.fieldCombobox.theComboboxFieldset);
+						cf.fieldCombobox.addData(data.result);
+						cf.createFileWindow.theCurrentObject = cf.fieldCombobox;
+						break;
+					case "FILE":
+						cf.fieldFile.init();
+						cf.fieldFile.theFileFieldset.setVisible(true);
+						cf.createFileWindow.theFormPanel.add(cf.fieldFile.theFileFieldset);
+						cf.fieldFile.addData(data.result);
+						cf.createFileWindow.theCurrentObject = cf.fieldFile;
+						break;
+				}
+				cf.createFileWindow.theFieldPopUpWindow.add(cf.createFileWindow.theFormPanel);
+				cf.createFileWindow.theFieldPopUpWindow.doLayout();
+				cf.createFileWindow.theLoadingMask.hide();
+				cf.createFileWindow.theFieldPopUpWindow.show();	
 			}
-		);
+		});
 	},
 	
 	
@@ -176,8 +253,6 @@ cf.createFileWindow = function(){return {
 									cf.fieldFile.theFileFieldset.setVisible(true);
 									cf.createFileWindow.theCurrentObject = cf.fieldFile;
 									break;
-								default: 
-									'';
 							}
 						}
 					}

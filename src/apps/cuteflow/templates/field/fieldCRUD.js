@@ -22,9 +22,11 @@ cf.fieldCRUD = function(){return {
 	doSubmit: function (id) {	
 		if(id != '') {
 			var url = '<?php echo build_dynamic_javascript_url('field/UpdateField')?>/id/' + id;
+			var title = '<?php echo __('Data updated',null,'field'); ?>';
 		}
 		else {
 			var url = '<?php echo build_dynamic_javascript_url('field/SaveField')?>';
+			var title = '<?php echo __('Data saved',null,'field'); ?>';
 		}
 		
 		cf.createFileWindow.theFormPanel.getForm().submit({
@@ -32,6 +34,10 @@ cf.fieldCRUD = function(){return {
 			method: 'POST',
 			success: function(objServerResponse){
 				cf.fieldPanelGrid.theFieldStore.reload();
+				cf.createFileWindow.theFieldPopUpWindow.hide();
+				cf.createFileWindow.theFieldPopUpWindow.destroy();
+				Ext.Msg.minWidth = 200;
+				Ext.MessageBox.alert('<?php echo __('OK',null,'field'); ?>',title);
 			}
 		});
 	},

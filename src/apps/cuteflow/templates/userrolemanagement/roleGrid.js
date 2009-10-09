@@ -63,7 +63,7 @@ cf.UserRoleGrid = function(){return {
                 tooltip:'<?php echo __('Add new Userrole',null,'userrolemanagement'); ?>',
                 disabled: false,
                 handler: function () {
-                	cf.AddRoleWindow.init(1,''); // new popup is opened, 1 = new record
+                	cf.rolePopUpWindow.initNewRole(''); // new popup is opened, 1 = new record
                 }
 			}]
 		});	
@@ -114,7 +114,7 @@ cf.UserRoleGrid = function(){return {
 				render: function(c){
 					c.getEl().on({
 						click: function(el){
-							cf.AddRoleWindow.init(0,id);
+							cf.rolePopUpWindow.initEditRole(id);
 						},
 					scope: c
 					});
