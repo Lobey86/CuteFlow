@@ -90,7 +90,19 @@ cf.fieldTextarea = function(){return {
 	/** function checks numbers **/
 	checkBeforeSubmit: function() {
 		return true;
+	},
+	
+	addData: function (data) {
+		Ext.getCmp('fieldTextarea_contenttype_id').setValue(data.contenttype);
+		Ext.getCmp('fieldTextarea_htmlarea').setValue(data.content);
+		Ext.getCmp('fieldTextarea_textarea').setValue(data.content);
+		if(data.contenttype == 'html') {
+			Ext.getCmp('fieldTextarea_htmlarea').setVisible(true);
+			Ext.getCmp('fieldTextarea_textarea').setVisible(false);
+		}
+		
 	}
+	
 	
 	
 	

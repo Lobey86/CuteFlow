@@ -21,50 +21,63 @@ cf.RoleCRUD = function(){return {
 	* @param int id, is only set, if a record is edited
 	*
 	*/
-	saveRole: function (new_flag,id) {
-		var textfield = Ext.getCmp('userrole_title_id');
-		if(textfield.getValue() == '') { // no role name is set
-			cf.AddRoleTabpanel.theTabpanel.setActiveTab(0);
-			textfield.focus();
-		}
-		else { // role name is set
-			if (new_flag != 1) { // edit role
-				
-				cf.AddRoleTabpanel.theFormPanel.getForm().submit({
-					url: '<?php echo build_dynamic_javascript_url('userrolemanagement/EditRole')?>',
-					method: 'POST',
-					success: function() {
-						//cf.UserRoleGrid.theUserRoleStore.reload();
-						cf.AddRoleWindow.theAddRoleWin.hide();
-						cf.AddRoleWindow.theAddRoleWin.destroy();
-					}
-				});
+	saveRole: function (id) {
+		var rolename = this.checkRolename();
+		if(rolename == true) {
+			if(id == '') {
+				this.saveNewRole();
 			}
-			else { // new role
-				Ext.Ajax.request({  
-					url : '<?php echo build_dynamic_javascript_url('userrolemanagement/CheckForExistingRole')?>/description/' + textfield.getValue(),
-					success: function(objServerResponse){
-						if(objServerResponse.responseText == 1) { // save Role
-							cf.AddRoleTabpanel.theFormPanel.getForm().submit({
-								url: '<?php echo build_dynamic_javascript_url('userrolemanagement/AddRole')?>',
-								method: 'POST',
-								success: function() {
-									cf.UserRoleGrid.theUserRoleStore.reload();
-									cf.AddRoleWindow.theAddRoleWin.hide();
-									cf.AddRoleWindow.theAddRoleWin.destroy();
-								}
-							});
-						}
-						else { // role is already exisiting
-							Ext.MessageBox.alert('<?php echo __('Error',null,'userrolemanagement'); ?>', '<?php echo __('Role is already existing',null,'userrolemanagement'); ?>');
-							cf.AddRoleTabpanel.theTabpanel.setActiveTab(0);
-							textfield.focus();
-							textfield.setValue();
-						}
-					}
-				});
+			else {
+				this.updateExistingRole();
 			}
 		}
+	},
+	
+	checkRolename: function () {
+		if(Ext.getCmp('userrole_title_id').getValue() == '') { // no role name is set
+			cf.rolePopUpWindow.theTabpanel.setActiveTab(0);
+			Ext.getCmp('userrole_title_id').focus();
+			return false;
+		}
+		else {
+			return true;
+		}
+	},
+	
+	updateExistingRole: function() {
+		cf.PopUpRoleTabpanel.theFormPanel.getForm().submit({
+			url: '<?php echo build_dynamic_javascript_url('userrolemanagement/EditRole')?>',
+			method: 'POST',
+			success: function() {
+				cf.rolePopUpWindow.theRoleWindow.hide();
+				cf.rolePopUpWindow.theRoleWindow.destroy();
+			}
+		});
+	},
+	
+	saveNewRole: function () {
+		Ext.Ajax.request({  
+			url : '<?php echo build_dynamic_javascript_url('userrolemanagement/CheckForExistingRole')?>/description/' + Ext.getCmp('userrole_title_id').getValue(),
+			success: function(objServerResponse){
+				if(objServerResponse.responseText == 1) { // save Role
+					cf.PopUpRoleTabpanel.theFormPanel.getForm().submit({
+						url: '<?php echo build_dynamic_javascript_url('userrolemanagement/AddRole')?>',
+						method: 'POST',
+						success: function() {
+							cf.UserRoleGrid.theUserRoleStore.reload();
+							cf.rolePopUpWindow.theRoleWindow.hide();
+							cf.rolePopUpWindow.theRoleWindow.destroy();
+						}
+					});
+				}
+				else {
+					Ext.MessageBox.alert('<?php echo __('Error',null,'userrolemanagement'); ?>', '<?php echo __('Role is already existing',null,'userrolemanagement'); ?>');
+					cf.PopUpRoleTabpanel.theTabpanel.setActiveTab(0);
+					Ext.getCmp('userrole_title_id').focus();
+					Ext.getCmp('userrole_title_id').setValue();
+				}
+			}
+		});
 	}
 
 

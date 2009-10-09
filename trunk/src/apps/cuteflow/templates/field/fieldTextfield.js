@@ -55,6 +55,21 @@ cf.fieldTextfield = function(){return {
 	/** nothing to check at the moment **/
 	checkBeforeSubmit: function() {
 		return true;
+	},
+	
+	addData: function (data) {
+		Ext.getCmp('fieldTextfield_standard_id').setValue(data.defaultvalue);
+		Ext.getCmp('fieldTextfield_regularexpression').setValue(data.regex);
+		if(data.defaultvalue != '{%DATE_SENDING%}' && data.defaultvalue != '{%TIME%}' && data.defaultvalue != '{%CIRCULATION_TITLE%}' && data.defaultvalue != '{%CIRCULATION_ID%}' && data.defaultvalue != '') {
+		    var store = Ext.getCmp('fieldTextfield_standard_id').store;
+			var Record = store.recordType;
+			var r = new Record({
+				id: data.defaultvalue,
+				text: data.defaultvalue
+			});
+			store.insert(1,r);
+			
+		}
 	}
 	
 	

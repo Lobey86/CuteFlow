@@ -3,7 +3,7 @@
 *
 */
 
-cf.AddRoleTabpanel = function(){return {
+cf.PopUpRoleTabpanel = function(){return {
 	
 	theTabpanel								:false,
 	theRoleNameText							:false,
@@ -44,7 +44,7 @@ cf.AddRoleTabpanel = function(){return {
 			url : url,
 			success: function(objServerResponse){
 				theJsonTreeData = Ext.util.JSON.decode(objServerResponse.responseText);
-				cf.AddRoleTabpanel.buildTabs(theJsonTreeData,id);
+				cf.PopUpRoleTabpanel.buildTabs(theJsonTreeData,id);
 				Ext.getCmp('userrole_title_id').setValue(theJsonTreeData.name);
 				if (Ext.getCmp('userrole_title_id').getValue() != '') {
 					Ext.getCmp('userrole_title_id').setDisabled(true);

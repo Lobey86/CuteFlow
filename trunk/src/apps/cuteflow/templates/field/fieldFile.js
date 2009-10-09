@@ -32,6 +32,11 @@ cf.fieldFile = function(){return {
 	/** function checks numbers **/
 	checkBeforeSubmit: function() {
 		return true;
+	},
+	
+	addData: function (data) {
+		Ext.getCmp('fieldFile_regularexpression').setValue(data.regex);
+		
 	}
 	
 	

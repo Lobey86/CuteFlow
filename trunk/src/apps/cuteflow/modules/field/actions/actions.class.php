@@ -79,8 +79,8 @@ class fieldActions extends sfActions {
             case 'DATE':
                 $datefield = new FieldDate();
                 $datefield->setRegex($data['fieldDate_regularexpression']);
-                $datefield->setDateformat($data['fieldDate_date']);
-                $datefield->setDefaultvalue($data['fieldDate_format']);
+                $datefield->setDateformat($data['fieldDate_format']);
+                $datefield->setDefaultvalue($data['fieldDate_date']);
                 $datefield->setFieldId($id);
                 $datefield->save();
                 break;
@@ -93,40 +93,13 @@ class fieldActions extends sfActions {
                 $textarea->save();
                 break;
             case 'RADIOGROUP':
-                $records = $data['grid'];
-                $position = 1;
-                foreach($records as $item => $key) {
-                    $radiogroup = new FieldRadiogroup();
-                    $radiogroup->setValue($item);
-                    $radiogroup->setIsactive($key);
-                    $radiogroup->setFieldId($id);
-                    $radiogroup->setPosition($position++);
-                    $radiogroup->save();
-                }
+                $fieldClass->saveRadiogroup($id, $data);
                 break;
             case 'CHECKBOXGROUP':
-                $records = $data['grid'];
-                $position = 1;
-                foreach($records as $item => $key) {
-                    $checkboxgroup = new FieldCheckboxgroup();
-                    $checkboxgroup->setValue($item);
-                    $checkboxgroup->setIsactive($key);
-                    $checkboxgroup->setFieldId($id);
-                    $checkboxgroup->setPosition($position++);
-                    $checkboxgroup->save();
-                }
+                $fieldClass->saveCheckboxgroup($id, $data);
                 break;
             case 'COMBOBOX':
-                $records = $data['grid'];
-                $position = 1;
-                foreach($records as $item => $key) {
-                    $combobox = new FieldCombobox();
-                    $combobox->setValue($item);
-                    $combobox->setIsactive($key);
-                    $combobox->setFieldId($id);
-                    $combobox->setPosition($position++);
-                    $combobox->save();
-                }
+                $fieldClass->saveCombobox($id, $data);
                 break;
             case 'FILE':
                 $file = new FieldFile();
@@ -149,26 +122,76 @@ class fieldActions extends sfActions {
                 $json_result = $fieldObject->buildTextfield($data);
                 break;
             case 'CHECKBOX':
+                $json_result = $fieldObject->buildCheckbox($data);
                 break;
             case 'NUMBER':
+                $json_result = $fieldObject->buildNumber($data);
                 break;
             case 'DATE':
+                $json_result = $fieldObject->buildDate($data);
                 break;
             case 'TEXTAREA':
+                $json_result = $fieldObject->buildTextarea($data);
                 break;
             case 'RADIOGROUP':
+                $json_result = $fieldObject->buildRadiogroup($data);
                 break;
             case 'CHECKBOXGROUP':
+                $json_result = $fieldObject->buildCheckboxgroup($data);
                 break;
             case 'COMBOBOX':
-
+                $json_result = $fieldObject->buildCombobox($data);
                 break;
             case 'FILE':
+                $json_result = $fieldObject->buildFile($data);
                 break;
         }
 
 
         $this->renderText('{"result":'.json_encode($json_result).'}');
+        return sfView::NONE;
+    }
+
+
+    public function executeUpdateField(sfWebRequest $request) {
+        $fieldType = FieldTable::instance()->getFieldById($request->getParameter('id'));
+        $data = $request->getPostParameters();
+        $fieldClass = new FieldClass();
+        $data = $fieldClass->prepareSaveData($data);
+        FieldTable::instance()->updateFieldById($request->getParameter('id'), $data);
+        switch ($fieldType[0]->getType()) {
+            case 'TEXTFIELD':
+                FieldTextfieldTable::instance()->updateFieldTextfieldById($request->getParameter('id'), $data);
+                break;
+            case 'CHECKBOX':
+                break;
+            case 'NUMBER':
+                FieldNumberTable::instance()->updateFieldNumberById($request->getParameter('id'), $data);
+                break;
+            case 'DATE':
+                FieldDateTable::instance()->updateFieldDateById($request->getParameter('id'), $data);
+                break;
+            case 'TEXTAREA':
+                $data['fieldTextarea_content'] = $data['fieldTextarea_contenttype'] == 'plain' ? $data['fieldTextarea_textarea']: $data['fieldTextarea_htmlarea'];
+                FieldTextareaTable::instance()->updateFieldTextareaById($request->getParameter('id'), $data);
+                break;
+            case 'RADIOGROUP':
+                FieldRadiogroupTable::instance()->deleteRadiogroupByFieldId($request->getParameter('id'));
+                $fieldClass->saveRadiogroup($request->getParameter('id'), $data);
+                break;
+            case 'CHECKBOXGROUP':
+                FieldCheckboxgroupTable::instance()->deleteCheckboxgroupByFieldId($request->getParameter('id'));
+                $fieldClass->saveCheckboxgroup($request->getParameter('id'), $data);
+                break;
+            case 'COMBOBOX':
+                FieldComboboxTable::instance()->deleteComboboxByFieldId($request->getParameter('id'));
+                $fieldClass->saveCombobox($request->getParameter('id'), $data);
+                break;
+            case 'FILE':
+                FieldFileTable::instance()->updateFieldFileById($request->getParameter('id'), $data);
+                break;
+        }
+
         return sfView::NONE;
     }
 
