@@ -12,7 +12,7 @@ class FieldTextfieldTable extends Doctrine_Table {
         return Doctrine::getTable('FieldTextfield');
     }
 
-
+    
     public function updateFieldTextfieldById($id, $data) {
         Doctrine_Query::create()
             ->update('FieldTextfield ftf')
