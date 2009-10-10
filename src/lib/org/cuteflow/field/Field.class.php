@@ -29,14 +29,23 @@ class FieldClass {
         return $result;
     }
 
-
+    /**
+     * prepares data to save it
+     * @param array $data, POST data
+     * @return array $data, prepared data
+     */
     public function prepareSaveData(array $data) {
         $data['createFileWindow_color'] = $data['createFileWindow_color'] == '' ? '#FFFFFF' : $data['createFileWindow_color'];
         $data['createFileWindow_writeprotected'] = isset($data['createFileWindow_writeprotected']) ? $data['createFileWindow_writeprotected'] : 0 ;
         return $data;
     }
 
-
+    /**
+     * Loads data for a textfield
+     * 
+     * @param Doctrine_Collection $data, to load
+     * @return arrayy $result, data
+     */
     public function buildTextfield(Doctrine_Collection $data) {
         $result = array();
         foreach($data as $item) {
@@ -52,6 +61,12 @@ class FieldClass {
         return $result;
     }
 
+    /**
+     * Loads data for a checkbox
+     *
+     * @param Doctrine_Collection $data, data to load
+     * @return array $result, data
+     */
     public function buildCheckbox(Doctrine_Collection $data){
         $result = array();
         foreach($data as $item) {
@@ -65,6 +80,11 @@ class FieldClass {
         return $result;
     }
 
+    /**
+     * Load data for number
+     * @param Doctrine_Collection $data, data to load
+     * @return array $result, data
+     */
     public function buildNumber(Doctrine_Collection $data) {
         $result = array();
         foreach($data as $item) {
@@ -80,7 +100,12 @@ class FieldClass {
         }
         return $result;
     }
-
+    /**
+     * Data for Date
+     *
+     * @param Doctrine_Collection $data, data to load
+     * @return array $result, data
+     */
     public function buildDate(Doctrine_Collection $data) {
         $result = array();
         foreach($data as $item) {
@@ -97,7 +122,11 @@ class FieldClass {
         return $result;
     }
 
-
+    /**
+     * Load data for textarea
+     * @param Doctrine_Collection $data, data to load
+     * @return array $result, data
+     */
     public function buildTextarea(Doctrine_Collection $data) {
         $result = array();
         foreach($data as $item) {
@@ -113,6 +142,11 @@ class FieldClass {
         return $result;
     }
 
+    /**
+     * Load data for Radiogroup and grid
+     * @param Doctrine_Collection $data, data to load
+     * @return array $result, data
+     */
     public function buildRadiogroup(Doctrine_Collection $data) {
         $radiogroup = FieldRadiogroupTable::instance()->findRadiogroupByFieldId($data[0]->getId());
         $result = array();
@@ -127,7 +161,11 @@ class FieldClass {
         return $result;
     }
 
-    
+    /**
+     * Load data for Checkboxgroup and grid
+     * @param Doctrine_Collection $data, data to load
+     * @return array $result, data
+     */
     public function buildCheckboxgroup(Doctrine_Collection $data) {
         $checkboxgroup = FieldCheckboxgroupTable::instance()->findCheckboxgroupByFieldId($data[0]->getId());
         $result = array();
@@ -142,6 +180,11 @@ class FieldClass {
         return $result;
     }
 
+    /**
+     * Load data for Combobox and grid
+     * @param Doctrine_Collection $data, data to load
+     * @return array $result, data
+     */
     public function buildCombobox(Doctrine_Collection $data) {
         $checkboxgroup = FieldComboboxTable::instance()->findComboboxByFieldId($data[0]->getId());
         $result = array();
@@ -156,6 +199,12 @@ class FieldClass {
         return $result;
     }
 
+    /**
+     * Load data for file
+     *
+     * @param Doctrine_Collection $data, data to load
+     * @return array $result,data
+     */
     public function buildFile(Doctrine_Collection $data) {
         $result = array();
         foreach($data as $item) {
@@ -170,6 +219,12 @@ class FieldClass {
         return $result;
     }
 
+    /**
+     * Load items for the grids
+     *
+     * @param Doctrine_Collection $data, items for grid
+     * @return array $result, result
+     */
     public function getItems(Doctrine_Collection $data) {
         $result = array();
         $a = 0;
@@ -182,7 +237,12 @@ class FieldClass {
         return $result;
     }
 
-
+    /**
+     * Saves Radiogroup
+     *
+     * @param int $id, id of the parent field
+     * @param array $data, Post data
+     */
     public function saveRadiogroup($id, $data) {
         $records = $data['grid'];
         $position = 1;
@@ -196,7 +256,11 @@ class FieldClass {
         }
     }
 
-
+    /**
+     * Saves Checkboxdata
+     * @param int $id, id of the parent field
+     * @param array $data, POST data
+     */
     public function saveCheckboxgroup($id, $data) {
         $records = $data['grid'];
         $position = 1;
@@ -210,7 +274,11 @@ class FieldClass {
         }
     }
 
-
+    /**
+     * Save combobox
+     * @param int $id, id of parent field
+     * @param array $data, POST data
+     */
     public function saveCombobox($id, $data) {
         $records = $data['grid'];
         $position = 1;
