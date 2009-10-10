@@ -1,20 +1,21 @@
+/** create fieldset for date **/
 cf.fieldDate = function(){return {
 	
-	theDateFieldset			:false,
-	theDDMMYYYY						:'^[0-9]{2}[\-]{1}[0-9]{2}[\-]{1}[0-9]{4}$',
-	theMMDDYYYY						:'^[0-9]{2}[\-]{1}[0-9]{2}[\-]{1}[0-9]{4}$',
-	theYYYYMMDD						:'^[0-9]{4}[\-]{1}[0-9]{2}[\-]{1}[0-9]{2}$',
-	theRegExStore					:'^[0-9]{2}[\-]{1}[0-9]{2}[\-]{1}[0-9]{4}$',
+	theDateFieldset					:false,
+	// change regex here
+	theDDMMYYYY						:'^[0-9]{2}[-]{1}[0-9]{2}[-]{1}[0-9]{4}$',
+	theMMDDYYYY						:'^[0-9]{2}[-]{1}[0-9]{2}[-]{1}[0-9]{4}$',
+	theYYYYMMDD						:'^[0-9]{4}[-]{1}[0-9]{2}[-]{1}[0-9]{2}$',
+	theRegExStore					:'^[0-9]{2}[-]{1}[0-9]{2}[-]{1}[0-9]{4}$',
 
 	
-	
-	
+	/** calls all neccessary functions **/
 	init: function () {
 		this.initFieldset();
 	},
 	
 	
-	
+	/** inits fieldset **/
 	initFieldset: function () {
 		this.theDateFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('Textfield settings',null,'field'); ?>',
@@ -80,14 +81,21 @@ cf.fieldDate = function(){return {
 			}]
 		});		
 	},
-	
+	/**
+	* function changes the date field to the select format in the combobox
+	*@param object combo, Combobox
+	*@param object datefield, Datefield
+	*/
 	buildDate: function (combo, datefield) {
 		var currentDate = datefield.getValue();
 		datefield.format = combo.getValue();
 		datefield.setValue(currentDate);	
 	},
 	
-	/**checks dat**/
+	/**
+	* checks date before submit
+	*@return boolean true/false, true if all is ok, false if not
+	**/
 	checkBeforeSubmit: function() {
 		var input = Ext.getCmp('fieldDate_date').getRawValue();
 		var regex = Ext.getCmp('fieldDate_regularexpression').getValue();
@@ -127,7 +135,7 @@ cf.fieldDate = function(){return {
 			
 		}
 	},
-	
+	/** add data to all fieldsets when in editmode **/
 	addData: function (data) {
 		Ext.getCmp('fieldDate_format_id').setValue(data.dateformat);
 		Ext.getCmp('fieldDate_date').format = data.dateformat;

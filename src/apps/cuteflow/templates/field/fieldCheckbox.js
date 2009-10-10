@@ -1,3 +1,4 @@
+/** checkbox fieldset **/
 cf.fieldCheckbox = function(){return {
 	
 	

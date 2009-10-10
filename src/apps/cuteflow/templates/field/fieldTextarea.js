@@ -1,3 +1,4 @@
+/** calls fieldset for textarea **/
 cf.fieldTextarea = function(){return {
 	
 	theTextarea				:false,
@@ -6,7 +7,7 @@ cf.fieldTextarea = function(){return {
 	theTextareaFieldset		:false,
 	
 	
-	
+	/** call all necessary functions **/
 	init: function () {
 		this.initTextarea();
 		this.initHTMLarea();
@@ -17,7 +18,7 @@ cf.fieldTextarea = function(){return {
 		this.theTextareaFieldset.add(this.theHTMLarea);
 	},
 	
-	
+	/** init fieldset **/
 	initFieldset: function () {
 		this.theTextareaFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('Textarea settings',null,'field'); ?>',
@@ -28,7 +29,7 @@ cf.fieldTextarea = function(){return {
 			labelWidth: 170
 		});
 	},
-	
+	/** init Textarea **/
 	initTextarea: function () {
 		this.theTextarea = new Ext.form.TextArea({
 			fieldLabel: '<?php echo __('Input default Text',null,'field'); ?>',
@@ -37,7 +38,7 @@ cf.fieldTextarea = function(){return {
 			height: 150
 		});
 	},
-	
+	/** init HTML area **/
 	initHTMLarea: function () {
 		this.theHTMLarea = new Ext.form.HtmlEditor({
 			fieldLabel: '<?php echo __('Input default HTML-Text',null,'field'); ?>',
@@ -48,7 +49,7 @@ cf.fieldTextarea = function(){return {
 		});
 	},
 	
-	
+	/** init combo to change between textarea htmlarea **/
 	initCombobox: function () {
 		this.theCombo = new Ext.form.ComboBox ({
 			fieldLabel: '<?php echo __('Content Type',null,'field'); ?>',
@@ -91,7 +92,7 @@ cf.fieldTextarea = function(){return {
 	checkBeforeSubmit: function() {
 		return true;
 	},
-	
+	/** add data when in editmode **/
 	addData: function (data) {
 		Ext.getCmp('fieldTextarea_contenttype_id').setValue(data.contenttype);
 		Ext.getCmp('fieldTextarea_htmlarea').setValue(data.content);

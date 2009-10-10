@@ -18,7 +18,11 @@ class fieldActions extends sfActions {
         $this->forward('default', 'module');
     }
 
-
+    /**
+    * Load all data for grid
+    *
+    * @param sfRequest $request A request object
+    */
     public function executeLoadAllFields(sfWebRequest $request) {
         $fieldObj = new FieldClass();
         $result = FieldTable::instance()->getAllFields();
@@ -113,7 +117,11 @@ class fieldActions extends sfActions {
     }
 
 
-
+    /**
+     * Load single Field
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeLoadSingleField(sfWebRequest $request) {
         $fieldObject = new FieldClass();
         $data = FieldTable::instance()->getFieldById($request->getParameter('id'));

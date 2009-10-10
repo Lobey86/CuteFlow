@@ -1,16 +1,15 @@
+/** inits fieldset for files **/
 cf.fieldFile = function(){return {
 	
 	theFileFieldset			:false,
-
 	
-	
-	
+	/** calls all necessarry functions **/
 	init: function () {
 		this.initFieldset();
 	},
 	
 	
-	
+	/** build fieldset **/
 	initFieldset: function () {
 		this.theFileFieldset = new Ext.form.FieldSet({
 			title: '<table><tr><td><img src="/images/icons/information.png"  ext:qtip=\"During the Circulation you can choose and upload a file\" ext:qwidth=\"300\"/></td><td>&nbsp;&nbsp;<?php echo __('File settings',null,'file'); ?></td></tr></table>',
@@ -29,11 +28,12 @@ cf.fieldFile = function(){return {
 		});
 	},
 	
-	/** function checks numbers **/
+	/** function checks file **/
 	checkBeforeSubmit: function() {
 		return true;
 	},
 	
+	/** add data to fieldset when in editmode **/
 	addData: function (data) {
 		Ext.getCmp('fieldFile_regularexpression').setValue(data.regex);
 		

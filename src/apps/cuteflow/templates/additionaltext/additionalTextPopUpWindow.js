@@ -74,6 +74,7 @@ cf.additionalTextPopUpWindow = function(){return {
 		});
 	},
 	
+	/** init column layout panel **/
 	initContentPanel: function () {
 		this.theContentPanel = new Ext.Panel({
 		    layout: 'column',
