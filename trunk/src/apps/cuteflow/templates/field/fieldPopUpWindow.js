@@ -1,3 +1,4 @@
+/** init fieldset for file **/
 cf.createFileWindow = function(){return {
 	
 	theFieldPopUpWindow				:false,
@@ -6,7 +7,10 @@ cf.createFileWindow = function(){return {
 	theCurrentObject				:false,
 	theLoadingMask					:false,
 
-	
+	/**
+	* calls all necessary functions, to create a new field
+	*@param int id, id of the record is set when in edit mode
+	*/
 	initNewField: function (id) {
 		cf.fieldTextfield.init();
 		cf.fieldCheckbox.init();
@@ -14,9 +18,9 @@ cf.createFileWindow = function(){return {
 		cf.fieldDate.init();
 		cf.fieldTextarea.init();
 		cf.fieldFile.init();
-		cf.fieldRadiogroup.init(id);
-		cf.fieldCheckboxgroup.init(id);
-		cf.fieldCombobox.init(id);
+		cf.fieldRadiogroup.init();
+		cf.fieldCheckboxgroup.init();
+		cf.fieldCombobox.init();
 		
 				
 		this.initFormPanel();		
@@ -39,6 +43,12 @@ cf.createFileWindow = function(){return {
 		this.theFieldPopUpWindow.show();
 	},
 	
+	/**
+	* function calls all functions to update an exitisng field.
+	*
+	*@param int id, id of the field
+	*
+	*/
 	initUpdateField: function (id) {
 		this.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loadin Data...',null,'usermanagement'); ?>'});					
 		this.theLoadingMask.show();
@@ -127,6 +137,13 @@ cf.createFileWindow = function(){return {
 	},
 	
 	
+	/**
+	* init the popupwindow
+	*
+	* @param int id, id is set if in edit mode
+	* @param string title, title of window
+	*/
+	
 	
 	initWindow: function (id, title) {
 		this.theFieldPopUpWindow = new Ext.Window({
@@ -164,6 +181,7 @@ cf.createFileWindow = function(){return {
 		});
 	},
 	
+	/** init Formpanel **/
 	initFormPanel: function () {
 		this.theFormPanel = new Ext.FormPanel({
 			frame:true,
@@ -173,6 +191,7 @@ cf.createFileWindow = function(){return {
 		
 	},
 	
+	/** init fieldset with general settings. equal for each field **/
 	initGeneralSettings: function () {
 		this.theGeneralSettingsFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('General Field Settings',null,'field'); ?>',
@@ -275,7 +294,7 @@ cf.createFileWindow = function(){return {
 		});
 	},
 	
-	
+	/** function is called to hide all fields **/
 	disableAll: function () {
 		cf.fieldTextfield.theTextfieldFieldset.setVisible(false);
 		cf.fieldNumber.theNumberFieldset.setVisible(false);

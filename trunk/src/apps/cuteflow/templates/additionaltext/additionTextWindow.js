@@ -6,8 +6,6 @@ cf.management_additionaltext = function(){return {
 
 
 
-
-
 	/** load all necessarry functions **/
 	init:function () {
 		cf.additionalTextGrid.init();

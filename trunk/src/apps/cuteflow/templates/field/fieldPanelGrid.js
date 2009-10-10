@@ -1,3 +1,4 @@
+/** class loads the overview grid **/
 cf.fieldPanelGrid = function(){return {
 	
 	theFieldGrid					:false,
@@ -19,7 +20,7 @@ cf.fieldPanelGrid = function(){return {
 		this.initTopToolBar();
 		this.initGrid();
 	},
-	
+	/** init live-search **/
 	initSearchbarTextfield: function () {
 		this.theSearchbarTextfield = new Ext.form.TextField({
 			allowBlank: true,
@@ -36,6 +37,7 @@ cf.fieldPanelGrid = function(){return {
 		});
 	},
 	
+	/** init combobox to search by fields **/
 	initSearchbarCombobox: function () {
 		this.theSearchbarCombobox = new Ext.form.ComboBox({
 			valueField: 'id',
@@ -70,7 +72,7 @@ cf.fieldPanelGrid = function(){return {
 			grid.store.filter('type', needle);
 		});	
 	},
-	
+	 /** inint combo to chanage the search options **/
 	initSearchbarComboboxSelect: function () {
 		this.theSearchbarComboboxSelect	= new Ext.form.ComboBox({
 			valueField: 'id',
@@ -108,7 +110,7 @@ cf.fieldPanelGrid = function(){return {
 	},
 	
 	
-	
+	/** init CM for the grid **/
 	initCM: function () {
 		this.theFieldCM  =  new Ext.grid.ColumnModel([
 			{header: "#", width: 50, sortable: true, dataIndex: '#', css : "text-align : left;font-size:12px;align:center;"},
@@ -119,6 +121,7 @@ cf.fieldPanelGrid = function(){return {
 		]);
 	},
 	
+	/** init store for the grid **/
 	initStore: function () {
 		this.theFieldStore = new Ext.data.JsonStore({
 				root: 'result',
@@ -134,7 +137,7 @@ cf.fieldPanelGrid = function(){return {
 		});
 		this.theFieldStore.load();
 	},
-	
+	/** init toolbar for grid **/
 	initTopToolBar: function () {
 		this.theTopToolBar = new Ext.Toolbar({
 			items: [this.theSearchbarTextfield,this.theSearchbarCombobox,'-',this.theSearchbarComboboxSelect,'-',
@@ -160,6 +163,7 @@ cf.fieldPanelGrid = function(){return {
 		
 	},
 	
+	/** init grid **/
 	initGrid: function () {
 		this.theFieldGrid = new Ext.grid.GridPanel({
 			title: '<?php echo __('Field Management',null,'field'); ?>',
@@ -176,12 +180,18 @@ cf.fieldPanelGrid = function(){return {
 		
 	}, 
 	
+	/** button renderer for edit and delete **/
 	renderAction: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 		cf.fieldPanelGrid.createEditButton.defer(500,this, [record.data['id']]);
 		cf.fieldPanelGrid.createDeleteButton.defer(500,this, [record.data['id']]);
 		return '<center><table><tr><td width="16"><div id="field_edit'+ record.data['id'] +'"></div></td><td width="16"><div id="field_delete'+ record.data['id'] +'"></div></td></tr></table></center>';
 	},
 	
+	/**
+	* edit button
+	*
+	*@param int id, id of the record
+	*/
 	createEditButton: function (id) {
 		var btn_edit = new Ext.form.Label({
 			renderTo: 'field_edit' + id,
@@ -200,6 +210,12 @@ cf.fieldPanelGrid = function(){return {
 			}
 		});
 	},
+	/**
+	* create delete button
+	*
+	*@param int id, id of record
+	*
+	*/
 	createDeleteButton: function (id) {
 		var btn_edit = new Ext.form.Label({
 			renderTo: 'field_delete' + id,

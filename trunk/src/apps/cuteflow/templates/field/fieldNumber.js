@@ -1,18 +1,19 @@
+/** inits fieldset for numbers **/
 cf.fieldNumber = function(){return {
 	
 	theNumberFieldset					:false,
+	// reg ex can be changed here
 	theRegularExpressionPositive		: '^[0-9]$',
 	theRegularExpressionNegative		: '^[-]{1}[0-9]$',
 	theRegularExpressionAll				: '^[-]{0,1}[0-9]$',
 	
 	
-	
+	/** init fieldset **/
 	init: function () {
 		this.initFieldset();
-		
 	},
 	
-	
+	/** inits number fieldset **/
 	initFieldset: function () {
 		this.theNumberFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('Number settings',null,'field'); ?>',
@@ -78,7 +79,10 @@ cf.fieldNumber = function(){return {
 		});
 		
 	},
-	/** function checks numbers **/
+	/** 
+	* function checks numbers if all values are correct
+	* @return boolean true/false, true if all data is correct-> save, false if data is not correct
+	**/
 	checkBeforeSubmit: function() {
 		var combobox = Ext.getCmp('fieldNumber_regularexpressioncombo_id').getValue();
 		var regEx = Ext.getCmp('fieldNumber_regularexpression').getValue();
@@ -172,6 +176,7 @@ cf.fieldNumber = function(){return {
 		}
 	},
 	
+	/** add data to componentes when in edit mode **/
 	addData: function (data) {
 		Ext.getCmp('fieldNumber_standard').setValue(data.defaultvalue);
 		Ext.getCmp('fieldNumber_regularexpressioncombo_id').setValue(data.comboboxvalue);

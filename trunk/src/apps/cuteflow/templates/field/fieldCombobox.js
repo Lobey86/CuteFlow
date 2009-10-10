@@ -1,3 +1,4 @@
+/** builds combobox fieldset **/
 cf.fieldCombobox = function(){return {
 	
 	
@@ -10,7 +11,7 @@ cf.fieldCombobox = function(){return {
 	theUniqueId					:false,
 	theComboboxgroupSavePanel	:false,
 
-
+	/** init all functions **/
 	init: function () {
 		this.theUniqueId  = 0;
 		this.initToolbar();
@@ -21,7 +22,7 @@ cf.fieldCombobox = function(){return {
 		this.theComboboxFieldset.add(this.theComboboxGrid);
 	},
 
-	
+	/** inits fieldset **/
 	initFieldset:  function () {
 		this.theComboboxFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('Combobox settings',null,'field'); ?>',
@@ -33,6 +34,7 @@ cf.fieldCombobox = function(){return {
 		});
 	},
 	
+	/** init CM **/
 	initCM: function () {
 		this.theComboboxCM  =  new Ext.grid.ColumnModel([
 			{header: "<div ext:qtip=\"<b>Notice</b>: empty records are not saved!\" ext:qwidth=\"200\"><?php echo __('Title',null,'field'); ?></div>", width: 350, sortable: false, dataIndex: 'value', css : "text-align : left;font-size:12px;align:left;", editor: true},
@@ -41,6 +43,7 @@ cf.fieldCombobox = function(){return {
 		]);
 	},
 	
+	/** init simple Store for grid **/
 	initStore: function () {
 		this.theComboboxStore = new Ext.data.SimpleStore({
 			fields: [
@@ -51,6 +54,7 @@ cf.fieldCombobox = function(){return {
 		});
 	},
 	
+	/** init grid **/
 	initGrid: function () {
 		this.theComboboxGrid = new Ext.grid.EditorGridPanel({
 			stripeRows: true,
@@ -98,6 +102,7 @@ cf.fieldCombobox = function(){return {
 		});		
 	},
 	
+	/** init top toolbar **/
 	initToolbar: function () {
 		this.theComboboxToolbar = new Ext.Toolbar({
 			items: [{
@@ -111,7 +116,7 @@ cf.fieldCombobox = function(){return {
 		});	
 	},
 	
-	
+	/** function is called to add a new record to grid **/
 	addRecord: function () {
 		var grid = cf.fieldCombobox.theComboboxGrid;
 	    var Record = grid.getStore().recordType;
@@ -124,7 +129,7 @@ cf.fieldCombobox = function(){return {
 		grid.store.insert(0, r);
 		grid.startEditing(0, 0);
 	},
-	
+	/** creates radio and delete button renderer **/
 	createRadiobox: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 			var id = record.data['unique_id'];
 			var checked = record.data['checked']
@@ -132,6 +137,12 @@ cf.fieldCombobox = function(){return {
 			return '<center><table><tr><td><div id="activate_combobox'+ id +'"></div></td></tr></table></center>';
 	},
 	
+	/** 
+	* create radiobox button
+	*
+	*@param int id, id of the record
+	*@prarm boolean checked, if radio is checked set true
+	*/
 	radioButton: function (id, checked) {
 		var btn = new Ext.form.Radio({
 			renderTo: 'activate_combobox' + id,
@@ -143,13 +154,17 @@ cf.fieldCombobox = function(){return {
             }
 		});
 	},
-	
+	/** create delete button **/
 	createComboboxDeleteButton: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 			var id = record.data['unique_id'];
 			var btn = cf.fieldCombobox.createDeleteButton.defer(1,this, [id]);
 			return '<center><table><tr><td><div id="remove_combobox_value'+ id +'"></div></td></tr></table></center>';
 	},
 	
+	/**
+	* create delete button
+	* @param int id, id of record
+	*/
 	createDeleteButton: function (id) {
 		var btn_edit = new Ext.form.Label({
 			renderTo: 'remove_combobox_value' + id,
@@ -180,6 +195,7 @@ cf.fieldCombobox = function(){return {
 		}
 	},
 	
+	/** when submit, out of the grid is build an panel to submit **/
 	
 	buildPanel: function () {
 		if(Ext.getCmp('createFileWindow_fieldname').getValue() != '') {
@@ -217,13 +233,14 @@ cf.fieldCombobox = function(){return {
 			return false;
 		}
 	},
-	
+	/** init panel to submit **/
 	initPanel: function () {
 		this.theComboboxgroupSavePanel = new Ext.Panel({
 			
 		});
 	},
 	
+	/** add data to store when in editmode **/
 	addData: function (data) {
 		for(var a = 0;a<data.items.length;a++) {
 			var row = data.items[a];

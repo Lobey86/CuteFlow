@@ -1,3 +1,4 @@
+/** init main window **/
 cf.management_field = function(){return {
 	
 	isInitialized 	                 : false,

@@ -1,6 +1,10 @@
+/** CRUD functions for Field **/
 cf.fieldCRUD = function(){return {
 
-
+	/**
+	* function deletes a record
+	*@param int id, id of record to delete
+	*/
 	initDelete:function (id) {
 		Ext.Ajax.request({  
 			url : '<?php echo build_dynamic_javascript_url('field/DeleteField')?>/id/' + id, 
@@ -12,6 +16,11 @@ cf.fieldCRUD = function(){return {
 		});  	
 	},
 	
+	/**
+	* function inits save/update process
+	*@param int id, id is set if in edit mode 
+	*@param object saveObject, object to save
+	*/
 	initSave: function (id, saveObject) {
 		var check = this.checkValues(saveObject);
 		if(check == true) {
@@ -19,6 +28,12 @@ cf.fieldCRUD = function(){return {
 		}
 	},
 	
+	
+	/**
+	* save / update record
+	*
+	*@param int id, id is set if in editmode
+	*/
 	doSubmit: function (id) {	
 		if(id != '') {
 			var url = '<?php echo build_dynamic_javascript_url('field/UpdateField')?>/id/' + id;
@@ -42,6 +57,12 @@ cf.fieldCRUD = function(){return {
 		});
 	},
 	
+	/**
+	* function checks if all data is correct filled
+	*
+	* @param object saveObject
+	*
+	*/
 	checkValues: function (saveObject) {
 		if(saveObject.checkBeforeSubmit() == true) {
 			return true;

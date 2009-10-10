@@ -1,11 +1,13 @@
+/** calls functions for textfield **/
 cf.fieldTextfield = function(){return {
 	
 	theTextfieldFieldset			:false,
 	
+	/** call all necessarry function **/
 	init: function () {
 		this.initFieldset();
 	},
-	
+	/** init fieldset **/
 	initFieldset: function () {
 		this.theTextfieldFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('Textfield settings',null,'field'); ?>',
@@ -57,6 +59,7 @@ cf.fieldTextfield = function(){return {
 		return true;
 	},
 	
+	/** add data to fieldset when in editmode **/
 	addData: function (data) {
 		Ext.getCmp('fieldTextfield_standard_id').setValue(data.defaultvalue);
 		Ext.getCmp('fieldTextfield_regularexpression').setValue(data.regex);
