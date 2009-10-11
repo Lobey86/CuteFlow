@@ -344,7 +344,7 @@ cf.userTab = function(){return {
 		Ext.getCmp('userTab_markorange').setValue(data.markorange);
 		Ext.getCmp('userTab_markred').setValue(data.markred);
 		Ext.getCmp('userTab_showinpopup').setValue(data.showcirculationinpopup);
-		
+		cf.administration_systemsetting.theLoadingMask.hide();
 		
 		
 		if (Ext.isIE6 == true) {

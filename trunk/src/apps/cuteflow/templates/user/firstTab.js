@@ -244,7 +244,7 @@ cf.userFirstTab = function(){return {
 					{name: 'description'}
 				]
 		});
-		cf.userFirstTab.theComboRoleStore.load();
+		//cf.userFirstTab.theComboRoleStore.load();
 	}
 	
 

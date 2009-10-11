@@ -99,7 +99,11 @@ cf.administration_myprofile = function(){return {
 					Ext.getCmp('userFourthTab_markred').setValue(data.result.markred);
 				
 					cf.userSecondTab.theUserAgentStore.load();
-					cf.administration_myprofile.setRole.defer(1000, this, [data.result.role_id]);
+					cf.userFirstTab.theComboRoleStore.load();
+					cf.userFirstTab.theComboRoleStore.on('load', function(store,records,bcd){
+						Ext.getCmp('userFirstTab_userrole_id').setValue(data.result.role_id);
+						cf.administration_myprofile.theUserGridMask.hide();
+					});	
 				}
 				catch(e) {
 					
@@ -107,11 +111,6 @@ cf.administration_myprofile = function(){return {
 				
 			}
 		});
-	},
-	
-	setRole: function (value) {
-		Ext.getCmp('userFirstTab_userrole_id').setValue(value);
-		cf.administration_myprofile.theUserGridMask.hide();
 	},
 	
 	initWindow: function () {

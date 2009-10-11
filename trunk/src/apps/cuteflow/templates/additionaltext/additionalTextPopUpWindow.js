@@ -34,6 +34,7 @@ cf.additionalTextPopUpWindow = function(){return {
 		this.thePopUpWindow.add(this.theFormPanel);
 		this.thePopUpWindow.show();
 		this.initData(id);
+		
 	},
 	
 	/**
