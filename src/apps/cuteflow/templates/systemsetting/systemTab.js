@@ -106,7 +106,7 @@ cf.systemTab = function(){return {
 				triggerAction: 'all',
 				foreSelection: true,
 				width: 230,
-				store: cf.systemTab.theComboStore
+				store: this.theComboStore
 			}]
 		});
 	},
@@ -123,7 +123,7 @@ cf.systemTab = function(){return {
 				{name: 'text'}
 			]
 		});
-		cf.systemTab.theComboStore.load();
+		
 	},
 	
 	

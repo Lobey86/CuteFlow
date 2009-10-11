@@ -6,6 +6,7 @@ cf.administration_systemsetting = function(){return {
 	isInitialized						:false,
 	theTabPanel							:false,
 	theMainPanel						:false,
+	theLoadingMask						:false,
 	
 	
 	/** 
@@ -16,7 +17,8 @@ cf.administration_systemsetting = function(){return {
 	**/
 	init: function () {
 		if (this.isInitialized == false) {
-
+			this.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loadin Data...',null,'usermanagement'); ?>'});					
+			this.theLoadingMask.show();
 			
 			cf.databaseTab.init();
 			cf.emailTab.init();
@@ -37,7 +39,10 @@ cf.administration_systemsetting = function(){return {
 			this.theFormPanel.add(this.theTabPanel);
 			this.theMainPanel.add(this.theSystemSettingPanel);
 			this.theSystemSettingPanel.add(this.theFormPanel);
-			this.initLoadData();
+			cf.systemTab.theComboStore.load();
+			cf.systemTab.theComboStore.on('load', function(store,records,bcd){
+				cf.administration_systemsetting.initLoadData();
+			});	
 			
 		}
 		
@@ -49,12 +54,10 @@ cf.administration_systemsetting = function(){return {
 			url : '<?php echo build_dynamic_javascript_url('systemsetting/LoadSystem')?>',
 			success: function(objServerResponse){  
 				var data = Ext.util.JSON.decode(objServerResponse.responseText);
-				
-				cf.emailTab.addData.defer(1000, this, [data.email]);
-				cf.systemTab.addData.defer(1000, this, [data.system]);
-				cf.authTab.addData.defer(1000, this, [data.auth]);
-				cf.userTab.addData.defer(1000, this, [data.user]);
-				
+				cf.emailTab.addData.defer(1500, this, [data.email]);
+				cf.systemTab.addData.defer(1500, this, [data.system]);
+				cf.authTab.addData.defer(1500, this, [data.auth]);
+				cf.userTab.addData.defer(1500, this, [data.user]);
 			}
 		});
 	},
@@ -79,6 +82,7 @@ cf.administration_systemsetting = function(){return {
 	initFormPanel: function () {
 		this.theFormPanel = new Ext.FormPanel({
 		});
+
 	},
 	
 	/**
@@ -148,7 +152,6 @@ cf.administration_systemsetting = function(){return {
 			resizable: false,
 	        plain: false
 	    });
-		
 		
 	},
 	
