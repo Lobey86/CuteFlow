@@ -12,8 +12,13 @@ cf.menueSettingModuleGrid = function(){return {
 		this.initStore();
 		this.initTopToolBar();
 		this.initGrid();
+		cf.menueSettingModuleGrid.loadStore.defer(1000,this, []);
 	},
 	
+	/** load the store **/
+	loadStore: function () {
+		cf.menueSettingModuleGrid.theModuleStore.load();
+	},
 	
 	/** build grid **/
 	initGrid: function () {
@@ -78,8 +83,6 @@ cf.menueSettingModuleGrid = function(){return {
 					{name: 'module'}
 				]
 		});
-		this.theModuleStore.load();
-		
 	},
 	
 	/** init Column model **/

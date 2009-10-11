@@ -19,6 +19,11 @@ cf.fieldPanelGrid = function(){return {
 		this.initStore();
 		this.initTopToolBar();
 		this.initGrid();
+		cf.fieldPanelGrid.loadStore.defer(1000,this, []);
+	},
+	/** load the store **/
+	loadStore: function () {
+		cf.fieldPanelGrid.theFieldStore.load();
 	},
 	/** init live-search **/
 	initSearchbarTextfield: function () {
@@ -126,7 +131,7 @@ cf.fieldPanelGrid = function(){return {
 		this.theFieldStore = new Ext.data.JsonStore({
 				root: 'result',
 				url: '<?php echo build_dynamic_javascript_url('field/LoadAllFields')?>',
-				autoload: true,
+				autoload: false,
 				fields: [
 					{name: '#'},
 					{name: 'id'},
@@ -135,7 +140,8 @@ cf.fieldPanelGrid = function(){return {
 					{name: 'writeprotected'}
 				]
 		});
-		this.theFieldStore.load();
+		
+		//this.theFieldStore.reload();
 	},
 	/** init toolbar for grid **/
 	initTopToolBar: function () {

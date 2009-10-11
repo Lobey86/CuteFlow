@@ -199,7 +199,7 @@ class fieldActions extends sfActions {
                 FieldFileTable::instance()->updateFieldFileById($request->getParameter('id'), $data);
                 break;
         }
-
+		$this->renderText('{success:true}');
         return sfView::NONE;
     }
 

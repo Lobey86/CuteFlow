@@ -16,11 +16,15 @@ cf.UserRoleGrid = function(){return {
 			this.isInitialized = true;
 			this.initUserRoleCM();
 			this.initUserRoleStore();
-			this.theUserRoleStore.load();
 			this.initTopToolBar();
 			this.initUserRoleGrid();
+			cf.UserRoleGrid.loadStore.defer(1000,this, []);
 	},
 
+	/** load the store **/
+	loadStore: function () {
+		cf.UserRoleGrid.theUserRoleStore.load();
+	},
 	
 	/** Grid and store, toolbar and cm are binded **/
 	initUserRoleGrid: function () {
@@ -76,7 +80,7 @@ cf.UserRoleGrid = function(){return {
 		this.theUserRoleStore = new Ext.data.JsonStore({
 				root: 'result',
 				url: '<?php echo build_dynamic_javascript_url('userrolemanagement/LoadAllRoles')?>',
-				autoload: true,
+				autoload: false,
 				fields: [
 					{name: '#'},
 					{name: 'id'},

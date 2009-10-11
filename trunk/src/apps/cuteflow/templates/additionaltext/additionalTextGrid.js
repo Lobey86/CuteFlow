@@ -12,6 +12,12 @@ cf.additionalTextGrid = function(){return {
 		this.initStore();
 		this.initCM();
 		this.initGrid();
+		cf.additionalTextGrid.loadStore.defer(1000,this, []);
+	},
+	
+	/** load the store **/
+	loadStore: function () {
+		cf.additionalTextGrid.theTextStore.load();
 	},
 	
 	/** load store **/
@@ -27,7 +33,6 @@ cf.additionalTextGrid = function(){return {
 					{name: 'title'}
 				]
 		});
-		this.theTextStore.load();
 	},
 	
 	/** load columnmodel **/

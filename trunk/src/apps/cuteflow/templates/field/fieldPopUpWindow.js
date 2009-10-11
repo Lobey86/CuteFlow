@@ -21,14 +21,14 @@ cf.createFileWindow = function(){return {
 		cf.fieldRadiogroup.init();
 		cf.fieldCheckboxgroup.init();
 		cf.fieldCombobox.init();
-		
-				
+						
 		this.initFormPanel();		
 		this.initGeneralSettings();
 		this.initWindow(id, '<?php echo __('Create new field',null,'field'); ?>');
-		
-		
+	
+			
 		this.theFormPanel.add(this.theGeneralSettingsFieldset); // default Fieldset which is shown everytime ;)
+	
 		this.theFormPanel.add(cf.fieldTextfield.theTextfieldFieldset);
 		this.theFormPanel.add(cf.fieldNumber.theNumberFieldset);
 		this.theFormPanel.add(cf.fieldDate.theDateFieldset);
