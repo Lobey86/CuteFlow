@@ -12,13 +12,8 @@ cf.menueSettingModuleGrid = function(){return {
 		this.initStore();
 		this.initTopToolBar();
 		this.initGrid();
-		cf.menueSettingModuleGrid.loadStore.defer(1000,this, []);
 	},
 	
-	/** load the store **/
-	loadStore: function () {
-		cf.menueSettingModuleGrid.theModuleStore.load();
-	},
 	
 	/** build grid **/
 	initGrid: function () {
@@ -39,6 +34,9 @@ cf.menueSettingModuleGrid = function(){return {
 			cm: this.theModuleCM,
 			tbar: this.theTopToolBar
 		});
+		this.theModuleGrid.on('afterrender', function(grid) {
+			cf.menueSettingModuleGrid.theModuleStore.load();
+		});	
 		
 		/** add Drag Drop functionality **/
 		this.theModuleGrid.on('render', function(grid) {

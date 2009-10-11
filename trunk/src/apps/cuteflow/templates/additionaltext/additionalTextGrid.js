@@ -12,13 +12,9 @@ cf.additionalTextGrid = function(){return {
 		this.initStore();
 		this.initCM();
 		this.initGrid();
-		cf.additionalTextGrid.loadStore.defer(1000,this, []);
 	},
 	
-	/** load the store **/
-	loadStore: function () {
-		cf.additionalTextGrid.theTextStore.load();
-	},
+
 	
 	/** load store **/
 	initStore: function () {
@@ -59,7 +55,9 @@ cf.additionalTextGrid = function(){return {
 			cm: this.theTextCM,
 			tbar: this.theTopToolbar
 		});
-		
+		this.theTextGrid.on('afterrender', function(grid) {
+			cf.additionalTextGrid.theTextStore.load();
+		});
 	},
 	
 	

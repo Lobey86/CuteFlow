@@ -18,13 +18,9 @@ cf.UserRoleGrid = function(){return {
 			this.initUserRoleStore();
 			this.initTopToolBar();
 			this.initUserRoleGrid();
-			cf.UserRoleGrid.loadStore.defer(1000,this, []);
 	},
 
-	/** load the store **/
-	loadStore: function () {
-		cf.UserRoleGrid.theUserRoleStore.load();
-	},
+
 	
 	/** Grid and store, toolbar and cm are binded **/
 	initUserRoleGrid: function () {
@@ -37,8 +33,11 @@ cf.UserRoleGrid = function(){return {
 			store: this.theUserRoleStore,
 			tbar: this.theTopToolBar,
 			cm: this.theUserRoleCM
-
 		});	
+		
+		this.theUserRoleGrid.on('afterrender', function(grid) {
+			cf.UserRoleGrid.theUserRoleStore.load();
+		});
 		
 	},
 	

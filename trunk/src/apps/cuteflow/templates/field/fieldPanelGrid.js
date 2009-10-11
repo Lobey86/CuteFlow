@@ -19,12 +19,8 @@ cf.fieldPanelGrid = function(){return {
 		this.initStore();
 		this.initTopToolBar();
 		this.initGrid();
-		cf.fieldPanelGrid.loadStore.defer(1000,this, []);
 	},
-	/** load the store **/
-	loadStore: function () {
-		cf.fieldPanelGrid.theFieldStore.load();
-	},
+
 	/** init live-search **/
 	initSearchbarTextfield: function () {
 		this.theSearchbarTextfield = new Ext.form.TextField({
@@ -182,6 +178,9 @@ cf.fieldPanelGrid = function(){return {
 			store: this.theFieldStore,
 			tbar: this.theTopToolBar,
 			cm: this.theFieldCM
+		});
+		this.theFieldGrid.on('afterrender', function(grid) {
+			cf.fieldPanelGrid.theFieldStore.load();
 		});	
 		
 	}, 

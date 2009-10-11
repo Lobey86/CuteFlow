@@ -25,19 +25,13 @@ cf.UserGrid = function(){return {
 		this.initUserGrid();
 		this.initGridbarPanel();
 		this.theGridPanel.add(this.theUserGrid);
-		cf.UserGrid.loadStore.defer(1000,this, []);
 	},
 	
-	/** load the store **/
-	loadStore: function () {
-		cf.UserGrid.theUserStore.load();
-	},
 	
 	
 	/** function initializes the usergrid and sets columnmodel, store and toolbars **/
 	initUserGrid: function () {
 		this.isInitialized  = true;
-		
 		this.theUserGrid = new Ext.grid.GridPanel({
 			frame:false,
 			autoScroll: true,
@@ -51,6 +45,10 @@ cf.UserGrid = function(){return {
 			tbar: this.theGridTopToolbar,
 			bbar: this.theGridBottomToolbar
 		});
+		this.theUserGrid.on('afterrender', function(grid) {
+			cf.UserGrid.theUserStore.load();
+		});
+		
 	},
 	
 	/** Function inits top Toolbar, with Add, Delete User and number of pages displayed **/
