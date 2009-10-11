@@ -19,13 +19,18 @@ cf.UserGrid = function(){return {
 	/** main init function **/
 	init:function() {	
 		this.initGridStore();
-		this.theUserStore.load();
 		this.initColumnModel();
 		this.initTopToolBar();
 		this.initBottomToolBar();
 		this.initUserGrid();
 		this.initGridbarPanel();
 		this.theGridPanel.add(this.theUserGrid);
+		cf.UserGrid.loadStore.defer(1000,this, []);
+	},
+	
+	/** load the store **/
+	loadStore: function () {
+		cf.UserGrid.theUserStore.load();
 	},
 	
 	

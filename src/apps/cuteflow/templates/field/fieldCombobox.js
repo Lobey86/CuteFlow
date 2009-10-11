@@ -39,7 +39,7 @@ cf.fieldCombobox = function(){return {
 		this.theComboboxCM  =  new Ext.grid.ColumnModel([
 			{header: "<div ext:qtip=\"<b>Notice</b>: empty records are not saved!\" ext:qwidth=\"200\"><?php echo __('Title',null,'field'); ?></div>", width: 350, sortable: false, dataIndex: 'value', css : "text-align : left;font-size:12px;align:left;", editor: true},
 			{header: "<div ext:qtip=\"<table><tr><td><img src='/images/icons/delete.png' />&nbsp;&nbsp;</td><td><?php echo __('Set Radio checked by default',null,'field'); ?></td></tr></table>\" ext:qwidth=\"200\"><?php echo __('set Checked',null,'field'); ?></div>", width: 85, sortable: false, dataIndex: 'unique_id', css : "text-align : left;font-size:12px;align:left;", renderer: this.createRadiobox, editor: false},
-			{header: "<div ext:qtip=\"<table><tr><td><img src='/images/icons/delete.png' />&nbsp;&nbsp;</td><td><?php echo __('Remove value',null,'field'); ?></td></tr></table>\" ext:qwidth=\"160\"><?php echo __('Action',null,'field'); ?></div>", width: 70, sortable: false, dataIndex: 'unique_id', css : "text-align:left;font-size:12px;align:center;", renderer: this.createComboboxDeleteButton, editor: false},
+			{header: "<div ext:qtip=\"<table><tr><td><img src='/images/icons/delete.png' />&nbsp;&nbsp;</td><td><?php echo __('Remove value',null,'field'); ?></td></tr></table>\" ext:qwidth=\"160\"><?php echo __('Action',null,'field'); ?></div>", width: 70, sortable: false, dataIndex: 'unique_id', css : "text-align:left;font-size:12px;align:center;", renderer: this.createComboboxDeleteButton, editor: false}
 		]);
 	},
 	

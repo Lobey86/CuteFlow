@@ -104,7 +104,7 @@ cf.additionalTextPopUpWindow = function(){return {
 			modal: true,
 			closable: true,
 			modal: true,
-			width: 920,
+			width: 930,
 			height: 600,
 			autoScroll: true,
 			title: title,
