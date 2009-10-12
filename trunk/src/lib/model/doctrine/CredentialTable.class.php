@@ -64,6 +64,13 @@ class CredentialTable extends Doctrine_Table {
         return true;
     }
 
+    /**
+     * get all credential by Id
+     * 
+     * @param int $id, id of group to load
+     * @param string $orderby, orderby string
+     * @return Doctrine_Collection
+     */
     public function getAllGroups($id, $orderby = '') {
         $query = Doctrine_Query::create()
             ->select('c.*')
@@ -76,7 +83,13 @@ class CredentialTable extends Doctrine_Table {
         return $query->execute();
     }
 
-
+    /**
+     * Save the order of an group
+     *
+     * @param array $data, data
+     * @param int $position, position
+     * @return true;
+     */
     public function saveOrderOfGroups(array $data, $position) {
         $order = $data['grid'];
         foreach($order as $item) {

@@ -12,6 +12,12 @@ class FieldDateTable extends Doctrine_Table {
         return Doctrine::getTable('FieldDate');
     }
 
+    /**
+     * Update Date by id
+     * @param int $id, id of number
+     * @param array $data, data to update
+     * @return true
+     */
     public function updateFieldDateById($id, $data) {
         Doctrine_Query::create()
             ->update('FieldDate fd')

@@ -28,7 +28,11 @@ class FieldCheckboxgroupTable extends Doctrine_Table {
     }
 
 
-
+    /**
+     * Delete Checkboxgroup according to its parent id
+     * @param int $id, id of Checkboxgroup to delete
+     * @return true
+     */
     public function deleteCheckboxgroupByFieldId($id) {
         Doctrine_Query::create()
             ->delete('FieldCheckboxgroup')
