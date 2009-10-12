@@ -1,99 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xliff version="1.0">
-  <file original="global" source-language="en_US" target-language="de_DE" datatype="plaintext">
+  <file original="global" source-language="en_US" target-language="en_US" datatype="plaintext">
     <body>  
       <trans-unit id="1">
         <source>Loading Data...</source>
-        <target>Lade Daten...</target>
+        <target>Loading Data...</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Error</source>
-        <target>Fehler</target>
+        <target>Error</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Profile changes and editing/creating user at same time is not supported</source>
-        <target>Profil &#196;nderungen/Aktualisierungen von Benutzern zur gleichen Zeit wird nicht unterst&#252;tzt</target>
+        <target>Profile changes and editing/creating user at same time is not supported</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Profile Settings</source>
-        <target>Profil Einstellungen</target>
+        <target>Profile Settings</target>
       </trans-unit> 	  
 		<trans-unit id="5">
         <source>Store</source>
-        <target>Speichern</target>
+        <target>Store</target>
       </trans-unit> 
 	  <trans-unit id="6">
         <source>Passwords not equal</source>
-        <target>Pa&#223;w&#246;ter sind nicht gleich</target>
+        <target>Passwords not equal</target>
       </trans-unit> 
 	  <trans-unit id="7">
         <source>Close</source>
-        <target>Schlie&#223;en</target>
-      </trans-unit> 
-	  <trans-unit id="8">
-        <source>No records found</source>
-        <target>keine Daten vorhanden</target>
-      </trans-unit> 
-	 <trans-unit id="9">
-        <source>No records found</source>
-        <target>keine Daten vorhanden</target>
-     </trans-unit> 
-	 <trans-unit id="10">
-        <source>Searchbar</source>
-        <target>Filter</target>
-     </trans-unit>
-	 <trans-unit id="11">
-        <source>User management</source>
-        <target>Benutzerverwaltung</target>
-     </trans-unit>
-	 <trans-unit id="12">
-        <source>Search</source>
-        <target>Suchen</target>
-     </trans-unit>
-	 <trans-unit id="13">
-        <source>Delete existing user</source>
-        <target>Benutzer L&#246;schen</target>
-     </trans-unit>
-	 <trans-unit id="14">
-        <source>Displaying topics</source>
-        <target>Benutzer</target>
-     </trans-unit> 
-	 <trans-unit id="15">
-        <source>of</source>
-        <target>von</target>
-     </trans-unit>
-	 <trans-unit id="16">
-        <source>OK</source>
-        <target>OK</target>
-     </trans-unit>
-	 <trans-unit id="17">
-        <source>Delete Success</source>
-        <target>L&#246;schen erfolgreich</target>
-     </trans-unit>
-	 <trans-unit id="18">
-        <source>Error</source>
-        <target>Fehler</target>
-     </trans-unit>
-	 <trans-unit id="19">
-        <source>Deleting own account not working</source>
-        <target>Eigenes Profil kann nicht gel&#246;scht werden</target>
-     </trans-unit>
-	 <trans-unit id="20">
-        <source>Add new user</source>
-        <target>Neuen Benutzer anlegen</target>
-     </trans-unit>
-	 <trans-unit id="21">
-        <source>User overview</source>
-        <target>Benutzer &#220;bersicht</target>
-     </trans-unit>	
-	 <trans-unit id="22">
-        <source>Edit user</source>
-        <target>Benutzer bearbeiten</target>
-     </trans-unit>		
-	 <trans-unit id="23">
-        <source>Discard</source>
-        <target>Verwerfen</target>
-     </trans-unit>		 
+        <target>Close</target>
+      </trans-unit>  
     </body>
   </file>
 </xliff>
