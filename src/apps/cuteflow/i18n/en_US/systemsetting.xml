@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xliff version="1.0">
-  <file original="global" source-language="en_US" target-language="de_DE" datatype="plaintext">
+  <file original="global" source-language="en_US" target-language="en_US" datatype="plaintext">
     <body>  
      <trans-unit id="1">
         <source>NAME</source>
@@ -24,15 +24,15 @@
     </trans-unit>
 	<trans-unit id="6">
         <source>TOTALTIME</source>
-        <target>Gesamtzeit</target>
+        <target>Total time</target>
     </trans-unit>
 	<trans-unit id="7">
         <source>MAILINGLIST</source>
-        <target>Mail Liste</target>
+        <target>Mailinglist</target>
     </trans-unit>
 	<trans-unit id="8">
         <source>TEMPLATE</source>
-        <target>Vorlage</target>
+        <target>Template</target>
     </trans-unit>
     </body>
   </file>
