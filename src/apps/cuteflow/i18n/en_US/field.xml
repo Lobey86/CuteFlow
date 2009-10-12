@@ -232,7 +232,7 @@
      </trans-unit>	
 	 <trans-unit id="58">
         <source>no restriction</source>
-        <target>keine Vorgaben</target>
+        <target>no restriction</target>
      </trans-unit>	
 	 <trans-unit id="59">
         <source>positive numbers only</source>
