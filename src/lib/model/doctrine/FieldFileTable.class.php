@@ -13,6 +13,13 @@ class FieldFileTable extends Doctrine_Table {
     }
 
 
+    /**
+     * update file by id
+     *
+     * @param int $id, id to update
+     * @param array $data, data to update
+     * @return true
+     */
     public function updateFieldFileById($id, $data) {
         Doctrine_Query::create()
             ->update('FieldFile ff')

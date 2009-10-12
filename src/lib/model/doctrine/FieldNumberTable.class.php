@@ -12,7 +12,12 @@ class FieldNumberTable extends Doctrine_Table {
         return Doctrine::getTable('FieldNumber');
     }
 
-    
+    /**
+     * Update number by id
+     * @param int $id, id of number
+     * @param array $data, data to update
+     * @return true
+     */
     public function updateFieldNumberById($id, $data) {
         Doctrine_Query::create()
             ->update('FieldNumber fn')

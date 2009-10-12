@@ -12,6 +12,12 @@ class FieldTextareaTable extends Doctrine_Table {
         return Doctrine::getTable('FieldTextarea');
     }
 
+    /**
+     * Update Textarea by id
+     * @param int $id, id of number
+     * @param array $data, data to update
+     * @return true
+     */
     public function updateFieldTextareaById($id, $data) {
         Doctrine_Query::create()
             ->update('FieldTextarea fta')

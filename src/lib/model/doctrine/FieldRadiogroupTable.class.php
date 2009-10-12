@@ -28,6 +28,11 @@ class FieldRadiogroupTable extends Doctrine_Table {
     }
 
 
+    /**
+     * Delete Radiogroup according to its parent id
+     * @param int $id, id of radiogroup to delete
+     * @return true
+     */
     public function deleteRadiogroupByFieldId($id) {
         Doctrine_Query::create()
             ->delete('FieldRadiogroup')

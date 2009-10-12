@@ -27,6 +27,11 @@ class FieldComboboxTable extends Doctrine_Table {
             ->execute();
     }
 
+    /**
+     * Delete Combobox according to its parent id
+     * @param int $id, id of Combobox to delete
+     * @return true
+     */
     public function deleteComboboxByFieldId($id) {
         Doctrine_Query::create()
             ->delete('FieldCombobox')
