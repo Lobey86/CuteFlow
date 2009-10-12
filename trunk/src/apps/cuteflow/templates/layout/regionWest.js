@@ -14,6 +14,7 @@ cf.Navigation = function(){return {
 	
 	/** functions loads accordion for region west **/
 	init: function () {
+		
 		this.theUserFirstLogin = '<?php echo UserSettingClass::getFirstLogin();?>';
 		this.theFirstLogin = '<?php echo SystemSetting::getFirstLogin();?>';
 		this.initAccordion();

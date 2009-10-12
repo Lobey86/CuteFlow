@@ -36,6 +36,7 @@ cf.systemTab = function(){return {
 		});
 	},
 	
+	/** init workflow settings **/
 	initWorkflowSettingsFieldset: function () {
 		this.theWorkflowFieldset = new Ext.form.FieldSet({
 			title: '<table><tr><td><img src="/images/icons/information.png"  ext:qtip=\"<table><tr><td><b><?php echo __('Show position in Mail?',null,'systemsetting'); ?></b></td><td>&nbsp;&nbsp;&nbsp;Show Position in Mail</td></tr><tr><td><b><?php echo __('Allow unenctypted requests?',null,'systemsetting'); ?></b></td><td>&nbsp;&nbsp;&nbsp;Show Position in Mail</td></tr><tr><td><b><?php echo __('Send Mails to circulation receivers',null,'systemsetting'); ?></b></td><td>&nbsp;&nbsp;&nbsp;Show Position in Mail</td></tr><tr><td><b><?php echo __('Send Reminder-EMails with all open circulations<br>(Activated Cronjob needed)',null,'systemsetting'); ?></b></td><td>&nbsp;&nbsp;&nbsp;Show Position in Mail</td></tr><tr><td><b><?php echo __('Slot-Visibility',null,'systemsetting'); ?></b></td><td>&nbsp;&nbsp;&nbsp;Show Position in Mail</td></tr></table>\" ext:qwidth=\"500\"/>&nbsp;&nbsp;</td><td><?php echo __('Workflow settings',null,'systemsetting'); ?></td></tr></table>',

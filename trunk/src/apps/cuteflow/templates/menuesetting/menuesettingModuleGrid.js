@@ -34,6 +34,7 @@ cf.menueSettingModuleGrid = function(){return {
 			cm: this.theModuleCM,
 			tbar: this.theTopToolBar
 		});
+		/** load store after grid is rendered **/
 		this.theModuleGrid.on('afterrender', function(grid) {
 			cf.menueSettingModuleGrid.theModuleStore.load();
 		});	
@@ -113,6 +114,7 @@ cf.menueSettingModuleGrid = function(){return {
 		return '<center><div id="menuesetting_groupbutton'+ record.data['module'] +'"></div></center>';
 	},
 	
+	/** create edit button **/
 	createButton: function (id) {
 		var btn_edit = new Ext.form.Label({
 			renderTo: 'menuesetting_groupbutton' + id,

@@ -12,7 +12,7 @@ cf.fieldFile = function(){return {
 	/** build fieldset **/
 	initFieldset: function () {
 		this.theFileFieldset = new Ext.form.FieldSet({
-			title: '<table><tr><td><img src="/images/icons/information.png"  ext:qtip=\"During the Circulation you can choose and upload a file\" ext:qwidth=\"300\"/></td><td>&nbsp;&nbsp;<?php echo __('File settings',null,'file'); ?></td></tr></table>',
+			title: '<table><tr><td><img src="/images/icons/information.png"  ext:qtip=\"<?php echo __('During the Circulation you can choose and upload a file',null,'field'); ?>\" ext:qwidth=\"300\"/></td><td>&nbsp;&nbsp;<?php echo __('File settings',null,'file'); ?></td></tr></table>',
 			width: 600,
 			height: 80,
 			hidden: true,

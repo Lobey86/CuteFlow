@@ -10,6 +10,7 @@ cf.systemSettingCRUD = function(){return {
 		this.doSubmit();
 	},
 	
+	/** build hiddenfils from gui settings grid **/
 	buildHiddenfield: function () {
 		var grid = cf.guiTab.theGuiGrid;
 		for(var a=0;a<grid.store.getCount();a++) {
@@ -24,7 +25,7 @@ cf.systemSettingCRUD = function(){return {
 		
 	},
 	
-		
+	/** set hidden panel **/
 	initHiddenPanel:function () {
 		this.theHiddenPanel = new Ext.Panel({
 			border: false,
@@ -34,7 +35,7 @@ cf.systemSettingCRUD = function(){return {
 		
 	},
 	
-	
+	/** submit panel and form **/
 	doSubmit: function () {
 		cf.administration_systemsetting.theFormPanel.getForm().submit({
 			url: '<?php echo build_dynamic_javascript_url('systemsetting/SaveSystem')?>',
