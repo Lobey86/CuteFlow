@@ -41,6 +41,23 @@ class FieldClass {
     }
 
     /**
+     * Loads data from field table
+     *
+     * @param Doctrine_Collection $data
+     * @return array $result, data
+     */
+    private function getFieldData(Doctrine_Collection $data) {
+        $result = array();
+        foreach($data as $item) {
+            $result['id'] = $item->getId();
+            $result['title'] = $item->getTitle();
+            $result['type'] = $item->getType();
+            $result['writeprotected'] = $item->getWriteprotected();
+            $result['color'] = $item->getColor();
+        }
+        return $result;
+    }
+    /**
      * Loads data for a textfield
      * 
      * @param Doctrine_Collection $data, to load
@@ -48,13 +65,9 @@ class FieldClass {
      */
     public function buildTextfield(Doctrine_Collection $data) {
         $result = array();
+        $result = $this->getFieldData($data);
         foreach($data as $item) {
             $textfield = $item->getFieldTextfield();
-            $result['id'] = $item->getId();
-            $result['title'] = $item->getTitle();
-            $result['type'] = $item->getType();
-            $result['writeprotected'] = $item->getWriteprotected();
-            $result['color'] = $item->getColor();
             $result['regex'] = $textfield[0]->getRegex();
             $result['defaultvalue'] = $textfield[0]->getDefaultvalue();
         }
@@ -69,14 +82,7 @@ class FieldClass {
      */
     public function buildCheckbox(Doctrine_Collection $data){
         $result = array();
-        foreach($data as $item) {
-            $textfield = $item->getFieldTextfield();
-            $result['id'] = $item->getId();
-            $result['title'] = $item->getTitle();
-            $result['type'] = $item->getType();
-            $result['writeprotected'] = $item->getWriteprotected();
-            $result['color'] = $item->getColor();
-        }
+        $result = $this->getFieldData($data);
         return $result;
     }
 
@@ -87,13 +93,9 @@ class FieldClass {
      */
     public function buildNumber(Doctrine_Collection $data) {
         $result = array();
+        $result = $this->getFieldData($data);
         foreach($data as $item) {
             $number = $item->getFieldNumber();
-            $result['id'] = $item->getId();
-            $result['title'] = $item->getTitle();
-            $result['type'] = $item->getType();
-            $result['writeprotected'] = $item->getWriteprotected();
-            $result['color'] = $item->getColor();
             $result['defaultvalue'] = $number[0]->getDefaultvalue();
             $result['regex'] = $number[0]->getRegex();
             $result['comboboxvalue'] = $number[0]->getComboboxvalue();
@@ -108,14 +110,9 @@ class FieldClass {
      */
     public function buildDate(Doctrine_Collection $data) {
         $result = array();
+        $result = $this->getFieldData($data);
         foreach($data as $item) {
             $date = $item->getFieldDate();
-            $result['id'] = $item->getId();
-            $result['title'] = $item->getTitle();
-            $result['type'] = $item->getType();
-            $result['writeprotected'] = $item->getWriteprotected();
-            $result['color'] = $item->getColor();
-            $result['defaultvalue'] = $date[0]->getDefaultvalue();
             $result['regex'] = $date[0]->getRegex();
             $result['dateformat'] = $date[0]->getDateformat();
         }
@@ -129,13 +126,9 @@ class FieldClass {
      */
     public function buildTextarea(Doctrine_Collection $data) {
         $result = array();
+        $result = $this->getFieldData($data);
         foreach($data as $item) {
             $textarea = $item->getFieldTextarea();
-            $result['id'] = $item->getId();
-            $result['title'] = $item->getTitle();
-            $result['type'] = $item->getType();
-            $result['writeprotected'] = $item->getWriteprotected();
-            $result['color'] = $item->getColor();
             $result['content'] = $textarea[0]->getContent();
             $result['contenttype'] = $textarea[0]->getContenttype();
         }
@@ -150,12 +143,8 @@ class FieldClass {
     public function buildRadiogroup(Doctrine_Collection $data) {
         $radiogroup = FieldRadiogroupTable::instance()->findRadiogroupByFieldId($data[0]->getId());
         $result = array();
+        $result = $this->getFieldData($data);
         foreach($data as $item) {
-            $result['id'] = $item->getId();
-            $result['title'] = $item->getTitle();
-            $result['type'] = $item->getType();
-            $result['writeprotected'] = $item->getWriteprotected();
-            $result['color'] = $item->getColor();
             $result['items'] = $this->getItems($radiogroup);
         }
         return $result;
@@ -169,12 +158,8 @@ class FieldClass {
     public function buildCheckboxgroup(Doctrine_Collection $data) {
         $checkboxgroup = FieldCheckboxgroupTable::instance()->findCheckboxgroupByFieldId($data[0]->getId());
         $result = array();
+        $result = $this->getFieldData($data);
         foreach($data as $item) {
-            $result['id'] = $item->getId();
-            $result['title'] = $item->getTitle();
-            $result['type'] = $item->getType();
-            $result['writeprotected'] = $item->getWriteprotected();
-            $result['color'] = $item->getColor();
             $result['items'] = $this->getItems($checkboxgroup);
         }
         return $result;
@@ -188,12 +173,8 @@ class FieldClass {
     public function buildCombobox(Doctrine_Collection $data) {
         $checkboxgroup = FieldComboboxTable::instance()->findComboboxByFieldId($data[0]->getId());
         $result = array();
+        $result = $this->getFieldData($data);
         foreach($data as $item) {
-            $result['id'] = $item->getId();
-            $result['title'] = $item->getTitle();
-            $result['type'] = $item->getType();
-            $result['writeprotected'] = $item->getWriteprotected();
-            $result['color'] = $item->getColor();
             $result['items'] = $this->getItems($checkboxgroup);
         }
         return $result;
@@ -207,13 +188,9 @@ class FieldClass {
      */
     public function buildFile(Doctrine_Collection $data) {
         $result = array();
+        $result = $this->getFieldData($data);
         foreach($data as $item) {
             $file = $item->getFieldFile();
-            $result['id'] = $item->getId();
-            $result['title'] = $item->getTitle();
-            $result['type'] = $item->getType();
-            $result['writeprotected'] = $item->getWriteprotected();
-            $result['color'] = $item->getColor();
             $result['regex'] = $file[0]->getRegex();
         }
         return $result;
