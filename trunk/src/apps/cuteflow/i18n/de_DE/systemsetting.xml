@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.0">
+  <file original="global" source-language="en_US" target-language="de_DE" datatype="plaintext">
+    <body>  
+     <trans-unit id="1">
+        <source>NAME</source>
+        <target>Name</target>
+    </trans-unit>
+	<trans-unit id="2">
+        <source>STATION</source>
+        <target>Station</target>
+    </trans-unit>
+	<trans-unit id="3">
+        <source>DAYS</source>
+        <target>Tage</target>
+    </trans-unit>
+	<trans-unit id="4">
+        <source>START</source>
+        <target>Start</target>
+    </trans-unit>
+	<trans-unit id="5">
+        <source>SENDER</source>
+        <target>Sender</target>
+    </trans-unit>
+	<trans-unit id="6">
+        <source>TOTALTIME</source>
+        <target>Gesamtzeit</target>
+    </trans-unit>
+	<trans-unit id="7">
+        <source>MAILINGLIST</source>
+        <target>Mail Liste</target>
+    </trans-unit>
+	<trans-unit id="8">
+        <source>TEMPLATE</source>
+        <target>Vorlage</target>
+    </trans-unit>
+    </body>
+  </file>
+</xliff>
