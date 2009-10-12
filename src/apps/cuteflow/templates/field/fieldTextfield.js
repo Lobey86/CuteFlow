@@ -51,6 +51,9 @@ cf.fieldTextfield = function(){return {
    				width:280	
 			}]
 		});
+		if (Ext.isIE7 == true) {
+			Ext.getCmp('fieldTextfield_standard_id').style = 'margin-top:0px;margin-bottom:1px;';
+		}
 		
 	},
 	

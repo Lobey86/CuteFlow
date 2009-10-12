@@ -87,6 +87,9 @@ cf.fieldTextarea = function(){return {
 	    		}
 	    	}
 		});
+		if (Ext.isIE7 == true) {
+			Ext.getCmp('fieldTextarea_contenttype_id').style = 'margin-top:0px;margin-bottom:1px;';
+		}
 	},
 	/** function checks numbers **/
 	checkBeforeSubmit: function() {

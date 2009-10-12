@@ -292,6 +292,11 @@ cf.createFileWindow = function(){return {
 				
 			}]
 		});
+		
+		if (Ext.isIE7 == true) {
+			Ext.getCmp('createFileWindow_color').style = 'margin-top:0px;margin-bottom:1px;';
+			Ext.getCmp('createFileWindow_fieldtype_id').style = 'margin-top:0px;margin-bottom:1px;';
+		}
 	},
 	
 	/** function is called to hide all fields **/
