@@ -33,6 +33,7 @@ cf.RoleCRUD = function(){return {
 		}
 	},
 	
+	/** check if rolename is set or not **/
 	checkRolename: function () {
 		if(Ext.getCmp('userrole_title_id').getValue() == '') { // no role name is set
 			cf.rolePopUpWindow.theTabpanel.setActiveTab(0);
@@ -44,6 +45,7 @@ cf.RoleCRUD = function(){return {
 		}
 	},
 	
+	/** update an role **/
 	updateExistingRole: function() {
 		cf.PopUpRoleTabpanel.theFormPanel.getForm().submit({
 			url: '<?php echo build_dynamic_javascript_url('userrolemanagement/EditRole')?>',
@@ -55,6 +57,7 @@ cf.RoleCRUD = function(){return {
 		});
 	},
 	
+	/** add new role **/
 	saveNewRole: function () {
 		Ext.Ajax.request({  
 			url : '<?php echo build_dynamic_javascript_url('userrolemanagement/CheckForExistingRole')?>/description/' + Ext.getCmp('userrole_title_id').getValue(),

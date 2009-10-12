@@ -1,3 +1,4 @@
+/** init my profile panel **/
 cf.administration_myprofile = function(){return {
 	
 	isInitialized 	                 : false,
@@ -6,11 +7,11 @@ cf.administration_myprofile = function(){return {
 	theTabPanel						 : false,
 	theUserGridMask					 : false,
 
-	
+	/** init function, that calls all necessary functions **/
 	init:function () {
 		if(cf.editUserWindow.isInitialized == false && cf.createUserWindow.isInitialized == false) {
-			cf.administration_myprofile.theUserGridMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loadin Data...',null,'usermanagement'); ?>'});
-			cf.administration_myprofile.theUserGridMask.show();
+			this.theUserGridMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'myprofile'); ?>'});
+			this.theUserGridMask.show();
 			
 			this.theUserId = '<?php echo $sf_user->getAttribute('id')?>';
 			cf.userFirstTab.init();
@@ -29,16 +30,18 @@ cf.administration_myprofile = function(){return {
 		}
 		else {
 			Ext.Msg.minWidth = 200;
-			Ext.MessageBox.alert('<?php echo __('Error',null,'usermanagement'); ?>', '<?php echo __('Profile changes and editing/creating user at same time is not supported',null,'usermanagement'); ?>');
+			Ext.MessageBox.alert('<?php echo __('Error',null,'myprofile'); ?>', '<?php echo __('Profile changes and editing/creating user at same time is not supported',null,'myprofile'); ?>');
 		}
 
 	},
 	
+	/** load userrights and set to panel **/
 	initUserRight: function () {
 		cf.userSecondTab.thePanel.setDisabled(<?php $arr = $sf_user->getAttribute('credential');echo $arr['administration_myprofile_changeUseragent'];?>);
 		Ext.getCmp('userFirstTab_userrole_id').setDisabled(<?php $arr = $sf_user->getAttribute('credential');echo $arr['administration_myprofile_changeRole'];?>);
 	},
 	
+	/** init tabpabel **/
 	initTabPanel: function () {
 		this.theTabPanel = new Ext.TabPanel({
 			activeTab: 0,
@@ -53,6 +56,7 @@ cf.administration_myprofile = function(){return {
 		
 	},
 	
+	/** load and add userdata to elements **/
 	addData: function () {
 		Ext.Ajax.request({  
 			url : '<?php echo build_dynamic_javascript_url('usermanagement/LoadSingleUser')?>/id/' + cf.administration_myprofile.theUserId,
@@ -113,6 +117,7 @@ cf.administration_myprofile = function(){return {
 		});
 	},
 	
+	/** load formpanel **/
 	initWindow: function () {
 		this.isInitialized = true;
 		this.theMyProfilePanel = new Ext.FormPanel({
@@ -138,7 +143,7 @@ cf.administration_myprofile = function(){return {
 						cf.administration_myprofile.isInitialized = false;
 					}
 					else {
-						Ext.MessageBox.alert('<?php echo __('Error',null,'myprofile'); ?>', '<?php echo __('Passwords not equal',null,'systemsetting'); ?>');
+						Ext.MessageBox.alert('<?php echo __('Error',null,'myprofile'); ?>', '<?php echo __('Passwords not equal',null,'myprofile'); ?>');
 						cf.administration_myprofile.theTabPanel.setActiveTab(0);
 					}
 				}

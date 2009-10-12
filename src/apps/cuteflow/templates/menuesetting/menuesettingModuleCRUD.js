@@ -40,7 +40,7 @@ cf.menueSettingModuleCRUD = function(){return {
 			url: '<?php echo build_dynamic_javascript_url('menuesetting/SaveModule')?>',
 			method: 'POST',
 			success: function() {
-				try {
+				try { // check if an accordion item is active
 					var ac_item_id = cf.Navigation.theAccordion.layout.activeItem.id;
 				}
 				catch(e) {

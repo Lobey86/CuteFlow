@@ -36,6 +36,7 @@ cf.Window = function(){return {
 		});
 	},
 	
+	/** login handler, that transfers form to server and handles response **/
 	handleLogin: function () {
 		cf.Textfield.thePanel.getForm().submit({
 			url: '<?php echo build_dynamic_javascript_url('login/DoLogin')?>',

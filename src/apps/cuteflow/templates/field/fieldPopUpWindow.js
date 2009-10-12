@@ -50,7 +50,7 @@ cf.createFileWindow = function(){return {
 	*
 	*/
 	initUpdateField: function (id) {
-		this.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loadin Data...',null,'usermanagement'); ?>'});					
+		this.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'field'); ?>'});					
 		this.theLoadingMask.show();
 		Ext.Ajax.request({
 			url : '<?php echo build_dynamic_javascript_url('field/LoadSingleField')?>/id/' + id,

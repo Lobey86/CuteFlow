@@ -1,3 +1,4 @@
+/** userdata tab **/
 cf.userFirstTab = function(){return {
 
 
@@ -9,7 +10,7 @@ cf.userFirstTab = function(){return {
 	theComboRoleStore			:false,
 	
 	
-	
+	/** calls all functions to init it **/
 	init: function () {
 		this.initRoleStore();
 		this.initFirstPanel();
@@ -26,6 +27,7 @@ cf.userFirstTab = function(){return {
 		
 	},
 	
+	/** fieldset for firstname,lastname email **/
 	initUserdata: function () {
 		this.theUserdataFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('Userdata',null,'usermanagement'); ?>',
@@ -55,6 +57,7 @@ cf.userFirstTab = function(){return {
 			}]
 		});
 	},
+	/** init username and password fieldset **/
 	initUserlogindata: function () {
 		this.theUserlogindataFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('User login data',null,'usermanagement'); ?>',
@@ -86,7 +89,7 @@ cf.userFirstTab = function(){return {
 		});
 	},
 	
-	
+	/** init userrole fieldset + combo **/
 	initUserrole: function () {
 		this.theUserroleFieldset = new Ext.form.FieldSet({
 				title: '<?php echo __('Userrole',null,'usermanagement'); ?>',
@@ -112,7 +115,6 @@ cf.userFirstTab = function(){return {
 				}]
 		});
 		if (Ext.isIE6 == true) {
-			
 		}
 		else if(Ext.isOpera == true || Ext.isSafari == true) {
 		}
@@ -123,7 +125,7 @@ cf.userFirstTab = function(){return {
 		
 		
 	},
-	
+	/** build email format fieldset **/
 	initEmailformat:function () {
 		this.theEmailformatFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('Email Format',null,'usermanagement'); ?>',
@@ -220,6 +222,7 @@ cf.userFirstTab = function(){return {
 		}
 	},
 	
+	/** init panel for tab **/
 	initFirstPanel: function () {
 		this.thePanel = new Ext.Panel ({
 			closable: false,
@@ -234,6 +237,7 @@ cf.userFirstTab = function(){return {
 		});
 	},
 	
+	/** store for roles **/
 	initRoleStore: function () {
 		this.theComboRoleStore = new Ext.data.JsonStore({
 				root: 'result',
@@ -244,7 +248,6 @@ cf.userFirstTab = function(){return {
 					{name: 'description'}
 				]
 		});
-		//cf.userFirstTab.theComboRoleStore.load();
 	}
 	
 

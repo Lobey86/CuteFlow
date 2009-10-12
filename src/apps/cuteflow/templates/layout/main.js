@@ -8,9 +8,12 @@ Ext.BLANK_IMAGE_URL = '/images/default/s.gif';
 cf.Main = function(){return {
 	
 	theUserRole                : false,
+	theLoadingMask			   : false,
+
 	
 	/*********************************/
 	
+	/** call to init main layout **/
 	init: function(){
 		cf.Layout.init();
 	}

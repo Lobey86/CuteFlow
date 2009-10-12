@@ -1,7 +1,9 @@
+/** class when updating a user **/
 cf.updateUser = function(){return {
 	
 	theHiddenPanel			:false,
 	
+	/** init save function **/
 	initSave: function (theFormpanel, user_id) {
 		this.initHiddenPanel();
 		this.buildUserAgent(theFormpanel);
@@ -10,6 +12,7 @@ cf.updateUser = function(){return {
 
 	},
 	
+	/** init panel to save worklfow **/
 	initHiddenPanel:function () {
 		this.theHiddenPanel = new Ext.Panel({
 			border: false,
@@ -19,6 +22,7 @@ cf.updateUser = function(){return {
 		
 	},
 	
+	/** add worklfow to panel **/
 	buildWorkflow: function (theFormpanel) {
 		var grid = cf.userFourthTab.theFourthGrid;
 		for(var a=0;a<grid.store.getCount();a++) {
@@ -32,7 +36,7 @@ cf.updateUser = function(){return {
 		theFormpanel.doLayout();	
 	},
 	
-	
+	/** add useragents tp panel **/
 	buildUserAgent: function (theFormpanel) {
 		var grid = cf.userSecondTab.theUserAgentGrid;
 		for(var a=0;a<grid.store.getCount();a++) {
@@ -46,6 +50,7 @@ cf.updateUser = function(){return {
 		theFormpanel.doLayout();
 	},
 	
+	/** submit formpanel **/
 	doSubmit: function (theFormpanel, user_id) {
 		theFormpanel.getForm().submit({
 			url: '<?php echo build_dynamic_javascript_url('usermanagement/UpdateUser')?>/id/' + user_id,

@@ -1,3 +1,4 @@
+/** init gui tab **/
 cf.guiTab = function(){return {
 	
 	theGuiTab					:false,
@@ -22,6 +23,7 @@ cf.guiTab = function(){return {
 		this.theGuiTab.add(this.theGuiFieldset);
 	},
 	
+	/** init the panel for tab **/
 	initPanel: function () {
 		this.thePanel = new Ext.Panel({
 			style: 'margin-left:5px;',
@@ -30,6 +32,7 @@ cf.guiTab = function(){return {
 		
 	},
 	
+	/** init gui panel **/
 	initGuiTab: function () {
 		this.theGuiTab = new Ext.Panel({
 			modal: true,
@@ -47,6 +50,7 @@ cf.guiTab = function(){return {
 		});
 	},
 	
+	/** init a fieldset **/
 	initGuiFieldset: function () {
 		this.theGuiFieldset = new Ext.form.FieldSet({
 			title: '<table><tr><td><img src="/images/icons/information.png"  ext:qtip=\"Settings will automatic be loaded,<br>when a new user is added to database\" ext:qwidth=\"300\"/></td><td>&nbsp;&nbsp;<?php echo __('GUI Workflow Settings',null,'systemsetting'); ?></td></tr></table>',
@@ -58,6 +62,7 @@ cf.guiTab = function(){return {
 		
 	},
 	
+	/** init grid to set worklfow desgin **/
 	initGrid: function () {
 		this.theGuiGrid = new Ext.grid.GridPanel({
 			frame:false,
@@ -104,6 +109,7 @@ cf.guiTab = function(){return {
 		});
 	},
 	
+	/** store for grid **/
 	initStore: function () {
 		this.theGuiStore = new Ext.data.JsonStore({
 				totalProperty: 'total',
@@ -119,6 +125,7 @@ cf.guiTab = function(){return {
 		cf.guiTab.theGuiStore.load();
 	},
 	
+	/** cm for grid **/
 	initCM : function () {
 		this.theGuiCM  =  new Ext.grid.ColumnModel([
 			{header: "<center><div ext:qtip=\"<table><tr><td><img src='/images/icons/checkbox.png' />&nbsp;&nbsp;</td><td><?php echo __('Activate Item',null,'systemsetting'); ?></td></tr></table>\" ext:qwidth=\"200\"><?php echo __('Activate Item',null,'usermanagement'); ?></div></center>",  width: 90, sortable: false, dataIndex: 'id', css : "text-align :left; font-size:12px;", renderer: cf.guiTab.renderAction},
@@ -127,12 +134,14 @@ cf.guiTab = function(){return {
 		
 	},
 	
+	/** render checkbox to grid **/
 	renderAction: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 		var id = record.data['id'];
 		cf.guiTab.createCheckbox.defer(500,this, [id,  record.data['isactive']]);
 		return '<center><table><tr><td><div id="guiTabCheckbox_'+ id +'"></div></td></tr></table></center>';
 	},
 	
+	/** create checkbox **/
 	createCheckbox: function (id, check_value) {
 		var check = new Ext.form.Checkbox({
 			renderTo: 'guiTabCheckbox_' + id,

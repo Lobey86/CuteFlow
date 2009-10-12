@@ -1,8 +1,10 @@
+/** save a user **/
 cf.saveUser = function(){return {
 	
 	
 	theHiddenPanel			:false,
 	
+	/** init save function **/
 	initSave: function (theFormpanel) {
 		this.initHiddenPanel();
 		this.buildUserAgent(theFormpanel);
@@ -11,6 +13,7 @@ cf.saveUser = function(){return {
 
 	},
 	
+	/** panle to add save data **/
 	initHiddenPanel:function () {
 		this.theHiddenPanel = new Ext.Panel({
 			border: false,
@@ -20,6 +23,7 @@ cf.saveUser = function(){return {
 		
 	},
 	
+	/** build worklfow hiddden fields **/
 	buildWorkflow: function (theFormpanel) {
 		var grid =cf.userFourthTab.theFourthGrid;
 		for(var a=0;a<grid.store.getCount();a++) {
@@ -33,6 +37,7 @@ cf.saveUser = function(){return {
 		theFormpanel.doLayout();	
 	},
 	
+	/** build useragent hiddenfields **/
 	buildUserAgent: function (theFormpanel) {
 		var grid = cf.userSecondTab.theUserAgentGrid;
 		for(var a=0;a<grid.store.getCount();a++) {
@@ -46,6 +51,7 @@ cf.saveUser = function(){return {
 		theFormpanel.doLayout();
 	},
 	
+	/** submit **/
 	doSubmit: function (theFormpanel) {
 		var username = Ext.getCmp('userFirstTab_username').getValue();
 		Ext.Ajax.request({

@@ -1,5 +1,5 @@
 /**
-* Class opens new window, to add a new user or edit an exisiting user
+* Class opens new window, toedit an exisiting user
 */
 cf.editUserWindow = function(){return {
 	isInitialized 	                 : false,
@@ -9,10 +9,10 @@ cf.editUserWindow = function(){return {
 	theFormPanel				     : false,
 	theLoadingMask					 : false,
 
-	
+	/** calls all functions to init window **/
 	init:function (id) {
 		if(cf.administration_myprofile.isInitialized == false) {
-			this.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loadin Data...',null,'usermanagement'); ?>'});					
+			this.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'usermanagement'); ?>'});					
 			this.theLoadingMask.show();
 			
 			this.theUserId = id;
@@ -37,7 +37,7 @@ cf.editUserWindow = function(){return {
 		}
 	},
 	
-	
+	/** init tabpanel **/
 	initTabPanel: function () {
 		this.theTabPanel = new Ext.TabPanel({
 			activeTab: 0,
@@ -53,6 +53,7 @@ cf.editUserWindow = function(){return {
 		
 	},
 	
+	/** loads data for a user and sets it **/
 	addData: function () {
 		Ext.Ajax.request({  
 			url : '<?php echo build_dynamic_javascript_url('usermanagement/LoadSingleUser')?>/id/' + cf.editUserWindow.theUserId,
@@ -117,7 +118,7 @@ cf.editUserWindow = function(){return {
 			}
 		});
 	},
-	
+	/** init formpanel **/
 	initFormPanel: function () {
 		this.theFormPanel = new Ext.FormPanel({
 			frame:true       
@@ -125,6 +126,7 @@ cf.editUserWindow = function(){return {
 		
 	},
 	
+	/** init popup window **/
 	initWindow: function () {
 		this.isInitialized = true;
 		this.theEditUserWindow = new Ext.Window({

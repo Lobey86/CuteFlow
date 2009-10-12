@@ -142,7 +142,7 @@ cf.fieldNumber = function(){return {
 						}
 						else {
 							Ext.Msg.minWidth = 200;
-							Ext.MessageBox.alert('<?php echo __('Error',null,'field'); ?>', '<?php echo __('Input value is no number<br>or RegEx is not valid',null,'field'); ?>');
+							Ext.MessageBox.alert('<?php echo __('Error',null,'field'); ?>', '<?php echo __('Input value is no number or RegEx is not valid',null,'field'); ?>');
 							return false;
 						}
 					}

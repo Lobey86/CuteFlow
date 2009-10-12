@@ -1,8 +1,10 @@
+/** init tabpanel for region center **/
 cf.TabPanel = function(){return {
 	
 	theTabPanel 		:false,
 	isInitialized		:false,
 	
+	/** init function **/
 	init: function () {
 		if(this.isInitialized == false) {
 			this.isInitialized = true;
