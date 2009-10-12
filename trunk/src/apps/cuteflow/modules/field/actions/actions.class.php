@@ -160,7 +160,11 @@ class fieldActions extends sfActions {
         return sfView::NONE;
     }
 
-
+    /**
+     * update a field
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeUpdateField(sfWebRequest $request) {
         $fieldType = FieldTable::instance()->getFieldById($request->getParameter('id'));
         $data = $request->getPostParameters();
