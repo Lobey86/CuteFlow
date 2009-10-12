@@ -103,7 +103,14 @@ cf.editUserWindow = function(){return {
 					cf.userSecondTab.thePanel.frame = true;
 					cf.userThirdTab.thePanel.frame = true;
 					cf.userFourthTab.thePanel.frame = true;
-					cf.userFourthTab.thePanel.autoScroll = false;
+					
+					cf.userFirstTab.thePanel.autoScroll = true;
+					cf.userSecondTab.thePanel.autoScroll = true;
+					cf.userThirdTab.thePanel.autoScroll = true;
+					cf.userFourthTab.thePanel.autoScroll = true;
+					
+					
+	
 					cf.editUserWindow.theEditUserWindow.show();
 					cf.userSecondTab.theUserAgentStore.load();
 					cf.userFirstTab.theComboRoleStore.load();
@@ -135,7 +142,7 @@ cf.editUserWindow = function(){return {
 			modal: true,
 			height: 630,
 			width: 700,
-			autoScroll: true,
+			autoScroll: false,
 			shadow: false,
 			minimizable: false,
 			draggable: false,
