@@ -42,7 +42,7 @@ cf.userTab = function(){return {
 		this.theUserGuiFieldset = new Ext.form.FieldSet({
 			title: '<table><tr><td><img src="/images/icons/information.png"  ext:qtip=\"Settings will automatic be loaded,<br>when a new user is added to database\" ext:qwidth=\"300\"/></td><td>&nbsp;&nbsp;<?php echo __('Default user GUI settings',null,'systemsetting'); ?></td></tr></table>',
 			width: 600,
-			height: 220,
+			height: 230,
 			style: 'margin-top:20px;margin-left:5px;',
 			labelWidth: 330,
 			items:[{
