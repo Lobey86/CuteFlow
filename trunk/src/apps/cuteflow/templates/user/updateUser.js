@@ -2,6 +2,7 @@
 cf.updateUser = function(){return {
 	
 	theHiddenPanel			:false,
+	theLoadingMask			:false,
 	
 	/** init save function **/
 	initSave: function (theFormpanel, user_id) {
@@ -55,6 +56,7 @@ cf.updateUser = function(){return {
 		theFormpanel.getForm().submit({
 			url: '<?php echo build_dynamic_javascript_url('usermanagement/UpdateUser')?>/id/' + user_id,
 			method: 'POST',
+			waitMsg: '<?php echo __('Saving Data',null,'usermanagement'); ?>',
 			success: function(objServerResponse){
 				try {
 					Ext.destroy.apply(Ext, cf.updateUser.theHiddenPanel.items.items);

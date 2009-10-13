@@ -55,6 +55,7 @@ cf.menueSettingGroupCRUD = function(){return {
 		cf.menueSettingGroupWindow.theFormPanel.getForm().submit({
 			url: '<?php echo build_dynamic_javascript_url('menuesetting/SaveGroup')?>',
 			method: 'POST',
+			waitMsg: '<?php echo __('Saving Data',null,'menuesetting'); ?>',
 			success: function() {
 				try { // check if accordion has active item
 					var ac_item_id = cf.Navigation.theAccordion.layout.activeItem.id;

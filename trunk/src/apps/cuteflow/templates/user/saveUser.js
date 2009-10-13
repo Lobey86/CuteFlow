@@ -54,35 +54,38 @@ cf.saveUser = function(){return {
 	/** submit **/
 	doSubmit: function (theFormpanel) {
 		var username = Ext.getCmp('userFirstTab_username').getValue();
-		Ext.Ajax.request({
-			url : '<?php echo build_dynamic_javascript_url('usermanagement/CheckForExistingUser')?>/username/' + username,
-			success: function(objServerResponse){  
-				if(objServerResponse.responseText == 1) {
-					theFormpanel.getForm().submit({
-						url: '<?php echo build_dynamic_javascript_url('usermanagement/SaveUser')?>',
-						method: 'POST',
-						success: function(objServerResponse){
-							try {
-								Ext.destroy.apply(Ext, cf.saveUser.theHiddenPanel.items.items);
-								cf.saveUser.theHiddenPanel.items.clear();
-								cf.saveUser.theHiddenPanel.body.update('');
+		if(username != '') {
+			Ext.Ajax.request({
+				url : '<?php echo build_dynamic_javascript_url('usermanagement/CheckForExistingUser')?>/username/' + username,
+				success: function(objServerResponse){  
+					if(objServerResponse.responseText == 1) {
+						theFormpanel.getForm().submit({
+							url: '<?php echo build_dynamic_javascript_url('usermanagement/SaveUser')?>',
+							method: 'POST',
+							waitMsg: '<?php echo __('Saving Data',null,'usermanagement'); ?>',
+							success: function(objServerResponse){
+								try {
+									Ext.destroy.apply(Ext, cf.saveUser.theHiddenPanel.items.items);
+									cf.saveUser.theHiddenPanel.items.clear();
+									cf.saveUser.theHiddenPanel.body.update('');
+								}
+								catch(e) {}
+								Ext.Msg.minWidth = 200;
+								Ext.MessageBox.alert('<?php echo __('OK',null,'usermanagement'); ?>', '<?php echo __('User added',null,'usermanagement'); ?>');
+								cf.UserGrid.theUserStore.reload();
+								cf.createUserWindow.theAddUserWindow.hide();
+								cf.createUserWindow.theAddUserWindow.destroy();
 							}
-							catch(e) {}
-							Ext.Msg.minWidth = 200;
-							Ext.MessageBox.alert('<?php echo __('OK',null,'usermanagement'); ?>', '<?php echo __('User added',null,'usermanagement'); ?>');
-							cf.UserGrid.theUserStore.reload();
-							cf.createUserWindow.theAddUserWindow.hide();
-							cf.createUserWindow.theAddUserWindow.destroy();
-						}
-					});
+						});
+					}
+					else {
+						Ext.Msg.minWidth = 200;
+						Ext.MessageBox.alert('<?php echo __('Error',null,'usermanagement'); ?>', '<?php echo __('Username already exists',null,'usermanagement'); ?>');
+						cf.TabPanel.theTabPanel.setActiveTab(0);
+					}
 				}
-				else {
-					Ext.Msg.minWidth = 200;
-					Ext.MessageBox.alert('<?php echo __('Error',null,'usermanagement'); ?>', '<?php echo __('Username already exists',null,'usermanagement'); ?>');
-					cf.TabPanel.theTabPanel.setActiveTab(0);
-				}
-			}
-		});
+			});
+		}
 	}
 	
 	

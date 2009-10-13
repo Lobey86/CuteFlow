@@ -17,7 +17,7 @@ cf.administration_systemsetting = function(){return {
 	**/
 	init: function () {
 		if (this.isInitialized == false) {
-			this.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loadin Data...',null,'usermanagement'); ?>'});					
+			this.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'usermanagement'); ?>'});					
 			this.theLoadingMask.show();
 			
 			cf.databaseTab.init();

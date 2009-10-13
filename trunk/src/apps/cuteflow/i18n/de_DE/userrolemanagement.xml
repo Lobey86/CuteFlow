@@ -102,6 +102,10 @@
         <source>Add new Userrole</source>
         <target>Neue Rolle anlegen</target>
      </trans-unit>
+	 <trans-unit id="26">
+        <source>Saving Data</source>
+        <target>Speichere Daten</target>
+     </trans-unit>
     </body>
   </file>
 </xliff>

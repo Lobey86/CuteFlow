@@ -40,6 +40,7 @@ cf.systemSettingCRUD = function(){return {
 		cf.administration_systemsetting.theFormPanel.getForm().submit({
 			url: '<?php echo build_dynamic_javascript_url('systemsetting/SaveSystem')?>',
 			method: 'POST',
+			waitMsg: '<?php echo __('Saving Data',null,'systemsetting'); ?>',
 			success: function(objServerResponse){
 				try {
 					Ext.destroy.apply(Ext, cf.systemSettingCRUD.theHiddenPanel.items.items);
