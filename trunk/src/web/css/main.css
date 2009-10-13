@@ -47,6 +47,12 @@
 	height:16px;
 }
 
+.usermodule_management_usergroupIcon_form{
+	background-image: url(/images/icons/table.png) !important; 
+	width: 16px;
+	height:16px;
+}
+
 
 .no-icon {
 	display : none;
