@@ -55,6 +55,22 @@ Credential:
     userModule: administration
     userGroup: usermanagement
     userRight: addldap
+  c15:
+    userModule: management
+    userGroup: form
+    userRight: showModule
+  c16:
+    userModule: management
+    userGroup: form
+    userRight: addForm
+  c17:
+    userModule: management
+    userGroup: form
+    userRight: editForm
+  c18:
+    userModule: management
+    userGroup: form
+    userRight: deleteForm
 Role:
   r1:
     description: admin
@@ -115,6 +131,18 @@ CredentialRole:
   rc17:
     role_id: 1
     credential_id: 14
+  rc18:
+    role_id: 1
+    credential_id: 15
+  rc19:
+    role_id: 1
+    credential_id: 16
+  rc20:
+    role_id: 1
+    credential_id: 17
+  rc21:
+    role_id: 1
+    credential_id: 18
 
 UserLogin:
   ul1:
