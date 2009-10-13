@@ -77,7 +77,31 @@
 	 <trans-unit id="19">
         <source>Edit role</source>
         <target>Datensatz bearbeiten</target>
-     </trans-unit>	 
+     </trans-unit>
+	 <trans-unit id="20">
+        <source>Name</source>
+        <target>Name</target>
+     </trans-unit>
+	 <trans-unit id="21">
+        <source>Edit Userrole</source>
+        <target>Rolle bearbeiten</target>
+     </trans-unit>	
+	 <trans-unit id="22">
+        <source>Edit Userrole</source>
+        <target>Rolle bearbeiten</target>
+     </trans-unit>
+	 <trans-unit id="23">
+        <source>Description</source>
+        <target>Beschreibung</target>
+     </trans-unit>
+	 <trans-unit id="24">
+        <source>Userrole description</source>
+        <target>Benutzerrollen Beschreibung</target>
+     </trans-unit>
+	 <trans-unit id="25">
+        <source>Add new Userrole</source>
+        <target>Neue Rolle anlegen</target>
+     </trans-unit>
     </body>
   </file>
 </xliff>
