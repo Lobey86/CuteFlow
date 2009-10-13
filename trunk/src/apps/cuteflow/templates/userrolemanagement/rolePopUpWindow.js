@@ -15,14 +15,14 @@ cf.rolePopUpWindow = function(){return {
 	*
 	*/
 	initNewRole: function (id) {
-		this.initWindow(id, '<?php echo __('Add new Userrole',null,'userrolemanagementpopup'); ?>');
+		this.initWindow(id, '<?php echo __('Add new Userrole',null,'userrolemanagement'); ?>');
 		cf.PopUpRoleTabpanel.init(id);
 		this.theRoleWindow.add(cf.PopUpRoleTabpanel.theFormPanel);
 		this.theRoleWindow.show();
 	},
 	
 	initEditRole: function (id) {
-		this.initWindow(id, '<?php echo __('Edit Userrole',null,'userrolemanagementpopup'); ?>');
+		this.initWindow(id, '<?php echo __('Edit Userrole',null,'userrolemanagement'); ?>');
 		cf.PopUpRoleTabpanel.init(id);
 		this.theRoleWindow.add(cf.PopUpRoleTabpanel.theFormPanel);
 		this.theRoleWindow.show();
@@ -56,13 +56,13 @@ cf.rolePopUpWindow = function(){return {
 				cf.rolePopUpWindow.theRoleWindow.destroy();
 			},
 			buttons:[{
-				text:'<?php echo __('Store',null,'userrolemanagementpopup'); ?>', 
+				text:'<?php echo __('Store',null,'userrolemanagement'); ?>', 
 				icon: '/images/icons/accept.png',
 				handler: function () {
 					cf.RoleCRUD.saveRole(id);
 				}
 			},{
-				text:'<?php echo __('Close',null,'userrolemanagementpopup'); ?>', 
+				text:'<?php echo __('Close',null,'userrolemanagement'); ?>', 
 				icon: '/images/icons/cancel.png',
 				handler: function () {
 					cf.rolePopUpWindow.theRoleWindow.hide();
