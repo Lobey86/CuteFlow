@@ -147,14 +147,14 @@ cf.PopUpRoleTabpanel = function(){return {
 	/** init panel with textfield to enter the name of the role **/
 	initTextfield: function (id) {
 		this.theRoleNameText = new Ext.Panel({
-			title: '<?php echo __('Description',null,'userrolemanagementpopup'); ?>',
+			title: '<?php echo __('Description',null,'userrolemanagement'); ?>',
 			frame: true,
 			height: 'auto',
 			width: 'auto',
 			style: 'border:none;',
 			items:[{
 				xtype: 'fieldset',
-				title: '<?php echo __('Userrole description',null,'userrolemanagementpopup'); ?>',
+				title: '<?php echo __('Userrole description',null,'userrolemanagement'); ?>',
 				style:'margin-top:5px;margin-left:5px;margin-right:5px;',
 			    items: [{
 	                xtype: 'textfield',
@@ -162,7 +162,7 @@ cf.PopUpRoleTabpanel = function(){return {
 					id: 'userrole_title_id',
 					allowBlank: false,
 					value: '',
-	                fieldLabel: '<?php echo __('Name',null,'userrolemanagementpopup'); ?>'
+	                fieldLabel: '<?php echo __('Name',null,'userrolemanagement'); ?>'
             	},{
 					xtype: 'hidden',
 					name: 'hiddenfield',
