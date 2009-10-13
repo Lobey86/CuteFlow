@@ -12,6 +12,9 @@ cf.createFileWindow = function(){return {
 	*@param int id, id of the record is set when in edit mode
 	*/
 	initNewField: function (id) {
+		
+		this.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'field'); ?>'});					
+		this.theLoadingMask.show();
 		cf.fieldTextfield.init();
 		cf.fieldCheckbox.init();
 		cf.fieldNumber.init();
@@ -41,6 +44,7 @@ cf.createFileWindow = function(){return {
 		
 		this.theCurrentObject = cf.fieldTextfield;
 		this.theFieldPopUpWindow.show();
+		this.theLoadingMask.hide();
 	},
 	
 	/**

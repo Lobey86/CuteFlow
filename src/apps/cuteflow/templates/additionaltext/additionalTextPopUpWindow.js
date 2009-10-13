@@ -8,7 +8,7 @@ cf.additionalTextPopUpWindow = function(){return {
 	theTypeFieldset				:false,
 	theFormPanel				:false,
 	theContentPanel				:false,
-
+	theLoadingMask					 : false,
 
 	/**
 	* calls all neded functions to build window
@@ -17,6 +17,8 @@ cf.additionalTextPopUpWindow = function(){return {
 	*
 	*/
 	init: function (id) {
+		this.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'usermanagement'); ?>'});					
+		this.theLoadingMask.show();
 		cf.additionalTextPopUpGrid.init();
 		this.initTitle();
 		this.initContentPlain();
@@ -60,10 +62,12 @@ cf.additionalTextPopUpWindow = function(){return {
 						cf.additionalTextPopUpWindow.theHTMLFieldset.setVisible(true);
 						Ext.getCmp('additionalTextPopUpWindow_typecombobox').setValue('html');
 					}
-
+					cf.additionalTextPopUpWindow.theLoadingMask.hide();
 				}
+				
 			});
 		}
+		cf.additionalTextPopUpWindow.theLoadingMask.hide();
 	},
 	
 	/** load formpanel **/

@@ -39,6 +39,7 @@ cf.menueSettingModuleCRUD = function(){return {
 		cf.administration_menuesetting.themenueSettingModuleWindow.getForm().submit({
 			url: '<?php echo build_dynamic_javascript_url('menuesetting/SaveModule')?>',
 			method: 'POST',
+			waitMsg: '<?php echo __('Saving Data',null,'menuesetting'); ?>',
 			success: function() {
 				try { // check if an accordion item is active
 					var ac_item_id = cf.Navigation.theAccordion.layout.activeItem.id;
