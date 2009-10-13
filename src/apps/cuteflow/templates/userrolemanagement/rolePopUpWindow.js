@@ -5,7 +5,7 @@
 cf.rolePopUpWindow = function(){return {
 	
 	theRoleWindow						:false,
-	theRoleWindowIsInitialzied		:false,
+	theRoleWindowIsInitialzied			:false,
 	
 	/**
 	* calls all necessary functions to display the popup

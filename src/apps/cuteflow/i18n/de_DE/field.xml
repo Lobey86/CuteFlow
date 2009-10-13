@@ -414,6 +414,10 @@
         <source>Set Checkbox checked by default</source>
         <target>Checkbox aktivieren</target>
      </trans-unit>
+	 	 <trans-unit id="104">
+        <source>Saving Data</source>
+        <target>Speichere Daten</target>
+     </trans-unit>
     </body>
   </file>
 </xliff>

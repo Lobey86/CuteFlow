@@ -12,6 +12,8 @@ cf.createFormWindow = function(){return {
 	*@param int id, id of the record is set when in edit mode
 	*/
 	initNewForm: function (id) {
+		this.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'form'); ?>'});					
+		this.theLoadingMask.show();
 		this.initFirstTabFieldset();
 		this.initFirstTab();
 		cf.formPopUpWindowSecondTab.init();

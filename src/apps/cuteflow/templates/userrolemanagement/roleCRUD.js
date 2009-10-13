@@ -5,7 +5,6 @@
 cf.RoleCRUD = function(){return {
 
 
-
 	/** delete role from database **/
 	deleteRole: function (id) {
 		cf.DeleteRoleWindow.init(id);
@@ -36,7 +35,7 @@ cf.RoleCRUD = function(){return {
 	/** check if rolename is set or not **/
 	checkRolename: function () {
 		if(Ext.getCmp('userrole_title_id').getValue() == '') { // no role name is set
-			cf.rolePopUpWindow.theTabpanel.setActiveTab(0);
+			cf.PopUpRoleTabpanel.theTabpanel.setActiveTab(0);
 			Ext.getCmp('userrole_title_id').focus();
 			return false;
 		}
@@ -50,6 +49,7 @@ cf.RoleCRUD = function(){return {
 		cf.PopUpRoleTabpanel.theFormPanel.getForm().submit({
 			url: '<?php echo build_dynamic_javascript_url('userrolemanagement/EditRole')?>',
 			method: 'POST',
+			waitMsg: '<?php echo __('Saving Data',null,'userrolemanagement'); ?>',
 			success: function() {
 				cf.rolePopUpWindow.theRoleWindow.hide();
 				cf.rolePopUpWindow.theRoleWindow.destroy();
@@ -66,6 +66,7 @@ cf.RoleCRUD = function(){return {
 					cf.PopUpRoleTabpanel.theFormPanel.getForm().submit({
 						url: '<?php echo build_dynamic_javascript_url('userrolemanagement/AddRole')?>',
 						method: 'POST',
+						waitMsg: '<?php echo __('Saving Data',null,'userrolemanagement'); ?>',
 						success: function() {
 							cf.UserRoleGrid.theUserRoleStore.reload();
 							cf.rolePopUpWindow.theRoleWindow.hide();

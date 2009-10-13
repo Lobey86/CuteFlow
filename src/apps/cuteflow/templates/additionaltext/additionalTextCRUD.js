@@ -1,6 +1,8 @@
 /** CRUD functions for Additional Text **/
 cf.additionalTextCRUD = function(){return {
 	
+	
+	theLoadingMask					:false,
 	/**
 	* save or update function for an additional text
 	*
@@ -16,16 +18,18 @@ cf.additionalTextCRUD = function(){return {
 	},
 	
 	/** create new additional text **/
-	createAdditionaltext: function () {
+	createAdditionaltext: function () {		
 		cf.additionalTextPopUpWindow.theFormPanel.getForm().submit({
 			url: '<?php echo build_dynamic_javascript_url('additionaltext/SaveText')?>',
 			method: 'POST',
+			waitMsg: '<?php echo __('Saving Data',null,'usermanagement'); ?>',
 			success: function(objServerResponse){
 				cf.additionalTextGrid.theTextStore.reload();
 				Ext.Msg.minWidth = 200;
-				Ext.MessageBox.alert('<?php echo __('OK',null,'additionaltext'); ?>', '<?php echo __('Text saved',null,'additionaltext'); ?>');
 				cf.additionalTextPopUpWindow.thePopUpWindow.hide();
 				cf.additionalTextPopUpWindow.thePopUpWindow.destroy();
+				Ext.MessageBox.alert('<?php echo __('OK',null,'additionaltext'); ?>', '<?php echo __('Text saved',null,'additionaltext'); ?>');
+
 			}
 		});
 	},
@@ -40,12 +44,13 @@ cf.additionalTextCRUD = function(){return {
 		cf.additionalTextPopUpWindow.theFormPanel.getForm().submit({
 			url: '<?php echo build_dynamic_javascript_url('additionaltext/UpdateText')?>/id/' + id,
 			method: 'POST',
+			waitMsg: '<?php echo __('Saving Data',null,'usermanagement'); ?>',
 			success: function(objServerResponse){
 				cf.additionalTextGrid.theTextStore.reload();
 				Ext.Msg.minWidth = 200;
-				Ext.MessageBox.alert('<?php echo __('OK',null,'additionaltext'); ?>', '<?php echo __('Text updated',null,'additionaltext'); ?>');
 				cf.additionalTextPopUpWindow.thePopUpWindow.hide();
 				cf.additionalTextPopUpWindow.thePopUpWindow.destroy();
+				Ext.MessageBox.alert('<?php echo __('OK',null,'additionaltext'); ?>', '<?php echo __('Text updated',null,'additionaltext'); ?>');
 			}
 		});
 		

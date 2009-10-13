@@ -1,6 +1,8 @@
 /** CRUD functions for Field **/
 cf.fieldCRUD = function(){return {
-
+	
+	
+	theLoadingMask					:false,
 	/**
 	* function deletes a record
 	*@param int id, id of record to delete
@@ -43,10 +45,10 @@ cf.fieldCRUD = function(){return {
 			var url = '<?php echo build_dynamic_javascript_url('field/SaveField')?>';
 			var title = '<?php echo __('Data saved',null,'field'); ?>';
 		}
-		
 		cf.createFileWindow.theFormPanel.getForm().submit({
 			url: url,
 			method: 'POST',
+			waitMsg: '<?php echo __('Saving Data',null,'field'); ?>',
 			success: function(objServerResponse){
 				cf.fieldPanelGrid.theFieldStore.reload();
 				cf.createFileWindow.theFieldPopUpWindow.hide();
