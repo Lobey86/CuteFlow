@@ -77,6 +77,30 @@
 	 <trans-unit id="19">
         <source>Edit role</source>
         <target>Edit role</target>
+     </trans-unit>
+	 <trans-unit id="20">
+        <source>Name</source>
+        <target>Name</target>
+     </trans-unit>
+	 <trans-unit id="21">
+        <source>Edit Userrole</source>
+        <target>Edit Userrole</target>
+     </trans-unit>
+	 <trans-unit id="22">
+        <source>Edit Userrole</source>
+        <target>Edit Userrole</target>
+     </trans-unit>
+	 <trans-unit id="23">
+        <source>Description</source>
+        <target>Description</target>
+     </trans-unit>
+	 <trans-unit id="24">
+        <source>Userrole description</source>
+        <target>Userrole description</target>
+     </trans-unit>
+	 <trans-unit id="25">
+        <source>Add new Userrole</source>
+        <target>Add new Userrole</target>
      </trans-unit>	 
     </body>
   </file>
