@@ -294,3 +294,31 @@ FieldTextarea:
     content: {type: string(5000) }
   relations:
     Field: { class: Field, local: field_id, foreign: id, foreignType: many, type: one }
+
+FormTemplate:
+  actAs: [SoftDelete]
+  tableName: cf_formtemplate
+  columns:
+    id: { type: integer, length: 10, primary: true, autoincrement: true }
+    name: {type: string(100) }
+
+FormSlot:
+  tableName: cf_formslot
+  columns:
+    id: { type: integer, length: 10, primary: true, autoincrement: true }
+    formtemplate_id: { type: integer, length: 10 }
+    name: {type: string(100) }
+  relations:
+    FormTemplate: { class: FormTemplate, local: formtemplate_id, foreign: id, foreignType: many, type: one }
+
+FormField:
+  tableName: cf_formfield
+  columns:
+    id: { type: integer, length: 10, primary: true, autoincrement: true }
+    formslot_id: { type: integer, length: 10 }
+    field_id: { type: integer, length: 10 }
+  relations:
+    FormSlot: { class: FormField, local: formslot_id, foreign: id, foreignType: many, type: one }
+    Field: { class: Field, local: field_id, foreign: id, foreignType: many, type: one }
+
+
