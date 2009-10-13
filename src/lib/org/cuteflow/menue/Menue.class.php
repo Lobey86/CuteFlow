@@ -42,7 +42,7 @@ class Menue extends MenueCredential {
                 $result[$this->moduleCounter]['usermodule']['usermodule'] = $module;
                 $result[$this->moduleCounter]['usermodule']['icon'] = 'usermodule_' . $module . '_Icon';
                 $result[$this->moduleCounter]['usermodule']['position'] = $item->getUsermoduleposition();
-                $result[$this->moduleCounter]['usermodule']['translation'] = $this->context->getI18N()->__($module ,null,'userrolemanagementpopup');
+                $result[$this->moduleCounter]['usermodule']['translation'] = $this->context->getI18N()->__($module ,null,'credential');
                 $result[$this->moduleCounter]['usermodule']['usergroup'] = '';
             }
 
@@ -57,7 +57,7 @@ class Menue extends MenueCredential {
                 $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['usergroupe'] = $group;
                 $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['disabled'] = $this->checkRight($result[$this->moduleCounter]['usermodule']['title'] . '_' . $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['title'] . '_showModule');
                 $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['object'] = $result[$this->moduleCounter]['usermodule']['title'] .'_' .$group;
-                $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['translation'] = $this->context->getI18N()->__($group ,null,'userrolemanagementpopup');
+                $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['translation'] = $this->context->getI18N()->__($group ,null,'credential');
                 $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['position'] = $item->getUsergroupposition();
             }
         }

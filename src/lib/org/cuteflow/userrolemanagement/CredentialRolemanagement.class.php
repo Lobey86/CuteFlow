@@ -39,7 +39,7 @@ class CredentialRolemanagement extends MenueCredential {
                     $result[$this->moduleCounter]['usermodule']['id'] = 'usermodule_' . $module;
                     $result[$this->moduleCounter]['usermodule']['server_id'] = $module;
                     $result[$this->moduleCounter]['usermodule']['usermodule'] = $module;
-                    $result[$this->moduleCounter]['usermodule']['translation'] = $this->context->getI18N()->__($module ,null,'userrolemanagementpopup');
+                    $result[$this->moduleCounter]['usermodule']['translation'] = $this->context->getI18N()->__($module ,null,'credential');
                     $result[$this->moduleCounter]['usermodule']['usergroup'] = '';
                 }
 
@@ -51,7 +51,7 @@ class CredentialRolemanagement extends MenueCredential {
                     $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['icon'] = $result[$this->moduleCounter]['usermodule']['id'] . '_usergroupIcon_' . $group;
                     $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['server_id'] = $group;
                     $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['usergroupe'] = $group;
-                    $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['translation'] = $this->context->getI18N()->__($group ,null,'userrolemanagementpopup');
+                    $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['translation'] = $this->context->getI18N()->__($group ,null,'credential');
                     $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['userright'] = '';
                 }
 
@@ -64,7 +64,7 @@ class CredentialRolemanagement extends MenueCredential {
                 $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['userright'][$this->rightCounter]['userright'] = $right;
                 $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['userright'][$this->rightCounter]['name'] = $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['id'];
                 $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['userright'][$this->rightCounter]['parent'] = $this->checkParent($right);
-                $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['userright'][$this->rightCounter]['translation'] = $this->context->getI18N()->__($right ,null,'userrolemanagementpopup');
+                $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['userright'][$this->rightCounter]['translation'] = $this->context->getI18N()->__($right ,null,'credential');
                 if ($credentials == NULL) {
                     $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['userright'][$this->rightCounter]['checked'] = 0;
                 }
