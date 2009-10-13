@@ -41,7 +41,7 @@ cf.rolePopUpWindow = function(){return {
 			modal: true,
 			closable: true,
 			modal: true,
-			height: 600,
+			height: cf.Layout.theRegionWest.getHeight() - 120,
 			width: 650,
 			autoScroll: false,
 			title: title,
