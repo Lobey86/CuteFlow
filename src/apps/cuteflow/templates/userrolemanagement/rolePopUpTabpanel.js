@@ -70,7 +70,7 @@ cf.PopUpRoleTabpanel = function(){return {
 			var tabItem = new Ext.Panel({
 				title: theJsonTreeData.result[a].usermodule.translation,
 				id: theJsonTreeData.result[a].usermodule.id,
-				height: 500,
+				height: cf.Layout.theRegionWest.getHeight() - 220,
 				width: 500,
 				autoScroll:true,
 				layout: 'form',
@@ -84,7 +84,7 @@ cf.PopUpRoleTabpanel = function(){return {
 					xtype: 'fieldset',
 					title: '<table><tr><td><div class="'+tabCategory.icon+'">&nbsp;</div></td><td><div>' + tabCategory.translation + '</div></td></tr></table>',
 					id: tabCategory.id,
-					labelWidth: 180, 
+					labelWidth: 200, 
 					style:'margin-top:5px;margin-left:5px;margin-right:5px;'
 				});
 				
@@ -100,7 +100,7 @@ cf.PopUpRoleTabpanel = function(){return {
 							id: myCheckbox.database_id,
 							name: myCheckbox.database_id,
 							checked: myCheckbox.checked,
-							labelWidth: 180, 
+							labelWidth: 200, 
 							style:'margin-top:4px;margin-left:120px;',
 							handler: function (check) {
 								var parentElement = check.ownerCt;
@@ -152,6 +152,7 @@ cf.PopUpRoleTabpanel = function(){return {
 			height: 'auto',
 			width: 'auto',
 			style: 'border:none;',
+			border: false,
 			items:[{
 				xtype: 'fieldset',
 				title: '<?php echo __('Userrole description',null,'userrolemanagement'); ?>',
