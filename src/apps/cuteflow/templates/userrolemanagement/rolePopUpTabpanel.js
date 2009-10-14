@@ -131,6 +131,7 @@ cf.PopUpRoleTabpanel = function(){return {
 		else {
 			this.theTabpanel.setActiveTab(0);
 		}
+		cf.rolePopUpWindow.theLoadingMask.hide();
 	},
 	
 	/** Tabpanel **/

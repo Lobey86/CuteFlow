@@ -6,6 +6,7 @@ cf.rolePopUpWindow = function(){return {
 	
 	theRoleWindow						:false,
 	theRoleWindowIsInitialzied			:false,
+	theLoadingMask						:false,
 	
 	/**
 	* calls all necessary functions to display the popup
@@ -15,6 +16,8 @@ cf.rolePopUpWindow = function(){return {
 	*
 	*/
 	initNewRole: function (id) {
+		this.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'usermanagement'); ?>'});					
+		this.theLoadingMask.show();
 		this.initWindow(id, '<?php echo __('Add new Userrole',null,'userrolemanagement'); ?>');
 		cf.PopUpRoleTabpanel.init(id);
 		this.theRoleWindow.add(cf.PopUpRoleTabpanel.theFormPanel);
@@ -22,6 +25,8 @@ cf.rolePopUpWindow = function(){return {
 	},
 	
 	initEditRole: function (id) {
+		this.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'usermanagement'); ?>'});					
+		this.theLoadingMask.show();
 		this.initWindow(id, '<?php echo __('Edit Userrole',null,'userrolemanagement'); ?>');
 		cf.PopUpRoleTabpanel.init(id);
 		this.theRoleWindow.add(cf.PopUpRoleTabpanel.theFormPanel);
