@@ -165,10 +165,10 @@ cf.formPopUpWindowFieldGrid = function(){return {
 			tbar: this.theTopToolBar,
 			cm: this.theFieldCM
 		});
+		
 		this.theFieldGrid.on('afterrender', function(grid) {
 			cf.formPopUpWindowFieldGrid.theFormStore.load();
-			
-		});	
+		});
 	
 	}
 
