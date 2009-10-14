@@ -350,3 +350,27 @@ WorkflowConfiguration:
     isactive: 'false'
     position: 8
 
+Field:
+  f1:
+    title: Feld 1 - Test
+    type: CHECKBOX
+    writeprotected: 0
+    color: #000000
+  f2:
+    title: Feld 2 - Test
+    type: CHECKBOX
+    writeprotected: 0
+    color: #000000
+  f3:
+    title: Feld 3 - Test
+    type: CHECKBOX
+    writeprotected: 1
+    color: #000000
+
+  f4:
+    title: Feld 4 - Test
+    type: CHECKBOX
+    writeprotected: 1
+    color: #000000
+
+
