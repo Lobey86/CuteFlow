@@ -29,11 +29,12 @@ cf.formPopUpWindowSecondTab = function(){return {
 	},
 	
 	initLeftColumnPanel: function () {
-		this.theLeftColumnPanel = new Ext.FormPanel ({
+		this.theLeftColumnPanel = new Ext.Panel ({
 			frame:true,
 			border: false,
 			autoScroll: true,
 			columnWidth: .5,
+			layout: 'form', 
 			width: 370
 		});
 	},
@@ -54,7 +55,7 @@ cf.formPopUpWindowSecondTab = function(){return {
 			frame:true,
 			autoScroll: true,
 			border: 'none',
-			height: cf.Layout.theRegionWest.getHeight() - 134
+			height: cf.Layout.theRegionWest.getHeight() - 148
 		});
 	},
 	
@@ -75,6 +76,7 @@ cf.formPopUpWindowSecondTab = function(){return {
 	
 	initTopToolBar: function () {
 		this.theTopToolBar = new Ext.Toolbar({
+			width:360,
 			items: [{
 				xtype: 'button',
 				text: '<?php echo __('Add new slot',null,'form'); ?>',
@@ -82,37 +84,51 @@ cf.formPopUpWindowSecondTab = function(){return {
 	            tooltip:'<?php echo __('Add new slot',null,'form'); ?>',
 				style: 'margin-botton:10px;',
 	            handler: function () {
-					cf.formPopUpWindowSecondTab.addGrid();
+					cf.formPopUpWindowSecondTab.addGrid('',0,-1);
 	            }
 			}]
 		});	
 	},
 	
-	addGrid: function () {
+	addGrid: function (textfield, checkbox, griddata) {
 		var id = cf.formPopUpWindowSecondTab.theUniqueFieldsetId++;
-		var fieldset = cf.formPopUpWindowSecondTab.createFieldset(id);
+		var fieldset = cf.formPopUpWindowSecondTab.createFieldset(id,textfield, checkbox);
 		var grid = cf.formPopUpWindowSecondTab.createGrid(id);
 		fieldset.add(grid);
 		cf.formPopUpWindowSecondTab.theLeftColumnPanel.add(fieldset);
 		cf.formPopUpWindowSecondTab.createDeleteButton.defer(100,this, [id]);
+		cf.formPopUpWindowSecondTab.theLeftColumnPanel.doLayout();
 		cf.createFormWindow.theFormPopUpWindow.doLayout();
+		cf.formPopUpWindowSecondTab.addItems.defer(500,this, [griddata,grid]);
+	},
+	
+	addItems: function (griddata, grid) {
+		
+		if(griddata != -1) {
+			for (var a=0;a<griddata.length;a++) {
+				var Rec = Ext.data.Record.create({name: 'unique_id'},{name: 'id'},{name: 'title'});
+				grid.store.add(new Rec({unique_id: cf.formPopUpWindowSecondTab.theUniqueGridStoreId++, id: griddata[a].fieldid, title: griddata[a].fieldname})); // important to add unique ID's
+			}
+		}
 	},
 	
 	
-	createFieldset: function (id) {
+	createFieldset: function (id,textfield,checkbox) {
 		return new Ext.form.FieldSet({
 			title: '<table><tr><td><div id="deletegrid_' + id + '"></div></td><td>&nbsp;&nbsp;&nbsp;<?php echo __('Slot settings',null,'form'); ?></td></tr></table>',
 			height: 260,
-			width:'auto',
+			width:360,
 			id: 'formfieldset_' + id,
 			labelWidth:170,
 			items:[{
 				xtype:'textfield',
 				fieldLabel: '<?php echo __('Slot name',null,'form'); ?>',
+				value: textfield,
 				width: 130
 			},{
 				xtype: 'checkbox',
 				style: 'margin-top:2px;',
+				checked: checkbox,
 				fieldLabel: '<?php echo __('To all Slot-Receivers at once',null,'form'); ?>'
 			}]
 		});
@@ -127,8 +143,10 @@ cf.formPopUpWindowSecondTab = function(){return {
 					  c.getEl().on({
 						click: function(el){
 							var fieldset = Ext.getCmp('formfieldset_' + id);
-							fieldset.hide();
+							cf.formPopUpWindowSecondTab.theLeftColumnPanel.remove(fieldset);
 							fieldset.destroy();
+							cf.formPopUpWindowSecondTab.theLeftColumnPanel.doLayout();
+							cf.createFormWindow.theFormPopUpWindow.doLayout();
 						},
 					scope: c
 				});
@@ -152,15 +170,12 @@ cf.formPopUpWindowSecondTab = function(){return {
 			collapsible: false,
 			style:'margin-top:5px;',
 			store: new Ext.data.SimpleStore({
-			fields: [
-				{name: 'unique_id'},
-				{name: 'title'}
-				]
+				fields: [{name: 'unique_id'},{name: 'id'},{name: 'title'}]
 			}),
 			cm: this.theFormCM
 		});
 		
-		grid.on('render', function(grid) {
+		grid.on('render', function(grid) {			
 			var ddrow = new Ext.dd.DropTarget(grid.container, {
                 ddGroup: 'formgrid',
 				copy: false,
@@ -168,8 +183,8 @@ cf.formPopUpWindowSecondTab = function(){return {
 					if (ddSource.grid != grid){
 						for(var a=0;a<data.selections.length;a++) { // if data is from right grid, add it to store. 
 							var item = data.selections[a].data;
-							var Rec = Ext.data.Record.create({name: 'unique_id'},{name: 'title'});
-							grid.store.add(new Rec({unique_id: cf.formPopUpWindowSecondTab.theUniqueGridStoreId++, title: item.title})); // important to add unique ID's
+							var Rec = Ext.data.Record.create({name: 'unique_id'},{name: 'id'},{name: 'title'});
+							grid.store.add(new Rec({unique_id: cf.formPopUpWindowSecondTab.theUniqueGridStoreId++, id: item.id, title: item.title})); // important to add unique ID's
 						}
 					}
 					else { // if data is coming from left, then reorder is done.
@@ -210,7 +225,7 @@ cf.formPopUpWindowSecondTab = function(){return {
 	
 	/** button renderer for edit and delete **/
 	renderRowDelete: function (data, cell, record, rowIndex, columnIndex, store, grid) {
-		cf.formPopUpWindowSecondTab.createDeleteRecordButton.defer(200,this, [record.data['unique_id'],store]);
+		cf.formPopUpWindowSecondTab.createDeleteRecordButton.defer(100,this, [record.data['unique_id'],store]);
 		return '<center><table><tr><td width="16"><div id="formleftgrid_'+ record.data['unique_id'] +'"></div></td></tr></table></center>';
 	},
 	

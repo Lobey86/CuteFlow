@@ -7,10 +7,13 @@ cf.formPanelGrid = function(){return {
 	theFormCM						:false,
 	theTopToolBar					:false,
 	theBottomToolBar				:false,
+	theLoadingMask					:false,
 
 	
 	/** inits all necessary functions to build the grid and its toolbars **/
 	init: function () {
+		cf.formPanelGrid.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'form'); ?>'});					
+		cf.formPanelGrid.theLoadingMask.show();
 		this.initBottomToolbar();
 		this.initCM();
 		this.initStore();
@@ -24,7 +27,7 @@ cf.formPanelGrid = function(){return {
 		this.theFormCM  =  new Ext.grid.ColumnModel([
 			{header: "#", width: 50, sortable: true, dataIndex: '#', css : "text-align : left;font-size:12px;align:center;"},
 			{header: "<?php echo __('Name',null,'form'); ?>", width: 280, sortable: false, dataIndex: 'name', css : "text-align : left;font-size:12px;align:center;"},
-			{header: "<?php echo __('mount of slots',null,'form'); ?>", width: 150, sortable: false, dataIndex: 'mountofslots', css : "text-align:left;font-size:12px;align:center;"},
+			{header: "<?php echo __('mount of slots',null,'form'); ?>", width: 150, sortable: false, dataIndex: 'mountofslots', css : "text-align:center;font-size:12px;align:center;"},
 			{header: "<div ext:qtip=\"<table><tr><td><img src='/images/icons/table_edit.png' />&nbsp;&nbsp;</td><td><?php echo __('Edit Document template',null,'form'); ?></td></tr><tr><td><img src='/images/icons/table_delete.png' />&nbsp;&nbsp;</td><td><?php echo __('Delete Document template',null,'form'); ?></td></tr></table>\" ext:qwidth=\"200\"><?php echo __('Action',null,'form'); ?></div>", width: 80, sortable: false, dataIndex: 'action', css : "text-align : left;font-size:12px;align:center;" ,renderer: this.renderAction}
 		]);
 	},
@@ -95,6 +98,7 @@ cf.formPanelGrid = function(){return {
 		});
 		this.theFormGrid.on('afterrender', function(grid) {
 			cf.formPanelGrid.theFormStore.load();
+			cf.formPanelGrid.theLoadingMask.hide();
 		});	
 		
 	}, 
@@ -121,7 +125,7 @@ cf.formPanelGrid = function(){return {
 					  c.getEl().on({
 						click: function(el){
 							if (c.disabled == false) {
-								alert(id);
+								cf.createFormWindow.initEditForm(id);
 							}
 						},
 					scope: c
@@ -146,7 +150,7 @@ cf.formPanelGrid = function(){return {
 					  c.getEl().on({
 						click: function(el){
 							if (c.disabled == false) {
-								alert(id);
+								cf.formCRUD.initDelete(id);
 							}
 						},
 					scope: c

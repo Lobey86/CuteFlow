@@ -12,8 +12,6 @@ cf.createFormWindow = function(){return {
 	*@param int id, id of the record is set when in edit mode
 	*/
 	initNewForm: function (id) {
-		this.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'form'); ?>'});					
-		this.theLoadingMask.show();
 		this.initFirstTabFieldset();
 		this.initFirstTab();
 		cf.formPopUpWindowSecondTab.init();
@@ -25,15 +23,57 @@ cf.createFormWindow = function(){return {
 		this.theFormPopUpWindow.add(this.theTabPanel);
 		this.theFormPopUpWindow.show();
 		this.theTabPanel.setActiveTab(1);
-		cf.formPopUpWindowSecondTab.addGrid();
+		cf.formPopUpWindowSecondTab.addGrid('',0,-1);
+		
 	},
+	hideLoadingMask: function (mask) {
+		mask.hide();
+	},
+	
+	
+	initEditForm: function (id) {
+		this.initFirstTabFieldset();
+		this.initFirstTab();
+		cf.formPopUpWindowSecondTab.init();
+		this.theFirstTab.add(this.theFirstTabFieldset);
+		this.initTabPanel();
+		this.theTabPanel.add(this.theFirstTab);
+		this.theTabPanel.add(cf.formPopUpWindowSecondTab.theSecondTab);
+		this.initWindow(id, '<?php echo __('Edit form',null,'form'); ?>');
+		this.theFormPopUpWindow.add(this.theTabPanel);
+		this.theFormPopUpWindow.show();
+		this.theTabPanel.setActiveTab(1);
+		this.addData(id);
+		
+	},
+	
+	
+	addData: function (id) {
+		Ext.Ajax.request({  
+			url : '<?php echo build_dynamic_javascript_url('form/LoadSingleForm')?>/id/' + id, 
+			success: function(objServerResponse){
+				theJsonTreeData = Ext.util.JSON.decode(objServerResponse.responseText);
+				Ext.getCmp('createFileWindow_fieldname').setValue(theJsonTreeData.result.title);
+				var data = theJsonTreeData.result;
+				for(var a=0;a<data.slot.length;a++) {
+					var checked = data.slot[a].receiver == 0 ? 0 : 1;
+					cf.formPopUpWindowSecondTab.addGrid(data.slot[a].title,checked, data.slot[a].field);
+				}
+				//cf.createFormWindow.theLoadingMask.hide();
+			}
+		});	
+	},
+	
+	
+	
+	
 	
 	/** init first tab to enter description of the template **/
 	initFirstTab: function () {
-		this.theFirstTab = new Ext.Panel({
+		this.theFirstTab = new Ext.FormPanel({
 			title: '<?php echo __('Description',null,'field'); ?>',
 			frame:true,
-			height: cf.Layout.theRegionWest.getHeight() - 134
+			height: cf.Layout.theRegionWest.getHeight() - 148
 		});
 	},
 
@@ -48,7 +88,7 @@ cf.createFormWindow = function(){return {
 			items: [{
 				xtype: 'textfield',
 				id:'createFileWindow_fieldname',
-				allowBlank: false,
+				allowBlank: true,
 				fieldLabel: '<?php echo __('Template name',null,'form'); ?>',
 				width:220
 			}]
@@ -67,8 +107,8 @@ cf.createFormWindow = function(){return {
 			modal: true,
 			closable: true,
 			modal: true,
-			height: cf.Layout.theRegionWest.getHeight() - 30,
-			width: 800,
+			height: cf.Layout.theRegionWest.getHeight() - 40,
+			width: 820,
 			autoScroll: true,
 			shadow: false,
 			minimizable: false,
@@ -81,8 +121,7 @@ cf.createFormWindow = function(){return {
 				text:'<?php echo __('Store',null,'myprofile'); ?>', 
 				icon: '/images/icons/accept.png',
 				handler: function () {
-					//cf.fieldCRUD.initSave(id,cf.createFileWindow.theCurrentObject);
-					alert("fewfew");
+					cf.formCRUD.initSave(id);
 				}
 			},{
 				text:'<?php echo __('Close',null,'usermanagement'); ?>', 
