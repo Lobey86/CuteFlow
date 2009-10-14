@@ -308,6 +308,7 @@ FormSlot:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
     formtemplate_id: { type: integer, length: 10 }
     name: {type: string(100) }
+    sendtoallreceivers: { type: integer(1), length: 3 }
   relations:
     FormTemplate: { class: FormTemplate, local: formtemplate_id, foreign: id, foreignType: many, type: one }
 
@@ -316,9 +317,11 @@ FormField:
   columns:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
     formslot_id: { type: integer, length: 10 }
+    formtemplate_id: { type: integer, length: 10 }
     field_id: { type: integer, length: 10 }
+    position: { type: integer(1), length: 3 }
   relations:
-    FormSlot: { class: FormField, local: formslot_id, foreign: id, foreignType: many, type: one }
+    FormSlot: { class: FormField, local: formslot_id, foreign: id, foreignType: one, type: many }
     Field: { class: Field, local: field_id, foreign: id, foreignType: many, type: one }
-
+    FormTemplate: { class: FormTemplate, local: formtemplate_id, foreign: id, foreignType: one, type: many }
 
