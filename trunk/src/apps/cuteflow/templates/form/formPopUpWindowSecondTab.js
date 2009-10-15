@@ -1,7 +1,6 @@
 /** create second tab to add fields to form **/
 cf.formPopUpWindowSecondTab = function(){return {
 	
-	theSecondTab					:false,
 	theTopToolBar					:false,
 	theColumnPanel					:false,
 	theLeftColumnPanel				:false,
@@ -17,15 +16,13 @@ cf.formPopUpWindowSecondTab = function(){return {
 		this.theUniqueFieldsetId = 0;
 		this.theUniqueGridStoreId = 0;
 		this.initTopToolBar();
-		this.initLeftColumnPanel();
 		this.initRightColumnPanel();
+		this.initLeftColumnPanel();
 		this.theLeftColumnPanel.add(this.theTopToolBar);
 		this.theRightColumnPanel.add(cf.formPopUpWindowFieldGrid.theFieldGrid);
-		this.initPanel();
 		this.initColumnPanel();
 		this.theColumnPanel.add(this.theLeftColumnPanel);
 		this.theColumnPanel.add(this.theRightColumnPanel);
-		this.theSecondTab.add(this.theColumnPanel);
 	},
 	
 	initLeftColumnPanel: function () {
@@ -34,7 +31,7 @@ cf.formPopUpWindowSecondTab = function(){return {
 			border: false,
 			autoScroll: true,
 			columnWidth: .5,
-			layout: 'form', 
+			height: cf.Layout.theRegionWest.getHeight() - 177,
 			width: 370
 		});
 	},
@@ -43,33 +40,24 @@ cf.formPopUpWindowSecondTab = function(){return {
 			frame:true,
 			border: false,
 			columnWidth: .5,
-			autoScroll: true,
+			autoScroll: false,
 			width: 370
 		});
 	},
 	
-	
-	initPanel: function () {
-		this.theSecondTab = new Ext.Panel ({
-			title: '<?php echo __('Set Fields to Template',null,'field'); ?>',
-			frame:true,
-			autoScroll: true,
-			border: 'none',
-			height: cf.Layout.theRegionWest.getHeight() - 148
-		});
-	},
-	
+
 	initColumnPanel: function () {
 		this.theColumnPanel = new Ext.Panel({
 			layout: 'column',
 			frame:true,
+			title: '<?php echo __('Set Fields to Template',null,'field'); ?>',
+			height: cf.Layout.theRegionWest.getHeight() - 148,
 			border: false,
 			style: 'border:none;',
-			autoScroll: true,
+			autoScroll: false,
 			layoutConfig: {
 				columns: 2
-			},
-			height: 'auto'
+			}
 		});
 	},
 	
@@ -98,7 +86,7 @@ cf.formPopUpWindowSecondTab = function(){return {
 		cf.formPopUpWindowSecondTab.theLeftColumnPanel.add(fieldset);
 		cf.formPopUpWindowSecondTab.createDeleteButton.defer(100,this, [id]);
 		cf.formPopUpWindowSecondTab.theLeftColumnPanel.doLayout();
-		cf.createFormWindow.theFormPopUpWindow.doLayout();
+		cf.formPopUpWindowSecondTab.theLeftColumnPanel.doLayout();
 		cf.formPopUpWindowSecondTab.addItems.defer(500,this, [griddata,grid]);
 	},
 	
