@@ -172,7 +172,7 @@ cf.formPopUpWindowFieldGrid = function(){return {
 		
 		this.theFieldGrid.on('afterrender', function(grid) {
 			cf.formPopUpWindowFieldGrid.theFormStore.load();
-			cf.formPopUpWindowFieldGrid.hideLoadingMask.defer(3000,this, [cf.createFormWindow.theLoadingMask]);
+			cf.formPopUpWindowFieldGrid.hideLoadingMask.defer(cf.createFormWindow.theLoadingMaskShowTime,this, [cf.createFormWindow.theLoadingMask]);
 		});
 	},
 	

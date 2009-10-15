@@ -6,6 +6,7 @@ cf.createFormWindow = function(){return {
 	theTabPanel						:false,
 	theFirstTab						:false,
 	theFirstTabFieldset				:false,
+	theLoadingMaskShowTime			:false,
 
 	/**
 	* calls all necessary functions, to create a new form
@@ -14,6 +15,7 @@ cf.createFormWindow = function(){return {
 	initNewForm: function (id) {
 		this.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'usermanagement'); ?>'});					
 		this.theLoadingMask.show();
+		this.theLoadingMaskShowTime = 2000;
 		
 		this.initFirstTabFieldset();
 		this.initFirstTab();
@@ -38,7 +40,7 @@ cf.createFormWindow = function(){return {
 	initEditForm: function (id) {
 		this.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'usermanagement'); ?>'});					
 		this.theLoadingMask.show();
-		
+		this.theLoadingMaskShowTime = 4000;
 		
 		this.initFirstTabFieldset();
 		this.initFirstTab();
