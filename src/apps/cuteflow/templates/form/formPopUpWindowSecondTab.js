@@ -9,7 +9,7 @@ cf.formPopUpWindowSecondTab = function(){return {
 	theFormCM						:false,
 	theUniqueGridStoreId			:false,
 	
-	
+	/** calls all necesary functions**/
 	init: function () {
 		cf.formPopUpWindowFieldGrid.init();
 		this.initFormCM();
@@ -25,6 +25,7 @@ cf.formPopUpWindowSecondTab = function(){return {
 		this.theColumnPanel.add(this.theRightColumnPanel);
 	},
 	
+	/** on the left Panel, new Fieldsets were added **/
 	initLeftColumnPanel: function () {
 		this.theLeftColumnPanel = new Ext.Panel ({
 			frame:true,
@@ -35,6 +36,7 @@ cf.formPopUpWindowSecondTab = function(){return {
 			width: 370
 		});
 	},
+	/** right panel contains the Grid with the Fields **/
 	initRightColumnPanel: function () {
 		this.theRightColumnPanel = new Ext.Panel ({
 			frame:true,
@@ -45,7 +47,7 @@ cf.formPopUpWindowSecondTab = function(){return {
 		});
 	},
 	
-
+	/** column layout **/
 	initColumnPanel: function () {
 		this.theColumnPanel = new Ext.Panel({
 			layout: 'column',
@@ -61,7 +63,7 @@ cf.formPopUpWindowSecondTab = function(){return {
 		});
 	},
 	
-	
+	/** init toolbar for left grid, to add new Fieldsets **/
 	initTopToolBar: function () {
 		this.theTopToolBar = new Ext.Toolbar({
 			width:360,
@@ -72,13 +74,21 @@ cf.formPopUpWindowSecondTab = function(){return {
 	            tooltip:'<?php echo __('Add new slot',null,'form'); ?>',
 				style: 'margin-botton:10px;',
 	            handler: function () {
-					cf.formPopUpWindowSecondTab.addGrid('',0,-1);
+					cf.formPopUpWindowSecondTab.Fieldset('',0,-1);
 	            }
 			}]
 		});	
 	},
 	
-	addGrid: function (textfield, checkbox, griddata) {
+	/**
+	* add a new fieldset with a grid, checkbox and textfield
+	* 
+	*@param string textfield, is empty when fieldset is created, contains the a textfield name when a document template is edited
+	*@param boolen checkbox, is 0 when fieldset is created, can be 1/0 when document template is edited
+	*@param json griddata, griddate is -1 when a new fieldset is created. griddara contains a json string, when a docuemnt template is edited. then grid records are stored
+	*
+	*/
+	addFieldset: function (textfield, checkbox, griddata) {
 		var id = cf.formPopUpWindowSecondTab.theUniqueFieldsetId++;
 		var fieldset = cf.formPopUpWindowSecondTab.createFieldset(id,textfield, checkbox);
 		var grid = cf.formPopUpWindowSecondTab.createGrid(id);
@@ -90,6 +100,12 @@ cf.formPopUpWindowSecondTab = function(){return {
 		cf.formPopUpWindowSecondTab.addItems.defer(500,this, [griddata,grid]);
 	},
 	
+	/**
+	* add items to grid, when in editmode
+	* 
+	*@param json griddata, griddate is -1 when a new fieldset is created. griddara contains a json string, when a docuemnt template is edited. then grid records are stored
+	*@param GridPanel grid, the grid, to which the items will be rendered
+	*/
 	addItems: function (griddata, grid) {
 		
 		if(griddata != -1) {
@@ -100,7 +116,14 @@ cf.formPopUpWindowSecondTab = function(){return {
 		}
 	},
 	
-	
+	/**
+	* create a fieldset with checkbox and textfield
+	*
+	*@param int id, unique ID for the record
+	*@param string textfield, is empty when fieldset is created, contains the a textfield name when a document template is edited
+	*@param boolen checkbox, is 0 when fieldset is created, can be 1/0 when document template is edited
+	*
+	*/
 	createFieldset: function (id,textfield,checkbox) {
 		return new Ext.form.FieldSet({
 			title: '<table><tr><td><div id="deletegrid_' + id + '"></div></td><td>&nbsp;&nbsp;&nbsp;<?php echo __('Slot settings',null,'form'); ?></td></tr></table>',
@@ -122,6 +145,12 @@ cf.formPopUpWindowSecondTab = function(){return {
 		});
 	},
 	
+	/** 
+	*
+	* render delete button to remove a fieldset
+	*
+	*@param int id, unique id of the fieldset
+    **/
 	createDeleteButton: function (id) {
 		var btn_edit = new Ext.form.Label({
 			renderTo: 'deletegrid_' + id,
@@ -144,6 +173,11 @@ cf.formPopUpWindowSecondTab = function(){return {
 	
 	},
 
+	/**
+	* create a new grid for the fieldset
+	*
+	*@param int id, unique id for the grid
+	*/
 	createGrid: function (id) {
 		var grid =  new Ext.grid.GridPanel({
 			stripeRows: true,
@@ -163,7 +197,7 @@ cf.formPopUpWindowSecondTab = function(){return {
 			cm: this.theFormCM
 		});
 		
-		grid.on('render', function(grid) {			
+		grid.on('render', function(grid) { // render drag drop
 			var ddrow = new Ext.dd.DropTarget(grid.container, {
                 ddGroup: 'formgrid',
 				copy: false,
@@ -203,6 +237,7 @@ cf.formPopUpWindowSecondTab = function(){return {
 		return grid;
 	},
 	
+	/** CM for all grids in fieldset **/
 	initFormCM: function () {
 		this.theFormCM = new Ext.grid.ColumnModel([
 			{header: "<div ext:qtip=\"<?php echo __('Notice: empty records are not saved!',null,'form'); ?>\" ext:qwidth=\"200\"><?php echo __('Field',null,'form'); ?></div>", width: 230, sortable: false, dataIndex: 'title', css : "text-align : left;font-size:12px;align:left;"},
@@ -211,7 +246,7 @@ cf.formPopUpWindowSecondTab = function(){return {
 	},
 
 	
-	/** button renderer for edit and delete **/
+	/** button renderer for  delete  a row in each fieldset grid**/
 	renderRowDelete: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 		cf.formPopUpWindowSecondTab.createDeleteRecordButton.defer(100,this, [record.data['unique_id'],store]);
 		return '<center><table><tr><td width="16"><div id="formleftgrid_'+ record.data['unique_id'] +'"></div></td></tr></table></center>';
@@ -221,6 +256,7 @@ cf.formPopUpWindowSecondTab = function(){return {
 	* delete button, to remove a row in a grid
 	*
 	*@param int id, id of the record
+	*@param SimpleStore theStore, remove record from stroe
 	*/
 	createDeleteRecordButton: function (id, theStore) {
 		var btn_edit = new Ext.form.Label({

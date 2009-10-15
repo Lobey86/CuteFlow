@@ -1,4 +1,4 @@
-/** init fieldset for file **/
+/** init popupwindow to create/update a template **/
 cf.createFormWindow = function(){return {
 	
 	theFormPopUpWindow				:false,
@@ -9,7 +9,7 @@ cf.createFormWindow = function(){return {
 
 	/**
 	* calls all necessary functions, to create a new form
-	*@param int id, id of the record is set when in edit mode
+	*@param int id, id of the record is empty, only set in editmode
 	*/
 	initNewForm: function (id) {
 		this.initFirstTabFieldset();
@@ -23,14 +23,15 @@ cf.createFormWindow = function(){return {
 		this.theFormPopUpWindow.add(this.theTabPanel);
 		this.theFormPopUpWindow.show();
 		this.theTabPanel.setActiveTab(1);
-		cf.formPopUpWindowSecondTab.addGrid('',0,-1);
+		cf.formPopUpWindowSecondTab.addFieldset('',0,-1);
 		
 	},
-	hideLoadingMask: function (mask) {
-		mask.hide();
-	},
+
 	
-	
+	/**
+	* calls all necessary functions, to edit a  form
+	*@param int id, id is set
+	*/
 	initEditForm: function (id) {
 		this.initFirstTabFieldset();
 		this.initFirstTab();
@@ -43,11 +44,16 @@ cf.createFormWindow = function(){return {
 		this.theFormPopUpWindow.add(this.theTabPanel);
 		this.theFormPopUpWindow.show();
 		this.theTabPanel.setActiveTab(1);
-		this.addData(id);
+		this.addData(id); // load data
 		
 	},
 	
-	
+	/**
+	* Load the data when in editmode
+	*
+	*@param int id, id of the record to edit
+	*
+	*/
 	addData: function (id) {
 		Ext.Ajax.request({  
 			url : '<?php echo build_dynamic_javascript_url('form/LoadSingleForm')?>/id/' + id, 
@@ -55,11 +61,10 @@ cf.createFormWindow = function(){return {
 				theJsonTreeData = Ext.util.JSON.decode(objServerResponse.responseText);
 				Ext.getCmp('createFileWindow_fieldname').setValue(theJsonTreeData.result.title);
 				var data = theJsonTreeData.result;
-				for(var a=0;a<data.slot.length;a++) {
+				for(var a=0;a<data.slot.length;a++) { // call function to create fieldset
 					var checked = data.slot[a].receiver == 0 ? 0 : 1;
-					cf.formPopUpWindowSecondTab.addGrid(data.slot[a].title,checked, data.slot[a].field);
+					cf.formPopUpWindowSecondTab.addFieldset(data.slot[a].title,checked, data.slot[a].field);
 				}
-				//cf.createFormWindow.theLoadingMask.hide();
 			}
 		});	
 	},

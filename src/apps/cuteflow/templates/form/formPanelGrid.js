@@ -46,7 +46,7 @@ cf.formPanelGrid = function(){return {
 				]
 		});
 	},
-	/** init toolbar for grid **/
+	/** init toolbar for grid, contains ajax search **/
 	initTopToolBar: function () {
 		this.theTopToolBar = new Ext.Toolbar({
 			items: [{
@@ -70,6 +70,7 @@ cf.formPanelGrid = function(){return {
 		
 	},
 	
+	/** init paging toolbar **/
 	initBottomToolbar: function () {
 		this.theBottomToolBar =  new Ext.PagingToolbar({
 			pageSize: <?php $arr = $sf_user->getAttribute('userSettings'); echo $arr['displayeditem'];?>,
