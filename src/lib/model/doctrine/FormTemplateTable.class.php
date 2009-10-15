@@ -24,8 +24,10 @@ class FormTemplateTable extends Doctrine_Table {
         return Doctrine_Query::create()
                     ->select('ft.*')
                     ->from('FormTemplate ft')
+                    ->leftJoin('ft.FormSlot fs')
                     ->where('ft.deleted = ?', 0)
                     ->andWhere('ft.id = ?', $id)
+                    ->orderBy('fs.position ASC')
                     ->execute();
     }
 
