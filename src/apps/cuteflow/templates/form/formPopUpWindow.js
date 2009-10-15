@@ -12,6 +12,9 @@ cf.createFormWindow = function(){return {
 	*@param int id, id of the record is empty, only set in editmode
 	*/
 	initNewForm: function (id) {
+		this.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'usermanagement'); ?>'});					
+		this.theLoadingMask.show();
+		
 		this.initFirstTabFieldset();
 		this.initFirstTab();
 		cf.formPopUpWindowSecondTab.init();
@@ -33,6 +36,10 @@ cf.createFormWindow = function(){return {
 	*@param int id, id is set
 	*/
 	initEditForm: function (id) {
+		this.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'usermanagement'); ?>'});					
+		this.theLoadingMask.show();
+		
+		
 		this.initFirstTabFieldset();
 		this.initFirstTab();
 		cf.formPopUpWindowSecondTab.init();
