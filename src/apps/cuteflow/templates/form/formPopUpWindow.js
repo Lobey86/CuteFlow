@@ -18,7 +18,7 @@ cf.createFormWindow = function(){return {
 		this.theFirstTab.add(this.theFirstTabFieldset);
 		this.initTabPanel();
 		this.theTabPanel.add(this.theFirstTab);
-		this.theTabPanel.add(cf.formPopUpWindowSecondTab.theSecondTab);
+		this.theTabPanel.add(cf.formPopUpWindowSecondTab.theColumnPanel);
 		this.initWindow(id, '<?php echo __('Create new form',null,'form'); ?>');
 		this.theFormPopUpWindow.add(this.theTabPanel);
 		this.theFormPopUpWindow.show();
@@ -38,7 +38,7 @@ cf.createFormWindow = function(){return {
 		this.theFirstTab.add(this.theFirstTabFieldset);
 		this.initTabPanel();
 		this.theTabPanel.add(this.theFirstTab);
-		this.theTabPanel.add(cf.formPopUpWindowSecondTab.theSecondTab);
+		this.theTabPanel.add(cf.formPopUpWindowSecondTab.theColumnPanel);
 		this.initWindow(id, '<?php echo __('Edit form',null,'form'); ?>');
 		this.theFormPopUpWindow.add(this.theTabPanel);
 		this.theFormPopUpWindow.show();
@@ -109,7 +109,7 @@ cf.createFormWindow = function(){return {
 			modal: true,
 			height: cf.Layout.theRegionWest.getHeight() - 40,
 			width: 820,
-			autoScroll: true,
+			autoScroll: false,
 			shadow: false,
 			minimizable: false,
 			draggable: true,
