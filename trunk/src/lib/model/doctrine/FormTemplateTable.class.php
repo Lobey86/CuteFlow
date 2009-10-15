@@ -70,7 +70,7 @@ class FormTemplateTable extends Doctrine_Table {
      * @param string $name, new name
      * @return true
      */
-    public function updateNameById($id, $name) {
+    public function updateFormTemplateNameById($id, $name) {
         Doctrine_Query::create()
             ->update('FormTemplate ft')
             ->set('ft.name','?',$name)
