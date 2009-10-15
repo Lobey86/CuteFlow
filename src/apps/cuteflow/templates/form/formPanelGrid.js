@@ -84,7 +84,7 @@ cf.formPanelGrid = function(){return {
 	/** init grid **/
 	initGrid: function () {
 		this.theFormGrid = new Ext.grid.GridPanel({
-			title: '<?php echo __('Document template Management',null,'form'); ?>',
+			title: '<?php echo __('Document templates',null,'form'); ?>',
 			stripeRows: true,
 			border: true,
 			width: 'auto',
