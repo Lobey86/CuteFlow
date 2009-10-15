@@ -309,6 +309,7 @@ FormSlot:
     formtemplate_id: { type: integer, length: 10 }
     name: {type: string(100) }
     sendtoallreceivers: { type: integer(1), length: 3 }
+    position: { type: integer(1), length: 3 }
   relations:
     FormTemplate: { class: FormTemplate, local: formtemplate_id, foreign: id, foreignType: many, type: one }
 
