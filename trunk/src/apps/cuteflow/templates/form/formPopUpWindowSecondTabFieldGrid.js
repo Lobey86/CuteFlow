@@ -21,6 +21,7 @@ cf.formPopUpWindowFieldGrid = function(){return {
 		this.initGrid();
 	},
 	
+	/** init toolbar for right grid with live-search **/
 	initTopToolBar: function () {
 		this.theTopToolBar = new Ext.Toolbar({
 			items: [this.theSearchbarTextfield,this.theSearchbarCombobox,'-',this.theSearchbarComboboxSelect,'-',
@@ -38,7 +39,7 @@ cf.formPopUpWindowFieldGrid = function(){return {
 		});	
 		
 	},
-		/** init live-search **/
+	/** init live-search **/
 	initSearchbarTextfield: function () {
 		this.theSearchbarTextfield = new Ext.form.TextField({
 			allowBlank: true,
@@ -127,6 +128,7 @@ cf.formPopUpWindowFieldGrid = function(){return {
 		});
 	},
 	
+	/** init CM for grid **/
 	initCM: function () {
 		this.theFieldCM = new Ext.grid.ColumnModel([
 			{header: "#", width: 30, sortable: false, dataIndex: '#', css : "text-align : left;font-size:12px;align:center;"},
@@ -135,7 +137,7 @@ cf.formPopUpWindowFieldGrid = function(){return {
 		]);
 	},
 	
-	
+	/** init store for grid **/
 	initStore: function () {
 		this.theFormStore = new Ext.data.JsonStore({
 				root: 'result',
@@ -150,6 +152,7 @@ cf.formPopUpWindowFieldGrid = function(){return {
 		});
 	},
 	
+	/** init grid and load store **/
 	initGrid: function () {
 		this.theFieldGrid = new Ext.grid.GridPanel({
 			title: '<?php echo __('Available Fields',null,'form'); ?>',

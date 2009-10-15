@@ -74,7 +74,7 @@ cf.formPopUpWindowSecondTab = function(){return {
 	            tooltip:'<?php echo __('Add new slot',null,'form'); ?>',
 				style: 'margin-botton:10px;',
 	            handler: function () {
-					cf.formPopUpWindowSecondTab.Fieldset('',0,-1);
+					cf.formPopUpWindowSecondTab.addFieldset('',0,-1);
 	            }
 			}]
 		});	
