@@ -44,7 +44,7 @@ cf.formCRUD = function(){return {
 				cf.createFormWindow.theFormPopUpWindow.hide();
 				cf.createFormWindow.theFormPopUpWindow.destroy();
 				Ext.Msg.minWidth = 200;
-				Ext.MessageBox.alert('<?php echo __('OK',null,'field'); ?>',title);
+				Ext.MessageBox.alert('<?php echo __('OK',null,'form'); ?>',title);
 			}
 		});
 		
@@ -99,7 +99,7 @@ cf.formCRUD = function(){return {
 			}
 			if(save == false) {
 				Ext.Msg.minWidth = 200;
-				Ext.MessageBox.alert('<?php echo __('Error',null,'form'); ?>','<?php echo __('Add some Fields to your solts and set Slotname',null,'form'); ?>');
+				Ext.MessageBox.alert('<?php echo __('Error',null,'form'); ?>','<?php echo __('Add some Fields to your slots and set slotname',null,'form'); ?>');
 				cf.createFormWindow.theTabPanel.setActiveTab(1);
 				return false;
 			}

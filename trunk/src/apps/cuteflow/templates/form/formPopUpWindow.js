@@ -19,7 +19,7 @@ cf.createFormWindow = function(){return {
 		this.initTabPanel();
 		this.theTabPanel.add(this.theFirstTab);
 		this.theTabPanel.add(cf.formPopUpWindowSecondTab.theColumnPanel);
-		this.initWindow(id, '<?php echo __('Create new form',null,'form'); ?>');
+		this.initWindow(id, '<?php echo __('Create new document template',null,'form'); ?>');
 		this.theFormPopUpWindow.add(this.theTabPanel);
 		this.theFormPopUpWindow.show();
 		this.theTabPanel.setActiveTab(1);
@@ -39,7 +39,7 @@ cf.createFormWindow = function(){return {
 		this.initTabPanel();
 		this.theTabPanel.add(this.theFirstTab);
 		this.theTabPanel.add(cf.formPopUpWindowSecondTab.theColumnPanel);
-		this.initWindow(id, '<?php echo __('Edit form',null,'form'); ?>');
+		this.initWindow(id, '<?php echo __('Edit document template',null,'form'); ?>');
 		this.theFormPopUpWindow.add(this.theTabPanel);
 		this.theFormPopUpWindow.show();
 		this.theTabPanel.setActiveTab(1);
@@ -71,7 +71,7 @@ cf.createFormWindow = function(){return {
 	/** init first tab to enter description of the template **/
 	initFirstTab: function () {
 		this.theFirstTab = new Ext.FormPanel({
-			title: '<?php echo __('Description',null,'field'); ?>',
+			title: '<?php echo __('Description',null,'form'); ?>',
 			frame:true,
 			height: cf.Layout.theRegionWest.getHeight() - 148
 		});
@@ -89,7 +89,7 @@ cf.createFormWindow = function(){return {
 				xtype: 'textfield',
 				id:'createFileWindow_fieldname',
 				allowBlank: true,
-				fieldLabel: '<?php echo __('Template name',null,'form'); ?>',
+				fieldLabel: '<?php echo __('Name',null,'form'); ?>',
 				width:220
 			}]
 		});
@@ -118,13 +118,13 @@ cf.createFormWindow = function(){return {
 			title: title,
 	        buttonAlign: 'center',
 			buttons:[{
-				text:'<?php echo __('Store',null,'myprofile'); ?>', 
+				text:'<?php echo __('Store',null,'form'); ?>', 
 				icon: '/images/icons/accept.png',
 				handler: function () {
 					cf.formCRUD.initSave(id);
 				}
 			},{
-				text:'<?php echo __('Close',null,'usermanagement'); ?>', 
+				text:'<?php echo __('Close',null,'form'); ?>', 
 				icon: '/images/icons/cancel.png',
 				handler: function () {
 					cf.createFormWindow.theFormPopUpWindow.hide();

@@ -25,7 +25,7 @@ cf.formPopUpWindowFieldGrid = function(){return {
 			items: [this.theSearchbarTextfield,this.theSearchbarCombobox,'-',this.theSearchbarComboboxSelect,'-',
 			{
 				icon: '/images/icons/delete.png',
-	            tooltip:'<?php echo __('Clear field',null,'field'); ?>',
+	            tooltip:'<?php echo __('Clear field',null,'form'); ?>',
 	            handler: function () {
 					cf.formPopUpWindowFieldGrid.theSearchbarTextfield.setValue();
 					cf.formPopUpWindowFieldGrid.theSearchbarCombobox.setValue();
@@ -41,7 +41,7 @@ cf.formPopUpWindowFieldGrid = function(){return {
 	initSearchbarTextfield: function () {
 		this.theSearchbarTextfield = new Ext.form.TextField({
 			allowBlank: true,
-			emptyText:'<?php echo __('Search for...',null,'field'); ?>',
+			emptyText:'<?php echo __('Search for...',null,'form'); ?>',
 			enableKeyEvents: true,
 			width: 140,
 			listeners: {
@@ -61,7 +61,7 @@ cf.formPopUpWindowFieldGrid = function(){return {
 			displayField: 'text',
 			editable: false,
 			mode: 'local',
-			emptyText:'<?php echo __('Search for...',null,'field'); ?>',
+			emptyText:'<?php echo __('Search for...',null,'form'); ?>',
 			store: new Ext.data.SimpleStore({
 					 fields:['id','text'],
        				 data:[

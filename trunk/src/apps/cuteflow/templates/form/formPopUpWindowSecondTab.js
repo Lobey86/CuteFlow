@@ -50,7 +50,7 @@ cf.formPopUpWindowSecondTab = function(){return {
 		this.theColumnPanel = new Ext.Panel({
 			layout: 'column',
 			frame:true,
-			title: '<?php echo __('Set Fields to Template',null,'field'); ?>',
+			title: '<?php echo __('Set Fields to Template',null,'form'); ?>',
 			height: cf.Layout.theRegionWest.getHeight() - 148,
 			border: false,
 			style: 'border:none;',
