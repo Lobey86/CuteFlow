@@ -82,11 +82,13 @@ class Form {
      * @return true
      */
     public function saveForm($id, array $grid) {
+        $slotposition = 1;
         foreach($grid as $slot) {
-            $position = 1;
+            $fieldposition = 1;
             $slottemplate = new FormSlot();
             $slottemplate->setFormtemplateId($id);
             $slottemplate->setName($slot['title']);
+            $slottemplate->setPosition($slotposition++);
             $slottemplate->setSendtoallreceivers($slot['receiver']);
             $slottemplate->save();
             $slot_id = $slottemplate->getId();
@@ -96,7 +98,7 @@ class Form {
                 $formfield->setFormslotId($slot_id);
                 $formfield->setFieldId($gridrow);
                 $formfield->setFormtemplateId($id);
-                $formfield->setPosition($position++);
+                $formfield->setPosition($fieldposition++);
                 $formfield->save();
             }
         }
