@@ -69,7 +69,7 @@ class formActions extends sfActions {
         $id = $request->getParameter('id');
         FormFieldTable::instance()->deleteFormFieldByTemplateId($id);
         FormSlotTable::instance()->deleteFormSlotByTemplateId($id);
-        FormTemplateTable::instance()->updateNameById($id,$data['createFileWindow_fieldname']);
+        FormTemplateTable::instance()->updateFormTemplateNameById($id,$data['createFileWindow_fieldname']);
         $grid = $data['slot'];
         $form->saveForm($id, $grid);
         $this->renderText('{success:true}');
