@@ -7,6 +7,12 @@ class Form {
     }
 
 
+    /**
+     * Builds datatree for a template, when in edit mode
+     *
+     * @param Doctrine_Collection $data
+     * @return <type>
+     */
     public function buildSingleForm(Doctrine_Collection $data) {
         $result = array();
         $a = 0;
@@ -15,12 +21,17 @@ class Form {
             $slot = $item->getFormSlot();
             $result['title'] = $item->getName();
             $result['id'] = $item->getId();
-            $result['slot'] = $this->buildSlot($slot);
+            $result['slot'] = $this->buildSlot($slot); // add slots
         }
         return $result;
     }
 
-
+    /**
+     * Adds slots to a DocumentTemplate, is calles by buildSingleForm
+     *
+     * @param Doctrine_Collection $data, data
+     * @return array $result
+     */
     private function buildSlot(Doctrine_Collection $data) {
         $result = array();
         $a = 0;
@@ -38,7 +49,13 @@ class Form {
         return $result;
     }
     
-    
+
+    /**
+     * Adds fields to a slot, is called by buildSlot
+     *
+     * @param Doctrine_Collection $data, data
+     * @return array $result, Slots
+     */
     private function buildField(Doctrine_Collection $data) {
         $result = array();
         $a = 0;
