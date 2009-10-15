@@ -10,6 +10,7 @@ cf.formPopUpWindowFieldGrid = function(){return {
 	theSearchbarComboboxSelect		:false,
 	theTopToolBar					:false,
 	
+	/** init grid for right panel **/
 	init: function () {
 		this.initSearchbarTextfield();
 		this.initSearchbarCombobox();
