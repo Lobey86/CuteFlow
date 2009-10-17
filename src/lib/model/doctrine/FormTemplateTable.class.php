@@ -35,19 +35,82 @@ class FormTemplateTable extends Doctrine_Table {
      *
      * Load all forms with number of slots
      * return Doctrine_Collection
+	 * @param int $limit, limit of records
+	 * @param int $offset, offset
+	 * @return Doctrine_Collection
      */
-    public function getAllFormTemplates() {
-        return Doctrine_Query::create()
+    public function getAllFormTemplates($limit, $offset) {
+        $query = Doctrine_Query::create()
                 ->select('ft.*, count(fs.id) AS number')
                 ->from('FormTemplate ft')
                 ->leftJoin('ft.FormSlot fs')
+                ->where ('ft.deleted = ?',0);
+		if($limit != -1 AND $offset != -1) {
+            $query->limit($limit)
+                  ->offset($offset);
+        }
+		return $query->orderBy('ft.id DESC')
+		->groupby('ft.id')
+		->execute();
+    }
+	
+    /**
+     *
+     * Load all forms with number of slots
+     * return Doctrine_Collection
+	 * @param int $limit, limit of records
+	 * @param int $offset, offset
+	 * @param string $name, searchneedle
+	 * @return Doctrine_Collection
+     */
+    public function getAllFormTemplatesByFilter($limit, $offset, $name) {
+        $query = Doctrine_Query::create()
+                ->select('ft.*, count(fs.id) AS number')
+                ->from('FormTemplate ft')
                 ->where ('ft.deleted = ?',0)
-                ->orderBy('ft.id DESC')
-                ->groupby('ft.id')
-                ->execute();
+				->leftJoin('ft.FormSlot fs')
+				->andWhere('ft.name LIKE ?','%'.$name.'%');
+		if($limit != -1 AND $offset != -1) {
+            $query->limit($limit)
+                  ->offset($offset);
+        }
+		return $query->orderBy('ft.id DESC')
+		->groupby('ft.id')
+		->execute();
     }
 
 
+	/**
+     * Get total sum of templates
+     *
+     * @return Doctrine_Collection
+     */
+    public function getTotalSumOfFormTemplates() {
+        return Doctrine_Query::create()
+                ->select('COUNT(*) AS anzahl')
+                ->from('FormTemplate ft')
+                ->where('ft.deleted = ?', 0)
+                ->execute();
+    }
+	
+	/**
+	*
+	* Get total sum of templates by filter
+	*
+	* @param string $name, needle to search
+	* @return Doctrine_Collection
+	*/
+	public function getTotalSumOfFormTemplatesByFilter($name) {
+	      return Doctrine_Query::create()
+                ->select('COUNT(*) AS anzahl')
+                ->from('FormTemplate ft')
+                ->where('ft.deleted = ?', 0)
+				->andWhere('ft.name LIKE ?','%'.$name.'%')
+                ->execute();
+	}
+	
+	
+	
     /**
      * Delete an Form
      * @param int $id, id to delete
@@ -66,7 +129,7 @@ class FormTemplateTable extends Doctrine_Table {
     /**
      *  Change the name of an template
      *
-     * @param int$id, id of template
+     * @param int $id, id of template
      * @param string $name, new name
      * @return true
      */
