@@ -14,11 +14,22 @@ cf.formPanelGrid = function(){return {
 	init: function () {
 		cf.formPanelGrid.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'form'); ?>'});					
 		cf.formPanelGrid.theLoadingMask.show();
+		this.initStore();
 		this.initBottomToolbar();
 		this.initCM();
-		this.initStore();
 		this.initTopToolBar();
 		this.initGrid();
+	},
+	
+	doSearch: function () {
+		var textfield = Ext.getCmp('formPanelGrid_searchtextfield').getValue();
+		if(textfield != '') {
+			
+			var url = encodeURI('<?php echo build_dynamic_javascript_url('form/LoadAllFormsFilter')?>/name/' + textfield);
+			cf.formPanelGrid.theFormStore.proxy.setApi(Ext.data.Api.actions.read,url);
+			cf.formPanelGrid.theFormStore.reload();	
+			
+		}
 	},
 	
 	
@@ -36,6 +47,7 @@ cf.formPanelGrid = function(){return {
 	initStore: function () {
 		this.theFormStore = new Ext.data.JsonStore({
 				root: 'result',
+				totalProperty: 'total',
 				url: '<?php echo build_dynamic_javascript_url('form/LoadAllForms')?>',
 				autoload: false,
 				fields: [
@@ -51,20 +63,58 @@ cf.formPanelGrid = function(){return {
 		this.theTopToolBar = new Ext.Toolbar({
 			items: [{
 				xtype: 'textfield',
+				id: 'formPanelGrid_searchtextfield',
 				emptyText:'<?php echo __('Search for name',null,'form'); ?>',
 				width:180
 			},{
 				xtype: 'button',
 				text: '<?php echo __('Search',null,'form'); ?>',
-				icon: '/images/icons/table_go.png'
+				icon: '/images/icons/table_go.png',
+				handler: function (){
+					cf.formPanelGrid.doSearch();
+				}
+			},'-',{
+				xtype: 'button',
+				tooltip: '<?php echo __('Clear field',null,'form'); ?>',
+				icon: '/images/icons/delete.png',
+				handler: function () {
+					var textfield = Ext.getCmp('formPanelGrid_searchtextfield').setValue();
+					var url = encodeURI('<?php echo build_dynamic_javascript_url('form/LoadAllForms')?>/name/' + textfield);
+					cf.formPanelGrid.theFormStore.proxy.setApi(Ext.data.Api.actions.read,url);
+					cf.formPanelGrid.theFormStore.reload();	
+				}
 			},'-',{	
 				icon: '/images/icons/table_add.png',
 	            tooltip:'<?php echo __('Add new Document template',null,'form'); ?>',
 				disabled: <?php $arr = $sf_user->getAttribute('credential');echo $arr['management_form_addForm'];?>,
+				style: 'margin-left:20px;',
 	            handler: function () {
 					cf.createFormWindow.initNewForm('');
 	            }
 				
+			},'->',{
+				xtype: 'combo', // number of records to display in grid
+				mode: 'local',
+				value: '<?php $arr = $sf_user->getAttribute('userSettings'); echo $arr['displayeditem'];?>',
+				editable:false,
+				triggerAction: 'all',
+				foreSelection: true,
+				fieldLabel: '',
+				store: new Ext.data.SimpleStore({
+					 fields:['id','text'],
+       				 data:[[25, '25'],[50, '50'],[75, '75'],[100, '100']]
+   				}),
+ 				valueField:'id',
+				displayField:'text',
+				width:50,
+				listeners: {
+		    		select: {
+		    			fn:function(combo, value) {
+		    				cf.formPanelGrid.theBottomToolBar.pageSize = combo.getValue();
+		    				cf.formPanelGrid.theFormStore.load({params:{start: 0, limit: combo.getValue()}});
+		    			}
+		    		}
+		    	}
 			}]
 		});	
 		

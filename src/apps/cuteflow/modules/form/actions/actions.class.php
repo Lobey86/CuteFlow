@@ -26,12 +26,24 @@ class formActions extends sfActions {
      */
     public function executeLoadAllForms(sfWebRequest $request) {
         $form = new Form();
-        $data = FormTemplateTable::instance()->getAllFormTemplates();
+        $limit = $this->getUser()->getAttribute('userSettings');
+        $anz = FormTemplateTable::instance()->getTotalSumOfFormTemplates();
+        $data = FormTemplateTable::instance()->getAllFormTemplates($request->getParameter('limit',$limit['displayeditem']),$request->getParameter('start',0));
         $json_result = $form->buildAllForms($data);
-        $this->renderText('({"result":'.json_encode($json_result).'})');
+        $this->renderText('({"total":"'.$anz[0]->getAnzahl().'","result":'.json_encode($json_result).'})');
         return sfView::NONE;
     }
 
+    public function executeLoadAllFormsFilter(sfWebRequest $request) {
+        $form = new Form();
+        $name = $request->getParameter('name');
+        $limit = $this->getUser()->getAttribute('userSettings');
+        $anz = FormTemplateTable::instance()->getTotalSumOfFormTemplatesByFilter($name);
+        $data = FormTemplateTable::instance()->getAllFormTemplatesByFilter($request->getParameter('limit',$limit['displayeditem']),$request->getParameter('start',0),$name);
+        $json_result = $form->buildAllForms($data);
+        $this->renderText('({"total":"'.$anz[0]->getAnzahl().'","result":'.json_encode($json_result).'})');
+        return sfView::NONE;
+    }
     /**
      * Load all fields for creating/editing document templates
      * @param sfWebRequest $request
