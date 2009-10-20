@@ -16,6 +16,7 @@ cf.Layout = function(){return {
 		cf.Textfield.thePanel.add(cf.Textfield.theUsernameField);
 		cf.Textfield.thePanel.add(cf.Textfield.theUserpasswordField);
 		cf.Textfield.thePanel.add(cf.Textfield.theHiddenField);
+		cf.Textfield.thePanel.add(cf.Textfield.theHiddenURL);
 		cf.Textfield.thePanel.add(cf.ComboBox.theComboBox);
 		cf.Window.theWindow.add(cf.Textfield.thePanel);
 		cf.Window.theWindow.show();

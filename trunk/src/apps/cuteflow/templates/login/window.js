@@ -38,12 +38,14 @@ cf.Window = function(){return {
 	
 	/** login handler, that transfers form to server and handles response **/
 	handleLogin: function () {
+		var url = (Ext.get('hidden_url').dom.value);
+		cf.Textfield.theHiddenURL.setValue(url);
 		cf.Textfield.thePanel.getForm().submit({
-			url: '<?php echo build_dynamic_javascript_url('login/DoLogin')?>',
+			url: url + 'login/DoLogin',
 			method: 'POST',
 			success: function(form, objServerResponse) {
 				if (objServerResponse.result.value == 1) {
-					window.location.href = '<?php echo build_dynamic_javascript_url('layout/Index');?>'
+					window.location.href = url + 'layout/Index';
 				}
 				else {
 					Ext.MessageBox.alert(objServerResponse.result.title, objServerResponse.result.text);

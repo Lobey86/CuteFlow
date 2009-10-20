@@ -1,0 +1,1 @@
+<input type="hidden" id="hidden_url" value="<?php echo url_for(''); ?>"> 
