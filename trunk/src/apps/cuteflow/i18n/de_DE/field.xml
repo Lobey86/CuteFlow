@@ -414,9 +414,13 @@
         <source>Set Checkbox checked by default</source>
         <target>Checkbox aktivieren</target>
      </trans-unit>
-	 	 <trans-unit id="104">
+	 <trans-unit id="104">
         <source>Saving Data</source>
         <target>Speichere Daten</target>
+     </trans-unit>
+	 <trans-unit id="105">
+        <source>Delete field?</source>
+        <target>Feld l&#246;schen?</target>
      </trans-unit>
     </body>
   </file>

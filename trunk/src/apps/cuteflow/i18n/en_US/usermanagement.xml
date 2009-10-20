@@ -366,6 +366,26 @@
         <source>User deleted</source>
         <target>User deleted</target>
     </trans-unit>
+	<trans-unit id="92">
+        <source>Delete user?</source>
+        <target>Delete user?</target>
+    </trans-unit>
+	<trans-unit id="93">
+        <source>Show deleted User</source>
+        <target>Show deleted User</target>
+    </trans-unit>
+	<trans-unit id="94">
+        <source>Deleted user</source>
+        <target>Deleted user</target>
+    </trans-unit>
+	<trans-unit id="95">
+        <source>Activate user</source>
+        <target>Activate user</target>
+    </trans-unit>
+	<trans-unit id="96">
+        <source>User activated</source>
+        <target>User activated</target>
+    </trans-unit>
     </body>
   </file>
 </xliff>

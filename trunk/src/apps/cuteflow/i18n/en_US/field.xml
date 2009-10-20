@@ -418,6 +418,10 @@
         <source>Saving Data</source>
         <target>Saving Data</target>
      </trans-unit>
+	<trans-unit id="105">
+        <source>Delete field?</source>
+        <target>Delete field?</target>
+     </trans-unit>
     </body>
   </file>
 </xliff>

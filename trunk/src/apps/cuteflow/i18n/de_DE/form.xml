@@ -170,6 +170,14 @@
         <source>Remove Field</source>
         <target>Entferne Feld</target>
      </trans-unit>
+	 <trans-unit id="43">
+        <source>Delete form?</source>
+        <target>Dokumentenvorlage l&#246;schen?</target>
+     </trans-unit>
+	 <trans-unit id="44">
+        <source>Delete slot?</source>
+        <target>Slot l&#246;schen?</target>
+     </trans-unit>
     </body>
   </file>
 </xliff>
