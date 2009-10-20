@@ -221,7 +221,16 @@ cf.additionalTextGrid = function(){return {
 				render: function(c){
 					  c.getEl().on({
 						click: function(el){
-							cf.additionalTextCRUD.initDelete(id);
+							Ext.Msg.show({
+							   title:'<?php echo __('Delete text?',null,'additionaltext'); ?>',
+							   msg: '<?php echo __('Delete text?',null,'additionaltext'); ?>',
+							   buttons: Ext.Msg.YESNO,
+							   fn: function(btn, text) {
+									if(btn == 'yes') {
+										cf.additionalTextCRUD.initDelete(id);
+									}
+							   }
+							});
 						},
 					scope: c
 				});

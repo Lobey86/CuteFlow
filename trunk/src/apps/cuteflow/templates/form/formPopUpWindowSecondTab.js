@@ -159,11 +159,22 @@ cf.formPopUpWindowSecondTab = function(){return {
 				render: function(c){
 					  c.getEl().on({
 						click: function(el){
-							var fieldset = Ext.getCmp('formfieldset_' + id);
-							cf.formPopUpWindowSecondTab.theLeftColumnPanel.remove(fieldset);
-							fieldset.destroy();
-							cf.formPopUpWindowSecondTab.theLeftColumnPanel.doLayout();
-							cf.createFormWindow.theFormPopUpWindow.doLayout();
+							Ext.Msg.show({
+							   title:'<?php echo __('Delete slot?',null,'form'); ?>',
+							   msg: '<?php echo __('Delete slot?',null,'form'); ?>',
+							   buttons: Ext.Msg.YESNO,
+							   fn: function(btn, text) {
+									if(btn == 'yes') {
+										var fieldset = Ext.getCmp('formfieldset_' + id);
+										cf.formPopUpWindowSecondTab.theLeftColumnPanel.remove(fieldset);
+										fieldset.destroy();
+										cf.formPopUpWindowSecondTab.theLeftColumnPanel.doLayout();
+										cf.createFormWindow.theFormPopUpWindow.doLayout();
+									}
+							   }
+							});
+							
+
 						},
 					scope: c
 				});

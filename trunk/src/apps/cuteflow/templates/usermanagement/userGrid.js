@@ -61,8 +61,14 @@ cf.UserGrid = function(){return {
                 handler: function () {
                 	cf.createUserWindow.init();
                 }
-		    },'-',
-            {
+		    },'-',{
+				icon: '/images/icons/user_red.png',
+				tooltip:'<?php echo __('Show deleted User',null,'usermanagement'); ?>',
+				disabled: <?php $arr = $sf_user->getAttribute('credential');echo $arr['administration_usermanagement_showDeleted'];?>,
+				handler: function () {
+					cf.showDeletedUserPopUpWindow.init();
+                }
+			},'-',{
 				icon: '/images/icons/group_key.png',
                 tooltip:'<?php echo __('Add LDAP User',null,'usermanagement'); ?>',
                 disabled: <?php $arr = $sf_user->getAttribute('credential');echo $arr['administration_usermanagement_removeUser'];?>,
@@ -203,7 +209,16 @@ cf.UserGrid = function(){return {
 					  c.getEl().on({
 						click: function(el){
 							if (c.disabled == false) {
-								cf.UserGrid.deleteUser(user_id);
+								Ext.Msg.show({
+								   title:'<?php echo __('Delete user?',null,'usermanagement'); ?>',
+								   msg: '<?php echo __('Delete user?',null,'usermanagement'); ?>',
+								   buttons: Ext.Msg.YESNO,
+								   fn: function(btn, text) {
+										if(btn == 'yes') {
+											cf.UserGrid.deleteUser(user_id);
+										}
+								   }
+								});
 							}
 						},
 					scope: c

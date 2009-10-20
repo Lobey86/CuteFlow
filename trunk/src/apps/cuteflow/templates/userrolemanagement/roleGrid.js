@@ -102,7 +102,16 @@ cf.UserRoleGrid = function(){return {
 				render: function(c){
 					c.getEl().on({
 						click: function(el){
-							cf.RoleCRUD.deleteRole(id);
+							Ext.Msg.show({
+							   title:'<?php echo __('Delete role?',null,'userrolemanagement'); ?>',
+							   msg: '<?php echo __('Delete role?',null,'userrolemanagement'); ?>',
+							   buttons: Ext.Msg.YESNO,
+							   fn: function(btn, text) {
+									if(btn == 'yes') {
+										cf.RoleCRUD.deleteRole(id);
+									}
+							   }
+							});
 						},
 					scope: c
 					});
