@@ -15,7 +15,7 @@ class loginActions extends sfActions {
     * @param sfRequest $request A request object
     */
     public function executeIndex(sfWebRequest $request) {
-        $this->getUser()->setAttribute('env','cuteflow_dev.php');
+        //$this->getUser()->setAttribute('env','cuteflow_dev.php');
         sfLoader::loadHelpers('Url');
         //$data = sfYaml::Load(sfConfig::get('sf_app_dir') . '/config/i18n.yml');
         $this->getUser()->setCulture(Language::loadDefaultLanguage());
@@ -35,6 +35,7 @@ class loginActions extends sfActions {
         $this->getUser()->setAttribute('id',$result[0]->getId());
         $this->getUser()->setAttribute('userrole',$result[0]->getRoleId());
         $this->getUser()->setCulture($request->getPostParameter('hiddenfield_language'));
+        $this->getUser()->setAttribute('env', str_replace('/', '', $request->getPostParameter('hidden_symfonyurl')));
         $this->renderText('{success:true,value:"1"}');
     }
     else {

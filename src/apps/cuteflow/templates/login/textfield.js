@@ -10,12 +10,14 @@ cf.Textfield = function(){return {
 	theUserpasswordField	: false,
 	theHiddenField			: false,
 	thePanel				: false,
+	theHiddenURL			: false,
 	
 	/** Functions calls all necessary functions to init the login window **/
 	init: function(){
 		this.initUsernameField();
 		this.initUserpasswordField();
 		this.initHiddenField();
+		this.initHiddenUrl();
 		this.initPanel();
 	}, 
 	
@@ -37,6 +39,16 @@ cf.Textfield = function(){return {
 			value: '<?php echo $sf_user->getCulture()?>',
 			width: 225
 		});
+	},
+	
+	/** init hiddenurl **/
+	initHiddenUrl: function () {
+		this.theHiddenURL =  new Ext.form.Hidden({
+			name: 'hidden_symfonyurl',
+			allowBlank: true,
+			width: 225
+		});
+		
 	},
 	
 	/** Textfield **/
