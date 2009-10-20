@@ -129,6 +129,7 @@ cf.formPopUpWindowSecondTab = function(){return {
 			title: '<table><tr><td><div id="deletegrid_' + id + '"></div></td><td>&nbsp;&nbsp;&nbsp;<?php echo __('Slot settings',null,'form'); ?></td></tr></table>',
 			height: 260,
 			width:360,
+			collapsible: true,
 			id: 'formfieldset_' + id,
 			labelWidth:170,
 			items:[{
