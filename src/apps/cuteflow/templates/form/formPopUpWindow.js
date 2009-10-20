@@ -28,7 +28,7 @@ cf.createFormWindow = function(){return {
 		this.theFormPopUpWindow.add(this.theTabPanel);
 		this.theFormPopUpWindow.show();
 		this.theTabPanel.setActiveTab(1);
-		cf.formPopUpWindowSecondTab.addFieldset('',0,-1);
+		cf.formPopUpWindowSecondTab.addFieldset('',0,-1,'');
 		
 	},
 
@@ -72,7 +72,7 @@ cf.createFormWindow = function(){return {
 				var data = theJsonTreeData.result;
 				for(var a=0;a<data.slot.length;a++) { // call function to create fieldset
 					var checked = data.slot[a].receiver == 0 ? 0 : 1;
-					cf.formPopUpWindowSecondTab.addFieldset(data.slot[a].title,checked, data.slot[a].field);
+					cf.formPopUpWindowSecondTab.addFieldset(data.slot[a].title,checked, data.slot[a].field,data.slot[a].title, true);
 				}
 			}
 		});	
