@@ -41,7 +41,7 @@ cf.Window = function(){return {
 		var url = (Ext.get('hidden_url').dom.value);
 		cf.Textfield.theHiddenURL.setValue(url);
 		cf.Textfield.thePanel.getForm().submit({
-			url: url + 'login/DoLogin',
+			url: Ext.get('hidden_login').dom.value,
 			method: 'POST',
 			success: function(form, objServerResponse) {
 				if (objServerResponse.result.value == 1) {

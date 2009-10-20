@@ -34,9 +34,8 @@ cf.ComboBox = function(){return {
 			listeners: {
 				select: {
 					fn:function(combo, value) {
-						var hidden_url = Ext.get('hidden_url').dom.value;
 						Ext.Ajax.request({  
-							url : hidden_url + 'login/ChangeLanguage/language/' + combo.getValue(), 
+							url : Ext.get('hidden_changelanguage').dom.value + '/language/' + combo.getValue(), 
 							success: function(objServerResponse){  
 								var ServerResult = Ext.util.JSON.decode(objServerResponse.responseText);
 								cf.Textfield.theUsernameField.setLabel((ServerResult.result.username) + ':'); 
@@ -72,11 +71,10 @@ cf.ComboBox = function(){return {
 	
 	/** Store for combo **/
 	initStore: function () {
-		var hidden_url = Ext.get('hidden_url').dom.value;
 		this.theComboStore = new Ext.data.JsonStore({
 			mode: 'local',
 			autoload: true,
-			url: hidden_url + 'login/LoadLanguage',
+			url: Ext.get('hidden_loadlanguage').dom.value,
 			root: 'result',
 			fields: [
 				{name: 'value'},

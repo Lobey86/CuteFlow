@@ -230,7 +230,16 @@ cf.fieldPanelGrid = function(){return {
 					  c.getEl().on({
 						click: function(el){
 							if (c.disabled == false) {
-								cf.fieldCRUD.initDelete(id);
+								Ext.Msg.show({
+								   title:'<?php echo __('Delete field?',null,'field'); ?>',
+								   msg: '<?php echo __('Delete field?',null,'field'); ?>',
+								   buttons: Ext.Msg.YESNO,
+								   fn: function(btn, text) {
+										if(btn == 'yes') {
+											cf.fieldCRUD.initDelete(id);
+										}
+								   }
+								});
 							}
 						},
 					scope: c

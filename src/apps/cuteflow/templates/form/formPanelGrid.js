@@ -201,7 +201,16 @@ cf.formPanelGrid = function(){return {
 					  c.getEl().on({
 						click: function(el){
 							if (c.disabled == false) {
-								cf.formCRUD.initDelete(id);
+								Ext.Msg.show({
+								   title:'<?php echo __('Delete form?',null,'form'); ?>',
+								   msg: '<?php echo __('Delete form?',null,'form'); ?>',
+								   buttons: Ext.Msg.YESNO,
+								   fn: function(btn, text) {
+										if(btn == 'yes') {
+											cf.formCRUD.initDelete(id);
+										}
+								   }
+								});
 							}
 						},
 					scope: c
