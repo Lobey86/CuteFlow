@@ -40,7 +40,7 @@ cf.createFormWindow = function(){return {
 	initEditForm: function (id) {
 		this.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'usermanagement'); ?>'});					
 		this.theLoadingMask.show();
-		this.theLoadingMaskShowTime = 5000;
+		this.theLoadingMaskShowTime = 4000;
 		
 		this.initFirstTabFieldset();
 		this.initFirstTab();
