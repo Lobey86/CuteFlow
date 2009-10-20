@@ -74,7 +74,7 @@ cf.formPopUpWindowSecondTab = function(){return {
 	            tooltip:'<?php echo __('Add new slot',null,'form'); ?>',
 				style: 'margin-botton:10px;',
 	            handler: function () {
-					cf.formPopUpWindowSecondTab.addFieldset('',0,-1);
+					cf.formPopUpWindowSecondTab.addFieldset('',0,-1,'',false);
 	            }
 			}]
 		});	
@@ -88,13 +88,14 @@ cf.formPopUpWindowSecondTab = function(){return {
 	*@param json griddata, griddate is -1 when a new fieldset is created. griddara contains a json string, when a docuemnt template is edited. then grid records are stored
 	*
 	*/
-	addFieldset: function (textfield, checkbox, griddata) {
+	addFieldset: function (textfield, checkbox, griddata, fieldsettitle,collapsed) {
 		var id = cf.formPopUpWindowSecondTab.theUniqueFieldsetId++;
-		var fieldset = cf.formPopUpWindowSecondTab.createFieldset(id,textfield, checkbox);
+		var fieldset = cf.formPopUpWindowSecondTab.createFieldset(id,textfield, checkbox,fieldsettitle,collapsed );
 		var grid = cf.formPopUpWindowSecondTab.createGrid(id);
 		fieldset.add(grid);
-		cf.formPopUpWindowSecondTab.theLeftColumnPanel.add(fieldset);
+		cf.formPopUpWindowSecondTab.theLeftColumnPanel.insert(cf.formPopUpWindowSecondTab.theLeftColumnPanel.items.length+1,fieldset);
 		cf.formPopUpWindowSecondTab.createDeleteButton.defer(100,this, [id]);
+		cf.formPopUpWindowSecondTab.createAddButton.defer(100,this, [id]);
 		cf.formPopUpWindowSecondTab.theLeftColumnPanel.doLayout();
 		cf.formPopUpWindowSecondTab.theLeftColumnPanel.doLayout();
 		cf.formPopUpWindowSecondTab.addItems.defer(500,this, [griddata,grid]);
@@ -124,18 +125,21 @@ cf.formPopUpWindowSecondTab = function(){return {
 	*@param boolen checkbox, is 0 when fieldset is created, can be 1/0 when document template is edited
 	*
 	*/
-	createFieldset: function (id,textfield,checkbox) {
-		return new Ext.form.FieldSet({
-			title: '<table><tr><td><div id="deletegrid_' + id + '"></div></td><td>&nbsp;&nbsp;&nbsp;<?php echo __('Slot settings',null,'form'); ?></td></tr></table>',
+	createFieldset: function (id,textfield,checkbox,title, collapsed) {
+		var fieldset =  new Ext.form.FieldSet({
+			title: '<table><tr><td><div id="deletegrid_' + id + '"></div></td><td></td><td><div id="addgridat_'+id+'"></div></td><td>&nbsp;&nbsp;&nbsp;<b id="slottitle_'+id+'">'+title+'<b></td></tr></table>',
 			height: 260,
 			width:360,
 			collapsible: true,
+			collapsed: collapsed,
 			id: 'formfieldset_' + id,
 			labelWidth:170,
 			items:[{
 				xtype:'textfield',
 				fieldLabel: '<?php echo __('Slot name',null,'form'); ?>',
 				value: textfield,
+				enableKeyEvents : true,
+				id: 'slotfieldsettextfieldid_' + id,
 				width: 130
 			},{
 				xtype: 'checkbox',
@@ -143,6 +147,48 @@ cf.formPopUpWindowSecondTab = function(){return {
 				checked: checkbox,
 				fieldLabel: '<?php echo __('To all Slot-Receivers at once',null,'form'); ?>'
 			}]
+		});
+		Ext.getCmp('slotfieldsettextfieldid_' + id).on('keyup', function(el, type) {
+				Ext.fly('slottitle_'+id).update(Ext.getCmp('slotfieldsettextfieldid_' + id).getValue());
+		});
+		return fieldset;
+	},
+	
+	createAddButton: function (id) {
+		var btn_edit = new Ext.form.Label({
+			renderTo: 'addgridat_' + id,
+			id: 'createaddbuttonid_' + id,
+			html: '<span style="cursor:pointer;"><img src="/images/icons/shape_square_add.png" /></span>',
+			listeners: {
+				render: function(c){
+					  c.getEl().on({
+						click: function(el){
+							for(var a=1;a<cf.formPopUpWindowSecondTab.theLeftColumnPanel.items.length;a++){
+								var item = cf.formPopUpWindowSecondTab.theLeftColumnPanel.getComponent(a);
+								var id = (c.getId());
+								id = id.replace('createaddbuttonid_', 'formfieldset_');
+								var item_id = item.getId();
+								if(item_id == id) {
+									var textfield = '';
+									var checkbox = 0;
+									var griddata = -1;
+									var id = cf.formPopUpWindowSecondTab.theUniqueFieldsetId++;
+									var fieldset = cf.formPopUpWindowSecondTab.createFieldset(id,textfield, checkbox,'');
+									var grid = cf.formPopUpWindowSecondTab.createGrid(id);
+									fieldset.add(grid);
+									cf.formPopUpWindowSecondTab.theLeftColumnPanel.insert(a+1,fieldset);
+									cf.formPopUpWindowSecondTab.createDeleteButton.defer(100,this, [id]);
+									cf.formPopUpWindowSecondTab.createAddButton.defer(100,this, [id]);
+									cf.formPopUpWindowSecondTab.theLeftColumnPanel.doLayout();
+									cf.formPopUpWindowSecondTab.theLeftColumnPanel.doLayout();
+									cf.formPopUpWindowSecondTab.addItems.defer(500,this, [griddata,grid]);
+								}
+							}						
+						},
+					scope: c
+				});
+				}
+			}
 		});
 	},
 	
