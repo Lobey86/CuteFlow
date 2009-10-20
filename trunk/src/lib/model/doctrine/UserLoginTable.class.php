@@ -234,4 +234,33 @@ class UserLoginTable extends Doctrine_Table {
                 ->offset($offset)
                 ->execute();
     }
+
+
+    /**
+     * Load all deletes user
+     * 
+     * @return Doctrine_Collection
+     */
+    public function getDeletedUser() {
+        return Doctrine_Query::create()
+                ->select('ul.*')
+                ->from('UserLogin ul')
+                ->orderby('ul.id DESC')
+                ->where('ul.deleted = ?', 1)
+                ->execute();
+    }
+
+    /**
+     * Activate a user, when he was deleted
+     * @param int $user_id, userid to activate
+     * @return true
+     */
+    public function activateUserById($user_id) {
+        Doctrine_Query::create()
+            ->update('UserLogin ul')
+            ->set('ul.deleted','?',0)
+            ->where('ul.id = ?', $user_id)
+            ->execute();
+        return true;
+    }
 }
