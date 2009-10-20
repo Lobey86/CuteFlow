@@ -133,7 +133,11 @@
 	 <trans-unit id="33">
         <source>Saving Data</source>
         <target>Speichere Daten</target>
-     </trans-unit>		 
+     </trans-unit>
+	 <trans-unit id="34">
+        <source>Delete text?</source>
+        <target>Text l&#246;schen?</target>
+     </trans-unit>	 
     </body>
   </file>
 </xliff>
