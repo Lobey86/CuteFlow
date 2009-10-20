@@ -212,7 +212,30 @@ class usermanagementActions extends sfActions {
         return sfView::NONE;
     }
 
+    /**
+     * Load deletes users
+     * @param sfWebRequest $request
+     * @return <type>
+     */
+    public function executeLoadDeletedUser(sfWebRequest $request) {
+        $json_result = array();
+        $usermanagement = new Usermanagement();
+        $result = UserLoginTable::instance()->getDeletedUser();
+        $json_result = $usermanagement->buildUser($result, 1);
+        $this->renderText('{"result":'.json_encode($json_result).'}');
+        return sfView::NONE;
+    }
 
+
+    /**
+     * Activate a user, when he was deleted
+     * @param sfWebRequest $request
+     * @return <type>
+     */
+    public function executeActivateUser(sfWebRequest $request) {
+        UserLoginTable::instance()->activateUserById($request->getParameter('id'));
+        return sfView::NONE;
+    }
 
 
 
