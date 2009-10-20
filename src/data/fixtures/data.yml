@@ -71,6 +71,10 @@ Credential:
     userModule: management
     userGroup: form
     userRight: deleteForm
+  c19:
+    userModule: administration
+    userGroup: usermanagement
+    userRight: showDeleted
 Role:
   r1:
     description: admin
@@ -143,6 +147,9 @@ CredentialRole:
   rc21:
     role_id: 1
     credential_id: 18
+  rc22:
+    role_id: 1
+    credential_id: 19
 
 UserLogin:
   ul1:
