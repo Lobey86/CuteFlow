@@ -54,7 +54,7 @@ Credential:
   c14:
     userModule: administration
     userGroup: usermanagement
-    userRight: addldap
+    userRight: addLdap
   c15:
     userModule: management
     userGroup: form
@@ -75,11 +75,36 @@ Credential:
     userModule: administration
     userGroup: usermanagement
     userRight: showDeleted
+  c20:
+    userModule: workflow
+    userGroup: circulation
+    userRight: showModule
+  c21:
+    userModule: workflow
+    userGroup: circulation
+    userRight: sendWorkflow
+  c22:
+    userModule: management
+    userGroup: mailinglist
+    userRight: showModule
+  c23:
+    userModule: management
+    userGroup: mailinglist
+    userRight: editMailinglist
+  c24:
+    userModule: management
+    userGroup: mailinglist
+    userRight: deleteMailinglist
+  c25:
+    userModule: management
+    userGroup: mailinglist
+    userRight: addMailinglist
+
 Role:
   r1:
     description: admin
   r2:
-    description: user
+    description: sender
   r3:
     description: gartenzwerg
 
@@ -150,18 +175,47 @@ CredentialRole:
   rc22:
     role_id: 1
     credential_id: 19
+  rc23:
+    role_id: 1
+    credential_id: 20
+  rc24:
+    role_id: 1
+    credential_id: 21
+  rc25:
+    role_id: 1
+    credential_id: 22
+  rc26:
+    role_id: 1
+    credential_id: 23
+  rc27:
+    role_id: 1
+    credential_id: 24
+  rc28:
+    role_id: 1
+    credential_id: 25
+
 
 UserLogin:
   ul1:
     username: admin
     password: admin
-    email: cuteflow@cuteflow
+    email: cuteflow@cuteflow.de
     role_id: 1
   ul2:
     username: admin2
     password: admin2
-    email: cuteflow@cuteflow
+    email: cuteflow@cuteflow.de
     role_id: 2
+  ul3:
+    username: luckyluke
+    password: luckyluke
+    email: cuteflow@cuteflow.de
+    role_id: 1
+  ul4:
+    username: kröte
+    password: kröte
+    email: cuteflow@cuteflow.de
+    role_id: 1
 
 UserData:
   ud1:
@@ -172,6 +226,14 @@ UserData:
     user_id: 2
     firstname: Admin2 Vorname
     lastname: Admin2 Nachname
+  ud3:
+    user_id: 3
+    firstname: Lucky
+    lastname: Luke
+  ud4:
+    user_id: 4
+    firstname: Härbert
+    lastname: Bert
 
 UserSetting:
   us1:
@@ -191,6 +253,36 @@ UserSetting:
      firstlogin: 1
   us2:
      user_id: 2
+     markyellow: 9
+     markred: 11
+     markorange: 13
+     refreshtime: 30
+     displayeditem: 75
+     durationtype: MINUTES
+     durationlength: 50
+     emailformat: html
+     emailtype: IFRAME
+     circulationdefaultsortcolumn: STATION
+     circulationdefaultsortdirection: DESC
+     showcirculationinpopup: 0
+     firstlogin: 1
+  us3:
+     user_id: 3
+     markyellow: 9
+     markred: 11
+     markorange: 13
+     refreshtime: 30
+     displayeditem: 75
+     durationtype: MINUTES
+     durationlength: 50
+     emailformat: html
+     emailtype: IFRAME
+     circulationdefaultsortcolumn: STATION
+     circulationdefaultsortdirection: DESC
+     showcirculationinpopup: 0
+     firstlogin: 1
+  us4:
+     user_id: 4
      markyellow: 9
      markred: 11
      markorange: 13
@@ -283,6 +375,86 @@ UserWorkflowConfiguration:
     position: 7
   uwc16:
     user_id: 2
+    columntext: TEMPLATE
+    isactive: 'false'
+    position: 8
+  uwc17:
+    user_id: 3
+    columntext: NAME
+    isactive: 'true'
+    position: 1
+  uwc18:
+    user_id: 3
+    columntext: STATION
+    isactive: 'true'
+    position: 2
+  uwc19:
+    user_id: 3
+    columntext: DAYS
+    isactive: 'true'
+    position: 3
+  uwc20:
+    user_id: 3
+    columntext: START
+    isactive: 'true'
+    position: 4
+  uwc21:
+    user_id: 3
+    columntext: SENDER
+    isactive: 'false'
+    position: 5
+  uwc226:
+    user_id: 3
+    columntext: TOTALTIME
+    isactive: 'false'
+    position: 6
+  uwc23:
+    user_id: 3
+    columntext: MAILINGLIST
+    isactive: 'false'
+    position: 7
+  uwc24:
+    user_id: 3
+    columntext: TEMPLATE
+    isactive: 'false'
+    position: 8
+  uwc25:
+    user_id: 4
+    columntext: NAME
+    isactive: 'true'
+    position: 1
+  uwc26:
+    user_id: 4
+    columntext: STATION
+    isactive: 'true'
+    position: 2
+  uwc27:
+    user_id: 4
+    columntext: DAYS
+    isactive: 'true'
+    position: 3
+  uwc28:
+    user_id: 4
+    columntext: START
+    isactive: 'true'
+    position: 4
+  uwc29:
+    user_id: 4
+    columntext: SENDER
+    isactive: 'false'
+    position: 5
+  uwc30:
+    user_id: 4
+    columntext: TOTALTIME
+    isactive: 'false'
+    position: 6
+  uwc31:
+    user_id: 4
+    columntext: MAILINGLIST
+    isactive: 'false'
+    position: 7
+  uwc32:
+    user_id: 4
     columntext: TEMPLATE
     isactive: 'false'
     position: 8
@@ -380,4 +552,35 @@ Field:
     writeprotected: 1
     color: #000000
 
+AuthorizationConfiguration:
+  ac1:
+    type: admin
+    deleteworkflow: 1
+    archiveworkflow: 1
+    stopneworkflow: 1
+    detailsworkflow: 1
+  ac2:
+    type: thesender
+    deleteworkflow: 0
+    archiveworkflow: 0
+    stopneworkflow: 0
+    detailsworkflow: 0
 
+  ac3:
+    type: sender
+    deleteworkflow: 1
+    archiveworkflow: 0
+    stopneworkflow: 0
+    detailsworkflow: 1
+  ac4:
+    type: senderwithrights
+    deleteworkflow: 1
+    archiveworkflow: 0
+    stopneworkflow: 1
+    detailsworkflow: 1
+  ac5:
+    type: receiver
+    deleteworkflow: 0
+    archiveworkflow: 0
+    stopneworkflow: 0
+    detailsworkflow: 0
