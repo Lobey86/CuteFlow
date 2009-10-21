@@ -263,4 +263,21 @@ class UserLoginTable extends Doctrine_Table {
             ->execute();
         return true;
     }
+
+
+    /**
+     * load all users, which have right to send circulation
+     * @return Doctrine_Collection
+     */
+    public function getAllSenderUser() {
+        return Doctrine_Query::create()
+               ->select('ul.id, CONCAT(ud.firstname,\' \',ud.lastname) AS name')
+               ->from('UserLogin ul')
+               ->leftJoin('ul.UserData ud')
+               ->leftJoin('ul.Role r')
+               ->leftJoin('r.CredentialRole cr')
+               ->where('cr.credential_id = ?', 21)
+               ->groupBy('ul.id')
+               ->execute();
+    }
 }

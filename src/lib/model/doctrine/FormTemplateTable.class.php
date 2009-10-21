@@ -46,9 +46,9 @@ class FormTemplateTable extends Doctrine_Table {
                 ->leftJoin('ft.FormSlot fs')
                 ->where ('ft.deleted = ?',0);
 		if($limit != -1 AND $offset != -1) {
-            $query->limit($limit)
-                  ->offset($offset);
-        }
+                    $query->limit($limit)
+                    ->offset($offset);
+                }
 		return $query->orderBy('ft.id DESC')
 		->groupby('ft.id')
 		->execute();
