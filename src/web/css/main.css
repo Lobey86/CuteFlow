@@ -1,5 +1,5 @@
 .usermodule_administration_usergroupIcon_usermanagement{
-	background-image: url(/images/icons/group.png) !important; 
+	background-image: url(/images/icons/user.png) !important; 
 	width: 16px;
 	height:16px;
 }
@@ -53,6 +53,18 @@
 	height:16px;
 }
 
+.usermodule_workflow_usergroupIcon_circulation{
+	background-image: url(/images/icons/report.png) !important; 
+	width: 16px;
+	height:16px;
+}
+
+.usermodule_management_usergroupIcon_mailinglist{
+	background-image: url(/images/icons/group.png) !important; 
+	width: 16px;
+	height:16px;
+}
+
 
 .no-icon {
 	display : none;
@@ -76,3 +88,10 @@
 	width: 17px;
 	height:17px;
 }
+
+#usermodule_workflow_Icon {
+	background-image: url(/images/icons/house.png); 
+	width: 17px;
+	height:17px;
+}
+
