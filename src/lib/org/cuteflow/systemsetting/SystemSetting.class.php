@@ -79,6 +79,29 @@ class SystemSetting {
         return $result[0]['firstlogin'];
     }
 
+    /**
+     * Function builds the data for the Extjs Grid, to change the order
+     * of circulation overview Columns.
+     *
+     * @param array $data
+     * @param sfContext, Context symfony object
+     * @return array $data, resultset
+     */
+    public function buildAuthorizationColumns(array $data, sfContext $context) {
+        
+        $result = array();
+        $a = 0;
+        foreach($data as $item) {
+            $result[$a]['type'] = $context->getI18N()->__($item['type'],null,'systemsetting');
+            $result[$a]['raw_type'] = $item['type'];
+            $result[$a]['id'] = $item['id'];
+            $result[$a]['deleteworkflow'] = $item['deleteworkflow'];
+            $result[$a]['archiveworkflow'] = $item['archiveworkflow'];
+            $result[$a]['stopneworkflow'] = $item['stopneworkflow'];
+            $result[$a++]['detailsworkflow'] = $item['detailsworkflow'];
+        }
+        return $result;
+    }
   
 }
 ?>
