@@ -94,24 +94,31 @@ cf.UserRoleGrid = function(){return {
 	*
 	* @param int id, id of the record
 	**/
-	createButtons: function (id) {
+	createButtons: function (id, label) {
+		var disabled = false;
+		if (label == 'admin' || label == 'sender') {
+			disabled = true;
+		}
 		var btn_delete = new Ext.form.Label(  {
 			renderTo: 'role_del_' + id,
 			html: '<span style="cursor:pointer;"><img src="/images/icons/cog_delete.png" /></span>',
+			disabled: disabled,
 			listeners: {
 				render: function(c){
 					c.getEl().on({
 						click: function(el){
-							Ext.Msg.show({
-							   title:'<?php echo __('Delete role?',null,'userrolemanagement'); ?>',
-							   msg: '<?php echo __('Delete role?',null,'userrolemanagement'); ?>',
-							   buttons: Ext.Msg.YESNO,
-							   fn: function(btn, text) {
-									if(btn == 'yes') {
-										cf.RoleCRUD.deleteRole(id);
-									}
-							   }
-							});
+							if(c.disabled == false) {
+								Ext.Msg.show({
+								   title:'<?php echo __('Delete role?',null,'userrolemanagement'); ?>',
+								   msg: '<?php echo __('Delete role?',null,'userrolemanagement'); ?>',
+								   buttons: Ext.Msg.YESNO,
+								   fn: function(btn, text) {
+										if(btn == 'yes') {
+											cf.RoleCRUD.deleteRole(id);
+										}
+								   }
+								});
+							}
 						},
 					scope: c
 					});
@@ -139,7 +146,7 @@ cf.UserRoleGrid = function(){return {
 	
 	/** render both buttons to grid **/
 	renderAction: function (data, cell, record, rowIndex, columnIndex, store, grid) {
-		cf.UserRoleGrid.createButtons.defer(500, this, [record.data['id']]);
+		cf.UserRoleGrid.createButtons.defer(500, this, [record.data['id'], record.data['description'],]);
 		return '<center><table><tr><td width="16"><div id="role_edit_'+ record.data['id'] +'"></div></td><td><div style="float:left;" id="role_del_'+ record.data['id'] +'"></div></td></tr></table></center>'
 	}
 

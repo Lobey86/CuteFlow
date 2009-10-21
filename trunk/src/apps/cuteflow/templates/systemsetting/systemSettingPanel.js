@@ -26,6 +26,7 @@ cf.administration_systemsetting = function(){return {
 			cf.authTab.init();
 			cf.userTab.init();
 			cf.guiTab.init();
+			cf.authorizationTab.init();
 			this.initTabPanel();
 			this.initFormPanel();
 			this.initPanel();
@@ -36,6 +37,7 @@ cf.administration_systemsetting = function(){return {
 			this.theTabPanel.add(cf.authTab.theAuthTab);
 			this.theTabPanel.add(cf.userTab.theUserTab);
 			this.theTabPanel.add(cf.guiTab.theGuiTab);
+			this.theTabPanel.add(cf.authorizationTab.theAuthorizationTab);
 			this.theFormPanel.add(this.theTabPanel);
 			this.theMainPanel.add(this.theSystemSettingPanel);
 			this.theSystemSettingPanel.add(this.theFormPanel);

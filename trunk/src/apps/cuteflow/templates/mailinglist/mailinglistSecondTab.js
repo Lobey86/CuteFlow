@@ -1,0 +1,1 @@
+cf.mailinglistSecondTab = function(){return {		thePanel					:false,				init: function () {		this.initPanel();		},			initPanel: function () {		this.thePanel = new Ext.Panel({			title: '<?php echo __('Mailing list Settings',null,'mailinglist'); ?>',			frame:true,			autoScroll: true,			height: cf.Layout.theRegionWest.getHeight() - 148		});	}	};}();
