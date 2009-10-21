@@ -182,6 +182,18 @@ WorkflowConfiguration:
     isactive: { type: string(10)}
     position: { type: integer(1), length: 3}
 
+AuthorizationConfiguration:
+  tableName: cf_authorizationconfiguration
+  columns:
+    id: { type: integer, length: 10, primary: true, autoincrement: true }
+    type: { type: string(45)}
+    deleteworkflow: { type: string(45)}
+    archiveworkflow: { type: string(45)}
+    stopneworkflow: { type: string(45)}
+    detailsworkflow: { type: string(45)}
+
+
+
 AdditionalText:
   actAs: [SoftDelete]
   tableName: cf_additionaltext
