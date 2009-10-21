@@ -84,6 +84,16 @@ class systemsettingActions extends sfActions {
             $data = $sysObj->buildUserSetting($data);
             UserConfigurationTable::instance()->updateUserConfiguration($data);
         }
+        // save authorization
+        if(isset($data['authorizationTab_hiddenpanel'])) {
+            AuthorizationConfigurationTable::instance()->setAuthorizationConfigurationToNull();
+            $items = $data['authorizationTab'];
+            foreach ($items as $item => $key) {
+                $item_data = array();
+                $item_data = explode('__', $item);
+                AuthorizationConfigurationTable::instance()->updateAuthorizationConfigurationById($item_data[0],$item_data[1]);
+            }
+        }
 
         // save worklfow config 
         WorkflowConfigurationTable::instance()->deleteSettings();
@@ -114,4 +124,20 @@ class systemsettingActions extends sfActions {
         $this->renderText('{"result":'.json_encode($worklfosettings).'}');
         return sfView::NONE;
     }
+
+
+    /**
+     * Load authorization settings
+     * @param sfWebRequest $request
+     * @return <type>
+     */
+    public function executeLoadAuthorization(sfWebRequest $request) {
+        $sysObj = new SystemSetting();
+        $authorization = AuthorizationConfigurationTable::instance()->getAuthorizationConfiguration()->toArray();
+        $worklfosettings = $sysObj->buildAuthorizationColumns($authorization, $this->getContext());
+
+        $this->renderText('{"result":'.json_encode($worklfosettings).'}');
+        return sfView::NONE;
+    }
+
 }

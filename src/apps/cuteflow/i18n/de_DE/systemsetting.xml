@@ -38,6 +38,26 @@
         <source>Saving Data</source>
         <target>Speichere Daten</target>
     </trans-unit>
+	<trans-unit id="10">
+        <source>admin</source>
+        <target>Admin</target>
+    </trans-unit>
+	<trans-unit id="11">
+        <source>sender</source>
+        <target>Erlaubte Sender</target>
+    </trans-unit>
+	<trans-unit id="12">
+        <source>senderwithrights</source>
+        <target>Alle benutzer mit Senderechten</target>
+    </trans-unit>
+	<trans-unit id="13">
+        <source>receiver</source>
+        <target>Empf&#228;nger</target>
+    </trans-unit>
+	<trans-unit id="14">
+        <source>thesender</source>
+        <target>Der Sender</target>
+    </trans-unit>
     </body>
   </file>
 </xliff>
