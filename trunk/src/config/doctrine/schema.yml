@@ -308,13 +308,14 @@ FieldTextarea:
     Field: { class: Field, local: field_id, foreign: id, foreignType: many, type: one }
 
 FormTemplate:
-  actAs: [SoftDelete]
+  actAs: [SoftDelete,Versionable]
   tableName: cf_formtemplate
   columns:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
     name: {type: string(100) }
 
 FormSlot:
+  actAs: [Versionable]
   tableName: cf_formslot
   columns:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
@@ -326,6 +327,7 @@ FormSlot:
     FormTemplate: { class: FormTemplate, local: formtemplate_id, foreign: id, foreignType: many, type: one }
 
 FormField:
+  actAs: [Versionable]
   tableName: cf_formfield
   columns:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
@@ -338,3 +340,26 @@ FormField:
     Field: { class: Field, local: field_id, foreign: id, foreignType: many, type: one }
     FormTemplate: { class: FormTemplate, local: formtemplate_id, foreign: id, foreignType: one, type: many }
 
+MailinglistTemplate:
+   actAs: [Versionable]
+   tableName: cf_mailinglisttemplate
+   columns:
+     id: { type: integer, length: 10, primary: true, autoincrement: true }
+     formtemplate_id: { type: integer, length: 10 }
+     mailinglistauthorization_id: { type: integer, length: 10 }
+     name: {type: string(100) }
+     isactive: { type: string(10)}
+   relations:
+     FormTemplate: { class: FormTemplate, local: formtemplate_id, foreign: id, foreignType: one, type: many }
+     MailinglistAuthorizationSetting: { class: MailinglistAuthorizationSetting, local: mailinglistauthorization_id, foreign: id, foreignType: one, type: one }
+
+
+MailinglistAuthorizationSetting:
+  tableName: cf_mailinglistauthorizationsetting
+  columns:
+    id: { type: integer, length: 10, primary: true, autoincrement: true }
+    type: { type: string(45)}
+    deleteworkflow: { type: string(45)}
+    archiveworkflow: { type: string(45)}
+    stopneworkflow: { type: string(45)}
+    detailsworkflow: { type: string(45)}
