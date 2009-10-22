@@ -117,6 +117,7 @@ cf.Navigation = function(){return {
 	*
 	*/
 	handleClick: function (node) {
+		
 		var c = ('cf.'+node.id);
 		var windowObject = eval(c);
 		if(cf.TabPanel.theTabPanel.items.length > 0) {

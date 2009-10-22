@@ -39,4 +39,37 @@ class layoutActions extends sfActions {
         UserSettingTable::instance()->setFirstLogin($this->getUser()->getAttribute('id'));
         return sfView::NONE;
     }
+
+    public function executeTest(sfWebRequest $request) {
+        $array[0] = 4;
+        $array[1] = 5;
+
+       //$fields_to_delete = Doctrine::getTable('FormField')->find($array)->delete();
+      //$slots_to_delete = Doctrine::getTable('FormField')->createQuery('ff')->whereIn('ff.formslot_id', $array)->execute()->delete();
+        
+      $slots_to_delete = Doctrine::getTable('FormSlot')->createQuery('fs')->whereIn('fs.id', $array)->execute()->delete();
+      //$slots_to_delete = Doctrine::getTable('FormSlot')->createQuery('fs')->whereIn('fs.id', $array);
+die;
+
+
+        print_r ($slots_to_delete);die;
+      
+
+       //print_r ($fields_to_delete);die;
+       
+
+/*$user = Doctrine::getTable('User')
+  ->createQuery('u')
+  ->leftJoin('u.Address a')
+  ->leftJoin('a.AddressType t')
+  ->findOneById(1);*/
+
+        return sfView::NONE;
+    }
+
+
+
+
+
+
 }
