@@ -113,8 +113,68 @@ class Form {
             foreach($items as $gridrow) {
                 $formfield = new FormField();
                 $formfield->setFormslotId($slot_id);
-                $formfield->setFieldId($gridrow);
+                $formfield->setFieldId($gridrow['id']);
                 $formfield->setFormtemplateId($id);
+                $formfield->setPosition($fieldposition++);
+                $formfield->save();
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Update an docuemtn template
+     *
+     * @param int $id, id of the entry
+     * @param array $data, post data
+     * @return true
+     */
+    public function updateForm($id, array $data) {
+        $formtemplate = Doctrine::getTable('FormTemplate')->find($id);
+        $formtemplate->setName($data['createFileWindow_fieldname']);
+        $formtemplate->save();
+        $formtemplate_id = $formtemplate->getId();
+        if($data['deletedSlots'] != '') {
+            $delted_slots = explode(',', $data['deletedSlots']);
+            Doctrine::getTable('FormField')->createQuery('ff')->whereIn('ff.formslot_id', $delted_slots)->execute()->delete();
+            Doctrine::getTable('FormSlot')->createQuery('fs')->whereIn('fs.id', $delted_slots)->execute()->delete();
+            #FormFieldTable::instance()->deleteFieldBySlotId($delted_slots);
+            #FormSlotTable::instance()->deleteFormSlotById($delted_slots);
+        }
+        if($data['deletedFields'] != '') {
+            $delted_fields = explode(',', $data['deletedFields']);
+            Doctrine::getTable('FormField')->createQuery('ff')->whereIn('ff.id', $delted_fields)->execute()->delete();
+            #FormFieldTable::instance()->deleteFieldById($delted_fields);
+        }
+
+        $grid = $data['slot'];
+        $slotposition = 1;
+        foreach($grid as $slot) {
+            
+            if($slot['slot_id'] != '' AND is_numeric($slot['slot_id'] )){
+                $slottemplate = Doctrine::getTable('FormSlot')->find($slot['slot_id']);
+            }
+            else {
+                $slottemplate = new FormSlot();
+            }
+            $slottemplate->setFormtemplateId($id);
+            $slottemplate->setName($slot['title']);
+            $slottemplate->setPosition($slotposition++);
+            $slottemplate->setSendtoallreceivers($slot['receiver']);
+            $slottemplate->save();
+            $slottemtplate_id = $slottemplate->getId();
+            $gridItems = $slot['grid'];
+            $fieldposition = 1;
+            foreach($gridItems as $gridRow) {
+                if($gridRow['isNew'] != '' AND is_numeric($gridRow['isNew'])) {
+                    $formfield = Doctrine::getTable('FormField')->find($gridRow['isNew']);
+                }
+                else {
+                    $formfield = new FormField();
+                }
+                $formfield->setFormslotId($slottemtplate_id);
+                $formfield->setFieldId($gridRow['id']);
+                $formfield->setFormtemplateId($formtemplate_id);
                 $formfield->setPosition($fieldposition++);
                 $formfield->save();
             }
