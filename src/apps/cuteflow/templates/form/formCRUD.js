@@ -76,19 +76,39 @@ cf.formCRUD = function(){return {
 		var panel = cf.formPopUpWindowSecondTab.theLeftColumnPanel;
 		if(panel.items.length > 1) {
 			var counter = 0;
+			deltetedSlots = cf.formPopUpWindowSecondTab.theRemoveSlot;
+			deletedFields = cf.formPopUpWindowSecondTab.theRemoveField
+			var hiddenfield = new Ext.form.Field({
+				autoCreate : {tag:'input', type: 'hidden', name: 'deletedSlots', value:deltetedSlots, width: 0}			
+			});
+			cf.createFormWindow.theFirstTab.add(hiddenfield);
+			var hiddenfield = new Ext.form.Field({
+				autoCreate : {tag:'input', type: 'hidden', name: 'deletedFields', value:deletedFields, width: 0}			
+			});
+			cf.createFormWindow.theFirstTab.add(hiddenfield);
 			for(var a=1;a<panel.items.length;a++) { // toolbar will not be added 
 				
 				var item  = panel.getComponent(a);
 				var textfield = item.getComponent(0);
 				var checkbox = item.getComponent(1);
-				var grid = item.getComponent(2);
+				var hiddenslot = item.getComponent(2);
+				var grid = item.getComponent(3);
 				var save = false;
+
 				if(grid.store.getCount() > 0 && textfield.getValue() != '') { // only fields with name and elements in grid will be saved!
 					cf.createFormWindow.theTabPanel.setActiveTab(0);
 					save = true;
 					checkboxvalue = checkbox.getValue() == false ? 0 : 1;
 					textfieldvalue = textfield.getValue();
+					hiddenvalue = hiddenslot.getValue();
 					
+					
+
+					
+					var hiddenfield = new Ext.form.Field({
+						autoCreate : {tag:'input', type: 'hidden', name: 'slot['+counter+'][slot_id]', value:hiddenvalue, width: 0}			
+					});
+					cf.createFormWindow.theFirstTab.add(hiddenfield);
 					
 					var hiddenfield = new Ext.form.Field({
 						autoCreate : {tag:'input', type: 'hidden', name: 'slot['+counter+'][title]', value:textfieldvalue, width: 0}			
@@ -103,7 +123,11 @@ cf.formCRUD = function(){return {
 					for(var c=0;c<grid.store.getCount();c++) {
 						var row = grid.getStore().getAt(c);
 						var hiddenfield = new Ext.form.Field({
-							autoCreate : {tag:'input', type: 'hidden', name: 'slot['+counter+'][grid]['+c+']', value:row.data.id, width: 0}			
+							autoCreate : {tag:'input', type: 'hidden', name: 'slot['+counter+'][grid]['+c+'][id]', value:row.data.id, width: 0}			
+						});
+						cf.createFormWindow.theFirstTab.add(hiddenfield);
+						var hiddenfield = new Ext.form.Field({
+							autoCreate : {tag:'input', type: 'hidden', name: 'slot['+counter+'][grid]['+c+'][isNew]', value:row.data.newItem, width: 0}			
 						});
 						cf.createFormWindow.theFirstTab.add(hiddenfield);
 					

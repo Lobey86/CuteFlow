@@ -8,9 +8,13 @@ cf.formPopUpWindowSecondTab = function(){return {
 	theUniqueFieldsetId				:false,
 	theFormCM						:false,
 	theUniqueGridStoreId			:false,
+	theRemoveSlot					:false,
+	theRemoveField					:false,
 	
 	/** calls all necesary functions**/
 	init: function () {
+		this.theRemoveSlot = '';
+		this.theRemoveField = '';
 		cf.formPopUpWindowFieldGrid.init();
 		this.initFormCM();
 		this.theUniqueFieldsetId = 0;
@@ -74,7 +78,7 @@ cf.formPopUpWindowSecondTab = function(){return {
 	            tooltip:'<?php echo __('Add new slot',null,'form'); ?>',
 				style: 'margin-botton:10px;',
 	            handler: function () {
-					cf.formPopUpWindowSecondTab.addFieldset('',0,-1,'',false);
+					cf.formPopUpWindowSecondTab.addFieldset('',0,-1,'',false,'');
 	            }
 			}]
 		});	
@@ -88,9 +92,9 @@ cf.formPopUpWindowSecondTab = function(){return {
 	*@param json griddata, griddate is -1 when a new fieldset is created. griddara contains a json string, when a docuemnt template is edited. then grid records are stored
 	*
 	*/
-	addFieldset: function (textfield, checkbox, griddata, fieldsettitle,collapsed) {
+	addFieldset: function (textfield, checkbox, griddata, fieldsettitle,collapsed,hidden_id) {
 		var id = cf.formPopUpWindowSecondTab.theUniqueFieldsetId++;
-		var fieldset = cf.formPopUpWindowSecondTab.createFieldset(id,textfield, checkbox,fieldsettitle,collapsed );
+		var fieldset = cf.formPopUpWindowSecondTab.createFieldset(id,textfield, checkbox,fieldsettitle,collapsed,hidden_id);
 		var grid = cf.formPopUpWindowSecondTab.createGrid(id);
 		fieldset.add(grid);
 		cf.formPopUpWindowSecondTab.theLeftColumnPanel.insert(cf.formPopUpWindowSecondTab.theLeftColumnPanel.items.length+1,fieldset);
@@ -111,8 +115,8 @@ cf.formPopUpWindowSecondTab = function(){return {
 		
 		if(griddata != -1) {
 			for (var a=0;a<griddata.length;a++) {
-				var Rec = Ext.data.Record.create({name: 'unique_id'},{name: 'id'},{name: 'title'});
-				grid.store.add(new Rec({unique_id: cf.formPopUpWindowSecondTab.theUniqueGridStoreId++, id: griddata[a].fieldid, title: griddata[a].fieldname})); // important to add unique ID's
+				var Rec = Ext.data.Record.create({name: 'unique_id'},{name: 'id'},{name: 'title'},{name: 'newItem'});
+				grid.store.add(new Rec({unique_id: cf.formPopUpWindowSecondTab.theUniqueGridStoreId++, id: griddata[a].fieldid, title: griddata[a].fieldname, newItem: griddata[a].id})); // important to add unique ID's
 			}
 		}
 	},
@@ -125,7 +129,7 @@ cf.formPopUpWindowSecondTab = function(){return {
 	*@param boolen checkbox, is 0 when fieldset is created, can be 1/0 when document template is edited
 	*
 	*/
-	createFieldset: function (id,textfield,checkbox,title, collapsed) {
+	createFieldset: function (id,textfield,checkbox,title, collapsed, hidden_id) {
 		var fieldset =  new Ext.form.FieldSet({
 			title: '<table><tr><td><div id="deletegrid_' + id + '"></div></td><td></td><td><div id="addgridat_'+id+'"></div></td><td>&nbsp;&nbsp;&nbsp;<b id="slottitle_'+id+'">'+title+'<b></td></tr></table>',
 			height: 260,
@@ -146,6 +150,10 @@ cf.formPopUpWindowSecondTab = function(){return {
 				style: 'margin-top:2px;',
 				checked: checkbox,
 				fieldLabel: '<?php echo __('To all Slot-Receivers at once',null,'form'); ?>'
+			},{
+				xtype: 'hidden'	,
+				id: 'slotfieldsethiddenfieldid_' + id,
+				value: hidden_id
 			}]
 		});
 		Ext.getCmp('slotfieldsettextfieldid_' + id).on('keyup', function(el, type) {
@@ -173,7 +181,7 @@ cf.formPopUpWindowSecondTab = function(){return {
 									var checkbox = 0;
 									var griddata = -1;
 									var id = cf.formPopUpWindowSecondTab.theUniqueFieldsetId++;
-									var fieldset = cf.formPopUpWindowSecondTab.createFieldset(id,textfield, checkbox,'');
+									var fieldset = cf.formPopUpWindowSecondTab.createFieldset(id,textfield, checkbox,'',false,'');
 									var grid = cf.formPopUpWindowSecondTab.createGrid(id);
 									fieldset.add(grid);
 									cf.formPopUpWindowSecondTab.theLeftColumnPanel.insert(a+1,fieldset);
@@ -212,6 +220,14 @@ cf.formPopUpWindowSecondTab = function(){return {
 							   buttons: Ext.Msg.YESNO,
 							   fn: function(btn, text) {
 									if(btn == 'yes') {
+										if(Ext.getCmp('slotfieldsethiddenfieldid_' + id).getValue() != '') {
+											if(cf.formPopUpWindowSecondTab.theRemoveSlot  == false) {
+												cf.formPopUpWindowSecondTab.theRemoveSlot =  Ext.getCmp('slotfieldsethiddenfieldid_' + id).getValue();
+											}
+											else {
+												cf.formPopUpWindowSecondTab.theRemoveSlot = cf.formPopUpWindowSecondTab.theRemoveSlot + ',' + Ext.getCmp('slotfieldsethiddenfieldid_' + id).getValue();
+											}	
+										}
 										var fieldset = Ext.getCmp('formfieldset_' + id);
 										cf.formPopUpWindowSecondTab.theLeftColumnPanel.remove(fieldset);
 										fieldset.destroy();
@@ -250,7 +266,7 @@ cf.formPopUpWindowSecondTab = function(){return {
 			collapsible: false,
 			style:'margin-top:5px;',
 			store: new Ext.data.SimpleStore({
-				fields: [{name: 'unique_id'},{name: 'id'},{name: 'title'}]
+				fields: [{name: 'unique_id'},{name: 'id'},{name: 'title'}, {name: 'newItem'}]
 			}),
 			cm: this.theFormCM
 		});
@@ -263,8 +279,8 @@ cf.formPopUpWindowSecondTab = function(){return {
 					if (ddSource.grid != grid){
 						for(var a=0;a<data.selections.length;a++) { // if data is from right grid, add it to store. 
 							var item = data.selections[a].data;
-							var Rec = Ext.data.Record.create({name: 'unique_id'},{name: 'id'},{name: 'title'});
-							grid.store.add(new Rec({unique_id: cf.formPopUpWindowSecondTab.theUniqueGridStoreId++, id: item.id, title: item.title})); // important to add unique ID's
+							var Rec = Ext.data.Record.create({name: 'unique_id'},{name: 'id'},{name: 'title'},{name: 'newItem'});
+							grid.store.add(new Rec({unique_id: cf.formPopUpWindowSecondTab.theUniqueGridStoreId++, id: item.id, title: item.title, newItem: ''})); // important to add unique ID's
 						}
 					}
 					else { // if data is coming from left, then reorder is done.
@@ -326,6 +342,14 @@ cf.formPopUpWindowSecondTab = function(){return {
 						click: function(el){
 							var item = theStore.findExact('unique_id', id );
 							theStore.remove(item);
+							if(item.data.newItem != '') {
+								if(cf.formPopUpWindowSecondTab.theRemoveField  == false) {
+									cf.formPopUpWindowSecondTab.theRemoveField = item.data.newItem;
+								}
+								else {
+									cf.formPopUpWindowSecondTab.theRemoveField = cf.formPopUpWindowSecondTab.theRemoveField + ',' + item.data.newItem;
+								}	
+							}
 						},
 					scope: c
 				});

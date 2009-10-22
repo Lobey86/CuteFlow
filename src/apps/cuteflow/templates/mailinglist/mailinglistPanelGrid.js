@@ -36,7 +36,7 @@ cf.mailinglistPanelGrid = function(){return {
 			{header: "#", width: 50, sortable: true, dataIndex: '#', css : "text-align : left;font-size:12px;align:center;"},
 			{header: "<?php echo __('Name',null,'mailinglist'); ?>", width: 280, sortable: false, dataIndex: 'name', css : "text-align : left;font-size:12px;align:center;"},
 			{header: "<?php echo __('is default',null,'mailinglist'); ?>", width: 150, sortable: false, dataIndex: 'default', css : "text-align:center;font-size:12px;align:center;"},
-			{header: "<div ext:qtip=\"<table><tr><td><img src='/images/icons/table_edit.png' />&nbsp;&nbsp;</td><td><?php echo __('Edit Document template',null,'mailinglist'); ?></td></tr><tr><td><img src='/images/icons/table_delete.png' />&nbsp;&nbsp;</td><td><?php echo __('Delete Document template',null,'mailinglist'); ?></td></tr></table>\" ext:qwidth=\"200\"><?php echo __('Action',null,'mailinglist'); ?></div>", width: 80, sortable: false, dataIndex: 'action', css : "text-align : left;font-size:12px;align:center;" ,renderer: this.renderAction}
+			{header: "<div ext:qtip=\"<table><tr><td><img src='/images/icons/group_edit.png' />&nbsp;&nbsp;</td><td><?php echo __('Edit Mailing list template',null,'mailinglist'); ?></td></tr><tr><td><img src='/images/icons/group_delete.png' />&nbsp;&nbsp;</td><td><?php echo __('Delete Mailing List template',null,'mailinglist'); ?></td></tr></table>\" ext:qwidth=\"200\"><?php echo __('Action',null,'mailinglist'); ?></div>", width: 80, sortable: false, dataIndex: 'action', css : "text-align : left;font-size:12px;align:center;" ,renderer: this.renderAction}
 		]);
 	},
 	
@@ -66,7 +66,7 @@ cf.mailinglistPanelGrid = function(){return {
 			},{
 				xtype: 'button',
 				text: '<?php echo __('Search',null,'mailinglist'); ?>',
-				icon: '/images/icons/table_go.png',
+				icon: '/images/icons/group_go.png',
 				handler: function (){
 					cf.mailinglistPanelGrid.doSearch();
 				}
@@ -81,8 +81,8 @@ cf.mailinglistPanelGrid = function(){return {
 					cf.mailinglistPanelGrid.theMailinglistStore.reload();	
 				}
 			},'-',{	
-				icon: '/images/icons/table_add.png',
-	            tooltip:'<?php echo __('Add new Document template',null,'mailinglist'); ?>',
+				icon: '/images/icons/group_add.png',
+	            tooltip:'<?php echo __('Add new Mailing List',null,'mailinglist'); ?>',
 				disabled: <?php $arr = $sf_user->getAttribute('credential');echo $arr['management_mailinglist_addMailinglist'];?>,
 				style: 'margin-left:20px;',
 	            handler: function () {
@@ -165,7 +165,7 @@ cf.mailinglistPanelGrid = function(){return {
 	createEditButton: function (id) {
 		var btn_edit = new Ext.mailinglist.Label({
 			renderTo: 'mailinglist_edit' + id,
-			html: '<span style="cursor:pointer;"><img src="/images/icons/table_edit.png" /></span>',
+			html: '<span style="cursor:pointer;"><img src="/images/icons/group_edit.png" /></span>',
 			disabled: <?php $arr = $sf_user->getAttribute('credential');echo $arr['management_mailinglist_editMailinglist'];?>,
 			listeners: {
 				render: function(c){
@@ -190,7 +190,7 @@ cf.mailinglistPanelGrid = function(){return {
 	createDeleteButton: function (id) {
 		var btn_edit = new Ext.mailinglist.Label({
 			renderTo: 'mailinglist_delete' + id,
-			html: '<span style="cursor:pointer;"><img src="/images/icons/table_delete.png" /></span>',
+			html: '<span style="cursor:pointer;"><img src="/images/icons/group_delete.png" /></span>',
 			disabled: <?php $arr = $sf_user->getAttribute('credential');echo $arr['management_mailinglist_deleteMailinglist'];?>,
 			listeners: {
 				render: function(c){

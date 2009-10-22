@@ -20,6 +20,7 @@ cf.mailinglistPopUpWindow = function(){return {
 		this.initWindow('','<?php echo __('Create new Mailing list',null,'mailinglist'); ?>');
 		this.theTabPanel.add(cf.mailinglistFirstTab.theFormPanel);
 		this.theMailinglistPopUpWindow.add(this.theTabPanel);
+		this.theMailinglistPopUpWindow.doLayout();
 		this.theMailinglistPopUpWindow.show();
 		
 	},
