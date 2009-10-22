@@ -30,6 +30,22 @@ class FormSlotTable extends Doctrine_Table {
     }
 
 
+    /**
+     *
+     * @param array $data, items to delete
+     * @return true
+     */
+    public function deleteFormSlotById(array $data) {
+        Doctrine_Query::create()
+            ->delete('FormSlot')
+            ->from ('FormSlot fs')
+            ->whereIn('fs.id', $data)
+            ->execute();
+         return true;
+
+    }
+
+
 
 
 }

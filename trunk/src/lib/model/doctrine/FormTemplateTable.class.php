@@ -22,7 +22,7 @@ class FormTemplateTable extends Doctrine_Table {
      */
     public function getFormTemplateById($id) {
         return Doctrine_Query::create()
-                    ->select('ft.*')
+                    ->select('ft.*, fs.*')
                     ->from('FormTemplate ft')
                     ->leftJoin('ft.FormSlot fs')
                     ->where('ft.deleted = ?', 0)
