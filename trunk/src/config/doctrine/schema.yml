@@ -187,10 +187,10 @@ AuthorizationConfiguration:
   columns:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
     type: { type: string(45)}
-    deleteworkflow: { type: string(45)}
-    archiveworkflow: { type: string(45)}
-    stopneworkflow: { type: string(45)}
-    detailsworkflow: { type: string(45)}
+    deleteworkflow: { type: integer(1), length: 3}
+    archiveworkflow: { type: integer(1), length: 3}
+    stopneworkflow: { type: integer(1), length: 3}
+    detailsworkflow: { type: integer(1), length: 3}
 
 
 
@@ -313,6 +313,8 @@ FormTemplate:
   columns:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
     name: {type: string(100) }
+  relations:
+    MailinglistTemplate: { class: MailinglistTemplate, local: id, foreign: formtemplate_id, foreignType: many, type: one }
 
 FormSlot:
   actAs: [Versionable]
@@ -332,34 +334,43 @@ FormField:
   columns:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
     formslot_id: { type: integer, length: 10 }
-    formtemplate_id: { type: integer, length: 10 }
     field_id: { type: integer, length: 10 }
     position: { type: integer(1), length: 3 }
   relations:
     FormSlot: { class: FormField, local: formslot_id, foreign: id, foreignType: one, type: many }
     Field: { class: Field, local: field_id, foreign: id, foreignType: many, type: one }
-    FormTemplate: { class: FormTemplate, local: formtemplate_id, foreign: id, foreignType: one, type: many }
 
 MailinglistTemplate:
-   actAs: [Versionable]
+   actAs: [Versionable, SoftDelete]
    tableName: cf_mailinglisttemplate
    columns:
      id: { type: integer, length: 10, primary: true, autoincrement: true }
      formtemplate_id: { type: integer, length: 10 }
-     mailinglistauthorization_id: { type: integer, length: 10 }
      name: {type: string(100) }
      isactive: { type: string(10)}
    relations:
-     FormTemplate: { class: FormTemplate, local: formtemplate_id, foreign: id, foreignType: one, type: many }
-     MailinglistAuthorizationSetting: { class: MailinglistAuthorizationSetting, local: mailinglistauthorization_id, foreign: id, foreignType: one, type: one }
+     MailinglistAuthorizationSetting: { class: MailinglistAuthorizationSetting, local: id, foreign: mailinglisttemplate_id, foreignType: many, type: one }
+     MailinglistAllowedSender: { class: MailinglistAllowedSender, local: id, foreign: mailinglisttemplate_id, foreignType: many, type: one }
 
 
 MailinglistAuthorizationSetting:
   tableName: cf_mailinglistauthorizationsetting
   columns:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
+    mailinglisttemplate_id: { type: integer, length: 10 }
     type: { type: string(45)}
-    deleteworkflow: { type: string(45)}
-    archiveworkflow: { type: string(45)}
-    stopneworkflow: { type: string(45)}
-    detailsworkflow: { type: string(45)}
+    deleteworkflow: { type: integer(1), length: 3}
+    archiveworkflow: { type: integer(1), length: 3}
+    stopneworkflow: { type: integer(1), length: 3}
+    detailsworkflow: { type: integer(1), length: 3}
+
+MailinglistAllowedSender:
+  tableName: cf_mailinglistallowedsender
+  columns:
+    id: { type: integer, length: 10, primary: true, autoincrement: true }
+    mailinglisttemplate_id: { type: integer, length: 10 }
+    user_id: { type: integer, length: 10 }
+    position: { type: integer(1), length: 3 }
+  relations:
+    UserLogin: { class: UserLogin, local: user_id, foreign: id, foreignType: one, type: many }
+  
