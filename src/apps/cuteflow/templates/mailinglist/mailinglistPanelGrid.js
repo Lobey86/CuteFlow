@@ -22,10 +22,9 @@ cf.mailinglistPanelGrid = function(){return {
 	doSearch: function () {
 		var textfield = Ext.getCmp('mailinglistPanelGrid_searchtextfield').getValue();
 		if(textfield != '') {
-			var url = encodeURI('<?php echo build_dynamic_javascript_url('mailinglist/LoadAllmailinglistsFilter')?>/name/' + textfield);
+			var url = encodeURI('<?php echo build_dynamic_javascript_url('mailinglist/LoadAllMailinglistsFilter')?>/name/' + textfield);
 			cf.mailinglistPanelGrid.theMailinglistStore.proxy.setApi(Ext.data.Api.actions.read,url);
 			cf.mailinglistPanelGrid.theMailinglistStore.reload();	
-			
 		}
 	},
 	
@@ -35,7 +34,8 @@ cf.mailinglistPanelGrid = function(){return {
 		this.theMailinglistCM  =  new Ext.grid.ColumnModel([
 			{header: "#", width: 50, sortable: true, dataIndex: '#', css : "text-align : left;font-size:12px;align:center;"},
 			{header: "<?php echo __('Name',null,'mailinglist'); ?>", width: 280, sortable: false, dataIndex: 'name', css : "text-align : left;font-size:12px;align:center;"},
-			{header: "<?php echo __('is default',null,'mailinglist'); ?>", width: 150, sortable: false, dataIndex: 'default', css : "text-align:center;font-size:12px;align:center;"},
+			{header: "<?php echo __('Document Template',null,'mailinglist'); ?>", width: 280, sortable: false, dataIndex: 'formtemplate_name', css : "text-align : left;font-size:12px;align:center;"},
+			{header: "<?php echo __('is default',null,'mailinglist'); ?>", width: 150, sortable: false, dataIndex: 'isdefault', css : "text-align:center;font-size:12px;align:center;", renderer: this.renderRadiobox},
 			{header: "<div ext:qtip=\"<table><tr><td><img src='/images/icons/group_edit.png' />&nbsp;&nbsp;</td><td><?php echo __('Edit Mailing list template',null,'mailinglist'); ?></td></tr><tr><td><img src='/images/icons/group_delete.png' />&nbsp;&nbsp;</td><td><?php echo __('Delete Mailing List template',null,'mailinglist'); ?></td></tr></table>\" ext:qwidth=\"200\"><?php echo __('Action',null,'mailinglist'); ?></div>", width: 80, sortable: false, dataIndex: 'action', css : "text-align : left;font-size:12px;align:center;" ,renderer: this.renderAction}
 		]);
 	},
@@ -45,13 +45,15 @@ cf.mailinglistPanelGrid = function(){return {
 		this.theMailinglistStore = new Ext.data.JsonStore({
 				root: 'result',
 				totalProperty: 'total',
-				url: '<?php echo build_dynamic_javascript_url('mailinglist/LoadAllmailinglists')?>',
+				url: '<?php echo build_dynamic_javascript_url('mailinglist/LoadAllMailinglists')?>',
 				autoload: false,
 				fields: [
 					{name: '#'},
 					{name: 'id'},
 					{name: 'name'},
-					{name: 'default'}
+					{name: 'formtemplate_id'},
+					{name: 'formtemplate_name'},
+					{name: 'isactive'}
 				]
 		});
 	},
@@ -63,7 +65,7 @@ cf.mailinglistPanelGrid = function(){return {
 				id: 'mailinglistPanelGrid_searchtextfield',
 				emptyText:'<?php echo __('Search for name',null,'mailinglist'); ?>',
 				width:180
-			},{
+			},'-',{
 				xtype: 'button',
 				text: '<?php echo __('Search',null,'mailinglist'); ?>',
 				icon: '/images/icons/group_go.png',
@@ -76,7 +78,7 @@ cf.mailinglistPanelGrid = function(){return {
 				icon: '/images/icons/delete.png',
 				handler: function () {
 					var textfield = Ext.getCmp('mailinglistPanelGrid_searchtextfield').setValue();
-					var url = encodeURI('<?php echo build_dynamic_javascript_url('mailinglist/LoadAllmailinglists')?>/name/' + textfield);
+					var url = '<?php echo build_dynamic_javascript_url('mailinglist/LoadAllMailinglists')?>';
 					cf.mailinglistPanelGrid.theMailinglistStore.proxy.setApi(Ext.data.Api.actions.read,url);
 					cf.mailinglistPanelGrid.theMailinglistStore.reload();	
 				}
@@ -145,7 +147,7 @@ cf.mailinglistPanelGrid = function(){return {
 			cm: this.theMailinglistCM
 		});
 		this.theMailinglistGrid.on('afterrender', function(grid) {
-			//cf.mailinglistPanelGrid.theMailinglistStore.load();
+			cf.mailinglistPanelGrid.theMailinglistStore.load();
 		});	
 		
 	}, 
@@ -163,7 +165,7 @@ cf.mailinglistPanelGrid = function(){return {
 	*@param int id, id of the record
 	*/
 	createEditButton: function (id) {
-		var btn_edit = new Ext.mailinglist.Label({
+		var btn_edit = new Ext.form.Label({
 			renderTo: 'mailinglist_edit' + id,
 			html: '<span style="cursor:pointer;"><img src="/images/icons/group_edit.png" /></span>',
 			disabled: <?php $arr = $sf_user->getAttribute('credential');echo $arr['management_mailinglist_editMailinglist'];?>,
@@ -188,7 +190,7 @@ cf.mailinglistPanelGrid = function(){return {
 	*
 	*/
 	createDeleteButton: function (id) {
-		var btn_edit = new Ext.mailinglist.Label({
+		var btn_edit = new Ext.form.Label({
 			renderTo: 'mailinglist_delete' + id,
 			html: '<span style="cursor:pointer;"><img src="/images/icons/group_delete.png" /></span>',
 			disabled: <?php $arr = $sf_user->getAttribute('credential');echo $arr['management_mailinglist_deleteMailinglist'];?>,
@@ -214,5 +216,49 @@ cf.mailinglistPanelGrid = function(){return {
 				}
 			}
 		});
+	},
+	
+	/** button renderer for edit and delete **/
+	renderRadiobox: function (data, cell, record, rowIndex, columnIndex, store, grid) {
+		cf.mailinglistPanelGrid.createRadiobox.defer(500,this, [record.data['id'], record.data['isactive']]);
+		return '<center><table><tr><td width="16"><div id="mailinglist_radiobox'+ record.data['id'] +'"></div></td></tr></table></center>';
+	},
+	
+	
+	createRadiobox: function (id, isactive) {
+		var check = isactive == 1 ? true : false;
+		var radio = new Ext.form.Radio({
+			renderTo: 'mailinglist_radiobox' + id,
+			name: 'mailinglist_radioboxGrid_radioStandard',
+			checked: check,
+			listeners: {
+				render: function(c){
+					c.getEl().on({
+						click: function(el){
+							Ext.Ajax.request({  
+								url : '<?php echo build_dynamic_javascript_url('mailinglist/SetStandard')?>/id/' + id, 
+								success: function(objServerResponse){  
+								}
+							});
+						},
+						scope: c
+					});
+				}
+			}
+		});
+		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 };}();

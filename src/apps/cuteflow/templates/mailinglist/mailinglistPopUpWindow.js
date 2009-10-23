@@ -15,7 +15,6 @@ cf.mailinglistPopUpWindow = function(){return {
 		this.theLoadingMask.show();
 		this.theLoadingMaskShowTime = 2000;*/
 		cf.mailinglistFirstTab.init();
-		cf.mailinglistSecondTab.init();
 		this.initTabPanel();
 		this.initWindow('','<?php echo __('Create new Mailing list',null,'mailinglist'); ?>');
 		this.theTabPanel.add(cf.mailinglistFirstTab.theFormPanel);
@@ -80,7 +79,7 @@ cf.mailinglistPopUpWindow = function(){return {
 				text:'<?php echo __('Store',null,'mailinglist'); ?>', 
 				icon: '/images/icons/accept.png',
 				handler: function () {
-					cf.formCRUD.initSave(id);
+					cf.mailinglistCRUD.initSave(id);
 				}
 			},{
 				text:'<?php echo __('Close',null,'mailinglist'); ?>', 

@@ -152,7 +152,7 @@ cf.additionalTextGrid = function(){return {
 			}
 	
 			
-		})
+		});
 	},
 	
 	/** function to render copy, edit and delete button **/
