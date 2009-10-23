@@ -92,12 +92,7 @@ class formActions extends sfActions {
     public function executeSaveForm(sfWebRequest $request) {
         $form = new Form();
         $data = $request->getPostParameters();
-        $formtemplate = new FormTemplate();
-        $formtemplate->setName($data['createFileWindow_fieldname']);
-        $formtemplate->save();
-        $template_id = $formtemplate->getId();
-        $grid = $data['slot'];
-        $form->saveForm($template_id, $grid);
+        $form->saveForm($data);
         $this->renderText('{success:true}');
         return sfView::NONE;
     }
