@@ -72,7 +72,7 @@ cf.mailinglistPanelGrid = function(){return {
 				handler: function (){
 					cf.mailinglistPanelGrid.doSearch();
 				}
-			},'-',{
+			},{
 				xtype: 'button',
 				tooltip: '<?php echo __('Clear field',null,'mailinglist'); ?>',
 				icon: '/images/icons/delete.png',
