@@ -11,9 +11,10 @@ class Form {
      * Builds datatree for a template, when in edit mode
      *
      * @param Doctrine_Collection $data
+     * @param boolean $getSlotFields, is true by default, to get fields for each slot
      * @return <type>
      */
-    public function buildSingleForm(Doctrine_Collection $data) {
+    public function buildSingleForm(Doctrine_Collection $data, $getSlotFields = true) {
         $result = array();
         $a = 0;
 
@@ -21,7 +22,7 @@ class Form {
             $slot = $item->getFormSlot();
             $result['title'] = $item->getName();
             $result['id'] = $item->getId();
-            $result['slot'] = $this->buildSlot($slot); // add slots
+            $result['slot'] = $this->buildSlot($slot,$getSlotFields); // add slots
         }
         return $result;
     }
@@ -30,9 +31,10 @@ class Form {
      * Adds slots to a DocumentTemplate, is calles by buildSingleForm
      *
      * @param Doctrine_Collection $data, data
+     * @param boolean $getSlotFields, is true by default, to get fields for each slot
      * @return array $result
      */
-    private function buildSlot(Doctrine_Collection $data) {
+    private function buildSlot(Doctrine_Collection $data,$getSlotFields) {
         $result = array();
         $a = 0;
 
@@ -43,8 +45,10 @@ class Form {
             $result[$a]['formtemplateid'] = $item->getFormtemplateId();
             $result[$a]['title'] = $item->getName();
             $result[$a]['receiver'] = $item->getSendtoallreceivers();
-            $result[$a++]['field'] = $this->buildField($field);
-            
+            if($getSlotFields == true) {
+                $result[$a]['field'] = $this->buildField($field);
+            }
+            $a++;
         }
         return $result;
     }
@@ -62,7 +66,7 @@ class Form {
         foreach ($data as $item) {
             $field = $item->getField();
             $result[$a]['id'] = $item->getId();
-            $result[$a]['formtemplateid'] = $item->getFormslotId();
+            $result[$a]['formslotid'] = $item->getFormslotId();
             $result[$a]['fieldid'] = $item->getFieldId();
             $result[$a++]['fieldname'] = $field->getTitle();
         }
@@ -95,10 +99,15 @@ class Form {
      * adds slots and fields to database
      *
      * @param int $id, id to add
-     * @param array $grid, post data to store
+     * @param array $data, post data to store
      * @return true
      */
-    public function saveForm($id, array $grid) {
+    public function saveForm(array $data) {
+        $formtemplate = new FormTemplate();
+        $formtemplate->setName($data['createFileWindow_fieldname']);
+        $formtemplate->save();
+        $id = $formtemplate->getId();
+        $grid = $data['slot'];
         $slotposition = 1;
         foreach($grid as $slot) {
             $fieldposition = 1;
@@ -114,7 +123,6 @@ class Form {
                 $formfield = new FormField();
                 $formfield->setFormslotId($slot_id);
                 $formfield->setFieldId($gridrow['id']);
-                $formfield->setFormtemplateId($id);
                 $formfield->setPosition($fieldposition++);
                 $formfield->save();
             }
@@ -174,7 +182,6 @@ class Form {
                 }
                 $formfield->setFormslotId($slottemtplate_id);
                 $formfield->setFieldId($gridRow['id']);
-                $formfield->setFormtemplateId($formtemplate_id);
                 $formfield->setPosition($fieldposition++);
                 $formfield->save();
             }
