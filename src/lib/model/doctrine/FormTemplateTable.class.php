@@ -35,9 +35,9 @@ class FormTemplateTable extends Doctrine_Table {
      *
      * Load all forms with number of slots
      * return Doctrine_Collection
-	 * @param int $limit, limit of records
-	 * @param int $offset, offset
-	 * @return Doctrine_Collection
+     * @param int $limit, limit of records
+     * @param int $offset, offset
+     * @return Doctrine_Collection
      */
     public function getAllFormTemplates($limit, $offset) {
         $query = Doctrine_Query::create()
@@ -105,7 +105,7 @@ class FormTemplateTable extends Doctrine_Table {
                 ->select('COUNT(*) AS anzahl')
                 ->from('FormTemplate ft')
                 ->where('ft.deleted = ?', 0)
-				->andWhere('ft.name LIKE ?','%'.$name.'%')
+                ->andWhere('ft.name LIKE ?','%'.$name.'%')
                 ->execute();
 	}
 	
