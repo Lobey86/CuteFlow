@@ -351,6 +351,7 @@ MailinglistTemplate:
    relations:
      MailinglistAuthorizationSetting: { class: MailinglistAuthorizationSetting, local: id, foreign: mailinglisttemplate_id, foreignType: many, type: one }
      MailinglistAllowedSender: { class: MailinglistAllowedSender, local: id, foreign: mailinglisttemplate_id, foreignType: many, type: one }
+     
 
 
 MailinglistAuthorizationSetting:
@@ -373,4 +374,26 @@ MailinglistAllowedSender:
     position: { type: integer(1), length: 3 }
   relations:
     UserLogin: { class: UserLogin, local: user_id, foreign: id, foreignType: one, type: many }
-  
+
+MailinglistSlot:
+  tableName: cf_mailinglistslot
+  columns:
+    id: { type: integer, length: 10, primary: true, autoincrement: true }
+    mailinglisttemplate_id: { type: integer, length: 10 }
+    slot_id: { type: integer, length: 10 }
+    position: { type: integer(1), length: 3 }
+  relations:
+    MailinglistUser: { class: MailinglistUser, local: id, foreign: mailinglistslot_id, foreignType: one, type: many }
+    MailinglistTemplate: { class: MailinglistTemplate, local: mailinglisttemplate_id, foreign: id, foreignType: many, type: one }
+    FormSlot: { class: FormSlot, local: slot_id, foreign: id, foreignType: one, type: one }
+
+MailinglistUser:
+  tableName: cf_mailinglistuser
+  columns:
+    id: { type: integer, length: 10, primary: true, autoincrement: true }
+    mailinglistslot_id: { type: integer, length: 10 }
+    user_id: { type: integer, length: 10 }
+    position: { type: integer(1), length: 3 }
+  relations:
+    UserLogin: { class: UserLogin, local: user_id, foreign: id, foreignType: one, type: many }
+    
