@@ -12,6 +12,8 @@ cf.mailinglistPanelGrid = function(){return {
 	
 	/** inits all necessary functions to build the grid and its toolbars **/
 	init: function () {
+		this.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'usermanagement'); ?>'});					
+		this.theLoadingMask.show();
 		this.initStore();
 		this.initBottomToolbar();
 		this.initCM();
@@ -65,14 +67,14 @@ cf.mailinglistPanelGrid = function(){return {
 				id: 'mailinglistPanelGrid_searchtextfield',
 				emptyText:'<?php echo __('Search for name',null,'mailinglist'); ?>',
 				width:180
-			},'-',{
+			},{
 				xtype: 'button',
 				text: '<?php echo __('Search',null,'mailinglist'); ?>',
 				icon: '/images/icons/group_go.png',
 				handler: function (){
 					cf.mailinglistPanelGrid.doSearch();
 				}
-			},{
+			},'-',{
 				xtype: 'button',
 				tooltip: '<?php echo __('Clear field',null,'mailinglist'); ?>',
 				icon: '/images/icons/delete.png',
@@ -148,6 +150,7 @@ cf.mailinglistPanelGrid = function(){return {
 		});
 		this.theMailinglistGrid.on('afterrender', function(grid) {
 			cf.mailinglistPanelGrid.theMailinglistStore.load();
+			cf.mailinglistPanelGrid.theLoadingMask.hide();
 		});	
 		
 	}, 

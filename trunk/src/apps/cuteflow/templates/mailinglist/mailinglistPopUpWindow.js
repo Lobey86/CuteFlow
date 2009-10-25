@@ -11,9 +11,9 @@ cf.mailinglistPopUpWindow = function(){return {
 	*@param int id, id of the record is empty, only set in editmode
 	*/
 	initNewMailinglist: function (id) {
-		/*this.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'usermanagement'); ?>'});					
+		this.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'usermanagement'); ?>'});					
 		this.theLoadingMask.show();
-		this.theLoadingMaskShowTime = 2000;*/
+		this.theLoadingMaskShowTime = 2000;
 		cf.mailinglistFirstTab.init('<?php echo build_dynamic_javascript_url('systemsetting/LoadAuthorization')?>',id);
 		this.initTabPanel();
 		this.initWindow('','<?php echo __('Create new Mailing list',null,'mailinglist'); ?>');
@@ -21,6 +21,7 @@ cf.mailinglistPopUpWindow = function(){return {
 		this.theMailinglistPopUpWindow.add(this.theTabPanel);
 		this.theMailinglistPopUpWindow.doLayout();
 		this.theMailinglistPopUpWindow.show();
+		this.theLoadingMask.hide();
 		
 	},
 
@@ -30,6 +31,9 @@ cf.mailinglistPopUpWindow = function(){return {
 	*@param int id, id is set
 	*/
 	initEdit: function (id) {
+		this.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'usermanagement'); ?>'});					
+		this.theLoadingMask.show();
+		this.theLoadingMaskShowTime = 2000;
 		cf.mailinglistFirstTab.init('<?php echo build_dynamic_javascript_url('mailinglist/LoadAuthorization')?>/id/'+id,id);
 		this.initTabPanel();
 		this.initWindow(id,'<?php echo __('Edit existing Mailing list',null,'mailinglist'); ?>');
