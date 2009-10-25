@@ -154,9 +154,9 @@ cf.createFileWindow = function(){return {
 			modal: true,
 			closable: true,
 			modal: true,
-			height: 630,
+			height: cf.Layout.theRegionWest.getHeight() - 50,
 			width: 700,
-			autoScroll: true,
+			autoScroll: false,
 			shadow: false,
 			minimizable: false,
 			draggable: true,
@@ -189,7 +189,8 @@ cf.createFileWindow = function(){return {
 	initFormPanel: function () {
 		this.theFormPanel = new Ext.FormPanel({
 			frame:true,
-			height: 556
+			height: cf.Layout.theRegionWest.getHeight() - 80,
+			autoScroll: true
 			
 		});
 		

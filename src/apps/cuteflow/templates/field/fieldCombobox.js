@@ -27,7 +27,7 @@ cf.fieldCombobox = function(){return {
 		this.theComboboxFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('Combobox settings',null,'field'); ?>',
 			width: 600,
-			height: 335,
+			height: 250,
 			hidden: true,
 			style: 'margin-top:20px;margin-left:5px;',
 			labelWidth: 170
@@ -64,7 +64,7 @@ cf.fieldCombobox = function(){return {
 			sm: new Ext.grid.RowSelectionModel(),
 			allowContainerDrop : true,
 			width: 'auto',
-			height: 285,
+			height: 210,
 			clicksToEdit: 1,
 			collapsible: false,
 			style:'margin-top:5px;margin-left:5px;margin-right:5px;',
