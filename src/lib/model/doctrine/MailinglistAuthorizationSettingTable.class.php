@@ -30,5 +30,19 @@ class MailinglistAuthorizationSettingTable extends Doctrine_Table {
         return true;
     }
 
+    /**
+     * Get auth. settings by id
+     * @param int $id
+     * @return Doctrine_Collection
+     */
+    public function getAuthorizationById($id) {
+        return Doctrine_Query::create()
+            ->select('mlas.*')
+            ->from('MailinglistAuthorizationSetting mlas')
+            ->where ('mlas.mailinglisttemplate_id = ?',$id)
+            ->execute();
+
+    }
+
 
 }
