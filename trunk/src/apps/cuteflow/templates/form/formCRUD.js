@@ -24,7 +24,6 @@ cf.formCRUD = function(){return {
 	*@param int id, id is set, if in editmode, is not set, then ''
 	*/
 	initSave: function (id) {
-		
 		if (id != '') {
 			var url = '<?php echo build_dynamic_javascript_url('form/UpdateForm')?>/id/' + id;
 			var title = '<?php echo __('Data updated',null,'form'); ?>';

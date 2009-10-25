@@ -14,7 +14,7 @@ cf.mailinglistPopUpWindow = function(){return {
 		/*this.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'usermanagement'); ?>'});					
 		this.theLoadingMask.show();
 		this.theLoadingMaskShowTime = 2000;*/
-		cf.mailinglistFirstTab.init();
+		cf.mailinglistFirstTab.init('<?php echo build_dynamic_javascript_url('systemsetting/LoadAuthorization')?>',id);
 		this.initTabPanel();
 		this.initWindow('','<?php echo __('Create new Mailing list',null,'mailinglist'); ?>');
 		this.theTabPanel.add(cf.mailinglistFirstTab.theFormPanel);
@@ -29,8 +29,15 @@ cf.mailinglistPopUpWindow = function(){return {
 	* calls all necessary functions, to edit a  form
 	*@param int id, id is set
 	*/
-	initEditForm: function (id) {
-		
+	initEdit: function (id) {
+		cf.mailinglistFirstTab.init('<?php echo build_dynamic_javascript_url('mailinglist/LoadAuthorization')?>/id/'+id,id);
+		this.initTabPanel();
+		this.initWindow(id,'<?php echo __('Edit existing Mailing list',null,'mailinglist'); ?>');
+		this.theTabPanel.add(cf.mailinglistFirstTab.theFormPanel);
+		this.theMailinglistPopUpWindow.add(this.theTabPanel);
+		this.theMailinglistPopUpWindow.doLayout();
+		this.theMailinglistPopUpWindow.show();
+		this.addData(id);
 	},
 	
 	/**
@@ -41,15 +48,14 @@ cf.mailinglistPopUpWindow = function(){return {
 	*/
 	addData: function (id) {
 		Ext.Ajax.request({  
-			url : '<?php echo build_dynamic_javascript_url('form/LoadSingleForm')?>/id/' + id, 
+			url : '<?php echo build_dynamic_javascript_url('mailinglist/LoadSingleMailinglist')?>/id/' + id, 
 			success: function(objServerResponse){
 				theJsonTreeData = Ext.util.JSON.decode(objServerResponse.responseText);
-				Ext.getCmp('createFileWindow_fieldname').setValue(theJsonTreeData.result.title);
-				var data = theJsonTreeData.result;
-				for(var a=0;a<data.slot.length;a++) { // call function to create fieldset
-					var checked = data.slot[a].receiver == 0 ? 0 : 1;
-					cf.formPopUpWindowSecondTab.addFieldset(data.slot[a].title,checked, data.slot[a].field,data.slot[a].title, true);
-				}
+				Ext.getCmp('mailinglistFirstTab_documenttemplate_id').setValue(theJsonTreeData.result.formtemplate_id);
+				Ext.getCmp('mailinglistFirstTab_nametextfield').setValue(theJsonTreeData.result.name);
+				Ext.getCmp('mailinglistFirstTab_documenttemplate_id').setDisabled(true);
+				cf.mailinglistSecondTab.init(Ext.getCmp('mailinglistFirstTab_documenttemplate_id').getRawValue(),Ext.getCmp('mailinglistFirstTab_documenttemplate_id').getValue(), true,'<?php echo build_dynamic_javascript_url('mailinglist/LoadFormWithUser')?>', id);
+				cf.mailinglistPopUpWindow.theTabPanel.add(cf.mailinglistSecondTab.thePanel);
 			}
 		});	
 	},

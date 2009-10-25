@@ -174,7 +174,7 @@ cf.mailinglistPanelGrid = function(){return {
 					  c.getEl().on({
 						click: function(el){
 							if (c.disabled == false) {
-								cf.createmailinglistWindow.initEditmailinglist(id);
+								cf.mailinglistPopUpWindow.initEdit(id);
 							}
 						},
 					scope: c
