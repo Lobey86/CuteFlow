@@ -13,4 +13,21 @@ class MailinglistAllowedSenderTable extends Doctrine_Table {
     }
 
 
+    /**
+     * ID of the users
+     * @param int $id
+     * @return Doctrine_Collection
+     */
+    public function getAllowedSenderById($id) {
+        return Doctrine_Query::create()
+               ->select('mlas.*, mlas.id as databaseId, ul.id, CONCAT(ud.firstname,\' \',ud.lastname) AS name')
+               ->from('MailinglistAllowedSender mlas')
+               ->leftJoin('mlas.UserLogin ul')
+               ->leftJoin('ul.UserData ud')
+               ->where('mlas.mailinglisttemplate_id = ?', $id)
+               ->orderBy('mlas.position asc')
+               ->groupBy('ul.id')
+               ->execute();
+    }
+
 }
