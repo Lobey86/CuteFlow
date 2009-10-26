@@ -105,6 +105,8 @@ class Form {
     public function saveForm(array $data) {
         $formtemplate = new FormTemplate();
         $formtemplate->setName($data['createFileWindow_fieldname']);
+        $formtemplate->setVersion(1);
+        $formtemplate->setActiveversion(1);
         $formtemplate->save();
         $id = $formtemplate->getId();
         $grid = $data['slot'];
@@ -143,28 +145,22 @@ class Form {
         $formtemplate->save();
         $formtemplate_id = $formtemplate->getId();
         if($data['deletedSlots'] != '') {
-            $delted_slots = explode(',', $data['deletedSlots']);
-            Doctrine::getTable('FormField')->createQuery('ff')->whereIn('ff.formslot_id', $delted_slots)->execute()->delete();
-            Doctrine::getTable('FormSlot')->createQuery('fs')->whereIn('fs.id', $delted_slots)->execute()->delete();
-            #FormFieldTable::instance()->deleteFieldBySlotId($delted_slots);
-            #FormSlotTable::instance()->deleteFormSlotById($delted_slots);
+            $deleted_slots = explode(',', $data['deletedSlots']);
+            MailinglistUserTable::instance()->deleteUserBySlotIdInArray($deleted_slots);
+            MailinglistSlotTable::instance()->deleteSlotByIdInArray($deleted_slots);
+            FormFieldTable::instance()->deleteFieldBySlotIdInArray($deleted_slots);
+            FormSlotTable::instance()->deleteSlotByArray($deleted_slots);
+
         }
         if($data['deletedFields'] != '') {
             $delted_fields = explode(',', $data['deletedFields']);
-            Doctrine::getTable('FormField')->createQuery('ff')->whereIn('ff.id', $delted_fields)->execute()->delete();
-            #FormFieldTable::instance()->deleteFieldById($delted_fields);
+            FormFieldTable::instance()->deleteFieldByIdInArray($delted_fields);
         }
 
         $grid = $data['slot'];
         $slotposition = 1;
         foreach($grid as $slot) {
-            
-            if($slot['slot_id'] != '' AND is_numeric($slot['slot_id'] )){
-                $slottemplate = Doctrine::getTable('FormSlot')->find($slot['slot_id']);
-            }
-            else {
-                $slottemplate = new FormSlot();
-            }
+            $slottemplate = $slot['slot_id'] == '' ? new FormSlot() : Doctrine::getTable('FormSlot')->find($slot['slot_id']);
             $slottemplate->setFormtemplateId($id);
             $slottemplate->setName($slot['title']);
             $slottemplate->setPosition($slotposition++);
@@ -172,19 +168,36 @@ class Form {
             $slottemplate->save();
             $slottemtplate_id = $slottemplate->getId();
             $gridItems = $slot['grid'];
+            if($slot['slot_id'] == '') {
+                $this->insertNewSlotToMailinglist($slotposition, $slottemtplate_id, $formtemplate_id);
+            }
             $fieldposition = 1;
             foreach($gridItems as $gridRow) {
-                if($gridRow['isNew'] != '' AND is_numeric($gridRow['isNew'])) {
-                    $formfield = Doctrine::getTable('FormField')->find($gridRow['isNew']);
-                }
-                else {
-                    $formfield = new FormField();
-                }
+                $formfield = $gridRow['isNew'] == '' ? new FormField() : Doctrine::getTable('FormField')->find($gridRow['isNew']);
                 $formfield->setFormslotId($slottemtplate_id);
                 $formfield->setFieldId($gridRow['id']);
                 $formfield->setPosition($fieldposition++);
                 $formfield->save();
             }
+        }
+        return true;
+    }
+
+    /**
+     *
+     * @param int $position, new position of the record
+     * @param int $slot_id, id of the slot
+     * @param int $template_id, id of the templated which is currently used
+     * @return true
+     */
+    private function insertNewSlotToMailinglist($position, $slot_id, $template_id) {
+        $templates = MailinglistTemplateTable::instance()->getMailinglistByDocumentTemplateId($template_id)->toArray();
+        foreach($templates as $item) {
+            $slotobj = new MailinglistSlot();
+            $slotobj->setPosition($position);
+            $slotobj->setSlotId($slot_id);
+            $slotobj->setMailinglisttemplateId($item['id']);
+            $slotobj->save();
         }
         return true;
     }

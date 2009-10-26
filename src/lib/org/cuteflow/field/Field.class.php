@@ -221,12 +221,17 @@ class FieldClass {
      * @param array $data, Post data
      */
     public function saveRadiogroup($id, $data) {
+        FieldRadiogroupTable::instance()->setRadiogroupToNullById($id);
+        if($data['removeItem'] != '') {
+            $delted_fields = explode(',', $data['removeItem']);
+            Doctrine::getTable('FieldRadiogroup')->createQuery('frg')->whereIn('frg.id', $delted_fields)->execute()->delete();
+        }
         $records = $data['grid'];
         $position = 1;
-        foreach($records as $item => $key) {
-            $radiogroup = new FieldRadiogroup();
-            $radiogroup->setValue($item);
-            $radiogroup->setIsactive($key);
+        foreach($records as $item) {
+            $radiogroup = $item['databseId'] == '' ? new FieldRadiogroup() : Doctrine::getTable('FieldRadiogroup')->find($item['databseId']);
+            $radiogroup->setValue($item['value']);
+            $radiogroup->setIsactive($item['checked']);
             $radiogroup->setFieldId($id);
             $radiogroup->setPosition($position++);
             $radiogroup->save();
@@ -239,12 +244,17 @@ class FieldClass {
      * @param array $data, POST data
      */
     public function saveCheckboxgroup($id, $data) {
+        FieldCheckboxgroupTable::instance()->setCheckboxgroupToNullById($id);
+        if($data['removeItem'] != '') {
+            $delted_fields = explode(',', $data['removeItem']);
+            Doctrine::getTable('FieldCheckboxgroup')->createQuery('fcbg')->whereIn('fcbg.id', $delted_fields)->execute()->delete();
+        }
         $records = $data['grid'];
         $position = 1;
-        foreach($records as $item => $key) {
-            $checkboxgroup = new FieldCheckboxgroup();
-            $checkboxgroup->setValue($item);
-            $checkboxgroup->setIsactive($key);
+        foreach($records as $item) {
+            $checkboxgroup = $item['databseId'] == '' ? new FieldCheckboxgroup() : Doctrine::getTable('FieldCheckboxgroup')->find($item['databseId']);
+            $checkboxgroup->setValue($item['value']);
+            $checkboxgroup->setIsactive($item['checked']);
             $checkboxgroup->setFieldId($id);
             $checkboxgroup->setPosition($position++);
             $checkboxgroup->save();
@@ -257,12 +267,17 @@ class FieldClass {
      * @param array $data, POST data
      */
     public function saveCombobox($id, $data) {
+        FieldComboboxTable::instance()->setComboboxToNullById($id);
+        if($data['removeItem'] != '') {
+            $delted_fields = explode(',', $data['removeItem']);
+            Doctrine::getTable('FieldCombobox')->createQuery('fcb')->whereIn('fcb.id', $delted_fields)->execute()->delete();
+        }
         $records = $data['grid'];
         $position = 1;
-        foreach($records as $item => $key) {
-            $combobox = new FieldCombobox();
-            $combobox->setValue($item);
-            $combobox->setIsactive($key);
+        foreach($records as $item) {
+            $combobox = $item['databseId'] == '' ? new FieldCombobox() : Doctrine::getTable('FieldCombobox')->find($item['databseId']);
+            $combobox->setValue($item['value']);
+            $combobox->setIsactive($item['checked']);
             $combobox->setFieldId($id);
             $combobox->setPosition($position++);
             $combobox->save();

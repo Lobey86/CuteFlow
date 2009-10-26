@@ -96,13 +96,18 @@ class UserCRUD {
      * @return true
      */
     public function addUserAgent(array $data, $user_id) {
+        if($data['removeUseragent'] != '') {
+            $delete_user = explode(',', $data['removeUseragent']);
+            UserAgentTable::instance()->deleteUserAgentByArray($delete_user);
+        }
+
         $agents = array();
         if(isset($data['useragents'])) {
             $agents = $data['useragents'];
             $position = 1;
             foreach($agents as $item) {
-                $userAgent = new UserAgent();
-                $userAgent->setUseragentId($item);
+                $userAgent = $item['databaseId'] == '' ? new UserAgent() : Doctrine::getTable('UserAgent')->find($item['databaseId']);
+                $userAgent->setUseragentId($item['id']);
                 $userAgent->setUserId($user_id);
                 $userAgent->setPosition($position++);
                 $userAgent->save();
