@@ -80,8 +80,6 @@ class loginActions extends sfActions {
 
 
     public function executeAuth(sfWebRequest $request) {
-
-
          /*$credentials = new ezcAuthenticationPasswordCredentials( 'manu@apk.local', 'gisbert' );
          $ldap = new ezcAuthenticationLdapInfo( 'apk.local', 's=%s%', 'dc=apk,dc=local', 389 );
          $authentication = new ezcAuthentication( $credentials );
@@ -91,6 +89,8 @@ class loginActions extends sfActions {
 
              echo "test";
          }*/
+
+
 
         $ds = ldap_connect( 'apk.local' );
         ldap_set_option($ds, LDAP_OPT_PROTOCOL_VERSION, 3) ;

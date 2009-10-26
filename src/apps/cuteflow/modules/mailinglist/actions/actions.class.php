@@ -73,14 +73,6 @@ class mailinglistActions extends sfActions {
     }
 
 
-    public function executeUpdateMailinglist(sfWebRequest $request) {
-
-
-
-
-        $this->renderText('{success:true}');
-        return sfView::NONE;
-    }
 
     /**
      * Save mailinglist
@@ -88,41 +80,10 @@ class mailinglistActions extends sfActions {
      * @return <type>
      */
     public function executeSaveMailinglist(sfWebRequest $request) {
+        $mailinglist = new Mailinglist();
         $user = array();
         $data = $request->getPostParameters();
-        $mailinglist = new Mailinglist();
-        $mailObj = new MailinglistTemplate();
-        $mailObj->setFormtemplateId($data['mailinglistFirstTab_documenttemplate']);
-        $mailObj->setName($data['mailinglistFirstTab_nametextfield']);
-        $mailObj->setIsactive(0);
-        $mailObj->save();
-        $template_id = $mailObj->getId();
-        $mailinglist->createAuthorizationEntry($template_id);
-        $mailinglist->saveAuthorization($template_id,$data['mailinglistFirstTab']);
-        if(isset($data['user'])) {
-            $mailinglist->saveUser($template_id,$data['user']);
-        }
-        $slots = $data['slot'];
-        $slotposition = 1;
-        foreach($slots as $slot) {
-            $slotobj = new MailinglistSlot();
-            $slotobj->setMailinglisttemplateId($template_id);
-            $slotobj->setSlotId($slot['slot_id']);
-            $slotobj->setPosition($slotposition++);
-            $slotobj->save();
-            $slot_id = $slotobj->getId();
-            $records = array();
-            $records = isset($slot['grid']) ? $slot['grid'] : $records;
-            $userposition = 1;
-            foreach($records as $record) {
-                $userobj = new MailinglistUser();
-                $userobj->setMailinglistslotId($slot_id);
-                $userobj->setUserId($record['id']);
-                $userobj->setPosition($userposition++);
-                $userobj->save();
-            }
-        }
-
+        $mailinglist->saveMailinglist($data);
         $this->renderText('{success:true}');
         return sfView::NONE;
     }
@@ -148,7 +109,11 @@ class mailinglistActions extends sfActions {
         return sfView::NONE;
     }
 
-
+    /**
+     * Load Mailinglist by filter
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeLoadAllMailinglistsFilter(sfWebRequest $request) {
         $mailinglist = new Mailinglist();
         $limit = $this->getUser()->getAttribute('userSettings');
@@ -157,12 +122,14 @@ class mailinglistActions extends sfActions {
         $anz = MailinglistTemplateTable::instance()->getTotalSumOfMailingListTemplatesByFilter($search);
         $json_result = $mailinglist->buildAllMailinglists($data);
         $this->renderText('({"total":"'.$anz[0]->getAnzahl().'","result":'.json_encode($json_result).'})');
-
-
         return sfView::NONE;
     }
 
-
+    /**
+     * Load Authorization settings for an exisiting template
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeLoadAuthorization(sfWebRequest $request) {
         $sysObj = new SystemSetting();
         $data = MailinglistAuthorizationSettingTable::instance()->getAuthorizationById($request->getParameter('id'))->toArray();
@@ -171,7 +138,11 @@ class mailinglistActions extends sfActions {
         return sfView::NONE;
     }
 
-
+    /**
+     * Load all sender with sending rights
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeLoadAllAllowedSender(sfWebRequest $request) {
         $mailinglist = new Mailinglist();
         $data = MailinglistAllowedSenderTable::instance()->getAllowedSenderById($request->getParameter('id'))->toArray();
@@ -182,25 +153,42 @@ class mailinglistActions extends sfActions {
     }
 
 
-
+    /**
+     * Load a Mailinglist template including users (when in editmode)
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeLoadFormWithUser(sfWebRequest $request) {
         $mailinglist = new Mailinglist();
         $data = MailinglistTemplateTable::instance()->getMailinglistById($request->getParameter('id'));
         $json_result = $mailinglist->buildSingleMailinglist($data);
-        #print_r ($json_result);die;
         $this->renderText('{"result":'.json_encode($json_result).'}');
         return sfView::NONE;
     }
-
+    /**
+     * Load name of an single Mailinglist
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeLoadSingleMailinglist(sfWebRequest $request) {
         $mailinglist = new Mailinglist();
-        $data = MailinglistTemplateTable::instance()->getMailinglistById($request->getParameter('id'))->toArray();
-        $this->renderText('{"result":'.json_encode($data[0]).'}');
+        $data = MailinglistTemplateTable::instance()->getMailinglistById($request->getParameter('id'));
+        $json_data = $mailinglist->buildAllMailinglists($data);
+        $this->renderText('{"result":'.json_encode($json_data[0]).'}');
         return sfView::NONE;
     }
 
-    
-    public function executeUpdateForm(sfWebRequest $request) {
+    /**
+     * Update an mailinglist
+     * @param sfWebRequest $request
+     * @return <type>
+     */
+    public function executeUpdateMailinglist(sfWebRequest $request) {
+        $mailinglist = new Mailinglist();
+        $user = array();
+        $data = $request->getPostParameters();
+        $template_id = $request->getParameter('id');
+        $mailinglist->updateMailinglist($template_id, $data);
         $this->renderText('{success:true}');
         return sfView::NONE;
     }

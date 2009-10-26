@@ -40,10 +40,19 @@ cf.updateUser = function(){return {
 	/** add useragents tp panel **/
 	buildUserAgent: function (theFormpanel) {
 		var grid = cf.userSecondTab.theUserAgentGrid;
+		var hiddenfield = new Ext.form.Field({
+			autoCreate : {tag:'input', type: 'hidden', name: 'removeUseragent', value:cf.userSecondTab.theRemoveField, width: 0}			
+		});
+		cf.updateUser.theHiddenPanel.add(hiddenfield);
+		
 		for(var a=0;a<grid.store.getCount();a++) {
 			var row = grid.getStore().getAt(a);
 			var hiddenfield = new Ext.form.Field({
-				autoCreate : {tag:'input', type: 'hidden', name: 'useragents[]', value:row.data.user_id, width: 0}			
+				autoCreate : {tag:'input', type: 'hidden', name: 'useragents['+a+'][id]', value:row.data.user_id, width: 0}			
+			});
+			cf.updateUser.theHiddenPanel.add(hiddenfield);
+			var hiddenfield = new Ext.form.Field({
+				autoCreate : {tag:'input', type: 'hidden', name: 'useragents['+a+'][databaseId]', value:row.data.databaseId, width: 0}			
 			});
 			cf.updateUser.theHiddenPanel.add(hiddenfield);
 		}

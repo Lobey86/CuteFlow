@@ -188,15 +188,12 @@ class fieldActions extends sfActions {
                 FieldTextareaTable::instance()->updateFieldTextareaById($request->getParameter('id'), $data);
                 break;
             case 'RADIOGROUP':
-                FieldRadiogroupTable::instance()->deleteRadiogroupByFieldId($request->getParameter('id'));
                 $fieldClass->saveRadiogroup($request->getParameter('id'), $data);
                 break;
             case 'CHECKBOXGROUP':
-                FieldCheckboxgroupTable::instance()->deleteCheckboxgroupByFieldId($request->getParameter('id'));
                 $fieldClass->saveCheckboxgroup($request->getParameter('id'), $data);
                 break;
             case 'COMBOBOX':
-                FieldComboboxTable::instance()->deleteComboboxByFieldId($request->getParameter('id'));
                 $fieldClass->saveCombobox($request->getParameter('id'), $data);
                 break;
             case 'FILE':
