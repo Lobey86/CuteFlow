@@ -42,6 +42,18 @@ class Mailinglist {
     }
 
 
+
+    public function updateUser($id, $data) {
+        $position = 1;
+        foreach($data as $item) {
+            $mailuser = $item['databaseId'] == '' ? new MailinglistAllowedSender() : Doctrine::getTable('MailinglistAllowedSender')->find($item['databaseId']);
+            $mailuser->setMailinglisttemplateId($id);
+            $mailuser->setUserId($item['id']);
+            $mailuser->setPosition($position++);
+            $mailuser->save();
+        }
+        return true;
+    }
     /**
      *
      * @param int $id, id of the mailinglist
@@ -81,7 +93,7 @@ class Mailinglist {
         }
         return $result;
     }
-    
+
 
     /**
      * Add unique_id to allowedsender for an template
@@ -98,6 +110,13 @@ class Mailinglist {
     }
 
 
+    /**
+     * Function builds a single Mailinglist template, with all slots and users
+     * calls build slot function to get all slots
+     *
+     * @param Doctrine_Collection $data
+     * @return array $result, content of mailinglist
+     */
     public function buildSingleMailinglist(Doctrine_Collection $data) {
         $test = $data->toArray();
         $result = array();
@@ -112,13 +131,19 @@ class Mailinglist {
 
     }
 
-
-    public function buildSlot(Doctrine_Collection $slots) {
+    /**
+     * Function adds slots to a mailinglist
+     *
+     * @param Doctrine_Collection $slots, slots to a correspondending mailinglist
+     * @return array $result
+     */
+    private function buildSlot(Doctrine_Collection $slots) {
         $result = array();
         $a = 0;
         foreach($slots as $slot) {
             $slotname = $slot->getFormSlot();
-            $result[$a]['id'] = $slot->getSlotId();
+            $result[$a]['id'] = $slot->getId();
+            //$result[$a]['id'] = $slot->getSlotId();
             $result[$a]['title'] = $slotname->getName();
             $result[$a++]['user'] = $this->buildUser($slot->getId());
         }
@@ -126,18 +151,107 @@ class Mailinglist {
     }
 
 
-    public function buildUser($id) {
+    /**
+     * Function adds all users to a slot
+     *
+     * @param int $id, Slot id, to get all users
+     * @return array $result, users for the slot
+     */
+    private function buildUser($id) {
         $result = array();
         $a = 0;
         $data = MailinglistUserTable::instance()->getAllUserBySlotId($id);
         foreach($data as $user) {
             $result[$a]['databaseId'] = $user->getId();
-            $result[$a]['id'] = $user->getId();
-            $result[$a]['user_id'] = $user->getUserId();
+            $result[$a]['id'] = $user->getUserId();
             $result[$a++]['name'] = $user->getName();
         }
         return $result;
+    }
+
+
+    /**
+     *
+     * Function creates a new Mailinglist Template
+     *
+     * @param array $data, POST data
+     * @return true
+     */
+    public function saveMailinglist(array $data) {
+        $mailObj = new MailinglistTemplate();
+        $mailObj->setFormtemplateId($data['mailinglistFirstTab_documenttemplate']);
+        $mailObj->setName($data['mailinglistFirstTab_nametextfield']);
+        $mailObj->setIsactive(0);
+        $mailObj->save();
+        $template_id = $mailObj->getId();
+        $this->createAuthorizationEntry($template_id);
+        $this->saveAuthorization($template_id,$data['mailinglistFirstTab']);
+        if(isset($data['user'])) {
+            $this->saveUser($template_id,$data['user']);
+        }
+        $slots = $data['slot'];
+        $slotposition = 1;
+        foreach($slots as $slot) {
+            $slotobj = new MailinglistSlot();
+            $slotobj->setMailinglisttemplateId($template_id);
+            $slotobj->setSlotId($slot['slot_id']);
+            $slotobj->setPosition($slotposition++);
+            $slotobj->save();
+            $slot_id = $slotobj->getId();
+            $records = array();
+            $records = isset($slot['grid']) ? $slot['grid'] : $records;
+            $userposition = 1;
+            foreach($records as $record) {
+                $userobj = new MailinglistUser();
+                $userobj->setMailinglistslotId($slot_id);
+                $userobj->setUserId($record['id']);
+                $userobj->setPosition($userposition++);
+                $userobj->save();
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Function updates an Mailinglist
+     * 
+     * @param int $template_id, id of the template to edit
+     * @param array $data, POST data
+     * @return true
+     */
+    public function updateMailinglist($template_id, array $data) {
+        $mailObj = Doctrine::getTable('MailinglistTemplate')->find($template_id);
+        $mailObj->setName($data['mailinglistFirstTab_nametextfield']);
+        $mailObj->save();
+        MailinglistAuthorizationSettingTable::instance()->setAuthorizationToNullById($template_id);
+        isset($data['mailinglistFirstTab']) ? $this->saveAuthorization($template_id,$data['mailinglistFirstTab']) : '';
+        if($data['removealloweduser'] != '') {
+            $delted_users = explode(',', $data['removealloweduser']);
+            MailinglistAllowedSenderTable::instance()->deleteAllowedUsersByIdInArray($delted_users);
+        }
+        if($data['removeuser'] != '') {
+            $delted_users = explode(',', $data['removeuser']);
+            MailinglistUserTable::instance()->deleteMailinglistUsersByIdInArray($delted_users);
+        }
         
+        if(isset($data['user'])) {
+            $this->updateUser($template_id,$data['user']);
+        }
+        $slots = $data['slot'];
+        foreach($slots as $slot) {
+            $slot_id = $slot['slot_id'];
+            $records = array();
+            $records = isset($slot['grid']) ? $slot['grid'] : $records;
+            $userposition = 1;
+            foreach($records as $record) {
+                $userobj = $record['databaseId'] == '' ? new MailinglistUser() : Doctrine::getTable('MailinglistUser')->find($record['databaseId']) ;
+                $userobj->setMailinglistslotId($slot_id);
+                $userobj->setUserId($record['id']);
+                $userobj->setPosition($userposition++);
+                $userobj->save();
+            }
+        }
+        return true;
     }
 
 

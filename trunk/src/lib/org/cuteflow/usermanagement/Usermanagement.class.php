@@ -97,6 +97,7 @@ class Usermanagement {
         $a = 0;
         foreach($data as $item) {
             $user = $item->getUserData();
+            $result[$a]['databaseId'] = $item->getId();
             $result[$a]['unique_id'] = $a;
             $result[$a]['user_id'] = $item->getUseragentId();
             $result[$a++]['text'] = $user[0]->getFirstname() . ' ' . $user[0]->getLastname();
