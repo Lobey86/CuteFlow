@@ -588,6 +588,7 @@ AuthorizationConfiguration:
 FormTemplate:
   ft1:
     name: Test Template 1
+
   ft2:
     name: Test Template 2
 
