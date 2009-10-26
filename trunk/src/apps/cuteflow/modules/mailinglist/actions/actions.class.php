@@ -178,6 +178,12 @@ class mailinglistActions extends sfActions {
         return sfView::NONE;
     }
 
+
+    public function executeDummy(sfWebRequest $request) {
+        $json_data = array();
+        $this->renderText('{"result":'.json_encode($json_data).'}');
+        return sfView::NONE;
+    }
     /**
      * Update an mailinglist
      * @param sfWebRequest $request
