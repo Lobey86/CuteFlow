@@ -308,7 +308,7 @@ FieldTextarea:
     Field: { class: Field, local: field_id, foreign: id, foreignType: many, type: one }
 
 FormTemplate:
-  actAs: [SoftDelete,Versionable]
+  actAs: [SoftDelete]
   tableName: cf_formtemplate
   columns:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
@@ -317,7 +317,6 @@ FormTemplate:
     MailinglistTemplate: { class: MailinglistTemplate, local: id, foreign: formtemplate_id, foreignType: many, type: one }
 
 FormSlot:
-  actAs: [Versionable]
   tableName: cf_formslot
   columns:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
@@ -329,7 +328,6 @@ FormSlot:
     FormTemplate: { class: FormTemplate, local: formtemplate_id, foreign: id, foreignType: many, type: one }
 
 FormField:
-  actAs: [Versionable]
   tableName: cf_formfield
   columns:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
@@ -341,7 +339,7 @@ FormField:
     Field: { class: Field, local: field_id, foreign: id, foreignType: many, type: one }
 
 MailinglistTemplate:
-   actAs: [Versionable, SoftDelete]
+   actAs: [SoftDelete]
    tableName: cf_mailinglisttemplate
    columns:
      id: { type: integer, length: 10, primary: true, autoincrement: true }
