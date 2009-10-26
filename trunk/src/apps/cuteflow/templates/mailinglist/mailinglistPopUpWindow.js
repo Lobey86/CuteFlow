@@ -55,10 +55,10 @@ cf.mailinglistPopUpWindow = function(){return {
 			url : '<?php echo build_dynamic_javascript_url('mailinglist/LoadSingleMailinglist')?>/id/' + id, 
 			success: function(objServerResponse){
 				theJsonTreeData = Ext.util.JSON.decode(objServerResponse.responseText);
-				Ext.getCmp('mailinglistFirstTab_documenttemplate_id').setValue(theJsonTreeData.result.formtemplate_id);
+				Ext.getCmp('mailinglistFirstTab_documenttemplate_id').setValue(theJsonTreeData.result.formtemplate_name);
 				Ext.getCmp('mailinglistFirstTab_nametextfield').setValue(theJsonTreeData.result.name);
 				Ext.getCmp('mailinglistFirstTab_documenttemplate_id').setDisabled(true);
-				cf.mailinglistSecondTab.init(Ext.getCmp('mailinglistFirstTab_documenttemplate_id').getRawValue(),Ext.getCmp('mailinglistFirstTab_documenttemplate_id').getValue(), true,'<?php echo build_dynamic_javascript_url('mailinglist/LoadFormWithUser')?>', id);
+				cf.mailinglistSecondTab.init(theJsonTreeData.result.formtemplate_name,theJsonTreeData.result.formtemplate_id, true,'<?php echo build_dynamic_javascript_url('mailinglist/LoadFormWithUser')?>', id);
 				cf.mailinglistPopUpWindow.theTabPanel.add(cf.mailinglistSecondTab.thePanel);
 			}
 		});	

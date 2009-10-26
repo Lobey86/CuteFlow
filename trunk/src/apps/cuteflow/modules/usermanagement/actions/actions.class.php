@@ -170,7 +170,6 @@ class usermanagementActions extends sfActions {
         isset($data['userThirdTab_street']) ? UserDataTable::instance()->updateUserAdditinalData($data, $request->getParameter('id')) : '';
         isset($data['userSecondTab_durationlength_type']) ? UserSettingTable::instance()->updateUserSettingDurationtypeAndDurationlength($data, $request->getParameter('id')) : '';
         isset($data['userFourthTab_itemsperpage']) ? UserSettingTable::instance()->updateUserSetting($data, $request->getParameter('id')) : '';
-        isset($data['userSecondTab_durationlength_type']) ? UserAgentTable::instance()->deleteAllUserAgentForId($data, $request->getParameter('id')) : '';
         isset($data['userSecondTab_durationlength_type']) ? $store->addUserAgent($data, $request->getParameter('id')) : '';
         isset($data['userFourthTab_itemsperpage']) ? UserWorkflowConfigurationTable::instance()->deleteSingleUserWorkflowConfigurattion($request->getParameter('id')) : '';
         isset($data['userFourthTab_itemsperpage']) ? $store->saveWorklfowSettings($data['worklfow'], $request->getParameter('id'), 1) : '';

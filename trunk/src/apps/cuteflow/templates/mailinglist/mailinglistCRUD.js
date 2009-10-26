@@ -57,12 +57,13 @@ cf.mailinglistCRUD = function(){return {
 			for(var c=0;c<grid.store.getCount();c++) {
 				var row = grid.getStore().getAt(c);
 				var hiddenfield = new Ext.form.Field({
-					autoCreate : {tag:'input', type: 'hidden', name: 'user['+counter+'][id]', value:row.data.id, width: 0}			
+					autoCreate : {tag:'input', type: 'hidden', name: 'user['+counter+'][id]', value:row.data.user_id, width: 0}			
 				});
 				cf.mailinglistFirstTab.theFormPanel.add(hiddenfield);
 				var hiddenfield = new Ext.form.Field({
-					autoCreate : {tag:'input', type: 'hidden', name: 'user['+counter+'][newRecord]', value:row.data.databaseId, width: 0}			
+					autoCreate : {tag:'input', type: 'hidden', name: 'user['+counter+'][databaseId]', value:row.data.databaseId, width: 0}			
 				});
+				
 				cf.mailinglistFirstTab.theFormPanel.add(hiddenfield);
 				cf.mailinglistFirstTab.theFormPanel.doLayout();
 				counter++;
@@ -88,6 +89,7 @@ cf.mailinglistCRUD = function(){return {
 				var hiddenfield = new Ext.form.Field({
 					autoCreate : {tag:'input', type: 'hidden', name: 'slot['+counter+'][grid]['+c+'][databaseId]', value:row.data.databaseId, width: 0}			
 				});
+				//alert('User_id: ' + row.data.id + ' DatabaseId: ' + row.data.databaseId );
 				cf.mailinglistFirstTab.theFormPanel.add(hiddenfield);
 			}
 			counter++;

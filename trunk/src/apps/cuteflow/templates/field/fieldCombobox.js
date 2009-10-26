@@ -10,9 +10,11 @@ cf.fieldCombobox = function(){return {
 	theComboboxToolbar			:false,
 	theUniqueId					:false,
 	theComboboxgroupSavePanel	:false,
+	theRemoveField				:false,
 
 	/** init all functions **/
 	init: function () {
+		this.theRemoveField = '';
 		this.theUniqueId  = 0;
 		this.initToolbar();
 		this.initCM();
@@ -49,6 +51,7 @@ cf.fieldCombobox = function(){return {
 			fields: [
 				{name: 'unique_id'},
 				{name: 'value'},
+				{name: 'databaseId'},
 				{name: 'checked'}
 			]
 		});
@@ -123,6 +126,7 @@ cf.fieldCombobox = function(){return {
 		var r = new Record({
 			value: '',
 			unique_id: cf.fieldCombobox.theUniqueId++,
+			databaseId: '',
 			checked : 0
 		});
 		grid.stopEditing();
@@ -175,6 +179,14 @@ cf.fieldCombobox = function(){return {
 						click: function(el){
 							var item = cf.fieldCombobox.theComboboxGrid.store.findExact('unique_id', id );
 							cf.fieldCombobox.theComboboxGrid.store.remove(item);
+							if(item.data.databaseId != '') {
+								if(cf.fieldCombobox.theRemoveField == false) {
+									cf.fieldCombobox.theRemoveField =  item.data.databaseId;
+								}
+								else {
+									cf.fieldCombobox.theRemoveField = cf.fieldCombobox.theRemoveField + ',' + item.data.databaseId;
+								}	
+							}
 						},
 					scope: c
 				});
@@ -202,6 +214,11 @@ cf.fieldCombobox = function(){return {
 			this.initPanel();
 			var save = false;
 			var grid = cf.fieldCombobox.theComboboxGrid;
+			var counter = 0;
+			var hiddenfield = new Ext.form.Field({
+				autoCreate : {tag:'input', type: 'hidden', name: 'removeItem', value:cf.fieldCombobox.theRemoveField, width: 0}			
+			});
+			cf.fieldCombobox.theComboboxgroupSavePanel.add(hiddenfield);
 			for(var a=0;a<grid.store.getCount();a++) {
 				var row = grid.getStore().getAt(a);
 				if(row.data.value != '') {
@@ -212,10 +229,22 @@ cf.fieldCombobox = function(){return {
 					else {
 						var checkValue = 1;
 					}
+					
 					var hiddenfield = new Ext.form.Field({
-						autoCreate : {tag:'input', type: 'hidden', name: 'grid['+row.data.value+']', value:checkValue, width: 0}			
+						autoCreate : {tag:'input', type: 'hidden', name: 'grid['+counter+'][value]', value:row.data.value, width: 0}			
 					});
 					cf.fieldCombobox.theComboboxgroupSavePanel.add(hiddenfield);
+					
+					var hiddenfield = new Ext.form.Field({
+						autoCreate : {tag:'input', type: 'hidden', name: 'grid['+counter+'][checked]', value:checkValue, width: 0}			
+					});
+					
+					cf.fieldCombobox.theComboboxgroupSavePanel.add(hiddenfield);
+					var hiddenfield = new Ext.form.Field({
+						autoCreate : {tag:'input', type: 'hidden', name: 'grid['+counter+'][databseId]', value:row.data.databaseId, width: 0}			
+					});
+					cf.fieldCombobox.theComboboxgroupSavePanel.add(hiddenfield);
+					counter++;
 				}
 			}
 			if(save == true) {
@@ -255,6 +284,7 @@ cf.fieldCombobox = function(){return {
 			var r = new Record({
 				value: row.value,
 				unique_id: cf.fieldCombobox.theUniqueId++,
+				databaseId: row.id,
 				checked : row.isactive
 			});
 			grid.store.add(r);
