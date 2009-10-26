@@ -17,7 +17,11 @@ class MailinglistUserTable extends Doctrine_Table {
 
 
 
-    
+    /**
+     * Load all users for a slot
+     * @param int $id, id of the slot
+     * @return Doctrine_Collection
+     */
     public function getAllUserBySlotId($id) {
         return Doctrine_Query::create()
            ->select('mlu.*, mlu.id as databaseId, ul.id, CONCAT(ud.firstname,\' \',ud.lastname) AS name')
@@ -26,8 +30,37 @@ class MailinglistUserTable extends Doctrine_Table {
            ->leftJoin('ul.UserData ud')
            ->where('mlu.mailinglistslot_id = ?', $id)
            ->orderBy('mlu.position asc')
-           ->groupBy('ul.id')
+           ->groupBy('mlu.id')
            ->execute();
     }
 
+    /**
+     * Delete Mailinglistusers by id
+     * @param array $ids, id of users
+     * @return true
+     */
+    public function deleteMailinglistUsersByIdInArray(array $ids) {
+        Doctrine::getTable('MailinglistUser')
+                ->createQuery('mlu')
+                ->whereIn('mlu.id', $ids)
+                ->execute()
+                ->delete();
+
+        return true;
+    }
+
+
+    /**
+     * Delete user in an existing slot, by slot id
+     * @param array $ids, id of the slot
+     * @return true
+     */
+    public function deleteUserBySlotIdInArray(array $ids) {
+        Doctrine::getTable('MailinglistUser')
+                ->createQuery('mlu')
+                ->whereIn('mlu.mailinglistslot_id', $ids)
+                ->execute()
+                ->delete();
+        return true;
+    }
 }

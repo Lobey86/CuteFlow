@@ -29,15 +29,15 @@ class FieldCheckboxgroupTable extends Doctrine_Table {
 
 
     /**
-     * Delete Checkboxgroup according to its parent id
-     * @param int $id, id of Checkboxgroup to delete
+     * Sets all checkbox to inactive for an field id
+     * @param int $id , id of field
      * @return true
      */
-    public function deleteCheckboxgroupByFieldId($id) {
+    public function setCheckboxgroupToNullById($id) {
         Doctrine_Query::create()
-            ->delete('FieldCheckboxgroup')
-            ->from('FieldCheckboxgroup fcg')
-            ->where('fcg.field_id = ?', $id)
+            ->update('FieldCheckboxgroup fcbg')
+            ->set('fcbg.isactive','?',0)
+            ->where('fcbg.field_id = ?', $id)
             ->execute();
         return true;
     }

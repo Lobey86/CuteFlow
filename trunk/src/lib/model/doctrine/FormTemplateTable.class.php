@@ -68,11 +68,11 @@ class FormTemplateTable extends Doctrine_Table {
                 ->select('ft.*, count(fs.id) AS number')
                 ->from('FormTemplate ft')
                 ->where ('ft.deleted = ?',0)
-				->leftJoin('ft.FormSlot fs')
-				->andWhere('ft.name LIKE ?','%'.$name.'%');
+                ->leftJoin('ft.FormSlot fs')
+                ->andWhere('ft.name LIKE ?','%'.$name.'%');
 		if($limit != -1 AND $offset != -1) {
-            $query->limit($limit)
-                  ->offset($offset);
+                    $query->limit($limit)
+                           ->offset($offset);
         }
 		return $query->orderBy('ft.id DESC')
 		->groupby('ft.id')

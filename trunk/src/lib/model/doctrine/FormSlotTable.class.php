@@ -45,6 +45,20 @@ class FormSlotTable extends Doctrine_Table {
 
     }
 
+    /**
+     * Deletes slots
+     * @param array $ids, ids of slot to delete
+     * @return true
+     */
+    public function deleteSlotByArray(array $ids) {
+        Doctrine::getTable('FormSlot')
+                ->createQuery('fs')
+                ->whereIn('fs.id', $ids)
+                ->execute()
+                ->delete();
+        return true;
+    }
+
 
 
 

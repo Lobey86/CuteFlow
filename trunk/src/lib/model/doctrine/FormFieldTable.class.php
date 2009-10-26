@@ -71,4 +71,34 @@ class FormFieldTable extends Doctrine_Table {
         return true;
     }
 
+
+    /**
+     * Delete fields by an array of slot ids
+     * @param array $ids, slot ids in array
+     * @return true
+     */
+    public function deleteFieldBySlotIdInArray(array $ids) {
+        Doctrine::getTable('FormField')
+                ->createQuery('ff')
+                ->whereIn('ff.formslot_id', $ids)
+                ->execute()
+                ->delete();
+        return true;
+    }
+
+
+    /**
+     * Delete fields by its id
+     * @param array $ids, array of ids to delete
+     * @return true
+     */
+    public function deleteFieldByIdInArray (array $ids) {
+         Doctrine::getTable('FormField')
+                ->createQuery('ff')
+                ->whereIn('ff.id', $ids)
+                ->execute()
+                 ->delete();
+        return true;
+    }
+
 }

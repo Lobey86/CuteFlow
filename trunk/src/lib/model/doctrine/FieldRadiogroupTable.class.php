@@ -27,20 +27,20 @@ class FieldRadiogroupTable extends Doctrine_Table {
             ->execute();
     }
 
-
     /**
-     * Delete Radiogroup according to its parent id
-     * @param int $id, id of radiogroup to delete
+     * Sets all radiogroups to inactive for an field id
+     * @param int $id , id of field
      * @return true
      */
-    public function deleteRadiogroupByFieldId($id) {
+    public function setRadiogroupToNullById($id) {
         Doctrine_Query::create()
-            ->delete('FieldRadiogroup')
-            ->from('FieldRadiogroup frg')
+            ->update('FieldRadiogroup frg')
+            ->set('frg.isactive','?',0)
             ->where('frg.field_id = ?', $id)
             ->execute();
         return true;
     }
+    
 
 
 
