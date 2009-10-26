@@ -29,17 +29,15 @@ class UserAgentTable extends Doctrine_Table {
             ->execute();
     }
 
-    /**
-     * Deletes all useragents for a specific id
-     * @param int $user_id, user_id
-     * @return true;
-     */
-    public function deleteAllUserAgentForId($data, $user_id) {
-        Doctrine_Query::create()
-            ->delete('UserAgent')
-            ->from('UserAgent ua')
-            ->where('ua.user_id = ?',$user_id)
-            ->execute();
+
+    public function deleteUserAgentByArray (array $ids) {
+        Doctrine::getTable('UserAgent')
+                ->createQuery('ua')
+                ->whereIn('ua.id', $ids)
+                ->execute()
+                ->delete();
+
         return true;
+        
     }
 }

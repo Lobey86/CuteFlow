@@ -13,7 +13,25 @@ class MailinglistAuthorizationSettingTable extends Doctrine_Table {
     }
 
 
+    /**
+     * Set all Auth rights to 0
+     *
+     * @param int $id, id to set 0
+     * @return true
+     */
+    public function setAuthorizationToNullById($id) {
+        Doctrine_Query::create()
+            ->update('MailinglistAuthorizationSetting mas')
+            ->set('mas.deleteworkflow','?',0)
+            ->set('mas.archiveworkflow','?',0)
+            ->set('mas.stopneworkflow','?',0)
+            ->set('mas.detailsworkflow','?',0)
+            ->where('mas.mailinglisttemplate_id = ?', $id)
+            ->execute();
+        return true;
+    }
 
+    
     /**
      * Update table items for AuthorizationConfiguration
      * @param int $id, id of the row to update

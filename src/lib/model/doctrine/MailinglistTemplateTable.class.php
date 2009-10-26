@@ -137,4 +137,20 @@ class MailinglistTemplateTable extends Doctrine_Table {
             ->execute();
     }
 
+
+    /**
+     *
+     * @param int $id
+     * @return Dorctrine_Collection
+     */
+    public function getMailinglistByDocumentTemplateId($id) {
+        return Doctrine_Query::create()
+            ->select('mlt.*')
+            ->from('MailinglistTemplate mlt')
+            ->where('mlt.deleted = ?', 0)
+            ->andWhere('mlt.formtemplate_id = ?', $id)
+            ->execute();
+    }
+
+
 }

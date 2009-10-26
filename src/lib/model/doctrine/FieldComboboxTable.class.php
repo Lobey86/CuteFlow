@@ -32,10 +32,10 @@ class FieldComboboxTable extends Doctrine_Table {
      * @param int $id, id of Combobox to delete
      * @return true
      */
-    public function deleteComboboxByFieldId($id) {
+    public function setComboboxToNullById($id) {
         Doctrine_Query::create()
-            ->delete('FieldCombobox')
-            ->from('FieldCombobox fcb')
+            ->update('FieldCombobox fcb')
+            ->set('fcb.isactive','?',0)
             ->where('fcb.field_id = ?', $id)
             ->execute();
         return true;

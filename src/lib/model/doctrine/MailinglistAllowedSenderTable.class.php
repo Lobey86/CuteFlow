@@ -30,4 +30,18 @@ class MailinglistAllowedSenderTable extends Doctrine_Table {
                ->execute();
     }
 
+
+    /**
+     * Remove users from allowed sender list
+     * @param array $ids, id of users
+     * @return true
+     */
+    public function deleteAllowedUsersByIdInArray(array $ids) {
+        Doctrine::getTable('MailinglistAllowedSender')
+                ->createQuery('mlas')
+                ->whereIn('mlas.id', $ids)
+                ->execute()->delete();
+        return true;
+    }
+
 }
