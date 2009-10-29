@@ -57,20 +57,20 @@ Credential:
     userRight: addLdap
   c15:
     userModule: management
-    userGroup: form
+    userGroup: documenttemplate
     userRight: showModule
   c16:
     userModule: management
-    userGroup: form
-    userRight: addForm
+    userGroup: documenttemplate
+    userRight: addDocumenttemplate
   c17:
     userModule: management
-    userGroup: form
-    userRight: editForm
+    userGroup: documenttemplate
+    userRight: editDocumenttemplate
   c18:
     userModule: management
-    userGroup: form
-    userRight: deleteForm
+    userGroup: documenttemplate
+    userRight: deleteDocumenttemplate
   c19:
     userModule: administration
     userGroup: usermanagement
@@ -584,74 +584,3 @@ AuthorizationConfiguration:
     archiveworkflow: 0
     stopneworkflow: 0
     detailsworkflow: 0
-
-FormTemplate:
-  ft1:
-    name: Test Template 1
-
-  ft2:
-    name: Test Template 2
-
-FormSlot :
-  fs1:
-    formtemplate_id: 1
-    name: Ein Slot - Test Template 1
-    sendtoallreceivers: 1
-    position: 1
-  fs2:
-    formtemplate_id: 1
-    name: Zwei Slot - Test Template 1
-    sendtoallreceivers: 1
-    position: 3
-  fs3:
-    formtemplate_id: 1
-    name: Drei Slot - Test Template 1
-    sendtoallreceivers: 0
-    position: 2
-  fs4:
-    formtemplate_id: 2
-    name: Ein Slot - Test Template 2
-    sendtoallreceivers: 1
-    position: 1
-
-FormField:
-  ff1:
-    formslot_id: 1
-    field_id: 1
-    position: 1
-  ff2:
-    formslot_id: 1
-    field_id: 1
-    position: 2
-  ff3:
-    formslot_id: 1
-    field_id: 1
-    position: 3
-  ff4:
-    formslot_id: 2
-    field_id: 1
-    position: 1
-  ff5:
-    formslot_id: 2
-    field_id: 1
-    position: 2
-  ff6:
-    formslot_id: 2
-    field_id: 1
-    position: 3
-  ff7:
-    formslot_id: 3
-    field_id: 1
-    position: 1
-  ff8:
-    formslot_id: 3
-    field_id: 1
-    position: 2
-  ff9:
-    formslot_id: 3
-    field_id: 1
-    position: 3
-  ff10:
-    formslot_id: 4
-    field_id: 1
-    position: 1
