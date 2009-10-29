@@ -29,6 +29,51 @@ class DocumenttemplateTemplateTable extends Doctrine_Table {
                 ->execute();
     }
 
+    /**
+     * Get all Docuemtn templates
+     * @param int $limit
+     * @param int $offset
+     * @return Doctrine_Collection $query
+     */
+    public function getAllDocumentTemplates($limit, $offset) {
+        $query =  Doctrine_Query::create()
+            ->select('dtt.*, count(dts.id) AS number, dtv.id as documenttemplate_id')
+            ->from('DocumenttemplateTemplate dtt')
+            ->leftJoin('dtt.DocumenttemplateVersion dtv')
+            ->leftJoin('dtv.DocumenttemplateSlot dts')
+            ->where('dtt.deleted = ?', 0)
+            ->andWhere('dtv.activeversion = ?', 1);
+            if($limit != -1 AND $offset != -1) {
+                    $query->limit($limit)
+                    ->offset($offset);
+            }
+            return $query->groupBy('dtt.id')
+                         ->orderBy('dtt.id desc')
+                         ->execute();
+    }
 
+    /**
+     *Delete Template
+     *
+     * @param int $id, id of entry to delete
+     * @return <type>
+     */
+    public function deleteDocumentTemplateById($id) {
+        Doctrine_Query::create()
+            ->update('DocumenttemplateTemplate dtt')
+            ->set('dtt.deleted','?',1)
+            ->where('dtt.id = ?', $id)
+            ->execute();
+        return true;
+    }
+
+    public function getDocumentTemplateById($id) {
+        return Doctrine_Query::create()
+            ->select('dtt.*')
+            ->from('DocumenttemplateTemplate dtt')
+            ->leftJoin('dtt.DocumenttemplateVersion dtv')
+            ->where('dtv.id = ?', $id)
+            ->execute();
+    }
     
 }
