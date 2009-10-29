@@ -38,7 +38,7 @@ cf.documenttemplatePanelGrid = function(){return {
 		this.theDocumenttemplateCM  =  new Ext.grid.ColumnModel([
 			{header: "#", width: 50, sortable: true, dataIndex: '#', css : "text-align : left;font-size:12px;align:center;"},
 			{header: "<?php echo __('Name',null,'documenttemplate'); ?>", width: 280, sortable: false, dataIndex: 'name', css : "text-align : left;font-size:12px;align:center;"},
-			{header: "<?php echo __('mount of slots',null,'documenttemplate'); ?>", width: 150, sortable: false, dataIndex: 'mountofslots', css : "text-align:center;font-size:12px;align:center;"},
+			{header: "<?php echo __('mount of slots',null,'documenttemplate'); ?>", width: 150, sortable: false, dataIndex: 'number', css : "text-align:center;font-size:12px;align:center;"},
 			{header: "<div ext:qtip=\"<table><tr><td><img src='/images/icons/table_edit.png' />&nbsp;&nbsp;</td><td><?php echo __('Edit Document template',null,'documenttemplate'); ?></td></tr><tr><td><img src='/images/icons/table_delete.png' />&nbsp;&nbsp;</td><td><?php echo __('Delete Document template',null,'documenttemplate'); ?></td></tr></table>\" ext:qwidth=\"200\"><?php echo __('Action',null,'documenttemplate'); ?></div>", width: 80, sortable: false, dataIndex: 'action', css : "text-align : left;font-size:12px;align:center;" ,renderer: this.renderAction}
 		]);
 	},
@@ -48,13 +48,14 @@ cf.documenttemplatePanelGrid = function(){return {
 		this.theDocumenttemplateStore = new Ext.data.JsonStore({
 				root: 'result',
 				totalProperty: 'total',
-				url: '<?php echo build_dynamic_javascript_url('documenttemplates/LoadAllDocumenttemplates')?>',
+				url: '<?php echo build_dynamic_javascript_url('documenttemplate/LoadAllDocumenttemplates')?>',
 				autoload: false,
 				fields: [
 					{name: '#'},
 					{name: 'id'},
 					{name: 'name'},
-					{name: 'mountofslots'}
+					{name: 'documenttemplate_id'},
+					{name: 'number'}
 				]
 		});
 	},
@@ -156,7 +157,7 @@ cf.documenttemplatePanelGrid = function(){return {
 	
 	/** button renderer for edit and delete **/
 	renderAction: function (data, cell, record, rowIndex, columnIndex, store, grid) {
-		cf.documenttemplatePanelGrid.createEditButton.defer(500,this, [record.data['id']]);
+		cf.documenttemplatePanelGrid.createEditButton.defer(500,this, [record.data['id'],record.data['documenttemplate_id']]);
 		cf.documenttemplatePanelGrid.createDeleteButton.defer(500,this, [record.data['id']]);
 		return '<center><table><tr><td width="16"><div id="form_edit'+ record.data['id'] +'"></div></td><td width="16"><div id="form_delete'+ record.data['id'] +'"></div></td></tr></table></center>';
 	},
@@ -166,7 +167,7 @@ cf.documenttemplatePanelGrid = function(){return {
 	*
 	*@param int id, id of the record
 	*/
-	createEditButton: function (id) {
+	createEditButton: function (id, documenttemplate_id) {
 		var btn_edit = new Ext.form.Label({
 			renderTo: 'form_edit' + id,
 			html: '<span style="cursor:pointer;"><img src="/images/icons/table_edit.png" /></span>',
@@ -176,7 +177,7 @@ cf.documenttemplatePanelGrid = function(){return {
 					  c.getEl().on({
 						click: function(el){
 							if (c.disabled == false) {
-								cf.documenttemplatePopUpWindow.initEditDocumenttemplate(id);
+								cf.documenttemplatePopUpWindow.initEditDocumenttemplate(documenttemplate_id);
 							}
 						},
 					scope: c
@@ -207,7 +208,7 @@ cf.documenttemplatePanelGrid = function(){return {
 								   buttons: Ext.Msg.YESNO,
 								   fn: function(btn, text) {
 										if(btn == 'yes') {
-											cf.formCRUD.initDelete(id);
+											cf.documenttemplateCRUD.initDelete(id);
 										}
 								   }
 								});

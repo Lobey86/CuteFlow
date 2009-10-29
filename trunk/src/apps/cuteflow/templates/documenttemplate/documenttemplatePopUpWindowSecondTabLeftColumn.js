@@ -5,8 +5,10 @@ cf.documenttemplatePopUpSecondTabLeftColumn = function(){return {
 	theUniqueFieldsetId			:0,
 	theGridCM					:false,
 	theUniqueGridId				:false,
+	theRemoveSlot				:false,
 	
 	init: function () {
+		this.theRemoveSlot = '';
 		this.initGridCM();
 		this.initTopToolBar();
 	},
@@ -25,10 +27,13 @@ cf.documenttemplatePopUpSecondTabLeftColumn = function(){return {
 					var fieldset = cf.documenttemplatePopUpSecondTabLeftColumn.buildFieldset(uniquefieldset_id,'',false);
 					var namefield = cf.documenttemplatePopUpSecondTabLeftColumn.buildTextfield(uniquefieldset_id, '');
 					var checkbox = cf.documenttemplatePopUpSecondTabLeftColumn.buildCheckbox(false);
-					var grid = cf.documenttemplatePopUpSecondTabLeftColumn.buildGrid(false);
+					var grid = cf.documenttemplatePopUpSecondTabLeftColumn.buildGrid(id);	
+					var hidden = cf.documenttemplatePopUpSecondTabLeftColumn.buildHiddenfield('');
+					
 					fieldset.add(namefield);
 					fieldset.add(checkbox);
 					fieldset.add(grid);
+					fieldset.add(hidden);
 					cf.documenttemplatePopUpSecondTab.theLeftColumnPanel.add(fieldset);
 					cf.documenttemplatePopUpSecondTabLeftColumn.createDeleteButton.defer(100,this, [uniquefieldset_id]);
 					cf.documenttemplatePopUpSecondTabLeftColumn.createAddButton.defer(100,this, [uniquefieldset_id]);
@@ -38,7 +43,7 @@ cf.documenttemplatePopUpSecondTabLeftColumn = function(){return {
 		});	
 	},
 	
-	buildGrid: function (id, data) {
+	buildGrid: function (id) {
 			var grid =  new Ext.grid.GridPanel({
 			stripeRows: true,
 			border: true,
@@ -107,11 +112,21 @@ cf.documenttemplatePopUpSecondTabLeftColumn = function(){return {
 		return checkbox;
 	},
 	
+	buildHiddenfield: function (value) {
+		var hiddenfield =  new Ext.form.Hidden({
+			allowBlank: true,
+			value: value,
+			width: 1
+		});
+		return hiddenfield;
+	},
+	
 	buildTextfield: function (id, name) {
 		var textfield = new Ext.form.TextField({
 			id: 'slotfieldsettextfieldid_' + id,
 			fieldLabel: '<?php echo __('Name',null,'documenttemplate'); ?>',
-			allowBlank: false,
+			allowBlank: true,
+			value: name,
 			enableKeyEvents : true,
 			width: 130
 		});
@@ -156,10 +171,13 @@ cf.documenttemplatePopUpSecondTabLeftColumn = function(){return {
 									var fieldset = cf.documenttemplatePopUpSecondTabLeftColumn.buildFieldset(uniquefieldset_id,'',false);
 									var namefield = cf.documenttemplatePopUpSecondTabLeftColumn.buildTextfield(uniquefieldset_id, '');
 									var checkbox = cf.documenttemplatePopUpSecondTabLeftColumn.buildCheckbox(false);
-									var grid = cf.documenttemplatePopUpSecondTabLeftColumn.buildGrid(false);
+									var grid = cf.documenttemplatePopUpSecondTabLeftColumn.buildGrid(uniquefieldset_id);
+									var hidden = cf.documenttemplatePopUpSecondTabLeftColumn.buildHiddenfield('');
+									
 									fieldset.add(namefield);
 									fieldset.add(checkbox);
 									fieldset.add(grid);
+									fieldset.add(hidden);
 									cf.documenttemplatePopUpSecondTab.theLeftColumnPanel.insert(insert_position,fieldset);
 									cf.documenttemplatePopUpSecondTabLeftColumn.createDeleteButton.defer(100,this, [uniquefieldset_id]);
 									cf.documenttemplatePopUpSecondTabLeftColumn.createAddButton.defer(100,this, [uniquefieldset_id]);
@@ -195,9 +213,21 @@ cf.documenttemplatePopUpSecondTabLeftColumn = function(){return {
 							   fn: function(btn, text) {
 									if(btn == 'yes') {
 										var fieldset = Ext.getCmp('documenttemplatefieldset_' + id);
+										
 										cf.documenttemplatePopUpSecondTab.theLeftColumnPanel.remove(fieldset);
 										fieldset.destroy();
 										cf.documenttemplatePopUpSecondTab.theLeftColumnPanel.doLayout();
+										hidden = fieldset.getComponent(3);
+										var databaseId = hidden.getValue();
+										if (databaseId != '') {
+											if(cf.documenttemplatePopUpSecondTabLeftColumn.theRemoveSlot  == false) {
+												cf.documenttemplatePopUpSecondTabLeftColumn.theRemoveSlot = databaseId;
+											}
+											else {
+												cf.documenttemplatePopUpSecondTabLeftColumn.theRemoveSlot = cf.documenttemplatePopUpSecondTabLeftColumn.theRemoveSlot + ',' + databaseId;
+											}	
+										}
+									
 									}
 							   }
 							});

@@ -59,14 +59,35 @@ cf.documenttemplatePopUpWindow = function(){return {
 	*/
 	addData: function (id) {
 		Ext.Ajax.request({  
-			url : '<?php echo build_dynamic_javascript_url('form/LoadSingleForm')?>/id/' + id, 
+			url : '<?php echo build_dynamic_javascript_url('documenttemplate/LoadSingleDocumenttemplate')?>/id/' + id, 
 			success: function(objServerResponse){
 				theJsonTreeData = Ext.util.JSON.decode(objServerResponse.responseText);
-				Ext.getCmp('createFileWindow_fieldname').setValue(theJsonTreeData.result.title);
+				Ext.getCmp('documenttemplatePopUpFirstTab_fieldname').setValue(theJsonTreeData.result.name);
+				Ext.getCmp('documenttemplatePopUpFirstTab_fieldname').setDisabled(true);
 				var data = theJsonTreeData.result;
-				for(var a=0;a<data.slot.length;a++) { // call function to create fieldset
-					var checked = data.slot[a].receiver == 0 ? 0 : 1;
-					cf.formPopUpWindowSecondTab.addFieldset(data.slot[a].title,checked, data.slot[a].field,data.slot[a].title, true,data.slot[a].id);
+				for(var a=0;a<data.slots.length;a++) { // call function to create fieldset
+					var checked = data.slots[a].receiver == 0 ? false : true;
+					
+					var uniquefieldset_id = cf.documenttemplatePopUpSecondTabLeftColumn.theUniqueFieldsetId++;
+					
+					var fieldset = cf.documenttemplatePopUpSecondTabLeftColumn.buildFieldset(uniquefieldset_id,data.slots[a].name,true);
+					var namefield = cf.documenttemplatePopUpSecondTabLeftColumn.buildTextfield(uniquefieldset_id, data.slots[a].name);
+					var checkbox = cf.documenttemplatePopUpSecondTabLeftColumn.buildCheckbox(checked,data.slots[a].fields);
+					var grid = cf.documenttemplatePopUpSecondTabLeftColumn.buildGrid(uniquefieldset_id);
+					var hidden = cf.documenttemplatePopUpSecondTabLeftColumn.buildHiddenfield(data.slots[a].slot_id);
+					fieldset.add(namefield);
+					fieldset.add(checkbox);
+					fieldset.add(grid);
+					fieldset.add(hidden);
+					cf.documenttemplatePopUpSecondTab.theLeftColumnPanel.add(fieldset);
+					cf.documenttemplatePopUpSecondTabLeftColumn.createDeleteButton.defer(100,this, [uniquefieldset_id]);
+					cf.documenttemplatePopUpSecondTabLeftColumn.createAddButton.defer(100,this, [uniquefieldset_id]);
+					cf.documenttemplatePopUpSecondTab.theLeftColumnPanel.doLayout();
+					for(var b=0;b<data.slots[a].fields.length;b++) {
+						var item = data.slots[a].fields[b];
+						var Rec = Ext.data.Record.create({name: 'unique_id'},{name: 'id'},{name: 'title'});
+						grid.store.add(new Rec({unique_id: cf.documenttemplatePopUpSecondTabLeftColumn.theUniqueGridId++, id: item.field_id, title: item.title}));
+					}
 				}
 			}
 		});	

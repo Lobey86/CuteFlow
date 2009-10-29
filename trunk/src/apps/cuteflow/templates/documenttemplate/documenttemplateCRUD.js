@@ -10,7 +10,7 @@ cf.documenttemplateCRUD = function(){return {
 		Ext.Ajax.request({  
 			url : '<?php echo build_dynamic_javascript_url('documenttemplate/DeleteDocumenttemplate')?>/id/' + id, 
 			success: function(objServerResponse){
-				cf.formPanelGrid.theFormStore.reload();
+				cf.documenttemplatePanelGrid.theDocumenttemplateStore.reload();
 				Ext.Msg.minWidth = 200;
 				Ext.MessageBox.alert('<?php echo __('OK',null,'documenttemplate'); ?>', '<?php echo __('Delete successful',null,'documenttemplate'); ?>');
 			}
@@ -47,17 +47,18 @@ cf.documenttemplateCRUD = function(){return {
 	*@return boolean, true when saveprocess can be started, false, if not
 	*/
 	doSubmit: function (url, title) {
+		Ext.getCmp('documenttemplatePopUpFirstTab_fieldname').setDisabled(false);
 		cf.documenttemplatePopUpFirstTab.theFirstTabPanel.doLayout();
 		cf.documenttemplatePopUpFirstTab.theFirstTabPanel.getForm().submit({
 			url: url,
 			method: 'POST',
-			//waitMsg: '<?php echo __('Saving Data',null,'documenttemplate'); ?>',
+			waitMsg: '<?php echo __('Saving Data',null,'documenttemplate'); ?>',
 			success: function(objServerResponse){
-				//cf.formPanelGrid.theFormStore.reload();
-				//cf.createFormWindow.theFormPopUpWindow.hide();
-				//cf.createFormWindow.theFormPopUpWindow.destroy();
-				//Ext.Msg.minWidth = 200;
-				//Ext.MessageBox.alert('<?php echo __('OK',null,'form'); ?>',title);
+				cf.documenttemplatePanelGrid.theDocumenttemplateStore.reload();
+				cf.documenttemplatePopUpWindow.theFormPopUpWindow.hide();
+				cf.documenttemplatePopUpWindow.theFormPopUpWindow.destroy();
+				Ext.Msg.minWidth = 200;
+				Ext.MessageBox.alert('<?php echo __('OK',null,'form'); ?>',title);
 			}
 		});
 		
@@ -74,13 +75,17 @@ cf.documenttemplateCRUD = function(){return {
 		var panel = cf.documenttemplatePopUpSecondTab.theLeftColumnPanel;
 		if(panel.items.length > 1) {
 			var counter = 0;
-
+			var hiddenfield = new Ext.form.Field({
+				autoCreate : {tag:'input', type: 'hidden', name: 'removedSlot', value:cf.documenttemplatePopUpSecondTabLeftColumn.theRemoveSlot, width: 0}			
+			});
+			cf.documenttemplatePopUpFirstTab.theFirstTabPanel.add(hiddenfield);
 			for(var a=1;a<panel.items.length;a++) { // toolbar will not be added 
 				
 				var item  = panel.getComponent(a);
 				var textfield = item.getComponent(0);
 				var checkbox = item.getComponent(1);
 				var grid = item.getComponent(2);
+				var hidden = item.getComponent(3);
 				var save = false;
 
 				if(grid.store.getCount() > 0 && textfield.getValue() != '') { // only fields with name and elements in grid will be saved!
@@ -88,6 +93,16 @@ cf.documenttemplateCRUD = function(){return {
 					save = true;
 					checkboxvalue = checkbox.getValue() == false ? 0 : 1;
 					textfieldvalue = textfield.getValue();
+					hiddenvalue = hidden.getValue();
+					
+					
+					
+					
+					var hiddenfield = new Ext.form.Field({
+						autoCreate : {tag:'input', type: 'hidden', name: 'slot['+counter+'][databaseId]', value:hiddenvalue, width: 0}			
+					});
+					cf.documenttemplatePopUpFirstTab.theFirstTabPanel.add(hiddenfield);
+					
 					
 					var hiddenfield = new Ext.form.Field({
 						autoCreate : {tag:'input', type: 'hidden', name: 'slot['+counter+'][title]', value:textfieldvalue, width: 0}			
