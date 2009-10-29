@@ -10,7 +10,7 @@ cf.Window = function(){return {
 	init: function () {
 		this.theWindow = new Ext.Window({
 		width:370,
-		height:175,
+		height:'auto',
 		frame: true,
 		title: '<div style="float:left;"><img src="/images/icons/key.png" /></div><div>&nbsp;&nbsp;CuteFlow - <?php echo __('Login',null,'login') ?></div>',
 		closable: false,
