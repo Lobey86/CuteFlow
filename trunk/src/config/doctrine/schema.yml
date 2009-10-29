@@ -214,6 +214,8 @@ Field:
     type: { type: string(20)}
     writeprotected: { type: integer(1), length: 3 }
     color: { type: string(20)}
+  relations:
+    DocumenttemplateField: { class: DocumenttemplateField, local: id, foreign: field_id, foreignType: many, type: one }
 
 FieldTextfield:
   tableName: cf_fieldtextfield
@@ -307,6 +309,51 @@ FieldTextarea:
   relations:
     Field: { class: Field, local: field_id, foreign: id, foreignType: many, type: one }
 
+
+
+DocumenttemplateTemplate:
+  actAs: [SoftDelete, Timestampable]
+  tableName: cf_documenttemplatetemplate
+  columns:
+    id: { type: integer, length: 10, primary: true, autoincrement: true }
+    name: { type: string(100) }    
+  relations:
+    DocumenttemplateVersion: { class: DocumenttemplateVersion, local: id, foreign: documenttemplate_id, foreignType: many, type: one }
+
+
+DocumenttemplateVersion:
+  tableName: cf_documenttemplateversion
+  columns:
+    id: { type: integer, length: 10, primary: true, autoincrement: true }
+    documenttemplate_id: { type: integer, length: 10 }
+    version: { type: integer(1), length: 3 }
+    activeversion: { type: integer(1), length: 3 }
+  relations:
+    DocumenttemplateSlot: { class: DocumenttemplateSlot, local: id, foreign: documenttemplateversion_id, foreignType: many, type: one }
+
+
+DocumenttemplateSlot:
+  tableName: cf_documenttemplateslot
+  columns:
+    id: { type: integer, length: 10, primary: true, autoincrement: true }
+    name: { type: string(100) }
+    sendtoallreceivers: { type: integer(1), length: 3 }
+    documenttemplateversion_id: { type: integer, length: 10 }
+    position: { type: integer(1), length: 3 }
+  relations:
+    DocumenttemplateField: { class: DocumenttemplateField, local: id, foreign: documenttemplateslot_id, foreignType: many, type: one }
+
+
+DocumenttemplateField:
+  tableName: cf_documenttemplatefield
+  columns:
+    id: { type: integer, length: 10, primary: true, autoincrement: true }
+    documenttemplateslot_id: { type: integer, length: 10 }
+    field_id: { type: integer, length: 10 }
+    position: { type: integer(1), length: 3 }
+
+
+
 FormTemplate:
   actAs: [SoftDelete]
   tableName: cf_formtemplate
@@ -338,6 +385,52 @@ FormField:
     FormSlot: { class: FormField, local: formslot_id, foreign: id, foreignType: one, type: many }
     Field: { class: Field, local: field_id, foreign: id, foreignType: many, type: one }
 
+
+FormTemplate:
+  actAs: [SoftDelete]
+  tableName: cf_formtemplate
+  columns:
+    id: { type: integer, length: 10, primary: true, autoincrement: true }
+    name: {type: string(100) }
+  relations:
+    MailinglistTemplate: { class: MailinglistTemplate, local: id, foreign: formtemplate_id, foreignType: many, type: one }
+
+FormSlot:
+  tableName: cf_formslot
+  columns:
+    id: { type: integer, length: 10, primary: true, autoincrement: true }
+    formtemplate_id: { type: integer, length: 10 }
+    name: {type: string(100) }
+    sendtoallreceivers: { type: integer(1), length: 3 }
+    position: { type: integer(1), length: 3 }
+  relations:
+    FormTemplate: { class: FormTemplate, local: formtemplate_id, foreign: id, foreignType: many, type: one }
+
+FormField:
+  tableName: cf_formfield
+  columns:
+    id: { type: integer, length: 10, primary: true, autoincrement: true }
+    formslot_id: { type: integer, length: 10 }
+    field_id: { type: integer, length: 10 }
+    position: { type: integer(1), length: 3 }
+  relations:
+    FormSlot: { class: FormField, local: formslot_id, foreign: id, foreignType: one, type: many }
+    Field: { class: Field, local: field_id, foreign: id, foreignType: many, type: one }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 MailinglistTemplate:
    actAs: [SoftDelete]
    tableName: cf_mailinglisttemplate
@@ -346,12 +439,7 @@ MailinglistTemplate:
      formtemplate_id: { type: integer, length: 10 }
      name: {type: string(100) }
      isactive: { type: string(10)}
-   relations:
-     MailinglistAuthorizationSetting: { class: MailinglistAuthorizationSetting, local: id, foreign: mailinglisttemplate_id, foreignType: many, type: one }
-     MailinglistAllowedSender: { class: MailinglistAllowedSender, local: id, foreign: mailinglisttemplate_id, foreignType: many, type: one }
      
-
-
 MailinglistAuthorizationSetting:
   tableName: cf_mailinglistauthorizationsetting
   columns:
@@ -370,8 +458,7 @@ MailinglistAllowedSender:
     mailinglisttemplate_id: { type: integer, length: 10 }
     user_id: { type: integer, length: 10 }
     position: { type: integer(1), length: 3 }
-  relations:
-    UserLogin: { class: UserLogin, local: user_id, foreign: id, foreignType: one, type: many }
+
 
 MailinglistSlot:
   tableName: cf_mailinglistslot
@@ -380,10 +467,7 @@ MailinglistSlot:
     mailinglisttemplate_id: { type: integer, length: 10 }
     slot_id: { type: integer, length: 10 }
     position: { type: integer(1), length: 3 }
-  relations:
-    MailinglistUser: { class: MailinglistUser, local: id, foreign: mailinglistslot_id, foreignType: one, type: many }
-    MailinglistTemplate: { class: MailinglistTemplate, local: mailinglisttemplate_id, foreign: id, foreignType: many, type: one }
-    FormSlot: { class: FormSlot, local: slot_id, foreign: id, foreignType: one, type: one }
+
 
 MailinglistUser:
   tableName: cf_mailinglistuser
@@ -392,6 +476,5 @@ MailinglistUser:
     mailinglistslot_id: { type: integer, length: 10 }
     user_id: { type: integer, length: 10 }
     position: { type: integer(1), length: 3 }
-  relations:
-    UserLogin: { class: UserLogin, local: user_id, foreign: id, foreignType: one, type: many }
+
     
