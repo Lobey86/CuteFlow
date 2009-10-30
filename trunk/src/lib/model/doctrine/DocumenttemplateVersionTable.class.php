@@ -27,6 +27,34 @@ class DocumenttemplateVersionTable extends Doctrine_Table {
         return true;
     }
 
+
+    /**
+     * Set template inactive
+     * @param int $id
+     * @return true
+     */
+    public function setTemplateActiveById($id) {
+        Doctrine_Query::create()
+            ->update('DocumenttemplateVersion dtv')
+            ->set('dtv.activeversion','?',1)
+            ->where('dtv.id = ?', $id)
+            ->execute();
+        return true;
+    }
+
+    /**
+     * Set all templates inactive
+     * @param int $id
+     * @return true
+     */
+    public function setAllTemplateInactiveByTemplateId($id) {
+        Doctrine_Query::create()
+            ->update('DocumenttemplateVersion dtv')
+            ->set('dtv.activeversion','?',0)
+            ->where('dtv.documenttemplate_id = ?', $id)
+            ->execute();
+        return true;
+    }
     /**
      *
      * @param int $id, id of the template
@@ -37,6 +65,20 @@ class DocumenttemplateVersionTable extends Doctrine_Table {
             ->select('dtv.documenttemplate_id, dtv.version')
             ->from('DocumenttemplateVersion dtv')
             ->where('dtv.id = ?', $id)
+            ->execute();
+    }
+
+
+    /**
+     * Load all Versions to a Documenttemplate by its parent id
+     * @param int $id, id of parent element
+     * @return Doctrine_Collection
+     */
+    public function getAllVersionByTemplateId($id) {
+        return Doctrine_Query::create()
+            ->select('dtv.*')
+            ->from('DocumenttemplateVersion dtv')
+            ->where('dtv.documenttemplate_id = ?', $id)
             ->execute();
     }
 
