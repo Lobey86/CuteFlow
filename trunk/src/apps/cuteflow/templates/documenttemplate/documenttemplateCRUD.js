@@ -55,8 +55,8 @@ cf.documenttemplateCRUD = function(){return {
 			waitMsg: '<?php echo __('Saving Data',null,'documenttemplate'); ?>',
 			success: function(objServerResponse){
 				cf.documenttemplatePanelGrid.theDocumenttemplateStore.reload();
-				cf.documenttemplatePopUpWindow.theFormPopUpWindow.hide();
-				cf.documenttemplatePopUpWindow.theFormPopUpWindow.destroy();
+				cf.documenttemplatePopUpWindow.theDocumenttemplatePopUpWindow.hide();
+				cf.documenttemplatePopUpWindow.theDocumenttemplatePopUpWindow.destroy();
 				Ext.Msg.minWidth = 200;
 				Ext.MessageBox.alert('<?php echo __('OK',null,'form'); ?>',title);
 			}

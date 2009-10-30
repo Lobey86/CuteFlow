@@ -1,7 +1,7 @@
 /** init popupwindow to create/update a template **/
 cf.documenttemplatePopUpWindow = function(){return {
 	
-	theFormPopUpWindow				:false,
+	theDocumenttemplatePopUpWindow	:false,
 	theLoadingMask					:false,
 	theTabPanel						:false,
 	theFirstTab						:false,
@@ -23,8 +23,8 @@ cf.documenttemplatePopUpWindow = function(){return {
 		cf.documenttemplatePopUpSecondTab.init();
 		this.theTabPanel.add(cf.documenttemplatePopUpSecondTab.theColumnPanel);
 		this.initWindow(id, '<?php echo __('Create new document template',null,'documenttemplate'); ?>');
-		this.theFormPopUpWindow.add(this.theTabPanel);
-		this.theFormPopUpWindow.show();
+		this.theDocumenttemplatePopUpWindow.add(this.theTabPanel);
+		this.theDocumenttemplatePopUpWindow.show();
 		this.theTabPanel.setActiveTab(1);
 	},
 
@@ -44,8 +44,8 @@ cf.documenttemplatePopUpWindow = function(){return {
 		cf.documenttemplatePopUpSecondTab.init();
 		this.theTabPanel.add(cf.documenttemplatePopUpSecondTab.theColumnPanel);
 		this.initWindow(id, '<?php echo __('Create new document template',null,'documenttemplate'); ?>');
-		this.theFormPopUpWindow.add(this.theTabPanel);
-		this.theFormPopUpWindow.show();
+		this.theDocumenttemplatePopUpWindow.add(this.theTabPanel);
+		this.theDocumenttemplatePopUpWindow.show();
 		this.theTabPanel.setActiveTab(1);
 		this.addData(id); // load data
 		
@@ -100,7 +100,7 @@ cf.documenttemplatePopUpWindow = function(){return {
 	* @param string title, title of window
 	*/
 	initWindow: function (id, title) {
-		this.theFormPopUpWindow = new Ext.Window({
+		this.theDocumenttemplatePopUpWindow = new Ext.Window({
 			modal: true,
 			closable: true,
 			modal: true,
@@ -124,14 +124,14 @@ cf.documenttemplatePopUpWindow = function(){return {
 				text:'<?php echo __('Close',null,'documenttemplate'); ?>', 
 				icon: '/images/icons/cancel.png',
 				handler: function () {
-					cf.documenttemplatePopUpWindow.theFormPopUpWindow.hide();
-					cf.documenttemplatePopUpWindow.theFormPopUpWindow.destroy();
+					cf.documenttemplatePopUpWindow.theDocumenttemplatePopUpWindow.hide();
+					cf.documenttemplatePopUpWindow.theDocumenttemplatePopUpWindow.destroy();
 				}
 			}]
 		});
-		this.theFormPopUpWindow.on('close', function() {
-			cf.documenttemplatePopUpWindow.theFormPopUpWindow.hide();
-			cf.documenttemplatePopUpWindow.theFormPopUpWindow.destroy();
+		this.theDocumenttemplatePopUpWindow.on('close', function() {
+			cf.documenttemplatePopUpWindow.theDocumenttemplatePopUpWindow.hide();
+			cf.documenttemplatePopUpWindow.theDocumenttemplatePopUpWindow.destroy();
 		});
 	},
 	
