@@ -322,6 +322,7 @@ DocumenttemplateTemplate:
 
 
 DocumenttemplateVersion:
+  actAs: [Timestampable]
   tableName: cf_documenttemplateversion
   columns:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
@@ -351,82 +352,6 @@ DocumenttemplateField:
     documenttemplateslot_id: { type: integer, length: 10 }
     field_id: { type: integer, length: 10 }
     position: { type: integer(1), length: 3 }
-
-
-
-FormTemplate:
-  actAs: [SoftDelete]
-  tableName: cf_formtemplate
-  columns:
-    id: { type: integer, length: 10, primary: true, autoincrement: true }
-    name: {type: string(100) }
-  relations:
-    MailinglistTemplate: { class: MailinglistTemplate, local: id, foreign: formtemplate_id, foreignType: many, type: one }
-
-FormSlot:
-  tableName: cf_formslot
-  columns:
-    id: { type: integer, length: 10, primary: true, autoincrement: true }
-    formtemplate_id: { type: integer, length: 10 }
-    name: {type: string(100) }
-    sendtoallreceivers: { type: integer(1), length: 3 }
-    position: { type: integer(1), length: 3 }
-  relations:
-    FormTemplate: { class: FormTemplate, local: formtemplate_id, foreign: id, foreignType: many, type: one }
-
-FormField:
-  tableName: cf_formfield
-  columns:
-    id: { type: integer, length: 10, primary: true, autoincrement: true }
-    formslot_id: { type: integer, length: 10 }
-    field_id: { type: integer, length: 10 }
-    position: { type: integer(1), length: 3 }
-  relations:
-    FormSlot: { class: FormField, local: formslot_id, foreign: id, foreignType: one, type: many }
-    Field: { class: Field, local: field_id, foreign: id, foreignType: many, type: one }
-
-
-FormTemplate:
-  actAs: [SoftDelete]
-  tableName: cf_formtemplate
-  columns:
-    id: { type: integer, length: 10, primary: true, autoincrement: true }
-    name: {type: string(100) }
-  relations:
-    MailinglistTemplate: { class: MailinglistTemplate, local: id, foreign: formtemplate_id, foreignType: many, type: one }
-
-FormSlot:
-  tableName: cf_formslot
-  columns:
-    id: { type: integer, length: 10, primary: true, autoincrement: true }
-    formtemplate_id: { type: integer, length: 10 }
-    name: {type: string(100) }
-    sendtoallreceivers: { type: integer(1), length: 3 }
-    position: { type: integer(1), length: 3 }
-  relations:
-    FormTemplate: { class: FormTemplate, local: formtemplate_id, foreign: id, foreignType: many, type: one }
-
-FormField:
-  tableName: cf_formfield
-  columns:
-    id: { type: integer, length: 10, primary: true, autoincrement: true }
-    formslot_id: { type: integer, length: 10 }
-    field_id: { type: integer, length: 10 }
-    position: { type: integer(1), length: 3 }
-  relations:
-    FormSlot: { class: FormField, local: formslot_id, foreign: id, foreignType: one, type: many }
-    Field: { class: Field, local: field_id, foreign: id, foreignType: many, type: one }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
