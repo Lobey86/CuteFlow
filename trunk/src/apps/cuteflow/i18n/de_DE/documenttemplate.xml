@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.0">
+  <file original="global" source-language="en_US" target-language="en_DE" datatype="plaintext">
+    <body>     
+	<trans-unit id="1">
+        <source>Yes</source>
+        <target>Ja</target>
+    </trans-unit>
+	<trans-unit id="2">
+        <source>Np</source>
+        <target>Nein</target>
+    </trans-unit>
+	</body>
+  </file>
+</xliff>
