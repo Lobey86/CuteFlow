@@ -4,7 +4,8 @@
 class Documenttemplate {
 
     public function  __construct() {
-       
+       sfLoader::loadHelpers('Date');
+       sfLoader::loadHelpers('i18n');
     }
 
 
@@ -59,6 +60,31 @@ class Documenttemplate {
         }
         return $result;
     }
+
+
+    /**
+     * Creates all Versions for the grid popup
+     * @param Doctrine_Collection $data, data
+     * @param string $culture, current culture of user
+     * @param sfContext, $context
+     * @return array $result, data
+     */
+    public function buildAllVersion(Doctrine_Collection $data, $culture, sfContext $context) {
+        $result = array();
+        $a = 0;
+        foreach($data as $item) {
+            $template = $item->getDocumenttemplateTemplate();
+            $result[$a]['#'] = $a+1;
+            $result[$a]['id'] = $item->getId();
+            $result[$a]['activeversion'] = $item->getActiveversion() == 1 ? '<font color="green">' . $context->getI18N()->__('Yes' ,null,'documenttemplate') . '</font>' : '<font color="red">' . $context->getI18N()->__('No',null,'documenttemplate') . '</font>';
+            $result[$a]['created_at'] = format_date($item->getCreatedAt(), 'g', $culture);
+            $result[$a]['name'] = $template[0]->getName();
+            $result[$a++]['documenttemplate_id'] = $item->getDocumenttemplateId();
+        }
+        return $result;
+    }
+
+
 
 }
 ?>
