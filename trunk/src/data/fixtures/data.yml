@@ -99,6 +99,10 @@ Credential:
     userModule: management
     userGroup: mailinglist
     userRight: addMailinglist
+  c26:
+    userModule: management
+    userGroup: documenttemplate
+    userRight: editVersion
 
 Role:
   r1:
@@ -193,6 +197,9 @@ CredentialRole:
   rc28:
     role_id: 1
     credential_id: 25
+  rc29:
+    role_id: 1
+    credential_id: 26
 
 
 UserLogin:
