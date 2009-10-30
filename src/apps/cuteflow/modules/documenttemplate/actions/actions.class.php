@@ -32,6 +32,11 @@ class documenttemplateActions extends sfActions {
         return sfView::NONE;
     }
 
+    /**
+     * Save template
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeSaveDocumenttemplate(sfWebRequest $request) {
         $data = $request->getPostParameters();
         
@@ -84,13 +89,21 @@ class documenttemplateActions extends sfActions {
         $this->renderText('({"total":"'.$anz[0]->getAnzahl().'","result":'.json_encode($json_result).'})');
         return sfView::NONE;
     }
-
+    /**
+     * Delete template
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeDeleteDocumenttemplate(sfWebRequest $request) {
         DocumenttemplateTemplateTable::instance()->deleteDocumentTemplateById($request->getParameter('id'));
         return sfView::NONE;
     }
 
-
+    /**
+     * Load a single Documenttemplate with slots and fields
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeLoadSingleDocumenttemplate(sfWebRequest $request) {
         $docObj = new Documenttemplate();
         $data = DocumenttemplateTemplateTable::instance()->getDocumentTemplateById($request->getParameter('id'));
@@ -99,6 +112,11 @@ class documenttemplateActions extends sfActions {
         return sfView::NONE;
     }
 
+    /**
+     * Update a template
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeUpdateDocumenttemplate(sfWebRequest $request) {
         $data = $request->getPostParameters();
         DocumenttemplateVersionTable::instance()->setTemplateInactiveById($request->getParameter('id'));
@@ -136,4 +154,43 @@ class documenttemplateActions extends sfActions {
         $this->renderText('{success:true}');
         return sfView::NONE;
     }
+
+
+
+
+    /**
+     * Load all versions of an template
+     * @param sfWebRequest $request
+     * @return <type>
+     */
+    public function executeLoadAllVersion(sfWebRequest $request) {
+        $docObj = new Documenttemplate();
+        $data = DocumenttemplateVersionTable::instance()->getAllVersionByTemplateId($request->getParameter('id'));
+        $json_result = $docObj->buildAllVersion($data, $this->getUser()->getCulture(), $this->getContext());
+        $this->renderText('({"result":'.json_encode($json_result).'})');
+        return sfView::NONE;
+    }
+
+
+    /**
+     * Activates a template
+     * @param sfWebRequest $request
+     * @return <type>
+     */
+    public function executeActivateDocumenttemplate(sfWebRequest $request) {
+        $document_id = $request->getParameter('documenttemplateid');
+        $id = $request->getParameter('id');
+        DocumenttemplateVersionTable::instance()->setAllTemplateInactiveByTemplateId($document_id);
+        DocumenttemplateVersionTable::instance()->setTemplateActiveById($id);
+        return sfView::NONE;
+    }
+
+
+
+
+
+
+
+
+
 }

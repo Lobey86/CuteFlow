@@ -15,9 +15,7 @@ class loginActions extends sfActions {
     * @param sfRequest $request A request object
     */
     public function executeIndex(sfWebRequest $request) {
-        //$this->getUser()->setAttribute('env','cuteflow_dev.php');
         sfLoader::loadHelpers('Url');
-        //$data = sfYaml::Load(sfConfig::get('sf_app_dir') . '/config/i18n.yml');
         $this->getUser()->setCulture(Language::loadDefaultLanguage());
         return sfView::SUCCESS;
     }
@@ -80,7 +78,23 @@ class loginActions extends sfActions {
 
 
     public function executeAuth(sfWebRequest $request) {
-         /*$credentials = new ezcAuthenticationPasswordCredentials( 'manu@apk.local', 'gisbert' );
+
+        
+        
+
+         $openid = sfOpenID::simplifyURL($this->getRequestParameter('openid_identity'));
+        print_r ($openid);
+
+
+
+
+        
+
+
+
+         /*
+        * $c
+        * redentials = new ezcAuthenticationPasswordCredentials( 'manu@apk.local', 'gisbert' );
          $ldap = new ezcAuthenticationLdapInfo( 'apk.local', 's=%s%', 'dc=apk,dc=local', 389 );
          $authentication = new ezcAuthentication( $credentials );
          $authentication->addFilter( new ezcAuthenticationLdapFilter( $ldap ) );
@@ -91,7 +105,7 @@ class loginActions extends sfActions {
          }*/
 
 
-
+        die;
         $ds = ldap_connect( 'apk.local' );
         ldap_set_option($ds, LDAP_OPT_PROTOCOL_VERSION, 3) ;
         $login = ldap_bind( $ds, 'manu@apk.local', 'gisbert' );
