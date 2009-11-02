@@ -62,7 +62,7 @@ cf.documenttemplateVersionSecondTab = function(){return {
 	/** CM for all grids in fieldset **/
 	initGridCM: function () {
 		this.theGridCM = new Ext.grid.ColumnModel([
-			{header: "<?php echo __('Field',null,'documenttemplate'); ?>", width: 230, sortable: false, dataIndex: 'title', css : "text-align : left;font-size:12px;align:left;"},
+			{header: "<?php echo __('Field',null,'documenttemplate'); ?>", width: 230, sortable: false, dataIndex: 'title', css : "text-align : left;font-size:12px;align:left;"}
 			
 		]);
 	},
@@ -88,7 +88,7 @@ cf.documenttemplateVersionSecondTab = function(){return {
 	
 	initFieldset: function (title, checked) {
 		var fieldset = new Ext.form.FieldSet({
-			title: title,
+			title: 'Slot: ' + title,
 			width: 'auto',
 			height: 250,
 			style: 'margin-top:20px;margin-left:5px;',

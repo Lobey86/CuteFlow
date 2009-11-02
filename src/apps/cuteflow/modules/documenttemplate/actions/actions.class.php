@@ -107,7 +107,7 @@ class documenttemplateActions extends sfActions {
     public function executeLoadSingleDocumenttemplate(sfWebRequest $request) {
         $docObj = new Documenttemplate();
         $data = DocumenttemplateTemplateTable::instance()->getDocumentTemplateById($request->getParameter('id'));
-        $json_result = $docObj->buildSingleDocumenttemplates($data, $request->getParameter('id'));
+        $json_result = $docObj->buildSingleDocumenttemplates($data, $request->getParameter('id'), 'FIELDS');
         $this->renderText('({"result":'.json_encode($json_result).'})');
         return sfView::NONE;
     }

@@ -27,6 +27,8 @@ cf.mailinglistCRUD = function(){return {
 		}
 		var readyToSend = cf.mailinglistCRUD.buildPanel(); // build panel to save
 		if(readyToSend == true)	{
+			Ext.getCmp('mailinglistFirstTab_nametextfield').setDisabled(false);
+			Ext.getCmp('mailinglistFirstTab_documenttemplate_id').setDisabled(false);
 			cf.mailinglistPopUpWindow.theTabPanel.setActiveTab(0);
 			cf.mailinglistCRUD.doSubmit(url, title);	
 		}
@@ -38,20 +40,11 @@ cf.mailinglistCRUD = function(){return {
 	buildPanel:function () {
 		if(Ext.getCmp('mailinglistFirstTab_nametextfield').getValue() == '' || Ext.getCmp('mailinglistFirstTab_documenttemplate_id').getValue() == '' ) {
 			cf.mailinglistPopUpWindow.theTabPanel.setActiveTab(0);
+			Ext.Msg.minWidth = 300;
+			Ext.MessageBox.alert('<?php echo __('Error',null,'mailinglist'); ?>','<?php echo __('Set Name and select a Template',null,'mailinglist'); ?>');
 			return false;
 		}
-		var grid = cf.mailinglistFirstTab.theAllowedSenderGrid;
-		var hiddenfield = new Ext.form.Field({
-			autoCreate : {tag:'input', type: 'hidden', name: 'removealloweduser', value:cf.mailinglistFirstTab.theRemoveUser, width: 0}			
-		});
-		cf.mailinglistFirstTab.theFormPanel.add(hiddenfield);
-		var hiddenfield = new Ext.form.Field({
-			autoCreate : {tag:'input', type: 'hidden', name: 'removeuser', value:cf.mailinglistSecondTab.theRemoveUser, width: 0}			
-		});
-		cf.mailinglistFirstTab.theFormPanel.add(hiddenfield);
-		
-		
-		
+		var grid = cf.mailinglistFirstTab.theAllowedSenderGrid;		
 		if(grid.store.getCount() > 0) {
 			var counter = 0;
 			for(var c=0;c<grid.store.getCount();c++) {
@@ -60,15 +53,11 @@ cf.mailinglistCRUD = function(){return {
 					autoCreate : {tag:'input', type: 'hidden', name: 'user['+counter+'][id]', value:row.data.user_id, width: 0}			
 				});
 				cf.mailinglistFirstTab.theFormPanel.add(hiddenfield);
-				var hiddenfield = new Ext.form.Field({
-					autoCreate : {tag:'input', type: 'hidden', name: 'user['+counter+'][databaseId]', value:row.data.databaseId, width: 0}			
-				});
-				
-				cf.mailinglistFirstTab.theFormPanel.add(hiddenfield);
 				cf.mailinglistFirstTab.theFormPanel.doLayout();
 				counter++;
 			}
 		}
+		
 		var panel = cf.mailinglistSecondTab.theLeftPanel;
 		var counter = 0;
 		for(var a=0;a<panel.items.length;a++) {
@@ -86,19 +75,9 @@ cf.mailinglistCRUD = function(){return {
 					autoCreate : {tag:'input', type: 'hidden', name: 'slot['+counter+'][grid]['+c+'][id]', value:row.data.id, width: 0}			
 				});
 				cf.mailinglistFirstTab.theFormPanel.add(hiddenfield);
-				var hiddenfield = new Ext.form.Field({
-					autoCreate : {tag:'input', type: 'hidden', name: 'slot['+counter+'][grid]['+c+'][databaseId]', value:row.data.databaseId, width: 0}			
-				});
-				//alert('User_id: ' + row.data.id + ' DatabaseId: ' + row.data.databaseId );
-				cf.mailinglistFirstTab.theFormPanel.add(hiddenfield);
 			}
 			counter++;
 		}
-		
-		
-		
-		
-		
 		
 		return true;
 	},

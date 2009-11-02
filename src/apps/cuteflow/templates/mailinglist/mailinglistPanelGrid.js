@@ -54,6 +54,7 @@ cf.mailinglistPanelGrid = function(){return {
 					{name: 'id'},
 					{name: 'name'},
 					{name: 'formtemplate_id'},
+					{name: 'activeversion'},
 					{name: 'formtemplate_name'},
 					{name: 'isactive'}
 				]
@@ -157,7 +158,7 @@ cf.mailinglistPanelGrid = function(){return {
 	
 	/** button renderer for edit and delete **/
 	renderAction: function (data, cell, record, rowIndex, columnIndex, store, grid) {
-		cf.mailinglistPanelGrid.createEditButton.defer(500,this, [record.data['id']]);
+		cf.mailinglistPanelGrid.createEditButton.defer(500,this, [record.data['id'], record.data['activeversion']]);
 		cf.mailinglistPanelGrid.createDeleteButton.defer(500,this, [record.data['id']]);
 		return '<center><table><tr><td width="16"><div id="mailinglist_edit'+ record.data['id'] +'"></div></td><td width="16"><div id="mailinglist_delete'+ record.data['id'] +'"></div></td></tr></table></center>';
 	},
@@ -167,7 +168,8 @@ cf.mailinglistPanelGrid = function(){return {
 	*
 	*@param int id, id of the record
 	*/
-	createEditButton: function (id) {
+	createEditButton: function (id, activeversion_id) {
+		alert(activeversion_id);
 		var btn_edit = new Ext.form.Label({
 			renderTo: 'mailinglist_edit' + id,
 			html: '<span style="cursor:pointer;"><img src="/images/icons/group_edit.png" /></span>',
@@ -177,7 +179,7 @@ cf.mailinglistPanelGrid = function(){return {
 					  c.getEl().on({
 						click: function(el){
 							if (c.disabled == false) {
-								cf.mailinglistPopUpWindow.initEdit(id);
+								cf.mailinglistPopUpWindow.initEdit(id, activeversion_id);
 							}
 						},
 					scope: c
