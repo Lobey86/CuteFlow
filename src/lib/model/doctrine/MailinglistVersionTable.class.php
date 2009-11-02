@@ -14,22 +14,42 @@ class MailinglistVersionTable extends Doctrine_Table {
     }
 
 
+    /**
+     * Get the current used Version by Id
+     *
+     * @param int $id, id of the tempplate
+     * @return Doctrine_Collection
+     */
     public function getVersionById($id) {
         return Doctrine_Query::create()
                     ->select('mlv.*')
                     ->from('MailinglistVersion mlv')
-                    ->where('mlv.id = ?', $id)
+                    ->where('mlv.mailinglisttemplate_id = ?', $id)
+                    ->orderBy('mlv.version DESC')
                     ->execute();
     }
 
+    /**
+     * Sets all records inactive for an exisiting template
+     *
+     * @param int $id, id of the template
+     * @return true
+     */
     public function setMailinglistInactiveById($id) {
         Doctrine_Query::create()
             ->update('MailinglistVersion mlv')
             ->set('mlv.activeversion','?', 0)
-            ->where('mlv.id = ?', $id)
+            ->where('mlv.mailinglisttemplate_id = ?', $id)
             ->execute();
+        return true;
     }
 
+    /**
+     * Get the active Version of an template
+     *
+     * @param int $id, id of template
+     * @return Doctrine_Collection
+     */
     public function getActiveVersionById($id) {
         return Doctrine_Query::create()
             ->select('mlv.*')
@@ -40,6 +60,31 @@ class MailinglistVersionTable extends Doctrine_Table {
 
     }
 
+    /**
+     * Get all version for a template
+     *
+     * @param int $id, template id
+     * @return Doctrine_Collection
+     */
+    public function getAllVersionsById($id) {
+        return Doctrine_Query::create()
+            ->select('mlv.*')
+            ->from('MailinglistVersion mlv')
+            ->where('mlv.mailinglisttemplate_id = ?', $id)
+            ->orderBy('mlv.created_at DESC')
+            ->execute();
+
+    }
+
+    public function setMailinglistActiveById($id) {
+        Doctrine_Query::create()
+            ->update('MailinglistVersion mlv')
+            ->set('mlv.activeversion','?', 1)
+            ->where('mlv.id = ?', $id)
+            ->execute();
+        return true;
+
+    }
 
     
 }

@@ -79,6 +79,7 @@ class DocumenttemplateVersionTable extends Doctrine_Table {
             ->select('dtv.*')
             ->from('DocumenttemplateVersion dtv')
             ->where('dtv.documenttemplate_id = ?', $id)
+            ->orderBy('dtv.created_at DESC')
             ->execute();
     }
 
