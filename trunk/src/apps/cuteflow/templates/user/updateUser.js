@@ -68,7 +68,16 @@ cf.updateUser = function(){return {
 			waitMsg: '<?php echo __('Saving Data',null,'usermanagement'); ?>',
 			success: function(objServerResponse){
 				try {
+					cf.userSecondTab.theUserAgentStore.reload();
+				}
+				catch(e) {
+				
+				}
+				
+				try {
+					theFormpanel.remove(cf.updateUser.theHiddenPanel);
 					Ext.destroy.apply(Ext, cf.updateUser.theHiddenPanel.items.items);
+					cf.userSecondTab.theRemoveField = '';
 					cf.updateUser.theHiddenPanel.items.clear();
 					cf.updateUser.theHiddenPanel.body.update('');
 				}

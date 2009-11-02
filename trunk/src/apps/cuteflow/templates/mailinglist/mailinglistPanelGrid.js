@@ -38,7 +38,7 @@ cf.mailinglistPanelGrid = function(){return {
 			{header: "<?php echo __('Name',null,'mailinglist'); ?>", width: 280, sortable: false, dataIndex: 'name', css : "text-align : left;font-size:12px;align:center;"},
 			{header: "<?php echo __('Document Template',null,'mailinglist'); ?>", width: 280, sortable: false, dataIndex: 'formtemplate_name', css : "text-align : left;font-size:12px;align:center;"},
 			{header: "<?php echo __('is default',null,'mailinglist'); ?>", width: 150, sortable: false, dataIndex: 'isdefault', css : "text-align:center;font-size:12px;align:center;", renderer: this.renderRadiobox},
-			{header: "<div ext:qtip=\"<table><tr><td><img src='/images/icons/group_edit.png' />&nbsp;&nbsp;</td><td><?php echo __('Edit Mailing list template',null,'mailinglist'); ?></td></tr><tr><td><img src='/images/icons/group_delete.png' />&nbsp;&nbsp;</td><td><?php echo __('Delete Mailing List template',null,'mailinglist'); ?></td></tr></table>\" ext:qwidth=\"200\"><?php echo __('Action',null,'mailinglist'); ?></div>", width: 80, sortable: false, dataIndex: 'action', css : "text-align : left;font-size:12px;align:center;" ,renderer: this.renderAction}
+			{header: "<div ext:qtip=\"<table><tr><td><img src='/images/icons/group_edit.png' />&nbsp;&nbsp;</td><td><?php echo __('Edit Mailing list template',null,'mailinglist'); ?></td></tr><tr><td><img src='/images/icons/clock.png' />&nbsp;&nbsp;</td><td><?php echo __('Show Document template versions',null,'documenttemplate'); ?></td></tr><tr><td><img src='/images/icons/group_delete.png' />&nbsp;&nbsp;</td><td><?php echo __('Delete Mailing List template',null,'mailinglist'); ?></td></tr><tr><td><img src='/images/icons/table_lightning.png' />&nbsp;&nbsp;</td><td><?php echo __('Adapt Mailinglist to current Document Template',null,'mailinglist'); ?></td></tr></table>\" ext:qwidth=\"300\"><?php echo __('Action',null,'mailinglist'); ?></div>", width: 100, sortable: false, dataIndex: 'action', css : "text-align : left;font-size:12px;align:center;" ,renderer: this.renderAction}
 		]);
 	},
 	
@@ -160,7 +160,59 @@ cf.mailinglistPanelGrid = function(){return {
 	renderAction: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 		cf.mailinglistPanelGrid.createEditButton.defer(500,this, [record.data['id'], record.data['activeversion']]);
 		cf.mailinglistPanelGrid.createDeleteButton.defer(500,this, [record.data['id']]);
-		return '<center><table><tr><td width="16"><div id="mailinglist_edit'+ record.data['id'] +'"></div></td><td width="16"><div id="mailinglist_delete'+ record.data['id'] +'"></div></td></tr></table></center>';
+		cf.mailinglistPanelGrid.createVersionButton.defer(500,this, [record.data['id']]);
+		cf.mailinglistPanelGrid.createAdaptButton.defer(500,this, [record.data['id']]);
+		return '<center><table><tr><td width="16"><div id="mailinglist_edit'+ record.data['id'] +'"></div></td><td width="16"><div id="mailinglist_version'+ record.data['id'] +'"></div></td><td width="16"><div id="mailinglist_delete'+ record.data['id'] +'"></div></td><td width="16"><div id="mailinglist_adapt'+ record.data['id'] +'"></div></td></tr></table></center>';
+	},
+	
+	createAdaptButton: function (id) {
+		var btn_edit = new Ext.form.Label({
+			renderTo: 'mailinglist_adapt' + id,
+			html: '<span style="cursor:pointer;"><img src="/images/icons/table_lightning.png" /></span>',
+			disabled: <?php $arr = $sf_user->getAttribute('credential');echo $arr['management_mailinglist_deleteMailinglist'];?>,
+			listeners: {
+				render: function(c){
+					  c.getEl().on({
+						click: function(el){
+							if (c.disabled == false) {
+								Ext.Msg.minWidth = 320;
+								Ext.Msg.show({
+								   title:'<?php echo __('Adapt mailinglist?',null,'mailinglist'); ?>',
+								   msg: '<?php echo __('Adapt mailinglist to current Document Template?',null,'mailinglist'); ?>',
+								   buttons: Ext.Msg.YESNO,
+								   fn: function(btn, text) {
+										if(btn == 'yes') {
+											alert(id);
+										}
+								   }
+								});
+							}
+						},
+					scope: c
+				});
+				}
+			}
+		});
+	},
+	
+	createVersionButton: function (id) {
+		var btn_edit = new Ext.form.Label({
+			renderTo: 'mailinglist_version' + id,
+			html: '<span style="cursor:pointer;"><img src="/images/icons/clock.png" /></span>',
+			disabled: <?php $arr = $sf_user->getAttribute('credential');echo $arr['management_documenttemplate_editVersion'];?>,
+			listeners: {
+				render: function(c){
+					  c.getEl().on({
+						click: function(el){
+							if (c.disabled == false) {
+								cf.mailinglistVersionPopUp.init(id);
+							}
+						},
+					scope: c
+				});
+				}
+			}
+		});
 	},
 	
 	/**
@@ -169,7 +221,6 @@ cf.mailinglistPanelGrid = function(){return {
 	*@param int id, id of the record
 	*/
 	createEditButton: function (id, activeversion_id) {
-		alert(activeversion_id);
 		var btn_edit = new Ext.form.Label({
 			renderTo: 'mailinglist_edit' + id,
 			html: '<span style="cursor:pointer;"><img src="/images/icons/group_edit.png" /></span>',

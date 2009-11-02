@@ -240,9 +240,9 @@ class mailinglistActions extends sfActions {
         $mailinglist = new Mailinglist();
         $user = array();
         $data = $request->getPostParameters();
-
         $mailingsdata = MailinglistVersionTable::instance()->getVersionById($request->getParameter('id'))->toArray();
         MailinglistVersionTable::instance()->setMailinglistInactiveById($request->getParameter('id'));
+        
         $mailinglistversion = new MailinglistVersion();
         $mailinglistversion->setMailinglisttemplateId($mailingsdata[0]['mailinglisttemplate_id']);
         $mailinglistversion->setVersion($mailingsdata[0]['version']+1);
@@ -282,6 +282,34 @@ class mailinglistActions extends sfActions {
             }
         }
         $this->renderText('{success:true}');
+        return sfView::NONE;
+    }
+
+
+    /**
+     * Load all versions of an existing template
+     * @param sfWebRequest $request
+     * @return <type>
+     */
+    public function executeLoadAllVersion(sfWebRequest $request) {
+        $mailinglist = new Mailinglist();
+        $result = MailinglistVersionTable::instance()->getAllVersionsById($request->getParameter('id'));
+        $json_result = $mailinglist->buildAllVersion($result, $this->getUser()->getCulture(), $this->getContext());
+        $this->renderText('({"result":'.json_encode($json_result).'})');
+        return sfView::NONE;
+    }
+
+
+    /**
+     * Activate a mailinglist from history
+     * @param sfWebRequest $request
+     * @return <type>
+     */
+    public function executeActivateMailinglist(sfWebRequest $request) {
+        $id = $request->getParameter('id');
+        $mailinglist_id = $request->getParameter('mailinglistid');
+        MailinglistVersionTable::instance()->setMailinglistInactiveById($mailinglist_id);
+        MailinglistVersionTable::instance()->setMailinglistActiveById($id);
         return sfView::NONE;
     }
 
