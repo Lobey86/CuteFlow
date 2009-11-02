@@ -42,7 +42,7 @@ class MailinglistAuthorizationSettingTable extends Doctrine_Table {
         Doctrine_Query::create()
             ->update('MailinglistAuthorizationSetting mas')
             ->set('mas.'.$column,'?', 1)
-            ->where ('mas.mailinglisttemplate_id = ?',$id)
+            ->where ('mas.mailinglistversion_id = ?',$id)
             ->andWhere('mas.type = ?', $value)
             ->execute();
         return true;
@@ -57,7 +57,7 @@ class MailinglistAuthorizationSettingTable extends Doctrine_Table {
         return Doctrine_Query::create()
             ->select('mlas.*')
             ->from('MailinglistAuthorizationSetting mlas')
-            ->where ('mlas.mailinglisttemplate_id = ?',$id)
+            ->where ('mlas.mailinglistversion_id = ?',$id)
             ->execute();
 
     }
