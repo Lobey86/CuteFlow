@@ -36,7 +36,7 @@ cf.mailinglistPopUpWindow = function(){return {
 		this.theLoadingMaskShowTime = 2000;
 		cf.mailinglistFirstTab.init('<?php echo build_dynamic_javascript_url('mailinglist/LoadAuthorization')?>/id/'+activeversion_id,activeversion_id);
 		this.initTabPanel();
-		this.initWindow(activeversion_id,'<?php echo __('Edit existing Mailing list',null,'mailinglist'); ?>');
+		this.initWindow(id,'<?php echo __('Edit existing Mailing list',null,'mailinglist'); ?>');
 		this.theTabPanel.add(cf.mailinglistFirstTab.theFormPanel);
 		this.theMailinglistPopUpWindow.add(this.theTabPanel);
 		this.theMailinglistPopUpWindow.doLayout();
@@ -73,9 +73,9 @@ cf.mailinglistPopUpWindow = function(){return {
 					
 					for(var b=0;b<data.slots[a].users.length;b++) {
 						var row = data.slots[a].users[b];
-						var id = cf.mailinglistSecondTab.theUniqueId++
+						var unique_id = cf.mailinglistSecondTab.theUniqueId++
 						var Rec = Ext.data.Record.create({name: 'unique_id'},{name: 'id'},{name: 'text'});
-						grid.store.add(new Rec({unique_id: id, id: row.user_id, text: row.name})); 
+						grid.store.add(new Rec({unique_id: unique_id, id: row.user_id, text: row.name})); 
 					}
 					fieldset.add(grid);
 					cf.mailinglistSecondTab.theLeftPanel.add(fieldset);
