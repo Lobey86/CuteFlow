@@ -4,7 +4,8 @@
 class Mailinglist {
 
     public function  __construct() {
-
+       sfLoader::loadHelpers('Date');
+       sfLoader::loadHelpers('i18n');
     }
 
     /**
@@ -153,7 +154,7 @@ class Mailinglist {
         $slots = MailinglistSlotTable::instance()->getSlotsByVersionId($mailinglist_id);
         foreach($slots as $slot) {
             $slotname = $slot->getDocumenttemplateSlot()->toArray();
-            $result[$a]['slot_id'] = $slot->getId();
+            $result[$a]['slot_id'] = $slotname[0]['id'];
             $result[$a]['name'] = $slotname[0]['name'];
             $result[$a++]['users'] = $this->buildUser($slot->getId());
         }
@@ -180,90 +181,27 @@ class Mailinglist {
     }
 
 
-    /**
-     *
-     * Function creates a new Mailinglist Template
-     *
-     * @param array $data, POST data
-     * @return true
-     */
-    public function saveMailinglist(array $data) {
-        $mailObj = new MailinglistTemplate();
-        $mailObj->setFormtemplateId($data['mailinglistFirstTab_documenttemplate']);
-        $mailObj->setName($data['mailinglistFirstTab_nametextfield']);
-        $mailObj->setIsactive(0);
-        $mailObj->save();
-        $template_id = $mailObj->getId();
-        $this->createAuthorizationEntry($template_id);
-        $this->saveAuthorization($template_id,$data['mailinglistFirstTab']);
-        if(isset($data['user'])) {
-            $this->saveUser($template_id,$data['user']);
+    public function buildAllVersion(Doctrine_Collection $data, $culture, sfContext $context) {
+        $result = array();
+        $a = 0;
+        foreach($data as $item) {
+            $template = $item->getMailinglistTemplate();
+            $result[$a]['#'] = $a+1;
+            $result[$a]['id'] = $item->getId();
+            $result[$a]['activeversion'] = $item->getActiveversion() == 1 ? '<font color="green">' . $context->getI18N()->__('Yes' ,null,'documenttemplate') . '</font>' : '<font color="red">' . $context->getI18N()->__('No',null,'documenttemplate') . '</font>';
+            $result[$a]['created_at'] = format_date($item->getCreatedAt(), 'g', $culture);
+            $result[$a]['name'] = $template[0]->getName();
+            $result[$a++]['mailinglisttemplate_id'] = $item->getMailinglisttemplateId();
         }
-        $slots = $data['slot'];
-        $slotposition = 1;
-        foreach($slots as $slot) {
-            $slotobj = new MailinglistSlot();
-            $slotobj->setMailinglisttemplateId($template_id);
-            $slotobj->setSlotId($slot['slot_id']);
-            $slotobj->setPosition($slotposition++);
-            $slotobj->save();
-            $slot_id = $slotobj->getId();
-            $records = array();
-            $records = isset($slot['grid']) ? $slot['grid'] : $records;
-            $userposition = 1;
-            foreach($records as $record) {
-                $userobj = new MailinglistUser();
-                $userobj->setMailinglistslotId($slot_id);
-                $userobj->setUserId($record['id']);
-                $userobj->setPosition($userposition++);
-                $userobj->save();
-            }
-        }
-        return true;
+        return $result;
     }
 
-    /**
-     * Function updates an Mailinglist
-     * 
-     * @param int $template_id, id of the template to edit
-     * @param array $data, POST data
-     * @return true
-     */
-    public function updateMailinglist($template_id, array $data) {
-        $mailObj = Doctrine::getTable('MailinglistTemplate')->find($template_id);
-        $mailObj->setName($data['mailinglistFirstTab_nametextfield']);
-        $mailObj->save();
-        MailinglistAuthorizationSettingTable::instance()->setAuthorizationToNullById($template_id);
-        isset($data['mailinglistFirstTab']) ? $this->saveAuthorization($template_id,$data['mailinglistFirstTab']) : '';
-        if($data['removealloweduser'] != '') {
-            $delted_users = explode(',', $data['removealloweduser']);
-            MailinglistAllowedSenderTable::instance()->deleteAllowedUsersByIdInArray($delted_users);
-        }
-        if($data['removeuser'] != '') {
-            $delted_users = explode(',', $data['removeuser']);
-            MailinglistUserTable::instance()->deleteMailinglistUsersByIdInArray($delted_users);
-        }
+
+    public function storeMailinglist() {
+
+
         
-        if(isset($data['user'])) {
-            $this->updateUser($template_id,$data['user']);
-        }
-        $slots = $data['slot'];
-        foreach($slots as $slot) {
-            $slot_id = $slot['slot_id'];
-            $records = array();
-            $records = isset($slot['grid']) ? $slot['grid'] : $records;
-            $userposition = 1;
-            foreach($records as $record) {
-                $userobj = $record['databaseId'] == '' ? new MailinglistUser() : Doctrine::getTable('MailinglistUser')->find($record['databaseId']) ;
-                $userobj->setMailinglistslotId($slot_id);
-                $userobj->setUserId($record['id']);
-                $userobj->setPosition($userposition++);
-                $userobj->save();
-            }
-        }
-        return true;
     }
-
 
 
 }
