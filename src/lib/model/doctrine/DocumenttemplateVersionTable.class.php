@@ -82,5 +82,14 @@ class DocumenttemplateVersionTable extends Doctrine_Table {
             ->execute();
     }
 
+    public function getActiveVersionById($id) {
+        return Doctrine_Query::create()
+            ->select('dtv.*')
+            ->from('DocumenttemplateVersion dtv')
+            ->where('dtv.documenttemplate_id = ?', $id)
+            ->andWhere('dtv.activeversion = ?', 1)
+            ->execute();
+    }
+
 
 }

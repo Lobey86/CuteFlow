@@ -22,7 +22,7 @@ class MailinglistTemplateTable extends Doctrine_Table {
     }
 
 
-        /**
+     /**
      *
      * Load all forms with number of slots
      * return Doctrine_Collection
@@ -34,14 +34,34 @@ class MailinglistTemplateTable extends Doctrine_Table {
         $query = Doctrine_Query::create()
                 ->select('mlt.*')
                 ->from('MailinglistTemplate mlt')
-                ->where ('mlt.deleted = ?',0);
+                ->leftJoin('mlt.MailinglistVersion mlv')
+                ->where ('mlt.deleted = ?',0)
+                ->andWhere('mlv.activeversion = ?', 1);
 		if($limit != -1 AND $offset != -1) {
                     $query->limit($limit)
                           ->offset($offset);
                 }
 		return $query->orderBy('mlt.id DESC')
-		->groupby('mlt.id')
+		->groupBy('mlt.id')
 		->execute();
+
+    }
+
+
+    /**
+     * Get name of template by id of mailinglisteversion
+     *
+     * @param int $id, id of version
+     * @return Doctrine_Collection
+     */
+    public function getMailinglistByVersionId($id) {
+        return Doctrine_Query::create()
+                    ->select('mlt.*')
+                    ->from('MailinglistTemplate mlt')
+                    ->leftJoin('mlt.MailinglistVersion mlv')
+                    ->where('mlv.id = ?', $id)
+                    ->execute();
+        
     }
 
     /**
