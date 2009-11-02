@@ -194,7 +194,6 @@ class mailinglistActions extends sfActions {
         $mailinglist = new Mailinglist();
         $data = MailinglistAllowedSenderTable::instance()->getAllowedSenderById($request->getParameter('id'))->toArray();
         $data = $mailinglist->buildAllowedSender($data);
-
         $this->renderText('{"result":'.json_encode($data).'}');
         return sfView::NONE;
     }
