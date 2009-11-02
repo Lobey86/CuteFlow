@@ -10,14 +10,13 @@ cf.administration_usermanagement = function(){return {
 
 	/** inits searchbar and grid **/
 	init: function () {
-		if (this.isInitialized == false) {
-			this.isInitialized = true;
-			this.initWindow();
-			cf.UserSearchbar.init();
-			this.theUserWindow.add(cf.UserSearchbar.theUserSearchbar);
-			cf.UserGrid.init();
-			this.theUserWindow.add(cf.UserGrid.theGridPanel);
-		}
+		this.isInitialized = true;
+		this.initWindow();
+		cf.UserSearchbar.init();
+		this.theUserWindow.add(cf.UserSearchbar.theUserSearchbar);
+		cf.UserGrid.init();
+		this.theUserWindow.add(cf.UserGrid.theGridPanel);
+		
 	},
 	
 	/** inits the Panel, where searchbar and grid will be added. Panel is displayed in Tabpanel **/
