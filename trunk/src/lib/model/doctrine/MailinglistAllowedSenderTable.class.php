@@ -26,7 +26,7 @@ class MailinglistAllowedSenderTable extends Doctrine_Table {
                ->leftJoin('ul.UserData ud')
                ->where('mlas.mailinglistversion_id = ?', $id)
                ->orderBy('mlas.position asc')
-               ->groupBy('ul.id')
+               ->groupBy('mlas.id')
                ->execute();
     }
 
