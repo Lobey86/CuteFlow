@@ -9,6 +9,11 @@ class Documenttemplate {
     }
 
 
+    /**
+     * Load all templates for grid
+     * @param array $data, data
+     * @return array $data, resultset
+     */
     public function buildAllDocumenttemplates(array $data) {
         $result = array();
         $a = 0;
@@ -19,33 +24,58 @@ class Documenttemplate {
     }
 
 
-    public function buildSingleDocumenttemplates(Doctrine_Collection $data, $id) {
+    /**
+     * Function loads a single documenttemplate by an id with fields, slots
+     *
+     * @param Doctrine_Collection $data
+     * @param int $id, id to laod
+     * @param string $type, type can be FIELDS -> load fields to a slot, SLOTONLY -> load nothing
+     * @return array $result
+     */
+    public function buildSingleDocumenttemplates(Doctrine_Collection $data, $id, $type) {
         $item = $data[0];
         $slots = $item->getDocumenttemplateVersion()->toArray();
-
         $result['documenttemplate_id'] = $item->getId();
         $result['name'] = $item->getName();
         $result['id'] = $slots['id'];
-        $result['documenttemplate_id'] = $slots['documenttemplate_id'];
-        $result['slots'] = $this->buildSlots($id);
+        $result['activeversion_id'] = $id;
+        //$result['documenttemplate_id'] = $slots['documenttemplate_id'];
+        $result['slots'] = $this->buildSlots($id, $type);
         return $result;
     }
 
-    public function buildSlots($slot_id) {
-        $slots = DocumenttemplateSlotTable::instance()->getSlotByDocumentTemplateId($slot_id);
+    /**
+     * Load all slots for a template
+     * @param int $template_id, template id
+     * @param string $type, type can be FIELDS -> load fields to a slot, users to a slot, SLOTONLY -> load nothing
+     * @return array $result
+     */
+    public function buildSlots($template_id, $type) {
+        $slots = DocumenttemplateSlotTable::instance()->getSlotByDocumentTemplateId($template_id);
         $result = array();
         $a = 0;
         foreach ($slots as $slot) {
             $result[$a]['slot_id'] = $slot->getId();
             $result[$a]['name'] = $slot->getName();
             $result[$a]['receiver'] = $slot->getSendtoallreceivers();
-            $result[$a++]['fields'] = $this->buildFields($slot->getId());
-            
+            switch ($type) {
+            case 'FIELDS':
+                $result[$a]['fields'] = $this->buildFields($slot->getId());
+                break;
+            case 'SLOTSONLY':
+                break;
+            }
+            $a++;
         }
         return $result;
     }
 
 
+    /**
+     * Load all fields for a slot
+     * @param int $slot_id, slot id
+     * @return array $result
+     */
     public function buildFields($slot_id) {
         
         $result = array();

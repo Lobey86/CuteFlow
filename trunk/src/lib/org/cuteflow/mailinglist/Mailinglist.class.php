@@ -16,7 +16,7 @@ class Mailinglist {
         $setting = array('admin','thesender','sender','senderwithrights','receiver');
         foreach($setting as $item) {
             $mailingauth = new MailinglistAuthorizationSetting();
-            $mailingauth->setMailinglisttemplateId($id);
+            $mailingauth->setMailinglistversionId($id);
             $mailingauth->setType($item);
             $mailingauth->setDeleteworkflow(0);
             $mailingauth->setArchiveworkflow(0);
@@ -27,6 +27,14 @@ class Mailinglist {
         return true;
     }
 
+    /**
+     *
+     */
+    public function addNameToTemplateVersion(array $result, Doctrine_Collection $data) {
+        $result['documenttemplate_name'] = $data[0]->getName();
+        $result['documenttemplate_id'] = $data[0]->getId();
+        return $result;
+    }
 
     /**
      *
@@ -81,15 +89,15 @@ class Mailinglist {
     public function buildAllMailinglists(Doctrine_Collection $data) {
         $result = array();
         $a = 0;
-
         foreach($data as $item) {
-            $form = $item->getFormTemplate()->toArray();
+            $documenttemplate = $item->getDocumenttemplateTemplate()->toArray();
+            $activeversion = MailinglistVersionTable::instance()->getActiveVersionById($item->getId())->toArray();
             $result[$a]['#'] = $a+1;
             $result[$a]['id'] = $item->getId();
-            $result[$a]['formtemplate_id'] = $item->getFormtemplateId();
+            $result[$a]['activeversion'] = $activeversion[0]['id'];
             $result[$a]['isactive'] = $item->getIsactive();
             $result[$a]['name'] = $item->getName();
-            $result[$a++]['formtemplate_name'] = $form[0]['name'];
+            $result[$a++]['formtemplate_name'] = $documenttemplate[0]['name'];
         }
         return $result;
     }
@@ -117,15 +125,17 @@ class Mailinglist {
      * @param Doctrine_Collection $data
      * @return array $result, content of mailinglist
      */
-    public function buildSingleMailinglist(Doctrine_Collection $data) {
-        $test = $data->toArray();
+    public function buildSingleMailinglist(Doctrine_Collection $data, $id) {
         $result = array();
         $a = 0;
+
         foreach($data as $item) {
-            $slots = $item->getMailinglistSlot();
+            $documenttemplate = $item->getDocumenttemplateTemplate()->toArray();
+            $result['documenttemplate_id'] = $documenttemplate[0]['id'];
+            $result['documenttemplate_name'] = $documenttemplate[0]['name'];
             $result['id'] = $item->getId();
-            $result['title'] = $item->getName();
-            $result['slot'] = $this->buildSlot($slots);
+            $result['name'] = $item->getName();
+            $result['slots'] = $this->buildSlot($id);
         }
         return $result;
 
@@ -137,15 +147,15 @@ class Mailinglist {
      * @param Doctrine_Collection $slots, slots to a correspondending mailinglist
      * @return array $result
      */
-    private function buildSlot(Doctrine_Collection $slots) {
+    private function buildSlot($mailinglist_id) {
         $result = array();
         $a = 0;
+        $slots = MailinglistSlotTable::instance()->getSlotsByVersionId($mailinglist_id);
         foreach($slots as $slot) {
-            $slotname = $slot->getFormSlot();
-            $result[$a]['id'] = $slot->getId();
-            //$result[$a]['id'] = $slot->getSlotId();
-            $result[$a]['title'] = $slotname->getName();
-            $result[$a++]['user'] = $this->buildUser($slot->getId());
+            $slotname = $slot->getDocumenttemplateSlot()->toArray();
+            $result[$a]['slot_id'] = $slot->getId();
+            $result[$a]['name'] = $slotname[0]['name'];
+            $result[$a++]['users'] = $this->buildUser($slot->getId());
         }
         return $result;
     }
@@ -162,8 +172,8 @@ class Mailinglist {
         $a = 0;
         $data = MailinglistUserTable::instance()->getAllUserBySlotId($id);
         foreach($data as $user) {
-            $result[$a]['databaseId'] = $user->getId();
-            $result[$a]['id'] = $user->getUserId();
+            $result[$a]['id'] = $user->getId();
+            $result[$a]['user_id'] = $user->getUserId();
             $result[$a++]['name'] = $user->getName();
         }
         return $result;
