@@ -57,6 +57,8 @@ UserLogin:
     email: { type: string(100) }
   relations:
     Role: { class: Role, local: role_id, foreign: id, foreignType: many, type: one }
+    MailinglistAllowedSender: { class: MailinglistAllowedSender, local: id, foreign: user_id, foreignType: many, type: one }
+    MailinglistUser: { class: MailinglistUser, local: id, foreign: user_id, foreignType: many, type: one }
 
 UserWorkflowConfiguration:
   tableName: cf_userworkflowconfiguration
@@ -319,7 +321,7 @@ DocumenttemplateTemplate:
     name: { type: string(100) }    
   relations:
     DocumenttemplateVersion: { class: DocumenttemplateVersion, local: id, foreign: documenttemplate_id, foreignType: many, type: one }
-
+    MailinglistTemplate: { class: MailinglistTemplate, local: id, foreign: documenttemplatetemplate_id, foreignType: many, type: one }
 
 DocumenttemplateVersion:
   actAs: [Timestampable]
@@ -333,6 +335,7 @@ DocumenttemplateVersion:
     DocumenttemplateSlot: { class: DocumenttemplateSlot, local: id, foreign: documenttemplateversion_id, foreignType: many, type: one }
 
 
+
 DocumenttemplateSlot:
   tableName: cf_documenttemplateslot
   columns:
@@ -343,7 +346,7 @@ DocumenttemplateSlot:
     position: { type: integer(1), length: 3 }
   relations:
     DocumenttemplateField: { class: DocumenttemplateField, local: id, foreign: documenttemplateslot_id, foreignType: many, type: one }
-
+    MailinglistSlot: { class: MailinglistSlot, local: id, foreign: slot_id, foreignType: many, type: one }
 
 DocumenttemplateField:
   tableName: cf_documenttemplatefield
@@ -354,22 +357,34 @@ DocumenttemplateField:
     position: { type: integer(1), length: 3 }
 
 
-
-
 MailinglistTemplate:
-   actAs: [SoftDelete]
+   actAs: [SoftDelete,Timestampable]
    tableName: cf_mailinglisttemplate
    columns:
      id: { type: integer, length: 10, primary: true, autoincrement: true }
-     formtemplate_id: { type: integer, length: 10 }
+     documenttemplatetemplate_id : { type: integer, length: 10}
      name: {type: string(100) }
      isactive: { type: string(10)}
-     
+   relations:
+     MailinglistVersion: { class: MailinglistVersion, local: id, foreign: mailinglisttemplate_id, foreignType: many, type: one }
+
+MailinglistVersion:
+  actAs: [Timestampable]
+  tableName: cf_mailinglistversion
+  columns:
+    id: { type: integer, length: 10, primary: true, autoincrement: true }
+    mailinglisttemplate_id: { type: integer, length: 10 }
+    version: { type: integer(1), length: 3 }
+    activeversion: { type: integer(1), length: 3 }
+  relations:
+    MailinglistAuthorizationSetting: { class: MailinglistAuthorizationSetting, local: id, foreign: mailinglistversion_id, foreignType: many, type: one }
+    MailinglistAllowedSender: { class: MailinglistAllowedSender, local: id, foreign: mailinglistversion_id, foreignType: many, type: one }
+    
 MailinglistAuthorizationSetting:
   tableName: cf_mailinglistauthorizationsetting
   columns:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
-    mailinglisttemplate_id: { type: integer, length: 10 }
+    mailinglistversion_id: { type: integer, length: 10 }
     type: { type: string(45)}
     deleteworkflow: { type: integer(1), length: 3}
     archiveworkflow: { type: integer(1), length: 3}
@@ -380,19 +395,19 @@ MailinglistAllowedSender:
   tableName: cf_mailinglistallowedsender
   columns:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
-    mailinglisttemplate_id: { type: integer, length: 10 }
+    mailinglistversion_id: { type: integer, length: 10 }
     user_id: { type: integer, length: 10 }
     position: { type: integer(1), length: 3 }
-
 
 MailinglistSlot:
   tableName: cf_mailinglistslot
   columns:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
-    mailinglisttemplate_id: { type: integer, length: 10 }
+    mailinglistversion_id: { type: integer, length: 10 }
     slot_id: { type: integer, length: 10 }
     position: { type: integer(1), length: 3 }
-
+  relations:
+    MailinglistUser: { class: MailinglistUser, local: id, foreign: mailinglistslot_id, foreignType: many, type: one }
 
 MailinglistUser:
   tableName: cf_mailinglistuser
