@@ -115,6 +115,55 @@ class Documenttemplate {
     }
 
 
+    /**
+     * Create Slots and Fields for a new record
+     *
+     * @param array $slots, Slots and fields to store
+     * @param int $version_id, id of the version to store
+     * @return <type>
+     */
+    public function storeData(array $slots, $version_id) {
+        $fields = array();
+        $slotPosition = 1;
+        foreach($slots as $slot) {
+            $slotTemplate = new DocumenttemplateSlot();
+            $slotTemplate->setDocumenttemplateversionId($version_id);
+            $slotTemplate->setName($slot['title']);
+            $slotTemplate->setSendtoallreceivers($slot['receiver']);
+            $slotTemplate->setPosition($slotPosition++);
+            $slotTemplate->save();
+            $slot_id = $slotTemplate->getId();
+            $fields = isset($slot['grid']) ? $slot['grid'] : array();
+            $fieldPosition = 1;
+            foreach ($fields as $field) {
+                $fieldTemplate = new DocumenttemplateField();
+                $fieldTemplate->setDocumenttemplateslotId($slot_id);
+                $fieldTemplate->setFieldId($field['id']);
+                $fieldTemplate->setPosition($fieldPosition++);
+                $fieldTemplate->save();
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Store a version 
+     * @param int $template_id, template id
+     * @param int $version, the verion to save
+     * @return int $version_id, version id
+     */
+    public function storeVersion($template_id, $version) {
+        $versionTemplate = new DocumenttemplateVersion();
+        $versionTemplate->setDocumenttemplateId($template_id);
+        $versionTemplate->setActiveversion(1);
+        $versionTemplate->setVersion($version);
+        $versionTemplate->save();
+        $version_id = $versionTemplate->getId();
+        return $version_id;
+    }
+
+
 
 }
 ?>

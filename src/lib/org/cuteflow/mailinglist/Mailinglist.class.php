@@ -50,19 +50,6 @@ class Mailinglist {
         }
     }
 
-
-
-    public function updateUser($id, $data) {
-        $position = 1;
-        foreach($data as $item) {
-            $mailuser = $item['databaseId'] == '' ? new MailinglistAllowedSender() : Doctrine::getTable('MailinglistAllowedSender')->find($item['databaseId']);
-            $mailuser->setMailinglisttemplateId($id);
-            $mailuser->setUserId($item['id']);
-            $mailuser->setPosition($position++);
-            $mailuser->save();
-        }
-        return true;
-    }
     /**
      *
      * @param int $id, id of the mailinglist
@@ -73,7 +60,7 @@ class Mailinglist {
         $position = 1;
         foreach($data as $item) {
             $mailuser = new MailinglistAllowedSender();
-            $mailuser->setMailinglisttemplateId($id);
+            $mailuser->setMailinglistversionId($id);
             $mailuser->setUserId($item['id']);
             $mailuser->setPosition($position++);
             $mailuser->save();
@@ -161,7 +148,6 @@ class Mailinglist {
         return $result;
     }
 
-
     /**
      * Function adds all users to a slot
      *
@@ -181,6 +167,13 @@ class Mailinglist {
     }
 
 
+    /**
+     * Build all Version for undo operation for an template
+     * @param Doctrine_Collection $data, data
+     * @param String $culture, culture of the user
+     * @param sfContext $context
+     * @return array $result
+     */
     public function buildAllVersion(Doctrine_Collection $data, $culture, sfContext $context) {
         $result = array();
         $a = 0;
@@ -197,10 +190,50 @@ class Mailinglist {
     }
 
 
-    public function storeMailinglist() {
+    /**
+     * Save a new Version of an record
+     *
+     * @param int $mailinglisttemplate_id, id of the template
+     * @param int $version, current version to save
+     * @return int $mailinglistversion_id, version id
+     */
+    public function storeVersion($mailinglisttemplate_id, $version) {
+        $mailinglistversion = new MailinglistVersion();
+        $mailinglistversion->setMailinglisttemplateId($mailinglisttemplate_id);
+        $mailinglistversion->setVersion($version);
+        $mailinglistversion->setActiveversion(1);
+        $mailinglistversion->save();
+        $mailinglistversion_id = $mailinglistversion->getId();
+        return $mailinglistversion_id;
+    }
 
-
-        
+    /**
+     * Save Slots and Users to database
+     *
+     * @param array $slots, array with slots and users
+     * @param int $mailinglistversion_id, mailinglistversion id
+     * @return true;
+     */
+    public function storeMailinglist(array $slots,$mailinglistversion_id) {
+        $slotposition = 1;
+        foreach ($slots as $slot) {
+            $mailinglistslot = new MailinglistSlot();
+            $mailinglistslot->setMailinglistversionId($mailinglistversion_id);
+            $mailinglistslot->setSlotId($slot['slot_id']);
+            $mailinglistslot->setPosition($slotposition++);
+            $mailinglistslot->save();
+            $mailinglistslot_id = $mailinglistslot->getId();
+            $records = isset($slot['grid']) ? $slot['grid'] : array();
+            $userposition = 1;
+            foreach($records as $row) {
+                $mailinglistuser = new MailinglistUser();
+                $mailinglistuser->setMailinglistslotId($mailinglistslot_id);
+                $mailinglistuser->setUserId($row['id']);
+                $mailinglistuser->setPosition($userposition++);
+                $mailinglistuser->save();
+            }
+        }
+        return true;
     }
 
 
