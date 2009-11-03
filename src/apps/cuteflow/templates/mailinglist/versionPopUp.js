@@ -1,8 +1,15 @@
+/** window for version popup **/
 cf.mailinglistVersionPopUp = function(){return {
 	
 	theVersionWindow				:false,
 	theTabPanel						:false,
 	
+	/**
+	* init popup window
+	*
+	*@param int parent_id, id of the parent record
+	*
+	*/
 	init: function (parent_id) {
 		this.initWindow();	
 		cf.mailinglistVersionFirstTab.init(parent_id);
@@ -13,6 +20,7 @@ cf.mailinglistVersionPopUp = function(){return {
 	},
 	
 	
+	/** init window **/
 	initWindow: function () {
 		this.theVersionWindow = new Ext.Window({
 			modal: true,
@@ -35,6 +43,7 @@ cf.mailinglistVersionPopUp = function(){return {
 		
 	},
 	
+	/** init tabpanel **/
 	initTabPanel: function () {
 		this.theTabPanel = new Ext.TabPanel({
 			activeTab: 0,

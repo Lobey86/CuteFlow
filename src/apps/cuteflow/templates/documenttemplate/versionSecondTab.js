@@ -1,7 +1,17 @@
+/** init second tab for version popuü**/
 cf.documenttemplateVersionSecondTab = function(){return {
 	
 	theGridCM					:false,
 	
+	/**
+	* add a new fieldset to the tabpanel
+	*
+	*@param int id, of the version
+	*@param string data, data to add
+	*@param string created_at, creation date of the record
+	*@param int grid_id, id of the grid #
+	*@param int documenttemplateid, id of the template
+	*/
 	init: function (id, data, created_at, grid_id, documenttemplateid) {
 		this.initGridCM();
 		var toolbar = this.initToolbar(id,documenttemplateid);
@@ -20,9 +30,17 @@ cf.documenttemplateVersionSecondTab = function(){return {
 			}
 		}
 		cf.documenttemplateVersionPopUp.theTabPanel.add(panel);
+		cf.documenttemplateVersionFirstTab.theLoadingMask.hide();
 		
 	},
 	
+	/**
+	* init toolbar
+	*
+	*@param int id, id of the version
+	@param int documenttemplateid, id of the template
+	*
+	*/
 	initToolbar: function (id, documenttemplateid) {
 	 var toolbar = new Ext.Toolbar({
 			width: 'auto',
@@ -67,6 +85,7 @@ cf.documenttemplateVersionSecondTab = function(){return {
 		]);
 	},
 	
+	/** init grid **/
 	initGrid: function () {
 		var grid = new Ext.grid.GridPanel({
 			stripeRows: true,
@@ -86,6 +105,13 @@ cf.documenttemplateVersionSecondTab = function(){return {
 		return grid;
 	},
 	
+	/**
+	* init fieldset with checkbox and title
+	*
+	* @param string title, titel of slot and fieldset
+	* @param boolean checked
+	*
+	*/
 	initFieldset: function (title, checked) {
 		var fieldset = new Ext.form.FieldSet({
 			title: 'Slot: ' + title,
@@ -104,7 +130,14 @@ cf.documenttemplateVersionSecondTab = function(){return {
 		
 	},
 	
-	
+	/**
+	* init tab in tabpanel
+	*
+	*@param int id of the version
+	*@param string created_at, creatíon time
+	@param int grid_id, # id of grid
+	*
+	*/
 	initTab: function (id, created_at, grid_id) {
 		var panel = new Ext.Panel({
 			id: 'panel_' + id,

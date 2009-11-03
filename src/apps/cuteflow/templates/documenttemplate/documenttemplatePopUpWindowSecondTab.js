@@ -1,3 +1,4 @@
+/** init second tab of popup **/
 cf.documenttemplatePopUpSecondTab = function(){return {
 
 	theColumnPanel				:false,
@@ -5,7 +6,7 @@ cf.documenttemplatePopUpSecondTab = function(){return {
 	theLeftColumnPanel			:false,
 
 	
-	
+	/** init second tab of popup **/	
 	init: function () {
 		cf.documenttemplatePopUpSecondTabRightColumn.init();
 		cf.documenttemplatePopUpSecondTabLeftColumn.init();
@@ -18,7 +19,7 @@ cf.documenttemplatePopUpSecondTab = function(){return {
 		this.theColumnPanel.add(this.theRightColumnPanel);
 	},
 	
-	
+	/** init column panel **/
 	initColumnPanel: function () {
 		this.theColumnPanel = new Ext.Panel({
 			layout: 'column',

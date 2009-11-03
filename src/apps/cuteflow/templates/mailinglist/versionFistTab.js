@@ -1,3 +1,4 @@
+/** init first tab **/
 cf.mailinglistVersionFirstTab = function(){return {
 	
 	
@@ -6,8 +7,15 @@ cf.mailinglistVersionFirstTab = function(){return {
 	theGrid					:false,
 	theGridCM				:false,
 	theGridStore			:false,
+	theLoadingMask					:false,
 	
-	
+	/**
+	*
+	*init first tab
+	*
+	*@param int parent_id, id of the template
+	*
+	*/
 	init:function (parent_id) {
 		this.initStore(parent_id);
 		this.initCM();
@@ -19,7 +27,12 @@ cf.mailinglistVersionFirstTab = function(){return {
 	},
 	
 	
-	
+	/**
+	*
+	* init store for grid
+	*
+	*@param int parent_id, id of template to laod
+	*/
 	initStore: function (parent_id) {
 		this.theGridStore =  new Ext.data.JsonStore({
 			root: 'result',
@@ -37,6 +50,7 @@ cf.mailinglistVersionFirstTab = function(){return {
 		
 	},
 	
+	/** init CM **/
 	initCM: function () {
 		this.theGridCM  =  new Ext.grid.ColumnModel([
 			{header: "#", width: 50, sortable: true, dataIndex: '#', css : "text-align : left;font-size:12px;align:center;"},
@@ -50,17 +64,18 @@ cf.mailinglistVersionFirstTab = function(){return {
 	
 	
 	
-		/** button renderer for edit and delete **/
+	/** button renderer for activate and show **/
 	renderAction: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 		cf.mailinglistVersionFirstTab.createActivateButton.defer(500,this, [record.data['id'],record.data['mailinglisttemplate_id']]);
 		cf.mailinglistVersionFirstTab.createShowButton.defer(500,this, [record.data['#'],record.data['id'],record.data['created_at'],record.data['mailinglisttemplate_id']]);
 		return '<center><table><tr><td width="16"><div id="mailinglisttemplateversion_activate'+ record.data['id'] +'"></div></td><td width="16"><div id="mailinglisttemplateversion_show'+ record.data['id'] +'"></div></td></tr></table></center>';
 	},
 	
-		/**
-	* version button
+	/**
+	* activate button
 	*
 	*@param int id, id of the record
+	*@param int mailinglisttemplate_id, template id
 	*/
 	createActivateButton: function (id, mailinglisttemplate_id) {
 		var btn_edit = new Ext.form.Label({
@@ -97,9 +112,12 @@ cf.mailinglistVersionFirstTab = function(){return {
 		});
 	},
 	/**
-	* edit button
+	* show button
 	*
-	*@param int id, id of the record
+	*@param int grid_id, id of the grid #
+	*@param int id, id of the template
+	*@param string created_at, creation time of record
+	*@param int mailinglisttemplateid, id of template
 	*/
 	createShowButton: function (grid_id, id, created_at,mailinglisttemplateid) {
 		var btn_edit = new Ext.form.Label({
@@ -109,6 +127,8 @@ cf.mailinglistVersionFirstTab = function(){return {
 				render: function(c){
 					  c.getEl().on({
 						click: function(el){
+							cf.mailinglistVersionFirstTab.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'mailinglist'); ?>'});					
+							cf.mailinglistVersionFirstTab.theLoadingMask.show();
 							Ext.Ajax.request({  
 								url : '<?php echo build_dynamic_javascript_url('mailinglist/LoadSingleMailinglist')?>/id/' + id, 
 								success: function(objServerResponse){		
@@ -125,8 +145,7 @@ cf.mailinglistVersionFirstTab = function(){return {
 	},
 	
 	
-	
-	
+	/** init grid **/
 	initGrid: function () {
 		this.theGrid = new Ext.grid.GridPanel({
 			title: '<?php echo __('Mailinglist templates',null,'mailinglist'); ?>',
@@ -144,7 +163,7 @@ cf.mailinglistVersionFirstTab = function(){return {
 		});	
 		
 	},
-	
+	/** init fieldset **/
 	initFieldset:function () {
 		this.theFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('Select Mailinglist template',null,'mailinglist'); ?>',
@@ -156,7 +175,7 @@ cf.mailinglistVersionFirstTab = function(){return {
 		
 	},
 	
-	
+	/** init panel **/
 	initPanel: function () {
 		this.thePanel = new Ext.Panel({
 			title: '<?php echo __('Select Document template',null,'mailinglist'); ?>',

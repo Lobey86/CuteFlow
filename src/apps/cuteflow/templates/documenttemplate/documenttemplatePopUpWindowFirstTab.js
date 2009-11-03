@@ -4,7 +4,7 @@ cf.documenttemplatePopUpFirstTab = function(){return {
 	theFirstTabPanel			:false,
 	theFirstTabFieldset			:false,
 
-	
+	/** init first tab of pop up panel **/
 	init: function () {
 		this.initFirstTabPanel();
 		this.initFirstTabFieldset();

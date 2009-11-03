@@ -172,14 +172,8 @@ cf.documenttemplatePopUpSecondTabRightColumn = function(){return {
 		
 		this.theFieldGrid.on('afterrender', function(grid) {
 			cf.documenttemplatePopUpSecondTabRightColumn.theFormStore.load();
-			//cf.documenttemplatePopUpSecondTabRightColumn.hideLoadingMask.defer(cf.createFormWindow.theLoadingMaskShowTime,this, [cf.createFormWindow.theLoadingMask]);
 		});
-	},
-	
-	hideLoadingMask: function (mask) {
-		mask.hide();
 	}
-
 
 
 };}();

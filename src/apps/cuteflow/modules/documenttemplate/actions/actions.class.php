@@ -38,43 +38,38 @@ class documenttemplateActions extends sfActions {
      * @return <type>
      */
     public function executeSaveDocumenttemplate(sfWebRequest $request) {
+        $docObj = new Documenttemplate();
         $data = $request->getPostParameters();
-        
         $docTemplate = new DocumenttemplateTemplate();
         $docTemplate->setName($data['documenttemplatePopUpFirstTab_fieldname']);
         $docTemplate->save();
         $template_id = $docTemplate->getId();
-        $versionTemplate = new DocumenttemplateVersion();
-        $versionTemplate->setDocumenttemplateId($template_id);
-        $versionTemplate->setActiveversion(1);
-        $versionTemplate->setVersion(1);
-        $versionTemplate->save();
-        $version_id = $versionTemplate->getId();
-
+        $version_id = $docObj->storeVersion($template_id, 1);
         $slots = $data['slot'];
-        $slotPosition = 1;
-        foreach($slots as $slot) {
-            $slotTemplate = new DocumenttemplateSlot();
-            $slotTemplate->setDocumenttemplateversionId($version_id);
-            $slotTemplate->setName($slot['title']);
-            $slotTemplate->setSendtoallreceivers($slot['receiver']);
-            $slotTemplate->setPosition($slotPosition++);
-            $slotTemplate->save();
-            $slot_id = $slotTemplate->getId();
-            $fields = $slot['grid'];
-            $fieldPosition = 1;
-            foreach ($fields as $field) {
-                $fieldTemplate = new DocumenttemplateField();
-                $fieldTemplate->setDocumenttemplateslotId($slot_id);
-                $fieldTemplate->setFieldId($field['id']);
-                $fieldTemplate->setPosition($fieldPosition++);
-                $fieldTemplate->save();
-            }
-        }
+        $docObj->storeData($slots, $version_id);
         $this->renderText('{success:true}');
         return sfView::NONE;
     }
 
+
+        /**
+     * Update a template
+     * @param sfWebRequest $request
+     * @return <type>
+     */
+    public function executeUpdateDocumenttemplate(sfWebRequest $request) {
+        $docObj = new Documenttemplate();
+        $data = $request->getPostParameters();
+        DocumenttemplateVersionTable::instance()->setTemplateInactiveById($request->getParameter('id'));
+        $template_array = DocumenttemplateVersionTable::instance()->getDocumentTemplateId($request->getParameter('id'))->toArray();
+        $template_id = $template_array[0]['documenttemplate_id'];
+        $version = $template_array[0]['version']+1;
+        $version_id = $docObj->storeVersion($template_id, $version);
+        $slots = $data['slot'];
+        $docObj->storeData($slots, $version_id);
+        $this->renderText('{success:true}');
+        return sfView::NONE;
+    }
     /**
      * Load all Documenttemplates
      * @param sfWebRequest $request
@@ -89,6 +84,18 @@ class documenttemplateActions extends sfActions {
         $this->renderText('({"total":"'.$anz[0]->getAnzahl().'","result":'.json_encode($json_result).'})');
         return sfView::NONE;
     }
+
+
+    public function executeLoadAllDocumenttemplatesByFilter(sfWebRequest $request) {
+        $docObj = new Documenttemplate();
+        $limit = $this->getUser()->getAttribute('userSettings');
+        $anz = DocumenttemplateTemplateTable::instance()->getTotalSumOfDocumentTemplatesByFilter($request->getParameter('name'));
+        $data = DocumenttemplateTemplateTable::instance()->getAllDocumentTemplatesByFilter($request->getParameter('limit',$limit['displayeditem']),$request->getParameter('start',0),$request->getParameter('name'))->toArray();
+        $json_result = $docObj->buildAllDocumenttemplates($data);
+        $this->renderText('({"total":"'.$anz[0]->getAnzahl().'","result":'.json_encode($json_result).'})');
+        return sfView::NONE;
+    }
+
     /**
      * Delete template
      * @param sfWebRequest $request
@@ -111,51 +118,6 @@ class documenttemplateActions extends sfActions {
         $this->renderText('({"result":'.json_encode($json_result).'})');
         return sfView::NONE;
     }
-
-    /**
-     * Update a template
-     * @param sfWebRequest $request
-     * @return <type>
-     */
-    public function executeUpdateDocumenttemplate(sfWebRequest $request) {
-        $data = $request->getPostParameters();
-        DocumenttemplateVersionTable::instance()->setTemplateInactiveById($request->getParameter('id'));
-        $template_array = DocumenttemplateVersionTable::instance()->getDocumentTemplateId($request->getParameter('id'))->toArray();
-        $template_id = $template_array[0]['documenttemplate_id'];
-        $version = $template_array[0]['version']+1;
-
-        $versionTemplate = new DocumenttemplateVersion();
-        $versionTemplate->setDocumenttemplateId($template_id);
-        $versionTemplate->setActiveversion(1);
-        $versionTemplate->setVersion($version);
-        $versionTemplate->save();
-        
-        $version_id = $versionTemplate->getId();
-        $slots = $data['slot'];
-        $slotPosition = 1;
-        foreach($slots as $slot) {
-            $slotTemplate = new DocumenttemplateSlot();
-            $slotTemplate->setDocumenttemplateversionId($version_id);
-            $slotTemplate->setName($slot['title']);
-            $slotTemplate->setSendtoallreceivers($slot['receiver']);
-            $slotTemplate->setPosition($slotPosition++);
-            $slotTemplate->save();
-            $slot_id = $slotTemplate->getId();
-            $fields = $slot['grid'];
-            $fieldPosition = 1;
-            foreach ($fields as $field) {
-                $fieldTemplate = new DocumenttemplateField();
-                $fieldTemplate->setDocumenttemplateslotId($slot_id);
-                $fieldTemplate->setFieldId($field['id']);
-                $fieldTemplate->setPosition($fieldPosition++);
-                $fieldTemplate->save();
-            }
-        }
-        $this->renderText('{success:true}');
-        return sfView::NONE;
-    }
-
-
 
 
     /**

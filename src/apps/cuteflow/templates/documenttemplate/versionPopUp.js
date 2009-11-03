@@ -1,8 +1,17 @@
+/** pop up for version **/
 cf.documenttemplateVersionPopUp = function(){return {
 	
 	theVersionWindow				:false,
 	theTabPanel						:false,
 	
+	
+	/**
+	* init popup
+	*
+	*@param int parent_id, id of the template
+	*@param int child_id, id of the version which is active
+	*
+	*/
 	init: function (parent_id, child_id) {
 		this.initWindow();	
 		cf.documenttemplateVersionFirstTab.init(parent_id);
@@ -13,6 +22,7 @@ cf.documenttemplateVersionPopUp = function(){return {
 	},
 	
 	
+	/** init popup window **/
 	initWindow: function () {
 		this.theVersionWindow = new Ext.Window({
 			modal: true,
@@ -35,6 +45,7 @@ cf.documenttemplateVersionPopUp = function(){return {
 		
 	},
 	
+	/** init tabpanel **/
 	initTabPanel: function () {
 		this.theTabPanel = new Ext.TabPanel({
 			activeTab: 0,
