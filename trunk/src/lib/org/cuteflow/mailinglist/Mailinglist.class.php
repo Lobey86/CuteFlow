@@ -251,7 +251,7 @@ class Mailinglist {
         $result = array();
         $a = 0;
         foreach($data as $item) {
-            $result[$a++]['id'] = $item->getId();
+            $result[$a++]['id'] = $item->getUserId();
         }
         return $result;
     }
