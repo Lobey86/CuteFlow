@@ -274,7 +274,7 @@ class mailinglistActions extends sfActions {
         $currentdocumenttemplateversion = DocumenttemplateVersionTable::instance()->getActiveVersionById($mailinglistdata[0]['documenttemplatetemplate_id'])->toArray();
         $slots = $docuObj->buildSlots($currentdocumenttemplateversion[0]['id'], 'SLOTSONLY');
         $mailinglistversiondata = MailinglistVersionTable::instance()->getActiveVersionById($request->getParameter('id'))->toArray();
-        MailinglistVersionTable::instance()->setMailinglistInactiveById($mailinglistdata[0]['documenttemplatetemplate_id']);
+        MailinglistVersionTable::instance()->setMailinglistInactiveById($mailinglistversiondata[0]['mailinglisttemplate_id']);
         $mailinglistversion_id = $mailinglist->storeVersion($mailinglistversiondata[0]['mailinglisttemplate_id'],$mailinglistversiondata[0]['version']+1);
         $userdata = MailinglistAllowedSenderTable::instance()->getAllowedSenderById($mailinglistversiondata[0]['id']);
         $users = $mailinglist->buildAllowedUser($userdata);
