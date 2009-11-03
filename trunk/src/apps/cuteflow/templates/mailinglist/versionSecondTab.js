@@ -1,3 +1,4 @@
+/** second tab for versionpopup **/
 cf.mailinglistVersionSecondTab = function(){return {
 	
 	theGridCM					:false,
@@ -8,6 +9,17 @@ cf.mailinglistVersionSecondTab = function(){return {
 	theSenderFieldset			:false,
 	theAuthorizationCM			:false,
 	
+	
+	/**
+	* create a new tab with data in the tabpanel
+	*
+	*@param int id, id of the version
+	*@param string data, json data
+	*@param string created_at, creation date
+	*@param int grid_id, # id of the grid
+	*@param int mailinglisttemplateid, id of the template
+	*
+	*/
 	init: function (id, data, created_at, grid_id, mailinglisttemplateid) {
 		var toolbar1 = this.initToolbar(id,mailinglisttemplateid);
 		var toolbar2 = this.initToolbar(id,mailinglisttemplateid);
@@ -46,8 +58,10 @@ cf.mailinglistVersionSecondTab = function(){return {
 			}
 		}
 		cf.mailinglistVersionPopUp.theTabPanel.add(panel);
+		cf.mailinglistVersionFirstTab.theLoadingMask.hide();
 	},
 	
+	/** CM for auth **/
 	initAuthorizationCM: function () {
 		this.theAuthorizationCM  =  new Ext.grid.ColumnModel([
 			{header: "<?php echo __('Action',null,'systemsetting'); ?>",  width: 200, sortable: false, dataIndex: 'type', css : "text-align :left; font-size:12px;"},
@@ -59,6 +73,7 @@ cf.mailinglistVersionSecondTab = function(){return {
 	
 	},
 	
+	/** grid and store for auth **/
 	initAuthorizationGrid: function (id) {
 		var theAuthorizationStore = new Ext.data.JsonStore({
 				root: 'result',
@@ -91,12 +106,19 @@ cf.mailinglistVersionSecondTab = function(){return {
 	},
 	
 	
+	/** init allowed sender cm **/
 	initAllowedSenderCM: function () {
 		this.theAllowedSenderCM = new Ext.grid.ColumnModel([
 				{header: "<?php echo __('User',null,'mailinglist'); ?>", width: 260, sortable: false, dataIndex: 'name', css : "text-align : left;font-size:12px;align:center;"}
 		]);
 	},
 	
+	/**
+	* init allowed sender grid
+	*
+	*@param int id, id of the version to load
+	*
+	*/
 	initAllowedSenderGrid: function (id) {
 		var theStore = new Ext.data.JsonStore({
 			root: 'result',
@@ -112,7 +134,7 @@ cf.mailinglistVersionSecondTab = function(){return {
 			stripeRows: true,
 			border: true,
 			width: 290,
-			height: 250,
+			height:200,
 			enableDragDrop:false,
 			collapsible: false,
 			autoScroll: true,
@@ -128,6 +150,7 @@ cf.mailinglistVersionSecondTab = function(){return {
 	
 	},
 	
+	/** inti auth fieldset **/
 	initAuthorizationFieldset: function () {
 		this.theAuthorizationFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('Authorization',null,'mailinglist'); ?>',
@@ -139,19 +162,20 @@ cf.mailinglistVersionSecondTab = function(){return {
 	
 	},
 	
+	
+	/** init sender fieldset **/
 	initSenderFieldset: function () {
 		this.theSenderFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('Allowed Sender',null,'mailinglist'); ?>',
 			width: 700,
-			height: 200,
+			height: 225,
 			style: 'margin-top:20px;margin-left:5px;',
 			labelWidth: 120
 		});
 	},
 	
 	
-	
-	
+	/** init first tab **/
 	initFirstTab: function () {
 		this.theFirstPanel = new Ext.Panel({
 			title: '<?php echo __('General Settings',null,'mailinglist'); ?>',
@@ -160,7 +184,7 @@ cf.mailinglistVersionSecondTab = function(){return {
 		});
 	},
 	
-	
+	/** init second tab **/
 	initSecondTab: function () {
 		this.theSecondPanel = new Ext.Panel({
 			title: '<?php echo __('Slot settings',null,'mailinglist'); ?>',
@@ -169,7 +193,7 @@ cf.mailinglistVersionSecondTab = function(){return {
 		});
 	
 	},
-	
+	/** init tabpanel **/
 	initTabPanel:  function () {
 		this.theTabPanel = new Ext.TabPanel({
 			activeTab: 0,
@@ -186,7 +210,13 @@ cf.mailinglistVersionSecondTab = function(){return {
 	},
 	
 	
-	
+	/**
+	* init toolbar to activate mailinglist
+	*
+	*@param int id, id of the record to activate
+	*@param int mailinglisttemplateid, id of template to active
+	*
+	*/
 	initToolbar: function (id, mailinglisttemplateid) {
 		var toolbar = new Ext.Toolbar({
 			width: 'auto',
@@ -231,6 +261,7 @@ cf.mailinglistVersionSecondTab = function(){return {
 		]);
 	},
 	
+	/** init grid **/
 	initGrid: function () {
 		var grid = new Ext.grid.GridPanel({
 			stripeRows: true,
@@ -250,6 +281,13 @@ cf.mailinglistVersionSecondTab = function(){return {
 		return grid;
 	},
 	
+	
+	/**
+	* Set fieldset
+	*
+	*@param string title, title of the slot and fieldset
+	*
+	*/
 	initFieldset: function (title) {
 		var fieldset = new Ext.form.FieldSet({
 			title: 'Slot: ' + title,
@@ -262,7 +300,14 @@ cf.mailinglistVersionSecondTab = function(){return {
 		
 	},
 	
-	
+	/**
+	* add tab to tabpanel
+	*
+	*@param int id, id of the record
+	*@param string created_at, creation time of record
+	*@param int grid_id, id of grid #
+	*
+	*/
 	initTab: function (id, created_at, grid_id) {
 		var panel = new Ext.Panel({
 			id: 'panel_' + id,
@@ -274,7 +319,7 @@ cf.mailinglistVersionSecondTab = function(){return {
 		return panel;
 	},
 	
-				/** render checkbox to grid **/
+	/** render checkbox to grid **/
 	renderDeleteCheckbox: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 		var id = record.data['raw_type'];
 		var databaseId = record.data['id'];
@@ -300,7 +345,12 @@ cf.mailinglistVersionSecondTab = function(){return {
 		return '<center><table><tr><td><div id="databaseid_'+databaseId+'mailinglistFirstTabCheckboxShow_'+ id +'"></div></td></tr></table></center>';
 	},
 	
-	/** create checkbox **/
+	/** 
+	*
+	*
+	*create checkbox for auth tab
+	*
+	**/
 	createCheckbox: function (id, div, table, value, databaseid) {
 		value = value == 0 ? false : true;
 		var name = id + '__' + table;

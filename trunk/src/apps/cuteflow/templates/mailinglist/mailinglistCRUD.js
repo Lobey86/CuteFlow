@@ -1,7 +1,13 @@
+/** save function **/
 cf.mailinglistCRUD = function(){return {
 	
 	
-	
+	/**
+	* Delete record
+	*
+	*@param int id, id of the record to delete
+	*
+	*/
 	initDelete: function (id) {
 		Ext.Ajax.request({  
 			url : '<?php echo build_dynamic_javascript_url('mailinglist/DeleteMailinglist')?>/id/' + id, 
@@ -15,7 +21,13 @@ cf.mailinglistCRUD = function(){return {
 		
 	},
 	
-	
+	/**
+	*
+	* Save record
+	*
+	*@param int id, id of the record, can be empty if in new mode
+	*
+	*/
 	initSave: function (id) {
 		if (id != '') {
 			var url = '<?php echo build_dynamic_javascript_url('mailinglist/UpdateMailinglist')?>/id/' + id;
@@ -36,7 +48,7 @@ cf.mailinglistCRUD = function(){return {
 	},
 	
 	
-	
+	/** build panel to save **/
 	buildPanel:function () {
 		if(Ext.getCmp('mailinglistFirstTab_nametextfield').getValue() == '' || Ext.getCmp('mailinglistFirstTab_documenttemplate_id').getValue() == '' ) {
 			cf.mailinglistPopUpWindow.theTabPanel.setActiveTab(0);
@@ -89,7 +101,6 @@ cf.mailinglistCRUD = function(){return {
 	*
 	*@param string url, SubmitURL, can be UpdateForm or SaveForm
 	*@param string title, confirm box title
-	*@return boolean, true when saveprocess can be started, false, if not
 	*/
 	doSubmit: function (url, title) {
 		cf.mailinglistFirstTab.theFormPanel.doLayout();

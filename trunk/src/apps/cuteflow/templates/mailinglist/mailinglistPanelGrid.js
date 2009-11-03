@@ -24,7 +24,7 @@ cf.mailinglistPanelGrid = function(){return {
 	doSearch: function () {
 		var textfield = Ext.getCmp('mailinglistPanelGrid_searchtextfield').getValue();
 		if(textfield != '') {
-			var url = encodeURI('<?php echo build_dynamic_javascript_url('mailinglist/LoadAllMailinglistsFilter')?>/name/' + textfield);
+			var url = encodeURI('<?php echo build_dynamic_javascript_url('mailinglist/LoadAllMailinglistsByFilter')?>/name/' + textfield);
 			cf.mailinglistPanelGrid.theMailinglistStore.proxy.setApi(Ext.data.Api.actions.read,url);
 			cf.mailinglistPanelGrid.theMailinglistStore.reload();	
 		}
@@ -165,6 +165,7 @@ cf.mailinglistPanelGrid = function(){return {
 		return '<center><table><tr><td width="16"><div id="mailinglist_edit'+ record.data['id'] +'"></div></td><td width="16"><div id="mailinglist_version'+ record.data['id'] +'"></div></td><td width="16"><div id="mailinglist_delete'+ record.data['id'] +'"></div></td><td width="16"><div id="mailinglist_adapt'+ record.data['id'] +'"></div></td></tr></table></center>';
 	},
 	
+	/** add adapt button **/
 	createAdaptButton: function (id) {
 		var btn_edit = new Ext.form.Label({
 			renderTo: 'mailinglist_adapt' + id,
@@ -195,6 +196,7 @@ cf.mailinglistPanelGrid = function(){return {
 		});
 	},
 	
+	/** create version button with id of version **/
 	createVersionButton: function (id) {
 		var btn_edit = new Ext.form.Label({
 			renderTo: 'mailinglist_version' + id,
@@ -280,7 +282,12 @@ cf.mailinglistPanelGrid = function(){return {
 		return '<center><table><tr><td width="16"><div id="mailinglist_radiobox'+ record.data['id'] +'"></div></td></tr></table></center>';
 	},
 	
-	
+	/**
+	* create radiobox to activate item
+	*
+	*@param int id, id of the record
+	*@param boolean isactive
+	*/
 	createRadiobox: function (id, isactive) {
 		var check = isactive == 1 ? true : false;
 		var radio = new Ext.form.Radio({

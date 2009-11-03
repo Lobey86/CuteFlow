@@ -13,10 +13,6 @@ cf.documenttemplatePopUpWindow = function(){return {
 	*@param int id, id of the record is empty, only set in editmode
 	*/
 	initNewDocumenttemplate: function (id) {
-		//this.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'usermanagement'); ?>'});					
-		//this.theLoadingMask.show();
-		//this.theLoadingMaskShowTime = 2000;
-		
 		cf.documenttemplatePopUpFirstTab.init();
 		this.initTabPanel();
 		this.theTabPanel.add(cf.documenttemplatePopUpFirstTab.theFirstTabPanel);
@@ -34,10 +30,6 @@ cf.documenttemplatePopUpWindow = function(){return {
 	*@param int id, id is set
 	*/
 	initEditDocumenttemplate: function (id) {
-		//this.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'usermanagement'); ?>'});					
-		//this.theLoadingMask.show();
-		//this.theLoadingMaskShowTime = 3000;
-		
 		cf.documenttemplatePopUpFirstTab.init();
 		this.initTabPanel();
 		this.theTabPanel.add(cf.documenttemplatePopUpFirstTab.theFirstTabPanel);

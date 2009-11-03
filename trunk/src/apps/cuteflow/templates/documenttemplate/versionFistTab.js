@@ -1,3 +1,4 @@
+/** init first tab for version **/
 cf.documenttemplateVersionFirstTab = function(){return {
 	
 	
@@ -6,8 +7,14 @@ cf.documenttemplateVersionFirstTab = function(){return {
 	theGrid					:false,
 	theGridCM				:false,
 	theGridStore			:false,
+	theLoadingMask			:false,
 	
 	
+	/**
+	* init grid for first tab
+	*
+	*@param int parent_id, id of the version
+	*/
 	init:function (parent_id) {
 		this.initStore(parent_id);
 		this.initCM();
@@ -19,7 +26,12 @@ cf.documenttemplateVersionFirstTab = function(){return {
 	},
 	
 	
-	
+	/**
+	*
+	* Store
+	*
+	*@param int parent_id, id to load
+	*/
 	initStore: function (parent_id) {
 		this.theGridStore =  new Ext.data.JsonStore({
 			root: 'result',
@@ -36,7 +48,7 @@ cf.documenttemplateVersionFirstTab = function(){return {
 		});	
 		
 	},
-	
+	/** CM for grid **/
 	initCM: function () {
 		this.theGridCM  =  new Ext.grid.ColumnModel([
 			{header: "#", width: 50, sortable: true, dataIndex: '#', css : "text-align : left;font-size:12px;align:center;"},
@@ -50,17 +62,18 @@ cf.documenttemplateVersionFirstTab = function(){return {
 	
 	
 	
-		/** button renderer for edit and delete **/
+	/** button renderer for show and activate **/
 	renderAction: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 		cf.documenttemplateVersionFirstTab.createActivateButton.defer(500,this, [record.data['id'],record.data['documenttemplate_id']]);
 		cf.documenttemplateVersionFirstTab.createShowButton.defer(500,this, [record.data['#'],record.data['id'],record.data['created_at'],record.data['documenttemplate_id']]);
 		return '<center><table><tr><td width="16"><div id="documenttemplateversion_activate'+ record.data['id'] +'"></div></td><td width="16"><div id="documenttemplateversion_show'+ record.data['id'] +'"></div></td></tr></table></center>';
 	},
 	
-		/**
-	* version button
+	/**
+	* activate button
 	*
 	*@param int id, id of the record
+	*@param int documenttemplate_id, id of template
 	*/
 	createActivateButton: function (id, documenttemplate_id) {
 		var btn_edit = new Ext.form.Label({
@@ -99,7 +112,10 @@ cf.documenttemplateVersionFirstTab = function(){return {
 	/**
 	* edit button
 	*
-	*@param int id, id of the record
+	*@param int grid_id, id of the grid #
+	*@param int id, id of the version
+	*@param int created_at, date
+	*@param int documenttemplateid, id of the template
 	*/
 	createShowButton: function (grid_id, id, created_at,documenttemplateid) {
 		var btn_edit = new Ext.form.Label({
@@ -109,6 +125,8 @@ cf.documenttemplateVersionFirstTab = function(){return {
 				render: function(c){
 					  c.getEl().on({
 						click: function(el){
+							cf.documenttemplateVersionFirstTab.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'documenttemplate'); ?>'});					
+							cf.documenttemplateVersionFirstTab.theLoadingMask.show();
 							Ext.Ajax.request({  
 								url : '<?php echo build_dynamic_javascript_url('documenttemplate/LoadSingleDocumenttemplate')?>/id/' + id, 
 								success: function(objServerResponse){
@@ -123,10 +141,8 @@ cf.documenttemplateVersionFirstTab = function(){return {
 			}
 		});
 	},
-	
-	
-	
-	
+
+	/** init grid **/
 	initGrid: function () {
 		this.theGrid = new Ext.grid.GridPanel({
 			title: '<?php echo __('Document templates',null,'documenttemplate'); ?>',
@@ -144,7 +160,7 @@ cf.documenttemplateVersionFirstTab = function(){return {
 		});	
 		
 	},
-	
+	/** init fieldset **/	
 	initFieldset:function () {
 		this.theFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('Select Document template',null,'documenttemplate'); ?>',
@@ -156,7 +172,7 @@ cf.documenttemplateVersionFirstTab = function(){return {
 		
 	},
 	
-	
+	/** init panel **/
 	initPanel: function () {
 		this.thePanel = new Ext.Panel({
 			title: '<?php echo __('Select Document template',null,'documenttemplate'); ?>',

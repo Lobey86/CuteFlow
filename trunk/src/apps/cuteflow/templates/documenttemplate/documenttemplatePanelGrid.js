@@ -20,12 +20,13 @@ cf.documenttemplatePanelGrid = function(){return {
 		this.initTopToolBar();
 		this.initGrid();
 	},
-	
+
+	/** call search function **/	
 	doSearch: function () {
 		var textfield = Ext.getCmp('documenttemplatePanelGrid_searchtextfield').getValue();
 		if(textfield != '') {
 			
-			var url = encodeURI('<?php echo build_dynamic_javascript_url('form/LoadAllFormsFilter')?>/name/' + textfield);
+			var url = encodeURI('<?php echo build_dynamic_javascript_url('documenttemplate/LoadAllDocumenttemplatesByFilter')?>/name/' + textfield);
 			cf.documenttemplatePanelGrid.theDocumenttemplateStore.proxy.setApi(Ext.data.Api.actions.read,url);
 			cf.documenttemplatePanelGrid.theDocumenttemplateStore.reload();	
 			
@@ -80,7 +81,7 @@ cf.documenttemplatePanelGrid = function(){return {
 				icon: '/images/icons/delete.png',
 				handler: function () {
 					var textfield = Ext.getCmp('documenttemplatePanelGrid_searchtextfield').setValue();
-					var url = encodeURI('<?php echo build_dynamic_javascript_url('form/LoadAllForms')?>/name/' + textfield);
+					var url = encodeURI('<?php echo build_dynamic_javascript_url('documenttemplate/LoadAllDocumenttemplates')?>');
 					cf.documenttemplatePanelGrid.theDocumenttemplateStore.proxy.setApi(Ext.data.Api.actions.read,url);
 					cf.documenttemplatePanelGrid.theDocumenttemplateStore.reload();	
 				}
@@ -155,7 +156,7 @@ cf.documenttemplatePanelGrid = function(){return {
 		
 	}, 
 	
-	/** button renderer for edit and delete **/
+	/** button renderer for edit,delete and version button **/
 	renderAction: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 		cf.documenttemplatePanelGrid.createEditButton.defer(500,this, [record.data['id'],record.data['documenttemplate_id']]);
 		cf.documenttemplatePanelGrid.createDeleteButton.defer(500,this, [record.data['id']]);
@@ -166,6 +167,7 @@ cf.documenttemplatePanelGrid = function(){return {
 	* version button
 	*
 	*@param int id, id of the record
+	*@param int documenttemplate_id, document id
 	*/
 	createVersionButton: function (id, documenttemplate_id) {
 		var btn_edit = new Ext.form.Label({
@@ -186,10 +188,12 @@ cf.documenttemplatePanelGrid = function(){return {
 			}
 		});
 	},
+	
 	/**
 	* edit button
 	*
 	*@param int id, id of the record
+	*@param int documenttemplate_id, document id
 	*/
 	createEditButton: function (id, documenttemplate_id) {
 		var btn_edit = new Ext.form.Label({
@@ -210,6 +214,7 @@ cf.documenttemplatePanelGrid = function(){return {
 			}
 		});
 	},
+	
 	/**
 	* create delete button
 	*

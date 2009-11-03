@@ -1,3 +1,4 @@
+/** left column **/
 cf.documenttemplatePopUpSecondTabLeftColumn = function(){return {
 	
 	
@@ -7,12 +8,14 @@ cf.documenttemplatePopUpSecondTabLeftColumn = function(){return {
 	theUniqueGridId				:false,
 	theRemoveSlot				:false,
 	
+	/** init paneö **/
 	init: function () {
 		this.theRemoveSlot = '';
 		this.initGridCM();
 		this.initTopToolBar();
 	},
 	
+	/** init toolbar to add new slot **/
 	initTopToolBar: function () {
 		this.theTopToolBar = new Ext.Toolbar({
 			width:360,
@@ -43,6 +46,10 @@ cf.documenttemplatePopUpSecondTabLeftColumn = function(){return {
 		});	
 	},
 	
+	/** 
+	* init grid for new slot 
+	*@param int id, unique id
+	*/
 	buildGrid: function (id) {
 			var grid =  new Ext.grid.GridPanel({
 			stripeRows: true,
@@ -103,6 +110,10 @@ cf.documenttemplatePopUpSecondTabLeftColumn = function(){return {
 	
 	},
 	
+	/** 
+	* init checkbox for fieldset
+	*@param boolean checked, checked value
+	*/
 	buildCheckbox: function (checked) {
 		var checkbox = new Ext.form.Checkbox({
 			style: 'margin-top:4px;',
@@ -112,6 +123,11 @@ cf.documenttemplatePopUpSecondTabLeftColumn = function(){return {
 		return checkbox;
 	},
 	
+	/**
+	* hiddenfield with database id
+	*
+	*@param int value, id
+	*/
 	buildHiddenfield: function (value) {
 		var hiddenfield =  new Ext.form.Hidden({
 			allowBlank: true,
@@ -121,6 +137,12 @@ cf.documenttemplatePopUpSecondTabLeftColumn = function(){return {
 		return hiddenfield;
 	},
 	
+	/**
+	* Build textfield for slotname
+	*
+    *@param int id, unique id
+	*@param string name, name of textfield
+	*/
 	buildTextfield: function (id, name) {
 		var textfield = new Ext.form.TextField({
 			id: 'slotfieldsettextfieldid_' + id,
@@ -137,6 +159,13 @@ cf.documenttemplatePopUpSecondTabLeftColumn = function(){return {
 	
 	},
 	
+	/**
+	* Build Fieldset for slotname
+	*
+    *@param int id, unique id
+	*@param string title, name of textfield
+	*@param boolean collapsed
+	*/
 	buildFieldset: function (id, title, collapsed) {
 		var fieldset =  new Ext.form.FieldSet({
 			title: '<table><tr><td><div id="deleteslot_' + id + '"></div></td><td></td><td><div id="addslotat_'+id+'"></div></td><td>&nbsp;&nbsp;&nbsp;<b id="slottitle_'+id+'">'+title+'<b></td></tr></table>',
@@ -150,7 +179,12 @@ cf.documenttemplatePopUpSecondTabLeftColumn = function(){return {
 		return fieldset;
 	},
 	
-	
+	/** 
+	* create a new slot
+	*
+	*@param int id, unique id
+	*
+	*/
 	createAddButton: function (id) {
 		var btn_edit = new Ext.form.Label({
 			renderTo: 'addslotat_' + id,
@@ -242,7 +276,7 @@ cf.documenttemplatePopUpSecondTabLeftColumn = function(){return {
 	
 	},
 	
-		/** CM for all grids in fieldset **/
+	/** CM for all grids in fieldset **/
 	initGridCM: function () {
 		this.theGridCM = new Ext.grid.ColumnModel([
 			{header: "<div ext:qtip=\"<?php echo __('Notice: empty records are not saved!',null,'documenttemplate'); ?>\" ext:qwidth=\"200\"><?php echo __('Field',null,'documenttemplate'); ?></div>", width: 230, sortable: false, dataIndex: 'title', css : "text-align : left;font-size:12px;align:left;"},

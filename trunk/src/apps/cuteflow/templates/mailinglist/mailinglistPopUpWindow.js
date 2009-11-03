@@ -4,7 +4,6 @@ cf.mailinglistPopUpWindow = function(){return {
 	theMailinglistPopUpWindow		:false,
 	theLoadingMask					:false,
 	theTabPanel						:false,
-	theLoadingMaskShowTime			:false,
 
 	/**
 	* calls all necessary functions, to create a new form
@@ -13,7 +12,6 @@ cf.mailinglistPopUpWindow = function(){return {
 	initNewMailinglist: function (id) {
 		this.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'usermanagement'); ?>'});					
 		this.theLoadingMask.show();
-		this.theLoadingMaskShowTime = 2000;
 		cf.mailinglistFirstTab.init('<?php echo build_dynamic_javascript_url('systemsetting/LoadAuthorization')?>',id);
 		this.initTabPanel();
 		this.initWindow('','<?php echo __('Create new Mailing list',null,'mailinglist'); ?>');
@@ -33,7 +31,6 @@ cf.mailinglistPopUpWindow = function(){return {
 	initEdit: function (id, activeversion_id) {
 		this.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'usermanagement'); ?>'});					
 		this.theLoadingMask.show();
-		this.theLoadingMaskShowTime = 2000;
 		cf.mailinglistFirstTab.init('<?php echo build_dynamic_javascript_url('mailinglist/LoadAuthorization')?>/id/'+activeversion_id,activeversion_id);
 		this.initTabPanel();
 		this.initWindow(id,'<?php echo __('Edit existing Mailing list',null,'mailinglist'); ?>');
