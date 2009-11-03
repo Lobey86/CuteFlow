@@ -13,11 +13,58 @@ class MailinglistTemplateTable extends Doctrine_Table {
     }
 
 
+    /**
+     * Get total sum of mailinglist templates
+     *
+     * @return Doctrine_Collection
+     */
     public function getTotalSumOfMailingListTemplates() {
         return Doctrine_Query::create()
                 ->select('COUNT(*) AS anzahl')
                 ->from('MailinglistTemplate mlt')
                 ->where('mlt.deleted = ?', 0)
+                ->execute();
+    }
+
+
+
+     /**
+     *
+     * Load all forms with number of slots
+     * return Doctrine_Collection
+     * @param int $limit, limit of records
+     * @param int $offset, offset
+     * @param string $filter, needle to filter
+     * @return Doctrine_Collection
+     */
+    public function getAllMailinglistTemplatesByFilter($limit, $offset, $filter) {
+        $query = Doctrine_Query::create()
+            ->select('mlt.*')
+            ->from('MailinglistTemplate mlt')
+            ->leftJoin('mlt.MailinglistVersion mlv')
+            ->where ('mlt.deleted = ?',0)
+            ->andWhere('mlt.name LIKE ?','%'.$filter.'%')
+            ->andWhere('mlv.activeversion = ?', 1);
+            if($limit != -1 AND $offset != -1) {
+                $query->limit($limit)
+                      ->offset($offset);
+            }
+            return $query->orderBy('mlt.id DESC')
+            ->groupBy('mlt.id')
+            ->execute();
+    }
+
+    /**
+     * Get total sum of records by filter
+     * @param string $filter, needle to filter
+     * @return Doctrine_Collection
+     */
+    public function getTotalSumOfMailingListTemplatesByFilter($filter) {
+        return Doctrine_Query::create()
+                ->select('COUNT(*) AS anzahl')
+                ->from('MailinglistTemplate mlt')
+                ->where('mlt.deleted = ?', 0)
+                ->andWhere('mlt.name LIKE ?','%'.$filter.'%')
                 ->execute();
     }
 
@@ -105,42 +152,7 @@ class MailinglistTemplateTable extends Doctrine_Table {
         return true;
     }
 
-    /**
-     * Load all Mailinglists by filter
-     *
-     * @param int $limit
-     * @param int $offset
-     * @param Sring $search, search needle
-     * @return Doctrine_Collection
-     */
-    public function getAllMailinglistTemplatesByFilter($limit, $offset, $search) {
-        $query = Doctrine_Query::create()
-            ->select('mlt.*')
-            ->from('MailinglistTemplate mlt')
-            ->where ('mlt.deleted = ?',0)
-            ->andWhere('mlt.name LIKE ?','%'.$search.'%');
-            if($limit != -1 AND $offset != -1) {
-                $query->limit($limit)
-                      ->offset($offset);
-            }
-            return $query->orderBy('mlt.id DESC')
-            ->groupby('mlt.id')
-            ->execute();
-    }
 
-    /**
-     * Get number of records by filter
-     * @param String $search, search needle
-     * @return Doctrine_Collection
-     */
-    public function getTotalSumOfMailingListTemplatesByFilter($search) {
-         return Doctrine_Query::create()
-                    ->select('COUNT(*) AS anzahl')
-                    ->from('MailinglistTemplate mlt')
-                    ->where('mlt.deleted = ?', 0)
-                    ->andWhere('mlt.name LIKE ?','%'.$search.'%')
-                    ->execute();
-    }
 
 
     /**
