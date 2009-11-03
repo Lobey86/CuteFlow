@@ -29,7 +29,11 @@ class Mailinglist {
     }
 
     /**
+     * Add templatename and Version to resultset
      *
+     * @param array $result, resultset
+     * @param Doctrine_Collection $data, data
+     * @return array $result
      */
     public function addNameToTemplateVersion(array $result, Doctrine_Collection $data) {
         $result['documenttemplate_name'] = $data[0]->getName();
@@ -232,6 +236,46 @@ class Mailinglist {
                 $mailinglistuser->setPosition($userposition++);
                 $mailinglistuser->save();
             }
+        }
+        return true;
+    }
+
+
+    /**
+     * Build array for to store allowed sender
+     *
+     * @param Doctrine_Collection $data
+     * @return array $result
+     */
+    public function buildAllowedUser(Doctrine_Collection $data) {
+        $result = array();
+        $a = 0;
+        foreach($data as $item) {
+            $result[$a++]['id'] = $item->getId();
+        }
+        return $result;
+    }
+
+
+
+    /**
+     *
+     * Adapt the Auth settings of active entry
+     *
+     * @param array $data, data to store
+     * @param int $mailinglistversion_id, version id
+     * @return true
+     */
+    public function adaptAuthorizationEntry(array $data, $mailinglistversion_id) {
+        foreach($data as $item) {
+            $auth = new MailinglistAuthorizationSetting();
+            $auth->setMailinglistversionId($mailinglistversion_id);
+            $auth->setType($item['type']);
+            $auth->setDeleteworkflow($item['deleteworkflow']);
+            $auth->setArchiveworkflow($item['archiveworkflow']);
+            $auth->setStopneworkflow($item['stopneworkflow']);
+            $auth->setDetailsworkflow($item['detailsworkflow']);
+            $auth->save();
         }
         return true;
     }
