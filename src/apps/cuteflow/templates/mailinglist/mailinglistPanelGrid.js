@@ -183,7 +183,7 @@ cf.mailinglistPanelGrid = function(){return {
 								   buttons: Ext.Msg.YESNO,
 								   fn: function(btn, text) {
 										if(btn == 'yes') {
-											alert(id);
+											cf.mailinglistCRUD.initAdapt(id);
 										}
 								   }
 								});

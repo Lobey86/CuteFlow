@@ -5,6 +5,25 @@ cf.mailinglistCRUD = function(){return {
 	/**
 	* Delete record
 	*
+	*@param int id, id of the template to update
+	*
+	*/
+	initAdapt: function (id) {
+		Ext.Ajax.request({  
+			url : '<?php echo build_dynamic_javascript_url('mailinglist/AdaptMailinglist')?>/id/' + id, 
+			success: function(objServerResponse){
+				cf.mailinglistPanelGrid.theMailinglistStore.reload();
+				Ext.Msg.minWidth = 200;
+				Ext.MessageBox.alert('<?php echo __('OK',null,'mailinglist'); ?>', '<?php echo __('Update successful',null,'mailinglist'); ?>');
+			}
+		});
+		
+	},
+	
+	
+	/**
+	* Delete record
+	*
 	*@param int id, id of the record to delete
 	*
 	*/
@@ -14,11 +33,9 @@ cf.mailinglistCRUD = function(){return {
 			success: function(objServerResponse){
 				cf.mailinglistPanelGrid.theMailinglistStore.reload();
 				Ext.Msg.minWidth = 200;
-				Ext.MessageBox.alert('<?php echo __('OK',null,'mailinglist'); ?>', '<?php echo __('Delete successful',null,'form'); ?>');
+				Ext.MessageBox.alert('<?php echo __('OK',null,'mailinglist'); ?>', '<?php echo __('Delete successful',null,'mailinglist'); ?>');
 			}
 		});
-		
-		
 	},
 	
 	/**
