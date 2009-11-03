@@ -5,7 +5,7 @@
 class DocumenttemplateVersionTable extends Doctrine_Table {
 
 
-        /**
+     /**
      * create new instance of FormTemplate
      * @return object FormTemplate
      */
@@ -83,6 +83,12 @@ class DocumenttemplateVersionTable extends Doctrine_Table {
             ->execute();
     }
 
+    /**
+     * Get Active Version of an template by id
+     *
+     * @param int $id, documenttemplate id
+     * @return Doctrine_Collection
+     */
     public function getActiveVersionById($id) {
         return Doctrine_Query::create()
             ->select('dtv.*')
