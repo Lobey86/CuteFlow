@@ -233,12 +233,15 @@ cf.mailinglistVersionSecondTab = function(){return {
 					   buttons: Ext.Msg.YESNO,
 					   fn: function(btn, text) {
 							if(btn == 'yes') {
+								cf.mailinglistCRUD.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Updating Data...',null,'mailinglist'); ?>'});					
+								cf.mailinglistCRUD.theLoadingMask.show();
 								Ext.Ajax.request({  
 									url : '<?php echo build_dynamic_javascript_url('mailinglist/ActivateMailinglist')?>/id/' + id + '/mailinglistid/' + mailinglisttemplateid, 
 									success: function(objServerResponse){
 										cf.mailinglistVersionPopUp.theVersionWindow.hide();
 										cf.mailinglistVersionPopUp.theVersionWindow.destroy();
 										cf.mailinglistPanelGrid.theMailinglistStore.reload();
+										cf.mailinglistCRUD.theLoadingMask.show();
 										Ext.Msg.minWidth = 200;
 										Ext.MessageBox.alert('<?php echo __('OK',null,'mailinglist'); ?>','<?php echo __('Template activated',null,'mailinglist'); ?>');
 									}

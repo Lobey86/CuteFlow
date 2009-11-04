@@ -89,12 +89,15 @@ cf.documenttemplateVersionFirstTab = function(){return {
 							   buttons: Ext.Msg.YESNO,
 							   fn: function(btn, text) {
 									if(btn == 'yes') {
+										cf.documenttemplateVersionFirstTab.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Updating Data...',null,'documenttemplate'); ?>'});					
+										cf.documenttemplateVersionFirstTab.theLoadingMask.show();
 										Ext.Ajax.request({  
 											url : '<?php echo build_dynamic_javascript_url('documenttemplate/ActivateDocumenttemplate')?>/id/' + id + '/documenttemplateid/' + documenttemplate_id, 
 											success: function(objServerResponse){
 												cf.documenttemplateVersionPopUp.theVersionWindow.hide();
 												cf.documenttemplateVersionPopUp.theVersionWindow.destroy();
 												cf.documenttemplatePanelGrid.theDocumenttemplateStore.reload();
+												cf.documenttemplateVersionFirstTab.theLoadingMask.hide();
 												Ext.Msg.minWidth = 200;
 												Ext.MessageBox.alert('<?php echo __('OK',null,'documenttemplate'); ?>','<?php echo __('Template activated',null,'documenttemplate'); ?>');
 											}
