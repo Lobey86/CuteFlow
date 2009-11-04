@@ -1,7 +1,7 @@
 /** save function **/
 cf.mailinglistCRUD = function(){return {
 	
-	
+	theLoadingMask			:false,
 	/**
 	* Delete record
 	*
@@ -9,14 +9,18 @@ cf.mailinglistCRUD = function(){return {
 	*
 	*/
 	initAdapt: function (id) {
+		cf.mailinglistCRUD.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Updating Data...',null,'mailinglist'); ?>'});					
+		cf.mailinglistCRUD.theLoadingMask.show();
 		Ext.Ajax.request({  
 			url : '<?php echo build_dynamic_javascript_url('mailinglist/AdaptMailinglist')?>/id/' + id, 
 			success: function(objServerResponse){
+				cf.mailinglistCRUD.theLoadingMask.hide();
 				cf.mailinglistPanelGrid.theMailinglistStore.reload();
 				Ext.Msg.minWidth = 200;
 				Ext.MessageBox.alert('<?php echo __('OK',null,'mailinglist'); ?>', '<?php echo __('Update successful',null,'mailinglist'); ?>');
 			}
 		});
+		//alert(id);
 		
 	},
 	

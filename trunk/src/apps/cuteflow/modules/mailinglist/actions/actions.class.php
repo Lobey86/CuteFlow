@@ -269,8 +269,7 @@ class mailinglistActions extends sfActions {
     public function executeAdaptMailinglist(sfWebRequest $request) {
         $mailinglist = new Mailinglist();
         $docuObj = new Documenttemplate();
-
-        $mailinglistdata = MailinglistTemplateTable::instance()->getMailinglistByVersionId($request->getParameter('id'))->toArray();
+        $mailinglistdata = MailinglistTemplateTable::instance()->getMailinglistByVersionTemplateId($request->getParameter('id'))->toArray();
         $currentdocumenttemplateversion = DocumenttemplateVersionTable::instance()->getActiveVersionById($mailinglistdata[0]['documenttemplatetemplate_id'])->toArray();
         $slots = $docuObj->buildSlots($currentdocumenttemplateversion[0]['id'], 'SLOTSONLY');
         $mailinglistversiondata = MailinglistVersionTable::instance()->getActiveVersionById($request->getParameter('id'))->toArray();
