@@ -111,6 +111,18 @@ class MailinglistTemplateTable extends Doctrine_Table {
         
     }
 
+
+    public function getMailinglistByVersionTemplateId($id) {
+        return Doctrine_Query::create()
+                    ->select('mlt.*')
+                    ->from('MailinglistTemplate mlt')
+                    ->leftJoin('mlt.MailinglistVersion mlv')
+                    ->where('mlv.mailinglisttemplate_id = ?', $id)
+                    ->execute();
+
+    }
+
+
     /**
      * Set templates to disabled
      * @return true
