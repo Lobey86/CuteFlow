@@ -157,8 +157,23 @@ class UserCRUD {
         foreach($workflowData as $item => $key) {
             $workflow = new UserWorkflowConfiguration();
             $workflow->setUserId($user_id);
-            $workflow->setColumntext($item);
-            $workflow->setIsactive($key);
+            if($item == 'userdefined1') {
+                $fieldid = is_numeric($key['fieldid']) ? $key['fieldid'] : -1;
+                $workflow->setColumntext('USERDEFINED1');
+                $workflow->setIsactive($key['isactive']);
+                $workflow->setFieldId($fieldid);
+            }
+            elseif($item == 'userdefined2') {
+                $fieldid = is_numeric($key['fieldid']) ? $key['fieldid'] : -2;
+                $workflow->setColumntext('USERDEFINED2');
+                $workflow->setIsactive($key['isactive']);
+                $workflow->setFieldId($fieldid);
+            }
+            else {
+                $workflow->setColumntext($item);
+                $workflow->setIsactive($key);
+            }
+            
             $workflow->setPosition($position++);
             $workflow->save();
         }

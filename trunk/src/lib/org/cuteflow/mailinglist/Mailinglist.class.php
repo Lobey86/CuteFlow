@@ -3,9 +3,35 @@
 
 class Mailinglist {
 
+    private $context;
+
     public function  __construct() {
        sfLoader::loadHelpers('Date');
        sfLoader::loadHelpers('i18n');
+    }
+
+    public function setContext(sfContext $context) {
+        $this->context = $context;
+    }
+
+
+    /**
+     *  Builds data for the recevier gird and adds a icon
+     *
+     * @param Doctrine_Collection $data, data
+     * @return array $result
+     */
+    public function buildReceiver(Doctrine_Collection $data) {
+        $result = array();
+        $a = 0;
+        foreach($data as $item) {
+            $result[$a]['id'] = $item->getUserId();
+            $result[$a]['unique_id'] = $a;
+            $result[$a]['textwithoutimage'] = $item->getText();
+            $result[$a++]['text'] = '<table><tr><td><img src="/images/icons/user.png" /></td><td>&nbsp;&nbsp;' . $item->getText() . '</td></tr></table>';
+        }
+        return $result;
+
     }
 
     /**
@@ -165,7 +191,7 @@ class Mailinglist {
         foreach($data as $user) {
             $result[$a]['id'] = $user->getId();
             $result[$a]['user_id'] = $user->getUserId();
-            $result[$a++]['name'] = $user->getName();
+            $result[$a++]['name'] = $user->getUserId() == -2 ? $this->context->getI18N()->__('Sender of circulation' ,null,'mailinglist') : $user->getName();
         }
         return $result;
     }
@@ -178,14 +204,14 @@ class Mailinglist {
      * @param sfContext $context
      * @return array $result
      */
-    public function buildAllVersion(Doctrine_Collection $data, $culture, sfContext $context) {
+    public function buildAllVersion(Doctrine_Collection $data, $culture) {
         $result = array();
         $a = 0;
         foreach($data as $item) {
             $template = $item->getMailinglistTemplate();
             $result[$a]['#'] = $a+1;
             $result[$a]['id'] = $item->getId();
-            $result[$a]['activeversion'] = $item->getActiveversion() == 1 ? '<font color="green">' . $context->getI18N()->__('Yes' ,null,'documenttemplate') . '</font>' : '<font color="red">' . $context->getI18N()->__('No',null,'documenttemplate') . '</font>';
+            $result[$a]['activeversion'] = $item->getActiveversion() == 1 ? '<font color="green">' . $this->context->getI18N()->__('Yes' ,null,'documenttemplate') . '</font>' : '<font color="red">' . $this->context->getI18N()->__('No',null,'documenttemplate') . '</font>';
             $result[$a]['created_at'] = format_date($item->getCreatedAt(), 'g', $culture);
             $result[$a]['name'] = $template[0]->getName();
             $result[$a++]['mailinglisttemplate_id'] = $item->getMailinglisttemplateId();

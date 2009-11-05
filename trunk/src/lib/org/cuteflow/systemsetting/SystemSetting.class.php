@@ -21,8 +21,9 @@ class SystemSetting {
      */
     public function buildColumns(array $data, sfContext $context) {
         for($a = 0;$a<count($data);$a++) {
-            $data[$a]['columntext'] = $context->getI18N()->__($data[$a]['columntext'],null,'systemsetting');
             $data[$a]['column'] = $data[$a]['columntext'];
+            $data[$a]['columntext'] = $context->getI18N()->__($data[$a]['columntext'],null,'systemsetting');
+
         }
         return $data;
     }
