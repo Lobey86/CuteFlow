@@ -28,10 +28,36 @@ cf.saveUser = function(){return {
 		var grid =cf.userFourthTab.theFourthGrid;
 		for(var a=0;a<grid.store.getCount();a++) {
 			var row = grid.getStore().getAt(a);
-			var hiddenfield = new Ext.form.Field({
-				autoCreate : {tag:'input', type: 'hidden', name: 'worklfow['+row.data.column+']', value:row.data.isactive, width: 0}			
-			});
-			cf.saveUser.theHiddenPanel.add(hiddenfield);
+			if(row.data.column == 'USERDEFINED1') {
+				var combo = Ext.getCmp('userdefined_firstcombo');
+				var hiddenfield = new Ext.form.Field({
+					autoCreate : {tag:'input', type: 'hidden', name: 'worklfow[userdefined1][fieldid]', value:combo.getValue(), width: 0}			
+				});
+				cf.saveUser.theHiddenPanel.add(hiddenfield);
+				
+				var hiddenfield = new Ext.form.Field({
+					autoCreate : {tag:'input', type: 'hidden', name: 'worklfow[userdefined1][isactive]', value:row.data.isactive, width: 0}			
+				});
+				cf.saveUser.theHiddenPanel.add(hiddenfield);
+			}
+			else if(row.data.column == 'USERDEFINED2') {
+				var combo = Ext.getCmp('userdefined_secondcombo');
+				var hiddenfield = new Ext.form.Field({
+					autoCreate : {tag:'input', type: 'hidden', name: 'worklfow[userdefined2][fieldid]', value:combo.getValue(), width: 0}			
+				});
+				cf.saveUser.theHiddenPanel.add(hiddenfield);
+				
+				var hiddenfield = new Ext.form.Field({
+					autoCreate : {tag:'input', type: 'hidden', name: 'worklfow[userdefined2][isactive]', value:row.data.isactive, width: 0}			
+				});
+				cf.saveUser.theHiddenPanel.add(hiddenfield);
+			}
+			else {
+				var hiddenfield = new Ext.form.Field({
+					autoCreate : {tag:'input', type: 'hidden', name: 'worklfow['+row.data.column+']', value:row.data.isactive, width: 0}			
+				});
+				cf.saveUser.theHiddenPanel.add(hiddenfield);
+			}
 		}
 		theFormpanel.add(cf.saveUser.theHiddenPanel);
 		theFormpanel.doLayout();	

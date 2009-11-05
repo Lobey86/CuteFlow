@@ -12,7 +12,6 @@ cf.administration_myprofile = function(){return {
 		if(cf.editUserWindow.isInitialized == false && cf.createUserWindow.isInitialized == false) {
 			this.theUserGridMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'myprofile'); ?>'});
 			this.theUserGridMask.show();
-			
 			this.theUserId = '<?php echo $sf_user->getAttribute('id')?>';
 			cf.userFirstTab.init();
 			cf.userSecondTab.init(this.theUserId);
@@ -29,7 +28,7 @@ cf.administration_myprofile = function(){return {
 			this.initUserRight();
 		}
 		else {
-			Ext.Msg.minWidth = 200;
+			Ext.Msg.minWidth = 450;
 			Ext.MessageBox.alert('<?php echo __('Error',null,'myprofile'); ?>', '<?php echo __('Profile changes and editing/creating user at same time is not supported',null,'myprofile'); ?>');
 		}
 

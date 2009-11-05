@@ -58,6 +58,14 @@
         <source>thesender</source>
         <target>Der Sender</target>
     </trans-unit>
+	<trans-unit id="15">
+        <source>USERDEFINED1</source>
+        <target>Benutzerdefiniertes Feld 1</target>
+    </trans-unit>
+	<trans-unit id="16">
+        <source>USERDEFINED2</source>
+        <target>Benutzerdefiniertes Feld 2</target>
+    </trans-unit>
     </body>
   </file>
 </xliff>
