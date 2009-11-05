@@ -464,8 +464,47 @@ UserWorkflowConfiguration:
     user_id: 4
     columntext: TEMPLATE
     isactive: 'false'
-    position: 8
-    
+    position: 8  
+  wc33:
+    user_id: 1
+    columntext: USERDEFINED1
+    isactive: 'false'
+    position: 9
+  wc34:
+    user_id: 1
+    columntext: USERDEFINED2
+    isactive: 'false'
+    position: 10
+  wc35:
+    user_id: 2
+    columntext: USERDEFINED1
+    isactive: 'false'
+    position: 9
+  wc36:
+    user_id: 2
+    columntext: USERDEFINED2
+    isactive: 'false'
+    position: 10
+  wc37:
+    user_id: 3
+    columntext: USERDEFINED1
+    isactive: 'false'
+    position: 9
+  wc38:
+    user_id: 3
+    columntext: USERDEFINED2
+    isactive: 'false'
+    position: 10
+  wc39:
+    user_id: 4
+    columntext: USERDEFINED1
+    isactive: 'false'
+    position: 9
+  wc40:
+    user_id: 4
+    columntext: USERDEFINED2
+    isactive: 'false'
+    position: 10
 
 EmailConfiguration:
   ec1:
@@ -535,6 +574,14 @@ WorkflowConfiguration:
     columntext: TEMPLATE
     isactive: 'false'
     position: 8
+  wc9:
+    columntext: USERDEFINED1
+    isactive: 'false'
+    position: 9
+  wc10:
+    columntext: USERDEFINED2
+    isactive: 'false'
+    position: 10
 
 Field:
   f1:
