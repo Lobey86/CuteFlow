@@ -65,11 +65,13 @@ UserWorkflowConfiguration:
   columns:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
     user_id: { type: integer, length: 10 }
+    field_id: {type: integer, length: 10 }
     columntext: { type: string(45)}
     isactive: { type: string(10)}
     position: { type: integer(1), length: 3}
   relations:
     UserLogin: { class: UserLogin, local: user_id, foreign: id, foreignType: one, type: many}
+    Field: { class: Field, local: field_id, foreign: id, foreignType: one, type: many}
 
 UserSetting:
   tableName: cf_usersetting
