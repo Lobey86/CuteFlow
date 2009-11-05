@@ -51,6 +51,14 @@ class mailinglistActions extends sfActions {
     }
 
 
+    public function executeBuildReceiver(sfWebRequest $request) {
+        $mailinglist = new Mailinglist();
+        $result = UserDataTable::instance()->getAllUserFullname();
+        $json_result = $mailinglist->buildReceiver($result);
+        $this->renderText('{"result":'.json_encode($json_result).'}');
+        return sfView::NONE;
+    }
+
     /**
      * Load all Documents
      * @param sfWebRequest $request
@@ -218,6 +226,7 @@ class mailinglistActions extends sfActions {
      */
     public function executeLoadSingleMailinglist(sfWebRequest $request) {
         $mailObj = new Mailinglist();
+        $mailObj->setContext($this->getContext());
         $mailinglist = MailinglistTemplateTable::instance()->getMailinglistByVersionId($request->getParameter('id'));
         $data = $mailObj->buildSingleMailinglist($mailinglist, $request->getParameter('id'));
         $this->renderText('{"result":'.json_encode($data).'}');
@@ -240,8 +249,9 @@ class mailinglistActions extends sfActions {
      */
     public function executeLoadAllVersion(sfWebRequest $request) {
         $mailinglist = new Mailinglist();
+        $mailinglist->setContext($this->getContext());
         $result = MailinglistVersionTable::instance()->getAllVersionsById($request->getParameter('id'));
-        $json_result = $mailinglist->buildAllVersion($result, $this->getUser()->getCulture(), $this->getContext());
+        $json_result = $mailinglist->buildAllVersion($result, $this->getUser()->getCulture());
         $this->renderText('({"result":'.json_encode($json_result).'})');
         return sfView::NONE;
     }

@@ -32,7 +32,7 @@ cf.editUserWindow = function(){return {
 			this.addData();
 		}
 		else {
-			Ext.Msg.minWidth = 200;
+			Ext.Msg.minWidth = 450;
 			Ext.MessageBox.alert('<?php echo __('Error',null,'usermanagement'); ?>', '<?php echo __('Profile changes and editing/creating user at same time is not supported',null,'usermanagement'); ?>');
 		}
 	},

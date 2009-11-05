@@ -28,7 +28,6 @@ class myprofileActions extends sfActions {
         $sysObj = new SystemSetting();
         $worklfosettings = UserWorkflowConfigurationTable::instance()->getSingleUserWorkflowConfigurattion($request->getParameter('id'));
         $worklfosettings = $sysObj->buildColumns($worklfosettings->toArray(), $this->getContext());
-
         $this->renderText('{"result":'.json_encode($worklfosettings).'}');
         return sfView::NONE;
         

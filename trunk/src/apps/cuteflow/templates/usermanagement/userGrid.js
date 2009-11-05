@@ -59,7 +59,13 @@ cf.UserGrid = function(){return {
                 tooltip:'<?php echo __('Add new user',null,'usermanagement'); ?>',
                 disabled: <?php $arr = $sf_user->getAttribute('credential');echo $arr['administration_usermanagement_addUser'];?>,
                 handler: function () {
-                	cf.createUserWindow.init();
+					if(cf.administration_myprofile.isInitialized == false) {
+						cf.createUserWindow.init();
+					}
+					else {
+					Ext.Msg.minWidth = 450;
+					Ext.MessageBox.alert('<?php echo __('Error',null,'usermanagement'); ?>', '<?php echo __('Profile changes and editing/creating user at same time is not supported',null,'usermanagement'); ?>');
+					}
                 }
 		    },'-',{
 				icon: '/images/icons/user_red.png',
