@@ -1,0 +1,94 @@
+<mockup version="1.0" skin="sketch" measuredW="1380" measuredH="830">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::TabBar" x="276" y="92" w="904" h="728" measuredW="340" measuredH="100" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>General%20Settings%2C%20Mailinglist%3A%20NAME</text>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::FieldSet" x="316" y="133" w="530" h="144" measuredW="200" measuredH="170" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Set%20Name%20and%20Mailinglist%20and%20Attachments</text>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::ComboBox" x="348" y="193" w="-1" h="-1" measuredW="88" measuredH="25" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Verteiler</text>
+      </controlProperties>
+    </control>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::Button" x="348" y="158" w="94" h="-1" measuredW="94" measuredH="28" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Enter%20name</text>
+      </controlProperties>
+    </control>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::FieldSet" x="316" y="307" w="530" h="282" measuredW="200" measuredH="170" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Einleitender%20Text</text>
+      </controlProperties>
+    </control>
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::DateChooser" x="350" y="234" w="-1" h="-1" measuredW="106" measuredH="29" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20%20/%20%20/%20%20%20%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="6" controlTypeID="com.balsamiq.mockups::StickyNote" x="852" y="119" w="518" h="429" measuredW="109" measuredH="123" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Mailinglist%3AName%0A%20%20-%20Tab%20wird%20automatisch%20erstellt%2C%20wenn%20eine%20default%20mailinglist%20gesetzt%20ist%0A%20%20-%20ist%20nichts%20default%2C%20wird%20der%20tab%20beim%20anw%E4hlen%20eines%20mailinglist%20%0A%20%20%20%20erstellt.%20%0A%20%20-%20selbes%20Layout%20wie%20in%20Mailinglist%20Komponente%2C%20nur%20Speichervorgang%20muss%20andere%20%0A%20%20%20%20%20URL%20sein.%0A%20%0AVerteiler%3A%0A%20%20-%20nur%20Verteiler%20laden%2C%20f%FCr%20die%20der%20Benutzer%20%0A%20%20%20%20%20berechtigt%20ist%3A%20cf_mailinglistallowedsender%0A%20%20-%20verteiler%20+%20name%20ist%20Pflichtfeld.%0A%20%20-%20verteiler%3A%20cf_mailinglisttemplate%20-%3E%20isactive%20wird%20als%20Default%20genutzt%0A%20%0AData%20Chooser%3A%0A%20%20-%20Extjs%20Komponente%2C%20die%20multiple%20Upload%20erlaubt</text>
+      </controlProperties>
+    </control>
+    <control controlID="7" controlTypeID="com.balsamiq.mockups::ComboBox" x="342" y="345" w="-1" h="-1" measuredW="137" measuredH="25" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Plain%20oder%20HTML</text>
+      </controlProperties>
+    </control>
+    <control controlID="8" controlTypeID="com.balsamiq.mockups::ComboBox" x="342" y="394" w="-1" h="-1" measuredW="142" measuredH="25" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Einleitender%20Text</text>
+      </controlProperties>
+    </control>
+    <control controlID="10" controlTypeID="com.balsamiq.mockups::TextArea" x="333" y="434" w="269" h="140" measuredW="200" measuredH="140" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Textarea%20oder%20HTML%20Area%2C%20je%20nach%20%0ACheckbox%20oben.</text>
+      </controlProperties>
+    </control>
+    <control controlID="12" controlTypeID="com.balsamiq.mockups::DataGrid" x="636" y="434" w="154" h="140" measuredW="154" measuredH="58" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Action%2CSpaceholder%0A%3C-%20%2C%20%5B%25%5DTemplate%5B%25%5D</text>
+      </controlProperties>
+    </control>
+    <control controlID="14" controlTypeID="com.balsamiq.mockups::FieldSet" x="310" y="608" w="542" h="185" measuredW="200" measuredH="170" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Weitere%20Einstellungen</text>
+      </controlProperties>
+    </control>
+    <control controlID="15" controlTypeID="com.balsamiq.mockups::CheckBox" x="335" y="636" w="-1" h="-1" measuredW="168" measuredH="18" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Sendebenachrichtigung</text>
+      </controlProperties>
+    </control>
+    <control controlID="16" controlTypeID="com.balsamiq.mockups::CheckBox" x="355" y="656" w="-1" h="-1" measuredW="122" measuredH="18" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Bei%20Umlaufende</text>
+      </controlProperties>
+    </control>
+    <control controlID="17" controlTypeID="com.balsamiq.mockups::CheckBox" x="355" y="684" w="-1" h="-1" measuredW="129" measuredH="18" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Nach%20jedem%20Slot</text>
+      </controlProperties>
+    </control>
+    <control controlID="18" controlTypeID="com.balsamiq.mockups::CheckBox" x="355" y="710" w="168" h="17" measuredW="129" measuredH="18" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Nach%20archivieren</text>
+      </controlProperties>
+    </control>
+    <control controlID="19" controlTypeID="com.balsamiq.mockups::CheckBox" x="355" y="733" w="168" h="17" measuredW="108" measuredH="18" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Nach%20l%F6schen</text>
+      </controlProperties>
+    </control>
+    <control controlID="20" controlTypeID="com.balsamiq.mockups::CheckBox" x="333" y="750" w="288" h="25" measuredW="284" measuredH="18" zOrder="17" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Empf%E4ngernamen%20in%20Umlauf%20nicht%20anzeigen</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
