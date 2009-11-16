@@ -77,11 +77,11 @@ Credential:
     userRight: showDeleted
   c20:
     userModule: workflow
-    userGroup: circulation
+    userGroup: workflowmanagement
     userRight: showModule
   c21:
     userModule: workflow
-    userGroup: circulation
+    userGroup: workflowmanagement
     userRight: sendWorkflow
   c22:
     userModule: management
@@ -585,27 +585,36 @@ WorkflowConfiguration:
 
 Field:
   f1:
-    title: Feld 1 - Test
+    title: Feld 1 - Checkbox
     type: CHECKBOX
-    writeprotected: 0
+    writeprotected: 1
     color: #000000
   f2:
-    title: Feld 2 - Test
+    title: Feld 2 - Checkbox
     type: CHECKBOX
     writeprotected: 0
-    color: #000000
+    color: #FF0000
   f3:
-    title: Feld 3 - Test
-    type: CHECKBOX
+    title: Feld 3 - Textfeld
+    type: TEXTFIELD
     writeprotected: 1
     color: #000000
 
   f4:
-    title: Feld 4 - Test
-    type: CHECKBOX
-    writeprotected: 1
-    color: #000000
+    title: Feld 4 - Textfeld
+    type: TEXTFIELD
+    writeprotected: 0
+    color: #FF0000
 
+FieldTextfield:
+  ft1:
+    field_id: 3
+    regex: 
+    defaultvalue: Dies ist ein Textfeld
+  ft2:
+    field_id: 4
+    regex:
+    defaultvalue:
 AuthorizationConfiguration:
   ac1:
     type: admin
