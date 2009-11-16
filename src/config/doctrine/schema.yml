@@ -335,7 +335,7 @@ DocumenttemplateVersion:
     activeversion: { type: integer(1), length: 3 }
   relations:
     DocumenttemplateSlot: { class: DocumenttemplateSlot, local: id, foreign: documenttemplateversion_id, foreignType: many, type: one }
-
+    MailinglistVersion: { class: MailinglistVersion, local: id, foreign: documenttemplateversion_id, foreignType: many, type: one }
 
 
 DocumenttemplateSlot:
@@ -376,6 +376,7 @@ MailinglistVersion:
   columns:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
     mailinglisttemplate_id: { type: integer, length: 10 }
+    documenttemplateversion_id: { type: integer, length: 10 }
     version: { type: integer(1), length: 3 }
     activeversion: { type: integer(1), length: 3 }
   relations:
