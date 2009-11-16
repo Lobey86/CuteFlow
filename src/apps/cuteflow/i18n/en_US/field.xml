@@ -422,6 +422,18 @@
         <source>Delete field?</source>
         <target>Delete field?</target>
      </trans-unit>
+	 <trans-unit id="106">
+        <source>NORESTRICTION</source>
+        <target>no restriction</target>
+     </trans-unit>
+	 <trans-unit id="107">
+        <source>POSITIVE</source>
+        <target>only positiv numbers</target>
+     </trans-unit>
+	 <trans-unit id="108">
+        <source>NEGATIVE</source>
+        <target>only negativ numbers</target>
+     </trans-unit>
     </body>
   </file>
 </xliff>

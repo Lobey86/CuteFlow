@@ -244,6 +244,7 @@ cf.mailinglistVersionSecondTab = function(){return {
 										cf.mailinglistCRUD.theLoadingMask.show();
 										Ext.Msg.minWidth = 200;
 										Ext.MessageBox.alert('<?php echo __('OK',null,'mailinglist'); ?>','<?php echo __('Template activated',null,'mailinglist'); ?>');
+										cf.mailinglistCRUD.theLoadingMask.hide();
 									}
 								});
 							}
