@@ -28,7 +28,7 @@ class Mailinglist {
             $result[$a]['id'] = $item->getUserId();
             $result[$a]['unique_id'] = $a;
             $result[$a]['textwithoutimage'] = $item->getText();
-            $result[$a++]['text'] = '<table><tr><td><img src="/images/icons/user.png" /></td><td>&nbsp;&nbsp;' . $item->getText() . '</td></tr></table>';
+            $result[$a++]['text'] = '<table><tr><td width="18"><img src="/images/icons/user.png" /></td><td>&nbsp;&nbsp;' . $item->getText() . '</td></tr></table>';
         }
         return $result;
 
@@ -225,12 +225,14 @@ class Mailinglist {
      *
      * @param int $mailinglisttemplate_id, id of the template
      * @param int $version, current version to save
+     * @param int $activeMailinglistId, current id of the active version
      * @return int $mailinglistversion_id, version id
      */
-    public function storeVersion($mailinglisttemplate_id, $version) {
+    public function storeVersion($mailinglisttemplate_id, $version, $activeMailinglistId) {
         $mailinglistversion = new MailinglistVersion();
         $mailinglistversion->setMailinglisttemplateId($mailinglisttemplate_id);
         $mailinglistversion->setVersion($version);
+        $mailinglistversion->setDocumenttemplateversionId($activeMailinglistId);
         $mailinglistversion->setActiveversion(1);
         $mailinglistversion->save();
         $mailinglistversion_id = $mailinglistversion->getId();

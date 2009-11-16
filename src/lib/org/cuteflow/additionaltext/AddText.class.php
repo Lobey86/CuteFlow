@@ -24,6 +24,8 @@ class AddText {
             $result[$a]['#'] = $a+1;
             $result[$a]['title'] = $item->getTitle();
             $result[$a]['contenttype'] = $context->getI18N()->__($item->getContenttype(),null,'additionaltext');
+            $result[$a]['rawcontenttype'] = $item->getContenttype();
+            $result[$a]['content'] = $item->getContent();
             $result[$a]['isactive'] = $item->getIsactive();
             $result[$a++]['id'] = $item->getId();
         }
