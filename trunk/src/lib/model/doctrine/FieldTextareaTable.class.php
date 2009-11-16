@@ -28,5 +28,17 @@ class FieldTextareaTable extends Doctrine_Table {
         return true;
     }
 
+    /**
+     * Get content of a field by its id
+     * @param int $id, id of the field
+     * @return Doctrine_Collection
+     */
+    public function getTextareaByFieldId($id) {
+        return Doctrine_Query::create()
+            ->select('fta.*')
+            ->from('FieldTextarea fta')
+            ->where('fta.field_id = ?', $id)
+            ->execute();
+    }
 
 }

@@ -61,6 +61,19 @@ class MailinglistVersionTable extends Doctrine_Table {
     }
 
     /**
+     * Load an Version, by its id
+     * @param int $id
+     * @return Doctrine_Collection
+     */
+    public function getSingleVersionById($id) {
+        return Doctrine_Query::create()
+            ->select('mlv.*')
+            ->from('MailinglistVersion mlv')
+            ->where('mlv.id = ?', $id)
+            ->execute();
+    }
+
+    /**
      * Get all version for a template
      *
      * @param int $id, template id

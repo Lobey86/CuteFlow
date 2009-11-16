@@ -99,4 +99,19 @@ class DocumenttemplateVersionTable extends Doctrine_Table {
     }
 
 
+    /**
+     * get a documenttemplateversion by its id
+     *
+     * @param <type> $id
+     * @return Doctrine_Collection
+     */
+    public function getVersionById($id) {
+        return Doctrine_Query::create()
+            ->select('dtv.*')
+            ->from('DocumenttemplateVersion dtv')
+            ->where('dtv.id = ?', $id)
+            ->execute();
+    }
+
+
 }

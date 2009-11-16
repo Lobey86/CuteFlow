@@ -28,4 +28,13 @@ class FieldFileTable extends Doctrine_Table {
             ->execute();
         return true;
     }
+
+
+    public function findFileByFieldId($id) {
+        return Doctrine_Query::create()
+            ->select('ff.*')
+            ->from('FieldFile ff')
+            ->where('ff.field_id = ?', $id)
+            ->execute();    
+    }
 }
