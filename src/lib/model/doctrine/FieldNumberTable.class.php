@@ -29,4 +29,17 @@ class FieldNumberTable extends Doctrine_Table {
         return true;
     }
 
+    /**
+     * Get content of a field by its id
+     * @param int $id, id of the field
+     * @return Doctrine_Collection
+     */
+    public function getNumberByFieldId($id) {
+        return Doctrine_Query::create()
+            ->select('fn.*')
+            ->from('FieldNumber fn')
+            ->where('fn.field_id = ?', $id)
+            ->execute();
+    }
+
 }

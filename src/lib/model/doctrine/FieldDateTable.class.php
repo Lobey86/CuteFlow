@@ -29,4 +29,17 @@ class FieldDateTable extends Doctrine_Table {
         return true;
     }
 
+    /**
+     * Get content of a field by its id
+     * @param int $id, id of the field
+     * @return Doctrine_Collection
+     */
+    public function getDateByFieldId($id) {
+        return Doctrine_Query::create()
+            ->select('fd.*')
+            ->from('FieldDate fd')
+            ->where('fd.field_id = ?', $id)
+            ->execute();
+    }
+
 }
