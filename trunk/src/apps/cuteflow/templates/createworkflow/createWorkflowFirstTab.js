@@ -48,12 +48,12 @@ cf.createWorkflowFirstTab = function(){return {
 		fieldset2.add(this.theColumnPanel);
 		
 		var fieldset3 = this.createFieldset('createWorkflowFirstTab_fieldset3', '<?php echo __('Additional Settings',null,'workflowmanagement'); ?>', true, 200, true);
-		var cb1 = this.createCheckbox('createWorkflowFirstTab_sendingnotification','<?php echo __('Sending notification',null,'workflowmanagement'); ?>',true,'');
-		var cb2 = this.createCheckbox('createWorkflowFirstTab_successfullcirculation','&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo __('After succeeded circulation',null,'workflowmanagement'); ?>',true,'');
-		var cb3 = this.createCheckbox('createWorkflowFirstTab_siccessfullslot','&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo __('After succeeded slot end',null,'workflowmanagement'); ?>',false,'');
-		var cb4 = this.createCheckbox('createWorkflowFirstTab_archivecirculation','<?php echo __('Archive after succeeded circulation',null,'workflowmanagement'); ?>',true,'');
-		var cb5 = this.createCheckbox('createWorkflowFirstTab_deletecirculation','<?php echo __('Delete after succeeded circulation',null,'workflowmanagement'); ?>',false,'');
-		var cb6 = this.createCheckbox('createWorkflowFirstTab_showusername','<?php echo __('Show receiver name in workflow',null,'workflowmanagement'); ?>',false,'');
+		var cb1 = this.createCheckbox('createWorkflowFirstTabSettings[0]','<?php echo __('Sending notification',null,'workflowmanagement'); ?>',true,'', 1);
+		var cb2 = this.createCheckbox('createWorkflowFirstTabSettings[1]','&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo __('After succeeded circulation',null,'workflowmanagement'); ?>',true,'', 2);
+		var cb3 = this.createCheckbox('createWorkflowFirstTabSettings[2]','&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo __('After succeeded slot end',null,'workflowmanagement'); ?>',false,'', 4);
+		var cb4 = this.createCheckbox('createWorkflowFirstTabSettings[3]','<?php echo __('Archive after succeeded circulation',null,'workflowmanagement'); ?>',true,'', 8);
+		var cb5 = this.createCheckbox('createWorkflowFirstTabSettings[4]','<?php echo __('Delete after succeeded circulation',null,'workflowmanagement'); ?>',false,'', 16);
+		var cb6 = this.createCheckbox('createWorkflowFirstTabSettings[5]','<?php echo __('Show receiver name in workflow',null,'workflowmanagement'); ?>',false,'', 32);
 		fieldset3.add([cb1,cb2,cb3,cb4,cb5,cb6]);
 		this.theFirstTabPanel.add(fieldset1);
 		this.theFirstTabPanel.add(fieldset2);
@@ -69,7 +69,8 @@ cf.createWorkflowFirstTab = function(){return {
 			triggerAction: 'all',
 			foreSelection: true,
 			hidden: true,
-			id: 'createWorkflowFirstTab_contenttype',
+			id: 'createWorkflowFirstTab_contenttype_id',
+			hiddenName: 'createWorkflowFirstTab_contenttype',
 			mode: 'local',
 			value: 'html',
 			store: new Ext.data.SimpleStore({
@@ -98,13 +99,13 @@ cf.createWorkflowFirstTab = function(){return {
 		});
 	},
 	
-	createCheckbox: function (id, label, checked, style) {
+	createCheckbox: function (id, label, checked, style, inputValue) {
 		var checkbox = new Ext.form.Checkbox({
 			fieldLabel: label,
-			inputValue: '1',
+			inputValue: inputValue,
 			style: style,
 			checked: checked,
-			id: id		
+			name: id		
 		});	
 		return checkbox;
 	},
@@ -151,7 +152,7 @@ cf.createWorkflowFirstTab = function(){return {
 	initFileGrid: function () {
 		var cm = new Ext.grid.ColumnModel([
 			{header: "<?php echo __('File',null,'workflowmanagement'); ?>", width: 310, sortable: true, dataIndex: 'text', css : "text-align : left;font-size:12px;align:left;", renderer:this.renderFileButton},
-			{header: "<div ext:qtip=\"<table><tr><td><img src='/images/icons/user_delete.png' />&nbsp;&nbsp;</td><td><?php echo __('Remove file',null,'workflowmanagement'); ?></td></tr></table>\" ext:qwidth=\"80\"><?php echo __('Action',null,'workflowmanagement'); ?></div>", width: 60, sortable: true, css : "text-align : left;font-size:12px;align:center;", renderer:this.renderDeleteFile}
+			{header: "<div ext:qtip=\"<table><tr><td><img src='/images/icons/picture_delete.png' />&nbsp;&nbsp;</td><td><?php echo __('Remove file',null,'workflowmanagement'); ?></td></tr></table>\" ext:qwidth=\"80\"><?php echo __('Action',null,'workflowmanagement'); ?></div>", width: 60, sortable: true, css : "text-align : left;font-size:12px;align:center;", renderer:this.renderDeleteFile}
 		]);
 		
 		var tbar = new Ext.Toolbar({
@@ -220,6 +221,7 @@ cf.createWorkflowFirstTab = function(){return {
 	createFileUpload: function (id) {
 		var file = new Ext.form.FileUploadField({
 		    renderTo: 'create_uploadfile'+ id,
+		    name: 'create_uploadfile['+id+']',
 			emptyText:  '<?php echo __('Select a file',null,'workflowmanagement'); ?>',
 			width: 300
 		});
@@ -282,7 +284,8 @@ cf.createWorkflowFirstTab = function(){return {
 			}),
 			triggerAction: 'all',
 			selectOnFocus:true,
-			id: 'createWorkflowFirstTab_additionaltext',
+			id: 'createWorkflowFirstTab_additionaltext_id',
+			hiddenName: 'createWorkflowFirstTab_additionaltext',
 			allowBlank: true,
 			forceSelection:true,
 			listeners: {
@@ -344,6 +347,9 @@ cf.createWorkflowFirstTab = function(){return {
 						cf.createWorkflowFirstTab.theTextarea.setVisible(false);
 						cf.createWorkflowFirstTab.theHtmlarea.setVisible(true);
 					}
+					else {
+						cf.createWorkflowFirstTab.theContenttypeCombo.destroy();
+					}
 				}
 			});
 
@@ -357,7 +363,7 @@ cf.createWorkflowFirstTab = function(){return {
 			editable: false,
 			format:'d-m-Y',
 			id: 'createWorkflowFirstTab_datepicker',
-			fieldLabel: '<?php echo __('Set Startdate of Workflow',null,'workflowmanagement'); ?>',
+			fieldLabel: "<span ext:qtip=\"<table><tr><td><?php echo __('<b>Datefield is empty</b>',null,'workflowmanagement'); ?></td><td><?php echo __(' : Workflow will start immediately',null,'workflowmanagement'); ?></td></tr><tr><td><?php echo __('<b>Datefield is set</b>',null,'workflowmanagement'); ?></td><td> : <?php echo __('Workflow will start at selected date',null,'workflowmanagement'); ?></td></tr></table>\" ext:qwidth=\"350\"><?php echo __('Startdate of Workflow',null,'workflowmanagement'); ?></span>",
 			width:170	
 		});
 		if (Ext.isIE6 == true) {
@@ -372,9 +378,10 @@ cf.createWorkflowFirstTab = function(){return {
 		this.theMailinglist = new Ext.form.ComboBox({
 			fieldLabel: '<?php echo __('Mailinglist',null,'workflowmanagement'); ?>',
 			valueField: 'value',
-			id: 'createWorkflowFirstTab_mailinglist',
+			id: 'createWorkflowFirstTab_mailinglist_id',
 			displayField: 'text',
 			editable: false,
+			hiddenName: 'createWorkflowFirstTab_mailinglist',
 			mode: 'local',
 			store: new Ext.data.SimpleStore({
 				fields: [
@@ -464,7 +471,7 @@ cf.createWorkflowFirstTab = function(){return {
 			collapsible: true,
 			collapsed: collapsed,
 			id: id,
-			labelWidth:200
+			labelWidth:220
 		});
 		return fieldset;
 	},
