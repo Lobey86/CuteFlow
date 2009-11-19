@@ -210,7 +210,7 @@ cf.createWorkflowSecondTab = function(){return {
 			title: '<?php echo __('Slot: ',null,'mailinglist'); ?> ' + name,
 			height: 220,
 			width:'auto',
-			id: 'workflowfieldset_' + slot_id,
+			id: 'WORKFLOWUSERSLOT_' + slot_id,
 			collapsible: true,
 			collapsed: collapsed
 		});

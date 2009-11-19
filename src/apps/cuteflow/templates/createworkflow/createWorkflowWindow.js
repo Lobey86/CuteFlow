@@ -41,7 +41,7 @@ cf.createWorkflowWindow = function(){return {
 				text:'<?php echo __('Store',null,'documenttemplate'); ?>', 
 				icon: '/images/icons/accept.png',
 				handler: function () {
-					alert('save');
+					cf.createWorkflowCRUD.initSave();
 				}
 			},{
 				text:'<?php echo __('Close',null,'documenttemplate'); ?>', 

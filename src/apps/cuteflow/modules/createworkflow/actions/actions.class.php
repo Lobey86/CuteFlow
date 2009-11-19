@@ -19,6 +19,143 @@ class createworkflowActions extends sfActions {
     }
 
 
+    public function executeCreateWorkflow(sfWebRequest $request) {
+        #print_r ($_FILES);die;
+
+        $createWorkObj = new PrepareWorkflowData();
+        $workflow = new WorkflowTemplate();
+        $data = array();
+        $startDate = array();
+
+        $endreason = $createWorkObj->createEndreason($request->getPostParameter('createWorkflowFirstTabSettings', array()));
+        $startDate = $createWorkObj->createStartDate($request->getPostParameter('createWorkflowFirstTab_datepicker'));
+        $content = $createWorkObj->createContenttype($request->getPostParameters());
+
+
+        $workflow->setMailinglisttemplateId($request->getPostParameter('createWorkflowFirstTab_mailinglist'));
+        $workflow->setName($request->getPostParameter('createWorkflowFirstTab_name'));
+        $workflow->setSenderId($this->getUser()->getAttribute('id'));
+        $workflow->setEndaction($endreason);
+        $workflow->save();
+        $workflow_id = $workflow->getId();
+
+        $workflowtemplate = new WorkflowVersion();
+        $workflowtemplate->setWorkflowtemplateId($workflow_id);
+        $workflowtemplate->setActiveversion(1);
+        $workflowtemplate->setContent($content['content']);
+        $workflowtemplate->setStartworkflowAt($startDate['startworkflowat']);
+        $workflowtemplate->setContenttype($content['contenttype']);
+        $workflowtemplate->setWorkflowisstarted($startDate['workflowisstarted']);
+        $workflowtemplate->save();
+        $template_id = $workflowtemplate->getId();
+
+
+        $data = $request->getPostParameter('slot');
+        $slotposition = 1;
+
+        foreach($data as $slot) {
+            $slotObj = new WorkflowSlot();
+            $slotObj->setSlotId($slot['slot']['id']);
+            $slotObj->setWorkflowversionId($template_id);
+            $slotObj->setPosition($slotposition++);
+            $slotObj->save();
+            $slot_id = $slotObj->getId();
+            $users = $slot['user'];
+            $fields = $slot['slot']['field'];
+            $userposition = 1;
+            foreach($users as $user) {
+                $userObj = new WorkflowSlotUser();
+                $userObj->setWorkflowslotId($slot_id);
+                $userObj->setUserId($user['id']);
+                $userObj->setPosition($userposition++);
+                $userObj->save();
+            }
+            $fieldposition = 1;
+            foreach($fields as $field) {
+                $fieldObj = new WorkflowSlotField();
+                $fieldObj->setWorkflowslotId($slot_id);
+                $fieldObj->setFieldId($field['field_id']);
+                $fieldObj->setType($field['type']);
+                $fieldObj->setPosition($fieldposition++);
+                $fieldObj->save();
+                $field_id = $fieldObj->getId();
+                switch ($field['type']) {
+                    case 'TEXTFIELD':
+                        $textfield = new WorkflowSlotFieldTextfield();
+                        $textfield->setWorkflowslotfieldId($field_id);
+                        $textfield->setValue($field['value']);
+                        $textfield->save();
+                        break;
+                    case 'CHECKBOX':
+                        $textfield = new WorkflowSlotFieldCheckbox();
+                        $textfield->setWorkflowslotfieldId($field_id);
+                        $textfield->setValue($field['value'] == 'true' ? 1 : 0);
+                        $textfield->save();
+                        break;
+                    case 'NUMBER':
+                        $textfield = new WorkflowSlotFieldNumber();
+                        $textfield->setWorkflowslotfieldId($field_id);
+                        $textfield->setValue($field['value']);
+                        $textfield->save();
+                        break;
+                    case 'DATE':
+                        $textfield = new WorkflowSlotFieldDate();
+                        $textfield->setWorkflowslotfieldId($field_id);
+                        $textfield->setValue($field['value']);
+                        $textfield->save();
+                        break;
+                    case 'TEXTAREA':
+                        $textfield = new WorkflowSlotFieldTextarea();
+                        $textfield->setWorkflowslotfieldId($field_id);
+                        $textfield->setValue($field['value']);
+                        $textfield->save();
+                    case 'RADIOGROUP':
+                        $items = $field['item'];
+                        foreach($items as $item) {
+                            $userObj = new WorkflowSlotFieldRadiogroup();
+                            $userObj->setWorkflowslotfieldId($field_id);
+                            $userObj->setFieldradiogroupId($item['id']);
+                            $userObj->setValue($item['value'] == 'true' ? 1 : 0);
+                            $userObj->save();
+                        }
+                        break;
+                    case 'CHECKBOXGROUP':
+                        $items = $field['item'];
+                        foreach($items as $item) {
+                            $userObj = new WorkflowSlotFieldCheckboxgroup();
+                            $userObj->setWorkflowslotfieldId($field_id);
+                            $userObj->setFieldcheckboxgroupId($item['id']);
+                            $userObj->setValue($item['value'] == 'true' ? 1 : 0);
+                            $userObj->save();
+                        }
+                        break;
+                    case 'COMBOBOX':
+                        $items = $field['item'];
+                        foreach($items as $item) {
+                            $userObj = new WorkflowSlotFieldCombobx();
+                            $userObj->setWorkflowslotfieldId($field_id);
+                            $userObj->setFieldcomboboxId($item['id']);
+                            $userObj->setValue($item['value'] == 'true' ? 1 : 0);
+                            $userObj->save();
+                        }
+                        break;
+                    case 'FILE':
+                        break;
+                    }
+               # print_r ($field);
+
+
+
+
+            }
+
+        }
+
+
+
+
+        return sfView::NONE;
+    }
 
     /**
      * Load all mailinglists

@@ -19,7 +19,7 @@ cf.createWorkflowThirdTab = function(){return {
 			url: '<?php echo build_dynamic_javascript_url('createworkflow/LoadAllField')?>/id/' + id,
 			success: function(objServerResponse){
 				theJsonTreeData = Ext.util.JSON.decode(objServerResponse.responseText);
-				cf.createWorkflowThirdTab.addData(theJsonTreeData, true);
+				cf.createWorkflowThirdTab.addData(theJsonTreeData, false);
 			}
 		});		
 	},
@@ -54,7 +54,9 @@ cf.createWorkflowThirdTab = function(){return {
 				switch (fielditem.type) {
 					case "TEXTFIELD":
 						var textfield = cf.createWorkflowThirdTab.createTextfield(fielditem);
+						//var hiddenfield = cf.createWorkflowThirdTab.createRegEx(fielditem);
 						fielditem.assign == 'LEFT' ? leftPanel.add(textfield) : rightPanel.add(textfield);
+						//fielditem.assign == 'LEFT' ? leftPanel.add(hiddenfield) : rightPanel.add(hiddenfield);
 					    break;
 					case "CHECKBOX":
 						var checkbox = cf.createWorkflowThirdTab.createCheckbox(fielditem);
@@ -62,7 +64,9 @@ cf.createWorkflowThirdTab = function(){return {
 						break;
 					case "NUMBER":
 						var number = cf.createWorkflowThirdTab.createNumberfield(fielditem);
+						//var hiddenfield = cf.createWorkflowThirdTab.createRegEx(fielditem);
 						fielditem.assign == 'LEFT' ? leftPanel.add(number) : rightPanel.add(number);
+						//fielditem.assign == 'LEFT' ? leftPanel.add(hiddenfield) : rightPanel.add(hiddenfield);
 						break;
 					case "DATE":
 						var date = cf.createWorkflowThirdTab.createDatefield(fielditem);
@@ -96,6 +100,8 @@ cf.createWorkflowThirdTab = function(){return {
 		cf.createWorkflowThirdTab.theThirdPanel.doLayout();
 	},
 	
+
+	
 	createPanel: function () {
 		var panel = new Ext.Panel({
 			frame:false,
@@ -123,7 +129,7 @@ cf.createWorkflowThirdTab = function(){return {
 			}),
 			triggerAction: 'all',
 			selectOnFocus:true,
-			id: 'COMBOBOX_' + data.field_id + '__' + cf.createWorkflowThirdTab.theUniqueFieldId++,
+			id: 'COMBOBOX_' + data.field_id + '_' + cf.createWorkflowThirdTab.theUniqueFieldId++,
 			allowBlank: true,
 			width:200,
 			forceSelection:true
@@ -158,7 +164,8 @@ cf.createWorkflowThirdTab = function(){return {
 		var id = cf.createWorkflowThirdTab.theUniqueFieldId++;
 		var file = new Ext.form.FileUploadField({
 		    fieldLabel: data.field_name,
-			id: 'FILE_' + data.field_id + '__' + id,
+			id: 'FILE_' + data.field_id + '_' + id,
+			name: 'REGEX_' + data.items.regex,
 			emptyText:  '<?php echo __('Select a file',null,'workflowmanagement'); ?>',
 			width: 200
 		});
@@ -180,13 +187,14 @@ cf.createWorkflowThirdTab = function(){return {
 			var check = new Ext.form.Checkbox({
 				 boxLabel: item.value, 
 				 checked: activeitem,
-				 name: 'CHECKBOXGROUP_' + data.field_id + '__' + id + '__name', 
+				 id: 'CHECKBOXITEM_' + id + '_' + item.id, 
+				 name: 'CHECKBOXGROUP_' + data.field_id + '_' + id + '_name', 
 				 inputValue: 1
 			});
 			store[a] = check;
 		}
 		var checkboxgroup = new Ext.form.CheckboxGroup({
-			id: 'CHECKBOXGROUP_' + data.field_id + '__' + id,
+			id: 'CHECKBOXGROUP_' + data.field_id + '_' + id,
 			fieldLabel: data.field_name,
 			items:[store]			
 		});
@@ -204,13 +212,14 @@ cf.createWorkflowThirdTab = function(){return {
 			var radio = new Ext.form.Radio({
 				 boxLabel: item.value, 
 				 checked: activeitem,
-				 name: 'RADIOGROUP_' + data.field_id + '__' + id + '__name', 
+				 id: 'RADIOGROUPITEM_' + id + '_' + item.id, 
+				 name: 'RADIOGROUP_' + data.field_id + '_' + id + '_name', 
 				 inputValue: 1
 			});
 			store[a] = radio;
 		}
 		var radiogroup = new Ext.form.RadioGroup({
-			id: 'RADIOGROUP_' + data.field_id + '__' + id,
+			id: 'RADIOGROUP_' + data.field_id + '_' + id,
 			fieldLabel: data.field_name,
 			items:[store]			
 		});
@@ -224,7 +233,7 @@ cf.createWorkflowThirdTab = function(){return {
 				fieldLabel: data.field_name,
 				width: ((cf.Layout.theRegionWest.getWidth() +  cf.Layout.theRegionCenter.getWidth() - 180) / 2)-200,
 				value: data.items.content,
-				id: 'TEXTAREA_' + data.field_id + '__' + cf.createWorkflowThirdTab.theUniqueFieldId++,
+				id: 'TEXTAREA_' + data.field_id + '_' + cf.createWorkflowThirdTab.theUniqueFieldId++,
 				height: 150
 			});
 		}
@@ -233,7 +242,7 @@ cf.createWorkflowThirdTab = function(){return {
 				fieldLabel: data.field_name,
 				value: data.items.content,
 				width: ((cf.Layout.theRegionWest.getWidth() +  cf.Layout.theRegionCenter.getWidth() - 180) / 2)-200,
-				id: 'TEXTAREA_' + data.field_id + '__' + cf.createWorkflowThirdTab.theUniqueFieldId++,
+				id: 'TEXTAREA_' + data.field_id + '_' + cf.createWorkflowThirdTab.theUniqueFieldId++,
 				height: 150
 			});
 		}
@@ -245,7 +254,7 @@ cf.createWorkflowThirdTab = function(){return {
 		var textfield = new Ext.form.DateField({
 			allowBlank:true,
 			format: data.items.dateformat,
-			id: 'DATE_' + data.field_id + '__' + cf.createWorkflowThirdTab.theUniqueFieldId++,
+			id: 'DATE_' + data.field_id + '_' + cf.createWorkflowThirdTab.theUniqueFieldId++,
 			fieldLabel: data.field_name,
 			editable: false,
 			value: data.items.defaultvalue,
@@ -258,8 +267,9 @@ cf.createWorkflowThirdTab = function(){return {
 	createNumberfield: function (data) {
 		var textfield = new Ext.form.TextField({
 			fieldLabel: data.field_name,
-			id: 'NUMBER_' + data.field_id + '__' + cf.createWorkflowThirdTab.theUniqueFieldId++,
+			id: 'NUMBER_' + data.field_id + '_' + cf.createWorkflowThirdTab.theUniqueFieldId++,
 			allowBlank: true,
+			name: 'REGEX_' + data.items.regex,
 			emptyText: data.items.comboboxtext,
 			value: data.items.defaultvalue,
 			width: 200
@@ -273,7 +283,7 @@ cf.createWorkflowThirdTab = function(){return {
 			fieldLabel: data.field_name,
 			inputValue: '1',
 			style: 'margin-top:5px;',
-			id: 'CHECKBOX_' + data.field_id + '__' + cf.createWorkflowThirdTab.theUniqueFieldId++
+			id: 'CHECKBOX_' + data.field_id + '_' + cf.createWorkflowThirdTab.theUniqueFieldId++
 		});
 		return checkbox;
 	},
@@ -281,8 +291,9 @@ cf.createWorkflowThirdTab = function(){return {
 	createTextfield: function (data) {
 		var textfield = new Ext.form.TextField({
 			fieldLabel: data.field_name,
-			id: 'TEXTFIELD_' + data.field_id + '__' + cf.createWorkflowThirdTab.theUniqueFieldId++,
+			id: 'TEXTFIELD_' + data.field_id + '_' + cf.createWorkflowThirdTab.theUniqueFieldId++,
 			allowBlank: true,
+			name: 'REGEX_' + data.items.regex,
 			value: data.items.defaultvalue,
 			width: 200
 		});
@@ -315,7 +326,7 @@ cf.createWorkflowThirdTab = function(){return {
 			autoScroll: true,
 			collapsible: true,
 			collapsed: collapsed,
-			id: 'slotid_' + id,
+			id: 'WORKFLOWFIELDSLOT_' + id,
 			labelWidth:220
 		});
 		return fieldset;
