@@ -605,6 +605,123 @@ Field:
     type: TEXTFIELD
     writeprotected: 0
     color: #FF0000
+  f5:
+    title: Feld 5 - Number
+    type: NUMBER
+    writeprotected: 0
+    color: #FF0000
+
+  f6:
+    title: Feld 6 - Date
+    type: DATE
+    writeprotected: 0
+    color: #FF0000
+
+  f7:
+    title: Feld 7 - Textarea Plain
+    type: TEXTAREA
+    writeprotected: 0
+    color: #FF0000
+
+  f8:
+    title: Feld 8 - Textarea Html
+    type: TEXTAREA
+    writeprotected: 0
+    color: #FF0000
+
+  f9:
+    title: Feld 9 - Radiogroup
+    type: RADIOGROUP
+    writeprotected: 0
+    color: #FF0000
+
+  f10:
+    title: Feld 10 - Checkboxgroup
+    type: CHECKBOXGROUP
+    writeprotected: 0
+    color: #FF0000
+
+  f11:
+    title: Feld 11 - Combobox
+    type: COMBOBOX
+    writeprotected: 0
+    color: #FF0000
+
+FieldNumber:
+  fn1:
+    field_id: 5
+    regex: ^[-]{0,1}[0-9]$
+    defaultvalue: 5
+    comboboxvalue: EMPTY
+
+FieldDate:
+  fd1:
+    field_id: 6
+    regex: ^[0-9]{2}[-]{1}[0-9]{2}[-]{1}[0-9]{4}$
+    defaultvalue: 20-11-2009
+    dateformat: d-m-Y
+
+FieldTextarea:
+  fta1:
+    field_id: 7
+    contenttype: plain
+    content: Dies ist eine Textarea
+  fta2:
+    field_id: 8
+    contenttype: html
+    content: <b>Hello</b>
+
+FieldRadiogroup:
+  frg1:
+    field_id: 9
+    value: Radiobutton 3 checked
+    isactive: 1
+    position: 1
+  frg2:
+    field_id: 9
+    value: Radiobutton 2
+    isactive: 0
+    position: 2
+  frg3:
+    field_id: 9
+    value: Radiobutton 1
+    isactive: 0
+    position: 3
+
+FieldCheckboxgroup:
+  fcbg1:
+    field_id: 10
+    value: Checkbox 3 checked
+    isactive: 1
+    position: 1
+  fcbg2:
+    field_id: 10
+    value: Checkbox 2
+    isactive: 0
+    position: 2
+  fcbg3:
+    field_id: 10
+    value: Checkbox 1 checked
+    isactive: 1
+    position: 3
+
+FieldCombobox:
+  fcb1:
+    field_id: 11
+    value: Option 1
+    isactive: 0
+    position: 1
+  fcb2:
+    field_id: 11
+    value: Option 2
+    isactive: 0
+    position: 2
+  fcb3:
+    field_id: 11
+    value: Option 3
+    isactive: 0
+    position: 3
+
 
 FieldTextfield:
   ft1:
@@ -647,3 +764,320 @@ AuthorizationConfiguration:
     archiveworkflow: 0
     stopneworkflow: 0
     detailsworkflow: 0
+
+
+DocumenttemplateTemplate:
+  dt1:
+    name: Template with 3 Slots
+  dt2:
+    name: Template with 2 Slots
+
+DocumenttemplateVersion:
+  dtv1:
+    documenttemplate_id: 1
+    version: 1
+    activeversion: 1
+  dtv2:
+    documenttemplate_id: 2
+    version: 1
+    activeversion: 1
+
+DocumenttemplateSlot:
+  dts1:
+    documenttemplateversion_id: 1
+    name: Slot 1 von 3
+    sendtoallreceivers: 0
+    position: 1
+  dts2:
+    documenttemplateversion_id: 1
+    name: Slot 2 von 3
+    sendtoallreceivers: 0
+    position: 2
+  dts3:
+    documenttemplateversion_id: 1
+    name: Slot 3 von 3
+    sendtoallreceivers: 1
+    position: 3
+  dts4:
+    documenttemplateversion_id: 2
+    name: Slot 1 von 2
+    sendtoallreceivers: 0
+    position: 1
+  dts5:
+    documenttemplateversion_id: 2
+    name: Slot 2 von 2
+    sendtoallreceivers: 1
+    position: 2
+
+
+DocumenttemplateField:
+  dtf1:
+    documenttemplateslot_id: 1
+    field_id: 4
+    position: 1
+  dtf2:
+    documenttemplateslot_id: 1
+    field_id: 5
+    position: 2
+  dtf3:
+    documenttemplateslot_id: 1
+    field_id: 6
+    position: 3
+  dtf4:
+    documenttemplateslot_id: 1
+    field_id: 7
+    position: 4
+  dtf5:
+    documenttemplateslot_id: 1
+    field_id: 1
+    position: 5
+  dtf6:
+    documenttemplateslot_id: 2
+    field_id: 2
+    position: 1
+  dtf7:
+    documenttemplateslot_id: 2
+    field_id: 8
+    position: 2
+  dtf8:
+    documenttemplateslot_id: 2
+    field_id: 9
+    position: 3
+  dtf9:
+    documenttemplateslot_id: 3
+    field_id: 1
+    position: 1
+  dtf10:
+    documenttemplateslot_id: 3
+    field_id: 2
+    position: 2
+  dtf11:
+    documenttemplateslot_id: 3
+    field_id: 11
+    position: 3
+  dtf12:
+    documenttemplateslot_id: 4
+    field_id: 11
+    position: 1
+  dtf13:
+    documenttemplateslot_id: 4
+    field_id: 10
+    position: 2
+  dtf14:
+    documenttemplateslot_id: 4
+    field_id: 9
+    position: 3
+  dtf15:
+    documenttemplateslot_id: 5
+    field_id: 2
+    position: 1
+  dtf16:
+    documenttemplateslot_id: 5
+    field_id: 5
+    position: 2
+
+
+MailinglistTemplate:
+  mlt1:
+    name: Mailinglisttemplate 3 Slots
+    documenttemplatetemplate_id : 1
+    isactive: 1
+  mlt2:
+    name: Mailinglisttemplate 2 Slots
+    documenttemplatetemplate_id : 2
+    isactive: 0
+
+MailinglistVersion:
+  mlv1:
+    mailinglisttemplate_id: 1
+    documenttemplateversion_id: 1
+    version: 1
+    activeversion: 1
+  mlv2:
+    mailinglisttemplate_id: 2
+    documenttemplateversion_id: 2
+    version: 1
+    activeversion: 1
+
+MailinglistAllowedSender:
+  mlas1:
+    mailinglistversion_id: 1
+    user_id: 1
+    position: 1
+  mlas2:
+    mailinglistversion_id: 1
+    user_id: 3
+    position: 2
+  mlas3:
+    mailinglistversion_id: 1
+    user_id: 4
+    position: 3
+  mlas4:
+    mailinglistversion_id: 2
+    user_id: 1
+    position: 1
+  mlas5:
+    mailinglistversion_id: 2
+    user_id: 3
+    position: 2
+  mlas6:
+    mailinglistversion_id: 2
+    user_id: 4
+    position: 3
+
+MailinglistAuthorizationSetting:
+  mlaus1:
+    mailinglistversion_id: 1
+    type: admin
+    deleteworkflow: 1
+    archiveworkflow: 1
+    stopneworkflow: 1
+    detailsworkflow: 1
+  mlaus2: 
+    mailinglistversion_id: 1
+    type: thesender
+    deleteworkflow: 0
+    archiveworkflow: 0
+    stopneworkflow: 0
+    detailsworkflow: 0
+  mlaus3:
+    mailinglistversion_id: 1
+    type: sender
+    deleteworkflow:
+    archiveworkflow:
+    stopneworkflow:
+    detailsworkflow:
+  mlaus4:
+    mailinglistversion_id: 1
+    type: senderwithrights
+    deleteworkflow: 1
+    archiveworkflow: 0
+    stopneworkflow: 0
+    detailsworkflow: 1
+  mlaus5:
+    mailinglistversion_id: 1
+    type: receiver
+    deleteworkflow: 0
+    archiveworkflow: 0
+    stopneworkflow: 0
+    detailsworkflow: 0
+  mlaus6:
+    mailinglistversion_id: 2
+    type: admin
+    deleteworkflow: 1
+    archiveworkflow: 1
+    stopneworkflow: 1
+    detailsworkflow: 1
+  mlaus7:
+    mailinglistversion_id: 2
+    type: thesender
+    deleteworkflow: 0
+    archiveworkflow: 0
+    stopneworkflow: 0
+    detailsworkflow: 0
+  mlaus8:
+    mailinglistversion_id: 2
+    type: sender
+    deleteworkflow:
+    archiveworkflow:
+    stopneworkflow:
+    detailsworkflow:
+  mlaus9:
+    mailinglistversion_id: 2
+    type: senderwithrights
+    deleteworkflow: 1
+    archiveworkflow: 0
+    stopneworkflow: 0
+    detailsworkflow: 1
+  mlaus10:
+    mailinglistversion_id: 2
+    type: receiver
+    deleteworkflow: 0
+    archiveworkflow: 0
+    stopneworkflow: 0
+    detailsworkflow: 0
+
+MailinglistSlot:
+  mls1:
+    mailinglistversion_id: 1
+    slot_id: 1
+    position: 1
+  mls2:
+    mailinglistversion_id: 1
+    slot_id: 2
+    position: 2
+  mls3:
+    mailinglistversion_id: 1
+    slot_id: 3
+    position: 3
+  mls4:
+    mailinglistversion_id: 2
+    slot_id: 4
+    position: 1
+  mls5:
+    mailinglistversion_id: 2
+    slot_id: 5
+    position: 2
+
+
+MailinglistUser:
+  mlu1:
+    mailinglistslot_id: 1
+    user_id: -2
+    position: 1
+  mlu2:
+    mailinglistslot_id: 1
+    user_id: 1
+    position: 2
+  mlu3:
+    mailinglistslot_id: 1
+    user_id: 3
+    position: 3
+  mlu4:
+    mailinglistslot_id: 1
+    user_id: 2
+    position: 4
+  mlu5:
+    mailinglistslot_id: 2
+    user_id: 1
+    position: 1
+  mlu6:
+    mailinglistslot_id: 2
+    user_id: 1
+    position: 2
+  mlu7:
+    mailinglistslot_id: 2
+    user_id: 4
+    position: 3
+  mlu8:
+    mailinglistslot_id: 3
+    user_id: 1
+    position: 1
+  mlu9:
+    mailinglistslot_id: 3
+    user_id: 2
+    position: 2
+  mlu10:
+    mailinglistslot_id: 3
+    user_id: 3
+    position: 3
+  mlu11:
+    mailinglistslot_id: 4
+    user_id: -2
+    position: 1
+  mlu12:
+    mailinglistslot_id: 4
+    user_id: 1
+    position: 2
+  mlu13:
+    mailinglistslot_id: 4
+    user_id: 2
+    position: 3
+  mlu14:
+    mailinglistslot_id: 5
+    user_id: -2
+    position: 1
+  mlu15:
+    mailinglistslot_id: 5
+    user_id: 2
+    position: 2
