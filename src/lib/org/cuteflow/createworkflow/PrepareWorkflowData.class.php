@@ -9,10 +9,16 @@ class PrepareWorkflowData {
 
     }
 
+    /**
+     * Set the startdate of the workflo, and set if the workflow will start at the moment
+     *
+     * @param array $date, POST data
+     * @return array $result, correct startdate und starttedat flag
+     */
     public function createStartDate($date) {
         $result = array();
         if($date == '') {
-            $result['startworkflowat'] = '';
+            $result['startworkflowat'] = time();
             $result['workflowisstarted'] = 1;
         }
         else {
@@ -24,6 +30,12 @@ class PrepareWorkflowData {
         return $result;
     }
 
+    /**
+     * Builds endreason out of the post data
+     *
+     * @param array $data, POST data
+     * @return String $result;
+     */
     public function createEndreason(array $data){
         $result = 0;
         foreach($data as $item) {
@@ -33,6 +45,12 @@ class PrepareWorkflowData {
     }
 
 
+    /**
+     * Create the correct contenttype and the correct content out of POST data
+     *
+     * @param array $data, post data
+     * @return array $result, result with correct content and contenttype data
+     */
     public function createContenttype(array $data) {
         $result = array();
         if(isset($data['createWorkflowFirstTab_contenttype'])) {
