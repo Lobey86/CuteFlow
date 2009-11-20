@@ -35,6 +35,8 @@ class createworkflowActions extends sfActions {
         $workflow->setMailinglisttemplateId($request->getPostParameter('createWorkflowFirstTab_mailinglist'));
         $workflow->setName($request->getPostParameter('createWorkflowFirstTab_name'));
         $workflow->setSenderId($this->getUser()->getAttribute('id'));
+        $workflow->setIsarchived(0);
+        $workflow->setIsstopped(0);
         $workflow->setEndaction($endreason);
         $workflow->save();
         $workflow_id = $workflow->getId();
@@ -109,6 +111,7 @@ class createworkflowActions extends sfActions {
                         $textfield->setWorkflowslotfieldId($field_id);
                         $textfield->setValue($field['value']);
                         $textfield->save();
+                        break;
                     case 'RADIOGROUP':
                         $items = $field['item'];
                         foreach($items as $item) {
@@ -142,11 +145,6 @@ class createworkflowActions extends sfActions {
                     case 'FILE':
                         break;
                     }
-               # print_r ($field);
-
-
-
-
             }
 
         }
@@ -178,7 +176,6 @@ class createworkflowActions extends sfActions {
         $mailinglistVersion = MailinglistVersionTable::instance()->getSingleVersionById($request->getParameter('id'))->toArray();
         $documenttemplateVersion = DocumenttemplateVersionTable::instance()->getVersionById($mailinglistVersion[0]['documenttemplateversion_id'])->toArray();
         $result = $workflowObj->buildSlots($documenttemplateVersion);
-       # print_r ($result);die;
         $this->renderText('{"result":'.json_encode($result).'}');
         return sfView::NONE;
     }
