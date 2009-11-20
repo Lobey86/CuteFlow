@@ -131,6 +131,20 @@ class UserLoginTable extends Doctrine_Table {
             ->execute();
     }
 
+
+    /**
+     * Find User by its id
+     * @param int $id
+     * @return Doctrine_Collection
+     */
+    public function findActiveUserById($id) {
+        return Doctrine_Query::create()
+            ->select('ul.*')
+            ->from('UserLogin ul')
+            ->where('ul.id = ?',$id)
+            ->execute();
+    }
+
     /**
      * Update Userdata
      * @param array $data, Post data
