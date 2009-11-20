@@ -23,8 +23,11 @@ cf.workflowmanagementPanelGrid = function(){return {
 	initCM: function () {
 		this.theWorkflowCM  =  new Ext.grid.ColumnModel([
 			{header: "#", width: 50, sortable: true, dataIndex: '#', css : "text-align : left;font-size:12px;align:center;"},
-			{header: "<?php echo __('Name',null,'documenttemplate'); ?>", width: 280, sortable: false, dataIndex: 'name', css : "text-align : left;font-size:12px;align:center;"},
-			{header: "<?php echo __('mount of slots',null,'documenttemplate'); ?>", width: 150, sortable: false, dataIndex: 'number', css : "text-align:center;font-size:12px;align:center;"},
+			{header: "<?php echo __('Name',null,'workflowmanagement'); ?>", width: 140, sortable: true, dataIndex: 'name', css : "text-align : left;font-size:12px;align:center;", hidden: false},
+			{header: "<?php echo __('Template',null,'workflowmanagement'); ?>", width: 150, sortable: true, dataIndex: 'mailinglisttemplate', css : "text-align : left;font-size:12px;align:center;", hidden: false},
+			{header: "<?php echo __('Sender',null,'workflowmanagement'); ?>", width: 230, sortable: true, dataIndex: 'sendername', css : "text-align : left;font-size:12px;align:center;",  hidden: false},
+			{header: "<?php echo __('Running for',null,'workflowmanagement'); ?>", width: 80, sortable: true, dataIndex: 'currentlyrunning', css : "text-align : left;font-size:12px;align:center;",  hidden: false},
+			{header: "<?php echo __('Sendet at',null,'workflowmanagement'); ?>", width: 120, sortable: true, dataIndex: 'versioncreated_at', css : "text-align : left;font-size:12px;align:center;",  hidden: false},
 			{header: "<div ext:qtip=\"<table><tr><td><img src='/images/icons/table_edit.png' />&nbsp;&nbsp;</td><td><?php echo __('Edit Document template',null,'documenttemplate'); ?></td></tr><tr><td><img src='/images/icons/clock.png' />&nbsp;&nbsp;</td><td><?php echo __('Show Document template versions',null,'documenttemplate'); ?></td></tr><tr><td><img src='/images/icons/table_delete.png' />&nbsp;&nbsp;</td><td><?php echo __('Delete Document template',null,'documenttemplate'); ?></td></tr></table>\" ext:qwidth=\"230\"><?php echo __('Action',null,'documenttemplate'); ?></div>", width: 80, sortable: false, dataIndex: 'action', css : "text-align : left;font-size:12px;align:center;"}
 		]);
 	},
@@ -34,14 +37,20 @@ cf.workflowmanagementPanelGrid = function(){return {
 		this.theWorkflowStore = new Ext.data.JsonStore({
 				root: 'result',
 				totalProperty: 'total',
-				url: '<?php echo build_dynamic_javascript_url('documenttemplate/LoadAllDocumenttemplates')?>',
+				url: '<?php echo build_dynamic_javascript_url('workflowoverview/LoadAllWorkflow')?>',
 				autoload: false,
 				fields: [
 					{name: '#'},
 					{name: 'id'},
+					{name: 'mailinglisttemplate_id'},
+					{name: 'mailinglisttemplate'},
+					{name: 'sender_id'},
+					{name: 'sendername'},
 					{name: 'name'},
-					{name: 'documenttemplate_id'},
-					{name: 'number'}
+					{name: 'isstopped'},
+					{name: 'currentlyrunning'},
+					{name: 'versioncreated_at'},
+					{name: 'activeversion_id'}
 				]
 		});
 	},
@@ -103,7 +112,7 @@ cf.workflowmanagementPanelGrid = function(){return {
 			cm: this.theWorkflowCM
 		});
 		this.theWorkflowGrid.on('afterrender', function(grid) {
-			//cf.workflowmanagementPanelGrid.theDocumenttemplateStore.load();
+			cf.workflowmanagementPanelGrid.theWorkflowStore.load();
 			cf.workflowmanagementPanelGrid.theLoadingMask.hide();
 		});	
 		

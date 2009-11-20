@@ -444,6 +444,8 @@ cf.createWorkflowFirstTab = function(){return {
 						combo.setValue(defaultdata);
 						cf.createWorkflowSecondTab.init(singleData.data.activeversionid);
 						cf.createWorkflowWindow.theTabPanel.add(cf.createWorkflowSecondTab.theSecondPanel);
+						cf.createWorkflowThirdTab.init(singleData.data.activeversionid);
+						cf.createWorkflowWindow.theTabPanel.add(cf.createWorkflowThirdTab.theThirdPanel);
 					}
 				}
 			});	

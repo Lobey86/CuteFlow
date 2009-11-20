@@ -219,7 +219,11 @@ cf.createWorkflowCRUD = function(){return {
 			method: 'POST',
 			//waitMsg: '<?php echo __('Saving Data',null,'usermanagement'); ?>',
 			success: function(objServerResponse){
-				
+				cf.workflowmanagementPanelGrid.theWorkflowStore.reload();
+				cf.createWorkflowWindow.theCreateWorkflowWindow.hide();
+				cf.createWorkflowWindow.theCreateWorkflowWindow.destroy();
+				Ext.Msg.minWidth = 200;
+				Ext.MessageBox.alert('<?php echo __('Error',null,'workflowmanagement'); ?>','<?php echo __('Workflow created',null,'workflowmanagement'); ?>');
 			}
 		});
 	},
