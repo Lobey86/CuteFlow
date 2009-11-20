@@ -439,6 +439,7 @@ MailinglistUser:
 
 WorkflowTemplate:
   tableName: cf_workflowtemplate
+  actAs: [SoftDelete, Timestampable]
   columns:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
     mailinglisttemplate_id: { type: integer, length: 10 }
@@ -456,7 +457,7 @@ WorkflowTemplate:
 
 
 WorkflowVersion:
-  actAs: [SoftDelete,Timestampable]
+  actAs: [Timestampable]
   tableName: cf_workflowversion
   columns:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
