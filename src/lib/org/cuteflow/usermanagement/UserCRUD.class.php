@@ -141,6 +141,7 @@ class UserCRUD {
         $userSetting->setUserId($id);
         $userSetting->setEmailformat($data['userFirstTab_emailformat']);
         $userSetting->setEmailtype($data['userFirstTab_emailtype']);
+        $userSetting->setLanguage($data['userFirstTab_language']);
         $userSetting->setFirstlogin(1);
         $userSetting->save();
         return $id;
