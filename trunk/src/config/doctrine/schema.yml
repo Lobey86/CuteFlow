@@ -82,7 +82,8 @@ UserWorkflowConfiguration:
 UserSetting:
   tableName: cf_usersetting
   columns:
-    user_id: { type: integer, length: 10,  primary: tru}
+    user_id: { type: integer, length: 10,  primary: true }
+    language: { type: string(45) }
     markyellow: { type: string(45)}
     markred: { type: string(45)}
     markorange: { type: string(45)}
@@ -176,6 +177,7 @@ UserConfiguration:
     markred: { type: string(45) }
     markorange: { type: string(45) }
     password: { type: string(45) }
+    language: { type: string(45) }
     emailformat: { type: string(45) }
     emailtype: { type: string(45) }
     showcirculationinpopup: {type: integer(1), length: 3}
