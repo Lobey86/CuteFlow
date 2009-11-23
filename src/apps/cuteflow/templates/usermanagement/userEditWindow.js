@@ -109,11 +109,20 @@ cf.editUserWindow = function(){return {
 					cf.userThirdTab.thePanel.autoScroll = true;
 					cf.userFourthTab.thePanel.autoScroll = true;
 					
-					
+					//cf.editUserWindow.theTabPanel.setActiveTab(3);
+					//cf.editUserWindow.theTabPanel.setActiveTab(0);
 	
 					cf.editUserWindow.theEditUserWindow.show();
+					cf.editUserWindow.theTabPanel.setActiveTab(3);
 					cf.userSecondTab.theUserAgentStore.load();
 					cf.userFirstTab.theComboRoleStore.load();
+					cf.userFirstTab.theLanguageStore.load();
+					
+					cf.userFirstTab.theLanguageStore.on('load', function(store,records,bcd){
+						Ext.getCmp('userFirstTab_language_id').setValue(data.result.language);
+					});	
+					
+					cf.editUserWindow.theTabPanel.setActiveTab(0);
 					cf.userFirstTab.theComboRoleStore.on('load', function(store,records,bcd){
 						Ext.getCmp('userFirstTab_userrole_id').setValue(data.result.role_id);
 						cf.editUserWindow.theLoadingMask.hide();

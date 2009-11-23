@@ -7,12 +7,14 @@ cf.userFirstTab = function(){return {
 	theUserlogindataFieldset	:false,
 	theUserroleFieldset			:false,
 	theEmailformatFieldset		:false,
+	theLanguageStore			:false,
 	theComboRoleStore			:false,
 	
 	
 	/** calls all functions to init it **/
 	init: function () {
 		this.initRoleStore();
+		this.initLanguageStore();
 		this.initFirstPanel();
 		this.initUserdata();
 		this.initUserlogindata();
@@ -130,7 +132,7 @@ cf.userFirstTab = function(){return {
 		this.theEmailformatFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('Email Format',null,'usermanagement'); ?>',
 			width: 500,
-			height: 80,
+			height: 100,
 			labelWidth: 180,
 			style: 'margin-top:20px;margin-left:5px;',
 			items:[{
@@ -207,6 +209,21 @@ cf.userFirstTab = function(){return {
 						}
 					}
 				}]
+			},{
+				xtype: 'combo',
+				fieldLabel : '<?php echo __('User language',null,'systemsetting'); ?>',
+				id: 'userFirstTab_language_id',
+				valueField: 'value',
+				displayField: 'text',
+				mode: 'local',
+				hiddenName : 'userFirstTab_language',
+				store: this.theLanguageStore,
+				editable: false,
+				typeAhead: false,
+				allowBlank: true,
+				triggerAction: 'all',
+				foreSelection: true,
+				width: 197
 			}]
 		});
 		
@@ -215,6 +232,9 @@ cf.userFirstTab = function(){return {
 			Ext.getCmp('userFirstTab_spacepanel1').setSize({width:5,height:0});
 		}
 		else if(Ext.isOpera == true || Ext.isSafari == true) {
+		}
+		else if(Ext.isGecko == true) {
+			Ext.getCmp('userFirstTab_language_id').style = 'margin-top:0px;margin-bottom:0px;';
 		}
 		else if (Ext.isIE7 == true) {
 			Ext.getCmp('userFirstTab_emailformat_id').style = 'margin-top:0px;margin-bottom:1px;';
@@ -234,6 +254,19 @@ cf.userFirstTab = function(){return {
 			minimizable: false,
 			draggable: false,
 			resizable: false
+		});
+	},
+	
+	initLanguageStore:function () {
+		this.theLanguageStore = new Ext.data.JsonStore({
+			mode: 'local',
+			autoload: true,
+			url: '<?php echo build_dynamic_javascript_url('login/LoadLanguage')?>',
+			root: 'result',
+			fields: [
+				{name: 'value'},
+				{name: 'text'}
+			]
 		});
 	},
 	

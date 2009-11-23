@@ -24,6 +24,7 @@ cf.administration_myprofile = function(){return {
 			this.theTabPanel.add(cf.userThirdTab.thePanel);
 			this.theTabPanel.add(cf.userFourthTab.thePanel);
 			this.theMyProfilePanel.add(this.theTabPanel);
+			cf.administration_myprofile.theTabPanel.setActiveTab(3);
 			this.addData();
 			this.initUserRight();
 		}
@@ -72,6 +73,7 @@ cf.administration_myprofile = function(){return {
 					Ext.getCmp('userFirstTab_passwordagain').setValue(data.result.password);
 					Ext.getCmp('userFirstTab_emailformat_id').setValue(data.result.emailformat);
 					Ext.getCmp('userFirstTab_emailtype_id').setValue(data.result.emailtype);
+					Ext.getCmp('userFirstTab_language_id').setValue(data.result.language);
 					
 					
 					// second Tab, load Grid here
@@ -101,8 +103,15 @@ cf.administration_myprofile = function(){return {
 					Ext.getCmp('userFourthTab_markorange').setValue(data.result.markorange);
 					Ext.getCmp('userFourthTab_markred').setValue(data.result.markred);
 				
+					
 					cf.userSecondTab.theUserAgentStore.load();
 					cf.userFirstTab.theComboRoleStore.load();
+					cf.userFirstTab.theLanguageStore.load();
+					cf.administration_myprofile.theTabPanel.setActiveTab(0);
+					cf.userFirstTab.theLanguageStore.on('load', function(store,records,bcd){
+						Ext.getCmp('userFirstTab_language_id').setValue(data.result.language);
+					});	
+					
 					cf.userFirstTab.theComboRoleStore.on('load', function(store,records,bcd){
 						Ext.getCmp('userFirstTab_userrole_id').setValue(data.result.role_id);
 						cf.administration_myprofile.theUserGridMask.hide();

@@ -14,6 +14,7 @@ cf.createWorkflowFirstTab = function(){return {
 	theFileUploadGrid				:false,
 	theUniqueFileId					:false,
 	theUniqueFileStoreId			:false,
+	theLoadingMask					:false,
 	
 	
 	
@@ -406,12 +407,15 @@ cf.createWorkflowFirstTab = function(){return {
 						catch(e){
 							
 						}
+						cf.createWorkflowFirstTab.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Preparing Data...',null,'workflowmanagement'); ?>'});					
+						cf.createWorkflowFirstTab.theLoadingMask.show();
 						var data = combo.store.findExact('value', combo.getValue());
 						cf.createWorkflowSecondTab.init(data.data.activeversionid);
 						cf.createWorkflowWindow.theTabPanel.add(cf.createWorkflowSecondTab.theSecondPanel);
 						
 						cf.createWorkflowThirdTab.init(data.data.activeversionid);
 						cf.createWorkflowWindow.theTabPanel.add(cf.createWorkflowThirdTab.theThirdPanel);
+						cf.createWorkflowFirstTab.theLoadingMask.hide();
 					}
 				}
 			},
@@ -425,6 +429,8 @@ cf.createWorkflowFirstTab = function(){return {
 			this.theMailinglist.style = 'margin-top:0px;margin-bottom:1px;';
 		}
 		this.theMailinglist.on('render', function(combo) {
+			cf.createWorkflowFirstTab.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Preparing Data...',null,'workflowmanagement'); ?>'});					
+			cf.createWorkflowFirstTab.theLoadingMask.show();
 			Ext.Ajax.request({  
 				url: '<?php echo build_dynamic_javascript_url('createworkflow/LoadAllMailinglist')?>',
 				success: function(objServerResponse){ 
@@ -447,6 +453,7 @@ cf.createWorkflowFirstTab = function(){return {
 						cf.createWorkflowThirdTab.init(singleData.data.activeversionid);
 						cf.createWorkflowWindow.theTabPanel.add(cf.createWorkflowThirdTab.theThirdPanel);
 					}
+					cf.createWorkflowFirstTab.theLoadingMask.hide();
 				}
 			});	
 		});	

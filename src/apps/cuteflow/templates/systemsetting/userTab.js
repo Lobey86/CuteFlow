@@ -6,10 +6,12 @@ cf.userTab = function(){return {
 	theUserSystemFieldset		:false,
 	theUserGuiFieldset			:false,
 	theComboRoleStore			:false,
+	theLanguageStore			:false,
 	
 	
 	/** load all nedded functions **/
 	init: function () {
+		this.initLanguageStore();
 		this.initRoleStore();
 		this.initUserTab();
 		this.initDefaultUserSystemFieldset();
@@ -170,7 +172,7 @@ cf.userTab = function(){return {
 		this.theUserSystemFieldset = new Ext.form.FieldSet({
 			title: '<table><tr><td><img src="/images/icons/information.png"  ext:qtip=\"Settings will automatic be loaded,<br>when a new user is added to database\" ext:qwidth=\"300\"/></td><td>&nbsp;&nbsp;<?php echo __('Default user system settings',null,'systemsetting'); ?></td></tr></table>',
 			width: 600,
-			height: 160,
+			height: 180,
 			style: 'margin-top:20px;margin-left:5px;',
 			labelWidth: 330,
 			items:[{
@@ -313,6 +315,21 @@ cf.userTab = function(){return {
 					triggerAction: 'all',
 					foreSelection: true,
 					width: 197
+				},{
+					xtype: 'combo',
+					fieldLabel : '<?php echo __('User language',null,'systemsetting'); ?>',
+					id: 'userTab_language_id',
+					valueField: 'value',
+					displayField: 'text',
+					mode: 'local',
+					hiddenName : 'userTab_language',
+					store: this.theLanguageStore,
+					editable: false,
+					typeAhead: false,
+					allowBlank: true,
+					triggerAction: 'all',
+					foreSelection: true,
+					width: 197
 				}]
 		});
 		
@@ -332,6 +349,20 @@ cf.userTab = function(){return {
 		cf.userTab.theComboRoleStore.load();
 	},
 	
+	initLanguageStore:function () {
+		this.theLanguageStore = new Ext.data.JsonStore({
+			mode: 'local',
+			autoload: true,
+			url: '<?php echo build_dynamic_javascript_url('login/LoadLanguage')?>',
+			root: 'result',
+			fields: [
+				{name: 'value'},
+				{name: 'text'}
+			]
+		});
+		cf.userTab.theLanguageStore.load();
+	},
+	
 	addData: function (data) {
 		Ext.getCmp('userTab_defaultpassword').setValue(data.password);
 		Ext.getCmp('userTab_defaultdurationlength').setValue(data.durationlength);
@@ -348,6 +379,8 @@ cf.userTab = function(){return {
 		Ext.getCmp('userTab_markorange').setValue(data.markorange);
 		Ext.getCmp('userTab_markred').setValue(data.markred);
 		Ext.getCmp('userTab_showinpopup').setValue(data.showcirculationinpopup);
+		
+		Ext.getCmp('userTab_language_id').setValue(data.language);
 		cf.administration_systemsetting.theLoadingMask.hide();
 		
 		
@@ -388,8 +421,6 @@ cf.userTab = function(){return {
 			Ext.getCmp('userTab_defaultdurationlength').style = 'margin-bottom:1px;';
 			
 		}
-		
-		
 		
 	}
 	
