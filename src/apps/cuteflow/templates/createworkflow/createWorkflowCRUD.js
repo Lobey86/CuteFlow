@@ -206,6 +206,7 @@ cf.createWorkflowCRUD = function(){return {
 	},
 	
 	doSubmit: function () {
+		cf.createWorkflowCRUD.theLoadingMask.hide();
 		cf.createWorkflowWindow.theTabPanel.setActiveTab(0);
 		Ext.getCmp('createWorkflowFirstTab_fieldset1').expand();
 		Ext.getCmp('createWorkflowFirstTab_fieldset2').expand();
@@ -219,7 +220,7 @@ cf.createWorkflowCRUD = function(){return {
 				cf.createWorkflowWindow.theCreateWorkflowWindow.hide();
 				cf.createWorkflowWindow.theCreateWorkflowWindow.destroy();
 				Ext.Msg.minWidth = 200;
-				Ext.MessageBox.alert('<?php echo __('Error',null,'workflowmanagement'); ?>','<?php echo __('Workflow created',null,'workflowmanagement'); ?>');
+				Ext.MessageBox.alert('<?php echo __('OK',null,'workflowmanagement'); ?>','<?php echo __('Workflow created',null,'workflowmanagement'); ?>');
 			}
 		});
 	},
@@ -236,11 +237,9 @@ cf.createWorkflowCRUD = function(){return {
 			cf.createWorkflowWindow.theTabPanel.setActiveTab(0);
 			var checkedGeneralSettings = this.checkSettings();
 			if(checkedGeneralSettings == true) {
-				cf.createWorkflowCRUD.theLoadingMask.hide();
 				cf.createWorkflowWindow.theTabPanel.setActiveTab(1);
 				var checkedUsers = this.checkUser();
 				if(checkedUsers == true) {
-					cf.createWorkflowCRUD.theLoadingMask.hide();
 					cf.createWorkflowWindow.theTabPanel.setActiveTab(2);
 					var checkedFields = this.checkFields();
 					if(checkedFields == true) {
@@ -289,6 +288,9 @@ cf.createWorkflowCRUD = function(){return {
 				users = false;
 			}
 		}
+		if(users == false){
+			cf.createWorkflowCRUD.theLoadingMask.hide();
+		}
 		return users;
 	},
 	
@@ -329,6 +331,7 @@ cf.createWorkflowCRUD = function(){return {
 				Ext.Msg.minWidth = 400;
 				Ext.MessageBox.alert('<?php echo __('Error',null,'workflowmanagement'); ?>','<table>' + failureString + '</table>');
 			}
+			cf.createWorkflowCRUD.theLoadingMask.hide();
 			return false;
 		}
 		else {

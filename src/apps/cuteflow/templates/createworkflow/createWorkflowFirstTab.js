@@ -15,6 +15,7 @@ cf.createWorkflowFirstTab = function(){return {
 	theUniqueFileId					:false,
 	theUniqueFileStoreId			:false,
 	theLoadingMask					:false,
+	theDatefieldCheckbox			:false,
 	
 	
 	
@@ -22,13 +23,15 @@ cf.createWorkflowFirstTab = function(){return {
 		this.theUniqueFileStoreId = 1;
 		this.theUniqueFileId = 0;
 		this.initPanel();
-		var fieldset1 = this.createFieldset('createWorkflowFirstTab_fieldset1', '<?php echo __('Set name, mailinglist, attachments and start date',null,'workflowmanagement'); ?>', false, 350, true);
+		var fieldset1 = this.createFieldset('createWorkflowFirstTab_fieldset1', '<?php echo __('Set name, mailinglist, attachments and start date',null,'workflowmanagement'); ?>', false, 355, true);
 		this.initNameTextfield();
 		this.initMailinglist();
 		this.initDatepicker();
 		this.initFileGrid();
+		this.initDatefieldCheckbox();
 		fieldset1.add(this.theNameTextfield);
 		fieldset1.add(this.theMailinglist);
+		fieldset1.add(this.theDatefieldCheckbox);
 		fieldset1.add(this.theDatepicker);
 		fieldset1.add(this.theFileUploadGrid);
 		var fieldset2 = this.createFieldset('createWorkflowFirstTab_fieldset2', '<?php echo __('Select Additional text',null,'workflowmanagement'); ?>', true, 350, true);
@@ -61,6 +64,26 @@ cf.createWorkflowFirstTab = function(){return {
 		this.theFirstTabPanel.add(fieldset3);
 	},
 	
+	
+	initDatefieldCheckbox: function () {
+		this.theDatefieldCheckbox = new Ext.form.Checkbox({
+			fieldLabel: '<?php echo __('Start workflow immediately?',null,'workflowmanagement'); ?>',
+			inputValue: '1',
+			style: 'margin-top:3px;',
+			checked: true,
+			id: 'createWorkflowFirstTab_startworkflowcheckbox',
+			handler: function (checkbox) {
+				if(checkbox.getValue() == 1) {
+					cf.createWorkflowFirstTab.theDatepicker.setVisible(false);
+					cf.createWorkflowFirstTab.theDatepicker.setValue();
+				}
+				else {
+					cf.createWorkflowFirstTab.theDatepicker.setVisible(true);
+					cf.createWorkflowFirstTab.theDatepicker.setValue();					
+				}
+			}	
+		});
+	},
 	
 	initContenttypecombo: function () {
 		this.theContenttypeCombo = new Ext.form.ComboBox({
@@ -361,6 +384,7 @@ cf.createWorkflowFirstTab = function(){return {
 	initDatepicker: function () {
 		this.theDatepicker = new Ext.form.DateField({
 			allowBlank:true,
+			hidden:true,
 			editable: false,
 			format:'d-m-Y',
 			id: 'createWorkflowFirstTab_datepicker',
