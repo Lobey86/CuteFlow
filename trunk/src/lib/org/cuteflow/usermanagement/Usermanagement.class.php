@@ -145,6 +145,7 @@ class Usermanagement {
             $result['lastname'] = $userdata->getLastname();
             $result['email'] = $item->getEmail();
             $result['password'] = $item->getPassword();
+            
             $result['role_id'] = $item->getRoleId();
             $result['rolename'] = $userrole->getDescription();
             $result['street'] = $userdata->getStreet();
@@ -159,8 +160,9 @@ class Usermanagement {
             $result['department'] = $userdata->getDepartment();
             $result['burdencenter'] = $userdata->getBurdencenter();
             $result['comment'] = $userdata->getComment();
-            
-            
+
+
+            $result['language'] = $usersettings->getLanguage();
             $result['durationlength'] = $usersettings->getDurationlength();
             $result['durationtype'] = $usersettings->getDurationtype();
             $result['markyellow'] = $usersettings->getMarkyellow();
