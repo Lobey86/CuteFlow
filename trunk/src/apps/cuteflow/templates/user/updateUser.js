@@ -91,7 +91,7 @@ cf.updateUser = function(){return {
 		theFormpanel.getForm().submit({
 			url: '<?php echo build_dynamic_javascript_url('usermanagement/UpdateUser')?>/id/' + user_id,
 			method: 'POST',
-			//waitMsg: '<?php echo __('Saving Data',null,'usermanagement'); ?>',
+			waitMsg: '<?php echo __('Saving Data',null,'usermanagement'); ?>',
 			success: function(objServerResponse){
 				try {
 					cf.userSecondTab.theUserAgentStore.reload();

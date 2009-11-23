@@ -4,13 +4,9 @@ cf.createWorkflowCRUD = function(){return {
 	theTextfieldRegEx 				: '^(TEXTFIELD_){1}[0-9]{1,}(_){1}[0-9]{1,}$',
 	theTextareaRegEx 				: '^(TEXTAREA_){1}[0-9]{1,}(_){1}[0-9]{1,}$',
 	theFilefieldRegEx 				: '^(FILE_){1}[0-9]{1,}(_){1}[0-9]{1,}$',
+	theLoadingMask					: false,
 	
 	theSavePanel					: false,
-	
-	
-	
-	
-	
 	
 	createSavePanel: function () {
 		this.initSavePanel();
@@ -217,7 +213,7 @@ cf.createWorkflowCRUD = function(){return {
 		cf.createWorkflowFirstTab.theFirstTabPanel.getForm().submit({
 			url: '<?php echo build_dynamic_javascript_url('createworkflow/CreateWorkflow')?>',
 			method: 'POST',
-			//waitMsg: '<?php echo __('Saving Data',null,'usermanagement'); ?>',
+			waitMsg: '<?php echo __('Saving Data',null,'workflowmanagement'); ?>',
 			success: function(objServerResponse){
 				cf.workflowmanagementPanelGrid.theWorkflowStore.reload();
 				cf.createWorkflowWindow.theCreateWorkflowWindow.hide();
@@ -234,16 +230,21 @@ cf.createWorkflowCRUD = function(){return {
 	
 	
 	initSave: function () {
+		cf.createWorkflowCRUD.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Preparing Data...',null,'workflowmanagement'); ?>'});					
+		cf.createWorkflowCRUD.theLoadingMask.show();
 		if(cf.createWorkflowWindow.theTabPanel.items.length>1) {
 			cf.createWorkflowWindow.theTabPanel.setActiveTab(0);
 			var checkedGeneralSettings = this.checkSettings();
 			if(checkedGeneralSettings == true) {
+				cf.createWorkflowCRUD.theLoadingMask.hide();
 				cf.createWorkflowWindow.theTabPanel.setActiveTab(1);
 				var checkedUsers = this.checkUser();
 				if(checkedUsers == true) {
+					cf.createWorkflowCRUD.theLoadingMask.hide();
 					cf.createWorkflowWindow.theTabPanel.setActiveTab(2);
 					var checkedFields = this.checkFields();
 					if(checkedFields == true) {
+						cf.createWorkflowCRUD.theLoadingMask.hide();
 						this.createSavePanel();
 					}
 				}
@@ -254,8 +255,10 @@ cf.createWorkflowCRUD = function(){return {
 			var checkedUsers = false;
 			var checkedGeneralSettings = false;
 			Ext.Msg.minWidth = 400;
+			cf.createWorkflowCRUD.theLoadingMask.hide();
 			Ext.MessageBox.alert('<?php echo __('Error',null,'workflowmanagement'); ?>','<?php echo __('Please select a Mailinglist',null,'workflowmanagement'); ?>');
 			cf.createWorkflowWindow.theTabPanel.setActiveTab(0);
+			
 		}
 	},
 	
@@ -266,6 +269,7 @@ cf.createWorkflowCRUD = function(){return {
 		var mailinglist = cf.createWorkflowFirstTab.theMailinglist.getValue();
 		if(name == '' || mailinglist == '') {
 			Ext.Msg.minWidth = 400;
+			cf.createWorkflowCRUD.theLoadingMask.hide();
 			Ext.MessageBox.alert('<?php echo __('Error',null,'workflowmanagement'); ?>','<?php echo __('Please set a workflow name',null,'workflowmanagement'); ?>');
 			return false;
 		}

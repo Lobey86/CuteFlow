@@ -59,6 +59,7 @@ cf.createUserWindow = function(){return {
 			success: function(objServerResponse){  
 				try {
 					var data = Ext.util.JSON.decode(objServerResponse.responseText);
+
 					// first Tab
 					Ext.getCmp('userFirstTab_username').setValue(data.result.username);
 					Ext.getCmp('userFirstTab_password').setValue(data.result.password);
@@ -96,7 +97,16 @@ cf.createUserWindow = function(){return {
 					
 					
 					cf.createUserWindow.theAddUserWindow.show();
+					cf.createUserWindow.theTabPanel.setActiveTab(3);
+					
 					cf.userFirstTab.theComboRoleStore.load();
+					cf.userFirstTab.theLanguageStore.load();
+					
+					cf.createUserWindow.theTabPanel.setActiveTab(0);
+					cf.userFirstTab.theLanguageStore.on('load', function(store,records,bcd){
+						Ext.getCmp('userFirstTab_language_id').setValue(data.result.language);
+					});	
+					
 					cf.userFirstTab.theComboRoleStore.on('load', function(store,records,bcd){
 						Ext.getCmp('userFirstTab_userrole_id').setValue(data.result.role_id);
 						cf.createUserWindow.theLoadingMask.hide();
