@@ -245,6 +245,7 @@ UserData:
 UserSetting:
   us1:
      user_id: 1
+     language: en_US
      markyellow: 7
      markred: 12
      markorange: 10
@@ -260,6 +261,7 @@ UserSetting:
      firstlogin: 1
   us2:
      user_id: 2
+     language: en_US
      markyellow: 9
      markred: 11
      markorange: 13
@@ -275,6 +277,7 @@ UserSetting:
      firstlogin: 1
   us3:
      user_id: 3
+     language: en_US
      markyellow: 9
      markred: 11
      markorange: 13
@@ -290,6 +293,7 @@ UserSetting:
      firstlogin: 1
   us4:
      user_id: 4
+     language: en_US
      markyellow: 9
      markred: 11
      markorange: 13
@@ -533,6 +537,7 @@ UserConfiguration:
     refreshtime: 120
     markyellow: 7
     markred: 12
+    language: en_US
     markorange: 10
     password: testen
     emailformat: plain
