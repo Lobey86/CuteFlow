@@ -39,6 +39,7 @@ class UserConfigurationTable extends Doctrine_Table {
             ->set('uc.markyellow', '?', $data['userTab_markyellow'])
             ->set('uc.markred', '?', $data['userTab_markred'])
             ->set('uc.markorange', '?', $data['userTab_markorange'])
+            ->set('uc.language', '?', $data['userTab_language'])
             ->set('uc.password', '?', $data['userTab_defaultpassword'])
             ->set('uc.emailformat', '?', $data['userTab_emailformat'])
             ->set('uc.emailtype', '?', $data['userTab_emailtype'])
