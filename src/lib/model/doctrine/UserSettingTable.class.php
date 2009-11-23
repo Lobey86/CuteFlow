@@ -35,6 +35,7 @@ class UserSettingTable extends Doctrine_Table {
                ->update('UserSetting us')
                ->set('us.emailformat','?',$data['userFirstTab_emailformat'])
                ->set('us.emailtype','?',$data['userFirstTab_emailtype'])
+                ->set('us.language','?',$data['userFirstTab_language'])
                ->where('us.user_id = ?', $user_id)
                ->execute();
         return true;
