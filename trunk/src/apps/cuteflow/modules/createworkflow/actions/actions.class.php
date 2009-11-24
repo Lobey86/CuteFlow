@@ -20,10 +20,9 @@ class createworkflowActions extends sfActions {
 
 
     public function executeCreateWorkflow(sfWebRequest $request) {
-        #print_r ($_FILES);die;
-
         $createWorkObj = new PrepareWorkflowData();
-        $workflow = new WorkflowTemplate();
+        $processObj = new WorkflowProcessClass();
+
         $data = array();
         $startDate = array();
 
@@ -31,7 +30,7 @@ class createworkflowActions extends sfActions {
         $startDate = $createWorkObj->createStartDate($request->getPostParameter('createWorkflowFirstTab_datepicker'));
         $content = $createWorkObj->createContenttype($request->getPostParameters());
 
-
+        $workflow = new WorkflowTemplate();
         $workflow->setMailinglisttemplateId($request->getPostParameter('createWorkflowFirstTab_mailinglist'));
         $workflow->setName($request->getPostParameter('createWorkflowFirstTab_name'));
         $workflow->setSenderId($this->getUser()->getAttribute('id'));
@@ -47,6 +46,7 @@ class createworkflowActions extends sfActions {
         $workflowtemplate->setContent($content['content']);
         $workflowtemplate->setStartworkflowAt($startDate['startworkflowat']);
         $workflowtemplate->setContenttype($content['contenttype']);
+        $workflowtemplate->setVersion(1);
         $workflowtemplate->setWorkflowisstarted($startDate['workflowisstarted']);
         $workflowtemplate->save();
         $template_id = $workflowtemplate->getId();
@@ -148,12 +148,11 @@ class createworkflowActions extends sfActions {
             }
 
         }
-
-
-
-
+        $processObj->addWorkflowProcess($template_id, $workflow_id);
+       
         return sfView::NONE;
     }
+
 
     /**
      * Load all mailinglists

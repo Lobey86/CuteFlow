@@ -24,11 +24,12 @@ cf.workflowmanagementPanelGrid = function(){return {
 		this.theWorkflowCM  =  new Ext.grid.ColumnModel([
 			{header: "#", width: 50, sortable: true, dataIndex: '#', css : "text-align : left;font-size:12px;align:center;"},
 			{header: "<?php echo __('Name',null,'workflowmanagement'); ?>", width: 140, sortable: true, dataIndex: 'name', css : "text-align : left;font-size:12px;align:center;", hidden: false},
+			{header: "<?php echo __('Current station',null,'workflowmanagement'); ?>", width: 140, sortable: true, dataIndex: 'currentstation', css : "text-align : left;font-size:12px;align:center;", hidden: false},
 			{header: "<?php echo __('Template',null,'workflowmanagement'); ?>", width: 150, sortable: true, dataIndex: 'mailinglisttemplate', css : "text-align : left;font-size:12px;align:center;", hidden: false},
 			{header: "<?php echo __('Sender',null,'workflowmanagement'); ?>", width: 230, sortable: true, dataIndex: 'sendername', css : "text-align : left;font-size:12px;align:center;",  hidden: false},
 			{header: "<?php echo __('Running for',null,'workflowmanagement'); ?>", width: 80, sortable: true, dataIndex: 'currentlyrunning', css : "text-align : left;font-size:12px;align:center;",  hidden: false},
 			{header: "<?php echo __('Sendet at',null,'workflowmanagement'); ?>", width: 120, sortable: true, dataIndex: 'versioncreated_at', css : "text-align : left;font-size:12px;align:center;",  hidden: false},
-			{header: "<div ext:qtip=\"<table><tr><td><img src='/images/icons/table_edit.png' />&nbsp;&nbsp;</td><td><?php echo __('Edit Document template',null,'documenttemplate'); ?></td></tr><tr><td><img src='/images/icons/clock.png' />&nbsp;&nbsp;</td><td><?php echo __('Show Document template versions',null,'documenttemplate'); ?></td></tr><tr><td><img src='/images/icons/table_delete.png' />&nbsp;&nbsp;</td><td><?php echo __('Delete Document template',null,'documenttemplate'); ?></td></tr></table>\" ext:qwidth=\"230\"><?php echo __('Action',null,'documenttemplate'); ?></div>", width: 80, sortable: false, dataIndex: 'action', css : "text-align : left;font-size:12px;align:center;"}
+			{header: "<div ext:qtip=\"<table><tr><td><img src='/images/icons/table_edit.png' />&nbsp;&nbsp;</td><td><?php echo __('Edit Document template',null,'documenttemplate'); ?></td></tr><tr><td><img src='/images/icons/clock.png' />&nbsp;&nbsp;</td><td><?php echo __('Show Document template versions',null,'documenttemplate'); ?></td></tr><tr><td><img src='/images/icons/table_delete.png' />&nbsp;&nbsp;</td><td><?php echo __('Delete Document template',null,'documenttemplate'); ?></td></tr></table>\" ext:qwidth=\"230\"><?php echo __('Action',null,'documenttemplate'); ?></div>", width: 80, sortable: false, dataIndex: 'action', css : "text-align : left;font-size:12px;align:center;", renderer: this.renderButton}
 		]);
 	},
 	
@@ -46,6 +47,8 @@ cf.workflowmanagementPanelGrid = function(){return {
 					{name: 'mailinglisttemplate'},
 					{name: 'sender_id'},
 					{name: 'sendername'},
+					{name: 'currentstation'},
+					{name: 'openinpopup'},
 					{name: 'name'},
 					{name: 'isstopped'},
 					{name: 'currentlyrunning'},
@@ -116,8 +119,53 @@ cf.workflowmanagementPanelGrid = function(){return {
 			cf.workflowmanagementPanelGrid.theLoadingMask.hide();
 		});	
 		
-	}
+	},
 	
+	renderButton: function (data, cell, record, rowIndex, columnIndex, store, grid) {
+		var id = record.data['id'];
+		var activeversion_id = record.data['activeversion_id'];
+		var openinpopup = record.data['openinpopup'];
+		var btnDetails = cf.workflowmanagementPanelGrid.createDetailsButton.defer(1,this, [id, activeversion_id, openinpopup]);
+		var btnEdit = cf.workflowmanagementPanelGrid.createDeleteButton.defer(1,this, [id, activeversion_id]);
+		return '<center><table><tr><td width="16"><div id="workflowoverview_details'+ id +'"></div></td><td width="16"><div id="workflowoverview_delete'+ id +'"></div></td></tr></table></center>';
+	},
+	
+	
+	createDetailsButton: function (template_id, activeversion_id, openinpopup) {
+		var btn_copy = new Ext.form.Label({
+			renderTo: 'workflowoverview_details' + template_id,
+			html: '<span style="cursor:pointer;"><img src="/images/icons/report_go.png" /></span>',
+			listeners: {
+				render: function(c){
+					c.getEl().on({
+						click: function(el){
+							cf.workflowdetails.init(template_id, activeversion_id, openinpopup, false);
+						},
+					scope: c
+					});
+				}
+			}
+		});
+		
+	},
+	
+	createDeleteButton: function (template_id, activeversion_id) {
+		var btn_copy = new Ext.form.Label({
+			renderTo: 'workflowoverview_delete' + template_id,
+			html: '<span style="cursor:pointer;"><img src="/images/icons/report_delete.png" /></span>',
+			listeners: {
+				render: function(c){
+					c.getEl().on({
+						click: function(el){
+							alert('delete');
+						},
+					scope: c
+					});
+				}
+			}
+		});
+		
+	}
 	
 	
 	
