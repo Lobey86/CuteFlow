@@ -26,5 +26,13 @@ class WorkflowTemplateTable extends Doctrine_Table {
     }
 
 
+    public function getWorkflowTemplateById($id) {
+        return Doctrine_Query::create()
+            ->from('WorkflowTemplate wft')
+            ->select('wft.*,')
+            ->where('wft.id = ?' ,$id)
+            ->execute();
+    }
+
 
 }
