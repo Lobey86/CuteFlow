@@ -26,4 +26,17 @@ class DocumenttemplateSlotTable extends Doctrine_Table {
             ->orderBy('dts.position asc')
             ->execute();
     }
+
+    /**
+     * Get Slot by its id
+     * @param int $slot_id, slotid
+     * @return Doctrine_Collection
+     */
+    public function getSlotById($slot_id) {
+        return Doctrine_Query::create()
+            ->select('dts.*')
+            ->from('DocumenttemplateSlot dts')
+            ->where('dts.id = ?', $slot_id)
+            ->execute();
+    }
 }
