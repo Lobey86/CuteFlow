@@ -23,13 +23,13 @@ class WorkflowOverview {
 
     public function setCulture($culture) {
         $this->culture = $culture;
-
     }
 
     public function buildData(Doctrine_Collection $data) {
         $result = array();
         $a = 0;
         $colorSettings = UserSettingTable::instance()->getUserSettingById($this->userId)->toArray();
+        $openInPopUp = $colorSettings[0]['showcirculationinpopup'];
         foreach($data as $item) {
             $sender = UserLoginTable::instance()->findActiveUserById($item->getSenderId());
             $mailinglist = $item->getMailinglistTemplate();
@@ -43,8 +43,10 @@ class WorkflowOverview {
             $result[$a]['mailinglisttemplate_id'] = $item->getMailinglisttemplateId();
             $result[$a]['mailinglisttemplate'] = $mailinglist[0]->getName();
             $result[$a]['sender_id'] = $item->getSenderId();
+            $result[$a]['currentstation'] = $this->getCurrentStation($item->getActiveversionId(), $item->getSenderId());
             $result[$a]['sendername'] = $username;
             $result[$a]['name'] = $item->getName();
+            $result[$a]['openinpopup'] = $openInPopUp;
             $result[$a]['isstopped'] = $item->getIsstopped();
             $result[$a]['currentlyrunning'] = '<table><tr><td width="20">' . $inProgress . ' </td><td>' . $this->context->getI18N()->__('Days' ,null,'workflowmanagement') . '</td></tr></table>';
             $result[$a]['versioncreated_at'] = format_date($item->getVersioncreatedAt(), 'g', $this->culture);
@@ -52,6 +54,25 @@ class WorkflowOverview {
         }
         return $result;
 
+    }
+
+
+    public function getCurrentStation($activeversion_id, $sender_id) {
+        $activeVersion = WorkflowProcessTable::instance()->getCurrentStation($activeversion_id);
+        $user = $activeVersion[0]->getWorkflowProcessUser()->toArray();
+        $workflowslot = $activeVersion[0]->getWorkflowSlot()->toArray();
+        $slot = DocumenttemplateSlotTable::instance()->getSlotById($workflowslot[0]['slot_id'])->toArray();
+        $currentStation = $slot[0]['name'];
+        if($user['user_id'] == -2) {
+            $userdata = UserLoginTable::instance()->findActiveUserById($sender_id)->toArray();
+            $username = $userdata[0]['username'];
+        }
+        else {
+            $userdata = UserLoginTable::instance()->findActiveUserById($user['user_id'])->toArray();
+            $username = $userdata[0]['username'];
+        }
+        $currentStation .= ' <i>(' . $username . ')</i>';
+        return $currentStation;
     }
 
 
