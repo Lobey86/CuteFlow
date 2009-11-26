@@ -53,43 +53,43 @@ cf.createWorkflowThirdTab = function(){return {
 				var fielditem = item.fields[b];
 				switch (fielditem.type) {
 					case "TEXTFIELD":
-						var textfield = cf.createWorkflowThirdTab.createTextfield(fielditem);
+						var textfield = cf.createWorkflowThirdTab.createTextfield(fielditem, false);
 						//var hiddenfield = cf.createWorkflowThirdTab.createRegEx(fielditem);
 						fielditem.assign == 'LEFT' ? leftPanel.add(textfield) : rightPanel.add(textfield);
 						//fielditem.assign == 'LEFT' ? leftPanel.add(hiddenfield) : rightPanel.add(hiddenfield);
 					    break;
 					case "CHECKBOX":
-						var checkbox = cf.createWorkflowThirdTab.createCheckbox(fielditem);
+						var checkbox = cf.createWorkflowThirdTab.createCheckbox(fielditem, false);
 						fielditem.assign == 'LEFT' ? leftPanel.add(checkbox) : rightPanel.add(checkbox);
 						break;
 					case "NUMBER":
-						var number = cf.createWorkflowThirdTab.createNumberfield(fielditem);
+						var number = cf.createWorkflowThirdTab.createNumberfield(fielditem, false);
 						//var hiddenfield = cf.createWorkflowThirdTab.createRegEx(fielditem);
 						fielditem.assign == 'LEFT' ? leftPanel.add(number) : rightPanel.add(number);
 						//fielditem.assign == 'LEFT' ? leftPanel.add(hiddenfield) : rightPanel.add(hiddenfield);
 						break;
 					case "DATE":
-						var date = cf.createWorkflowThirdTab.createDatefield(fielditem);
+						var date = cf.createWorkflowThirdTab.createDatefield(fielditem, false);
 						fielditem.assign == 'LEFT' ? leftPanel.add(date) : rightPanel.add(date);
 						break;
 					case "TEXTAREA":
-						var textarea = cf.createWorkflowThirdTab.createTextarea(fielditem);
+						var textarea = cf.createWorkflowThirdTab.createTextarea(fielditem, false);
 						fielditem.assign == 'LEFT' ? leftPanel.add(textarea) : rightPanel.add(textarea);
 						break;
 					case "RADIOGROUP":
-						var radiogroup = cf.createWorkflowThirdTab.createRadiogroup(fielditem);
+						var radiogroup = cf.createWorkflowThirdTab.createRadiogroup(fielditem, false);
 						fielditem.assign == 'LEFT' ? leftPanel.add(radiogroup) : rightPanel.add(radiogroup);
 						break;
 					case "CHECKBOXGROUP":
-						var checkboxgroup = cf.createWorkflowThirdTab.createCheckboxgroup(fielditem);
+						var checkboxgroup = cf.createWorkflowThirdTab.createCheckboxgroup(fielditem, false);
 						fielditem.assign == 'LEFT' ? leftPanel.add(checkboxgroup) : rightPanel.add(checkboxgroup);
 						break;
 					case "COMBOBOX":
-						var combobox = cf.createWorkflowThirdTab.createCombobox(fielditem);
+						var combobox = cf.createWorkflowThirdTab.createCombobox(fielditem, false);
 						fielditem.assign == 'LEFT' ? leftPanel.add(combobox) : rightPanel.add(combobox);
 						break;
 					case "FILE":
-						var file = cf.createWorkflowThirdTab.createFile(fielditem);
+						var file = cf.createWorkflowThirdTab.createFile(fielditem, false);
 						fielditem.assign == 'LEFT' ? leftPanel.add(file) : rightPanel.add(file);
 					break;
 				}			
@@ -114,12 +114,13 @@ cf.createWorkflowThirdTab = function(){return {
 		return panel;
 	},
 	
-	createCombobox: function (data) {
+	createCombobox: function (data, editable) {
 		var combo =  new Ext.form.ComboBox({
 			fieldLabel: data.field_name,
 			valueField: 'value',
 			displayField: 'text',
 			editable: false,
+			disabled: editable,
 			mode: 'local',
 			store: new Ext.data.SimpleStore({
 				fields: [
@@ -160,12 +161,13 @@ cf.createWorkflowThirdTab = function(){return {
 	},
 	
 	
-	createFile: function (data) {
+	createFile: function (data, editable) {
 		var id = cf.createWorkflowThirdTab.theUniqueFieldId++;
 		var file = new Ext.form.FileUploadField({
 		    fieldLabel: data.field_name,
 			id: 'FILE_' + data.field_id + '_' + id,
 			name: 'REGEX_' + data.items.regex,
+			disabled: editable,
 			emptyText:  '<?php echo __('Select a file',null,'workflowmanagement'); ?>',
 			width: 200
 		});
@@ -178,7 +180,7 @@ cf.createWorkflowThirdTab = function(){return {
 		return file;
 	},
 	
-	createCheckboxgroup: function (data) {
+	createCheckboxgroup: function (data, editable) {
 		var store = new Array();
 		var id = cf.createWorkflowThirdTab.theUniqueFieldId++;
 		for(var a=0;a<data.items.length;a++){
@@ -196,6 +198,7 @@ cf.createWorkflowThirdTab = function(){return {
 		var checkboxgroup = new Ext.form.CheckboxGroup({
 			id: 'CHECKBOXGROUP_' + data.field_id + '_' + id,
 			fieldLabel: data.field_name,
+			disabled: editable,
 			items:[store]			
 		});
 		
@@ -203,7 +206,7 @@ cf.createWorkflowThirdTab = function(){return {
 
 	},
 	
-	createRadiogroup: function (data) {
+	createRadiogroup: function (data, editable) {
 		var store = new Array();
 		var id = cf.createWorkflowThirdTab.theUniqueFieldId++;
 		for(var a=0;a<data.items.length;a++){
@@ -221,18 +224,20 @@ cf.createWorkflowThirdTab = function(){return {
 		var radiogroup = new Ext.form.RadioGroup({
 			id: 'RADIOGROUP_' + data.field_id + '_' + id,
 			fieldLabel: data.field_name,
+			disabled: editable,
 			items:[store]			
 		});
 		
 		return radiogroup;
 	},
 	
-	createTextarea: function (data) {
+	createTextarea: function (data, editable) {
 		if(data.items.contenttype == 'plain') {
 			var textarea = new Ext.form.TextArea({
 				fieldLabel: data.field_name,
 				width: ((cf.Layout.theRegionWest.getWidth() +  cf.Layout.theRegionCenter.getWidth() - 180) / 2)-200,
 				value: data.items.content,
+				disabled: editable,
 				id: 'TEXTAREA_' + data.field_id + '_' + cf.createWorkflowThirdTab.theUniqueFieldId++,
 				height: 150
 			});
@@ -241,6 +246,7 @@ cf.createWorkflowThirdTab = function(){return {
 			var textarea = new Ext.form.HtmlEditor({
 				fieldLabel: data.field_name,
 				value: data.items.content,
+				disabled: editable,
 				width: ((cf.Layout.theRegionWest.getWidth() +  cf.Layout.theRegionCenter.getWidth() - 180) / 2)-200,
 				id: 'TEXTAREA_' + data.field_id + '_' + cf.createWorkflowThirdTab.theUniqueFieldId++,
 				height: 150
@@ -250,13 +256,13 @@ cf.createWorkflowThirdTab = function(){return {
 		
 	},
 	
-	createDatefield: function (data) {
+	createDatefield: function (data, editable) {
 		var textfield = new Ext.form.DateField({
 			allowBlank:true,
 			format: data.items.dateformat,
 			id: 'DATE_' + data.field_id + '_' + cf.createWorkflowThirdTab.theUniqueFieldId++,
 			fieldLabel: data.field_name,
-			editable: false,
+			disabled: false,
 			value: data.items.defaultvalue,
 			width:200
 		});	
@@ -264,11 +270,12 @@ cf.createWorkflowThirdTab = function(){return {
 	},
 	
 	
-	createNumberfield: function (data) {
+	createNumberfield: function (data, editable) {
 		var textfield = new Ext.form.TextField({
 			fieldLabel: data.field_name,
 			id: 'NUMBER_' + data.field_id + '_' + cf.createWorkflowThirdTab.theUniqueFieldId++,
 			allowBlank: true,
+			disabled: editable,
 			name: 'REGEX_' + data.items.regex,
 			emptyText: data.items.comboboxtext,
 			value: data.items.defaultvalue,
@@ -278,21 +285,23 @@ cf.createWorkflowThirdTab = function(){return {
 		
 	},
 	
-	createCheckbox: function (data) {
+	createCheckbox: function (data, editable) {
 		var checkbox = new Ext.form.Checkbox({
 			fieldLabel: data.field_name,
 			inputValue: '1',
+			disabled: editable,
 			style: 'margin-top:5px;',
 			id: 'CHECKBOX_' + data.field_id + '_' + cf.createWorkflowThirdTab.theUniqueFieldId++
 		});
 		return checkbox;
 	},
 	
-	createTextfield: function (data) {
+	createTextfield: function (data, editable) {
 		var textfield = new Ext.form.TextField({
 			fieldLabel: data.field_name,
 			id: 'TEXTFIELD_' + data.field_id + '_' + cf.createWorkflowThirdTab.theUniqueFieldId++,
 			allowBlank: true,
+			disabled: editable,
 			name: 'REGEX_' + data.items.regex,
 			value: data.items.defaultvalue,
 			width: 200

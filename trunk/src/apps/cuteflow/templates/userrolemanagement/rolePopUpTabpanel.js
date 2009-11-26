@@ -139,6 +139,7 @@ cf.PopUpRoleTabpanel = function(){return {
 		this.theTabpanel = new Ext.TabPanel({
 			frame: false,
 			enableTabScroll:true,
+			border: false,
 			plain: false,
 			width: 'auto',
 			deferredRender:false

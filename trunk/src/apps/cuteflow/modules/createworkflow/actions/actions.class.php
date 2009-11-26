@@ -25,6 +25,7 @@ class createworkflowActions extends sfActions {
 
         $data = array();
         $startDate = array();
+        $userslot_id = array();
 
         $endreason = $createWorkObj->createEndreason($request->getPostParameter('createWorkflowFirstTabSettings', array()));
         $startDate = $createWorkObj->createStartDate($request->getPostParameter('createWorkflowFirstTab_datepicker'));
@@ -68,9 +69,13 @@ class createworkflowActions extends sfActions {
             foreach($users as $user) {
                 $userObj = new WorkflowSlotUser();
                 $userObj->setWorkflowslotId($slot_id);
+                $user['id'] = $user['id'] == -2 ? $this->getUser()->getAttribute('id') : $user['id'];
                 $userObj->setUserId($user['id']);
                 $userObj->setPosition($userposition++);
                 $userObj->save();
+                if(($slotposition-1) == 1) {
+                    $userslot_id[] = $userObj->getId();
+                }
             }
             $fieldposition = 1;
             foreach($fields as $field) {
@@ -148,7 +153,7 @@ class createworkflowActions extends sfActions {
             }
 
         }
-        $processObj->addWorkflowProcess($template_id, $workflow_id);
+        $processObj->addWorkflowProcess($template_id, $workflow_id, $userslot_id);
        
         return sfView::NONE;
     }

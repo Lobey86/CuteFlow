@@ -48,6 +48,7 @@ cf.workflowmanagementPanelGrid = function(){return {
 					{name: 'sender_id'},
 					{name: 'sendername'},
 					{name: 'currentstation'},
+					{name: 'isstopped'},
 					{name: 'openinpopup'},
 					{name: 'name'},
 					{name: 'isstopped'},
@@ -125,16 +126,45 @@ cf.workflowmanagementPanelGrid = function(){return {
 		var id = record.data['id'];
 		var activeversion_id = record.data['activeversion_id'];
 		var openinpopup = record.data['openinpopup'];
+		var isstopped = record.data['isstopped'];
 		var btnDetails = cf.workflowmanagementPanelGrid.createDetailsButton.defer(1,this, [id, activeversion_id, openinpopup]);
 		var btnEdit = cf.workflowmanagementPanelGrid.createDeleteButton.defer(1,this, [id, activeversion_id]);
-		return '<center><table><tr><td width="16"><div id="workflowoverview_details'+ id +'"></div></td><td width="16"><div id="workflowoverview_delete'+ id +'"></div></td></tr></table></center>';
+		var btnEdit = cf.workflowmanagementPanelGrid.createStopButton.defer(1,this, [id, activeversion_id, isstopped]);
+		return '<center><table><tr><td width="16"><div id="workflowoverview_stop'+ id +'"></div></td><td width="16"><div id="workflowoverview_delete'+ id +'"></div></td><td width="16"><div id="workflowoverview_details'+ id +'"></div></td></tr></table></center>';
+	},
+	
+	
+	createStopButton: function (template_id, activeversion_id, isstopped) {
+		var btn_copy = new Ext.form.Label({
+			html: '<span style="cursor:pointer;"><img src="/images/icons/stop.png" /></span>',
+			listeners: {
+				render: function(c){
+					c.getEl().on({
+						click: function(el){
+							if(isstopped == 1) {
+								alert('restart');
+							}
+							else {
+								cf.workflowmanagementPanelCRUD.stopWorkflow(template_id, activeversion_id);
+							}
+						},
+					scope: c
+					});
+				}
+			}
+		});
+		
+		if(isstopped == 1) {
+			btn_copy.html = '<span style="cursor:pointer;"><img src="/images/icons/resultset_next.png" /></span>';
+		}
+		btn_copy.render('workflowoverview_details' + template_id);
 	},
 	
 	
 	createDetailsButton: function (template_id, activeversion_id, openinpopup) {
 		var btn_copy = new Ext.form.Label({
 			renderTo: 'workflowoverview_details' + template_id,
-			html: '<span style="cursor:pointer;"><img src="/images/icons/report_go.png" /></span>',
+			html: '<span style="cursor:pointer;"><img src="/images/icons/zoom.png" /></span>',
 			listeners: {
 				render: function(c){
 					c.getEl().on({
@@ -152,7 +182,7 @@ cf.workflowmanagementPanelGrid = function(){return {
 	createDeleteButton: function (template_id, activeversion_id) {
 		var btn_copy = new Ext.form.Label({
 			renderTo: 'workflowoverview_delete' + template_id,
-			html: '<span style="cursor:pointer;"><img src="/images/icons/report_delete.png" /></span>',
+			html: '<span style="cursor:pointer;"><img src="/images/icons/delete.png" /></span>',
 			listeners: {
 				render: function(c){
 					c.getEl().on({

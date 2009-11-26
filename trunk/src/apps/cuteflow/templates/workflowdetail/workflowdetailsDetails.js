@@ -9,33 +9,103 @@ cf.workflowdetailsDetails = function(){return {
 	init: function (data) {
 		this.initCM();
 		this.initStore();
+		this.initGrid(data);
 		this.initFieldset();
+		this.theFieldset.add(this.theGrid);
 		
 	},
 	
 	
-	initGrid: function () {
+	initGrid: function (data) {
 		this.theGrid = new Ext.grid.GridPanel({
-			//title: '<?php echo __('Workflow templates',null,'workflowmanagement'); ?>',
 			stripeRows: true,
 			border: true,
 			width: 'auto',
-			height: cf.Layout.theRegionWest.getHeight() - 400,
+			height: cf.Layout.theRegionWest.getHeight() - 600,
+			autoScroll: true,
 			collapsible: false,
 			style:'margin-top:5px;margin-left:5px;margin-right:5px;',
 			store: this.theStore,
+	        view: new Ext.grid.GroupingView({
+	            forceFit:true,
+    	        groupTextTpl: '{text} ({[values.rs.length]} {[values.rs.length > 1 ? "<?php echo __('Stations',null,'workflowmanagement'); ?>" : "<?php echo __('Station',null,'workflowmanagement'); ?>"]})'
+        	}),
 			cm: this.theCM
 		});
-		
+		this.theGrid.on('afterrender', function(grid) {
+			cf.workflowdetailsDetails.addItems(grid, data);			
+		});
+	},
+	
+	addItems: function (grid, data) {
+		for(var a=0;a<data.length;a++) {
+			var slot = data[a];
+			for(var b=0;b<slot.user.length;b++) {
+				var user = slot.user[b];
+				var Rec = Ext.data.Record.create(
+					{name: 'id'},
+					{name: 'decission_id'},
+					{name: 'station'},
+					{name: 'receivedat'},
+					{name: 'statusinwords'},
+					{name: 'status'},
+					{name: 'isuseragentof'},
+					{name: 'duration'},
+					{name: 'slotgroup'},
+					{name: 'version_id'},
+					{name: 'action'}	
+				);	
+				grid.store.add(new Rec({
+					id: user.id, 
+					decission_id: user.decission_id,
+					version_id: user.templateversion_id, 
+					station: user.username, 
+					isuseragentof: user.isuseragentof, 
+					status:user.decissionstate, 
+					receivedat:user.received,
+					statusinwords:user.decissioninwords,
+					duration: user.received == null ? '' : user.inprogresssince ,
+					slotgroup: user.slotgroup
+				}));	
+					
+					
+				
+				
+			}
+				
+			
+		}
+		for(var a=0;a<grid.store.getCount();a++) {
+			var row = grid.getStore().getAt(a);	
+			if(row.data.receivedat == null || row.data.status != 'WAITING') {
+				row.data.action = '';
+			}
+			else {
+				var id = row.data.decission_id;
+				var templateversion_id = row.data.version_id;
+				var isuseragentof = row.data.isuseragentof;
+				
+				row.data.action =  '<center><table><tr><td width="16"><div id="workflowdetailresend'+ id +'"></div></td><td width="16"><div id="workflowdetailskip'+ id +'"></div></td><td width="16"><div id="workflowdetailuseragent'+ id +'"></div></td><td width="16"><div id="workflowdetailselectstation'+ id +'"></div></td></tr></table></center>';
+				var btnDetails = cf.workflowdetailsDetails.createResendButton.defer(1,this, [id]);
+				var btnDetails = cf.workflowdetailsDetails.createSkipButton.defer(1,this, [id, templateversion_id]);
+				var btnDetails = cf.workflowdetailsDetails.createUserAgentButton.defer(1,this, [id, isuseragentof]);
+				var btnDetails = cf.workflowdetailsDetails.createSelectStationButton.defer(1,this, [id]);
+			}
+		}
 	},
 	
 	initStore: function () {
 		var reader = new Ext.data.ArrayReader({}, [
+			{name: 'id'},
 			{name: 'station'},
 			{name: 'receivedat'},
+			{name: 'decission_id'},
+			{name: 'statusinwords'},
+			{name: 'isuseragentof'},
 			{name: 'status'},
 			{name: 'duration'},
 			{name: 'slotgroup'},
+			{name: 'version_id'},
 			{name: 'action'}
 		]);
 		this.theStore = new Ext.data.GroupingStore({
@@ -47,11 +117,12 @@ cf.workflowdetailsDetails = function(){return {
 	
 	initCM: function () {
 		this.theCM  =  new Ext.grid.ColumnModel([
-			{header: "<?php echo __('Station',null,'workflowmanagement'); ?>", width: 150, sortable: true, dataIndex: 'station', css : "text-align : left;font-size:12px;align:center;", hidden: false},
-			{header: "<?php echo __('Received at',null,'workflowmanagement'); ?>", width: 150, sortable: true, dataIndex: 'receivedat', css : "text-align : left;font-size:12px;align:center;", hidden: false},
-			{header: "<?php echo __('Status',null,'workflowmanagement'); ?>", width: 150, sortable: true, dataIndex: 'status', css : "text-align : left;font-size:12px;align:center;", hidden: false},
-			{header: "<?php echo __('Bearbeitungsdauer',null,'workflowmanagement'); ?>", width: 150, sortable: true, dataIndex: 'duration', css : "text-align : left;font-size:12px;align:center;",  hidden: false},
-			{header: "<div ext:qtip=\"<table><tr><td><img src='/images/icons/table_edit.png' />&nbsp;&nbsp;</td><td><?php echo __('Edit Document template',null,'documenttemplate'); ?></td></tr><tr><td><img src='/images/icons/clock.png' />&nbsp;&nbsp;</td><td><?php echo __('Show Document template versions',null,'documenttemplate'); ?></td></tr><tr><td><img src='/images/icons/table_delete.png' />&nbsp;&nbsp;</td><td><?php echo __('Delete Document template',null,'documenttemplate'); ?></td></tr></table>\" ext:qwidth=\"230\"><?php echo __('Action',null,'documenttemplate'); ?></div>", width: 80, sortable: false, dataIndex: 'action', css : "text-align : left;font-size:12px;align:center;"/*, renderer: this.renderButton*/}
+			{header: "<?php echo __('Station',null,'workflowmanagement'); ?>", width: 150, sortable: false, dataIndex: 'station', css : "text-align : left;font-size:12px;align:center;", hidden: false},
+			{header: "<?php echo __('Received at',null,'workflowmanagement'); ?>", width: 150, sortable: false, dataIndex: 'receivedat', css : "text-align : left;font-size:12px;align:center;", hidden: false},
+			{header: "<?php echo __('Status',null,'workflowmanagement'); ?>", width: 150, sortable: false, dataIndex: 'statusinwords', css : "text-align : left;font-size:12px;align:center;", hidden: false},
+			{header: "<?php echo __('In progress since',null,'workflowmanagement'); ?>", width: 150, sortable: false, dataIndex: 'duration', css : "text-align : left;font-size:12px;align:center;",  hidden: false},
+			{header: "<?php echo __('Group',null,'workflowmanagement'); ?>", width: 150, sortable: false, dataIndex: 'slotgroup', css : "text-align : left;font-size:12px;align:center;",  hidden: true},
+			{header: "<div ext:qtip=\"<table><tr><td><img src='/images/icons/retry.png' />&nbsp;&nbsp;</td><td><?php echo __('Send again to station',null,'documenttemplate'); ?></td></tr><tr><td><img src='/images/icons/state_skip.png' />&nbsp;&nbsp;</td><td><?php echo __('Skip station',null,'documenttemplate'); ?></td></tr><tr><td><img src='/images/icons/cs_subs.jpg' />&nbsp;&nbsp;</td><td><?php echo __('Select Useragent',null,'documenttemplate'); ?></td></tr><tr><td><img src='/images/icons/cs.jpg' />&nbsp;&nbsp;</td><td><?php echo __('Change current station',null,'documenttemplate'); ?></td></tr></table>\" ext:qwidth=\"230\"><?php echo __('Action',null,'documenttemplate'); ?></div>", width: 80, sortable: false, dataIndex: 'action', css : "text-align : left;font-size:12px;align:center;"}
 		]);
 		
 	},
@@ -64,8 +135,106 @@ cf.workflowdetailsDetails = function(){return {
 			width: cf.Layout.theRegionWest.getWidth() +  cf.Layout.theRegionCenter.getWidth() - 100,
 			height: 'auto'
 		});
-		
-		
+	},
+	
+	renderButton: function (data, cell, record, rowIndex, columnIndex, store, grid) {
+		var id = record.data['id'];
+		var received = record.data['received'];
+		if(received != null) {
+			var btnDetails = cf.workflowdetailsDetails.createResendButton.defer(1,this, [id]);
+			var btnDetails = cf.workflowdetailsDetails.createOverjumpButton.defer(1,this, [id]);
+			var btnDetails = cf.workflowdetailsDetails.createUserAgentButton.defer(1,this, [id]);
+			var btnDetails = cf.workflowdetailsDetails.createSelectStationButton.defer(1,this, [id]);
+			return '<center><table><tr><td width="16"><div id="workflowdetailresend'+ id +'"></div></td><td width="16"><div id="workflowdetailoverjump'+ id +'"></div></td><td width="16"><div id="workflowdetailuseragent'+ id +'"></div></td><td width="16"><div id="workflowdetailselectstation'+ id +'"></div></td></tr></table></center>';
+		}
+		else {
+			return '';
+		}
+	},
+	
+	
+	createResendButton: function (id) {
+		var btn_copy = new Ext.form.Label({
+			renderTo: 'workflowdetailresend' + id,
+			html: '<span style="cursor:pointer;"><img src="/images/icons/retry.png" /></span>',
+			listeners: {
+				render: function(c){
+					c.getEl().on({
+						click: function(el){
+							alert(id);
+						},
+					scope: c
+					});
+				}
+			}
+		});
+	}, 
+	
+	createSkipButton: function (id, templateversion_id) {
+
+		var btn_copy = new Ext.form.Label({
+			renderTo: 'workflowdetailskip' + id,
+			html: '<span style="cursor:pointer;"><img src="/images/icons/state_skip.png" /></span>',
+			listeners: {
+				render: function(c){
+					c.getEl().on({
+						click: function(el){
+							if (c.disabled == false) {
+								cf.workflowdetailsCRUD.skipStation(id, templateversion_id);
+							}
+							else {
+								
+							}
+						},
+					scope: c
+					});
+				}
+			}
+		});
+	}, 
+	createUserAgentButton: function (id, isuseragentof) {
+		if(isuseragentof == null || isuseragentof == '') {
+			var disabled = false;
+		}
+		else {
+			var disabled = true;
+		}
+		var btn_copy = new Ext.form.Label({
+			renderTo: 'workflowdetailuseragent' + id,
+			disabled : disabled,
+			html: '<span style="cursor:pointer;"><img src="/images/icons/cs_subs.jpg" /></span>',
+			listeners: {
+				render: function(c){
+					c.getEl().on({
+						click: function(el){
+							if (c.disabled == false) {
+								alert(id);
+							}
+							else {
+								
+							}
+						},
+					scope: c
+					});
+				}
+			}
+		});
+	}, 
+	createSelectStationButton: function (id) {
+		var btn_copy = new Ext.form.Label({
+			renderTo: 'workflowdetailselectstation' + id,
+			html: '<span style="cursor:pointer;"><img src="/images/icons/cs.jpg" /></span>',
+			listeners: {
+				render: function(c){
+					c.getEl().on({
+						click: function(el){
+							alert(id);
+						},
+					scope: c
+					});
+				}
+			}
+		});
 	}
 	
 	

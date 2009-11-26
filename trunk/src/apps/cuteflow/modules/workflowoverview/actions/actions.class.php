@@ -20,7 +20,7 @@ class workflowoverviewActions extends sfActions {
 
 
     public function executeLoadAllWorkflow(sfWebRequest $request) {
-        $workflow = new WorkflowOverview($this->getContext());
+        $workflow = new WorkflowOverview($this->getContext(), $this->getUser());
         $workflow->setUserId($this->getUser()->getAttribute('id'));
         $workflow->setCulture($this->getUser()->getCulture());
         $data = WorkflowTemplateTable::instance()->getAllWorkflowTemplates(-1, -1);
@@ -29,6 +29,12 @@ class workflowoverviewActions extends sfActions {
         return sfView::NONE;
     }
 
+
+    public function executeStopWorkflow(sfWebRequest $request) {
+        WorkflowTemplateTable::instance()->stopWorkflow($request->getParameter('workflowtemplateid'));
+        
+        return sfView::NONE;
+    }
 
 
 
