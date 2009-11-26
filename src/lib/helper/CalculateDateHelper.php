@@ -2,8 +2,8 @@
 
 
     function createDayOutOfTimestampSince($timestamp) {
-    
-        return 'ewfew';
+        $diff = ( strtotime('now') - strtotime($timestamp)) / 86400;
+        return round($diff);
         
     }
 
