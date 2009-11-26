@@ -501,6 +501,9 @@ WorkflowSlotUser:
     workflowslot_id: { type: integer, length: 10 }
     user_id: { type: integer, length: 10 }
     position: { type: integer(1), length: 3 }
+  relations:
+    WorkflowProcessUser: { class: WorkflowProcessUser, local: id, foreign: workflowslotuser_id, foreignType: many, type: one }
+
 
 
 WorkflowSlotField:
@@ -608,10 +611,12 @@ WorkflowProcess:
 
 
 WorkflowProcessUser:
+  actAs: [Timestampable]
   tableName: cf_workflowprocessuser
   columns:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
     workflowprocess_id: { type: integer, length: 10 }
+    workflowslotuser_id: { type: integer, length: 10 }
     user_id: { type: integer, length: 10 }
     inprogresssince: {type: string(50) }
     decissionstate: {type: string(50) }
