@@ -19,13 +19,39 @@ class workflowdetailActions extends sfActions
         $this->forward('default', 'module');
     }
 
+    /**
+     * Load details for a single workflow
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeLoadWorkflowDetails(sfWebRequest $request) {
         $detailsObj = new WorkflowDetail();
+        $detailsObj->setUser($this->getUser());
         $detailsObj->setCulture($this->getUser()->getCulture());
+        $detailsObj->setContext($this->getContext());
         $workflowsettings = WorkflowVersionTable::instance()->getWorkflowVersionById($request->getParameter('versionid'));
-        $details = $detailsObj->buildHeadLine($workflowsettings);
+        $generalData = $detailsObj->buildHeadLine($workflowsettings);
+        $userData = $detailsObj->buildUserData($workflowsettings, $request->getParameter('versionid'));
+        #print_r ($userData);die;
+        #print_r ($userData);die;
+        $this->renderText('{"generalData":'.json_encode($generalData).', "detailData" : '.json_encode($userData).'}');
+        return sfView::NONE;
+    }
+
+
+
+    public function executeSkipStation(sfWebRequest $request) {
+        WorkflowProcessUserTable::instance()->skipStation($request->getParameter('workflowprocessuserid'));
+        $detailsObj = new WorkflowDetail();
+        $detailsObj->setUser($this->getUser());
+        $detailsObj->setCulture($this->getUser()->getCulture());
+        $detailsObj->setContext($this->getContext());
+        $workflowsettings = WorkflowVersionTable::instance()->getWorkflowVersionById($request->getParameter('versionid'));
+
+        $userData = $detailsObj->buildUserData($workflowsettings, $request->getParameter('versionid'));
+       
         
-        $this->renderText('{"generaldata":'.json_encode($details).'}');
+        $this->renderText('{"detailData" : '.json_encode($userData).'}');
         return sfView::NONE;
     }
 }

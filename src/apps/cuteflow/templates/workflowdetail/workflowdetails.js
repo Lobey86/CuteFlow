@@ -2,6 +2,7 @@ cf.workflowdetails = function(){return {
 	
 	theLoadingMask				:false,
 	thePopUpWindow				:false,
+	thePanelToShow				:false,
 	
 	init: function (workflowtemplate_id, version_id, openinpopup, showAction) {
 		cf.workflowdetails.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'workflowmanagement'); ?>'});					
@@ -13,16 +14,18 @@ cf.workflowdetails = function(){return {
 			success: function(objServerResponse){
 				cf.workflowdetails.theLoadingMask.hide();
 				var ServerResult = Ext.util.JSON.decode(objServerResponse.responseText);
-				var generalData = ServerResult.generaldata;
+				var generalData = ServerResult.generalData;
+				var detailData = ServerResult.detailData;
 				
-				var panelToShow = openinpopup == true ? cf.workflowdetails.initWindow() : '';
-				cf.workflowdetailsGeneral.init(generalData);
-				cf.workflowdetailsDetails.init(generalData);
-				panelToShow.add(cf.workflowdetailsGeneral.theFieldset);
-				panelToShow.add(cf.workflowdetailsDetails.theFieldset);
-				
-				panelToShow.doLayout();
-				openinpopup == true ? panelToShow.show() : '';
+				cf.workflowdetails.thePanelToShow = openinpopup == true ? cf.workflowdetails.initWindow() : '';
+				cf.workflowdetailsGeneral.init(generalData, workflowtemplate_id);
+				cf.workflowdetailsDetails.init(detailData);
+				cf.workflowdetailsValue.init(detailData);
+				cf.workflowdetails.thePanelToShow.add(cf.workflowdetailsGeneral.theFieldset);
+				cf.workflowdetails.thePanelToShow.add(cf.workflowdetailsDetails.theFieldset);
+				cf.workflowdetails.thePanelToShow.add(cf.workflowdetailsValue.theFieldset);
+				cf.workflowdetails.thePanelToShow.doLayout();
+				openinpopup == true ? cf.workflowdetails.thePanelToShow.show() : '';
 			}
 		});
 		

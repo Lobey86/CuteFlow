@@ -5,26 +5,32 @@ cf.workflowdetailsGeneral = function(){return {
 	theSenderLabel				:false,
 	theNameLabel				:false,
 	theHistoryCombo				:false,
+	theContentLabel				:false,
 	
-	init:function(data) {
+	init:function(data,workflowtemplate_id) {
 		this.initFieldset(data.workflow);
-		this.initMailinglist(data.mailinglist);
-		this.initSender(data.sender);
-		this.initHistoryCombo(data.version);
-		this.initName(data.workflow);
-		
-		this.theFieldset.add(this.theMailinglistLabel);
-		this.theFieldset.add(this.theSenderLabel);
-		this.theFieldset.add(this.theNameLabel);
-		this.theFieldset.add(this.theHistoryCombo);
+		this.initLabel(data.workflow, data.mailinglist, data.sender, data.content, data.version,workflowtemplate_id)
+		this.theFieldset.add(this.theLabel);
 	},
 	
 	
-	initHistoryCombo: function (items) {
+	initLabel: function (workflow, mailinglist, sender, content, version, workflowtemplate_id) {
+		this.theLabel = new Ext.form.Label({
+			html: '<table><tr height="25"><td><img src="/images/icons/group.png" /></td><td width="150"><?php echo __('Mailinglist',null,'workflowmanagement'); ?>:</td><td>'+mailinglist+'</td></tr><tr height="25"><td><img src="/images/icons/user.png" /></td><td width="150"><?php echo __('Sender',null,'workflowmanagement'); ?>:</td><td>'+sender+'</td></tr><tr height="25"><td><img src="/images/icons/report.png" /></td><td width="150"><?php echo __('Worklfow name',null,'workflowmanagement'); ?>:</td><td>'+workflow+'</td></tr><tr height="25"><td><img src="/images/icons/script.png" /></td><td width="150"><?php echo __('Description',null,'workflowmanagement'); ?>:</td><td>'+content+'</td></tr><tr height="25"><td><img src="/images/icons/clock.png" /></td><td width="150"><?php echo __('Revision',null,'workflowmanagement'); ?>:</td><td><div id="detailsversion'+workflowtemplate_id+'"></div></td></tr></table>',
+			style: 'font-size:12px;'
+		});
+		this.theLabel.on('afterrender', function(grid) {
+			cf.workflowdetailsGeneral.initHistoryCombo(version, workflowtemplate_id);
+		});
+		
+	},
+	
+	
+	
+	initHistoryCombo: function (items, workflowtemplate_id) {
 		this.theHistoryCombo = new Ext.form.ComboBox({ 	
-			fieldLabel: '<img src="/images/icons/clock.png" /> <?php echo __('Revisions',null,'workflowmanagement'); ?>',
 			editable:false,
-			labelWidth: 200,
+			renderTo: 'detailsversion'+workflowtemplate_id,
 			triggerAction: 'all',
 			foreSelection: true,
 			mode: 'local',
@@ -33,7 +39,7 @@ cf.workflowdetailsGeneral = function(){return {
 			}),
 			valueField:'versionid',
 			displayField:'text',
-			width:150
+			width:180
 		});
 		var defaultId = '';
 		for(var a=0;a<items.length;a++) {
@@ -51,32 +57,10 @@ cf.workflowdetailsGeneral = function(){return {
 		this.theFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('General informations',null,'workflowmanagement'); ?> : ' + workflowname,
 			allowBlank: false,
+			autoScroll: true,
 			style: 'margin-top:5px;margin-left:10px;',
 			width: cf.Layout.theRegionWest.getWidth() +  cf.Layout.theRegionCenter.getWidth() - 100,
-			height: 150
-		});
-	},
-	
-	initMailinglist: function (name) {
-		this.theMailinglistLabel = new Ext.form.Label({
-			html: '<table><tr><td><img src="/images/icons/group.png" /> </td><td width="100"><?php echo __('Mailinglist:',null,'workflowmanagement'); ?></td><td> ' + name + '</td></tr></table>',
-			style: 'font-size:12px;'
-		});
-
-	}, 
-	
-	initSender: function (name) {
-		this.theSenderLabel = new Ext.form.Label({
-			html: '<table><tr><td><img src="/images/icons/user.png" /> </td><td width="100"><?php echo __('Sender:',null,'workflowmanagement'); ?></td><td> ' + name + '</td></tr></table>',
-			style: 'font-size:12px;'
-		});
-		
-	},
-	
-	initName: function (name) {
-		this.theNameLabel = new Ext.form.Label({
-			html: '<table><tr><td><img src="/images/icons/report.png" /></td><td width="100"><?php echo __('Workflowname:',null,'workflowmanagement'); ?></td><td> ' + name + '</td></tr></table>',
-			style: 'font-size:12px;'
+			height: 200
 		});
 	}
 	
