@@ -806,12 +806,12 @@ DocumenttemplateSlot:
   dts4:
     documenttemplateversion_id: 2
     name: Slot 1 von 2
-    sendtoallreceivers: 0
+    sendtoallreceivers: 1
     position: 1
   dts5:
     documenttemplateversion_id: 2
     name: Slot 2 von 2
-    sendtoallreceivers: 1
+    sendtoallreceivers: 0
     position: 2
 
 
