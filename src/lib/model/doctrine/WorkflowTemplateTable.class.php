@@ -22,6 +22,7 @@ class WorkflowTemplateTable extends Doctrine_Table {
             ->andWhere('wft.isarchived = ?', 0)
             ->andWhere('wfv.activeversion = ?', 1)
             ->andWhere('wfv.workflowisstarted = ?', 1)
+            ->orderBy('wft.id DESC')
             ->execute();
     }
 
@@ -32,6 +33,18 @@ class WorkflowTemplateTable extends Doctrine_Table {
             ->select('wft.*,')
             ->where('wft.id = ?' ,$id)
             ->execute();
+    }
+
+
+    public function stopWorkflow($id) {
+        Doctrine_Query::create()
+            ->update('WorkflowTemplate wft')
+            ->set('wft.isstopped','?',1)
+            ->set('wft.stopped_at','?', time())
+            ->where('wft.id = ?', $id)
+            ->execute();
+        return true;
+        
     }
 
 
