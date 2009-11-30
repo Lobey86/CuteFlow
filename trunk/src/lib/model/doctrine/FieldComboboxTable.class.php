@@ -41,4 +41,13 @@ class FieldComboboxTable extends Doctrine_Table {
         return true;
     }
 
+
+    public function getComboboxItemById($id) {
+        return Doctrine_Query::create()
+            ->from('FieldCombobox fcb')
+            ->select('fcb.*')
+            ->where('fcb.id = ?', $id)
+            ->execute();
+    }
+
 }

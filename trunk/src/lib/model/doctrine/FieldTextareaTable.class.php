@@ -41,4 +41,14 @@ class FieldTextareaTable extends Doctrine_Table {
             ->execute();
     }
 
+
+    public function getTextareaById($id) {
+        return Doctrine_Query::create()
+            ->select('fta.*')
+            ->from('FieldTextarea fta')
+            ->where('fta.field_id = ?', $id)
+            ->execute();
+    }
+
+
 }

@@ -14,7 +14,7 @@ class WorkflowProcessUserTable extends Doctrine_Table {
         return Doctrine::getTable('WorkflowProcessUser');
     }
 
-
+    
     public function skipStation($id) {
          return Doctrine_Query::create()
                 ->update('WorkflowProcessUser wpu')
@@ -33,6 +33,32 @@ class WorkflowProcessUserTable extends Doctrine_Table {
             ->where('wpu.workflowslotuser_id = ?', $id)
             ->orderBy('wpu.id ASC')
             ->execute();
+    }
+
+
+    public function getProcessById($id) {
+        return Doctrine_Query::create()
+            ->select('wpu.*')
+            ->from('WorkflowProcessUser wpu')
+            ->where('wpu.id = ?', $id)
+            ->execute();
+    }
+
+
+    /**
+     * Set a Process to useragent set
+     *
+     * @param int $id, id of the process
+     * @return true
+     */
+    public function setProcessToUseragentSet($id) {
+        Doctrine_Query::create()
+            ->update('WorkflowProcessUser wpu')
+            ->set('wpu.decissionstate','?','USERAGENTSET')
+            ->where('wpu.id = ?', $id)
+            ->execute();
+        return true;
+        
     }
 
 

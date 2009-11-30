@@ -47,5 +47,18 @@ class WorkflowTemplateTable extends Doctrine_Table {
         
     }
 
+    public function setWorkflowFinished($id) {
+        Doctrine_Query::create()
+            ->update('WorkflowTemplate wft')
+            ->set('wft.iscompleted','?',1)
+            ->set('wft.completed_at','?', time())
+            ->where('wft.id = ?', $id)
+            ->execute();
+        return true;
+        
+    }
+
+
+
 
 }
