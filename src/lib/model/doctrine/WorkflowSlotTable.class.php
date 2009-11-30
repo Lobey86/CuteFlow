@@ -41,4 +41,24 @@ class WorkflowSlotTable extends Doctrine_Table {
             ->execute();
     }
 
+
+    public function getSlotById($id) {
+        return Doctrine_Query::create()
+            ->select('wfs.*')
+            ->from('WorkflowSlot wfs')
+            ->where('wfs.id = ?', $id)
+            ->orderBy('wfs.position ASC')
+            ->execute();
+    }
+
+    public function getSlotByWorkflowversionAndPosition($workflowversionid, $position) {
+        return Doctrine_Query::create()
+            ->select('wfs.*')
+            ->from('WorkflowSlot wfs')
+            ->where('wfs.workflowversion_id = ?', $workflowversionid)
+            ->andWhere('wfs.position = ?', $position)
+            ->orderBy('wfs.position ASC')
+            ->execute();
+    }
+
 }

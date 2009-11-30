@@ -43,4 +43,13 @@ class FieldCheckboxgroupTable extends Doctrine_Table {
     }
 
 
+    public function getCheckboxgroupItemById($id) {
+        return Doctrine_Query::create()
+            ->from('FieldCheckboxgroup fcbg')
+            ->select('fcbg.*')
+            ->where('fcbg.id = ?', $id)
+            ->execute();
+    }
+
+
 }

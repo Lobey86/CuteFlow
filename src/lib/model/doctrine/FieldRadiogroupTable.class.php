@@ -40,6 +40,14 @@ class FieldRadiogroupTable extends Doctrine_Table {
             ->execute();
         return true;
     }
+
+    public function getRadiogroupItemById($id) {
+        return Doctrine_Query::create()
+            ->from('FieldRadiogroup frg')
+            ->select('frg.*')
+            ->where('frg.id = ?', $id)
+            ->execute();
+    }
     
 
 
