@@ -54,9 +54,7 @@ cf.createWorkflowThirdTab = function(){return {
 				switch (fielditem.type) {
 					case "TEXTFIELD":
 						var textfield = cf.createWorkflowThirdTab.createTextfield(fielditem, false);
-						//var hiddenfield = cf.createWorkflowThirdTab.createRegEx(fielditem);
 						fielditem.assign == 'LEFT' ? leftPanel.add(textfield) : rightPanel.add(textfield);
-						//fielditem.assign == 'LEFT' ? leftPanel.add(hiddenfield) : rightPanel.add(hiddenfield);
 					    break;
 					case "CHECKBOX":
 						var checkbox = cf.createWorkflowThirdTab.createCheckbox(fielditem, false);
@@ -64,9 +62,7 @@ cf.createWorkflowThirdTab = function(){return {
 						break;
 					case "NUMBER":
 						var number = cf.createWorkflowThirdTab.createNumberfield(fielditem, false);
-						//var hiddenfield = cf.createWorkflowThirdTab.createRegEx(fielditem);
 						fielditem.assign == 'LEFT' ? leftPanel.add(number) : rightPanel.add(number);
-						//fielditem.assign == 'LEFT' ? leftPanel.add(hiddenfield) : rightPanel.add(hiddenfield);
 						break;
 					case "DATE":
 						var date = cf.createWorkflowThirdTab.createDatefield(fielditem, false);

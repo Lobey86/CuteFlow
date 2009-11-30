@@ -74,8 +74,7 @@ cf.createWorkflowCRUD = function(){return {
 				this.addTextfield(slotcounter, fieldId, panel, fieldcounter);
 				break;
 			case "DATE":
-				this.addTextfield(slotcounter, fieldId, panel, fieldcounter);
-				break;
+				this.addDatefield(slotcounter, fieldId, panel, fieldcounter);
 				break;
 			case "TEXTAREA":
 				this.addTextfield(slotcounter, fieldId, panel, fieldcounter);
@@ -96,6 +95,22 @@ cf.createWorkflowCRUD = function(){return {
 		
 		
 	},
+	
+	addDatefield: function (slotcounter,fieldid, field, fieldcounter) {
+		var hiddenfield = new Ext.form.Field({
+			autoCreate : {tag:'input', type: 'hidden', name: 'slot['+slotcounter+'][slot][field]['+fieldcounter+'][field_id]', value:fieldid[1], width: 0}			
+		});
+		cf.createWorkflowCRUD.theSavePanel.add(hiddenfield);
+		var hiddenfield = new Ext.form.Field({
+			autoCreate : {tag:'input', type: 'hidden', name: 'slot['+slotcounter+'][slot][field]['+fieldcounter+'][type]', value:fieldid[0], width: 0}			
+		});
+		cf.createWorkflowCRUD.theSavePanel.add(hiddenfield);
+		var hiddenfield = new Ext.form.Field({
+			autoCreate : {tag:'input', type: 'hidden', name: 'slot['+slotcounter+'][slot][field]['+fieldcounter+'][value]', value:field.getRawValue(), width: 0}			
+		});
+		cf.createWorkflowCRUD.theSavePanel.add(hiddenfield);	
+	},
+	
 	
 	addFile: function (slotcounter,fieldid, field, fieldcounter) {
 		var hiddenfield = new Ext.form.Field({

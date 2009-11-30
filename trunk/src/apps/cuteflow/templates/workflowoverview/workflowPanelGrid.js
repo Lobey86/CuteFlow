@@ -127,10 +127,10 @@ cf.workflowmanagementPanelGrid = function(){return {
 		var activeversion_id = record.data['activeversion_id'];
 		var openinpopup = record.data['openinpopup'];
 		var isstopped = record.data['isstopped'];
-		var btnDetails = cf.workflowmanagementPanelGrid.createDetailsButton.defer(1,this, [id, activeversion_id, openinpopup]);
-		var btnEdit = cf.workflowmanagementPanelGrid.createDeleteButton.defer(1,this, [id, activeversion_id]);
-		var btnEdit = cf.workflowmanagementPanelGrid.createStopButton.defer(1,this, [id, activeversion_id, isstopped]);
-		return '<center><table><tr><td width="16"><div id="workflowoverview_stop'+ id +'"></div></td><td width="16"><div id="workflowoverview_delete'+ id +'"></div></td><td width="16"><div id="workflowoverview_details'+ id +'"></div></td></tr></table></center>';
+		var btnDetails = cf.workflowmanagementPanelGrid.createDetailsButton.defer(10,this, [id, activeversion_id, openinpopup]);
+		var btnEdit = cf.workflowmanagementPanelGrid.createDeleteButton.defer(10,this, [id, activeversion_id]);
+		var btnEdit = cf.workflowmanagementPanelGrid.createStopButton.defer(10,this, [id, activeversion_id, isstopped]);
+		return '<table><tr><td width="16"><div id="workflowoverview_stop'+ id +'"></div></td><td width="16"><div id="workflowoverview_delete'+ id +'"></div></td><td width="16"><div id="workflowoverview_details'+ id +'"></div></td></tr></table></center>';
 	},
 	
 	

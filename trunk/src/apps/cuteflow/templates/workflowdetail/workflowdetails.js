@@ -16,11 +16,13 @@ cf.workflowdetails = function(){return {
 				var ServerResult = Ext.util.JSON.decode(objServerResponse.responseText);
 				var generalData = ServerResult.generalData;
 				var detailData = ServerResult.detailData;
+				var valueData = ServerResult.workflowData;
+				
 				
 				cf.workflowdetails.thePanelToShow = openinpopup == true ? cf.workflowdetails.initWindow() : '';
 				cf.workflowdetailsGeneral.init(generalData, workflowtemplate_id);
 				cf.workflowdetailsDetails.init(detailData);
-				cf.workflowdetailsValue.init(detailData);
+				cf.workflowdetailsValue.init(valueData);
 				cf.workflowdetails.thePanelToShow.add(cf.workflowdetailsGeneral.theFieldset);
 				cf.workflowdetails.thePanelToShow.add(cf.workflowdetailsDetails.theFieldset);
 				cf.workflowdetails.thePanelToShow.add(cf.workflowdetailsValue.theFieldset);
