@@ -100,14 +100,13 @@ class WorkflowDetail {
             $result[$a]['user'] = $this->getDecission($user);
             $a++;
         }
-        
         return $result;
     }
 
 
 
 
-    public function getDecission ($user) {
+    public function getDecission (WorkflowSlotUser $user) {
         $result = array();
         $a = 0;
         $processUsers = WorkflowProcessUserTable::instance()->getProcessUserByWorkflowSlotUserId($user->getId());
@@ -197,6 +196,113 @@ class WorkflowDetail {
         #print_r ($result);die;
         return $result;
     }
+
+
+
+    public function buildWorkflowData(Doctrine_Collection $data, $versionid) {
+        $slots = WorkflowSlotTable::instance()->getSlotByVersionId($versionid);
+        $result = array();
+        $a = 0;
+
+        foreach($slots as $slot) {
+            $slotArray = $slot->toArray();
+            $result[$a]['workflowslot_id'] = $slotArray['id'];
+            $result[$a]['slot_id'] = $slotArray['slot_id'];
+            $result[$a]['position'] = $slotArray['position'];
+            $result[$a]['slotname'] = $slotArray['DocumenttemplateSlot'][0]['name'];
+            $result[$a++]['fields'] = $this->getFields($slotArray['id']);
+        }
+        return $result;
+    }
+
+
+
+    public function getFields($id) {
+        $result = array();
+        $a = 0;
+        $fields = WorkflowSlotFieldTable::instance()->getWorkflowSlotFieldBySlotId($id);
+        $column = 'LEFT';
+        foreach($fields as $field) {
+            $documentField = $field->getField()->toArray();
+            $result[$a]['workflowslotfield_id'] = $field->getId();
+            $result[$a]['workflowslot_id'] = $field->getWorkflowslotId();
+            $result[$a]['field_id'] = $field->getFieldId();
+            $result[$a]['title'] = $documentField[0]['title'];
+            $result[$a]['type'] = $documentField[0]['type'];
+            if($column == 'LEFT') {
+                $column = 'RIGHT';
+                $result[$a]['column'] = 'LEFT';
+            }
+            else {
+                $column = 'LEFT';
+                $result[$a]['column'] = 'RIGHT';
+            }
+            $result[$a]['position'] = $field->getPosition();
+            $result[$a++]['items'] = $this->getFieldItems($field, $documentField[0]['type']);
+
+
+        }
+        return $result;
+
+    }
+
+
+    public function getFieldItems(WorkflowSlotField $field, $type) {
+        $result = array();
+        $a = 0;
+        switch ($type) {
+            case 'TEXTFIELD':
+                $items = WorkflowSlotFieldTextfieldTable::instance()->getAllItemsByWorkflowFieldId($field->getId())->toArray();
+                $result['value'] = $items[0]['value'];
+                break;
+            case 'CHECKBOX':
+                $items = WorkflowSlotFieldCheckboxTable::instance()->getAllItemsByWorkflowFieldId($field->getId())->toArray();
+                $result['value'] = $items[0]['value'];
+                break;
+            case 'NUMBER':
+                $items = WorkflowSlotFieldNumberTable::instance()->getAllItemsByWorkflowFieldId($field->getId())->toArray();
+                $result['value'] = $items[0]['value'];
+                break;
+            case 'DATE':
+                $items = WorkflowSlotFieldDateTable::instance()->getAllItemsByWorkflowFieldId($field->getId())->toArray();
+                $result['value'] = $items[0]['value'];
+                break;
+            case 'TEXTAREA':
+                $items = WorkflowSlotFieldTextareaTable::instance()->getAllItemsByWorkflowFieldId($field->getId())->toArray();
+                $textarea = FieldTextareaTable::instance()->getTextareaById($field->getFieldId())->toArray();
+                $result['value'] = $items[0]['value'];
+                $result['contenttype'] = $textarea[0]['contenttype'];
+                break;
+            case 'RADIOGROUP':
+                $items = WorkflowSlotFieldRadiogroupTable::instance()->getAllItemsByWorkflowFieldId($field->getId());
+                foreach($items as $item) {
+                    $name = FieldRadiogroupTable::instance()->getRadiogroupItemById($item->getFieldradiogroupId())->toArray();
+                    $result[$a]['value'] = $item->getValue();
+                    $result[$a++]['name'] = $name[0]['value'];
+                }
+                break;
+            case 'CHECKBOXGROUP':
+                $items = WorkflowSlotFieldCheckboxgroupTable::instance()->getAllItemsByWorkflowFieldId($field->getId());
+                foreach($items as $item) {
+                    $name = FieldCheckboxgroupTable::instance()->getCheckboxgroupItemById($item->getFieldcheckboxgroupId())->toArray();
+                    $result[$a]['value'] = $item->getValue();
+                    $result[$a++]['name'] = $name[0]['value'];
+                }
+                break;
+            case 'COMBOBOX':
+                $items = WorkflowSlotFieldCombobxTable::instance()->getAllItemsByWorkflowFieldId($field->getId());
+                foreach($items as $item) {
+                    $name = FieldComboboxTable::instance()->getComboboxItemById($item->getFieldcomboboxId())->toArray();
+                    $result[$a]['value'] = $item->getValue();
+                    $result[$a++]['name'] = $name[0]['value'];
+                }
+                break;
+            case 'FILE':
+                break;
+        }
+        return $result;
+    }
+
 
 
 
