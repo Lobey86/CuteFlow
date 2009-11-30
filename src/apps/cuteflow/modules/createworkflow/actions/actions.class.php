@@ -21,7 +21,6 @@ class createworkflowActions extends sfActions {
 
     public function executeCreateWorkflow(sfWebRequest $request) {
         $createWorkObj = new PrepareWorkflowData();
-        $processObj = new WorkflowProcessClass();
 
         $data = array();
         $startDate = array();
@@ -30,6 +29,7 @@ class createworkflowActions extends sfActions {
         $endreason = $createWorkObj->createEndreason($request->getPostParameter('createWorkflowFirstTabSettings', array()));
         $startDate = $createWorkObj->createStartDate($request->getPostParameter('createWorkflowFirstTab_datepicker'));
         $content = $createWorkObj->createContenttype($request->getPostParameters());
+        $sendToAllSlotsAtOnce = $request->getPostParameter('createWorkflowFirstTab_sendtoallslots',0);
 
         $workflow = new WorkflowTemplate();
         $workflow->setMailinglisttemplateId($request->getPostParameter('createWorkflowFirstTab_mailinglist'));
@@ -49,6 +49,7 @@ class createworkflowActions extends sfActions {
         $workflowtemplate->setContenttype($content['contenttype']);
         $workflowtemplate->setVersion(1);
         $workflowtemplate->setWorkflowisstarted($startDate['workflowisstarted']);
+        $workflowtemplate->setSendtoallslotsatonce($sendToAllSlotsAtOnce);
         $workflowtemplate->save();
         $template_id = $workflowtemplate->getId();
 
@@ -82,7 +83,6 @@ class createworkflowActions extends sfActions {
                 $fieldObj = new WorkflowSlotField();
                 $fieldObj->setWorkflowslotId($slot_id);
                 $fieldObj->setFieldId($field['field_id']);
-                $fieldObj->setType($field['type']);
                 $fieldObj->setPosition($fieldposition++);
                 $fieldObj->save();
                 $field_id = $fieldObj->getId();
@@ -119,31 +119,37 @@ class createworkflowActions extends sfActions {
                         break;
                     case 'RADIOGROUP':
                         $items = $field['item'];
+                        $counter = 1;
                         foreach($items as $item) {
                             $userObj = new WorkflowSlotFieldRadiogroup();
                             $userObj->setWorkflowslotfieldId($field_id);
                             $userObj->setFieldradiogroupId($item['id']);
                             $userObj->setValue($item['value'] == 'true' ? 1 : 0);
+                            $userObj->setPosition($counter++);
                             $userObj->save();
                         }
                         break;
                     case 'CHECKBOXGROUP':
                         $items = $field['item'];
+                        $counter = 1;
                         foreach($items as $item) {
                             $userObj = new WorkflowSlotFieldCheckboxgroup();
                             $userObj->setWorkflowslotfieldId($field_id);
                             $userObj->setFieldcheckboxgroupId($item['id']);
                             $userObj->setValue($item['value'] == 'true' ? 1 : 0);
+                            $userObj->setPosition($counter++);
                             $userObj->save();
                         }
                         break;
                     case 'COMBOBOX':
                         $items = $field['item'];
+                        $counter = 1;
                         foreach($items as $item) {
                             $userObj = new WorkflowSlotFieldCombobx();
                             $userObj->setWorkflowslotfieldId($field_id);
                             $userObj->setFieldcomboboxId($item['id']);
                             $userObj->setValue($item['value'] == 'true' ? 1 : 0);
+                            $userObj->setPosition($counter++);
                             $userObj->save();
                         }
                         break;
@@ -153,8 +159,16 @@ class createworkflowActions extends sfActions {
             }
 
         }
-        $processObj->addWorkflowProcess($template_id, $workflow_id, $userslot_id);
-       
+        if($startDate['workflowisstarted'] == 1) {
+            if($sendToAllSlotsAtOnce == 1) {
+                $calc = new CreateWorkflow($template_id);
+                $calc->addAllSlots();
+            }
+            else {
+                $calc = new CreateWorkflow($template_id);
+                $calc->addSingleSlot();
+            }
+        }
         return sfView::NONE;
     }
 

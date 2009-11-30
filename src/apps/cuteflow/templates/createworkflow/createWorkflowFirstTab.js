@@ -16,6 +16,7 @@ cf.createWorkflowFirstTab = function(){return {
 	theUniqueFileStoreId			:false,
 	theLoadingMask					:false,
 	theDatefieldCheckbox			:false,
+	theSendToAllSlots				:false,
 	
 	
 	
@@ -29,8 +30,10 @@ cf.createWorkflowFirstTab = function(){return {
 		this.initDatepicker();
 		this.initFileGrid();
 		this.initDatefieldCheckbox();
+		this.initSendToAllCheckbox();
 		fieldset1.add(this.theNameTextfield);
 		fieldset1.add(this.theMailinglist);
+		fieldset1.add(this.theSendToAllSlots);
 		fieldset1.add(this.theDatefieldCheckbox);
 		fieldset1.add(this.theDatepicker);
 		fieldset1.add(this.theFileUploadGrid);
@@ -64,6 +67,17 @@ cf.createWorkflowFirstTab = function(){return {
 		this.theFirstTabPanel.add(fieldset3);
 	},
 	
+	initSendToAllCheckbox: function () {
+		this.theSendToAllSlots = new Ext.form.Checkbox({
+			fieldLabel: '<?php echo __('Send to all slots at once?',null,'workflowmanagement'); ?>',
+			inputValue: '1',
+			style: 'margin-top:3px;',
+			checked: false,
+			id: 'createWorkflowFirstTab_sendtoallslots',	
+		});
+		
+		
+	},
 	
 	initDatefieldCheckbox: function () {
 		this.theDatefieldCheckbox = new Ext.form.Checkbox({
@@ -487,6 +501,7 @@ cf.createWorkflowFirstTab = function(){return {
 		this.theFirstTabPanel = new Ext.FormPanel({
 			title: '<?php echo __('General Settings',null,'workflowmanagement'); ?>',
 			frame:true,
+			//fileUpload: true,
 			autoScroll: true,
 			height: cf.Layout.theRegionWest.getHeight() - 148
 		});
