@@ -451,6 +451,8 @@ WorkflowTemplate:
     isstopped: { type: integer(1), length: 3 }
     stopped_at: {type: string(30) }
     stopped_by: { type: integer, length: 10 }
+    completed_at: {type: string(30) }
+    iscompleted: { type: integer(1), length: 3 }
     isarchived: { type: integer(1), length: 3 }
     archived_at: {type: string(30) }
     archived_by: { type: integer, length: 10 }
@@ -474,6 +476,7 @@ WorkflowVersion:
     contenttype: {type: string(20) }
     startworkflow_at: {type: string(30) }
     workflowisstarted: { type: integer(1), length: 3 }
+    sendtoallslotsatonce: { type: integer(1), length: 3 }
   relations:
     WorkflowSlot: { class: WorkflowSlot, local: id, foreign: workflowversion_id, foreignType: many, type: one }
     WorkflowProcess: { class: WorkflowProcess, local: id, foreign: workflowversion_id, foreignType: many, type: one }
@@ -512,7 +515,6 @@ WorkflowSlotField:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
     workflowslot_id: { type: integer, length: 10 }
     field_id: { type: integer, length: 10 }
-    type: {type: string(20) }
     position: { type: integer(1), length: 3 }
   relations:
     WorkflowSlotFieldTextfield: { class: WorkflowSlotFieldTextfield, local: id, foreign: workflowslotfield_id, foreignType: many, type: one }
@@ -572,6 +574,7 @@ WorkflowSlotFieldRadiogroup:
     workflowslotfield_id: { type: integer, length: 10 }
     fieldradiogroup_id: { type: integer, length: 10 }
     value: { type: integer, length: 10 }
+    position: { type: integer(1), length: 3 }
 
 
 WorkflowSlotFieldCombobx:
@@ -581,6 +584,7 @@ WorkflowSlotFieldCombobx:
     workflowslotfield_id: { type: integer, length: 10 }
     fieldcombobox_id: { type: integer, length: 10 }
     value: { type: integer, length: 10 }
+    position: { type: integer(1), length: 3 }
 
 
 WorkflowSlotFieldCheckboxgroup:
@@ -590,6 +594,7 @@ WorkflowSlotFieldCheckboxgroup:
     workflowslotfield_id: { type: integer, length: 10 }
     fieldcheckboxgroup_id: { type: integer, length: 10 }
     value: { type: integer, length: 10 }
+    position: { type: integer(1), length: 3 }
 
 
 WorkflowSlotFieldFile:
