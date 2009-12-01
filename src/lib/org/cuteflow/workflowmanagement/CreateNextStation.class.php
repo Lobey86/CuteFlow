@@ -84,7 +84,7 @@ class CreateNextStation extends WorkflowCreation{
             if(empty($nextUser) == true) {
                 $createSlot = new CheckSlot($this);
                 $createSlot->checkForNewSlot($this->workflowslot_id);
-
+                $this->checkSendToAllAtOnce();
             }
             else {
                 $processId = $this->addProcess($this->workflowtemplate_id, $this->version_id, $this->workflowslot_id);
@@ -102,8 +102,25 @@ class CreateNextStation extends WorkflowCreation{
      * If no user needs to fill out the workflow, the workflow is completed and flag will be set
      */
     public function checkSendToAllAtOnce() {
-
-        
+        if($this->sendToAllAtOnce == 1) {
+            $slots = WorkflowSlotTable::instance()->getSlotByVersionId($this->version_id);
+            $isCompleted = true;
+            foreach($slots as $slot) {
+                $users = WorkflowSlotUserTable::instance()->getUserBySlotId($slot->getId());
+                foreach($users as $user) {
+                    $processUsers = WorkflowProcessUserTable::instance()->getProcessUserByWorkflowSlotUserId($user->getId());
+                    foreach($processUsers as $singleUser) {
+                        $userArray = $singleUser->toArray();
+                        if($userArray['decissionstate'] == 'WAITING') {
+                            $isCompleted = false;
+                        }
+                    }
+                }
+            }
+            if($isCompleted == true) {
+                WorkflowTemplateTable::instance()->setWorkflowFinished($this->workflowtemplate_id);
+            }
+        }
     }
 
 
