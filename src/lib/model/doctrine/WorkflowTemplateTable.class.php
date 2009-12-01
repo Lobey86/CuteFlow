@@ -59,6 +59,25 @@ class WorkflowTemplateTable extends Doctrine_Table {
     }
 
 
+    public function getAllToDoWorkflowTemplates($offset, $limit, $user_id) {
+        return Doctrine_Query::create()
+            ->from('WorkflowTemplate wft')
+            ->select('wft.*, wfv.id as activeversion_id, wfv.created_at as versioncreated_at')
+            ->leftJoin('wft.WorkflowVersion wfv')
+            ->leftJoin('wfv.WorkflowSlot wfs')
+            ->leftJoin('wfs.WorkflowProcess wfp')
+            ->leftJoin('wfp.WorkflowProcessUser wfpu')
+            ->where('wft.deleted = ?' ,0)
+            ->andWhere('wft.isarchived = ?', 0)
+            ->andWhere('wft.isstopped = ?', 0)
+            ->andWhere('wfv.activeversion = ?', 1)
+            ->andWhere('wfv.workflowisstarted = ?', 1)
+            ->andWhere('wfpu.user_id = ?', $user_id)
+            ->andWhere('wfpu.decissionstate = ?', 'WAITING')
+            ->orderBy('wft.id DESC')
+            ->execute();
+    }
+
 
 
 }
