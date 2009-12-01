@@ -4,14 +4,16 @@ cf.workflowdetailsDetails = function(){return {
 	theCM							:false,
 	theStore						:false,
 	theGrid							:false,
+	theWorkflowAdmin				:false,
 	
 	
-	init: function (data) {
+	init: function (data, workflowadmin) {
+		this.theWorkflowAdmin = workflowadmin;
 		this.initCM();
 		this.initStore();
 		this.initGrid(data);
 		this.initFieldset();
-		this.theFieldset.add(this.theGrid);
+		this.theFieldset.add(this.theGrid, workflowadmin);
 		
 	},
 	
