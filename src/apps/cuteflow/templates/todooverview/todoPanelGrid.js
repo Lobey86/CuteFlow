@@ -1,16 +1,16 @@
-cf.workflowmanagementPanelGrid = function(){return {
+cf.todoPanelGrid = function(){return {
 	
-	theWorkflowGrid					:false,
+	theTodoGrid						:false,
 	isInitialized					:false,
-	theWorkflowStore				:false,
-	theWorkflowCM					:false,
+	theTodoStore					:false,
+	theTodoCM						:false,
 	theTopToolBar					:false,
 	theBottomToolBar				:false,
 	theLoadingMask					:false,
 	
 	init:function () {
-		cf.workflowmanagementPanelGrid.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'workflowmanagement'); ?>'});					
-		cf.workflowmanagementPanelGrid.theLoadingMask.show();
+		cf.todoPanelGrid.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'workflowmanagement'); ?>'});					
+		cf.todoPanelGrid.theLoadingMask.show();
 		this.initStore();
 		//this.initBottomToolbar();
 		this.initCM();
@@ -21,7 +21,7 @@ cf.workflowmanagementPanelGrid = function(){return {
 	
 	/** init CM for the grid **/
 	initCM: function () {
-		this.theWorkflowCM  =  new Ext.grid.ColumnModel([
+		this.theTodoCM  =  new Ext.grid.ColumnModel([
 			{header: "#", width: 50, sortable: true, dataIndex: '#', css : "text-align : left;font-size:12px;align:center;"},
 			{header: "<?php echo __('Name',null,'workflowmanagement'); ?>", width: 140, sortable: true, dataIndex: 'name', css : "text-align : left;font-size:12px;align:center;", hidden: false},
 			{header: "<?php echo __('Current station',null,'workflowmanagement'); ?>", width: 140, sortable: true, dataIndex: 'currentstation', css : "text-align : left;font-size:12px;align:center;", hidden: false},
@@ -35,10 +35,10 @@ cf.workflowmanagementPanelGrid = function(){return {
 	
 	/** init store for the grid **/
 	initStore: function () {
-		this.theWorkflowStore = new Ext.data.JsonStore({
+		this.theTodoStore = new Ext.data.JsonStore({
 				root: 'result',
 				totalProperty: 'total',
-				url: '<?php echo build_dynamic_javascript_url('workflowoverview/LoadAllWorkflow')?>',
+				url: '<?php echo build_dynamic_javascript_url('todooverview/LoadAllOwnWorkflow(')?>',
 				autoload: false,
 				fields: [
 					{name: '#'},
@@ -63,15 +63,7 @@ cf.workflowmanagementPanelGrid = function(){return {
 	/** init toolbar for grid, contains ajax search **/
 	initTopToolBar: function () {
 		this.theTopToolBar = new Ext.Toolbar({
-			items: [{	
-				icon: '/images/icons/report_add.png',
-	            tooltip:'<?php echo __('Create new Workflow',null,'workflowmanagement'); ?>',
-				disabled: <?php $arr = $sf_user->getAttribute('credential');echo $arr['management_documenttemplate_addDocumenttemplate'];?>,
-	            handler: function () {
-					cf.createWorkflowWindow.init();
-	            }
-				
-			},'->',{
+			items: ['->',{
 				xtype: 'combo', // number of records to display in grid
 				mode: 'local',
 				value: '<?php $arr = $sf_user->getAttribute('userSettings'); echo $arr['displayeditem'];?>',
@@ -102,7 +94,7 @@ cf.workflowmanagementPanelGrid = function(){return {
 	
 	
 	initGrid: function () {
-		this.theWorkflowGrid = new Ext.grid.GridPanel({
+		this.theTodoGrid = new Ext.grid.GridPanel({
 			title: '<?php echo __('Workflow templates',null,'workflowmanagement'); ?>',
 			stripeRows: true,
 			border: true,
@@ -110,14 +102,14 @@ cf.workflowmanagementPanelGrid = function(){return {
 			height: cf.Layout.theRegionWest.getHeight() - 100,
 			collapsible: false,
 			style:'margin-top:5px;margin-left:5px;margin-right:5px;',
-			store: this.theWorkflowStore,
+			store: this.theTodoStore,
 			tbar: this.theTopToolBar,
 			bbar: this.theBottomToolBar,
-			cm: this.theWorkflowCM
+			cm: this.theTodoCM
 		});
-		this.theWorkflowGrid.on('afterrender', function(grid) {
-			cf.workflowmanagementPanelGrid.theWorkflowStore.load();
-			cf.workflowmanagementPanelGrid.theLoadingMask.hide();
+		this.theTodoGrid.on('afterrender', function(grid) {
+			cf.todoPanelGrid.theTodoStore.load();
+			cf.todoPanelGrid.theLoadingMask.hide();
 		});	
 		
 	},
@@ -127,49 +119,40 @@ cf.workflowmanagementPanelGrid = function(){return {
 		var activeversion_id = record.data['activeversion_id'];
 		var openinpopup = record.data['openinpopup'];
 		var isstopped = record.data['isstopped'];
-		var btnDetails = cf.workflowmanagementPanelGrid.createDetailsButton.defer(10,this, [id, activeversion_id, openinpopup]);
-		var btnEdit = cf.workflowmanagementPanelGrid.createDeleteButton.defer(10,this, [id, activeversion_id]);
-		var btnEdit = cf.workflowmanagementPanelGrid.createStopButton.defer(10,this, [id, activeversion_id, isstopped]);
-		return '<table><tr><td width="16"><div id="workflowoverview_stop'+ id +'"></div></td><td width="16"><div id="workflowoverview_delete'+ id +'"></div></td><td width="16"><div id="workflowoverview_details'+ id +'"></div></td></tr></table></center>';
+		var btnDetails = cf.todoPanelGrid.createDetailsButton.defer(10,this, [id, activeversion_id, openinpopup]);
+		var btnEdit = cf.todoPanelGrid.createDeleteButton.defer(10,this, [id, activeversion_id]);
+		var btnEdit = cf.todoPanelGrid.createEditButton.defer(10,this, [id, activeversion_id]);
+		return '<table><tr><td width="16"><div id="todooverview_delete'+ id +'"></div></td><td width="16"><div id="todooverview_details'+ id +'"></div></td><td width="16"><div id="todooverview_edit'+ id +'"></div></td></tr></table></center>';
 	},
 	
 	
-	createStopButton: function (template_id, activeversion_id, isstopped) {
+	createEditButton: function (template_id, activeversion_id) {
 		var btn_copy = new Ext.form.Label({
-			html: '<span style="cursor:pointer;"><img src="/images/icons/control_stop_blue.png" /></span>',
+			html: '<span style="cursor:pointer;"><img src="/images/icons/pencil.png" /></span>',
+			renderTo: 'todooverview_edit' + template_id,
 			listeners: {
 				render: function(c){
 					c.getEl().on({
 						click: function(el){
-							if(isstopped == 1) {
-								alert('restart');
-							}
-							else {
-								cf.workflowmanagementPanelCRUD.stopWorkflow(template_id, activeversion_id);
-							}
+							cf.workflowedit.init(template_id, activeversion_id);
 						},
 					scope: c
 					});
 				}
 			}
 		});
-		
-		if(isstopped == 1) {
-			btn_copy.html = '<span style="cursor:pointer;"><img src="/images/icons/resultset_next.png" /></span>';
-		}
-		btn_copy.render('workflowoverview_details' + template_id);
 	},
 	
 	
 	createDetailsButton: function (template_id, activeversion_id, openinpopup) {
 		var btn_copy = new Ext.form.Label({
-			renderTo: 'workflowoverview_details' + template_id,
+			renderTo: 'todooverview_details' + template_id,
 			html: '<span style="cursor:pointer;"><img src="/images/icons/zoom.png" /></span>',
 			listeners: {
 				render: function(c){
 					c.getEl().on({
 						click: function(el){
-							cf.workflowdetails.init(template_id, activeversion_id, openinpopup, false, true);
+							cf.workflowdetails.init(template_id, activeversion_id, openinpopup, false, false);
 						},
 					scope: c
 					});
@@ -181,7 +164,7 @@ cf.workflowmanagementPanelGrid = function(){return {
 	
 	createDeleteButton: function (template_id, activeversion_id) {
 		var btn_copy = new Ext.form.Label({
-			renderTo: 'workflowoverview_delete' + template_id,
+			renderTo: 'todooverview_delete' + template_id,
 			html: '<span style="cursor:pointer;"><img src="/images/icons/delete.png" /></span>',
 			listeners: {
 				render: function(c){

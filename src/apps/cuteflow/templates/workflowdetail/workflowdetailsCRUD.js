@@ -16,7 +16,20 @@ cf.workflowdetailsCRUD = function(){return {
 				Ext.MessageBox.alert('<?php echo __('OK',null,'workflowmanagement'); ?>', '<?php echo __('Station skipped',null,'workflowmanagement'); ?>');
 				var ServerResult = Ext.util.JSON.decode(objServerResponse.responseText);
 				var detailData = ServerResult.detailData;
-				cf.workflowdetailsCRUD.reloadData(detailData);
+				if(cf.workflowdetailsDetails.theWorkflowAdmin == false) {
+					cf.workflowdetailsCRUD.theLoadingMask.hide();
+					cf.workflowdetails.thePanelToShow.hide();
+					cf.workflowdetails.thePanelToShow.destroy();
+					cf.todoPanelGrid.theTodoStore.reload();
+					try {
+						cf.workflowmanagementPanelGrid.theWorkflowStore.reload();
+					}
+					catch(e){}
+					
+				}
+				else {
+					cf.workflowdetailsCRUD.reloadData(detailData);
+				}
 			}
 		});
 	},
@@ -34,7 +47,22 @@ cf.workflowdetailsCRUD = function(){return {
 				Ext.MessageBox.alert('<?php echo __('OK',null,'workflowmanagement'); ?>', '<?php echo __('Useragent set',null,'workflowmanagement'); ?>');
 				var ServerResult = Ext.util.JSON.decode(objServerResponse.responseText);
 				var detailData = ServerResult.detailData;
-				cf.workflowdetailsCRUD.reloadData(detailData);
+				cf.workflowdetailsSelectUseragent.thePopUpWindow.hide();
+				cf.workflowdetailsSelectUseragent.thePopUpWindow.destroy();
+				if(cf.workflowdetailsDetails.theWorkflowAdmin == false) {
+					cf.workflowdetailsCRUD.theLoadingMask.hide();
+					cf.workflowdetails.thePanelToShow.hide();
+					cf.workflowdetails.thePanelToShow.destroy();
+					cf.todoPanelGrid.theTodoStore.reload();
+					try {
+						cf.workflowmanagementPanelGrid.theWorkflowStore.reload();
+					}
+					catch(e){}
+					
+				}
+				else {
+					cf.workflowdetailsCRUD.reloadData(detailData);
+				}
 			}
 		});
 		
@@ -42,20 +70,27 @@ cf.workflowdetailsCRUD = function(){return {
 	
 	
 	
-	reloadData: function (detailData) {
-		cf.workflowdetailsDetails.theGrid.destroy();
-		cf.workflowmanagementPanelGrid.theWorkflowStore.reload();
-		cf.workflowdetailsDetails.initCM();
-		cf.workflowdetailsDetails.initStore();
-		cf.workflowdetailsDetails.initGrid(detailData);
-		cf.workflowdetailsDetails.theFieldset.add(cf.workflowdetailsDetails.theGrid);
-		cf.workflowdetailsDetails.theFieldset.doLayout();
-		cf.workflowdetailsCRUD.theLoadingMask.hide();
+	reloadData: function (detailData) {		
 		try {
-			cf.workflowdetailsSelectUseragent.thePopUpWindow.hide();
-			cf.workflowdetailsSelectUseragent.thePopUpWindow.destroy();
+			cf.workflowdetailsDetails.theGrid.destroy();
+			cf.workflowmanagementPanelGrid.theWorkflowStore.reload();
+			cf.workflowdetailsDetails.initCM();
+			cf.workflowdetailsDetails.initStore();
+			cf.workflowdetailsDetails.initGrid(detailData);
+			cf.workflowdetailsDetails.theFieldset.add(cf.workflowdetailsDetails.theGrid);
+			cf.workflowdetailsDetails.theFieldset.doLayout();
+			cf.workflowdetailsCRUD.theLoadingMask.hide();
+			
 		}
-		catch(e) {}
+		catch(e) {
+	
+		}
+		try {
+			cf.todoPanelGrid.theTodoStore.reload();
+		}
+		catch(e) {
+			
+		}
 	}
 	
 	

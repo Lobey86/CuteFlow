@@ -236,6 +236,12 @@ cf.createWorkflowCRUD = function(){return {
 				cf.createWorkflowWindow.theCreateWorkflowWindow.destroy();
 				Ext.Msg.minWidth = 200;
 				Ext.MessageBox.alert('<?php echo __('OK',null,'workflowmanagement'); ?>','<?php echo __('Workflow created',null,'workflowmanagement'); ?>');
+				try {
+					
+				}
+				catch(e) {
+					cf.todoPanelGrid.theTodoStore.reload();
+				}
 			}
 		});
 	},
