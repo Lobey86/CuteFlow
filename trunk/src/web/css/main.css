@@ -65,6 +65,12 @@
 	height:16px;
 }
 
+.usermodule_workflow_usergroupIcon_todo{
+	background-image: url(/images/icons/bell.png) !important; 
+	width: 16px;
+	height:16px;
+}
+
 
 .no-icon {
 	display : none;
