@@ -103,7 +103,10 @@ Credential:
     userModule: management
     userGroup: documenttemplate
     userRight: editVersion
-
+  c27:
+    userModule: workflow
+    userGroup: todo
+    userRight: showModule
 Role:
   r1:
     description: admin
@@ -200,6 +203,9 @@ CredentialRole:
   rc29:
     role_id: 1
     credential_id: 26
+  rc30:
+    role_id: 1
+    credential_id: 27
 
 
 UserLogin:
