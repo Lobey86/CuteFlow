@@ -95,8 +95,10 @@ class Usermanagement {
         $result = array();
         $a = 0;
         foreach($data as $item) {
+            $data = $item->toArray();
             $result[$a]['id'] = $item->getUserId();
             $result[$a]['unique_id'] = $a;
+            $result[$a]['username'] = $item->getText() . ' <i>('.$data['UserLogin']['username'].')</i>';
             $result[$a++]['text'] = $item->getText();
         }
         return $result;

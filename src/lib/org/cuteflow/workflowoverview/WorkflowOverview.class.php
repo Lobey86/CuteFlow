@@ -34,12 +34,12 @@ class WorkflowOverview {
         $openInPopUp = $userSettings['showcirculationinpopup'];
         foreach($data as $item) {
             $sender = UserLoginTable::instance()->findActiveUserById($item->getSenderId());
+            //$workflowtemplate = WorkflowTemplateTable::instance()->getWorkflowTemplateById($item->getActiveversionId())->toArray();
             $mailinglist = $item->getMailinglistTemplate();
             $inProgress = createDayOutOfDateSince($item->getVersioncreatedAt());
             $inProgress = addColor($inProgress, $userSettings['markred'],$userSettings['markorange'],$userSettings['markyellow']);
             $userdata = $sender[0]->getUserData()->toArray();
             $username = $sender[0]->getUsername() . ' (' . $userdata['firstname'] . ' ' . $userdata['lastname'] . ')';
-
             $result[$a]['#'] = $a+1;
             $result[$a]['id'] = $item->getId();
             $result[$a]['mailinglisttemplate_id'] = $item->getMailinglisttemplateId();
@@ -49,12 +49,26 @@ class WorkflowOverview {
             $result[$a]['name'] = $item->getName();
             $result[$a]['openinpopup'] = $openInPopUp;
             $result[$a]['isstopped'] = $item->getIsstopped();
+            if($item->getIscompleted() == 0 OR $item->getIscompleted() == '') {
+                 $result[$a]['iscompleted'] = 0;
+            }
+            else {
+                $result[$a]['iscompleted'] = 1;
+            }
+
+            $result[$a]['workflowisstarted'] = $item->getWorkflowisstarted();
             if($item->getIsstopped() == 1) {
                 $result[$a]['currentstation'] = '<table><tr><td width="16"><img src="/images/icons/circ_stop.gif" /></td><td>'.$this->context->getI18N()->__('Workflow stopped' ,null,'workflowmanagement').'</td></tr></table>';
                 $result[$a]['currentlyrunning'] = '-';
             }
             elseif($item->getIscompleted() == 1) {
                 $result[$a]['currentstation'] = '<table><tr><td width="16"><img src="/images/icons/circ_done.gif" /></td><td>'.$this->context->getI18N()->__('Workflow completed' ,null,'workflowmanagement').'</td></tr></table>';
+                $result[$a]['currentlyrunning'] = '-';
+            }
+            elseif($item->getWorkflowisstarted() == 0) {
+                $startdateofWorkflow = date('Y-m-d',$item->getStartworkflowAt());
+                $startdateofWorkflow = format_date($startdateofWorkflow, 'p', $this->culture);
+                $result[$a]['currentstation'] = '<table><tr><td width="16"><img src="/images/icons/circ_waiting.gif" /></td><td>'.$this->context->getI18N()->__('Startdate' ,null,'workflowmanagement').': '.$startdateofWorkflow.'</td></tr></table>';
                 $result[$a]['currentlyrunning'] = '-';
             }
             else {
@@ -65,6 +79,7 @@ class WorkflowOverview {
             $result[$a]['versioncreated_at'] = format_date($item->getVersioncreatedAt(), 'g', $this->culture);
             $result[$a++]['activeversion_id'] = $item->getActiveversionId();
         }
+        //print_r ($result);die;
         return $result;
 
     }
@@ -81,6 +96,10 @@ class WorkflowOverview {
         $currentStation .= ' <i>(' . $username . ')</i>';
         return $currentStation;
     }
+
+
+
+
 
 
 }
