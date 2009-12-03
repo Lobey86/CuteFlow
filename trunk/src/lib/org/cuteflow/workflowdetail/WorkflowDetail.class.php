@@ -75,6 +75,7 @@ class WorkflowDetail {
         foreach($slots as $slot) {
             $documenttemplateslot = $slot->getDocumenttemplateSlot()->toArray();
             $result[$a]['slotname'] = $documenttemplateslot[0]['name'];
+            $result[$a]['senttoallatonce'] = $data[0]->getSendtoallslotsatonce();
             $result[$a]['workflowslot_id'] = $slot->getId();
             $result[$a]['sendtoallreceivers'] = $documenttemplateslot[0]['sendtoallreceivers'];
             $result[$a]['slot_id'] = $documenttemplateslot[0]['id'];
@@ -92,8 +93,10 @@ class WorkflowDetail {
         foreach($users as $user) {
             $userlogin = array();
             $userlogin = $user->getUserLogin()->toArray();
+            $userData = UserDataTable::instance()->getUserDataByUserId($userlogin[0]['id'])->toArray();
             $result[$a]['user_id'] = $user->getUserId();
             $result[$a]['id'] = $user->getId();
+            $result[$a]['plainusername'] = $userData[0]['firstname'] . ' '  . $userData[0]['lastname'] . ' <i>('.$userlogin[0]['username'].')</i>';
             $result[$a]['username'] = '<table><tr><td width="16"><img src="/images/icons/user.png" /></td><td>' . $userlogin[0]['username'] . '</td></tr></table>';
             $result[$a]['slotgroup'] = '#' . $slotcounter . ' : ' . $slotname;
             $result[$a]['templateversion_id'] = $templateversion_id;
@@ -121,6 +124,10 @@ class WorkflowDetail {
             $inProgress = addColor($inProgress, $usersettings['markred'],$usersettings['markorange'],$usersettings['markyellow']);
             $result[$a]['inprogresssince'] = '<table><tr><td width="20">' . $inProgress . ' </td><td>' . $this->context->getI18N()->__('Days' ,null,'workflowmanagement') . '</td></tr></table>';
             $result[$a]['decissioninwords'] = '<table><tr><td>'.AddStateIcon($result[$a]['decissionstate']).'</td><td>' . $this->context->getI18N()->__($result[$a]['decissionstate'],null,'workflowmanagement') . '</td></tr></table>';
+            if($result[$a]['decissionstate'] == 'STOPPEDBYADMIN') {
+                $result[$a]['inprogresssince'] = '-';
+            }
+
             $a++;
         }
         return $result;
@@ -137,6 +144,7 @@ class WorkflowDetail {
             $result[$a]['slotname'] = $data[$a]['slotname'];
             $result[$a]['workflowslot_id'] = $data[$a]['workflowslot_id'];
             $result[$a]['sendtoallreceivers'] = $data[$a]['sendtoallreceivers'];
+            $result[$a]['senttoallatonce'] = $data[$a]['senttoallatonce'];
             $result[$a]['slot_id'] = $data[$a]['slot_id'];
             for($b=0;$b<count($data[$a]['user']);$b++) {
                 $userData = $data[$a]['user'][$b];
@@ -148,6 +156,7 @@ class WorkflowDetail {
                         $result[$a]['user'][$usercounter]['user_id'] = $userData['user_id'];
                         $result[$a]['user'][$usercounter]['id'] = $userData['id'];
                         $result[$a]['user'][$usercounter]['username'] = $userData['username'];
+                        $result[$a]['user'][$usercounter]['plainusername'] = $userData['plainusername'];
                         $result[$a]['user'][$usercounter]['slotgroup'] = $userData['slotgroup'];
                         $result[$a]['user'][$usercounter]['templateversion_id'] = $userData['templateversion_id'];
 
@@ -173,6 +182,7 @@ class WorkflowDetail {
                     $result[$a]['user'][$usercounter]['user_id'] = $userData['user_id'];
                     $result[$a]['user'][$usercounter]['id'] = $userData['id'];
                     $result[$a]['user'][$usercounter]['username'] = $userData['username'];
+                    $result[$a]['user'][$usercounter]['plainusername'] = $userData['plainusername'];
                     $result[$a]['user'][$usercounter]['slotgroup'] = $userData['slotgroup'];
                     $result[$a]['user'][$usercounter]['templateversion_id'] = $userData['templateversion_id'];
 
@@ -193,7 +203,7 @@ class WorkflowDetail {
             $usercounter = 0;
 
         }
-        #print_r ($result);die;
+       # print_r ($result);die;
         return $result;
     }
 
