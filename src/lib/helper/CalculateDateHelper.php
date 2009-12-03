@@ -17,7 +17,7 @@
     function createDayOutOfDateSince($date) {
         $date = explode(' ', $date);
         $diff = ( strtotime('now') - strtotime($date[0])) / 86400;
-        return round($diff);
+        return floor($diff);
     }
 
 ?>

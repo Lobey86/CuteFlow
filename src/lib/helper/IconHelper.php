@@ -11,6 +11,9 @@
             case 'USERAGENTSET':
                 return '<img src="/images/icons/state_skip.png" />';
             break;
+            case 'STOPPEDBYADMIN':
+                return '<img src="/images/icons/user_red.png" />';
+            break;
         }
 
     }
