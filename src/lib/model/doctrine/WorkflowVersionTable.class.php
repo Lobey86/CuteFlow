@@ -30,4 +30,15 @@ class WorkflowVersionTable extends Doctrine_Table {
             ->where('wfv.id = ?' ,$id)
             ->execute();
     }
+
+    public function startWorkflow($id) {
+        Doctrine_Query::create()
+            ->update('WorkflowVersion wfv')
+            ->set('wfv.workflowisstarted','?',1)
+            ->set('wfv.startworkflow_at','?', time())
+            ->where('wfv.id = ?', $id)
+            ->execute();
+
+
+    }
 }

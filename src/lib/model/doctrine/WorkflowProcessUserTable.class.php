@@ -25,6 +25,15 @@ class WorkflowProcessUserTable extends Doctrine_Table {
 
     }
 
+    public function skipAllStation($id) {
+         return Doctrine_Query::create()
+                ->update('WorkflowProcessUser wpu')
+                ->set('wpu.dateofdecission','?',time())
+                ->set('wpu.decissionstate', '?', 'SKIPPED')
+                ->where('wpu.workflowslotuser_id = ?', $id)
+                ->execute();
+
+    }
 
     public function getProcessUserByWorkflowSlotUserId($id) {
         return Doctrine_Query::create()
@@ -62,6 +71,26 @@ class WorkflowProcessUserTable extends Doctrine_Table {
     }
 
 
-    
+    public function setWaitingStationToStoppedByAdmin($version_id) {
+        return Doctrine_Query::create()
+            ->update('WorkflowProcessUser wfpu, WorkflowProcess wfp')
+            ->set('wfpu.decissionstate','?','STOPPEDBYADMIN')
+            ->set('wfpu.dateofdecission','?',time())
+            ->where('wfp.workflowversion_id = ?' ,$version_id)
+            ->andWhere('wfpu.decissionstate = ?', 'WAITING')
+            ->execute();
+    }
+
+
+
+    public function deleteWorkflowProcessUserByWorkfloSlotUserId($workflowslotuser_id) {
+        Doctrine_Query::create()
+            ->delete('WorkflowProcessUser')
+            ->from('WorkflowProcessUser wfpu')
+            ->where('wfpu.workflowslotuser_id = ?', $workflowslotuser_id)
+            ->execute();
+        return true;
+        
+    }
 
 }

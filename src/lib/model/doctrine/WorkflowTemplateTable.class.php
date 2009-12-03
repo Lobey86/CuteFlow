@@ -16,12 +16,11 @@ class WorkflowTemplateTable extends Doctrine_Table {
     public function getAllWorkflowTemplates($offset, $limit) {
         return Doctrine_Query::create()
             ->from('WorkflowTemplate wft')
-            ->select('wft.*, wfv.id as activeversion_id, wfv.created_at as versioncreated_at')
+            ->select('wft.*, wfv.id as activeversion_id,wfv.workflowisstarted as workflowisstarted,wfv.startworkflow_at as startworkflow_at, wfv.created_at as versioncreated_at, wft.iscompleted')
             ->leftJoin('wft.WorkflowVersion wfv')
             ->where('wft.deleted = ?' ,0)
             ->andWhere('wft.isarchived = ?', 0)
             ->andWhere('wfv.activeversion = ?', 1)
-            ->andWhere('wfv.workflowisstarted = ?', 1)
             ->orderBy('wft.id DESC')
             ->execute();
     }
@@ -62,7 +61,7 @@ class WorkflowTemplateTable extends Doctrine_Table {
     public function getAllToDoWorkflowTemplates($offset, $limit, $user_id) {
         return Doctrine_Query::create()
             ->from('WorkflowTemplate wft')
-            ->select('wft.*, wfv.id as activeversion_id, wfv.created_at as versioncreated_at')
+            ->select('wft.*, wfv.id as activeversion_id,wfv.workflowisstarted as workflowisstarted,wfv.startworkflow_at as startworkflow_at, wfv.created_at as versioncreated_at, wft.iscompleted')
             ->leftJoin('wft.WorkflowVersion wfv')
             ->leftJoin('wfv.WorkflowSlot wfs')
             ->leftJoin('wfs.WorkflowProcess wfp')
