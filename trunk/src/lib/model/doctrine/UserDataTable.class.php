@@ -19,10 +19,19 @@ class UserDataTable extends Doctrine_Table {
      */
     public function getAllUserFullname() {
         return Doctrine_Query::create()
-            ->select('ud.user_id, CONCAT(ud.firstname,\' \',ud.lastname) AS text')
+            ->select('ud.user_id, ul.username, CONCAT(ud.firstname,\' \',ud.lastname) AS text')
             ->from('UserData ud')
             ->leftJoin('ud.UserLogin ul')
             ->where('ul.deleted = ?', 0)
+            ->execute();
+    }
+
+
+    public function getUserDataByUserId($user_id) {
+        return Doctrine_Query::create()
+            ->select('ud.*')
+            ->from('UserData ud')
+            ->where('ud.user_id = ?', $user_id)
             ->execute();
     }
 
@@ -32,7 +41,7 @@ class UserDataTable extends Doctrine_Table {
      * @param int $user_id, user_id
      * @return true
      */
-    public function updateUserFirstnameAndLastname($data, $user_id) {
+    public function updateUserFirstnameAndLastname(array $data, $user_id) {
         Doctrine_Query::create()
                ->update('UserData ud')
                ->set('ud.firstname','?' ,$data['userFirstTab_firstname'])
