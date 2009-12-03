@@ -58,6 +58,28 @@ class workflowdetailActions extends sfActions
         return sfView::NONE;
     }
 
+
+    /**
+     * Load all stations to set them
+     * 
+     * @param sfWebRequest $request
+     * @return <type>
+     */
+    public function executeLoadAllStations(sfWebRequest $request) {
+        $detailsObj = new WorkflowDetail();
+        $detailsObj->setUser($this->getUser());
+        $detailsObj->setCulture($this->getUser()->getCulture());
+        $detailsObj->setContext($this->getContext());
+        $workflowsettings = WorkflowVersionTable::instance()->getWorkflowVersionById($request->getParameter('versionid'));
+        $userData = $detailsObj->buildUserData($workflowsettings, $request->getParameter('versionid'));
+        #print_r ($userData);die;
+        $this->renderText('{"detailData" : '.json_encode($userData).'}');
+        return sfView::NONE;
+    }
+
+
+
+
     public function executeSetUseragent(sfWebRequest $request) {
         $useragent_id = $request->getParameter('userid');
         $workflowprocess_id = $request->getParameter('workflowprocessuserid');
@@ -88,9 +110,21 @@ class workflowdetailActions extends sfActions
     }
 
     
-    public function executeWorkflow(sfWebRequest $request) {
-        
+    public function executeSetNewStation(sfWebRequest $request) {
+        $calc = new SetStation($request->getParameter('versionid'), $request->getParameter('newworkflowuserslotid'), $request->getParameter('currentworkflowuserslotid'), $request->getParameter('direction'));
+        $detailsObj = new WorkflowDetail();
+        $detailsObj->setUser($this->getUser());
+        $detailsObj->setCulture($this->getUser()->getCulture());
+        $detailsObj->setContext($this->getContext());
 
+        $detailsObj = new WorkflowDetail();
+        $detailsObj->setUser($this->getUser());
+        $detailsObj->setCulture($this->getUser()->getCulture());
+        $detailsObj->setContext($this->getContext());
+
+        $workflowsettings = WorkflowVersionTable::instance()->getWorkflowVersionById($request->getParameter('versionid'));
+        $userData = $detailsObj->buildUserData($workflowsettings, $request->getParameter('versionid'));
+        $this->renderText('{"detailData" : '.json_encode($userData).'}');
         return sfView::NONE;
     }
 

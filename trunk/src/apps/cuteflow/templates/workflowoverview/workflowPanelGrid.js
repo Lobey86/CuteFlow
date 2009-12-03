@@ -24,12 +24,12 @@ cf.workflowmanagementPanelGrid = function(){return {
 		this.theWorkflowCM  =  new Ext.grid.ColumnModel([
 			{header: "#", width: 50, sortable: true, dataIndex: '#', css : "text-align : left;font-size:12px;align:center;"},
 			{header: "<?php echo __('Name',null,'workflowmanagement'); ?>", width: 140, sortable: true, dataIndex: 'name', css : "text-align : left;font-size:12px;align:center;", hidden: false},
-			{header: "<?php echo __('Current station',null,'workflowmanagement'); ?>", width: 140, sortable: true, dataIndex: 'currentstation', css : "text-align : left;font-size:12px;align:center;", hidden: false},
+			{header: "<?php echo __('Current station',null,'workflowmanagement'); ?>", width: 200, sortable: true, dataIndex: 'currentstation', css : "text-align : left;font-size:12px;align:center;", hidden: false},
 			{header: "<?php echo __('Template',null,'workflowmanagement'); ?>", width: 150, sortable: true, dataIndex: 'mailinglisttemplate', css : "text-align : left;font-size:12px;align:center;", hidden: false},
 			{header: "<?php echo __('Sender',null,'workflowmanagement'); ?>", width: 230, sortable: true, dataIndex: 'sendername', css : "text-align : left;font-size:12px;align:center;",  hidden: false},
 			{header: "<?php echo __('Running for',null,'workflowmanagement'); ?>", width: 80, sortable: true, dataIndex: 'currentlyrunning', css : "text-align : left;font-size:12px;align:center;",  hidden: false},
 			{header: "<?php echo __('Sendet at',null,'workflowmanagement'); ?>", width: 120, sortable: true, dataIndex: 'versioncreated_at', css : "text-align : left;font-size:12px;align:center;",  hidden: false},
-			{header: "<div ext:qtip=\"<table><tr><td><img src='/images/icons/table_edit.png' />&nbsp;&nbsp;</td><td><?php echo __('Edit Document template',null,'documenttemplate'); ?></td></tr><tr><td><img src='/images/icons/clock.png' />&nbsp;&nbsp;</td><td><?php echo __('Show Document template versions',null,'documenttemplate'); ?></td></tr><tr><td><img src='/images/icons/table_delete.png' />&nbsp;&nbsp;</td><td><?php echo __('Delete Document template',null,'documenttemplate'); ?></td></tr></table>\" ext:qwidth=\"230\"><?php echo __('Action',null,'documenttemplate'); ?></div>", width: 80, sortable: false, dataIndex: 'action', css : "text-align : left;font-size:12px;align:center;", renderer: this.renderButton}
+			{header: "<div ext:qtip=\"<table><tr><td><img src='/images/icons/table_edit.png' />&nbsp;&nbsp;</td><td><?php echo __('Edit Document template',null,'documenttemplate'); ?></td></tr><tr><td><img src='/images/icons/clock.png' />&nbsp;&nbsp;</td><td><?php echo __('Show Document template versions',null,'documenttemplate'); ?></td></tr><tr><td><img src='/images/icons/table_delete.png' />&nbsp;&nbsp;</td><td><?php echo __('Delete Document template',null,'documenttemplate'); ?></td></tr></table>\" ext:qwidth=\"230\"><?php echo __('Action',null,'documenttemplate'); ?></div>", width: 100, sortable: false, dataIndex: 'action', css : "text-align : left;font-size:12px;align:center;", renderer: this.renderButton}
 		]);
 	},
 	
@@ -48,6 +48,8 @@ cf.workflowmanagementPanelGrid = function(){return {
 					{name: 'sender_id'},
 					{name: 'sendername'},
 					{name: 'currentstation'},
+					{name: 'workflowisstarted'},
+					{name: 'iscompleted'},
 					{name: 'isstopped'},
 					{name: 'openinpopup'},
 					{name: 'name'},
@@ -125,27 +127,64 @@ cf.workflowmanagementPanelGrid = function(){return {
 	renderButton: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 		var id = record.data['id'];
 		var activeversion_id = record.data['activeversion_id'];
+		
 		var openinpopup = record.data['openinpopup'];
 		var isstopped = record.data['isstopped'];
+		var iscompleted = record.data['iscompleted'];
+		var workflowisstarted = record.data['workflowisstarted'];
+		
 		var btnDetails = cf.workflowmanagementPanelGrid.createDetailsButton.defer(10,this, [id, activeversion_id, openinpopup]);
 		var btnEdit = cf.workflowmanagementPanelGrid.createDeleteButton.defer(10,this, [id, activeversion_id]);
-		var btnEdit = cf.workflowmanagementPanelGrid.createStopButton.defer(10,this, [id, activeversion_id, isstopped]);
-		return '<table><tr><td width="16"><div id="workflowoverview_stop'+ id +'"></div></td><td width="16"><div id="workflowoverview_delete'+ id +'"></div></td><td width="16"><div id="workflowoverview_details'+ id +'"></div></td></tr></table></center>';
+		var btnEdit = cf.workflowmanagementPanelGrid.createArchiveButton.defer(10,this, [id, activeversion_id]);
+		var btnEdit = cf.workflowmanagementPanelGrid.createStopButton.defer(10,this, [id, activeversion_id, isstopped, workflowisstarted, iscompleted]);
+		return '<table><tr><td width="16"><div id="workflowoverview_delete'+ id +'"></div></td><td width="16"><div id="workflowoverview_details'+ id +'"></div></td><td width="16"><div id="workflowoverview_acrhive'+ id +'"></div></td><td width="16"><div id="workflowoverview_stop'+ id +'"></div></td></tr></table></center>';
 	},
 	
 	
-	createStopButton: function (template_id, activeversion_id, isstopped) {
+	createArchiveButton: function (version_id) {
 		var btn_copy = new Ext.form.Label({
-			html: '<span style="cursor:pointer;"><img src="/images/icons/control_stop_blue.png" /></span>',
+			html: '<span style="cursor:pointer;"><img src="/images/icons/disk.png" /></span>',
+			renderTo: 'workflowoverview_acrhive' + version_id,
 			listeners: {
 				render: function(c){
 					c.getEl().on({
 						click: function(el){
-							if(isstopped == 1) {
-								alert('restart');
+							alert('archiv');
+						},
+					scope: c
+					});
+				}
+			}
+		});
+	},
+	
+	createStopButton: function (template_id, activeversion_id, isstopped, workflowisstarted, iscompleted) {
+		//alert(iscompleted);
+		var disabled = iscompleted == 1 ? true : false;
+		var btn_copy = new Ext.form.Label({
+			html: '<span style="cursor:pointer;"><img src="/images/icons/control_stop_blue.png" /></span>',
+			disabled: disabled,
+			listeners: {
+				render: function(c){
+					c.getEl().on({
+						click: function(el){
+							if(iscompleted != 1) {
+								if(isstopped == 1) {
+									cf.restartWorkflowWindow.init(template_id);
+								}
+								else {
+									if(workflowisstarted == 1) {
+										cf.workflowmanagementPanelCRUD.stopWorkflow(template_id, activeversion_id);
+									}
+									else {
+										cf.workflowmanagementPanelCRUD.startWorkflow(template_id);
+										alert('start Worklfow active version: ' + template_id);
+									}
+								}
 							}
 							else {
-								cf.workflowmanagementPanelCRUD.stopWorkflow(template_id, activeversion_id);
+								Ext.Msg.minWidth = 300;
+								Ext.MessageBox.alert('<?php echo __('Notice',null,'workflowmanagement'); ?>','<?php echo __('Workflow has already been completed!',null,'workflowmanagement'); ?>');
 							}
 						},
 					scope: c
@@ -155,9 +194,15 @@ cf.workflowmanagementPanelGrid = function(){return {
 		});
 		
 		if(isstopped == 1) {
-			btn_copy.html = '<span style="cursor:pointer;"><img src="/images/icons/resultset_next.png" /></span>';
+			btn_copy.html = '<span style="cursor:pointer;"><img src="/images/icons/control_play_blue.png" /></span>';
 		}
-		btn_copy.render('workflowoverview_details' + template_id);
+		if(workflowisstarted == 0) {
+			btn_copy.html = '<span style="cursor:pointer;"><img src="/images/icons/control_play.png" /></span>';
+		}
+		if(iscompleted == 1) {
+			btn_copy.html = '<span style="cursor:pointer;"><img src="/images/icons/accept.png" /></span>';
+		}
+		btn_copy.render('workflowoverview_stop' + template_id);
 	},
 	
 	

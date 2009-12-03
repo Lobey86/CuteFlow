@@ -74,7 +74,7 @@ cf.workflowdetailsSelectUseragent = function(){return {
 	
 	initCM: function () {
 		this.theCM = new Ext.grid.ColumnModel([
-			{header: "<?php echo __('Name',null,'workflowmanagement'); ?>", width: 300, sortable: true, dataIndex: 'text', css : "text-align : left;font-size:12px;align:center;"},
+			{header: "<?php echo __('Name',null,'workflowmanagement'); ?>", width: 300, sortable: true, dataIndex: 'username', css : "text-align : left;font-size:12px;align:center;"},
 			{header: "<div ext:qtip=\"<table><tr><td><img src='/images/icons/user_go.png' />&nbsp;&nbsp;</td><td><?php echo __('Set as Useragent',null,'workflowmanagement'); ?></td></tr></table>\" ext:qwidth=\"200\"><?php echo __('Action',null,'workflowmanagement'); ?></div>", width: 60, sortable: true, css : "text-align : left;font-size:12px;align:center;", renderer: this.buttonRenderer}
 		]);
 		
@@ -86,6 +86,7 @@ cf.workflowdetailsSelectUseragent = function(){return {
 			url: '<?php echo build_dynamic_javascript_url('usermanagement/LoadUserGrid')?>',
 			fields: [
 				{name: 'id'},
+				{name: 'username'},
 				{name: 'text'}
 			]
 		});	

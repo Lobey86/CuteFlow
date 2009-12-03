@@ -32,7 +32,26 @@ class workflowoverviewActions extends sfActions {
 
     public function executeStopWorkflow(sfWebRequest $request) {
         WorkflowTemplateTable::instance()->stopWorkflow($request->getParameter('workflowtemplateid'));
-        
+        $workflow = new WorkflowOverview($this->getContext(), $this->getUser());
+        $workflow->setUserId($this->getUser()->getAttribute('id'));
+        $workflow->setCulture($this->getUser()->getCulture());
+        WorkflowProcessUserTable::instance()->setWaitingStationToStoppedByAdmin($request->getParameter('versionid'));
+        //$workflow->stopWorkflow($request->getParameter('versionid'));
+        return sfView::NONE;
+    }
+
+
+    public function executeStartWorkflow(sfWebRequest $request) {
+        WorkflowVersionTable::instance()->startWorkflow($request->getParameter('versionid'));
+        $template = WorkflowVersionTable::instance()->getWorkflowVersionById($request->getParameter('versionid'))->toArray();
+        if($template[0]['sendtoallslotsatonce'] == 1) {
+            $calc = new CreateWorkflow($request->getParameter('versionid'));
+            $calc->addAllSlots();
+        }
+        else {
+           $calc = new CreateWorkflow($request->getParameter('versionid'));
+           $calc->addSingleSlot();
+        }
         return sfView::NONE;
     }
 

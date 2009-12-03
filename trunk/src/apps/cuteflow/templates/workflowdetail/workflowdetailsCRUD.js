@@ -34,12 +34,9 @@ cf.workflowdetailsCRUD = function(){return {
 		});
 	},
 	
-	
 	setUseragent: function (user_id, workflowuserprocessid, templateversion_id) {
 		cf.workflowdetailsCRUD.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Updating Data...',null,'workflowmanagement'); ?>'});					
 		cf.workflowdetailsCRUD.theLoadingMask.show();
-	
-		
 		Ext.Ajax.request({  
 			url : '<?php echo build_dynamic_javascript_url('workflowdetail/SetUseragent')?>/userid/' + user_id + '/workflowprocessuserid/' + workflowuserprocessid + '/versionid/' + templateversion_id,
 			success: function(objServerResponse){
@@ -67,6 +64,45 @@ cf.workflowdetailsCRUD = function(){return {
 		});
 		
 	},
+	
+	
+	
+	setNewStation: function (templateversion_id, newWorkflowUserSlotId, currentWorkflowUserSlotId, direction) {
+		cf.workflowdetailsCRUD.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Updating Data...',null,'workflowmanagement'); ?>'});					
+		cf.workflowdetailsCRUD.theLoadingMask.show();
+		Ext.Ajax.request({  
+			url : '<?php echo build_dynamic_javascript_url('workflowdetail/SetNewStation')?>/newworkflowuserslotid/' + newWorkflowUserSlotId + '/currentworkflowuserslotid/' + currentWorkflowUserSlotId + '/versionid/' + templateversion_id + '/direction/' + direction,
+			success: function(objServerResponse){
+				Ext.Msg.minWidth = 200;
+				Ext.MessageBox.alert('<?php echo __('OK',null,'workflowmanagement'); ?>', '<?php echo __('Station set',null,'workflowmanagement'); ?>');
+				var ServerResult = Ext.util.JSON.decode(objServerResponse.responseText);
+				var detailData = ServerResult.detailData;
+				cf.workflowdetailsSelectStation.thePopUpWindow.hide();
+				cf.workflowdetailsSelectStation.thePopUpWindow.destroy();
+				if(cf.workflowdetailsDetails.theWorkflowAdmin == false) {
+					cf.workflowdetailsCRUD.theLoadingMask.hide();
+					cf.workflowdetails.thePanelToShow.hide();
+					cf.workflowdetails.thePanelToShow.destroy();
+					cf.todoPanelGrid.theTodoStore.reload();
+					try {
+						cf.workflowmanagementPanelGrid.theWorkflowStore.reload();
+					}
+					catch(e){}
+					
+				}
+				else {
+					cf.workflowdetailsCRUD.reloadData(detailData);
+				}	
+			}
+		});
+		
+		
+			
+	},
+	
+	
+	
+	
 	
 	
 	

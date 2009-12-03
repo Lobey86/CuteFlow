@@ -34,6 +34,10 @@
 			<source>Userrole management</source>
 			<target>Benutzerrechte verwalten</target>
 		</trans-unit>
+		<trans-unit id="9">
+			<source>STOPPEDBYADMIN</source>
+			<target>angehalten durch Administrator</target>
+		</trans-unit>
 	</body>
   </file>
 </xliff>
