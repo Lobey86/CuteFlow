@@ -47,6 +47,7 @@ cf.workflowdetailsDetails = function(){return {
 				var Rec = Ext.data.Record.create(
 					{name: 'id'},
 					{name: 'decission_id'},
+					{name: 'senttoallatonce'},
 					{name: 'station'},
 					{name: 'receivedat'},
 					{name: 'statusinwords'},
@@ -59,7 +60,8 @@ cf.workflowdetailsDetails = function(){return {
 					{name: 'action'}	
 				);	
 				grid.store.add(new Rec({
-					id: user.id, 
+					id: user.id,
+					senttoallatonce: slot.senttoallatonce, 
 					decission_id: user.decission_id,
 					version_id: user.templateversion_id, 
 					station: user.username, 
@@ -90,12 +92,14 @@ cf.workflowdetailsDetails = function(){return {
 				var isuseragentof = row.data.isuseragentof;
 				var workflowslot_id = row.data.workflowslot_id;
 				var workflowuser_id = row.data.id;
+				var sendtoallatonce = row.data.senttoallatonce;
+				var workflowuserid = row.data.id;
 				
 				row.data.action =  '<center><table><tr><td width="16"><div id="workflowdetailresend'+ id +'"></div></td><td width="16"><div id="workflowdetailskip'+ id +'"></div></td><td width="16"><div id="workflowdetailuseragent'+ id +'"></div></td><td width="16"><div id="workflowdetailselectstation'+ id +'"></div></td></tr></table></center>';
 				var btnDetails = cf.workflowdetailsDetails.createResendButton.defer(1,this, [id]);
 				var btnDetails = cf.workflowdetailsDetails.createSkipButton.defer(1,this, [id, templateversion_id, workflowslot_id, workflowuser_id]);
 				var btnDetails = cf.workflowdetailsDetails.createUserAgentButton.defer(1,this, [id, isuseragentof, templateversion_id]);
-				var btnDetails = cf.workflowdetailsDetails.createSelectStationButton.defer(1,this, [id]);
+				var btnDetails = cf.workflowdetailsDetails.createSelectStationButton.defer(1,this, [id,templateversion_id,sendtoallatonce, workflowuserid]);
 			}
 		}
 	},
@@ -108,6 +112,7 @@ cf.workflowdetailsDetails = function(){return {
 			{name: 'decission_id'},
 			{name: 'workflowslot_id'},
 			{name: 'statusinwords'},
+			{name: 'senttoallatonce'},
 			{name: 'isuseragentof'},
 			{name: 'status'},
 			{name: 'duration'},
@@ -143,22 +148,6 @@ cf.workflowdetailsDetails = function(){return {
 			height: 'auto'
 		});
 	},
-	
-	renderButton: function (data, cell, record, rowIndex, columnIndex, store, grid) {
-		var id = record.data['id'];
-		var received = record.data['received'];
-		if(received != null) {
-			var btnDetails = cf.workflowdetailsDetails.createResendButton.defer(1,this, [id]);
-			var btnDetails = cf.workflowdetailsDetails.createOverjumpButton.defer(1,this, [id]);
-			var btnDetails = cf.workflowdetailsDetails.createUserAgentButton.defer(1,this, [id]);
-			var btnDetails = cf.workflowdetailsDetails.createSelectStationButton.defer(1,this, [id]);
-			return '<center><table><tr><td width="16"><div id="workflowdetailresend'+ id +'"></div></td><td width="16"><div id="workflowdetailoverjump'+ id +'"></div></td><td width="16"><div id="workflowdetailuseragent'+ id +'"></div></td><td width="16"><div id="workflowdetailselectstation'+ id +'"></div></td></tr></table></center>';
-		}
-		else {
-			return '';
-		}
-	},
-	
 	
 	createResendButton: function (id) {
 		var btn_copy = new Ext.form.Label({
@@ -227,15 +216,22 @@ cf.workflowdetailsDetails = function(){return {
 			}
 		});
 	}, 
-	createSelectStationButton: function (id) {
+	createSelectStationButton: function (id, templateversion_id,sendtoallatonce, workflowuser_id) {
+		var disabled = sendtoallatonce == 1 ? true : false;
 		var btn_copy = new Ext.form.Label({
 			renderTo: 'workflowdetailselectstation' + id,
 			html: '<span style="cursor:pointer;"><img src="/images/icons/cs.jpg" /></span>',
+			disabled: disabled,
 			listeners: {
 				render: function(c){
 					c.getEl().on({
 						click: function(el){
-							alert(id);
+							if (c.disabled == false) {
+								cf.workflowdetailsSelectStation.init(id, templateversion_id, workflowuser_id);
+							}
+							else {
+								
+							}
 						},
 					scope: c
 					});
