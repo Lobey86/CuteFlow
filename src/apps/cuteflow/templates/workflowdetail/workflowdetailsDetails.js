@@ -23,7 +23,7 @@ cf.workflowdetailsDetails = function(){return {
 			stripeRows: true,
 			border: true,
 			width: 'auto',
-			height: cf.Layout.theRegionWest.getHeight() - 600,
+			height: 310,
 			autoScroll: true,
 			collapsible: false,
 			style:'margin-top:5px;margin-left:5px;margin-right:5px;',
@@ -145,7 +145,7 @@ cf.workflowdetailsDetails = function(){return {
 			allowBlank: false,
 			style: 'margin-top:5px;margin-left:10px;',
 			width: cf.Layout.theRegionWest.getWidth() +  cf.Layout.theRegionCenter.getWidth() - 100,
-			height: 'auto'
+			height: 350,
 		});
 	},
 	
