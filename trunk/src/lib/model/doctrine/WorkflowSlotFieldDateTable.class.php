@@ -18,4 +18,14 @@ class WorkflowSlotFieldDateTable extends Doctrine_Table {
             ->execute();
     }
 
+
+
+    public function updateDateByWorkflowFieldId($id, $value) {
+        Doctrine_Query::create()
+            ->update('WorkflowSlotFieldDate wsfd')
+            ->set('wsfd.value','?',$value)
+            ->where ('wsfd.workflowslotfield_id = ?',$id)
+            ->execute();
+    }
+
 }

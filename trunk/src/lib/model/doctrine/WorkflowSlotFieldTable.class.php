@@ -19,4 +19,14 @@ class WorkflowSlotFieldTable extends Doctrine_Table {
             ->execute();
     }
 
+
+    public function getWorkflowSlotFieldBySlotIdWithValues($id) {
+        return Doctrine_Query::create()
+            ->from('WorkflowSlotField wsf')
+            ->select('wsf.*,wsft.*')
+            ->where('wsf.workflowslot_id = ?' ,$id)
+            ->orderBy('wsf.position ASC')
+            ->execute();
+    }
+
 }

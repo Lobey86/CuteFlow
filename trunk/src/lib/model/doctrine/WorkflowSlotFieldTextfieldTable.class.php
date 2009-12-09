@@ -18,4 +18,13 @@ class WorkflowSlotFieldTextfieldTable extends Doctrine_Table {
             ->execute();
     }
 
+
+    public function updateTextfieldByWorkflowFieldId($id, $value) {
+        Doctrine_Query::create()
+            ->update('WorkflowSlotFieldTextfield wsft')
+            ->set('wsft.value','?',$value)
+            ->where ('wsft.workflowslotfield_id = ?',$id)
+            ->execute();
+    }
+
 }

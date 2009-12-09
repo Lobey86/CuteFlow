@@ -38,7 +38,14 @@ class WorkflowVersionTable extends Doctrine_Table {
             ->set('wfv.startworkflow_at','?', time())
             ->where('wfv.id = ?', $id)
             ->execute();
+    }
 
 
+    public function setEndReason($id, $endreason) {
+        Doctrine_Query::create()
+            ->update('WorkflowVersion wfv')
+            ->set('wfv.endreason','?',$endreason)
+            ->where('wfv.id = ?', $id)
+            ->execute();
     }
 }

@@ -71,15 +71,31 @@ class WorkflowProcessUserTable extends Doctrine_Table {
     }
 
 
-    public function setWaitingStationToStoppedByAdmin($version_id) {
+    public function getWaitingStationToStopByUser($version_id) {
         return Doctrine_Query::create()
-            ->update('WorkflowProcessUser wfpu, WorkflowProcess wfp')
-            ->set('wfpu.decissionstate','?','STOPPEDBYADMIN')
-            ->set('wfpu.dateofdecission','?',time())
+            ->select('wfpu.*')
+            ->from('WorkflowProcessUser wfpu')
+            ->leftJoin('wfpu.WorkflowProcess wfp')
             ->where('wfp.workflowversion_id = ?' ,$version_id)
             ->andWhere('wfpu.decissionstate = ?', 'WAITING')
             ->execute();
     }
+
+
+
+    public function getWaitingStation($workflowslot_id, $user_id) {
+        return Doctrine_Query::create()
+            ->select('wfpu.*')
+            ->from('WorkflowProcessUser wfpu')
+            ->leftJoin('wfpu.WorkflowProcess wfp')
+            ->where('wfp.workflowslot_id = ?', $workflowslot_id)
+            ->andWhere('wfpu.decissionstate = ?', 'WAITING')
+            ->andWhere('wfpu.user_id = ?',$user_id)
+            ->execute();
+    }
+
+
+
 
 
 
@@ -91,6 +107,21 @@ class WorkflowProcessUserTable extends Doctrine_Table {
             ->execute();
         return true;
         
+    }
+
+
+
+
+    public function getActiveProcessUserForWorkflowSlot($workflowslot_id, $user_id) {
+        return Doctrine_Query::create()
+            ->select('wpu.*')
+            ->from('WorkflowProcessUser wpu')
+            ->leftJoin('wpu.WorkflowProcess wp')
+            ->where('wpu.decissionstate = ?','WAITING')
+            ->andWhere('wpu.user_id = ?', $user_id)
+            ->andWhere('wp.workflowslot_id = ?', $workflowslot_id)
+            ->orderBy('wpu.id ASC')
+            ->execute();
     }
 
 }
