@@ -35,11 +35,22 @@ class WorkflowTemplateTable extends Doctrine_Table {
     }
 
 
-    public function stopWorkflow($id) {
+    public function getWorkflowTemplateByVersionId($id) {
+        return Doctrine_Query::create()
+            ->from('WorkflowTemplate wft')
+            ->select('wft.*,')
+            ->leftJoin('wft.WorkflowVersion wv')
+            ->where('wv.id = ?' ,$id)
+            ->execute();
+    }
+
+
+    public function stopWorkflow($id, $user_id) {
         Doctrine_Query::create()
             ->update('WorkflowTemplate wft')
             ->set('wft.isstopped','?',1)
             ->set('wft.stopped_at','?', time())
+            ->set('wft.stopped_by','?', $user_id)
             ->where('wft.id = ?', $id)
             ->execute();
         return true;

@@ -20,6 +20,15 @@ class WorkflowSlotFieldNumberTable extends Doctrine_Table {
     }
 
 
+    public function updateNumberByWorkflowFieldId($id, $value) {
+        Doctrine_Query::create()
+            ->update('WorkflowSlotFieldNumber wsfn')
+            ->set('wsfn.value','?',$value)
+            ->where ('wsfn.workflowslotfield_id = ?',$id)
+            ->execute();
+    }
+
+
 
 
 

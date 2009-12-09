@@ -61,4 +61,17 @@ class WorkflowSlotTable extends Doctrine_Table {
             ->execute();
     }
 
+
+    public function getSlotWithUserByVersionId($version_id) {
+        return Doctrine_Query::create()
+            ->select('wfs.*, wfsu.*')
+            ->from('WorkflowSlot wfs')
+            ->leftJoin('wfs.WorkflowSlotUser wfsu')
+            ->where('wfs.workflowversion_id = ?', $version_id)
+            //->andWhere('wfsu.workflowslot_id = ?', 'wfs.id')
+            ->orderBy('wfs.position ASC')
+            ->execute();
+
+    }
+
 }
