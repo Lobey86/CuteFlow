@@ -306,7 +306,7 @@ FieldCheckboxgroup:
     position: { type: integer(1), length: 3 }
   relations:
     Field: { class: Field, local: field_id, foreign: id, foreignType: many, type: one }
-    WorkflowSlotFieldRadiogroup: { class: WorkflowSlotFieldCheckboxgroup, local: id, foreign: fieldcheckboxgroup_id, foreignType: many, type: one }
+    WorkflowSlotFieldCheckboxgroup: { class: WorkflowSlotFieldCheckboxgroup, local: id, foreign: fieldcheckboxgroup_id, foreignType: many, type: one }
 
 FieldRadiogroup:
   tableName: cf_fieldradiogroup
@@ -518,14 +518,14 @@ WorkflowSlotField:
     position: { type: integer(1), length: 3 }
   relations:
     WorkflowSlotFieldTextfield: { class: WorkflowSlotFieldTextfield, local: id, foreign: workflowslotfield_id, foreignType: many, type: one }
-    WorkflowSlotFieldCheckbox: { class: WorkflowSlotFieldTextfield, local: id, foreign: workflowslotfield_id, foreignType: many, type: one }
-    WorkflowSlotFieldNumber: { class: WorkflowSlotFieldTextfield, local: id, foreign: workflowslotfield_id, foreignType: many, type: one }
-    WorkflowSlotFieldDate: { class: WorkflowSlotFieldTextfield, local: id, foreign: workflowslotfield_id, foreignType: many, type: one }
-    WorkflowSlotFieldTextarea: { class: WorkflowSlotFieldTextfield, local: id, foreign: workflowslotfield_id, foreignType: many, type: one }
-    WorkflowSlotFieldCheckboxgroup: { class: WorkflowSlotFieldTextfield, local: id, foreign: workflowslotfield_id, foreignType: many, type: one }
-    WorkflowSlotFieldCombobx: { class: WorkflowSlotFieldTextfield, local: id, foreign: workflowslotfield_id, foreignType: many, type: one }
-    WorkflowSlotFieldCheckboxgroup: { class: WorkflowSlotFieldTextfield, local: id, foreign: workflowslotfield_id, foreignType: many, type: one }
-    WorkflowSlotFieldFile: { class: WorkflowSlotFieldTextfield, local: id, foreign: workflowslotfield_id, foreignType: many, type: one }
+    WorkflowSlotFieldCheckbox: { class: WorkflowSlotFieldCheckbox, local: id, foreign: workflowslotfield_id, foreignType: many, type: one }
+    WorkflowSlotFieldNumber: { class: WorkflowSlotFieldNumber, local: id, foreign: workflowslotfield_id, foreignType: many, type: one }
+    WorkflowSlotFieldDate: { class: WorkflowSlotFieldDate, local: id, foreign: workflowslotfield_id, foreignType: many, type: one }
+    WorkflowSlotFieldTextarea: { class: WorkflowSlotFieldTextarea, local: id, foreign: workflowslotfield_id, foreignType: many, type: one }
+    WorkflowSlotFieldRadiogroup: { class: WorkflowSlotFieldRadiogroup, local: id, foreign: workflowslotfield_id, foreignType: many, type: one }
+    WorkflowSlotFieldCombobox: { class: WorkflowSlotFieldCombobox, local: id, foreign: workflowslotfield_id, foreignType: many, type: one }
+    WorkflowSlotFieldCheckboxgroup: { class: WorkflowSlotFieldCheckboxgroup, local: id, foreign: workflowslotfield_id, foreignType: many, type: one }
+    WorkflowSlotFieldFile: { class: WorkflowSlotFieldFile, local: id, foreign: workflowslotfield_id, foreignType: many, type: one }
 
 
 
@@ -577,7 +577,7 @@ WorkflowSlotFieldRadiogroup:
     position: { type: integer(1), length: 3 }
 
 
-WorkflowSlotFieldCombobx:
+WorkflowSlotFieldCombobox:
   tableName: cf_workflowslotcombobox
   columns:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
