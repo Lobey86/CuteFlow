@@ -14,6 +14,12 @@
             case 'STOPPEDBYADMIN':
                 return '<img src="/images/icons/user_red.png" />';
             break;
+            case 'STOPPEDBYUSER':
+                return '<img src="/images/icons/user.png" />';
+            break;
+            case 'DONE':
+                return '<img src="/images/icons/accept.png" />';
+            break;
         }
 
     }
