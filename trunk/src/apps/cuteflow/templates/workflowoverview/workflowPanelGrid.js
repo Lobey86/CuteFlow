@@ -178,7 +178,6 @@ cf.workflowmanagementPanelGrid = function(){return {
 									}
 									else {
 										cf.workflowmanagementPanelCRUD.startWorkflow(template_id);
-										alert('start Worklfow active version: ' + template_id);
 									}
 								}
 							}

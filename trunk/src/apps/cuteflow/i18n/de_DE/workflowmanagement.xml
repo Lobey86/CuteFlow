@@ -38,6 +38,14 @@
 			<source>STOPPEDBYADMIN</source>
 			<target>angehalten durch Administrator</target>
 		</trans-unit>
+		<trans-unit id="10">
+			<source>STOPPEDBYUSER</source>
+			<target>angehalten durch Empf&#228;nger</target>
+		</trans-unit>
+		<trans-unit id="11">
+			<source>DONE</source>
+			<target>Station ausgef&#252;llt</target>
+		</trans-unit>
 	</body>
   </file>
 </xliff>

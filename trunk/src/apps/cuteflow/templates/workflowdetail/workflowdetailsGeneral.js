@@ -6,6 +6,7 @@ cf.workflowdetailsGeneral = function(){return {
 	theNameLabel				:false,
 	theHistoryCombo				:false,
 	theContentLabel				:false,
+	theLabel					:false,
 	
 	init:function(data,workflowtemplate_id) {
 		this.initFieldset(data.workflow);

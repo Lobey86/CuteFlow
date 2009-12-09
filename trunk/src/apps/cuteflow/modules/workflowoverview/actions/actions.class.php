@@ -31,11 +31,17 @@ class workflowoverviewActions extends sfActions {
 
 
     public function executeStopWorkflow(sfWebRequest $request) {
-        WorkflowTemplateTable::instance()->stopWorkflow($request->getParameter('workflowtemplateid'));
+        WorkflowTemplateTable::instance()->stopWorkflow($request->getParameter('workflowtemplateid'), $this->getUser()->getAttribute('id'));
         $workflow = new WorkflowOverview($this->getContext(), $this->getUser());
         $workflow->setUserId($this->getUser()->getAttribute('id'));
         $workflow->setCulture($this->getUser()->getCulture());
-        WorkflowProcessUserTable::instance()->setWaitingStationToStoppedByAdmin($request->getParameter('versionid'));
+        $data = WorkflowProcessUserTable::instance()->getWaitingStationToStopByUser($request->getParameter('versionid'));
+        foreach($data as $itemToChange) {
+                $pdoObj = Doctrine::getTable('WorkflowProcessUser')->find($itemToChange->getId());
+                $pdoObj->setDecissionstate('STOPPEDBYADMIN');
+                $pdoObj->setDateofdecission(time());
+                $pdoObj->save();
+        }
         //$workflow->stopWorkflow($request->getParameter('versionid'));
         return sfView::NONE;
     }
