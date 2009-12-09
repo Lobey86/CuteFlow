@@ -89,7 +89,7 @@ class CheckSlot {
         $currentSlot = WorkflowSlotTable::instance()->getSlotById($currentWorkflowSlotId)->toArray();
         $nextSlot = WorkflowSlotTable::instance()->getSlotByWorkflowversionAndPosition($currentSlot[0]['workflowversion_id'],$currentSlot[0]['position']+1);
         $slotArray = $nextSlot->toArray();
-        if(empty($slotArray) == true) { // workflow has finifshed
+        if(empty($slotArray) == true AND $this->nextStation->sendToAllAtOnce != 1) { // workflow has finifshed
             WorkflowTemplateTable::instance()->setWorkflowFinished($this->nextStation->workflowtemplate_id);
         }
         else {
