@@ -148,7 +148,7 @@ class createworkflowActions extends sfActions {
                         $items = $field['item'];
                         $counter = 1;
                         foreach($items as $item) {
-                            $userObj = new WorkflowSlotFieldCombobx();
+                            $userObj = new WorkflowSlotFieldCombobox();
                             $userObj->setWorkflowslotfieldId($field_id);
                             $userObj->setFieldcomboboxId($item['id']);
                             $userObj->setValue($item['value'] == 'true' ? 1 : 0);
@@ -172,6 +172,7 @@ class createworkflowActions extends sfActions {
                 $calc->addSingleSlot();
             }
         }
+        $this->renderText('{success:true}');
         return sfView::NONE;
     }
 

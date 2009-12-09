@@ -13,7 +13,7 @@ cf.workflowdetailsDetails = function(){return {
 		this.initStore();
 		this.initGrid(data);
 		this.initFieldset();
-		this.theFieldset.add(this.theGrid, workflowadmin);
+		this.theFieldset.add(this.theGrid);
 		
 	},
 	

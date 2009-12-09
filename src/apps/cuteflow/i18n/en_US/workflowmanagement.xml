@@ -34,9 +34,17 @@
 			<source>Userrole management</source>
 			<target>Benutzerrechte verwalten</target>
 		</trans-unit>
-			<trans-unit id="9">
+		<trans-unit id="9">
 			<source>STOPPEDBYADMIN</source>
 			<target>stopped by administrator</target>
+		</trans-unit>
+		<trans-unit id="10">
+			<source>STOPPEDBYUSER</source>
+			<target>stopped by receiver</target>
+		</trans-unit>
+		<trans-unit id="11">
+			<source>DONE</source>
+			<target>Station completed</target>
 		</trans-unit>
 	</body>
   </file>
