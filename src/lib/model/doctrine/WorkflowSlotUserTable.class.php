@@ -50,5 +50,17 @@ class WorkflowSlotUserTable extends Doctrine_Table {
     }
 
 
+    public function getAllUserAfterPositionBySlotId ($slotid, $position) {
+        return Doctrine_Query::create()
+            ->select('wfsu.*')
+            ->from('WorkflowSlotUser wfsu')
+            ->where('wfsu.workflowslot_id = ?', $slotid)
+            ->andWhere('wfsu.position > ?', $position)
+            ->orderBy('wfsu.position ASC')
+            ->execute();
+    }
+
+
+
 
 }
