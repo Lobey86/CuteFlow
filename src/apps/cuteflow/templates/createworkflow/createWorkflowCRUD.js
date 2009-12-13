@@ -57,6 +57,7 @@ cf.createWorkflowCRUD = function(){return {
 		}
 		
 		cf.createWorkflowFirstTab.theFirstTabPanel.add(this.theSavePanel);
+		cf.createWorkflowCRUD.theLoadingMask.hide();
 		this.doSubmit();	
 	},
 	
@@ -210,12 +211,6 @@ cf.createWorkflowCRUD = function(){return {
 	},
 	
 	
-	
-	
-
-	
-	
-	
 	initSavePanel: function () {
 		this.theSavePanel = new Ext.Panel({});
 	},
@@ -264,8 +259,9 @@ cf.createWorkflowCRUD = function(){return {
 					cf.createWorkflowWindow.theTabPanel.setActiveTab(2);
 					var checkedFields = this.checkFields();
 					if(checkedFields == true) {
-						cf.createWorkflowCRUD.theLoadingMask.hide();
-						this.createSavePanel();
+						//cf.createWorkflowCRUD.theLoadingMask.hide();
+						//this.createSavePanel();
+						cf.createWorkflowCRUD.createSavePanel.defer(3500,this,[]);
 					}
 				}
 			}

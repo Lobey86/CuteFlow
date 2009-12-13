@@ -48,6 +48,7 @@ cf.workflowdetailsDetails = function(){return {
 					{name: 'id'},
 					{name: 'decission_id'},
 					{name: 'senttoallatonce'},
+					{name: 'sendtoallreceivers'},
 					{name: 'station'},
 					{name: 'receivedat'},
 					{name: 'statusinwords'},
@@ -59,9 +60,15 @@ cf.workflowdetailsDetails = function(){return {
 					{name: 'version_id'},
 					{name: 'action'}	
 				);	
+				
+				if(user.decissionstate == 'STOPPEDBYUSER') {
+					user.decissioninwords = user.decissioninwords.replace('<table><tr>','<table><tr><td><img ext:qtip="<table><tr><td>Endreasion</td><td>'+user.endreasion+'</td></tr></table>" ext:qwidth="350" src="/images/icons/information.png" /></td>');
+				}
+				
 				grid.store.add(new Rec({
 					id: user.id,
 					senttoallatonce: slot.senttoallatonce, 
+					sendtoallreceivers: slot.sendtoallreceivers, 
 					decission_id: user.decission_id,
 					version_id: user.templateversion_id, 
 					station: user.username, 
@@ -94,6 +101,7 @@ cf.workflowdetailsDetails = function(){return {
 				var workflowuser_id = row.data.id;
 				var sendtoallatonce = row.data.senttoallatonce;
 				var workflowuserid = row.data.id;
+				var sendtoallreceivers = row.data.sendtoallreceivers;
 				
 				row.data.action =  '<center><table><tr><td width="16"><div id="workflowdetailresend'+ id +'"></div></td><td width="16"><div id="workflowdetailskip'+ id +'"></div></td><td width="16"><div id="workflowdetailuseragent'+ id +'"></div></td><td width="16"><div id="workflowdetailselectstation'+ id +'"></div></td></tr></table></center>';
 				var btnDetails = cf.workflowdetailsDetails.createResendButton.defer(1,this, [id]);
@@ -113,6 +121,7 @@ cf.workflowdetailsDetails = function(){return {
 			{name: 'workflowslot_id'},
 			{name: 'statusinwords'},
 			{name: 'senttoallatonce'},
+			{name: 'sendtoallreceivers'},
 			{name: 'isuseragentof'},
 			{name: 'status'},
 			{name: 'duration'},
