@@ -35,5 +35,15 @@ class WorkflowProcessTable extends Doctrine_Table {
     }
 
 
+    public function deleteWorkflowProcessByWorkflowSlotId($slot_id) {
+        Doctrine_Query::create()
+            ->delete('WorkflowProcess')
+            ->from('WorkflowProcess wfp')
+            ->where('wfp.workflowslot_id = ?', $slot_id)
+            ->execute();
+        return true;
+    }
+
+
     
 }
