@@ -902,11 +902,13 @@ MailinglistVersion:
   mlv1:
     mailinglisttemplate_id: 1
     documenttemplateversion_id: 1
+    sendtoallslotsatonce: 1
     version: 1
     activeversion: 1
   mlv2:
     mailinglisttemplate_id: 2
     documenttemplateversion_id: 2
+    sendtoallslotsatonce: 0
     version: 1
     activeversion: 1
 
