@@ -22,8 +22,6 @@ class workfloweditActions extends sfActions {
 
     public function executeLoadWorkflowData(sfWebRequest $request) {
         
-
-        
         $detailsObj = new WorkflowDetail();
         $detailsObj->setUser($this->getUser());
         $detailsObj->setCulture($this->getUser()->getCulture());
@@ -36,8 +34,7 @@ class workfloweditActions extends sfActions {
         $slotObj->setCulture($this->getUser()->getCulture());
         $slotObj->setContext($this->getContext());
         $slotData = $slotObj->buildSlots($workflowsettings, $request->getParameter('versionid'));
-        
-        #print_r ($slotData);die;
+
         $this->renderText('{"generalData":'.json_encode($generalData).',"slotData":'.json_encode($slotData).'}');
         return sfView::NONE;
     }
@@ -106,8 +103,10 @@ class workfloweditActions extends sfActions {
                 $wsUserId = $wfProcessData[0]['workflowslotuser_id'];
                 $checkWorkflow = new CreateNextStation($versionId,$wfSlotId,$wsUserId);
             }
-            $workflowData = WorkflowVersionTable::instance()->getWorkflowVersionById($request->getParameter('versionid'))->toArray();
-           
+            $workflowVersion = WorkflowTemplateTable::instance()->getWorkflowTemplateByVersionId($request->getParameter('versionid'));
+            $workflowData = MailinglistVersionTable::instance()->getSingleVersionById($workflowVersion[0]->getMailinglisttemplateversionId())->toArray();
+
+
             if($workflowData[0]['sendtoallslotsatonce'] == 1) {
                 $slots = WorkflowSlotTable::instance()->getSlotByVersionId($request->getParameter('versionid'));
                 $isCompleted = true;
@@ -124,7 +123,7 @@ class workfloweditActions extends sfActions {
                     }
                 }
                 if($isCompleted == true) {
-                    WorkflowTemplateTable::instance()->setWorkflowFinished($workflowData[0]['workflowtemplate_id']);
+                    WorkflowTemplateTable::instance()->setWorkflowFinished($workflowVersion[0]['id']);
                 }
             }
         }
