@@ -397,11 +397,13 @@ MailinglistVersion:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
     mailinglisttemplate_id: { type: integer, length: 10 }
     documenttemplateversion_id: { type: integer, length: 10 }
+    sendtoallslotsatonce: { type: integer(1), length: 3 }
     version: { type: integer(1), length: 3 }
     activeversion: { type: integer(1), length: 3 }
   relations:
     MailinglistAuthorizationSetting: { class: MailinglistAuthorizationSetting, local: id, foreign: mailinglistversion_id, foreignType: many, type: one }
     MailinglistAllowedSender: { class: MailinglistAllowedSender, local: id, foreign: mailinglistversion_id, foreignType: many, type: one }
+    WorkflowTemplate: { class: WorkflowTemplate, local: id, foreign: mailinglisttemplateversion_id, foreignType: many, type: one }
     
 MailinglistAuthorizationSetting:
   tableName: cf_mailinglistauthorizationsetting
@@ -445,7 +447,7 @@ WorkflowTemplate:
   actAs: [SoftDelete, Timestampable]
   columns:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
-    mailinglisttemplate_id: { type: integer, length: 10 }
+    mailinglisttemplateversion_id: { type: integer, length: 10 }
     sender_id: { type: integer, length: 10 }
     name: {type: string(100) }
     isstopped: { type: integer(1), length: 3 }
@@ -476,7 +478,6 @@ WorkflowVersion:
     contenttype: {type: string(20) }
     startworkflow_at: {type: string(30) }
     workflowisstarted: { type: integer(1), length: 3 }
-    sendtoallslotsatonce: { type: integer(1), length: 3 }
   relations:
     WorkflowSlot: { class: WorkflowSlot, local: id, foreign: workflowversion_id, foreignType: many, type: one }
     WorkflowProcess: { class: WorkflowProcess, local: id, foreign: workflowversion_id, foreignType: many, type: one }
