@@ -11,7 +11,6 @@ cf.workflowdetailsSelectStation = function(){return {
 	theWorkflowSlotUserId			:false,
 	theTemplateVersion				:false,
 	
-	
 	init: function (workflowprocessuser_id, templateversion_id, workflowuser_id) {
 		cf.workflowdetailsSelectStation.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'workflowmanagement'); ?>'});					
 		cf.workflowdetailsSelectStation.theLoadingMask.show();
@@ -36,7 +35,7 @@ cf.workflowdetailsSelectStation = function(){return {
 			stripeRows: true,
 			border: true,
 			width: 'auto',
-			height: cf.Layout.theRegionWest.getHeight() - 240,
+			height: cf.Layout.theRegionWest.getHeight() - 200,
 			autoScroll: true,
 			collapsible: false,
 			style:'margin-top:5px;margin-left:5px;margin-right:5px;',
@@ -77,6 +76,7 @@ cf.workflowdetailsSelectStation = function(){return {
 						{name: 'slotgroup'},
 						{name: 'plainusername'},
 						{name: 'username'},
+						{name: 'sendtoallreceivers'},
 						{name: 'workflowslot_id'},
 						{name: 'workflowtemplate_id'},
 						{name: 'slotname'},
@@ -88,13 +88,14 @@ cf.workflowdetailsSelectStation = function(){return {
 						user_id: user.user_id,
 						plainusername: user.plainusername,
 						slotgroup: user.slotgroup, 
+						sendtoallreceivers: user.sendtoallreceivers, 
 						username: user.username, 
 						workflowslot_id: user.workflowslot_id, 
 						workflowtemplate_id: user.workflowtemplate_id, 
 						slotname: user.slotname, 
 						action: '<center><table><tr><td width="16"><div id="selectNewStation'+ uniqueId +'"></div></td></tr></table></center>'
 					}));
-					cf.workflowdetailsSelectStation.createSetStationButton.defer(10,this, [uniqueId, user.workflowslotuser_id, cf.workflowdetailsSelectStation.theTemplateVersion, user.slotgroup]);
+					cf.workflowdetailsSelectStation.createSetStationButton.defer(10,this, [uniqueId, user.workflowslotuser_id, cf.workflowdetailsSelectStation.theTemplateVersion, user.slotgroup, user.sendtoallreceivers]);
 					
 				}
 				cf.workflowdetailsSelectStation.theLoadingMask.hide();
@@ -129,7 +130,7 @@ cf.workflowdetailsSelectStation = function(){return {
 	},
 
 	
-	createSetStationButton: function (uniqueId, workflowslotuser_id, theTemplateId,slotgroup) {
+	createSetStationButton: function (uniqueId, workflowslotuser_id, theTemplateId,slotgroup, sendtoallreceivers) {
 		var btn_edit = new Ext.form.Label({
 			renderTo: 'selectNewStation' + uniqueId,
 			html: '<span style="cursor:pointer;"><img src="/images/icons/user_go.png" /></span>',
@@ -137,20 +138,50 @@ cf.workflowdetailsSelectStation = function(){return {
 				render: function(c){
 					  c.getEl().on({
 						click: function(el){
-							if(workflowslotuser_id == cf.workflowdetailsSelectStation.theWorkflowSlotUserId) {
-								Ext.Msg.minWidth = 200;
-								Ext.MessageBox.alert('<?php echo __('Notice',null,'workflowmanagement'); ?>', '<?php echo __('Same station selected!',null,'workflowmanagement'); ?>');
+							if(sendtoallreceivers == 1) {
+								Ext.Msg.minWidth = 300;
+								Ext.Msg.show({
+								   title:'<?php echo __('Notice',null,'workflowmanagement'); ?>',
+								   msg: '<?php echo __('In this slot, all users receive the workflow at once.',null,'workflowmanagement'); ?><br /><?php echo __('Do you wish to proceed?',null,'workflowmanagement'); ?>',
+								   buttons: Ext.Msg.YESNO,
+								   fn: function(btn, text) {
+										if(btn == 'yes') {
+											if(workflowslotuser_id == cf.workflowdetailsSelectStation.theWorkflowSlotUserId) {
+												Ext.Msg.minWidth = 200;
+												Ext.MessageBox.alert('<?php echo __('Notice',null,'workflowmanagement'); ?>', '<?php echo __('Same station selected!',null,'workflowmanagement'); ?>');
+											}
+											else {
+												var move;
+												if(workflowslotuser_id < cf.workflowdetailsSelectStation.theWorkflowSlotUserId) {
+													move = 'DOWN';
+												}
+												else {
+													move = 'UP';
+												}
+												cf.workflowdetailsCRUD.setNewStation(theTemplateId,workflowslotuser_id, cf.workflowdetailsSelectStation.theWorkflowSlotUserId, move);
+										   }
+										}
+								   }
+								});
+								
 							}
 							else {
-								var move;
-								if(workflowslotuser_id < cf.workflowdetailsSelectStation.theWorkflowSlotUserId) {
-									move = 'DOWN';
+								if(workflowslotuser_id == cf.workflowdetailsSelectStation.theWorkflowSlotUserId) {
+									Ext.Msg.minWidth = 200;
+									Ext.MessageBox.alert('<?php echo __('Notice',null,'workflowmanagement'); ?>', '<?php echo __('Same station selected!',null,'workflowmanagement'); ?>');
 								}
 								else {
-									move = 'UP';
-								}
-								cf.workflowdetailsCRUD.setNewStation(theTemplateId,workflowslotuser_id, cf.workflowdetailsSelectStation.theWorkflowSlotUserId, move);
+									var move;
+									if(workflowslotuser_id < cf.workflowdetailsSelectStation.theWorkflowSlotUserId) {
+										move = 'DOWN';
+									}
+									else {
+										move = 'UP';
+									}
+									cf.workflowdetailsCRUD.setNewStation(theTemplateId,workflowslotuser_id, cf.workflowdetailsSelectStation.theWorkflowSlotUserId, move);
+							   }
 							}
+
 						},
 					scope: c
 				});
@@ -165,7 +196,7 @@ cf.workflowdetailsSelectStation = function(){return {
 			modal: true,
 			closable: true,
 			modal: true,
-			height: cf.Layout.theRegionWest.getHeight() - 200,
+			height: cf.Layout.theRegionWest.getHeight() - 160,
 			width: 550,
 			autoScroll: true,
 			title: '<?php echo __('Select a User from Slot',null,'workflowmanagement'); ?>',

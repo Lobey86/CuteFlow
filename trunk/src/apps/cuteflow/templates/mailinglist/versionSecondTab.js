@@ -8,7 +8,7 @@ cf.mailinglistVersionSecondTab = function(){return {
 	theAuthorizationFieldset	:false,
 	theSenderFieldset			:false,
 	theAuthorizationCM			:false,
-	
+	theSendToAllReceiver		:false,
 	
 	/**
 	* create a new tab with data in the tabpanel
@@ -23,6 +23,7 @@ cf.mailinglistVersionSecondTab = function(){return {
 	init: function (id, data, created_at, grid_id, mailinglisttemplateid) {
 		var toolbar1 = this.initToolbar(id,mailinglisttemplateid);
 		var toolbar2 = this.initToolbar(id,mailinglisttemplateid);
+		this.initSendToAllReceiver(data.sendtoallslotsatonce);
 		this.initAuthorizationCM();
 		var authGrid = this.initAuthorizationGrid(id);
 		this.initAllowedSenderCM();
@@ -36,6 +37,7 @@ cf.mailinglistVersionSecondTab = function(){return {
 		this.initTabPanel();
 		this.theFirstPanel.add(toolbar1);
 		this.theSecondPanel.add(toolbar2);
+		this.theFirstPanel.add(this.theSendToAllReceiver);
 		this.theFirstPanel.add(this.theSenderFieldset);
 		this.theFirstPanel.add(this.theAuthorizationFieldset);
 		this.theTabPanel.add(this.theFirstPanel);
@@ -59,6 +61,27 @@ cf.mailinglistVersionSecondTab = function(){return {
 		}
 		cf.mailinglistVersionPopUp.theTabPanel.add(panel);
 		cf.mailinglistVersionFirstTab.theLoadingMask.hide();
+	},
+	
+	
+	initSendToAllReceiver: function (checked) {
+		checked = checked == 1 ? true : false,
+		
+		this.theSendToAllReceiver = new Ext.form.FieldSet({
+			title: '<?php echo __('Send to all slots at once',null,'mailinglist'); ?>',
+			width: 700,
+			height: 80,
+			style: 'margin-top:20px;margin-left:5px;',
+			labelWidth: 180,
+			items:[{
+				xtype: 'checkbox',
+				fieldLabel: '<?php echo __('Send to all slots at once?',null,'mailinglist'); ?>',
+				inputValue: '1',
+				style: 'margin-top:3px;',
+				checked: checked,
+				id: 'mailinglistFirstTab_sendtoallslots'	
+			}]
+		});
 	},
 	
 	/** CM for auth **/

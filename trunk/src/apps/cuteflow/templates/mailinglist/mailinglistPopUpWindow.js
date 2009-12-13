@@ -63,6 +63,12 @@ cf.mailinglistPopUpWindow = function(){return {
 				Ext.getCmp('mailinglistFirstTab_nametextfield').setValue(theJsonTreeData.result.documenttemplate_name);
 				Ext.getCmp('mailinglistFirstTab_nametextfield').setDisabled(true);
 				Ext.getCmp('mailinglistFirstTab_documenttemplate_id').setDisabled(true);
+				
+				
+				var sendToAll = theJsonTreeData.result.sendtoallslotsatonce == 1 ? true : false;
+				Ext.getCmp('mailinglistFirstTab_sendtoallslots').setValue(sendToAll);
+				
+				
 				var data = theJsonTreeData.result;
 				for(var a=0;a<data.slots.length;a++) {
 					var fieldset = cf.mailinglistSecondTab.createFieldset(data.slots[a].slot_id,data.slots[a].name,true);
