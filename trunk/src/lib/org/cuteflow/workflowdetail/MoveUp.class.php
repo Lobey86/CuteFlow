@@ -10,8 +10,36 @@ class MoveUp extends WorkflowSetStation{
         $this->station = $station;
         $this->setStationInactive($this->station->currentWorkflowSlotUser->getId());
         $this->calculateStation($this->station->currentWorkflowSlotUser->getWorkflowslotId(),$this->station->currentWorkflowSlotUser->getPosition()+1);
+        $this->checkSendToAllReceiverAtOnce($this->station->currentSlotSendToAllReceiver, $this->station->currentWorkflowSlotUser, 'SKIPPED');
+        $this->checkSendToAllReceiverAtOnce($this->station->newSlotSendToAllReceiver, $this->station->newWorkflowSlotUser, 'WAITING');
     }
 
+    public function checkSendToAllReceiverAtOnce($sendToAllReceiverFlag, $workflowslotUser, $decission) {
+        if($sendToAllReceiverFlag == 1) {
+            $station = WorkflowSlotUserTable::instance()->getUserBySlotId($workflowslotUser->getWorkflowslotId())->toArray();
+            foreach($station as $item) {
+                WorkflowProcessUserTable::instance()->deleteWorkflowProcessUserByWorkfloSlotUserId($item['id']);
+            }
+            WorkflowProcessTable::instance()->deleteWorkflowProcessByWorkflowSlotId($workflowslotUser->getWorkflowslotId());
+            $wfp = new WorkflowProcess();
+            $wfp->setWorkflowtemplateId($this->station->workflowtemplate_id);
+            $wfp->setWorkflowversionId($this->station->version_id);
+            $wfp->setWorkflowslotId($workflowslotUser->getWorkflowslotId());
+            $wfp->save();
+            $wfoId = $wfp->getId();
+            foreach($station as $item) {
+                 $wfpu = new WorkflowProcessUser();
+                 $wfpu->setWorkflowprocessId($wfoId);
+                 $wfpu->setWorkflowslotuserId($item['id']);
+                 $wfpu->setUserId($item['user_id']);
+                 $wfpu->setInprogresssince(time());
+                 $wfpu->setDecissionstate($decission);
+                 $wfpu->setResendet(0);
+                 $wfpu->save();
+            }
+        }
+        
+    }
 
     public function setStationInactive($workflowslotuser_id) {
         WorkflowProcessUserTable::instance()->skipAllStation($workflowslotuser_id);

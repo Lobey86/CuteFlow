@@ -20,6 +20,7 @@ class RestartWorkflow {
             $result[$a]['workflowslot_id'] = $item->getId();
             $result[$a]['workflowtemplate_id'] = $item->getWorkflowversionId();
             $result[$a]['slotname'] = $slotname[0]['name'];
+            $result[$a]['sendtoallreceivers'] = $slotname[0]['sendtoallreceivers'];
             $result[$a++]['user'] = $this->getUser($slotname[0]['name'], $item->getId(), $a+1);
 
 
@@ -59,6 +60,7 @@ class RestartWorkflow {
                 $result[$c] = $user;
                 $result[$c]['workflowslot_id'] = $data[$a]['workflowslot_id'];
                 $result[$c]['workflowtemplate_id'] = $data[$a]['workflowtemplate_id'];
+                $result[$c]['sendtoallreceivers'] = $data[$a]['sendtoallreceivers'];
                 $result[$c++]['slotname'] = $data[$a]['slotname'];
             }
             

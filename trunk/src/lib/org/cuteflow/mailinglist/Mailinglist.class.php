@@ -149,8 +149,10 @@ class Mailinglist {
 
         foreach($data as $item) {
             $documenttemplate = $item->getDocumenttemplateTemplate()->toArray();
+            $versionData = $item->toArray();
             $result['documenttemplate_id'] = $documenttemplate[0]['id'];
             $result['documenttemplate_name'] = $documenttemplate[0]['name'];
+            $result['sendtoallslotsatonce'] = $versionData['MailinglistVersion']['sendtoallslotsatonce'];
             $result['id'] = $item->getId();
             $result['name'] = $item->getName();
             $result['slots'] = $this->buildSlot($id);
@@ -228,11 +230,12 @@ class Mailinglist {
      * @param int $activeMailinglistId, current id of the active version
      * @return int $mailinglistversion_id, version id
      */
-    public function storeVersion($mailinglisttemplate_id, $version, $activeMailinglistId) {
+    public function storeVersion($mailinglisttemplate_id, $version, $activeMailinglistId, $sendToAll) {
         $mailinglistversion = new MailinglistVersion();
         $mailinglistversion->setMailinglisttemplateId($mailinglisttemplate_id);
         $mailinglistversion->setVersion($version);
         $mailinglistversion->setDocumenttemplateversionId($activeMailinglistId);
+        $mailinglistversion->setSendtoallslotsatonce($sendToAll);
         $mailinglistversion->setActiveversion(1);
         $mailinglistversion->save();
         $mailinglistversion_id = $mailinglistversion->getId();

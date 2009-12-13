@@ -31,15 +31,17 @@ class WorkflowDetail {
     public function buildHeadLine(Doctrine_Collection $data) {
         $result = array();
         $workflowtemplate = WorkflowTemplateTable::instance()->getWorkflowTemplateById($data[0]->getWorkflowtemplateId());
-        $mailinglist = $workflowtemplate[0]->getMailinglistTemplate()->toArray();
+        $mailinglist = $workflowtemplate[0]->getMailinglistVersion()->toArray();
+        $mailinglist = MailinglistTemplateTable::instance()->getMailinglistActiveById($mailinglist[0]['mailinglisttemplate_id'])->toArray();
+        
         $workflowtemplate = $workflowtemplate->toArray();
         $user = UserLoginTable::instance()->findActiveUserById($workflowtemplate[0]['sender_id']);
         $userdata = $user[0]->getUserData();
-
+        
         $result['workflow'] = $workflowtemplate[0]['name'];
         $result['versionid'] = $data[0]->getId();
         $result['mailinglist'] = $mailinglist[0]['name'];
-        $result['mailinglist_id'] = $workflowtemplate[0]['mailinglisttemplate_id'];
+        $result['mailinglist_id'] = $workflowtemplate[0]['id'];
         $result['workflowtemplateid'] = $data[0]->getWorkflowtemplateId();
         $result['content'] = $data[0]->getContent();
         $result['created_at'] = format_date($data[0]->getCreatedAt(), 'g', $this->culture);
@@ -73,10 +75,14 @@ class WorkflowDetail {
         $returnData = array();
         $a = 0;
         $slots = WorkflowSlotTable::instance()->getSlotByVersionId($data[0]->getId());
+
+        $workflowVersion = WorkflowTemplateTable::instance()->getWorkflowTemplateByVersionId($templateversion_id);
+        $template = MailinglistVersionTable::instance()->getSingleVersionById($workflowVersion[0]->getMailinglisttemplateversionId())->toArray();
+
         foreach($slots as $slot) {
             $documenttemplateslot = $slot->getDocumenttemplateSlot()->toArray();
             $result[$a]['slotname'] = $documenttemplateslot[0]['name'];
-            $result[$a]['senttoallatonce'] = $data[0]->getSendtoallslotsatonce();
+            $result[$a]['senttoallatonce'] = $template[0]['sendtoallslotsatonce'];
             $result[$a]['workflowslot_id'] = $slot->getId();
             $result[$a]['sendtoallreceivers'] = $documenttemplateslot[0]['sendtoallreceivers'];
             $result[$a]['slot_id'] = $documenttemplateslot[0]['id'];
@@ -101,7 +107,7 @@ class WorkflowDetail {
             $result[$a]['username'] = '<table><tr><td width="16"><img src="/images/icons/user.png" /></td><td>' . $userlogin[0]['username'] . '</td></tr></table>';
             $result[$a]['slotgroup'] = '#' . $slotcounter . ' : ' . $slotname;
             $result[$a]['templateversion_id'] = $templateversion_id;
-            $result[$a]['user'] = $this->getDecission($user);
+            $result[$a]['user'] = $this->getDecission($user, $templateversion_id);
             $a++;
         }
         return $result;
@@ -110,7 +116,7 @@ class WorkflowDetail {
 
 
 
-    public function getDecission (WorkflowSlotUser $user) {
+    public function getDecission (WorkflowSlotUser $user, $templateversion_id) {
         $result = array();
         $a = 0;
         $processUsers = WorkflowProcessUserTable::instance()->getProcessUserByWorkflowSlotUserId($user->getId());
@@ -118,6 +124,7 @@ class WorkflowDetail {
             $result[$a] = $processUser->toArray();
             $result[$a]['received'] = format_date($result[$a]['inprogresssince'], 'g', $this->culture);
             $result[$a]['decission_id'] = $result[$a]['id'];
+            $result[$a]['endreasion'] = '';
             $result[$a]['useragent_id'] = $result[$a]['user_id'];
             $result[$a]['isuseragentof'] = $result[$a]['isuseragentof'];
             $usersettings = $this->user->getAttribute('userSettings');
@@ -128,7 +135,10 @@ class WorkflowDetail {
             if($result[$a]['decissionstate'] == 'STOPPEDBYADMIN') {
                 $result[$a]['inprogresssince'] = '-';
             }
-
+            elseif($result[$a]['decissionstate'] == 'STOPPEDBYUSER') {
+                $endReasion = WorkflowVersionTable::instance()->getWorkflowVersionById($templateversion_id);
+                $result[$a]['endreasion'] = $endReasion[0]->getEndreason();
+            }
             $a++;
         }
         return $result;
@@ -171,6 +181,7 @@ class WorkflowDetail {
                         $result[$a]['user'][$usercounter]['isuseragentof'] = $decission['isuseragentof'];
                         $result[$a]['user'][$usercounter]['received'] = $decission['received'];
                         $result[$a]['user'][$usercounter]['decission_id'] = $decission['decission_id'];
+                        $result[$a]['user'][$usercounter]['endreasion'] = $decission['endreasion'];
                         $result[$a]['user'][$usercounter]['decissioninwords'] = $decission['decissioninwords'];
                         if($result[$a]['user'][$usercounter]['isuseragentof'] != '') {
                             $userAgent = UserLoginTable::instance()->findActiveUserById($result[$a]['user'][$usercounter]['useragent_id'])->toArray();
@@ -197,6 +208,7 @@ class WorkflowDetail {
                     $result[$a]['user'][$usercounter]['isuseragentof'] = '';
                     $result[$a]['user'][$usercounter]['received'] = '';
                     $result[$a]['user'][$usercounter]['decission_id'] = '';
+                    $result[$a]['user'][$usercounter]['endreasion'] = '';
                     $result[$a]['user'][$usercounter]['decissioninwords'] = '';
                     $usercounter++;
                 }
