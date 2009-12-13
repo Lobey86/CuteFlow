@@ -23,8 +23,6 @@ class createworkflowActions extends sfActions {
         $createWorkObj = new PrepareWorkflowData();
 
         
-
-
         $data = array();
         $startDate = array();
         $userslot_id = array();
@@ -32,10 +30,12 @@ class createworkflowActions extends sfActions {
         $endreason = $createWorkObj->createEndreason($request->getPostParameter('createWorkflowFirstTabSettings', array()));
         $startDate = $createWorkObj->createStartDate($request->getPostParameter('createWorkflowFirstTab_datepicker'));
         $content = $createWorkObj->createContenttype($request->getPostParameters());
-        $sendToAllSlotsAtOnce = $request->getPostParameter('createWorkflowFirstTab_sendtoallslots',0);
+
+        $sendToAllSlotsAtOnce = MailinglistVersionTable::instance()->getActiveVersionById($request->getPostParameter('createWorkflowFirstTab_mailinglist'))->toArray();
+        
 
         $workflow = new WorkflowTemplate();
-        $workflow->setMailinglisttemplateId($request->getPostParameter('createWorkflowFirstTab_mailinglist'));
+        $workflow->setMailinglisttemplateversionId($sendToAllSlotsAtOnce[0]['id']);
         $workflow->setName($request->getPostParameter('createWorkflowFirstTab_name'));
         $workflow->setSenderId($this->getUser()->getAttribute('id'));
         $workflow->setIsarchived(0);
@@ -52,7 +52,6 @@ class createworkflowActions extends sfActions {
         $workflowtemplate->setContenttype($content['contenttype']);
         $workflowtemplate->setVersion(1);
         $workflowtemplate->setWorkflowisstarted($startDate['workflowisstarted']);
-        $workflowtemplate->setSendtoallslotsatonce($sendToAllSlotsAtOnce);
         $workflowtemplate->save();
         $template_id = $workflowtemplate->getId();
 
@@ -162,8 +161,10 @@ class createworkflowActions extends sfActions {
             }
 
         }
+
+        $sendToAllSlotsAtOnce = MailinglistVersionTable::instance()->getActiveVersionById($request->getPostParameter('createWorkflowFirstTab_mailinglist'))->toArray();
         if($startDate['workflowisstarted'] == 1) {
-            if($sendToAllSlotsAtOnce == 1) {
+            if($sendToAllSlotsAtOnce[0]['sendtoallslotsatonce'] == 1) {
                 $calc = new CreateWorkflow($template_id);
                 $calc->addAllSlots();
             }
