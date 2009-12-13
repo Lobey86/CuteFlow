@@ -34,8 +34,7 @@ class workflowdetailActions extends sfActions
         $userData = $detailsObj->buildUserData($workflowsettings, $request->getParameter('versionid'));
         $workflowData = $detailsObj->buildWorkflowData($workflowsettings, $request->getParameter('versionid'));
 
-        #print_r ($userData);die;
-        #print_r ($workflowData);die;
+
         $this->renderText('{"generalData":'.json_encode($generalData).', "detailData" : '.json_encode($userData).', "workflowData" : '.json_encode($workflowData).'}');
         return sfView::NONE;
     }
@@ -117,15 +116,11 @@ class workflowdetailActions extends sfActions
         $detailsObj->setCulture($this->getUser()->getCulture());
         $detailsObj->setContext($this->getContext());
 
-        $detailsObj = new WorkflowDetail();
-        $detailsObj->setUser($this->getUser());
-        $detailsObj->setCulture($this->getUser()->getCulture());
-        $detailsObj->setContext($this->getContext());
-
         $workflowsettings = WorkflowVersionTable::instance()->getWorkflowVersionById($request->getParameter('versionid'));
         $userData = $detailsObj->buildUserData($workflowsettings, $request->getParameter('versionid'));
         $this->renderText('{"detailData" : '.json_encode($userData).'}');
         return sfView::NONE;
     }
+
 
 }

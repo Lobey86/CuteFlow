@@ -42,14 +42,14 @@ class workflowoverviewActions extends sfActions {
                 $pdoObj->setDateofdecission(time());
                 $pdoObj->save();
         }
-        //$workflow->stopWorkflow($request->getParameter('versionid'));
         return sfView::NONE;
     }
 
 
     public function executeStartWorkflow(sfWebRequest $request) {
         WorkflowVersionTable::instance()->startWorkflow($request->getParameter('versionid'));
-        $template = WorkflowVersionTable::instance()->getWorkflowVersionById($request->getParameter('versionid'))->toArray();
+        $workflowVersion = WorkflowTemplateTable::instance()->getWorkflowTemplateByVersionId($request->getParameter('versionid'));
+        $template = MailinglistVersionTable::instance()->getSingleVersionById($workflowVersion[0]->getMailinglisttemplateversionId())->toArray();
         if($template[0]['sendtoallslotsatonce'] == 1) {
             $calc = new CreateWorkflow($request->getParameter('versionid'));
             $calc->addAllSlots();
