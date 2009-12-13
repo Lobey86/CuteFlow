@@ -103,7 +103,7 @@ class MailinglistTemplateTable extends Doctrine_Table {
      */
     public function getMailinglistByVersionId($id) {
         return Doctrine_Query::create()
-                    ->select('mlt.*')
+                    ->select('mlt.*, mlv.sendtoallslotsatonce')
                     ->from('MailinglistTemplate mlt')
                     ->leftJoin('mlt.MailinglistVersion mlv')
                     ->where('mlv.id = ?', $id)
@@ -193,6 +193,20 @@ class MailinglistTemplateTable extends Doctrine_Table {
             ->from('MailinglistTemplate mlt')
             ->where('mlt.deleted = ?', 0)
             ->andWhere('mlt.formtemplate_id = ?', $id)
+            ->execute();
+    }
+
+
+    /**
+     *
+     * @param int $id
+     * @return Dorctrine_Collection
+     */
+    public function getMailinglistActiveById($id) {
+        return Doctrine_Query::create()
+            ->select('mlt.*')
+            ->from('MailinglistTemplate mlt')
+            ->andWhere('mlt.id = ?', $id)
             ->execute();
     }
 
