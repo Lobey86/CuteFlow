@@ -72,6 +72,9 @@ class CheckSlot {
         if($writeSlot == 1 AND $this->nextStation->sendToAllAtOnce == 0) {
             $this->checkForNewSlot($this->nextStation->workflowslot_id);
         }
+        else {
+            $this->nextStation->checkSendToAllAtOnce();
+        }
     }
 
 
@@ -93,7 +96,7 @@ class CheckSlot {
             WorkflowTemplateTable::instance()->setWorkflowFinished($this->nextStation->workflowtemplate_id);
         }
         else {
-            if($this->nextStation->sendToAllAtOnce != 1) {
+            if($this->nextStation->sendToAllAtOnce == 0) {
                 $this->addNewSlot($nextSlot);
             }
         }

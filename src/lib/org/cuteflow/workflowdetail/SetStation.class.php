@@ -10,8 +10,11 @@ class SetStation {
     public $currentWorkflowSlotUser_id;
     public $move;
 
-    public $currenWorkflowSlot;
+    public $currentWorkflowSlot;
     public $currentWorkflowSlotUser;
+
+    public $currentSlotSendToAllReceiver;
+    public $newSlotSendToAllReceiver;
 
     public $newWorkflowSlot;
     public $newWorkflowSlotUser;
@@ -27,10 +30,24 @@ class SetStation {
         $this->setCurrentWorkflowSlot();
         $this->setNewWorkflowslotUser();
         $this->setNewSlot();
+        
+        $this->setCurrentSlotSendToAllReceiver();
+        $this->setNewSlotSendToAllReceiver();
         $this->makeDecission();
     }
 
+    public function setCurrentSlotSendToAllReceiver() {
+        $slot = $this->currentWorkflowSlot->getDocumenttemplateSlot()->toArray();
+        $this->currentSlotSendToAllReceiver = $slot[0]['sendtoallreceivers'];
+    }
 
+    public function setNewSlotSendToAllReceiver() {
+        $slot = $this->newWorkflowSlot->getDocumenttemplateSlot()->toArray();
+        $this->newSlotSendToAllReceiver = $slot[0]['sendtoallreceivers'];
+
+    }
+
+    
     public function setWorkflowTemplateId() {
         $template = WorkflowVersionTable::instance()->getWorkflowVersionById($this->version_id);
         $this->workflowtemplate_id = $template[0]->getWorkflowtemplateId();
@@ -55,7 +72,7 @@ class SetStation {
 
     public function setCurrentWorkflowSlot() {
         $slot = WorkflowSlotTable::instance()->getSlotById($this->currentWorkflowSlotUser->getWorkflowslotId());
-        $this->currenWorkflowSlot = $slot[0];
+        $this->currentWorkflowSlot = $slot[0];
     }
 
 

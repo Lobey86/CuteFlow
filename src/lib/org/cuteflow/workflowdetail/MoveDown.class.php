@@ -11,6 +11,47 @@ class MoveDown extends WorkflowSetStation {
         $this->station = $station;
         $this->setNewStationActive($this->station->newWorkflowSlotUser,$this->station->version_id, $this->station->workflowtemplate_id);
         $this->calculateStation($this->station->newWorkflowSlotUser->getWorkflowslotId(),$this->station->newWorkflowSlotUser->getPosition()+1);
+        $this->checkCurrentSlot();
+        $this->checkNewSlot();
+    }
+
+
+    public function checkNewSlot() {
+        if($this->station->newSlotSendToAllReceiver == 1) {
+            $station = WorkflowSlotUserTable::instance()->getUserBySlotId($this->station->newWorkflowSlotUser->getWorkflowslotId())->toArray();
+            foreach($station as $item) {
+                WorkflowProcessUserTable::instance()->deleteWorkflowProcessUserByWorkfloSlotUserId($item['id']);
+            }
+            WorkflowProcessTable::instance()->deleteWorkflowProcessByWorkflowSlotId($this->station->newWorkflowSlotUser->getWorkflowslotId());
+            $wfp = new WorkflowProcess();
+            $wfp->setWorkflowtemplateId($this->station->workflowtemplate_id);
+            $wfp->setWorkflowversionId($this->station->version_id);
+            $wfp->setWorkflowslotId($this->station->newWorkflowSlotUser->getWorkflowslotId());
+            $wfp->save();
+            $wfoId = $wfp->getId();
+            foreach($station as $item) {
+                 $wfpu = new WorkflowProcessUser();
+                 $wfpu->setWorkflowprocessId($wfoId);
+                 $wfpu->setWorkflowslotuserId($item['id']);
+                 $wfpu->setUserId($item['user_id']);
+                 $wfpu->setInprogresssince(time());
+                 $wfpu->setDecissionstate('WAITING');
+                 $wfpu->setResendet(0);
+                 $wfpu->save();
+            }
+        }
+    }
+    
+
+    public function checkCurrentSlot() {
+        if($this->station->currentSlotSendToAllReceiver == 1) {
+            $station = WorkflowSlotUserTable::instance()->getUserBySlotId($this->station->currentWorkflowSlotUser->getWorkflowslotId())->toArray();
+            foreach($station as $item) {
+                WorkflowProcessUserTable::instance()->deleteWorkflowProcessUserByWorkfloSlotUserId($item['id']);
+            }
+            WorkflowProcessTable::instance()->deleteWorkflowProcessByWorkflowSlotId($this->station->currentWorkflowSlotUser->getWorkflowslotId());
+        }
+        
     }
 
 

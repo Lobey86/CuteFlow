@@ -35,14 +35,14 @@ class WorkflowOverview {
         foreach($data as $item) {
             $sender = UserLoginTable::instance()->findActiveUserById($item->getSenderId());
             //$workflowtemplate = WorkflowTemplateTable::instance()->getWorkflowTemplateById($item->getActiveversionId())->toArray();
-            $mailinglist = $item->getMailinglistTemplate();
+            $mailinglist = MailinglistTemplateTable::instance()->getMailinglistByVersionId($item->getMailinglisttemplateversionId());
             $inProgress = createDayOutOfDateSince($item->getVersioncreatedAt());
             $inProgress = addColor($inProgress, $userSettings['markred'],$userSettings['markorange'],$userSettings['markyellow']);
             $userdata = $sender[0]->getUserData()->toArray();
             $username = $sender[0]->getUsername() . ' (' . $userdata['firstname'] . ' ' . $userdata['lastname'] . ')';
             $result[$a]['#'] = $a+1;
             $result[$a]['id'] = $item->getId();
-            $result[$a]['mailinglisttemplate_id'] = $item->getMailinglisttemplateId();
+            $result[$a]['mailinglisttemplate_id'] = $item->getMailinglisttemplateversionId();
             $result[$a]['mailinglisttemplate'] = $mailinglist[0]->getName();
             $result[$a]['sender_id'] = $item->getSenderId();
             $result[$a]['sendername'] = $username;

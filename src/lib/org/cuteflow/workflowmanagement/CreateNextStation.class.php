@@ -46,7 +46,9 @@ class CreateNextStation extends WorkflowCreation{
      */
     public function setSendToAllAtOnce() {
         $workflow = WorkflowVersionTable::instance()->getWorkflowVersionById($this->version_id);
-        $this->sendToAllAtOnce = $workflow[0]->getSendtoallslotsatonce();
+        $workflowVersion = WorkflowTemplateTable::instance()->getWorkflowTemplateByVersionId($this->version_id);
+        $template = MailinglistVersionTable::instance()->getSingleVersionById($workflowVersion[0]->getMailinglisttemplateversionId())->toArray();
+        $this->sendToAllAtOnce = $template[0]['sendtoallslotsatonce'];
         $this->workflowtemplate_id = $workflow[0]->getWorkflowtemplateId();
     }
 
