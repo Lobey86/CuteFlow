@@ -27,27 +27,21 @@ cf.restartWorkflowFirstTab = function(){return {
 		this.initPanel();
 		var fieldset1 = cf.restartWorkflowFirstTab.createFieldset('restartWorkflowFirstTab_fieldset1', '<?php echo __('Set attachments and start date',null,'workflowmanagement'); ?>', false, cb7, true);
 		
-		
 		this.initHiddenfield();
-		this.initDatepicker();
 		this.initFileGrid();
-		this.initDatefieldCheckbox();
-		this.initSendToAllCheckbox();
 		this.initStartPoint();
-		
+		var cb7 = this.createCheckbox('restartWorkflowFirstTab_useoldvalues','<?php echo __('Use values from current version?',null,'workflowmanagement'); ?>',false,'', 1);
 		
 		
 		
 		
 		fieldset1.add(this.theMailinglist);
-		fieldset1.add(this.theSendToAllSlots);
-		fieldset1.add(this.theDatefieldCheckbox);
-		fieldset1.add(this.theDatepicker);
 		fieldset1.add(this.theStartPoint);
+		fieldset1.add(cb7);	
 		fieldset1.add(this.theFileUploadGrid);
-		fieldset1.add(this.theHiddenField);
+				
 		
-		
+			
 		var fieldset2 = cf.restartWorkflowFirstTab.createFieldset('restartWorkflowFirstTab_fieldset2', '<?php echo __('Select Additional text',null,'workflowmanagement'); ?>', true, 370, true);
 		this.initAdditionaltextcombo();
 		this.initContenttypecombo();
@@ -72,8 +66,8 @@ cf.restartWorkflowFirstTab = function(){return {
 		var cb4 = this.createCheckbox('restartWorkflowFirstTabSettings[3]','<?php echo __('Archive after succeeded circulation',null,'workflowmanagement'); ?>',true,'', 8);
 		var cb5 = this.createCheckbox('restartWorkflowFirstTabSettings[4]','<?php echo __('Delete after succeeded circulation',null,'workflowmanagement'); ?>',false,'', 16);
 		var cb6 = this.createCheckbox('restartWorkflowFirstTabSettings[5]','<?php echo __('Show receiver name in workflow',null,'workflowmanagement'); ?>',false,'', 32);
-		var cb7 = this.createCheckbox('restartWorkflowFirstTab_useoldvalues','<?php echo __('Use values from current version?',null,'workflowmanagement'); ?>',false,'', 1);
-		fieldset3.add([cb7,cb1,cb2,cb3,cb4,cb5,cb6]);
+		
+		fieldset3.add([cb1,cb2,cb3,cb4,cb5,cb6]);
 		this.theFirstTabPanel.add(fieldset1);
 		this.theFirstTabPanel.add(fieldset2);
 		this.theFirstTabPanel.add(fieldset3);
@@ -134,25 +128,6 @@ cf.restartWorkflowFirstTab = function(){return {
 		
 	},
 	
-	initDatefieldCheckbox: function () {
-		this.theDatefieldCheckbox = new Ext.form.Checkbox({
-			fieldLabel: '<?php echo __('Start workflow immediately?',null,'workflowmanagement'); ?>',
-			inputValue: '1',
-			style: 'margin-top:3px;',
-			checked: true,
-			id: 'restartWorkflowFirstTab_startworkflowcheckbox',
-			handler: function (checkbox) {
-				if(checkbox.getValue() == 1) {
-					cf.restartWorkflowFirstTab.theDatepicker.setVisible(false);
-					cf.restartWorkflowFirstTab.theDatepicker.setValue();
-				}
-				else {
-					cf.restartWorkflowFirstTab.theDatepicker.setVisible(true);
-					cf.restartWorkflowFirstTab.theDatepicker.setValue();					
-				}
-			}	
-		});
-	},
 	
 	initContenttypecombo: function () {
 		this.theContenttypeCombo = new Ext.form.ComboBox({
@@ -448,108 +423,6 @@ cf.restartWorkflowFirstTab = function(){return {
 
 			
 		});
-	},
-	
-	initDatepicker: function () {
-		this.theDatepicker = new Ext.form.DateField({
-			allowBlank:true,
-			hidden:true,
-			editable: false,
-			format:'d-m-Y',
-			id: 'restartWorkflowFirstTab_datepicker',
-			fieldLabel: "<span ext:qtip=\"<table><tr><td><?php echo __('<b>Datefield is empty</b>',null,'workflowmanagement'); ?></td><td><?php echo __(' : Workflow will start immediately',null,'workflowmanagement'); ?></td></tr><tr><td><?php echo __('<b>Datefield is set</b>',null,'workflowmanagement'); ?></td><td> : <?php echo __('Workflow will start at selected date',null,'workflowmanagement'); ?></td></tr></table>\" ext:qwidth=\"350\"><?php echo __('Startdate of Workflow',null,'workflowmanagement'); ?></span>",
-			width:170	
-		});
-		if (Ext.isIE6 == true) {
-			this.theDatepicker.style = 'margin-top:0px;margin-bottom:0px;';
-		}
-		else if (Ext.isIE7 == true) {
-			this.theDatepicker.style = 'margin-top:0px;margin-bottom:1px;';
-		}
-	},
-	
-	initMailinglist: function () {
-		this.theMailinglist = new Ext.form.ComboBox({
-			fieldLabel: '<?php echo __('Mailinglist',null,'workflowmanagement'); ?>',
-			valueField: 'value',
-			id: 'restartWorkflowFirstTab_mailinglist_id',
-			displayField: 'text',
-			editable: false,
-			hiddenName: 'restartWorkflowFirstTab_mailinglist',
-			mode: 'local',
-			store: new Ext.data.SimpleStore({
-				fields: [
-					{name: 'value'},
-					{name: 'activeversionid'},
-					{name: 'text'}
-				]
-			}),
-			triggerAction: 'all',
-			selectOnFocus:true,
-			allowBlank: false,
-			forceSelection:true,
-			listeners: {
-				select: {
-					fn:function(combo, value) {
-						try {
-							cf.createWorkflowWindow.theTabPanel.remove(cf.createWorkflowSecondTab.theSecondPanel);
-							cf.createWorkflowSecondTab.theSecondPanel.destroy();
-							cf.createWorkflowWindow.theTabPanel.remove(cf.createWorkflowThirdTab.theThirdPanel);
-							cf.createWorkflowSecondTab.theThirdPanel.destroy();
-						}
-						catch(e){
-							
-						}
-						cf.restartWorkflowFirstTab.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Preparing Data...',null,'workflowmanagement'); ?>'});					
-						cf.restartWorkflowFirstTab.theLoadingMask.show();
-						var data = combo.store.findExact('value', combo.getValue());
-						cf.createWorkflowSecondTab.init(data.data.activeversionid);
-						cf.createWorkflowWindow.theTabPanel.add(cf.createWorkflowSecondTab.theSecondPanel);
-						
-						cf.createWorkflowThirdTab.init(data.data.activeversionid);
-						cf.createWorkflowWindow.theTabPanel.add(cf.createWorkflowThirdTab.theThirdPanel);
-						cf.restartWorkflowFirstTab.theLoadingMask.hide();
-					}
-				}
-			},
-			width: 170
-		});
-		
-		if (Ext.isIE6 == true) {
-			this.theMailinglist.style = 'margin-top:0px;margin-bottom:0px;';
-		}
-		else if (Ext.isIE7 == true) {
-			this.theMailinglist.style = 'margin-top:0px;margin-bottom:1px;';
-		}
-		this.theMailinglist.on('render', function(combo) {
-			cf.restartWorkflowFirstTab.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Preparing Data...',null,'workflowmanagement'); ?>'});					
-			cf.restartWorkflowFirstTab.theLoadingMask.show();
-			Ext.Ajax.request({  
-				url: '<?php echo build_dynamic_javascript_url('createworkflow/LoadAllMailinglist')?>',
-				success: function(objServerResponse){ 
-					theJsonTreeData = Ext.util.JSON.decode(objServerResponse.responseText);
-					var defaultdata = -1;
-					var data = theJsonTreeData.result;
-					for(var a=0;a<data.length;a++) {
-						var item = data[a];
-						var Rec = Ext.data.Record.create({name: 'value'},{name: 'text'}, {name: 'activeversionid'});
-						combo.store.add(new Rec({value: item.id, text: item.name, activeversionid: item.activeversion}));
-						if(item.isactive == 1) {
-							defaultdata = item.id;
-							var singleData = combo.store.findExact('value', defaultdata);
-						}
-					}
-					if(defaultdata != -1) {
-						combo.setValue(defaultdata);
-						cf.createWorkflowSecondTab.init(singleData.data.activeversionid);
-						cf.createWorkflowWindow.theTabPanel.add(cf.createWorkflowSecondTab.theSecondPanel);
-						cf.createWorkflowThirdTab.init(singleData.data.activeversionid);
-						cf.createWorkflowWindow.theTabPanel.add(cf.createWorkflowThirdTab.theThirdPanel);
-					}
-					cf.restartWorkflowFirstTab.theLoadingMask.hide();
-				}
-			});	
-		});	
 	},
 	
 	initPanel: function () {
