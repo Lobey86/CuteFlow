@@ -45,5 +45,14 @@ class WorkflowProcessTable extends Doctrine_Table {
     }
 
 
+    public function getWorkflowProcessByVersionId($version_id) {
+        return Doctrine_Query::create()
+            ->from('WorkflowProcess wfp')
+            ->select('wfp.*')
+            ->where('wfp.workflowversion_id = ?' ,$version_id)
+            ->execute();
+
+    }
+
     
 }

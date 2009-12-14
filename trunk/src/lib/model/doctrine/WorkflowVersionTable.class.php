@@ -48,4 +48,22 @@ class WorkflowVersionTable extends Doctrine_Table {
             ->where('wfv.id = ?', $id)
             ->execute();
     }
+
+    public function getLastVersionById($id) {
+        return Doctrine_Query::create()
+            ->from('WorkflowVersion wfv')
+            ->select('wfv.*,')
+            ->where('wfv.workflowtemplate_id = ?' ,$id)
+            ->orderBy('wfv.version ASC')
+            ->execute();
+    }
+
+
+    public function setVersionInactive($id) {
+        Doctrine_Query::create()
+            ->update('WorkflowVersion wfv')
+            ->set('wfv.activeversion','?',0)
+            ->where('wfv.id = ?', $id)
+            ->execute();
+    }
 }
