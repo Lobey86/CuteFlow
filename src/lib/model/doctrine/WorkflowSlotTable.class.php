@@ -74,4 +74,5 @@ class WorkflowSlotTable extends Doctrine_Table {
 
     }
 
+
 }

@@ -89,5 +89,17 @@ class WorkflowTemplateTable extends Doctrine_Table {
     }
 
 
+    public function restartWorkflow($id) {
+        Doctrine_Query::create()
+            ->update('WorkflowTemplate wft')
+            ->set('wft.stopped_at','?','')
+            ->set('wft.stopped_by','?', '')
+            ->set('wft.isstopped','?', 0)
+            ->where('wft.id = ?', $id)
+            ->execute();
+        
+    }
+
+
 
 }
