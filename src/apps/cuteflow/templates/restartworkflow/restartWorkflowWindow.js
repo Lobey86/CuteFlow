@@ -43,7 +43,7 @@ cf.restartWorkflowWindow = function(){return {
 				text:'<?php echo __('Store',null,'documenttemplate'); ?>', 
 				icon: '/images/icons/accept.png',
 				handler: function () {
-					//cf.createWorkflowCRUD.initSave();
+					cf.restartWorkflowCRUD.doSubmit(cf.restartWorkflowWindow.theTemplateId);
 				}
 			},{
 				text:'<?php echo __('Close',null,'documenttemplate'); ?>', 
