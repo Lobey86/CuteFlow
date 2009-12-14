@@ -89,6 +89,38 @@ class PrepareWorkflowData {
     }
 
 
+        /**
+     * Create the correct contenttype and the correct content out of POST data
+     *
+     * @param array $data, post data
+     * @return array $result, result with correct content and contenttype data
+     */
+    public function createRestartContenttype(array $data) {
+        $result = array();
+        if(isset($data['restartWorkflowFirstTab_contenttype'])) {
+            $result['contenttype'] = $data['restartWorkflowFirstTab_contenttype'];
+            $result['content'] = $data['restartWorkflowFirstTab_contenttype'] == 'html' ? $data['restartWorkflowFirstTab_htmlarea'] : $data['restartWorkflowFirstTab_textarea'];
+        }
+        elseif($data['restartWorkflowFirstTab_additionaltext'] != '') {
+            $contenttype = AdditionalTextTable::instance()->findSingleTextById($data['restartWorkflowFirstTab_additionaltext'])->toArray();
+            $result['contenttype'] = $contenttype[0]['contenttype'];
+            $result['content'] = $contenttype[0]['contenttype'] == 'html' ? $data['restartWorkflowFirstTab_htmlarea'] : $data['restartWorkflowFirstTab_textarea'];
+        }
+        else {
+            if (isset($data['restartWorkflowFirstTab_htmlarea'])) {
+                $result['contenttype'] = 'html';
+                $result['content'] = $data['restartWorkflowFirstTab_htmlarea'];
+            }
+            else {
+                $result['contenttype'] = 'plain';
+                $result['content'] = $data['restartWorkflowFirstTab_textarea'];
+            }
+        }
+        $result = $this->adjustHtmlContent($result);
+        return $result;
+    }
+
+
 
 }
 ?>

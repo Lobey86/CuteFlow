@@ -275,7 +275,6 @@ class WorkflowDetail {
         $a = 0;
         switch ($type) {
             case 'TEXTFIELD':
-                
                 $items = WorkflowSlotFieldTextfieldTable::instance()->getAllItemsByWorkflowFieldId($field->getId())->toArray();
                 $fieldData = FieldTextfieldTable::instance()->getTextfieldByFieldId($field->getFieldId())->toArray();
 
