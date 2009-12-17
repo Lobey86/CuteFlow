@@ -23,6 +23,7 @@ class RestartWorkflow {
             $slotname = $item->getDocumenttemplateSlot()->toArray();
             $result[$a]['workflowslot_id'] = $item->getId();
             $result[$a]['workflowtemplate_id'] = $item->getWorkflowversionId();
+            $result[$a]['slotposition'] = $item->getPosition();
             $result[$a]['slotname'] = $slotname[0]['name'];
             $result[$a]['sendtoallreceivers'] = $slotname[0]['sendtoallreceivers'];
             $result[$a++]['user'] = $this->getUser($slotname[0]['name'], $item->getId(), $a+1);
@@ -44,7 +45,8 @@ class RestartWorkflow {
             $userData = $userLogin[0]->getUserData()->toArray();
             $result[$a]['workflowslotuser_id'] = $user->getId();
             $result[$a]['user_id'] = $user->getUserId();
-            $result[$a]['slotgroup'] = '#' . $slotcounter . ' : ' . $slotname;
+            $result[$a]['userposition'] = $user->getPosition();
+            $result[$a]['slotgroup'] = '#' . ($slotcounter-1) . ' : ' . $slotname;
             $result[$a]['plainusername'] = $userData['firstname'] . ' ' . $userData['lastname'];
             $result[$a]['username'] = $userData['firstname'] . ' ' . $userData['lastname'] . ' <i>'.$userLogin[0]->getUsername().'</i>';
             $a++;
@@ -63,6 +65,7 @@ class RestartWorkflow {
                 $user = $data[$a]['user'][$b];
                 $result[$c] = $user;
                 $result[$c]['workflowslot_id'] = $data[$a]['workflowslot_id'];
+                $result[$c]['slotposition'] = $data[$a]['slotposition'];
                 $result[$c]['workflowtemplate_id'] = $data[$a]['workflowtemplate_id'];
                 $result[$c]['sendtoallreceivers'] = $data[$a]['sendtoallreceivers'];
                 $result[$c++]['slotname'] = $data[$a]['slotname'];

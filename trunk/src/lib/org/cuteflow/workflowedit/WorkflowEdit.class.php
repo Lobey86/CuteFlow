@@ -64,7 +64,7 @@ class WorkflowEdit {
 
 
 
-    private function getFields(WorkflowSlot $slot) {
+    private function getFields(WorkflowSlot $slot, $versionid) {
         $result = array();
         $a = 0;
         $fields = WorkflowSlotFieldTable::instance()->getWorkflowSlotFieldBySlotIdWithValues($slot->getId());
@@ -86,7 +86,7 @@ class WorkflowEdit {
             }
             $result[$a]['writeprotected'] = $docField[0]['writeprotected'];
             $result[$a]['color'] = $docField[0]['color'];
-            $result[$a]['items'] = $workflowDetail->getFieldItems($field,$docField[0]['type'], $this->context);
+            $result[$a]['items'] = $workflowDetail->getFieldItems($field,$docField[0]['type'], $this->context, $versionid);
             $a++;
             
         }

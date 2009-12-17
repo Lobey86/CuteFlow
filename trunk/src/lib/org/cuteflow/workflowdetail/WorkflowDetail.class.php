@@ -6,6 +6,7 @@ class WorkflowDetail {
     private $culture;
     private $user;
     private $context;
+    private $versionid;
 
     public function  __construct() {
         sfLoader::loadHelpers('Date');
@@ -226,21 +227,21 @@ class WorkflowDetail {
         $slots = WorkflowSlotTable::instance()->getSlotByVersionId($versionid);
         $result = array();
         $a = 0;
-
         foreach($slots as $slot) {
             $slotArray = $slot->toArray();
             $result[$a]['workflowslot_id'] = $slotArray['id'];
             $result[$a]['slot_id'] = $slotArray['slot_id'];
             $result[$a]['position'] = $slotArray['position'];
             $result[$a]['slotname'] = $slotArray['DocumenttemplateSlot'][0]['name'];
-            $result[$a++]['fields'] = $this->getFields($slotArray['id']);
+            $result[$a++]['fields'] = $this->getFields($slotArray['id'], $versionid);
         }
+        #print_r ($result);die;
         return $result;
     }
 
 
 
-    public function getFields($id) {
+    public function getFields($id, $versionid) {
         $result = array();
         $a = 0;
         $fields = WorkflowSlotFieldTable::instance()->getWorkflowSlotFieldBySlotId($id);
@@ -261,7 +262,7 @@ class WorkflowDetail {
                 $result[$a]['column'] = 'RIGHT';
             }
             $result[$a]['position'] = $field->getPosition();
-            $result[$a++]['items'] = $this->getFieldItems($field, $documentField[0]['type'], $this->context);
+            $result[$a++]['items'] = $this->getFieldItems($field, $documentField[0]['type'], $this->context, $versionid);
 
 
         }
@@ -270,7 +271,7 @@ class WorkflowDetail {
     }
 
 
-    public function getFieldItems(WorkflowSlotField $field, $type,sfContext $context) {
+    public function getFieldItems(WorkflowSlotField $field, $type, sfContext $context, $versionid) {
         $result = array();
         $a = 0;
         switch ($type) {
@@ -343,13 +344,36 @@ class WorkflowDetail {
                 }
                 break;
             case 'FILE':
+
+                $file = WorkflowSlotFieldFileTable::instance()->getAllItemsByWorkflowFieldId($field->getId())->toArray();
+                $workflowtemplate = WorkflowVersionTable::instance()->getWorkflowVersionById($versionid)->toArray();
+                
+                $result['filepath'] = sfConfig::get('sf_upload_dir') . '/' . $workflowtemplate[0]['workflowtemplate_id'] . '/' . $versionid . '/' . $file[0]['hashname'] ;
+                $result['hashname'] = $file[0]['hashname'];
+                $result['filename'] = $file[0]['filename'];
+                $result['link'] = '<a href="'.$result['filepath'].'" target="_blank">'.$result['filename'].'</a>';
                 break;
         }
         return $result;
     }
 
+    public function buildAttachments(Doctrine_Collection $data, $templateversion_id) {
+        $files = WorkflowVersionAttachmentTable::instance()->getAttachmentsByVersionId($templateversion_id)->toArray();
+        $result = array();
+        $a = 0;
 
-
+        #$script = $this->getContext()->getRequest()->getScriptName();
+        #$host = $this->getContext()->getRequest()->getHost();
+        foreach($files as $file) {
+            $result[$a]['filepath'] = sfConfig::get('sf_upload_dir') . '/' . $file['workflowtemplate_id'] . '/' . $file['workflowversion_id'] . '/' . $file['hashname'] ;
+            $result[$a]['hashname'] = $file['hashname'];
+            $result[$a]['filename'] = $file['filename'];
+            $result[$a]['link'] = '<a href="'.$result[$a]['filepath'].'" target="_blank">'.$result[$a]['filename'].'</a>';
+            $a++;
+        }
+        #print_r ($result);die;
+        return $result;
+    }
 
 
 
