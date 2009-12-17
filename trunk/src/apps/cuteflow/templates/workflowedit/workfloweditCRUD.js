@@ -38,11 +38,10 @@ cf.workfloweditCRUD = function(){return {
 			var columnpanel = fieldset.getComponent(0);
 			
 			if(columnpanel.disabled == false) {
-				
 				var workflowslot_id = fieldset.getId().split('__');
+
 				var leftPanel = columnpanel.getComponent(0);
 				var rightPanel = columnpanel.getComponent(1);
-
 				
 				var hiddenfield = new Ext.form.Field({
 					autoCreate : {tag:'input', type: 'hidden', name: 'slot['+slotcounter+'][workflowslot_id]', value:workflowslot_id[1], width: 0}			
@@ -64,6 +63,7 @@ cf.workfloweditCRUD = function(){return {
 					}
 					catch(e) {}
 				}
+		
 			}
 		}
 		this.thePanel.doLayout();
@@ -201,7 +201,8 @@ cf.workfloweditCRUD = function(){return {
 		var failure_flag = false;
 		for(var a=0;a<panel.items.length;a++) {
 			var fieldset = panel.getComponent(a);
-			var columnpanel = fieldset.getComponent(0);
+		    var columnpanel = fieldset.getComponent(0);
+
 			if(columnpanel.disabled == false) {
 				var leftColumn = columnpanel.getComponent(0);
 				var rightColumn = columnpanel.getComponent(1);			

@@ -25,20 +25,28 @@ cf.restartWorkflowFirstTab = function(){return {
 		this.theUniqueFileStoreId = 1;
 		this.theUniqueFileId = 0;
 		this.initPanel();
-		var fieldset1 = cf.restartWorkflowFirstTab.createFieldset('restartWorkflowFirstTab_fieldset1', '<?php echo __('Set attachments and start date',null,'workflowmanagement'); ?>', false, cb7, true);
+		var fieldset1 = cf.restartWorkflowFirstTab.createFieldset('restartWorkflowFirstTab_fieldset1', '<?php echo __('Set start date',null,'workflowmanagement'); ?>', false, cb7, true);
 		
 		this.initHiddenfield();
-		this.initFileGrid();
 		this.initStartPoint();
 		var cb7 = this.createCheckbox('restartWorkflowFirstTab_useoldvalues','<?php echo __('Use values from current version?',null,'workflowmanagement'); ?>',false,'', 1);
-		
-		
 		
 		
 		fieldset1.add(this.theMailinglist);
 		fieldset1.add(this.theStartPoint);
 		fieldset1.add(cb7);	
-		fieldset1.add(this.theFileUploadGrid);
+		fieldset1.add(this.theHiddenField);
+		
+		var fieldset5 = this.createFieldset('restartWorkflowFirstTab_fieldset4', '<?php echo __('Set attachments',null,'workflowmanagement'); ?>', false, 180, true);
+		var upload1 = this.createFileUpload(1);
+		var upload2 = this.createFileUpload(2);
+		var upload3 = this.createFileUpload(3);
+		var upload4 = this.createFileUpload(4);
+		
+		fieldset5.add(upload1);
+		fieldset5.add(upload2);
+		fieldset5.add(upload3);
+		fieldset5.add(upload4);
 				
 		
 			
@@ -59,7 +67,7 @@ cf.restartWorkflowFirstTab = function(){return {
 		fieldset2.add(this.theContenttypeCombo);
 		fieldset2.add(this.theColumnPanel);
 		
-		var fieldset3 = cf.restartWorkflowFirstTab.createFieldset('restartWorkflowFirstTab_fieldset3', '<?php echo __('Additional Settings',null,'workflowmanagement'); ?>', false, 250, true);
+		var fieldset3 = cf.restartWorkflowFirstTab.createFieldset('restartWorkflowFirstTab_fieldset3', '<?php echo __('Additional Settings',null,'workflowmanagement'); ?>', true, 250, true);
 		var cb1 = this.createCheckbox('restartWorkflowFirstTabSettings[0]','<?php echo __('Sending notification',null,'workflowmanagement'); ?>',true,'', 1);
 		var cb2 = this.createCheckbox('restartWorkflowFirstTabSettings[1]','&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo __('After succeeded circulation',null,'workflowmanagement'); ?>',true,'', 2);
 		var cb3 = this.createCheckbox('restartWorkflowFirstTabSettings[2]','&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo __('After succeeded slot end',null,'workflowmanagement'); ?>',false,'', 4);
@@ -69,6 +77,7 @@ cf.restartWorkflowFirstTab = function(){return {
 		
 		fieldset3.add([cb1,cb2,cb3,cb4,cb5,cb6]);
 		this.theFirstTabPanel.add(fieldset1);
+		this.theFirstTabPanel.add(fieldset5);
 		this.theFirstTabPanel.add(fieldset2);
 		this.theFirstTabPanel.add(fieldset3);
 	},
@@ -76,7 +85,7 @@ cf.restartWorkflowFirstTab = function(){return {
 	
 	initHiddenfield: function() {
 		this.theHiddenField = new Ext.form.Hidden({
-			name: 'restartWorkflowFirstTab_startpointid',
+			id: 'restartWorkflowFirstTab_startpointid',
 			allowBlank: true,
 			width: 1
 		});
@@ -288,8 +297,8 @@ cf.restartWorkflowFirstTab = function(){return {
 	
 	createFileUpload: function (id) {
 		var file = new Ext.form.FileUploadField({
-		    renderTo: 'create_uploadfile'+ id,
-		    name: 'create_uploadfile['+id+']',
+		    id: 'restart_uploadfile' + id,
+		    fieldLabel: '<?php echo __('Select attachment',null,'workflowmanagement'); ?>',
 			emptyText:  '<?php echo __('Select a file',null,'workflowmanagement'); ?>',
 			width: 300
 		});
@@ -300,6 +309,7 @@ cf.restartWorkflowFirstTab = function(){return {
 		else if (Ext.isIE7 == true) {
 			file.setSize({width:50});
 		}
+		return file;
 	},
 	
 	initSinglePanel: function () {
@@ -429,7 +439,7 @@ cf.restartWorkflowFirstTab = function(){return {
 		this.theFirstTabPanel = new Ext.FormPanel({
 			title: '<?php echo __('General Settings',null,'workflowmanagement'); ?>',
 			frame:true,
-			//fileUpload: true,
+			fileUpload: true,
 			autoScroll: true,
 			height: cf.Layout.theRegionWest.getHeight() - 148
 		});

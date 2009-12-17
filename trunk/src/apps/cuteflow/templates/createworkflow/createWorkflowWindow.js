@@ -2,20 +2,30 @@ cf.createWorkflowWindow = function(){return {
 	
 	theCreateWorkflowWindow			:false,
 	theTabPanel						:false,
+	theFormPanel					:false,
 	
 	
 	init: function() {
 		this.initTabPanel();
 		this.initWindow();
+		this.initFormPanel();
 		cf.createWorkflowFirstTab.init();
+		this.theFormPanel.add(this.theTabPanel);
 		this.theTabPanel.add(cf.createWorkflowFirstTab.theFirstTabPanel);
-		this.theCreateWorkflowWindow.add(this.theTabPanel);
+		this.theCreateWorkflowWindow.add(this.theFormPanel);
 		this.theCreateWorkflowWindow.show();
 		
 	},
 	
 	
-	
+	initFormPanel: function () {
+		this.theFormPanel = new Ext.FormPanel({
+			frame:true,
+			fileUpload: true,
+			autoScroll: true,
+			height: 'auto'
+		});
+	},
 	/**
 	* init the popupwindow
 	*

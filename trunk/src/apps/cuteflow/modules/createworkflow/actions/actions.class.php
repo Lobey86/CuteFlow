@@ -20,9 +20,11 @@ class createworkflowActions extends sfActions {
 
 
     public function executeCreateWorkflow(sfWebRequest $request) {
-        $createWorkObj = new PrepareWorkflowData();
+        $this->getResponse()->setHttpHeader('Content-type', 'text/plain');
 
-        
+        //$response->setStatusCode(200);
+
+        $createWorkObj = new PrepareWorkflowData();
         $data = array();
         $startDate = array();
         $userslot_id = array();
@@ -156,11 +158,31 @@ class createworkflowActions extends sfActions {
                         }
                         break;
                     case 'FILE':
-                        break;
+                        $fieldToStore =  $field['filearray'];
+                        $allFiles = $_FILES;
+                        
+                        $file = $allFiles[$fieldToStore];
+                        $upload = new FileUpload();
+                        $upload->uploadFormFile($file, $field_id,$template_id,$workflow_id);
+
+
+
                     }
             }
 
         }
+
+        $files = $_FILES;
+        $file1 = $files['create_uploadfile1'];
+        $file2 = $files['create_uploadfile2'];
+        $file3 = $files['create_uploadfile3'];
+        $file4 = $files['create_uploadfile4'];
+        $fileUpload = new FileUpload();
+        $fileUpload->uploadFile($file1,$template_id,$workflow_id);
+        $fileUpload->uploadFile($file2,$template_id,$workflow_id);
+        $fileUpload->uploadFile($file3,$template_id,$workflow_id);
+        $fileUpload->uploadFile($file4,$template_id,$workflow_id);
+
 
         $sendToAllSlotsAtOnce = MailinglistVersionTable::instance()->getActiveVersionById($request->getPostParameter('createWorkflowFirstTab_mailinglist'))->toArray();
         if($startDate['workflowisstarted'] == 1) {
@@ -173,7 +195,8 @@ class createworkflowActions extends sfActions {
                 $calc->addSingleSlot();
             }
         }
-        $this->renderText('{success:true}');
+        $this->getResponse()->setHttpHeader("X-JSON", '{"success":true}');
+        #$this->renderText('{"success":true}');
         return sfView::NONE;
     }
 

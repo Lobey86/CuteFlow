@@ -56,7 +56,8 @@ cf.createWorkflowCRUD = function(){return {
 			slotcounter++;
 		}
 		
-		cf.createWorkflowFirstTab.theFirstTabPanel.add(this.theSavePanel);
+		cf.createWorkflowWindow.theFormPanel.add(this.theSavePanel);
+		cf.createWorkflowWindow.theFormPanel.doLayout();
 		cf.createWorkflowCRUD.theLoadingMask.hide();
 		this.doSubmit();	
 	},
@@ -122,8 +123,14 @@ cf.createWorkflowCRUD = function(){return {
 			autoCreate : {tag:'input', type: 'hidden', name: 'slot['+slotcounter+'][slot][field]['+fieldcounter+'][type]', value:fieldid[0], width: 0}			
 		});
 		cf.createWorkflowCRUD.theSavePanel.add(hiddenfield);
-		field.name = 'slot['+slotcounter+'][slot][field]['+fieldcounter+'][file]';
-		cf.createWorkflowCRUD.theSavePanel.add(field);
+		
+		var theValue = field.getId().replace('_REGEX', '');
+		var hiddenfield = new Ext.form.Field({
+			autoCreate : {tag:'input', type: 'hidden', name: 'slot['+slotcounter+'][slot][field]['+fieldcounter+'][filearray]', value:theValue, width: 0}			
+		});
+		cf.createWorkflowCRUD.theSavePanel.add(hiddenfield);
+		cf.createWorkflowWindow.theFormPanel.doLayout();
+		
 	},
 	
 	addCombo: function (slotcounter,fieldid, field, fieldcounter) {
@@ -221,11 +228,25 @@ cf.createWorkflowCRUD = function(){return {
 		Ext.getCmp('createWorkflowFirstTab_fieldset1').expand();
 		Ext.getCmp('createWorkflowFirstTab_fieldset2').expand();
 		Ext.getCmp('createWorkflowFirstTab_fieldset3').expand();
-		cf.createWorkflowFirstTab.theFirstTabPanel.getForm().submit({
+		Ext.getCmp('createWorkflowFirstTab_fieldset4').expand();
+		cf.createWorkflowWindow.theFormPanel.getForm().submit({
 			url: '<?php echo build_dynamic_javascript_url('createworkflow/CreateWorkflow')?>',
 			method: 'POST',
-			waitMsg: '<?php echo __('Saving Data',null,'workflowmanagement'); ?>',
+			//waitMsg: '<?php echo __('Saving Data',null,'workflowmanagement'); ?>',
 			success: function(objServerResponse){
+				cf.workflowmanagementPanelGrid.theWorkflowStore.reload();
+				cf.createWorkflowWindow.theCreateWorkflowWindow.hide();
+				cf.createWorkflowWindow.theCreateWorkflowWindow.destroy();
+				Ext.Msg.minWidth = 200;
+				Ext.MessageBox.alert('<?php echo __('OK',null,'workflowmanagement'); ?>','<?php echo __('Workflow created',null,'workflowmanagement'); ?>');
+				try {
+					cf.todoPanelGrid.theTodoStore.reload();
+				}
+				catch(e) {
+					
+				}
+			},
+			failure: function(objServerResponse){
 				cf.workflowmanagementPanelGrid.theWorkflowStore.reload();
 				cf.createWorkflowWindow.theCreateWorkflowWindow.hide();
 				cf.createWorkflowWindow.theCreateWorkflowWindow.destroy();
@@ -260,7 +281,6 @@ cf.createWorkflowCRUD = function(){return {
 					var checkedFields = this.checkFields();
 					if(checkedFields == true) {
 						//cf.createWorkflowCRUD.theLoadingMask.hide();
-						//this.createSavePanel();
 						cf.createWorkflowCRUD.createSavePanel.defer(3500,this,[]);
 					}
 				}
@@ -404,7 +424,9 @@ cf.createWorkflowCRUD = function(){return {
 			
 		}
 		else if(file.test(component_id) == true) {
-			var regEx = component.getName().replace('REGEX_', '');
+			var compHidden = component.getId() + '_REGEX';
+			var regEx = Ext.getCmp(compHidden).getValue();
+			var regEx = regEx.replace('REGEX_','');
 			var value = component.getValue();
 			if(value == '') {
 				return  '<tr><td width="100"><b>' + component.fieldLabel + ':</b></td><td><?php echo __('No attachment selected',null,'workflowmanagement'); ?></td></tr>'; 

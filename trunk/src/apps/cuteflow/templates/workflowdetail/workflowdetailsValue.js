@@ -67,7 +67,9 @@ cf.workflowdetailsValue = function(){return {
 						fielditem.column == 'LEFT' ? leftPanel.add(label) : rightPanel.add(label);
 						break;
 					case "FILE":
-
+						var label = this.createFile(fielditem);
+						fieldset.insert(0,label);
+						//fielditem.column == 'LEFT' ? leftPanel.add(label) : rightPanel.add(label);
 					break;
 				}	
 				
@@ -80,6 +82,14 @@ cf.workflowdetailsValue = function(){return {
 		}
 
 		this.theFieldset.doLayout();		
+		
+	},
+	createFile: function (data) {
+		var label = new Ext.form.Label({
+			html: '<table><tr><td><img src="/images/icons/attach.png" /> </td><td>'+ data.items.link +'</td></tr></table>',
+			style: 'font-size:14px;'
+		});
+		return label;
 		
 	},
 	createCombobox: function (name, data) {

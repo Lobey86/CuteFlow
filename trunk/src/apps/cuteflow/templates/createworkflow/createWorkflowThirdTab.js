@@ -86,7 +86,9 @@ cf.createWorkflowThirdTab = function(){return {
 						break;
 					case "FILE":
 						var file = cf.createWorkflowThirdTab.createFile(fielditem, false);
+						var fileHidden = cf.createWorkflowThirdTab.createHiddenFile(fielditem, false);
 						fielditem.assign == 'LEFT' ? leftPanel.add(file) : rightPanel.add(file);
+						cf.createWorkflowWindow.theFormPanel.add(fileHidden);
 					break;
 				}			
 
@@ -155,14 +157,21 @@ cf.createWorkflowThirdTab = function(){return {
 		return combo;
 		
 	},
-	
+	createHiddenFile:function (data, editable) {
+		var id = cf.createWorkflowThirdTab.theUniqueFieldId;
+		id -= 1;
+		var hiddenfield =  new Ext.form.Hidden({
+			id: 'FILE_' + data.field_id + '_' + id + '_REGEX',
+			value: 'REGEX_' + data.items.regex
+		});
+		return hiddenfield;
+	},
 	
 	createFile: function (data, editable) {
 		var id = cf.createWorkflowThirdTab.theUniqueFieldId++;
 		var file = new Ext.form.FileUploadField({
 		    fieldLabel: data.field_name,
 			id: 'FILE_' + data.field_id + '_' + id,
-			name: 'REGEX_' + data.items.regex,
 			disabled: editable,
 			emptyText:  '<?php echo __('Select a file',null,'workflowmanagement'); ?>',
 			width: 200
@@ -173,6 +182,9 @@ cf.createWorkflowThirdTab = function(){return {
 		else if (Ext.isIE7 == true) {
 			file.style = 'margin-top:0px;margin-bottom:0px;';
 		}
+		
+
+		
 		return file;
 	},
 	

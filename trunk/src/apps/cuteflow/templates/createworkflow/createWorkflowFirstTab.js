@@ -20,21 +20,37 @@ cf.createWorkflowFirstTab = function(){return {
 	
 	
 	
+	
 	init: function () {
 		this.theUniqueFileStoreId = 1;
 		this.theUniqueFileId = 0;
 		this.initPanel();
-		var fieldset1 = this.createFieldset('createWorkflowFirstTab_fieldset1', '<?php echo __('Set name, mailinglist, attachments and start date',null,'workflowmanagement'); ?>', false, 355, true);
+		var fieldset1 = this.createFieldset('createWorkflowFirstTab_fieldset1', '<?php echo __('Set name, mailinglist, attachments and start date',null,'workflowmanagement'); ?>', false, 160, true);
 		this.initNameTextfield();
 		this.initMailinglist();
 		this.initDatepicker();
-		this.initFileGrid();
+		//this.initFileGrid();
 		this.initDatefieldCheckbox();
 		fieldset1.add(this.theNameTextfield);
 		fieldset1.add(this.theMailinglist);
 		fieldset1.add(this.theDatefieldCheckbox);
 		fieldset1.add(this.theDatepicker);
-		fieldset1.add(this.theFileUploadGrid);
+		//fieldset1.add(this.theFileUploadGrid);
+		
+		var fieldset5 = this.createFieldset('createWorkflowFirstTab_fieldset4', '<?php echo __('Set attachments',null,'workflowmanagement'); ?>', false, 165, true);
+		
+		var upload1 = this.createFileUpload(1);
+		var upload2 = this.createFileUpload(2);
+		var upload3 = this.createFileUpload(3);
+		var upload4 = this.createFileUpload(4);
+		
+		fieldset5.add(upload1);
+		fieldset5.add(upload2);
+		fieldset5.add(upload3);
+		fieldset5.add(upload4);
+		
+		
+			
 		var fieldset2 = this.createFieldset('createWorkflowFirstTab_fieldset2', '<?php echo __('Select Additional text',null,'workflowmanagement'); ?>', true, 350, true);
 		this.initAdditionaltextcombo();
 		this.initContenttypecombo();
@@ -61,8 +77,10 @@ cf.createWorkflowFirstTab = function(){return {
 		var cb6 = this.createCheckbox('createWorkflowFirstTabSettings[5]','<?php echo __('Show receiver name in workflow',null,'workflowmanagement'); ?>',false,'', 32);
 		fieldset3.add([cb1,cb2,cb3,cb4,cb5,cb6]);
 		this.theFirstTabPanel.add(fieldset1);
+		this.theFirstTabPanel.add(fieldset5);
 		this.theFirstTabPanel.add(fieldset2);
 		this.theFirstTabPanel.add(fieldset3);
+		
 	},
 	
 
@@ -246,8 +264,8 @@ cf.createWorkflowFirstTab = function(){return {
 	
 	createFileUpload: function (id) {
 		var file = new Ext.form.FileUploadField({
-		    renderTo: 'create_uploadfile'+ id,
-		    name: 'create_uploadfile['+id+']',
+		    fieldLabel: '<?php echo __('Select attachment',null,'workflowmanagement'); ?>',
+		    id: 'create_uploadfile' + id,
 			emptyText:  '<?php echo __('Select a file',null,'workflowmanagement'); ?>',
 			width: 300
 		});
@@ -258,6 +276,7 @@ cf.createWorkflowFirstTab = function(){return {
 		else if (Ext.isIE7 == true) {
 			file.setSize({width:50});
 		}
+		return file;
 	},
 	
 	initSinglePanel: function () {
@@ -486,10 +505,9 @@ cf.createWorkflowFirstTab = function(){return {
 	},
 	
 	initPanel: function () {
-		this.theFirstTabPanel = new Ext.FormPanel({
+		this.theFirstTabPanel = new Ext.Panel({
 			title: '<?php echo __('General Settings',null,'workflowmanagement'); ?>',
 			frame:true,
-			//fileUpload: true,
 			autoScroll: true,
 			height: cf.Layout.theRegionWest.getHeight() - 148
 		});

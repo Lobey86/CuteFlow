@@ -29,6 +29,8 @@ cf.restartSelectStation = function(){return {
 			{name: 'plainusername'},
 			{name: 'username'},
 			{name: 'workflowslot_id'},
+			{name: 'slotposition'},
+			{name: 'userposition'},
 			{name: 'workflowtemplate_id'},
 			{name: 'slotname'},
 			{name: 'action'}
@@ -45,7 +47,7 @@ cf.restartSelectStation = function(){return {
 			stripeRows: true,
 			border: true,
 			width: 'auto',
-			height: cf.Layout.theRegionWest.getHeight() - 440,
+			height: cf.Layout.theRegionWest.getHeight() - 340,
 			autoScroll: true,
 			collapsible: false,
 			style:'margin-top:5px;margin-left:5px;margin-right:5px;',
@@ -79,6 +81,8 @@ cf.restartSelectStation = function(){return {
 				{name: 'user_id'},
 				{name: 'slotgroup'},
 				{name: 'plainusername'},
+				{name: 'slotposition'},
+				{name: 'userposition'},
 				{name: 'username'},
 				{name: 'workflowslot_id'},
 				{name: 'workflowtemplate_id'},
@@ -91,6 +95,8 @@ cf.restartSelectStation = function(){return {
 				user_id: user.user_id,
 				plainusername: user.plainusername,
 				slotgroup: user.slotgroup, 
+				slotposition: user.slotposition,
+				userposition: user.userposition,
 				username: user.username, 
 				workflowslot_id: user.workflowslot_id, 
 				workflowtemplate_id: user.workflowtemplate_id, 
@@ -98,13 +104,13 @@ cf.restartSelectStation = function(){return {
 				action: '<center><table><tr><td width="16"><div id="selectNewStationForRestart'+ uniqueId +'"></div></td></tr></table></center>'
 			}));
 			
-			cf.restartSelectStation.createSetStationButton.defer(10,this, [uniqueId, user.workflowslotuser_id, cf.restartWorkflowWindow.theTemplateId, user.plainusername, user.slotgroup]);
+			cf.restartSelectStation.createSetStationButton.defer(10,this, [uniqueId, user.slotposition, user.userposition ,user.plainusername, user.slotgroup]);
 			
 		}
 		cf.restartSelectStation.theLoadingMask.hide();
 	},
 	
-	createSetStationButton: function (uniqueId, workflowslotuser_id, template_id, username, slotgroup) {
+	createSetStationButton: function (uniqueId, slotposition, userposition, username, slotgroup) {
 		var btn_edit = new Ext.form.Label({
 			renderTo: 'selectNewStationForRestart' + uniqueId,
 			html: '<span style="cursor:pointer;"><img src="/images/icons/user_go.png" /></span>',
@@ -113,7 +119,7 @@ cf.restartSelectStation = function(){return {
 					  c.getEl().on({
 						click: function(el){
 							cf.restartWorkflowFirstTab.theStartPoint.setValue(slotgroup+': ' + ' ' + username);
-							cf.restartWorkflowFirstTab.theHiddenField.setValue(workflowslotuser_id);
+							cf.restartWorkflowFirstTab.theHiddenField.setValue('SLOT__' + slotposition + '__USER__' + userposition);
 							cf.restartSelectStation.theSelectStationWindow.hide();
 							cf.restartSelectStation.theSelectStationWindow.destroy();
 							//alert('TemplateId ' + template_id + ' WorkflowslotuserId ' + workflowslotuser_id);
@@ -141,7 +147,7 @@ cf.restartSelectStation = function(){return {
 			modal: true,
 			closable: true,
 			modal: true,
-			height: cf.Layout.theRegionWest.getHeight() - 400,
+			height: cf.Layout.theRegionWest.getHeight() - 300,
 			width: 550,
 			autoScroll: false,
 			shadow: false,

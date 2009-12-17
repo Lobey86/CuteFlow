@@ -31,7 +31,16 @@ class restartworkflowActions extends sfActions {
 
 
     public function executeRestartWorkflow(sfWebRequest $request) {
-        /*$wfRestart = new RestartWorkflow();
+        if($request->getPostParameter('restartWorkflowFirstTabSettings') != 'BEGINNING' AND $request->getPostParameter('restartWorkflowFirstTabSettings') != 'LASTSTATION') {
+            $slotOrder = array();
+            $slotOrder = explode('__', $request->getPostParameter('restartWorkflowFirstTab_startpointid'));
+        }
+
+
+        
+        /*
+        * $
+        * wfRestart = new RestartWorkflow();
         $data = $wfRestart->startAtLastStation(1);
 
 
@@ -166,10 +175,19 @@ class restartworkflowActions extends sfActions {
 
         }
         $workflowTemplate = WorkflowTemplateTable::instance()->getWorkflowTemplateByVersionId($version_id)->toArray();
-
+        $files = $_FILES;
+        $file1 = $files['restart_uploadfile1'];
+        $file2 = $files['restart_uploadfile2'];
+        $file3 = $files['restart_uploadfile3'];
+        $file4 = $files['restart_uploadfile4'];
+        $fileUpload = new FileUpload();
+        $fileUpload->uploadFile($file1,$newVersionId,$workflowtemplate_id[0]['workflowtemplate_id']);
+        $fileUpload->uploadFile($file2,$newVersionId,$workflowtemplate_id[0]['workflowtemplate_id']);
+        $fileUpload->uploadFile($file3,$newVersionId,$workflowtemplate_id[0]['workflowtemplate_id']);
+        $fileUpload->uploadFile($file4,$newVersionId,$workflowtemplate_id[0]['workflowtemplate_id']);
 
         $sendToAllSlotsAtOnce = MailinglistVersionTable::instance()->getActiveVersionById($workflowTemplate[0]['mailinglisttemplateversion_id'])->toArray();
-        if($request->getPostParameter('restartWorkflowFirstTab_startpoint') == 'BEGINNING'){
+        if($request->getPostParameter('restartWorkflowFirstTab_startpointid') == 'BEGINNING'){
             if($sendToAllSlotsAtOnce[0]['sendtoallslotsatonce'] == 1) {
                 $calc = new CreateWorkflow($newVersionId);
                 $calc->addAllSlots();
@@ -182,6 +200,10 @@ class restartworkflowActions extends sfActions {
         else if ($request->getPostParameter('restartWorkflowFirstTab_startpoint') == 'LASTSTATION') {
             
         }
+        else {
+
+        }
+        echo '{"success":true}';die;
         $this->renderText('{success:true}');
         return sfView::NONE;
     }

@@ -33,9 +33,25 @@ class workflowdetailActions extends sfActions
         $generalData = $detailsObj->buildHeadLine($workflowsettings);
         $userData = $detailsObj->buildUserData($workflowsettings, $request->getParameter('versionid'));
         $workflowData = $detailsObj->buildWorkflowData($workflowsettings, $request->getParameter('versionid'));
+        $attachments = $detailsObj->buildAttachments($workflowsettings, $request->getParameter('versionid'));
 
 
-        $this->renderText('{"generalData":'.json_encode($generalData).', "detailData" : '.json_encode($userData).', "workflowData" : '.json_encode($workflowData).'}');
+        $this->renderText('{"generalData":'.json_encode($generalData).', "detailData" : '.json_encode($userData).', "workflowData" : '.json_encode($workflowData).', "workflowAttachment" : '.json_encode($attachments).'}');
+        return sfView::NONE;
+    }
+
+
+    public function executeLoadVersion(sfWebRequest $request) {
+        $detailsObj = new WorkflowDetail();
+        $detailsObj->setUser($this->getUser());
+        $detailsObj->setCulture($this->getUser()->getCulture());
+        $detailsObj->setContext($this->getContext());
+        $workflowsettings = WorkflowVersionTable::instance()->getWorkflowVersionById($request->getParameter('versionid'));
+        $userData = $detailsObj->buildUserData($workflowsettings, $request->getParameter('versionid'));
+        $workflowData = $detailsObj->buildWorkflowData($workflowsettings, $request->getParameter('versionid'));
+        $attachments = $detailsObj->buildAttachments($workflowsettings, $request->getParameter('versionid'));
+
+        $this->renderText('{"detailData" : '.json_encode($userData).', "workflowData" : '.json_encode($workflowData).', "workflowAttachment" : '.json_encode($attachments).'}');
         return sfView::NONE;
     }
 
