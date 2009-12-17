@@ -657,6 +657,24 @@ Field:
     type: COMBOBOX
     writeprotected: 0
     color: #FF0000
+  f12:
+    title: Feld 12 - Datei 1
+    type: FILE
+    writeprotected: 0
+    color: #FF0000
+  f13:
+    title: Feld 13 - Datei 2
+    type: FILE
+    writeprotected: 0
+    color: #FF0000
+
+FieldFile:
+  ff1:
+    field_id: 12
+    regex: 
+  ff2:
+    field_id: 13
+    regex:
 
 FieldNumber:
   fn1:
@@ -782,6 +800,9 @@ DocumenttemplateTemplate:
     name: Template with 3 Slots
   dt2:
     name: Template with 2 Slots
+  dt3:
+    name: Template with File
+
 
 DocumenttemplateVersion:
   dtv1:
@@ -790,6 +811,10 @@ DocumenttemplateVersion:
     activeversion: 1
   dtv2:
     documenttemplate_id: 2
+    version: 1
+    activeversion: 1
+  dtv3:
+    documenttemplate_id: 3
     version: 1
     activeversion: 1
 
@@ -817,6 +842,11 @@ DocumenttemplateSlot:
   dts5:
     documenttemplateversion_id: 2
     name: Slot 2 von 2
+    sendtoallreceivers: 0
+    position: 2
+  dts6:
+    documenttemplateversion_id: 3
+    name: Slot 1
     sendtoallreceivers: 0
     position: 2
 
@@ -886,7 +916,14 @@ DocumenttemplateField:
     documenttemplateslot_id: 5
     field_id: 5
     position: 2
-
+  dtf17:
+    documenttemplateslot_id: 6
+    field_id: 12
+    position: 1
+  dtf18:
+    documenttemplateslot_id: 6
+    field_id: 13
+    position: 2
 
 MailinglistTemplate:
   mlt1:
@@ -896,6 +933,10 @@ MailinglistTemplate:
   mlt2:
     name: Mailinglisttemplate 2 Slots
     documenttemplatetemplate_id : 2
+    isactive: 0
+  mlt3:
+    name: Mailinglisttemplate 1 Slot File
+    documenttemplatetemplate_id : 3
     isactive: 0
 
 MailinglistVersion:
@@ -908,6 +949,12 @@ MailinglistVersion:
   mlv2:
     mailinglisttemplate_id: 2
     documenttemplateversion_id: 2
+    sendtoallslotsatonce: 0
+    version: 1
+    activeversion: 1
+  mlv3:
+    mailinglisttemplate_id: 3
+    documenttemplateversion_id: 3
     sendtoallslotsatonce: 0
     version: 1
     activeversion: 1
@@ -936,6 +983,18 @@ MailinglistAllowedSender:
   mlas6:
     mailinglistversion_id: 2
     user_id: 4
+    position: 3
+  mlas7:
+    mailinglistversion_id: 3
+    user_id: 1
+    position: 1
+  mlas8:
+    mailinglistversion_id: 3
+    user_id: 2
+    position: 2
+  mlas9:
+    mailinglistversion_id: 3
+    user_id: 3
     position: 3
 
 MailinglistAuthorizationSetting:
@@ -1009,6 +1068,42 @@ MailinglistAuthorizationSetting:
     archiveworkflow: 0
     stopneworkflow: 0
     detailsworkflow: 0
+  mlaus11:
+    mailinglistversion_id: 3
+    type: admin
+    deleteworkflow: 1
+    archiveworkflow: 1
+    stopneworkflow: 1
+    detailsworkflow: 1
+  mlaus12:
+    mailinglistversion_id: 3
+    type: thesender
+    deleteworkflow: 0
+    archiveworkflow: 0
+    stopneworkflow: 0
+    detailsworkflow: 0
+  mlaus13:
+    mailinglistversion_id: 3
+    type: sender
+    deleteworkflow:
+    archiveworkflow:
+    stopneworkflow:
+    detailsworkflow:
+  mlaus14:
+    mailinglistversion_id: 3
+    type: senderwithrights
+    deleteworkflow: 1
+    archiveworkflow: 0
+    stopneworkflow: 0
+    detailsworkflow: 1
+  mlaus15:
+    mailinglistversion_id: 3
+    type: receiver
+    deleteworkflow: 0
+    archiveworkflow: 0
+    stopneworkflow: 0
+    detailsworkflow: 0
+
 
 MailinglistSlot:
   mls1:
@@ -1031,7 +1126,10 @@ MailinglistSlot:
     mailinglistversion_id: 2
     slot_id: 5
     position: 2
-
+  mls6:
+    mailinglistversion_id: 3
+    slot_id: 6
+    position: 1
 
 MailinglistUser:
   mlu1:
@@ -1093,4 +1191,12 @@ MailinglistUser:
   mlu15:
     mailinglistslot_id: 5
     user_id: 2
+    position: 2
+  mlu16:
+    mailinglistslot_id: 6
+    user_id: 1
+    position: 1
+  mlu17:
+    mailinglistslot_id: 6
+    user_id: 1
     position: 2
