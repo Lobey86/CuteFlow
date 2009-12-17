@@ -462,7 +462,7 @@ WorkflowTemplate:
   relations:
     WorkflowVersion: { class: WorkflowVersion, local: id, foreign: workflowtemplate_id, foreignType: many, type: one }
     WorkflowProcess: { class: WorkflowProcess, local: id, foreign: workflowtemplate_id, foreignType: many, type: one }
-
+    WorkflowVersionAttachment: { class: WorkflowVersionAttachment, local: id, foreign: workflowtemplate_id, foreignType: many, type: one }
 
 WorkflowVersion:
   actAs: [Timestampable]
@@ -481,10 +481,20 @@ WorkflowVersion:
   relations:
     WorkflowSlot: { class: WorkflowSlot, local: id, foreign: workflowversion_id, foreignType: many, type: one }
     WorkflowProcess: { class: WorkflowProcess, local: id, foreign: workflowversion_id, foreignType: many, type: one }
+    WorkflowVersionAttachment: { class: WorkflowVersionAttachment, local: id, foreign: workflowversion_id, foreignType: many, type: one }
 
+WorkflowVersionAttachment:
+  actAs: [Timestampable]
+  tableName: cf_workflowversionattachment
+  columns:
+    id: { type: integer, length: 10, primary: true, autoincrement: true }
+    workflowtemplate_id: { type: integer, length: 10 }
+    workflowversion_id: { type: integer, length: 10 }
+    workflowtemplate_id: { type: integer, length: 10 }
+    filename: {type: string(200) }
+    hashname: {type: string(200) }
 
-
-
+ 
 WorkflowSlot:
   tableName: cf_workflowslot
   columns:
@@ -603,7 +613,8 @@ WorkflowSlotFieldFile:
   columns:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
     workflowslotfield_id: { type: integer, length: 10 }
-    filename: {type: string(100) }
+    filename: {type: string(200) }
+    hashname: {type: string(200) }
 
 WorkflowProcess:
   tableName: cf_workflowprocess
