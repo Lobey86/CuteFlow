@@ -2,10 +2,12 @@ cf.workfloweditSlot = function(){return {
 	
 	theFieldset				:false,
 	theUniqueId				:false,
+	theFielUniqueId			:false,
 	
 	
 	init:function(data) {
 		this.theUniqueId = 0;
+		this.theFielUniqueId = 0;
 		this.initSlotFieldset();
 		for(var a=0;a<data.length;a++) {
 			var slot = data[a];
@@ -14,7 +16,7 @@ cf.workfloweditSlot = function(){return {
 			
 			var leftPanel = this.createPanel();		
 			var rightPanel = this.createPanel();
-			
+			var attachment = this.createAttachment();
 		
 				
 			for(var b=0;b<slot.fields.length;b++) {
@@ -52,16 +54,45 @@ cf.workfloweditSlot = function(){return {
 						var label = this.createCombobox(field.workflowslotfield_id, field.fieldname, field.items, field.writeprotected, field.color);
 						field.column == 'LEFT' ? leftPanel.add(label) : rightPanel.add(label);
 					    break;
+	    			case "FILE":
+						var label = this.createFile(field.items.link);
+						attachment.add(label);
+						attachment.setVisible(true);
+					    break;
 				}	
 			}
 			columnPanel.add(leftPanel);
 			columnPanel.add(rightPanel);
 			fieldset.add(columnPanel);
+			fieldset.add(attachment);
 			this.theFieldset.add(fieldset);
 		}
 		this.theFieldset.doLayout();
 	},
 	
+	
+	createAttachment: function () {
+		var theFieldset = new Ext.form.FieldSet({
+			title: '<table><tr><td><img src="/images/icons/attach.png" /> </td><td><?php echo __('Attachments',null,'workflowmanagement'); ?></td></tr></table>',
+			frame:false,
+			autoScroll: true,
+			hidden: true,
+		    width: cf.Layout.theRegionWest.getWidth() +  cf.Layout.theRegionCenter.getWidth() - 180,
+		    height:'auto'
+		});
+		return theFieldset;
+		
+	},
+	createFile: function (link) {
+		var id = cf.workfloweditSlot.theFielUniqueId++;
+		var label = new Ext.form.Label({
+			html: '<table><tr><td><img src="/images/icons/attach.png" /> </td><td>'+ link +'</td></tr></table>',
+			id: 'FILE__' + id,
+			style: 'font-size:14px;'
+		});
+		return label;
+		
+	},
 	
 	createCombobox: function (id, name, items, writeprotected, color) {
 		var disabled = writeprotected == 1 ? true : false;
@@ -329,7 +360,7 @@ cf.workfloweditSlot = function(){return {
 			}
 		});
 		return panel;
-	},
+	}
 	
 	
 	

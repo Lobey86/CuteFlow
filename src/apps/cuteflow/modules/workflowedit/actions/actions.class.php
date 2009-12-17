@@ -21,7 +21,6 @@ class workfloweditActions extends sfActions {
 
 
     public function executeLoadWorkflowData(sfWebRequest $request) {
-        
         $detailsObj = new WorkflowDetail();
         $detailsObj->setUser($this->getUser());
         $detailsObj->setCulture($this->getUser()->getCulture());
@@ -34,7 +33,7 @@ class workfloweditActions extends sfActions {
         $slotObj->setCulture($this->getUser()->getCulture());
         $slotObj->setContext($this->getContext());
         $slotData = $slotObj->buildSlots($workflowsettings, $request->getParameter('versionid'));
-
+        #print_r ($slotData);die;
         $this->renderText('{"generalData":'.json_encode($generalData).',"slotData":'.json_encode($slotData).'}');
         return sfView::NONE;
     }
@@ -45,47 +44,49 @@ class workfloweditActions extends sfActions {
         $data = $request->getPostParameters();
         $workflowEdit = new WorkflowEdit();
         if($data['workfloweditAcceptWorkflow_decission'] == 1) { // user accepted Workflow
-            foreach($data['field'] as $field) {
-                switch ($field['type']) {
-                case 'TEXTFIELD':
-                    WorkflowSlotFieldTextfieldTable::instance()->updateTextfieldByWorkflowFieldId($field['field_id'],$field['value']);
-                    break;
-                case 'CHECKBOX':
-                    $value = $field['value'] == 'false' ? 0 : 1;
-                    WorkflowSlotFieldCheckboxTable::instance()->updateCheckboxByWorkflowFieldId($field['field_id'],$value);
-                    break;
-                case 'NUMBER':
-                    WorkflowSlotFieldNumberTable::instance()->updateNumberByWorkflowFieldId($field['field_id'],$field['value']);
-                    break;
-                case 'DATE':
-                    WorkflowSlotFieldDateTable::instance()->updateDateByWorkflowFieldId($field['field_id'],$field['value']);
-                    break;
-                case 'TEXTAREA':
-                    WorkflowSlotFieldTextareaTable::instance()->updateTextareaByWorkflowFieldId($field['field_id'],$field['value']);
-                    break;
-                case 'RADIOGROUP':
-                    $items = $field['item'];
-                    foreach($items as $item) {
-                        $value = $item['value'] == 'false' ? 0 : 1;
-                        WorkflowSlotFieldRadiogroupTable::instance()->updateRadiogroupById($item['id'],$value);
+            if(isset($data['field'])) {
+                foreach($data['field'] as $field) {
+                    switch ($field['type']) {
+                    case 'TEXTFIELD':
+                        WorkflowSlotFieldTextfieldTable::instance()->updateTextfieldByWorkflowFieldId($field['field_id'],$field['value']);
+                        break;
+                    case 'CHECKBOX':
+                        $value = $field['value'] == 'false' ? 0 : 1;
+                        WorkflowSlotFieldCheckboxTable::instance()->updateCheckboxByWorkflowFieldId($field['field_id'],$value);
+                        break;
+                    case 'NUMBER':
+                        WorkflowSlotFieldNumberTable::instance()->updateNumberByWorkflowFieldId($field['field_id'],$field['value']);
+                        break;
+                    case 'DATE':
+                        WorkflowSlotFieldDateTable::instance()->updateDateByWorkflowFieldId($field['field_id'],$field['value']);
+                        break;
+                    case 'TEXTAREA':
+                        WorkflowSlotFieldTextareaTable::instance()->updateTextareaByWorkflowFieldId($field['field_id'],$field['value']);
+                        break;
+                    case 'RADIOGROUP':
+                        $items = $field['item'];
+                        foreach($items as $item) {
+                            $value = $item['value'] == 'false' ? 0 : 1;
+                            WorkflowSlotFieldRadiogroupTable::instance()->updateRadiogroupById($item['id'],$value);
+                        }
+                        break;
+                    case 'CHECKBOXGROUP':
+                        $items = $field['item'];
+                        foreach($items as $item) {
+                            $value = $item['value'] == 'false' ? 0 : 1;
+                            WorkflowSlotFieldCheckboxgroupTable::instance()->updateCheckboxgroupById($item['id'],$value);
+                        }
+                        break;
+                    case 'COMBOBOX':
+                        $items = $field['item'];
+                        foreach($items as $item) {
+                            $value = $item['value'] == 'false' ? 0 : 1;
+                            WorkflowSlotFieldComboboxTable::instance()->updateComboboxById($item['id'],$value);
+                        }
+                        break;
+                    case 'FILE':
+                        break;
                     }
-                    break;
-                case 'CHECKBOXGROUP':
-                    $items = $field['item'];
-                    foreach($items as $item) {
-                        $value = $item['value'] == 'false' ? 0 : 1;
-                        WorkflowSlotFieldCheckboxgroupTable::instance()->updateCheckboxgroupById($item['id'],$value);
-                    }
-                    break;
-                case 'COMBOBOX':
-                    $items = $field['item'];
-                    foreach($items as $item) {
-                        $value = $item['value'] == 'false' ? 0 : 1;
-                        WorkflowSlotFieldComboboxTable::instance()->updateComboboxById($item['id'],$value);
-                    }
-                    break;
-                case 'FILE':
-                    break;
                 }
             }
             $slots = $data['slot'];
@@ -143,56 +144,6 @@ class workfloweditActions extends sfActions {
 
 
         $this->renderText('{success:true}');
-        return sfView::NONE;
-    }
-
-    /**
-     * Action Test
-     */
-    public function executeTest(sfWebRequest $request) {
-
-        $data = Doctrine_Query::create()
-            ->select('wfpu.*')
-            ->from('WorkflowProcessUser wfpu')
-            ->leftJoin('wfpu.WorkflowProcess wfp')
-            ->where('wfp.workflowslot_id = ?', 1)
-            ->andWhere('wfpu.decissionstate = ?', 'WAITING')
-            ->andWhere('wfpu.user_id = ?',1)
-            ->execute()->toArray();
-
-        print_r ($data);die;
-
-        echo Doctrine_Query::create()
-            ->update('WorkflowProcessUser wfpu, WorkflowProcess wfp')
-            ->set('wfpu.decissionstate','?','DONE')
-            ->set('wfpu.dateofdecission','?',time())
-            ->where('wfp.workflowslot_id = 1 AND wfpu.decissionstate = "WAITING" AND wfpu.workflowprocess_id = wfp.id AND wfpu.user_id = 1')
-            ->getSql();
-
-
-
-        /*echo Doctrine_Query::create()
-            ->update('WorkflowProcessUser wfpu')
-            ->set('wfpu.decissionstate','?','DONE')
-            ->set('wfpu.dateofdecission','?',time())
-            ->leftJoin('WorkflowProcess wfp ON wfpu.workflowprocess_id = wfp.id ')
-            ->where('wfp.workflowslot_id = 1')
-            ->andWhere('wfpu.decissionstate = "WAITING"')
-            ->andWhere('wfpu.workflowprocess_id = wfp.id')
-            ->andWhere('wfpu.user_id = 1')
-            ->execute();*/
-
-
-
-        die;
-            #->set('wfpu.decissionstate','?','DONE')
-            #->set('wfpu.dateofdecission','?',time())
-            #->where('wfp.workflowslot_id = ?' ,1)
-            #->andWhere('wfpu.decissionstate = ?', 'WAITING')
-            #->andWhere('wfpu.workflowprocess_id = ?' , 'wfp.id')
-            #->andWhere('wfpu.user_id = ?', 1)
-            #->execute();
-        
         return sfView::NONE;
     }
 

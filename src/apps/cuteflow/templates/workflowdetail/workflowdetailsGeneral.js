@@ -7,6 +7,7 @@ cf.workflowdetailsGeneral = function(){return {
 	theHistoryCombo				:false,
 	theContentLabel				:false,
 	theLabel					:false,
+	theLoadingMask				:false,
 	
 	init:function(data,workflowtemplate_id) {
 		this.initFieldset(data.workflow);
@@ -40,7 +41,48 @@ cf.workflowdetailsGeneral = function(){return {
 			}),
 			valueField:'versionid',
 			displayField:'text',
-			width:180
+			width:180,
+			listeners: {
+	    		select: {
+	    			fn:function(combo, value) {
+						cf.workflowdetailsGeneral.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'workflowmanagement'); ?>'});					
+						cf.workflowdetailsGeneral.theLoadingMask.show();
+						Ext.Ajax.request({  
+							url : '<?php echo build_dynamic_javascript_url('workflowdetail/LoadVersion')?>/versionid/' + combo.getValue(),
+							success: function(objServerResponse){
+								var ServerResult = Ext.util.JSON.decode(objServerResponse.responseText);
+								var detailData = ServerResult.detailData;
+								var valueData = ServerResult.workflowData;
+								var attachments = ServerResult.workflowAttachment;
+								
+								cf.workflowdetails.thePanelToShow.remove(cf.workflowdetailsDetails.theFieldset);
+								cf.workflowdetailsDetails.theFieldset.destroy();
+								cf.workflowdetails.thePanelToShow.doLayout();
+								
+								cf.workflowdetailsDetails.init(detailData, 1);
+								cf.workflowdetails.thePanelToShow.add(cf.workflowdetailsDetails.theFieldset);
+								
+								
+								cf.workflowdetails.thePanelToShow.remove(cf.workflowdetailsAttachments.theFieldset);
+								cf.workflowdetailsAttachments.theFieldset.destroy();
+								cf.workflowdetails.thePanelToShow.doLayout();
+								cf.workflowdetailsAttachments.init(attachments);
+							    cf.workflowdetails.thePanelToShow.add(cf.workflowdetailsAttachments.theFieldset);
+								
+
+								cf.workflowdetails.thePanelToShow.remove(cf.workflowdetailsValue.theFieldset);
+								cf.workflowdetailsValue.theFieldset.destroy();
+								cf.workflowdetails.thePanelToShow.doLayout();
+								cf.workflowdetailsValue.init(valueData);
+								
+								cf.workflowdetails.thePanelToShow.add(cf.workflowdetailsValue.theFieldset);
+								cf.workflowdetails.thePanelToShow.doLayout();
+								cf.workflowdetailsGeneral.theLoadingMask.hide();
+							}
+						});
+	    			}
+	    		}
+	    	} 
 		});
 		var defaultId = '';
 		for(var a=0;a<items.length;a++) {

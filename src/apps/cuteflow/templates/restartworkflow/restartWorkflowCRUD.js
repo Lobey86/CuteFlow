@@ -3,6 +3,9 @@ cf.restartWorkflowCRUD = function(){return {
 	
 	doSubmit: function (versionid) {
 		Ext.getCmp('restartWorkflowFirstTab_fieldset2').expand();
+		Ext.getCmp('restartWorkflowFirstTab_fieldset3').expand();
+		Ext.getCmp('restartWorkflowFirstTab_fieldset1').expand();
+		Ext.getCmp('restartWorkflowFirstTab_fieldset4').expand();
 		cf.restartWorkflowFirstTab.theFirstTabPanel.getForm().submit({
 			url: '<?php echo build_dynamic_javascript_url('restartworkflow/RestartWorkflow')?>/versionid/' + versionid,
 			method: 'POST',
