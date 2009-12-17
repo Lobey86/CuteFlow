@@ -49,17 +49,20 @@ class WorkflowOverview {
             $result[$a]['name'] = $item->getName();
             $result[$a]['openinpopup'] = $openInPopUp;
             $result[$a]['isstopped'] = $item->getIsstopped();
+            $result[$a]['process'] = $this->getProcess($item->getActiveversionId());
             if($item->getIscompleted() == 0 OR $item->getIscompleted() == '') {
                  $result[$a]['iscompleted'] = 0;
             }
             else {
                 $result[$a]['iscompleted'] = 1;
+                $result[$a]['process'] = '<div style="background-color:#00FF00; width:100px;">100 %'.'</div>';
             }
 
             $result[$a]['workflowisstarted'] = $item->getWorkflowisstarted();
             if($item->getIsstopped() == 1) {
                 $result[$a]['currentstation'] = '<table><tr><td width="16"><img src="/images/icons/circ_stop.gif" /></td><td>'.$this->context->getI18N()->__('Workflow stopped' ,null,'workflowmanagement').'</td></tr></table>';
                 $result[$a]['currentlyrunning'] = '-';
+               // $result[$a]['process'] = '-';
             }
             elseif($item->getIscompleted() == 1) {
                 $result[$a]['currentstation'] = '<table><tr><td width="16"><img src="/images/icons/circ_done.gif" /></td><td>'.$this->context->getI18N()->__('Workflow completed' ,null,'workflowmanagement').'</td></tr></table>';
@@ -77,11 +80,62 @@ class WorkflowOverview {
             }
 
             $result[$a]['versioncreated_at'] = format_date($item->getVersioncreatedAt(), 'g', $this->culture);
+            
             $result[$a++]['activeversion_id'] = $item->getActiveversionId();
         }
         //print_r ($result);die;
         return $result;
 
+    }
+
+
+
+    public function getProcess($version_id) {
+        $slots = WorkflowSlotTable::instance()->getSlotByVersionId($version_id);
+        $alreadyCompleted = 0;
+        $toComplete = 0;
+        foreach($slots as $slot) {
+            $users = WorkflowSlotUserTable::instance()->getUserBySlotId($slot->getId());
+            $toComplete += count($users);
+            foreach($users as $user) {
+                $processUser = WorkflowProcessUserTable::instance()->getProcessUserByWorkflowSlotUserId($user->getId())->toArray();
+                if(!empty($processUser)) {
+                    foreach($processUser as $process) {
+                        if($process['decissionstate'] != 'WAITING') {
+                            $alreadyCompleted++;
+                        }
+                    }
+
+                }
+            }
+        }
+        $percentDone = (($toComplete/100) * $alreadyCompleted)*100;
+        if($percentDone > 100) {
+            $percentDone = 100;
+        }
+        $color = '';
+        if($percentDone < 15) {
+
+        }
+        else if ($percentDone >= 15 AND $percentDone < 30) {
+            $color = '#FF0000';
+        }
+        else if ($percentDone >= 30 AND $percentDone < 45) {
+            $color = '#FF9933';
+        }
+        else if ($percentDone >= 45 AND $percentDone < 60) {
+            $color = '#FFCC33';
+        }
+        else if ($percentDone >= 60 AND $percentDone < 75) {
+            $color = '#FFFF33';
+        }
+        else if ($percentDone >= 75 AND $percentDone < 90) {
+            $color = '#99FF99';
+        }
+        else {
+            $color = '#00FF00';
+        }
+        return '<div style="background-color:'.$color.'; width:'.$percentDone.'px;">'.$percentDone . ' %'.'</div>';
     }
 
 
