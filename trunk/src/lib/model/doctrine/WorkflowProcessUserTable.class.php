@@ -82,6 +82,14 @@ class WorkflowProcessUserTable extends Doctrine_Table {
     }
 
 
+    public function getWorkflowProcessUserByWorklflowProcessId($wfId) {
+        return Doctrine_Query::create()
+            ->select('wfpu.*')
+            ->from('WorkflowProcessUser wfpu')
+            ->where('wfpu.workflowprocess_id = ?' ,$wfId)
+            ->execute();
+    }
+
 
     public function getWaitingStation($workflowslot_id, $user_id) {
         return Doctrine_Query::create()

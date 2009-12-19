@@ -54,5 +54,13 @@ class WorkflowProcessTable extends Doctrine_Table {
 
     }
 
+    public function getWorkflowProcessBySlotId($slot_id) {
+        return Doctrine_Query::create()
+            ->from('WorkflowProcess wfp')
+            ->select('wfp.*')
+            ->where('wfp.workflowslot_id = ?' ,$slot_id)
+            ->execute();
+
+    }
     
 }
