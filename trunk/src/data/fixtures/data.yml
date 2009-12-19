@@ -265,6 +265,7 @@ UserSetting:
      circulationdefaultsortdirection: ASC
      showcirculationinpopup: 1
      firstlogin: 1
+     theme: DEFAULT
   us2:
      user_id: 2
      language: en_US
@@ -281,6 +282,7 @@ UserSetting:
      circulationdefaultsortdirection: DESC
      showcirculationinpopup: 0
      firstlogin: 1
+     theme: DEFAULT
   us3:
      user_id: 3
      language: en_US
@@ -297,6 +299,7 @@ UserSetting:
      circulationdefaultsortdirection: DESC
      showcirculationinpopup: 0
      firstlogin: 1
+     theme: DEFAULT
   us4:
      user_id: 4
      language: en_US
@@ -313,6 +316,7 @@ UserSetting:
      circulationdefaultsortdirection: DESC
      showcirculationinpopup: 0
      firstlogin: 1
+     theme: DEFAULT
 
 UserWorkflowConfiguration:
   uwc1:
@@ -551,6 +555,7 @@ UserConfiguration:
     circulationdefaultsortcolumn: START
     circulationdefaultsortdirection: ASC
     showcirculationinpopup: 0
+    theme: DEFAULT
 
 WorkflowConfiguration:
   wc1:
@@ -671,10 +676,10 @@ Field:
 FieldFile:
   ff1:
     field_id: 12
-    regex: 
+    regex: ''
   ff2:
     field_id: 13
-    regex:
+    regex: ''
 
 FieldNumber:
   fn1:
@@ -837,12 +842,12 @@ DocumenttemplateSlot:
   dts4:
     documenttemplateversion_id: 2
     name: Slot 1 von 2
-    sendtoallreceivers: 1
+    sendtoallreceivers: 0
     position: 1
   dts5:
     documenttemplateversion_id: 2
     name: Slot 2 von 2
-    sendtoallreceivers: 0
+    sendtoallreceivers: 1
     position: 2
   dts6:
     documenttemplateversion_id: 3
