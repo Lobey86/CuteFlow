@@ -173,15 +173,16 @@ class createworkflowActions extends sfActions {
         }
 
         $files = $_FILES;
-        $file1 = $files['create_uploadfile1'];
-        $file2 = $files['create_uploadfile2'];
-        $file3 = $files['create_uploadfile3'];
-        $file4 = $files['create_uploadfile4'];
-        $fileUpload = new FileUpload();
-        $fileUpload->uploadFile($file1,$template_id,$workflow_id);
-        $fileUpload->uploadFile($file2,$template_id,$workflow_id);
-        $fileUpload->uploadFile($file3,$template_id,$workflow_id);
-        $fileUpload->uploadFile($file4,$template_id,$workflow_id);
+        $keys = array();
+        $keys = array_keys($files);
+
+        for($a=0;$a<count($keys);$a++) {
+	$key = $keys[$a];
+            if(substr_count($key, 'uploadfile') == 1) {
+                $fileUpload = new FileUpload();
+                $fileUpload->uploadFile($files[$key],$template_id,$workflow_id);
+            }
+        }
 
 
         $sendToAllSlotsAtOnce = MailinglistVersionTable::instance()->getActiveVersionById($request->getPostParameter('createWorkflowFirstTab_mailinglist'))->toArray();
@@ -195,9 +196,14 @@ class createworkflowActions extends sfActions {
                 $calc->addSingleSlot();
             }
         }
-        $this->getResponse()->setHttpHeader("X-JSON", '{"success":true}');
-        #$this->renderText('{"success":true}');
+
+        //$this->getResponse()->setHttpHeader('Content-Type','application/json; charset=utf-8');
+        $this->getResponse()->setHttpHeader('X-JSON', json_encode(array('success' => 'true')));
         return sfView::NONE;
+        #$this->getResponse()->setHttpHeader("X-JSON", '({"success":true})');
+        #$this->getResponse()->setHttpHeader('Content-Type','text/plain; charset=utf-8');
+        #return $this->renderText('{"success":true}');
+        #return sfView::HEADER_ONLY;
     }
 
 

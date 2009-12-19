@@ -19,7 +19,7 @@ cf.createUserWindow = function(){return {
 			cf.userFirstTab.init();
 			cf.userSecondTab.init(this.theUserId);
 			cf.userThirdTab.init();
-			cf.userFourthTab.init('<?php echo build_dynamic_javascript_url('systemsetting/LoadCirculationColumns')?>');
+			cf.userFourthTab.init('<?php echo build_dynamic_javascript_url('systemsetting/LoadCirculationColumns')?>', '<?php echo build_dynamic_javascript_url('theme/LoadAllTheme')?>');
 			this.initFormPanel();
 			this.initTabPanel();
 			this.initWindow();

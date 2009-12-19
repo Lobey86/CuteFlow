@@ -17,6 +17,12 @@ class loginActions extends sfActions {
     public function executeIndex(sfWebRequest $request) {
         sfLoader::loadHelpers('Url');
         $this->getUser()->setCulture(Language::loadDefaultLanguage());
+        $tm = new ThemeManagement();
+        $systemTheme = UserConfigurationTable::instance()->getUserConfiguration()->toArray();
+        $this->theTheme = $systemTheme[0]['theme'];
+        #$pathToTheme = $tm->getThemePath($systemTheme[0]['theme']);
+        
+
         return sfView::SUCCESS;
     }
 

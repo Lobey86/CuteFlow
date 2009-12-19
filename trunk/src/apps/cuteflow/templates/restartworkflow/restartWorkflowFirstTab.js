@@ -25,8 +25,8 @@ cf.restartWorkflowFirstTab = function(){return {
 		this.theUniqueFileStoreId = 1;
 		this.theUniqueFileId = 0;
 		this.initPanel();
-		var fieldset1 = cf.restartWorkflowFirstTab.createFieldset('restartWorkflowFirstTab_fieldset1', '<?php echo __('Set start date',null,'workflowmanagement'); ?>', false, cb7, true);
-		
+		var fieldset1 = cf.restartWorkflowFirstTab.createFieldset('restartWorkflowFirstTab_fieldset1', '<?php echo __('Set start date',null,'workflowmanagement'); ?>', false, 300, true);
+		this.initFileGrid();
 		this.initHiddenfield();
 		this.initStartPoint();
 		var cb7 = this.createCheckbox('restartWorkflowFirstTab_useoldvalues','<?php echo __('Use values from current version?',null,'workflowmanagement'); ?>',false,'', 1);
@@ -35,22 +35,13 @@ cf.restartWorkflowFirstTab = function(){return {
 		fieldset1.add(this.theMailinglist);
 		fieldset1.add(this.theStartPoint);
 		fieldset1.add(cb7);	
+		fieldset1.add(this.theFileUploadGrid);
 		fieldset1.add(this.theHiddenField);
 		
-		var fieldset5 = this.createFieldset('restartWorkflowFirstTab_fieldset4', '<?php echo __('Set attachments',null,'workflowmanagement'); ?>', false, 180, true);
-		var upload1 = this.createFileUpload(1);
-		var upload2 = this.createFileUpload(2);
-		var upload3 = this.createFileUpload(3);
-		var upload4 = this.createFileUpload(4);
-		
-		fieldset5.add(upload1);
-		fieldset5.add(upload2);
-		fieldset5.add(upload3);
-		fieldset5.add(upload4);
 				
 		
 			
-		var fieldset2 = cf.restartWorkflowFirstTab.createFieldset('restartWorkflowFirstTab_fieldset2', '<?php echo __('Select Additional text',null,'workflowmanagement'); ?>', true, 370, true);
+		var fieldset2 = cf.restartWorkflowFirstTab.createFieldset('restartWorkflowFirstTab_fieldset2', '<?php echo __('Select Additional text',null,'workflowmanagement'); ?>', false, 370, true);
 		this.initAdditionaltextcombo();
 		this.initContenttypecombo();
 		this.initColumnPanel();
@@ -67,7 +58,7 @@ cf.restartWorkflowFirstTab = function(){return {
 		fieldset2.add(this.theContenttypeCombo);
 		fieldset2.add(this.theColumnPanel);
 		
-		var fieldset3 = cf.restartWorkflowFirstTab.createFieldset('restartWorkflowFirstTab_fieldset3', '<?php echo __('Additional Settings',null,'workflowmanagement'); ?>', true, 250, true);
+		var fieldset3 = cf.restartWorkflowFirstTab.createFieldset('restartWorkflowFirstTab_fieldset3', '<?php echo __('Additional Settings',null,'workflowmanagement'); ?>', false, 250, true);
 		var cb1 = this.createCheckbox('restartWorkflowFirstTabSettings[0]','<?php echo __('Sending notification',null,'workflowmanagement'); ?>',true,'', 1);
 		var cb2 = this.createCheckbox('restartWorkflowFirstTabSettings[1]','&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo __('After succeeded circulation',null,'workflowmanagement'); ?>',true,'', 2);
 		var cb3 = this.createCheckbox('restartWorkflowFirstTabSettings[2]','&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo __('After succeeded slot end',null,'workflowmanagement'); ?>',false,'', 4);
@@ -77,7 +68,6 @@ cf.restartWorkflowFirstTab = function(){return {
 		
 		fieldset3.add([cb1,cb2,cb3,cb4,cb5,cb6]);
 		this.theFirstTabPanel.add(fieldset1);
-		this.theFirstTabPanel.add(fieldset5);
 		this.theFirstTabPanel.add(fieldset2);
 		this.theFirstTabPanel.add(fieldset3);
 	},
@@ -291,14 +281,15 @@ cf.restartWorkflowFirstTab = function(){return {
 	renderFileButton: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 		var id = cf.restartWorkflowFirstTab.theUniqueFileId++;
 		var btn = cf.restartWorkflowFirstTab.createFileUpload.defer(3,this, [id]);
-		return '<center><table><tr><td><div id="create_uploadfile'+ id +'"></div></td></tr></table></center>';
+		return '<center><table><tr><td><div id="restart_uploadfile'+ id +'"></div></td></tr></table></center>';
 	},
 	
 	
 	createFileUpload: function (id) {
 		var file = new Ext.form.FileUploadField({
-		    id: 'restart_uploadfile' + id,
 		    fieldLabel: '<?php echo __('Select attachment',null,'workflowmanagement'); ?>',
+		    name: 'uploadfile__'+id,
+		    renderTo: 'restart_uploadfile'+id,
 			emptyText:  '<?php echo __('Select a file',null,'workflowmanagement'); ?>',
 			width: 300
 		});

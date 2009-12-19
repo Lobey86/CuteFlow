@@ -3,9 +3,12 @@ cf.restartWorkflowWindow = function(){return {
 	theRestartWorkflowWindow		:false,
 	theTabPanel						:false,
 	theTemplateId					:false,
+	theLoadingMask					:false,
 	
 	
 	init: function(template_id) {
+		this.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Preparing Data...',null,'workflowmanagement'); ?>'});					
+		this.theLoadingMask.show();
 		this.theTemplateId = template_id;
 		this.initTabPanel();
 		this.initWindow();
@@ -14,6 +17,9 @@ cf.restartWorkflowWindow = function(){return {
 		this.theRestartWorkflowWindow.add(this.theTabPanel);
 		this.theRestartWorkflowWindow.show();
 		
+		cf.restartWorkflowFirstTab.theFirstTabPanel.getComponent(1).collapse(false);
+		cf.restartWorkflowFirstTab.theFirstTabPanel.getComponent(2).collapse(false);
+		this.theLoadingMask.hide();
 	},
 	
 	
