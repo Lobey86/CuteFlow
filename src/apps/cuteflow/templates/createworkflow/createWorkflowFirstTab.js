@@ -25,33 +25,21 @@ cf.createWorkflowFirstTab = function(){return {
 		this.theUniqueFileStoreId = 1;
 		this.theUniqueFileId = 0;
 		this.initPanel();
-		var fieldset1 = this.createFieldset('createWorkflowFirstTab_fieldset1', '<?php echo __('Set name, mailinglist, attachments and start date',null,'workflowmanagement'); ?>', false, 160, true);
+		var fieldset1 = this.createFieldset('createWorkflowFirstTab_fieldset1', '<?php echo __('Set name, mailinglist, attachments and start date',null,'workflowmanagement'); ?>', false, 350, true);
 		this.initNameTextfield();
 		this.initMailinglist();
 		this.initDatepicker();
-		//this.initFileGrid();
+		this.initFileGrid();
 		this.initDatefieldCheckbox();
 		fieldset1.add(this.theNameTextfield);
 		fieldset1.add(this.theMailinglist);
 		fieldset1.add(this.theDatefieldCheckbox);
 		fieldset1.add(this.theDatepicker);
-		//fieldset1.add(this.theFileUploadGrid);
-		
-		var fieldset5 = this.createFieldset('createWorkflowFirstTab_fieldset4', '<?php echo __('Set attachments',null,'workflowmanagement'); ?>', false, 165, true);
-		
-		var upload1 = this.createFileUpload(1);
-		var upload2 = this.createFileUpload(2);
-		var upload3 = this.createFileUpload(3);
-		var upload4 = this.createFileUpload(4);
-		
-		fieldset5.add(upload1);
-		fieldset5.add(upload2);
-		fieldset5.add(upload3);
-		fieldset5.add(upload4);
+		fieldset1.add(this.theFileUploadGrid);
 		
 		
 			
-		var fieldset2 = this.createFieldset('createWorkflowFirstTab_fieldset2', '<?php echo __('Select Additional text',null,'workflowmanagement'); ?>', true, 350, true);
+		var fieldset2 = this.createFieldset('createWorkflowFirstTab_fieldset2', '<?php echo __('Select Additional text',null,'workflowmanagement'); ?>', false, 350, true);
 		this.initAdditionaltextcombo();
 		this.initContenttypecombo();
 		this.initColumnPanel();
@@ -68,7 +56,7 @@ cf.createWorkflowFirstTab = function(){return {
 		fieldset2.add(this.theContenttypeCombo);
 		fieldset2.add(this.theColumnPanel);
 		
-		var fieldset3 = this.createFieldset('createWorkflowFirstTab_fieldset3', '<?php echo __('Additional Settings',null,'workflowmanagement'); ?>', true, 200, true);
+		var fieldset3 = this.createFieldset('createWorkflowFirstTab_fieldset3', '<?php echo __('Additional Settings',null,'workflowmanagement'); ?>', false, 200, true);
 		var cb1 = this.createCheckbox('createWorkflowFirstTabSettings[0]','<?php echo __('Sending notification',null,'workflowmanagement'); ?>',true,'', 1);
 		var cb2 = this.createCheckbox('createWorkflowFirstTabSettings[1]','&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo __('After succeeded circulation',null,'workflowmanagement'); ?>',true,'', 2);
 		var cb3 = this.createCheckbox('createWorkflowFirstTabSettings[2]','&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo __('After succeeded slot end',null,'workflowmanagement'); ?>',false,'', 4);
@@ -77,10 +65,8 @@ cf.createWorkflowFirstTab = function(){return {
 		var cb6 = this.createCheckbox('createWorkflowFirstTabSettings[5]','<?php echo __('Show receiver name in workflow',null,'workflowmanagement'); ?>',false,'', 32);
 		fieldset3.add([cb1,cb2,cb3,cb4,cb5,cb6]);
 		this.theFirstTabPanel.add(fieldset1);
-		this.theFirstTabPanel.add(fieldset5);
 		this.theFirstTabPanel.add(fieldset2);
-		this.theFirstTabPanel.add(fieldset3);
-		
+		this.theFirstTabPanel.add(fieldset3);		
 	},
 	
 
@@ -265,7 +251,8 @@ cf.createWorkflowFirstTab = function(){return {
 	createFileUpload: function (id) {
 		var file = new Ext.form.FileUploadField({
 		    fieldLabel: '<?php echo __('Select attachment',null,'workflowmanagement'); ?>',
-		    id: 'create_uploadfile' + id,
+		    name: 'uploadfile__'+id,
+		    renderTo: 'create_uploadfile'+id,
 			emptyText:  '<?php echo __('Select a file',null,'workflowmanagement'); ?>',
 			width: 300
 		});
@@ -457,9 +444,10 @@ cf.createWorkflowFirstTab = function(){return {
 						var data = combo.store.findExact('value', combo.getValue());
 						cf.createWorkflowSecondTab.init(data.data.activeversionid);
 						cf.createWorkflowWindow.theTabPanel.add(cf.createWorkflowSecondTab.theSecondPanel);
-						
+						cf.createWorkflowWindow.theTabPanel.setActiveTab(1);
 						cf.createWorkflowThirdTab.init(data.data.activeversionid);
 						cf.createWorkflowWindow.theTabPanel.add(cf.createWorkflowThirdTab.theThirdPanel);
+						cf.createWorkflowWindow.theTabPanel.setActiveTab(0);
 						cf.createWorkflowFirstTab.theLoadingMask.hide();
 					}
 				}
@@ -495,8 +483,10 @@ cf.createWorkflowFirstTab = function(){return {
 						combo.setValue(defaultdata);
 						cf.createWorkflowSecondTab.init(singleData.data.activeversionid);
 						cf.createWorkflowWindow.theTabPanel.add(cf.createWorkflowSecondTab.theSecondPanel);
+						cf.createWorkflowWindow.theTabPanel.setActiveTab(1);
 						cf.createWorkflowThirdTab.init(singleData.data.activeversionid);
 						cf.createWorkflowWindow.theTabPanel.add(cf.createWorkflowThirdTab.theThirdPanel);
+						cf.createWorkflowWindow.theTabPanel.setActiveTab(0);
 					}
 					cf.createWorkflowFirstTab.theLoadingMask.hide();
 				}

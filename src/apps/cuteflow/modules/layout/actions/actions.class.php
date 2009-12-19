@@ -21,7 +21,7 @@ class layoutActions extends sfActions {
         $userSettings = UserSettingTable::instance()->getUserSettingById($this->getUser()->getAttribute('id'));
         $this->getUser()->setAttribute('userSettings', $userSettings[0]->toArray());
 
-        
+        $this->theTheme = $userSettings[0]->getTheme();
         // Load credentials and store them to session here
         $credentials = CredentialTable::instance()->getAllCredentials();
         $userrights = CredentialRoleTable::instance()->getCredentialRoleById($this->getUser()->getAttribute('id'));

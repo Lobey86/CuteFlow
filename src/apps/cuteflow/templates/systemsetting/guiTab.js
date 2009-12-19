@@ -7,11 +7,18 @@ cf.guiTab = function(){return {
 	theGuiCM					:false,
 	theGuiStore					:false,
 	thePanel					:false,
+	theThemeFieldset			:false,
+	theComboBox					:false,
+	theComboStore				:false,
 	
 	
 	
 		/** load all nedded functions **/
 	init: function () {
+		this.initThemeFieldset();
+		this.initComboStore();
+		this.initCombo();
+		this.theThemeFieldset.add(this.theComboBox);
 		this.initCM();
 		this.initStore();
 		this.initGrid();
@@ -20,7 +27,65 @@ cf.guiTab = function(){return {
 		this.initGuiFieldset();
 		this.thePanel.add(this.theGuiGrid);
 		this.theGuiFieldset.add(this.thePanel);
+		this.theGuiTab.add(this.theThemeFieldset);
 		this.theGuiTab.add(this.theGuiFieldset);
+	},
+	
+	
+	initCombo: function () {
+		this.theComboBox = new Ext.form.ComboBox({
+			fieldLabel: '<?php echo __('Select Theme',null,'systemsetting'); ?>',
+			valueField: 'plain',
+			displayField: 'translation',
+			editable: false,
+			id: 'guitab_theme_id',
+			hiddenName : 'guitab_theme',
+			mode: 'local',
+			store: this.theComboStore,
+			triggerAction: 'all',
+			selectOnFocus:true,
+			allowBlank: true,
+			forceSelection:true,
+			width: 225
+		});
+		this.theComboBox.on('render', function(combo) {
+			Ext.Ajax.request({  
+				url: '<?php echo build_dynamic_javascript_url('theme/LoadAllTheme')?>',
+				success: function(objServerResponse){
+					data = Ext.util.JSON.decode(objServerResponse.responseText);
+					var result = data.result;
+					var defaultData;
+					for(var a=0;a<result.length;a++) {
+						var item = result[a];
+						var Rec = Ext.data.Record.create({name: 'plain'},{name: 'translation'},{name: 'isDefault'});
+						cf.guiTab.theComboBox.store.add(new Rec({plain: item.plain, translation: item.translation,isDefault: item.isDefault}));
+						if(item.isDefault == 1) {
+							defaultData = item.plain;
+						}
+					}
+					cf.guiTab.theComboBox.setValue(defaultData);
+					
+				}	
+			}); 
+	    });	
+	},
+	
+	initComboStore: function () {
+		this.theComboStore = new Ext.data.SimpleStore({
+			fields: [{name: 'plain'},{name: 'translation'},{name: 'isDefault'}]
+		});
+		
+	},
+	
+	initThemeFieldset: function () {
+		this.theThemeFieldset = new Ext.form.FieldSet({
+			title: '<table><tr><td><img src="/images/icons/information.png"  ext:qtip=\"Settings will automatic be loaded,<br>when a new user is added to database\" ext:qwidth=\"300\"/></td><td>&nbsp;&nbsp;<?php echo __('Set Default Theme',null,'systemsetting'); ?></td></tr></table>',
+			width: 430,
+			height: 80,
+			style: 'margin-top:20px;margin-left:5px;',
+			labelWidth: 150
+		});
+		
 	},
 	
 	/** init the panel for tab **/
@@ -39,7 +104,7 @@ cf.guiTab = function(){return {
 			closable: false,
 			modal: true,
 			width: 650,
-			height: 600,
+			height: 750,
 			autoScroll: false,
 			title: '<?php echo __('GUI Settings',null,'systemsetting'); ?>',
 			shadow: false,
@@ -55,7 +120,7 @@ cf.guiTab = function(){return {
 		this.theGuiFieldset = new Ext.form.FieldSet({
 			title: '<table><tr><td><img src="/images/icons/information.png"  ext:qtip=\"Settings will automatic be loaded,<br>when a new user is added to database\" ext:qwidth=\"300\"/></td><td>&nbsp;&nbsp;<?php echo __('GUI Workflow Settings',null,'systemsetting'); ?></td></tr></table>',
 			width: 430,
-			height: 520,
+			height: 490,
 			style: 'margin-top:20px;margin-left:5px;',
 			labelWidth: 330
 		});

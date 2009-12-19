@@ -228,25 +228,11 @@ cf.createWorkflowCRUD = function(){return {
 		Ext.getCmp('createWorkflowFirstTab_fieldset1').expand();
 		Ext.getCmp('createWorkflowFirstTab_fieldset2').expand();
 		Ext.getCmp('createWorkflowFirstTab_fieldset3').expand();
-		Ext.getCmp('createWorkflowFirstTab_fieldset4').expand();
 		cf.createWorkflowWindow.theFormPanel.getForm().submit({
 			url: '<?php echo build_dynamic_javascript_url('createworkflow/CreateWorkflow')?>',
 			method: 'POST',
-			//waitMsg: '<?php echo __('Saving Data',null,'workflowmanagement'); ?>',
+			waitMsg: '<?php echo __('Saving Data',null,'workflowmanagement'); ?>',
 			success: function(objServerResponse){
-				cf.workflowmanagementPanelGrid.theWorkflowStore.reload();
-				cf.createWorkflowWindow.theCreateWorkflowWindow.hide();
-				cf.createWorkflowWindow.theCreateWorkflowWindow.destroy();
-				Ext.Msg.minWidth = 200;
-				Ext.MessageBox.alert('<?php echo __('OK',null,'workflowmanagement'); ?>','<?php echo __('Workflow created',null,'workflowmanagement'); ?>');
-				try {
-					cf.todoPanelGrid.theTodoStore.reload();
-				}
-				catch(e) {
-					
-				}
-			},
-			failure: function(objServerResponse){
 				cf.workflowmanagementPanelGrid.theWorkflowStore.reload();
 				cf.createWorkflowWindow.theCreateWorkflowWindow.hide();
 				cf.createWorkflowWindow.theCreateWorkflowWindow.destroy();

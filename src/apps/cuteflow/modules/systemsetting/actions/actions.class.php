@@ -95,6 +95,11 @@ class systemsettingActions extends sfActions {
             }
         }
 
+        if(isset($data['guitab_theme'])) {
+            UserConfigurationTable::instance()->updateTheme($data['guitab_theme']);
+            
+        }
+
         // save worklfow config 
         WorkflowConfigurationTable::instance()->deleteSettings();
         $worklfow = $data['worklfow'];

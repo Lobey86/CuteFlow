@@ -19,7 +19,7 @@ cf.editUserWindow = function(){return {
 			cf.userFirstTab.init();
 			cf.userSecondTab.init(this.theUserId);
 			cf.userThirdTab.init();
-			cf.userFourthTab.init('<?php echo build_dynamic_javascript_url('myprofile/LoadUserCirculationColumns')?>/id/' + this.theUserId);
+			cf.userFourthTab.init('<?php echo build_dynamic_javascript_url('myprofile/LoadUserCirculationColumns')?>/id/' + this.theUserId, '<?php echo build_dynamic_javascript_url('theme/LoadUserTheme')?>/id/' + this.theUserId);
 			this.initFormPanel();
 			this.initTabPanel();
 			this.initWindow();

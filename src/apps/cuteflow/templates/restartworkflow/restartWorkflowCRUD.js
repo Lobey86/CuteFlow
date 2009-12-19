@@ -5,17 +5,22 @@ cf.restartWorkflowCRUD = function(){return {
 		Ext.getCmp('restartWorkflowFirstTab_fieldset2').expand();
 		Ext.getCmp('restartWorkflowFirstTab_fieldset3').expand();
 		Ext.getCmp('restartWorkflowFirstTab_fieldset1').expand();
-		Ext.getCmp('restartWorkflowFirstTab_fieldset4').expand();
 		cf.restartWorkflowFirstTab.theFirstTabPanel.getForm().submit({
 			url: '<?php echo build_dynamic_javascript_url('restartworkflow/RestartWorkflow')?>/versionid/' + versionid,
 			method: 'POST',
-			//waitMsg: '<?php echo __('Saving Data',null,'usermanagement'); ?>',
+			waitMsg: '<?php echo __('Saving Data',null,'usermanagement'); ?>',
 			success: function(objServerResponse){
-				/*cf.additionalTextGrid.theTextStore.reload();
+				cf.workflowmanagementPanelGrid.theWorkflowStore.reload();
+				cf.createWorkflowWindow.theCreateWorkflowWindow.hide();
+				cf.createWorkflowWindow.theCreateWorkflowWindow.destroy();
 				Ext.Msg.minWidth = 200;
-				cf.additionalTextPopUpWindow.thePopUpWindow.hide();
-				cf.additionalTextPopUpWindow.thePopUpWindow.destroy();
-				Ext.MessageBox.alert('<?php echo __('OK',null,'additionaltext'); ?>', '<?php echo __('Text saved',null,'additionaltext'); ?>');*/
+				Ext.MessageBox.alert('<?php echo __('OK',null,'workflowmanagement'); ?>','<?php echo __('Workflow restarted',null,'workflowmanagement'); ?>');
+				try {
+					cf.todoPanelGrid.theTodoStore.reload();
+				}
+				catch(e) {
+					
+				}
 
 			}
 		});

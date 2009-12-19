@@ -3,9 +3,12 @@ cf.createWorkflowWindow = function(){return {
 	theCreateWorkflowWindow			:false,
 	theTabPanel						:false,
 	theFormPanel					:false,
+	theLoadingMask					:false,
 	
 	
 	init: function() {
+		this.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Preparing Data...',null,'workflowmanagement'); ?>'});					
+		this.theLoadingMask.show();
 		this.initTabPanel();
 		this.initWindow();
 		this.initFormPanel();
@@ -13,7 +16,11 @@ cf.createWorkflowWindow = function(){return {
 		this.theFormPanel.add(this.theTabPanel);
 		this.theTabPanel.add(cf.createWorkflowFirstTab.theFirstTabPanel);
 		this.theCreateWorkflowWindow.add(this.theFormPanel);
-		this.theCreateWorkflowWindow.show();
+		this.theCreateWorkflowWindow.show();		
+		
+		cf.createWorkflowFirstTab.theFirstTabPanel.getComponent(1).collapse(false);
+		cf.createWorkflowFirstTab.theFirstTabPanel.getComponent(2).collapse(false);
+		this.theLoadingMask.hide();
 		
 	},
 	

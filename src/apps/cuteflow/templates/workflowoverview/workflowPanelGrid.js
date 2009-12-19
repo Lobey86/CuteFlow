@@ -172,7 +172,7 @@ cf.workflowmanagementPanelGrid = function(){return {
 						click: function(el){
 							if(iscompleted != 1) {
 								if(isstopped == 1) {
-									cf.restartWorkflowWindow.init(template_id);
+									cf.restartWorkflowWindow.init(activeversion_id);
 								}
 								else {
 									if(workflowisstarted == 1) {

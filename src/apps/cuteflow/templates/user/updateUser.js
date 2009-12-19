@@ -119,6 +119,22 @@ cf.updateUser = function(){return {
 					cf.UserGrid.theUserStore.reload();
 				}
 				catch(e) {}
+				
+				
+				if (user_id == <?php echo $sf_user->getAttribute('id'); ?>) {
+					Ext.Msg.minWidth = 400;
+					Ext.Msg.show({
+					   title:'<?php echo __('Notice',null,'usermanagement'); ?>',
+					   msg: '<?php echo __('For changes in own Profile it is recommended',null,'usermanagement'); ?><br><?php echo __('to reload the page. Unsaved data is getting lost. Proceed?',null,'usermanagement'); ?>',
+					   buttons: Ext.Msg.YESNO,
+					   fn: function(btn, text) {
+							if(btn == 'yes') {
+								window.location.href = '<?php echo build_dynamic_javascript_url('layout/Index')?>'
+							}
+					   }
+					});	
+				}
+					
 			}
 		});
 	}

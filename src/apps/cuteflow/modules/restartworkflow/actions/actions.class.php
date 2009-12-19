@@ -36,15 +36,8 @@ class restartworkflowActions extends sfActions {
             $slotOrder = explode('__', $request->getPostParameter('restartWorkflowFirstTab_startpointid'));
         }
 
-
         
-        /*
-        * $
-        * wfRestart = new RestartWorkflow();
-        $data = $wfRestart->startAtLastStation(1);
-
-
-        die;*/
+        
         $createWorkObj = new PrepareWorkflowData();
         $startDate = array();
 
@@ -75,15 +68,21 @@ class restartworkflowActions extends sfActions {
         $wfVersion->setVersion($currentVersion[0]['version']+1);
         $wfVersion->save();
         $newVersionId = $wfVersion->getId();
-
+        
+        $dataStore = array();
+        $slotCounter = 0;
 
         foreach($data as $slot) {
+
             $singleSlot = new WorkflowSlot();
             $singleSlot->setWorkflowversionId($newVersionId);
             $singleSlot->setSlotId($slot['slot_id']);
             $singleSlot->setPosition($slot['position']);
             $singleSlot->save();
+
             $slotId = $singleSlot->getId();
+            $dataStore[$slotCounter]['slot_id'] = $slotId;
+
             $fields = $slot['fields'];
             $users = $slot['users'];
 
@@ -159,35 +158,51 @@ class restartworkflowActions extends sfActions {
                         }
                         break;
                     case 'FILE':
+                        $moveFile = new FileUpload();
+                        $moveFile->moveFile($field['items'][0], $newVersionId,$workflowtemplate_id[0]['workflowtemplate_id'], $request->getParameter('versionid'));
+                        $newField = new WorkflowSlotFieldFile();
+                        $newField->setWorkflowslotfieldId($fieldId);
+                        $newField->setFilename($field['items'][0]['filename']);
+                        $newField->setHashname($field['items'][0]['hashname']);
+                        $newField->save();
                         break;
                     
                 }
             }
 
-
+            $userCounter = 0;
             foreach($users as $user) {
+
                 $wfSlotUser = new WorkflowSlotUser();
                 $wfSlotUser->setWorkflowslotId($slotId);
                 $wfSlotUser->setPosition($user['position']);
                 $wfSlotUser->setUserId($user['user_id']);
                 $wfSlotUser->save();
+                $dataStore[$slotCounter]['slotuser_id'][$userCounter]['id'] = $wfSlotUser->getId();
+                $dataStore[$slotCounter]['slotuser_id'][$userCounter++]['user_id'] = $user['user_id'];
             }
+            $slotCounter++;
 
         }
-        $workflowTemplate = WorkflowTemplateTable::instance()->getWorkflowTemplateByVersionId($version_id)->toArray();
+
         $files = $_FILES;
-        $file1 = $files['restart_uploadfile1'];
-        $file2 = $files['restart_uploadfile2'];
-        $file3 = $files['restart_uploadfile3'];
-        $file4 = $files['restart_uploadfile4'];
-        $fileUpload = new FileUpload();
-        $fileUpload->uploadFile($file1,$newVersionId,$workflowtemplate_id[0]['workflowtemplate_id']);
-        $fileUpload->uploadFile($file2,$newVersionId,$workflowtemplate_id[0]['workflowtemplate_id']);
-        $fileUpload->uploadFile($file3,$newVersionId,$workflowtemplate_id[0]['workflowtemplate_id']);
-        $fileUpload->uploadFile($file4,$newVersionId,$workflowtemplate_id[0]['workflowtemplate_id']);
+        $keys = array();
+        $keys = array_keys($files);
+
+        for($a=0;$a<count($keys);$a++) {
+	$key = $keys[$a];
+            if(substr_count($key, 'uploadfile') == 1) {
+                $fileUpload = new FileUpload();
+                $fileUpload->uploadFile($files[$key],$newVersionId,$workflowtemplate_id[0]['workflowtemplate_id']);
+            }
+        }
+        $workflowTemplate = WorkflowTemplateTable::instance()->getWorkflowTemplateByVersionId($version_id)->toArray();
+
+
+
 
         $sendToAllSlotsAtOnce = MailinglistVersionTable::instance()->getActiveVersionById($workflowTemplate[0]['mailinglisttemplateversion_id'])->toArray();
-        if($request->getPostParameter('restartWorkflowFirstTab_startpointid') == 'BEGINNING'){
+        if($request->getPostParameter('restartWorkflowFirstTab_startpoint') == 'BEGINNING'){
             if($sendToAllSlotsAtOnce[0]['sendtoallslotsatonce'] == 1) {
                 $calc = new CreateWorkflow($newVersionId);
                 $calc->addAllSlots();
@@ -198,9 +213,40 @@ class restartworkflowActions extends sfActions {
             }
         }
         else if ($request->getPostParameter('restartWorkflowFirstTab_startpoint') == 'LASTSTATION') {
-            
+            $wfRestart = new RestartWorkflow();
+            $lastStationdata = $wfRestart->getRestartData($version_id);
+
+            $wfRestart->restartAtLastStation($lastStationdata, $dataStore, $newVersionId, $workflowtemplate_id[0]['workflowtemplate_id']);
         }
         else {
+            $slotOrder = array();
+            $slotOrder = explode('__', $request->getPostParameter('restartWorkflowFirstTab_startpointid'));
+            $slotPosition = $slotOrder[1]; // Slot Position worklfow must start
+            $userPosition = $slotOrder[3]; // position of the user in the slot
+            $currentUserSlotId = $dataStore[0]['slotuser_id'][0]['id']; // get Id of the first WorkflowSlot of the restarted Workflow
+            $newUserSlotId = $dataStore[$slotPosition-1]['slotuser_id'][$userPosition-1]['id']; // get Id of the first WorkflowSlotUser of the restarted Workflow
+            $direction = 'UP'; // direction is UP!
+
+
+            // write first Process
+            $wfProcess = new WorkflowProcess();
+            $wfProcess->setWorkflowtemplateId($workflowtemplate_id[0]['workflowtemplate_id']);
+            $wfProcess->setWorkflowversionId($newVersionId);
+            $wfProcess->setWorkflowslotId($dataStore[0]['slot_id']);
+            $wfProcess->save();
+            $wfProcessId = $wfProcess->getId();
+
+            // write first user
+            $wfProcessUser = new WorkflowProcessUser();
+            $wfProcessUser->setWorkflowprocessId($wfProcessId);
+            $wfProcessUser->setWorkflowslotuserId($dataStore[0]['slotuser_id'][0]['id']);
+            $wfProcessUser->setUserId($dataStore[0]['slotuser_id'][0]['user_id']);
+            $wfProcessUser->setInprogresssince(time());
+            $wfProcessUser->setDecissionstate('WAITING');
+            $wfProcessUser->setDateofdecission(time());
+            $wfProcessUser->setResendet(0);
+            $wfProcessUser->save();
+            $calc = new SetStation($newVersionId, $newUserSlotId, $currentUserSlotId, $direction);
 
         }
         echo '{"success":true}';die;
