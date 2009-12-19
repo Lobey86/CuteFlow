@@ -51,4 +51,14 @@ class UserConfigurationTable extends Doctrine_Table {
             ->execute();
         return true;
     }
+
+    public function updateTheme($theme) {
+        Doctrine_Query::create()
+            ->update('UserConfiguration uc')
+            ->set('uc.theme', '?', $theme)
+            ->where('uc.id = ?',1)
+            ->execute();
+        return true;
+
+    }
 }
