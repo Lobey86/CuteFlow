@@ -14,8 +14,20 @@ class CreateProcessUser extends WorkflowCreation {
     public function  __construct(CreateSlot $slot) {
         $this->slot = $slot;
         $settings = $this->slot->slotSettings;
-        $wfProcessId = $this->addProcess($this->slot->workflow_id,$this->slot->version_id,$settings['workflowslot_id']);
-        $this->checkSendToAllReceiver($wfProcessId);
+        $workflowUsers = WorkflowSlotUserTable::instance()->getUserBySlotId($settings['workflowslot_id']);
+        if($settings['sendtoallreceivers'] == 1) {
+            foreach($workflowUsers as $user) {
+                $wfProcessId = $this->addProcess($this->slot->workflow_id,$this->slot->version_id,$settings['workflowslot_id']);
+                $user = $user->toArray();
+                $this->addProcessUser($user['id'], $user['user_id'], $wfProcessId);
+            }
+        }
+        else {
+            $wfProcessId = $this->addProcess($this->slot->workflow_id,$this->slot->version_id,$settings['workflowslot_id']);
+            $user = $workflowUsers[0]->toArray();
+            $this->addProcessUser($user['id'], $user['user_id'], $wfProcessId);
+        }
+        #$this->checkSendToAllReceiver($wfProcessId);
     }
 
 
