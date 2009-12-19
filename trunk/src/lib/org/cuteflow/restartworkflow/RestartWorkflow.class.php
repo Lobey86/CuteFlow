@@ -241,6 +241,8 @@ class RestartWorkflow {
                 }
                 break;
             case 'FILE':
+                $data = WorkflowSlotFieldFileTable::instance()->getAllItemsByWorkflowFieldId($workflowslotfield_id)->toArray();
+                return $data;
                 break;
         }
     }
@@ -248,23 +250,46 @@ class RestartWorkflow {
 
 
 
-    public function startAtLastStation($version_id) {
+    public function getRestartData($version_id) {
         $result = array();
         $a = 0;
-        $processData = WorkflowProcessTable::instance()->getWorkflowProcessByVersionId($version_id);
-        foreach($processData as $process) {
-            $userProcess = WorkflowProcessUserTable::instance()->getProcessUserByWorkflowSlotUserId($process->getId())->toArray();
-            $result[$a++]['userprocess'] = $this->addWorkflowProcessUser($userProcess);
-        }
+       
+        $slots = WorkflowSlotTable::instance()->getSlotByVersionId($version_id);
+        foreach($slots as $slot) {
+            $documentSlot = $slot->getDocumenttemplateSlot()->toArray();
+            $b = 0;
+            $result[$a]['slot_id'] = $slot->getId();
+            $result[$a]['sendtoallreceivers'] = $documentSlot[0]['sendtoallreceivers'];
+            $result[$a]['version_id'] = $slot->getWorkflowversionId();
+            $wfProcess = WorkflowProcessTable::instance()->getWorkflowProcessBySlotId($slot->getId())->toArray();
+            if(!empty($wfProcess)) {
+                foreach($wfProcess as $process) {
+                    $result[$a]['userprocess'][$b]  = $process;
+                    $result[$a]['userprocess'][$b]['process'] = $this->addWorkflowProcessUser($process);
+                    $b++;
+                }
 
-        print_r ($result);die;
+            }
+            else {
+                $result[$a]['userprocess'][$b] = '';
+                $b++;
+            }
+            $a++;
+        }
+        #print_r ($result);die;
+        return $result;
     }
 
 
-    public function addWorkflowProcessUser(array $userProcess) {
+
+
+
+
+    public function addWorkflowProcessUser(array $wfProcess) {
         $result = array();
+        $userprocess = WorkflowProcessUserTable::instance()->getWorkflowProcessUserByWorklflowProcessId($wfProcess['id'])->toArray();
         $a = 0;
-        foreach ($userProcess as $process) {
+        foreach ($userprocess as $process) {
             $result[$a]['decissionstate'] = $process['decissionstate'];
             $result[$a]['isuseragentof'] = $process['isuseragentof'];
             $result[$a++]['user_id'] = $process['user_id'];
@@ -277,7 +302,78 @@ class RestartWorkflow {
 
 
 
+    public function restartAtLastStation(array $lastStationData, array $newData, $version_id, $workflow_id) {
+        #print_r ($lastStationData);
+        #print_r ($newData);die;
 
+
+        for($a = 0;$a<count($lastStationData);$a++) {
+            $lastSlots = $lastStationData[$a];
+            $newSlots = $newData[$a];
+
+            if($lastSlots['userprocess'] != '') {
+                for($b=0;$b<count($lastSlots['userprocess']);$b++) {
+                    $lastProcess = $lastSlots['userprocess'][$b];
+                    $wfProcess = new WorkflowProcess();
+                    $wfProcess->setWorkflowtemplateId($workflow_id);
+                    $wfProcess->setWorkflowversionId($version_id);
+                    $wfProcess->setWorkflowslotId($newSlots['slot_id']);
+                    $wfProcess->save();
+                    $wfprocessId = $wfProcess->getId();
+                    $newProcessUser = $newSlots['slotuser_id'][$b];
+                    $processCounter = 0;
+                    
+                    for($c=0;$c<count($lastProcess['process']);$c++){
+                        
+                        $lastProcessUser = $lastProcess['process'][$c];
+                        $user_id = $lastProcessUser['user_id'];
+                        $wfsUid = $newProcessUser['id'];
+                        /*if($lastSlots['sendtoallreceivers'] == 1) {
+                            $wfsUid = $newSlots['slotuser_id'][($b+$processCounter)]['id'];
+                            if($lastProcessUser['decissionstate'] != 'USERAGENTSET') {
+                                $processCounter++;
+                            }
+                            $processCounter++;
+                        }
+                        else {
+                            $wfsUid = $newProcessUser['id'];
+                        }*/
+
+                        if($lastProcessUser['decissionstate'] == 'STOPPEDBYADMIN' OR $lastProcessUser['decissionstate'] == 'STOPPEDBYUSER') {
+                            $setDecission = 'WAITING';
+                        }
+                        else if ($lastProcessUser['decissionstate'] == 'WAITING') {
+                            $setDecission = 'WAITING';
+                        }
+                        else if ($lastProcessUser['decissionstate'] == 'SKIPPED') {
+                            $setDecission = 'SKIPPED';
+                        }
+                        else if ($lastProcessUser['decissionstate'] == 'USERAGENTSET') {
+                            $setDecission = 'USERAGENTSET';
+                        }
+                        else {
+                            
+                        }
+                        $wfProcessUser = new WorkflowProcessUser();
+                        $wfProcessUser->setWorkflowprocessId($wfprocessId);
+                        $wfProcessUser->setWorkflowslotuserId($wfsUid);
+                        $wfProcessUser->setUserId($user_id);
+                        $wfProcessUser->setInprogresssince(time());
+                        $wfProcessUser->setDecissionstate($setDecission);
+                        $wfProcessUser->setDateofdecission(time());
+                        $wfProcessUser->setResendet(0);
+                        $wfProcessUser->setIsuseragentof($lastProcessUser['isuseragentof']);
+                        $wfProcessUser->save();
+
+                    }
+                }
+            }
+        }
+        
+
+
+
+    }
 
 
 

@@ -49,6 +49,13 @@ class FileUpload {
     }
 
 
+    public function moveFile(array $oldValues, $newversionid, $templateid, $oldversionid) {
+        $this->checkFolder($newversionid, $templateid);
+        $current = sfConfig::get('sf_upload_dir') . '/' . $templateid . '/' . $oldversionid . '/' . $oldValues['hashname'];
+        $dest = sfConfig::get('sf_upload_dir') . '/' . $templateid . '/' . $newversionid . '/' . $oldValues['hashname'];
+        @copy($current, $dest);
+    }
+
 
 
 }

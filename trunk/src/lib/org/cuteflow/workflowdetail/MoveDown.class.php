@@ -23,13 +23,13 @@ class MoveDown extends WorkflowSetStation {
                 WorkflowProcessUserTable::instance()->deleteWorkflowProcessUserByWorkfloSlotUserId($item['id']);
             }
             WorkflowProcessTable::instance()->deleteWorkflowProcessByWorkflowSlotId($this->station->newWorkflowSlotUser->getWorkflowslotId());
-            $wfp = new WorkflowProcess();
-            $wfp->setWorkflowtemplateId($this->station->workflowtemplate_id);
-            $wfp->setWorkflowversionId($this->station->version_id);
-            $wfp->setWorkflowslotId($this->station->newWorkflowSlotUser->getWorkflowslotId());
-            $wfp->save();
-            $wfoId = $wfp->getId();
             foreach($station as $item) {
+                 $wfp = new WorkflowProcess();
+                 $wfp->setWorkflowtemplateId($this->station->workflowtemplate_id);
+                 $wfp->setWorkflowversionId($this->station->version_id);
+                 $wfp->setWorkflowslotId($this->station->newWorkflowSlotUser->getWorkflowslotId());
+                 $wfp->save();
+                 $wfoId = $wfp->getId();
                  $wfpu = new WorkflowProcessUser();
                  $wfpu->setWorkflowprocessId($wfoId);
                  $wfpu->setWorkflowslotuserId($item['id']);
