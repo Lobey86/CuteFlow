@@ -7,5 +7,6 @@ useraction:                 # Filters need a unique name
 
 
 cache:     ~
-common:    ~
+common:
+  class: sfCommonFilter
 execution: ~

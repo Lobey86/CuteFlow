@@ -444,7 +444,7 @@ cf.createWorkflowFirstTab = function(){return {
 						var data = combo.store.findExact('value', combo.getValue());
 						cf.createWorkflowSecondTab.init(data.data.activeversionid);
 						cf.createWorkflowWindow.theTabPanel.add(cf.createWorkflowSecondTab.theSecondPanel);
-						cf.createWorkflowWindow.theTabPanel.setActiveTab(1);
+						//cf.createWorkflowWindow.theTabPanel.setActiveTab(1);
 						cf.createWorkflowThirdTab.init(data.data.activeversionid);
 						cf.createWorkflowWindow.theTabPanel.add(cf.createWorkflowThirdTab.theThirdPanel);
 						cf.createWorkflowWindow.theTabPanel.setActiveTab(0);
@@ -483,7 +483,7 @@ cf.createWorkflowFirstTab = function(){return {
 						combo.setValue(defaultdata);
 						cf.createWorkflowSecondTab.init(singleData.data.activeversionid);
 						cf.createWorkflowWindow.theTabPanel.add(cf.createWorkflowSecondTab.theSecondPanel);
-						cf.createWorkflowWindow.theTabPanel.setActiveTab(1);
+						//cf.createWorkflowWindow.theTabPanel.setActiveTab(1);
 						cf.createWorkflowThirdTab.init(singleData.data.activeversionid);
 						cf.createWorkflowWindow.theTabPanel.add(cf.createWorkflowThirdTab.theThirdPanel);
 						cf.createWorkflowWindow.theTabPanel.setActiveTab(0);
