@@ -1,35 +1,34 @@
 <?php
 
-require_once(sfConfig::get('sf_lib_dir').'/filter/doctrine/BaseFormFilterDoctrine.class.php');
-
 /**
  * UserAgent filter form base class.
  *
- * @package    filters
- * @subpackage UserAgent *
- * @version    SVN: $Id: sfDoctrineFormFilterGeneratedTemplate.php 11675 2008-09-19 15:21:38Z fabien $
+ * @package    cf
+ * @subpackage filter
+ * @author     Your name here
+ * @version    SVN: $Id: sfDoctrineFormFilterGeneratedTemplate.php 24051 2009-11-16 21:08:08Z Kris.Wallsmith $
  */
-class BaseUserAgentFormFilter extends BaseFormFilterDoctrine
+abstract class BaseUserAgentFormFilter extends BaseFormFilterDoctrine
 {
   public function setup()
   {
     $this->setWidgets(array(
-      'user_id'        => new sfWidgetFormDoctrineChoice(array('model' => 'User', 'add_empty' => true)),
-      'useragent_id'   => new sfWidgetFormFilterInput(),
-      'durationtype'   => new sfWidgetFormFilterInput(),
-      'durationlength' => new sfWidgetFormFilterInput(),
+      'user_id'      => new sfWidgetFormFilterInput(),
+      'useragent_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('UserData'), 'add_empty' => true)),
+      'position'     => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
-      'user_id'        => new sfValidatorDoctrineChoice(array('required' => false, 'model' => 'User', 'column' => 'id')),
-      'useragent_id'   => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
-      'durationtype'   => new sfValidatorPass(array('required' => false)),
-      'durationlength' => new sfValidatorPass(array('required' => false)),
+      'user_id'      => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'useragent_id' => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('UserData'), 'column' => 'user_id')),
+      'position'     => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
     ));
 
     $this->widgetSchema->setNameFormat('user_agent_filters[%s]');
 
     $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
+
+    $this->setupInheritance();
 
     parent::setup();
   }
@@ -42,11 +41,10 @@ class BaseUserAgentFormFilter extends BaseFormFilterDoctrine
   public function getFields()
   {
     return array(
-      'id'             => 'Number',
-      'user_id'        => 'ForeignKey',
-      'useragent_id'   => 'Number',
-      'durationtype'   => 'Text',
-      'durationlength' => 'Text',
+      'id'           => 'Number',
+      'user_id'      => 'Number',
+      'useragent_id' => 'ForeignKey',
+      'position'     => 'Number',
     );
   }
 }

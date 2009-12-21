@@ -1,35 +1,34 @@
 <?php
 
-require_once(sfConfig::get('sf_lib_dir').'/filter/doctrine/BaseFormFilterDoctrine.class.php');
-
 /**
  * Role filter form base class.
  *
- * @package    filters
- * @subpackage Role *
- * @version    SVN: $Id: sfDoctrineFormFilterGeneratedTemplate.php 11675 2008-09-19 15:21:38Z fabien $
+ * @package    cf
+ * @subpackage filter
+ * @author     Your name here
+ * @version    SVN: $Id: sfDoctrineFormFilterGeneratedTemplate.php 24051 2009-11-16 21:08:08Z Kris.Wallsmith $
  */
-class BaseRoleFormFilter extends BaseFormFilterDoctrine
+abstract class BaseRoleFormFilter extends BaseFormFilterDoctrine
 {
   public function setup()
   {
     $this->setWidgets(array(
       'description'      => new sfWidgetFormFilterInput(),
-      'deleteable'       => new sfWidgetFormFilterInput(),
-      'editable'         => new sfWidgetFormFilterInput(),
-      'credentials_list' => new sfWidgetFormDoctrineChoiceMany(array('model' => 'Credential')),
+      'deleted_at'       => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
+      'credentials_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Credential')),
     ));
 
     $this->setValidators(array(
       'description'      => new sfValidatorPass(array('required' => false)),
-      'deleteable'       => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
-      'editable'         => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
-      'credentials_list' => new sfValidatorDoctrineChoiceMany(array('model' => 'Credential', 'required' => false)),
+      'deleted_at'       => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
+      'credentials_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Credential', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('role_filters[%s]');
 
     $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
+
+    $this->setupInheritance();
 
     parent::setup();
   }
@@ -60,8 +59,7 @@ class BaseRoleFormFilter extends BaseFormFilterDoctrine
     return array(
       'id'               => 'Number',
       'description'      => 'Text',
-      'deleteable'       => 'Number',
-      'editable'         => 'Number',
+      'deleted_at'       => 'Date',
       'credentials_list' => 'ManyKey',
     );
   }

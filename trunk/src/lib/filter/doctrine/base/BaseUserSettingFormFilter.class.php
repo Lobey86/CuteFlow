@@ -1,39 +1,58 @@
 <?php
 
-require_once(sfConfig::get('sf_lib_dir').'/filter/doctrine/BaseFormFilterDoctrine.class.php');
-
 /**
  * UserSetting filter form base class.
  *
- * @package    filters
- * @subpackage UserSetting *
- * @version    SVN: $Id: sfDoctrineFormFilterGeneratedTemplate.php 11675 2008-09-19 15:21:38Z fabien $
+ * @package    cf
+ * @subpackage filter
+ * @author     Your name here
+ * @version    SVN: $Id: sfDoctrineFormFilterGeneratedTemplate.php 24051 2009-11-16 21:08:08Z Kris.Wallsmith $
  */
-class BaseUserSettingFormFilter extends BaseFormFilterDoctrine
+abstract class BaseUserSettingFormFilter extends BaseFormFilterDoctrine
 {
   public function setup()
   {
     $this->setWidgets(array(
-      'user_id'       => new sfWidgetFormDoctrineChoice(array('model' => 'User', 'add_empty' => true)),
-      'menue1expand'  => new sfWidgetFormFilterInput(),
-      'menue2expand'  => new sfWidgetFormFilterInput(),
-      'menue3expand'  => new sfWidgetFormFilterInput(),
-      'refreshtime'   => new sfWidgetFormFilterInput(),
-      'displayeditem' => new sfWidgetFormFilterInput(),
+      'language'                        => new sfWidgetFormFilterInput(),
+      'markyellow'                      => new sfWidgetFormFilterInput(),
+      'markred'                         => new sfWidgetFormFilterInput(),
+      'markorange'                      => new sfWidgetFormFilterInput(),
+      'refreshtime'                     => new sfWidgetFormFilterInput(),
+      'displayeditem'                   => new sfWidgetFormFilterInput(),
+      'durationtype'                    => new sfWidgetFormFilterInput(),
+      'durationlength'                  => new sfWidgetFormFilterInput(),
+      'emailformat'                     => new sfWidgetFormFilterInput(),
+      'emailtype'                       => new sfWidgetFormFilterInput(),
+      'circulationdefaultsortcolumn'    => new sfWidgetFormFilterInput(),
+      'circulationdefaultsortdirection' => new sfWidgetFormFilterInput(),
+      'showcirculationinpopup'          => new sfWidgetFormFilterInput(),
+      'theme'                           => new sfWidgetFormFilterInput(),
+      'firstlogin'                      => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
-      'user_id'       => new sfValidatorDoctrineChoice(array('required' => false, 'model' => 'User', 'column' => 'id')),
-      'menue1expand'  => new sfValidatorPass(array('required' => false)),
-      'menue2expand'  => new sfValidatorPass(array('required' => false)),
-      'menue3expand'  => new sfValidatorPass(array('required' => false)),
-      'refreshtime'   => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
-      'displayeditem' => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'language'                        => new sfValidatorPass(array('required' => false)),
+      'markyellow'                      => new sfValidatorPass(array('required' => false)),
+      'markred'                         => new sfValidatorPass(array('required' => false)),
+      'markorange'                      => new sfValidatorPass(array('required' => false)),
+      'refreshtime'                     => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'displayeditem'                   => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'durationtype'                    => new sfValidatorPass(array('required' => false)),
+      'durationlength'                  => new sfValidatorPass(array('required' => false)),
+      'emailformat'                     => new sfValidatorPass(array('required' => false)),
+      'emailtype'                       => new sfValidatorPass(array('required' => false)),
+      'circulationdefaultsortcolumn'    => new sfValidatorPass(array('required' => false)),
+      'circulationdefaultsortdirection' => new sfValidatorPass(array('required' => false)),
+      'showcirculationinpopup'          => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'theme'                           => new sfValidatorPass(array('required' => false)),
+      'firstlogin'                      => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
     ));
 
     $this->widgetSchema->setNameFormat('user_setting_filters[%s]');
 
     $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
+
+    $this->setupInheritance();
 
     parent::setup();
   }
@@ -46,13 +65,22 @@ class BaseUserSettingFormFilter extends BaseFormFilterDoctrine
   public function getFields()
   {
     return array(
-      'id'            => 'Number',
-      'user_id'       => 'ForeignKey',
-      'menue1expand'  => 'Text',
-      'menue2expand'  => 'Text',
-      'menue3expand'  => 'Text',
-      'refreshtime'   => 'Number',
-      'displayeditem' => 'Number',
+      'user_id'                         => 'Number',
+      'language'                        => 'Text',
+      'markyellow'                      => 'Text',
+      'markred'                         => 'Text',
+      'markorange'                      => 'Text',
+      'refreshtime'                     => 'Number',
+      'displayeditem'                   => 'Number',
+      'durationtype'                    => 'Text',
+      'durationlength'                  => 'Text',
+      'emailformat'                     => 'Text',
+      'emailtype'                       => 'Text',
+      'circulationdefaultsortcolumn'    => 'Text',
+      'circulationdefaultsortdirection' => 'Text',
+      'showcirculationinpopup'          => 'Number',
+      'theme'                           => 'Text',
+      'firstlogin'                      => 'Number',
     );
   }
 }

@@ -1,27 +1,30 @@
 <?php
 
-require_once(sfConfig::get('sf_lib_dir').'/filter/doctrine/BaseFormFilterDoctrine.class.php');
-
 /**
  * CredentialRole filter form base class.
  *
- * @package    filters
- * @subpackage CredentialRole *
- * @version    SVN: $Id: sfDoctrineFormFilterGeneratedTemplate.php 11675 2008-09-19 15:21:38Z fabien $
+ * @package    cf
+ * @subpackage filter
+ * @author     Your name here
+ * @version    SVN: $Id: sfDoctrineFormFilterGeneratedTemplate.php 24051 2009-11-16 21:08:08Z Kris.Wallsmith $
  */
-class BaseCredentialRoleFormFilter extends BaseFormFilterDoctrine
+abstract class BaseCredentialRoleFormFilter extends BaseFormFilterDoctrine
 {
   public function setup()
   {
     $this->setWidgets(array(
+      'deleted_at'    => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
     ));
 
     $this->setValidators(array(
+      'deleted_at'    => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
     ));
 
     $this->widgetSchema->setNameFormat('credential_role_filters[%s]');
 
     $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
+
+    $this->setupInheritance();
 
     parent::setup();
   }
@@ -36,6 +39,7 @@ class BaseCredentialRoleFormFilter extends BaseFormFilterDoctrine
     return array(
       'role_id'       => 'Number',
       'credential_id' => 'Number',
+      'deleted_at'    => 'Date',
     );
   }
 }
