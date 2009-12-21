@@ -13,10 +13,10 @@ class BaseUserRoleForm extends BaseFormDoctrine
   {
     $this->setWidgets(array(
       'id'               => new sfWidgetFormInputHidden(),
-      'description'      => new sfWidgetFormInput(),
-      'group_by'         => new sfWidgetFormInput(),
-      'deleteable'       => new sfWidgetFormInput(),
-      'editable'         => new sfWidgetFormInput(),
+      'description'      => new sfWidgetFormInputText(),
+      'group_by'         => new sfWidgetFormInputText(),
+      'deleteable'       => new sfWidgetFormInputText(),
+      'editable'         => new sfWidgetFormInputText(),
       'user_rights_list' => new sfWidgetFormDoctrineChoiceMany(array('model' => 'UserRight')),
     ));
 
