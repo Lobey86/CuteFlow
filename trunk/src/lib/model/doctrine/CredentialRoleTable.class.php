@@ -36,7 +36,7 @@ class CredentialRoleTable extends Doctrine_Table {
     public function deleteRoleById($id) {
         Doctrine_Query::create()
                 ->update('CredentialRole cr')
-                ->set('cr.deleted','?',1)
+                ->set('cr.deleted_at','?', date('Y-m-d'))
                 ->where('role_id = ?', $id)
                 ->execute();
         return true;
@@ -53,7 +53,7 @@ class CredentialRoleTable extends Doctrine_Table {
                     ->select('cr.credential_id')
                     ->from('CredentialRole cr')
                     ->where('cr.role_id = ?',$id)
-                    ->andWhere('cr.deleted = ?',0)
+                    ->andWhere('cr.deleted_at IS NULL')
                     ->execute();
     }
 

@@ -25,7 +25,7 @@ class UserLoginTable extends Doctrine_Table {
             ->from('UserLogin ul')
             ->where('ul.username = ?', $username)
             ->andWhere('ul.password = ?',$password)
-            ->andWhere('ul.deleted = ?', 0)
+            ->andWhere('ul.deleted_at IS NULL')
             ->execute();
     }
 
@@ -61,7 +61,7 @@ class UserLoginTable extends Doctrine_Table {
         return Doctrine_Query::create()
                 ->select('COUNT(*) AS anzahl')
                 ->from('UserLogin ul')
-                ->where('ul.deleted = ?', 0)
+                ->where('ul.deleted_at IS NULL')
                 ->execute();
     }
 
@@ -83,7 +83,7 @@ class UserLoginTable extends Doctrine_Table {
                   ->offset($offset);
         }
         
-        return $query->where('ul.deleted = ?', 0)
+        return $query->where('ul.deleted_at IS NULL')
                      ->execute();
     }
 
@@ -98,7 +98,7 @@ class UserLoginTable extends Doctrine_Table {
     public function deleteUser($idToDelete, $currentUserId) {
         Doctrine_Query::create()
             ->update('UserLogin ul')
-            ->set('ul.deleted','?',1)
+            ->set('ul.deleted_at','?', date('Y-m-d'))
             ->where('ul.id = ?', $idToDelete)
             ->andWhere('ul.id != ?', $currentUserId)
             ->execute();
@@ -127,7 +127,7 @@ class UserLoginTable extends Doctrine_Table {
             ->select('ul.*')
             ->from('UserLogin ul')
             ->where('ul.id = ?',$id)
-            ->andWhere('ul.deleted = ?', 0)
+            ->andWhere('ul.deleted_at IS NULL')
             ->execute();
     }
 
@@ -190,7 +190,7 @@ class UserLoginTable extends Doctrine_Table {
         $query = Doctrine_Query::create()
               ->select('COUNT(*) AS anzahl')
               ->from('UserLogin ul')
-              ->where('ul.deleted = ?', 0)
+              ->where('ul.deleted_at IS NULL')
               ->leftJoin('ul.UserData ud');
              
         if($request->hasParameter('username')){
@@ -224,7 +224,7 @@ class UserLoginTable extends Doctrine_Table {
         $query = Doctrine_Query::create()
                ->select('ul.*')
                ->from('UserLogin ul')
-               ->where('ul.deleted = ?', 0)
+               ->where('ul.deleted_at IS NULL')
                ->leftJoin('ul.UserData ud');
         if($request->hasParameter('username')){
             $query->andWhere('ul.username LIKE ?','%'.$request->getParameter('username').'%');
@@ -260,7 +260,7 @@ class UserLoginTable extends Doctrine_Table {
                 ->select('ul.*')
                 ->from('UserLogin ul')
                 ->orderby('ul.id DESC')
-                ->where('ul.deleted = ?', 1)
+                ->where('ul.deleted_at != ?', '')
                 ->execute();
     }
 
@@ -272,7 +272,7 @@ class UserLoginTable extends Doctrine_Table {
     public function activateUserById($user_id) {
         Doctrine_Query::create()
             ->update('UserLogin ul')
-            ->set('ul.deleted','?',0)
+            ->set('ul.deleted_at', 'null')
             ->where('ul.id = ?', $user_id)
             ->execute();
         return true;

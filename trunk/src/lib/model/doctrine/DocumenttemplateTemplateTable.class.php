@@ -23,7 +23,7 @@ class DocumenttemplateTemplateTable extends Doctrine_Table {
                 ->select('COUNT(*) AS anzahl')
                 ->from('DocumenttemplateVersion dtv')
                 ->leftJoin('dtv.DocumenttemplateTemplate dtt')
-                ->where('dtt.deleted = ?', 0)
+                ->where('dtt.deleted_at IS NULL')
                 ->andWhere('dtv.activeversion = ?', 1)
                 ->andWhere('dtt.name LIKE ?','%'.$filter.'%')
                 ->execute();
@@ -39,7 +39,7 @@ class DocumenttemplateTemplateTable extends Doctrine_Table {
                 ->select('COUNT(*) AS anzahl')
                 ->from('DocumenttemplateVersion dtv')
                 ->leftJoin('dtv.DocumenttemplateTemplate dtt')
-                ->where('dtt.deleted = ?', 0)
+                ->where('dtt.deleted_at IS NULL')
                 ->andWhere('dtv.activeversion = ?', 1)
                 ->execute();
     }
@@ -56,7 +56,7 @@ class DocumenttemplateTemplateTable extends Doctrine_Table {
             ->from('DocumenttemplateTemplate dtt')
             ->leftJoin('dtt.DocumenttemplateVersion dtv')
             ->leftJoin('dtv.DocumenttemplateSlot dts')
-            ->where('dtt.deleted = ?', 0)
+            ->where('dtt.deleted_at IS NULL')
             ->andWhere('dtv.activeversion = ?', 1);
             if($limit != -1 AND $offset != -1) {
                     $query->limit($limit)
@@ -80,7 +80,7 @@ class DocumenttemplateTemplateTable extends Doctrine_Table {
             ->from('DocumenttemplateTemplate dtt')
             ->leftJoin('dtt.DocumenttemplateVersion dtv')
             ->leftJoin('dtv.DocumenttemplateSlot dts')
-            ->where('dtt.deleted = ?', 0)
+            ->where('dtt.deleted_at IS NULL')
             ->andWhere('dtv.activeversion = ?', 1)
             ->andWhere('dtt.name LIKE ?','%'.$filter.'%');
             if($limit != -1 AND $offset != -1) {
@@ -102,7 +102,7 @@ class DocumenttemplateTemplateTable extends Doctrine_Table {
     public function deleteDocumentTemplateById($id) {
         Doctrine_Query::create()
             ->update('DocumenttemplateTemplate dtt')
-            ->set('dtt.deleted','?',1)
+            ->set('dtt.deleted_at','?', date('Y-m-d'))
             ->where('dtt.id = ?', $id)
             ->execute();
         return true;

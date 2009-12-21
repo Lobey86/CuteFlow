@@ -24,7 +24,7 @@ class AdditionalTextTable extends Doctrine_Table {
             ->from('AdditionalText at')
             ->select('at.*')
             ->orderBy('at.id DESC')
-            ->where('at.deleted = ?' ,0)
+            ->where('at.deleted_at IS NULL')
             ->execute();
     }
 
@@ -59,7 +59,7 @@ class AdditionalTextTable extends Doctrine_Table {
             ->from('AdditionalText at')
             ->select('at.*')
             ->where('at.id = ?', $id)
-            ->andWhere('at.deleted = ?' ,0)
+            ->andWhere('at.deleted_at IS NULL')
             ->execute();
     }
 
@@ -90,7 +90,7 @@ class AdditionalTextTable extends Doctrine_Table {
     public function deleteText($id) {
         Doctrine_Query::create()
             ->update('AdditionalText at')
-            ->set('at.deleted','?',1)
+            ->set('at.deleted_at','?', date('Y-m-d'))
             ->where('at.id = ?',$id)
             ->execute();
         return true;
