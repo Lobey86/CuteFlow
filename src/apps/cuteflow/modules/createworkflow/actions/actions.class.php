@@ -42,6 +42,7 @@ class createworkflowActions extends sfActions {
         $workflow->setSenderId($this->getUser()->getAttribute('id'));
         $workflow->setIsarchived(0);
         $workflow->setIsstopped(0);
+        $workflow->setIscompleted(0);
         $workflow->setEndaction($endreason);
         $workflow->save();
         $workflow_id = $workflow->getId();
