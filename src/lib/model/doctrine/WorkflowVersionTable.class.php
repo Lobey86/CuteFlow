@@ -14,6 +14,16 @@ class WorkflowVersionTable extends Doctrine_Table {
 
 
 
+    public function getWorkflowsToStart($currenttime) {
+        return Doctrine_Query::create()
+            ->from('WorkflowVersion wfv')
+            ->select('wfv.*,')
+            ->where('wfv.workflowisstarted = ?','0')
+            ->andWhere('wfv.startworkflow_at <= ?', $currenttime)
+            ->execute();
+    }
+
+
     public function getAllVersionByWorkflowId($workflow_id) {
         return Doctrine_Query::create()
             ->from('WorkflowVersion wfv')
@@ -55,6 +65,15 @@ class WorkflowVersionTable extends Doctrine_Table {
             ->select('wfv.*,')
             ->where('wfv.workflowtemplate_id = ?' ,$id)
             ->orderBy('wfv.version ASC')
+            ->execute();
+    }
+
+
+    public function startWorkflowInFuture($versionid) {
+        Doctrine_Query::create()
+            ->update('WorkflowVersion wfv')
+            ->set('wfv.workflowisstarted','?',1)
+            ->where('wfv.id = ?', $versionid)
             ->execute();
     }
 

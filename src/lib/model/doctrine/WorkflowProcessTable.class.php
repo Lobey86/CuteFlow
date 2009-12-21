@@ -62,5 +62,19 @@ class WorkflowProcessTable extends Doctrine_Table {
             ->execute();
 
     }
+
+
+
+
+
+    public function getAllWaitingStations() {
+        return Doctrine_Query::create()
+            ->select('wp.*, wpu.user_id, wpu.id')
+            ->from('WorkflowProcess wp')
+            ->leftJoin('wp.WorkflowProcessUser wpu')
+            ->where('wpu.decissionstate = ?','WAITING')
+            ->orderBy('wpu.user_id ASC')
+            ->execute();
+    }
     
 }
