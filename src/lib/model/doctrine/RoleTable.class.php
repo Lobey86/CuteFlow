@@ -22,7 +22,7 @@ class RoleTable extends Doctrine_Table {
                     ->select('r.*')
                     ->from('Role r')
                     ->orderBy('r.id ASC')
-                    ->where('r.deleted = ?', 0);
+                    ->where('r.deleted_at IS NULL');
         if($noDeleteId != '') {
             $query->andWhere('r.id != ?', $noDeleteId);
         }
@@ -40,7 +40,7 @@ class RoleTable extends Doctrine_Table {
                 ->select('r.*, count(ul.id) AS users')
                 ->from('Role r')
                 ->leftJoin('r.UserLogin ul')
-                ->where ('r.deleted = ?',0)
+                ->where ('r.deleted_at IS NULL')
                 ->groupby('r.id')
                 ->execute();
    }
@@ -53,7 +53,7 @@ class RoleTable extends Doctrine_Table {
    public function deleteRole($id) {
       Doctrine_Query::create()
             ->update('Role r')
-            ->set('r.deleted','?',1)
+            ->set('r.deleted_at','?', date('Y-m-d'))
             ->where('r.id = ?', $id)
             ->execute();
        return true;
@@ -69,7 +69,7 @@ class RoleTable extends Doctrine_Table {
             ->select('r.description')
             ->from('Role r')
             ->where('r.id = ?', $id)
-            ->andWhere('r.deleted = ?',0)
+            ->andWhere('r.deleted_at IS NULL')
             ->execute();
    }
 

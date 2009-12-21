@@ -22,7 +22,7 @@ class MailinglistTemplateTable extends Doctrine_Table {
         return Doctrine_Query::create()
                 ->select('COUNT(*) AS anzahl')
                 ->from('MailinglistTemplate mlt')
-                ->where('mlt.deleted = ?', 0)
+                ->where('mlt.deleted_at IS NULL')
                 ->execute();
     }
 
@@ -42,7 +42,7 @@ class MailinglistTemplateTable extends Doctrine_Table {
             ->select('mlt.*')
             ->from('MailinglistTemplate mlt')
             ->leftJoin('mlt.MailinglistVersion mlv')
-            ->where ('mlt.deleted = ?',0)
+            ->where ('mlt.deleted_at IS NULL')
             ->andWhere('mlt.name LIKE ?','%'.$filter.'%')
             ->andWhere('mlv.activeversion = ?', 1);
             if($limit != -1 AND $offset != -1) {
@@ -63,7 +63,7 @@ class MailinglistTemplateTable extends Doctrine_Table {
         return Doctrine_Query::create()
                 ->select('COUNT(*) AS anzahl')
                 ->from('MailinglistTemplate mlt')
-                ->where('mlt.deleted = ?', 0)
+                ->where('mlt.deleted_at IS NULL')
                 ->andWhere('mlt.name LIKE ?','%'.$filter.'%')
                 ->execute();
     }
@@ -82,7 +82,7 @@ class MailinglistTemplateTable extends Doctrine_Table {
                 ->select('mlt.*')
                 ->from('MailinglistTemplate mlt')
                 ->leftJoin('mlt.MailinglistVersion mlv')
-                ->where ('mlt.deleted = ?',0)
+                ->where ('mlt.deleted_at IS NULL')
                 ->andWhere('mlv.activeversion = ?', 1);
 		if($limit != -1 AND $offset != -1) {
                     $query->limit($limit)
@@ -158,7 +158,7 @@ class MailinglistTemplateTable extends Doctrine_Table {
     public function deleteMailinglistTemplateById($id) {
         Doctrine_Query::create()
             ->update('MailinglistTemplate mlt')
-            ->set('mlt.deleted','?', 1)
+            ->set('mlt.deleted_at','?', date('Y-m-d'))
             ->where('mlt.id = ?', $id)
             ->execute();
         return true;
@@ -176,7 +176,7 @@ class MailinglistTemplateTable extends Doctrine_Table {
         return Doctrine_Query::create()
             ->select('mlt.*')
             ->from('MailinglistTemplate mlt')
-            ->where('mlt.deleted = ?', 0)
+            ->where('mlt.deleted_at IS NULL')
             ->andWhere('mlt.id = ?', $id)
             ->execute();
     }
@@ -191,7 +191,7 @@ class MailinglistTemplateTable extends Doctrine_Table {
         return Doctrine_Query::create()
             ->select('mlt.*')
             ->from('MailinglistTemplate mlt')
-            ->where('mlt.deleted = ?', 0)
+            ->where('mlt.deleted_at IS NULL')
             ->andWhere('mlt.formtemplate_id = ?', $id)
             ->execute();
     }

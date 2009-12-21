@@ -22,7 +22,7 @@ class UserDataTable extends Doctrine_Table {
             ->select('ud.user_id, ul.username, CONCAT(ud.firstname,\' \',ud.lastname) AS text')
             ->from('UserData ud')
             ->leftJoin('ud.UserLogin ul')
-            ->where('ul.deleted = ?', 0)
+            ->where('ul.deleted_at IS NULL')
             ->execute();
     }
 

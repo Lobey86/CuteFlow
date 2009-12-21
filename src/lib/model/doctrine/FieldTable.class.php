@@ -23,7 +23,7 @@ class FieldTable extends Doctrine_Table {
             ->from('Field f')
             ->select('f.*')
             ->orderBy('f.id DESC')
-            ->where('f.deleted = ?' ,0)
+            ->where('f.deleted_at IS NULL')
             ->execute();
     }
     /**
@@ -34,7 +34,7 @@ class FieldTable extends Doctrine_Table {
     public function deleteField($id) {
         Doctrine_Query::create()
             ->update('Field f')
-            ->set('f.deleted','?',1)
+            ->set('f.deleted_at','?',time())
             ->where('f.id = ?',$id)
             ->execute();
         return true;
@@ -49,7 +49,7 @@ class FieldTable extends Doctrine_Table {
         return Doctrine_Query::create()
             ->from('Field f')
             ->select('f.*')
-            ->where('f.deleted = ?' ,0)
+            ->where('f.deleted_at IS NULL')
             ->andWhere('f.id = ?', $id)
             ->execute();
     }
