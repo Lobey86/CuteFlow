@@ -132,4 +132,17 @@ class WorkflowProcessUserTable extends Doctrine_Table {
             ->execute();
     }
 
+
+    public function getWaitingStationByVersionId($version_id) {
+        return Doctrine_Query::create()
+            ->select('DISTINCT wfpu.user_id, wfpu.id')
+            ->from('WorkflowProcessUser wfpu')
+            ->leftJoin('wfpu.WorkflowProcess wfp')
+            ->where('wfp.workflowversion_id = ?' ,$version_id)
+            ->andWhere('wfpu.decissionstate = ?', 'WAITING')
+            ->orderBy('wfpu.user_id ASC')
+            ->execute();
+    }
+
+
 }

@@ -100,6 +100,20 @@ class WorkflowTemplateTable extends Doctrine_Table {
         
     }
 
+    public function getAllRunningWorkflows() {
+        return Doctrine_Query::create()
+            ->from('WorkflowTemplate wft')
+            ->select('wft.*, wfv.id')
+            ->leftJoin('wft.WorkflowVersion wfv')
+            ->where('wft.isstopped = ?', 0)
+            ->andWhere('wft.iscompleted = ?', 0)
+            ->andWhere('wft.isarchived = ?', 0)
+            ->andWhere('wft.deleted = ?', 0)
+            ->andWhere('wfv.activeversion = ?', 1)
+            ->andWhere('wfv.workflowisstarted = ?', 1)
+            ->execute();
+    }
+
 
 
 }

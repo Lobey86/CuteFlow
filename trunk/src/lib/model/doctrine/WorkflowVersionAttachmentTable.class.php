@@ -21,4 +21,12 @@ class WorkflowVersionAttachmentTable extends Doctrine_Table {
             ->where('wva.workflowversion_id = ?', $versionId)
             ->execute();
     }
+
+    public function getAttachmentsById($id) {
+        return Doctrine_Query::create()
+            ->from('WorkflowVersionAttachment wva')
+            ->select('wva.*')
+            ->where('wva.id = ?', $id)
+            ->execute();
+    }
 }

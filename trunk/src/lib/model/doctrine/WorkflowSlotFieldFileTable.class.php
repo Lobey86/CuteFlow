@@ -17,4 +17,13 @@ class WorkflowSlotFieldFileTable extends Doctrine_Table {
             ->execute();
     }
 
+
+    public function geFileById($id) {
+        return Doctrine_Query::create()
+            ->from('WorkflowSlotFieldFile wsff')
+            ->select('wsff.*,')
+            ->where('wsff.id = ?' ,$id)
+            ->execute();
+    }
+
 }
