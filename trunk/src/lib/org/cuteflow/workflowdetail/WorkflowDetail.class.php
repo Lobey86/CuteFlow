@@ -13,6 +13,7 @@ class WorkflowDetail {
         sfLoader::loadHelpers('CalculateDate');
         sfLoader::loadHelpers('ColorBuilder');
         sfLoader::loadHelpers('I18N');
+        sfLoader::loadHelpers('Url');
         sfLoader::loadHelpers('Icon');
     }
 
@@ -351,7 +352,9 @@ class WorkflowDetail {
                 $result['filepath'] = sfConfig::get('sf_upload_dir') . '/' . $workflowtemplate[0]['workflowtemplate_id'] . '/' . $versionid . '/' . $file[0]['hashname'] ;
                 $result['hashname'] = $file[0]['hashname'];
                 $result['filename'] = $file[0]['filename'];
-                $result['link'] = '<a href="'.$result['filepath'].'" target="_blank">'.$result['filename'].'</a>';
+                $url = url_for('file/ShowAttachment');
+                $url .= '/workflowid/' .  $workflowtemplate[0]['workflowtemplate_id'] . '/versionid/' . $versionid. '/attachmentid/' . $file[0]['id'] . '/file/1';
+                $result['link'] = '<a href="'.$url.'" target="_blank">'.$result['filename'].'</a>';
                 break;
         }
         return $result;
@@ -361,17 +364,16 @@ class WorkflowDetail {
         $files = WorkflowVersionAttachmentTable::instance()->getAttachmentsByVersionId($templateversion_id)->toArray();
         $result = array();
         $a = 0;
-
-        #$script = $this->getContext()->getRequest()->getScriptName();
-        #$host = $this->getContext()->getRequest()->getHost();
         foreach($files as $file) {
             $result[$a]['filepath'] = sfConfig::get('sf_upload_dir') . '/' . $file['workflowtemplate_id'] . '/' . $file['workflowversion_id'] . '/' . $file['hashname'] ;
             $result[$a]['hashname'] = $file['hashname'];
             $result[$a]['filename'] = $file['filename'];
-            $result[$a]['link'] = '<a href="'.$result[$a]['filepath'].'" target="_blank">'.$result[$a]['filename'].'</a>';
+            $url = url_for('file/ShowAttachment');
+            $url .= '/workflowid/' .  $file['workflowversion_id'] . '/versionid/' . $file['workflowversion_id'] . '/attachmentid/' . $file['id'] . '/file/0';
+            $result[$a]['link'] = '<a href="'.$url.'" target="_blank">'.$result[$a]['filename'].'</a>';
             $a++;
         }
-        #print_r ($result);die;
+        
         return $result;
     }
 
