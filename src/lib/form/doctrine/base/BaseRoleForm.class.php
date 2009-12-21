@@ -3,33 +3,36 @@
 /**
  * Role form base class.
  *
- * @package    form
- * @subpackage role
- * @version    SVN: $Id: sfDoctrineFormGeneratedTemplate.php 8508 2008-04-17 17:39:15Z fabien $
+ * @method Role getObject() Returns the current form's model object
+ *
+ * @package    cf
+ * @subpackage form
+ * @author     Your name here
+ * @version    SVN: $Id: sfDoctrineFormGeneratedTemplate.php 24051 2009-11-16 21:08:08Z Kris.Wallsmith $
  */
-class BaseRoleForm extends BaseFormDoctrine
+abstract class BaseRoleForm extends BaseFormDoctrine
 {
   public function setup()
   {
     $this->setWidgets(array(
       'id'               => new sfWidgetFormInputHidden(),
-      'description'      => new sfWidgetFormInput(),
-      'deleteable'       => new sfWidgetFormInput(),
-      'editable'         => new sfWidgetFormInput(),
-      'credentials_list' => new sfWidgetFormDoctrineChoiceMany(array('model' => 'Credential')),
+      'description'      => new sfWidgetFormInputText(),
+      'deleted_at'       => new sfWidgetFormDateTime(),
+      'credentials_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Credential')),
     ));
 
     $this->setValidators(array(
-      'id'               => new sfValidatorDoctrineChoice(array('model' => 'Role', 'column' => 'id', 'required' => false)),
+      'id'               => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
       'description'      => new sfValidatorString(array('max_length' => 100, 'required' => false)),
-      'deleteable'       => new sfValidatorInteger(array('required' => false)),
-      'editable'         => new sfValidatorInteger(array('required' => false)),
-      'credentials_list' => new sfValidatorDoctrineChoiceMany(array('model' => 'Credential', 'required' => false)),
+      'deleted_at'       => new sfValidatorDateTime(array('required' => false)),
+      'credentials_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Credential', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('role[%s]');
 
     $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
+
+    $this->setupInheritance();
 
     parent::setup();
   }
@@ -52,9 +55,9 @@ class BaseRoleForm extends BaseFormDoctrine
 
   protected function doSave($con = null)
   {
-    parent::doSave($con);
-
     $this->saveCredentialsList($con);
+
+    parent::doSave($con);
   }
 
   public function saveCredentialsList($con = null)
@@ -70,7 +73,7 @@ class BaseRoleForm extends BaseFormDoctrine
       return;
     }
 
-    if (is_null($con))
+    if (null === $con)
     {
       $con = $this->getConnection();
     }

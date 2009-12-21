@@ -13,16 +13,16 @@ class BaseUserRightForm extends BaseFormDoctrine
   {
     $this->setWidgets(array(
       'id'                       => new sfWidgetFormInputHidden(),
-      'moduleUser'               => new sfWidgetFormInput(),
-      'addUser'                  => new sfWidgetFormInput(),
-      'deleteUser'               => new sfWidgetFormInput(),
-      'editUser'                 => new sfWidgetFormInput(),
-      'moduleEditOwnProfile'     => new sfWidgetFormInput(),
-      'changeOwnRole'            => new sfWidgetFormInput(),
-      'changeOwnDetail'          => new sfWidgetFormInput(),
-      'moduleSystemsetting'      => new sfWidgetFormInput(),
-      'moduleSendMessage'        => new sfWidgetFormInput(),
-      'moduleUserRoleManagement' => new sfWidgetFormInput(),
+      'moduleUser'               => new sfWidgetFormInputText(),
+      'addUser'                  => new sfWidgetFormInputText(),
+      'deleteUser'               => new sfWidgetFormInputText(),
+      'editUser'                 => new sfWidgetFormInputText(),
+      'moduleEditOwnProfile'     => new sfWidgetFormInputText(),
+      'changeOwnRole'            => new sfWidgetFormInputText(),
+      'changeOwnDetail'          => new sfWidgetFormInputText(),
+      'moduleSystemsetting'      => new sfWidgetFormInputText(),
+      'moduleSendMessage'        => new sfWidgetFormInputText(),
+      'moduleUserRoleManagement' => new sfWidgetFormInputText(),
       'user_roles_list'          => new sfWidgetFormDoctrineChoiceMany(array('model' => 'UserRole')),
     ));
 
