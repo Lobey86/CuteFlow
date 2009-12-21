@@ -13,5 +13,5 @@ default:
 
   javascripts:    [ext-base,ext-all]
 
-  has_layout:     on
+  has_layout:     true
   layout:         layout

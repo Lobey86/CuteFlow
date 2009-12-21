@@ -13,5 +13,5 @@ all:
 
   javascripts:    [/djs/login/main.js,/djs/login/layout.js,/djs/login/textfield.js,/djs/login/window.js,/djs/login/combobox.js]
 
-  has_layout:     on
+  has_layout:     true
   layout:         layout
