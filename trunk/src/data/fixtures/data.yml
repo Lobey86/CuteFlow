@@ -536,6 +536,7 @@ AuthenticationConfiguration:
   ac:
     authenticationtype: DBONLY
     firstlogin: 1
+    allowdirectlogin: 1
 
 
 UserConfiguration:
