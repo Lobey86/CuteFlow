@@ -165,6 +165,7 @@ AuthenticationConfiguration:
     ldapadduser: {type: integer(1), length: 3}
     openidserver: { type: string(100)}
     firstlogin: {type: integer(1), length: 3}
+    allowdirectlogin: {type: integer(1), length: 3}
 
 
 UserConfiguration:
