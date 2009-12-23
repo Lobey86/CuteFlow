@@ -33,6 +33,7 @@ class AuthenticationConfigurationTable extends Doctrine_Table {
                     ->update('AuthenticationConfiguration ac')
                     ->set('ac.authenticationtype', '?', $data['authentication_type'])
                     ->set('ac.firstlogin','?',isset($data['authentication_firstlogin']) ? $data['authentication_firstlogin'] : 0)
+                    ->set('ac.allowdirectlogin','?',isset($data['authentication_allowdirectlogin']) ? $data['authentication_allowdirectlogin'] : 0)
                     ->where ('ac.id = ?',1)
                     ->execute();
         return true;
@@ -62,6 +63,7 @@ class AuthenticationConfigurationTable extends Doctrine_Table {
             ->set('ac.ldapcontext', '?', $data['auth_ladp_context'])
             ->set('ac.firstlogin','?',isset($data['authentication_firstlogin']) ? $data['authentication_firstlogin'] : 0)
             ->set('ac.ldapadduser','?',isset($data['auth_ladp_adduser']) ? $data['auth_ladp_adduser'] : 0)
+            ->set('ac.allowdirectlogin','?',isset($data['authentication_allowdirectlogin']) ? $data['authentication_allowdirectlogin'] : 0)
             ->where ('ac.id = ?',1)
             ->execute();
         return true;
@@ -80,6 +82,7 @@ class AuthenticationConfigurationTable extends Doctrine_Table {
                     ->set('ac.openidserver', '?', $data['auth_openid_server'])
                     ->set('ac.authenticationtype', '?', $data['authentication_type'])
                     ->set('ac.firstlogin','?',isset($data['authentication_firstlogin']) ? $data['authentication_firstlogin'] : 0)
+                    ->set('ac.allowdirectlogin','?',isset($data['authentication_allowdirectlogin']) ? $data['authentication_allowdirectlogin'] : 0)
                     ->where ('ac.id = ?',1)
                     ->execute();
         return true;
