@@ -16,6 +16,8 @@ class layoutActions extends sfActions {
     * @param sfRequest $request A request object
     */
     public function executeIndex(sfWebRequest $request) {
+
+        
         $loginObject = new Login();
         // Load UserSetting and Store to session here
         $userSettings = UserSettingTable::instance()->getUserSettingById($this->getUser()->getAttribute('id'));
@@ -27,6 +29,8 @@ class layoutActions extends sfActions {
         $userrights = CredentialRoleTable::instance()->getCredentialRoleById($this->getUser()->getAttribute('id'));
         $rights = $loginObject->loadUserRight($credentials, $userrights);
         $this->getUser()->setAttribute('credential', $rights);
+        $this->version_id  = $request->getParameter('versionid',-1);
+        $this->workflow_id  = $request->getParameter('workflow',-1);
         return sfView::SUCCESS;
     }
 
@@ -40,30 +44,39 @@ class layoutActions extends sfActions {
         return sfView::NONE;
     }
 
-    public function executeTest(sfWebRequest $request) {
-        $array[0] = 4;
-        $array[1] = 5;
+    public function executeLinklogin(sfWebRequest $request) {
 
-       //$fields_to_delete = Doctrine::getTable('FormField')->find($array)->delete();
-      //$slots_to_delete = Doctrine::getTable('FormField')->createQuery('ff')->whereIn('ff.formslot_id', $array)->execute()->delete();
-        
-      $slots_to_delete = Doctrine::getTable('FormSlot')->createQuery('fs')->whereIn('fs.id', $array)->execute()->delete();
-      //$slots_to_delete = Doctrine::getTable('FormSlot')->createQuery('fs')->whereIn('fs.id', $array);
-die;
-
-
-        print_r ($slots_to_delete);die;
-      
-
-       //print_r ($fields_to_delete);die;
-       
-
-/*$user = Doctrine::getTable('User')
-  ->createQuery('u')
-  ->leftJoin('u.Address a')
-  ->leftJoin('a.AddressType t')
-  ->findOneById(1);*/
-
+        $settings = AuthenticationConfigurationTable::instance()->getAuthenticationConfiguration()->toArray();
+        $user_id = $request->getParameter('userid');
+        if($settings[0]['allowdirectlogin'] == 1) { // allow direct login, without using login form
+            $userLogin = UserLoginTable::instance()->findUserById($user_id);
+            $arr = $userLogin->toArray(); // load User Data
+            if($this->getUser()->isAuthenticated() == false) { // check if user is already logged in
+                if(empty($arr) == false) { // a user has been found, -> user is not deleted
+                    $settings = UserSettingTable::instance()->getUserSettingById($user_id); // user is not logged in, set the settings
+                    $this->getUser()->setAuthenticated(true);
+                    $this->getUser()->setAttribute('id',$user_id);
+                    $this->getUser()->setAttribute('userrole',$userLogin[0]->getRoleId());
+                    $this->getUser()->setCulture($settings[0]->getLanguage());
+                    $this->getUser()->setAttribute('env', str_replace('/', '', $request->getScriptName()));
+                    $this->redirect($this->generateUrl('default', array('module' => 'layout', 'action' => 'index', 'versionid' => $request->getParameter('versionid'), 'workflow' => $request->getParameter('workflowid'))));
+                }
+                else { // user is not found or is deleted
+                    $this->redirect('login/index');
+                }
+            }
+            else { // user is already logged in
+                $this->redirect($this->generateUrl('default', array('module' => 'layout', 'action' => 'index', 'versionid' => $request->getParameter('versionid'), 'workflow' => $request->getParameter('workflowid'))));
+            }
+        }
+        else { // allow direct login is denied
+            if($this->getUser()->isAuthenticated() == true) { // user is already logged in
+                $this->redirect($this->generateUrl('default', array('module' => 'layout', 'action' => 'index', 'versionid' => $request->getParameter('versionid'), 'workflow' => $request->getParameter('workflowid'))));
+            }
+            else { // move to login page
+                $this->redirect($this->generateUrl('default', array('module' => 'login', 'action' => 'index', 'versionid' => $request->getParameter('versionid'), 'workflow' => $request->getParameter('workflowid'))));
+            }
+        }
         return sfView::NONE;
     }
 

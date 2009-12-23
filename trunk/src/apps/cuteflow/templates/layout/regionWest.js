@@ -10,11 +10,15 @@ cf.Navigation = function(){return {
 	theAccordion            	  : false, // stores the left Navigationpabel
 	theUserFirstLogin			  : false,
 	theFirstLogin				  : false,
-
+	theWorfklowVersionId		  : false,
+	theWorfklowId		 		  : false,
 	
 	/** functions loads accordion for region west **/
 	init: function () {
 		
+		this.theWorfklowVersionId = (Ext.get('version_id').dom.value);
+		this.theWorfklowId = (Ext.get('workflow_id').dom.value);
+
 		this.theUserFirstLogin = '<?php echo UserSettingClass::getFirstLogin();?>';
 		this.theFirstLogin = '<?php echo SystemSetting::getFirstLogin();?>';
 		this.initAccordion();
@@ -91,6 +95,9 @@ cf.Navigation = function(){return {
 			this.theAccordion.add(panel);
 		}
 		this.theAccordion.doLayout();
+		if(cf.Navigation.theWorfklowVersionId != -1) {
+			cf.workflowedit.init(cf.Navigation.theWorfklowId, cf.Navigation.theWorfklowVersionId);
+		}
 	},
 	
 	/** init my profile panel, when firstlogin is set **/

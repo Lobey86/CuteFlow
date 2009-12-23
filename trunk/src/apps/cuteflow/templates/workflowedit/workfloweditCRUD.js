@@ -312,7 +312,12 @@ cf.workfloweditCRUD = function(){return {
 			method: 'POST',
 			waitMsg: '<?php echo __('Saving Data',null,'workflowmanagement'); ?>',
 			success: function(objServerResponse){
-				cf.todoPanelGrid.theTodoStore.reload();
+				try {
+					cf.todoPanelGrid.theTodoStore.reload();
+				}
+				catch(e) {
+					
+				}
 				try {
 					cf.workflowmanagementPanelGrid.theWorkflowGrid.reload();
 				}
