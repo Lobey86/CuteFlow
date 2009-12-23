@@ -42,23 +42,26 @@ class cronjobActions extends sfActions {
 
     public function executeSendReminderEmail(sfWebRequest $request) {
         $wfSettings = SystemConfigurationTable::instance()->getSystemConfiguration()->toArray();
-
+        
         if($wfSettings[0]['sendremindermail'] == 1) {
+
             $sendMail = new PrepareReminderEmail();
             $stillOpenWorkflows = array();
             $a = 0;
             $openWorkflows = WorkflowTemplateTable::instance()->getAllRunningWorkflows();
             foreach($openWorkflows as $workflow) {
-                #print_r ($workflow->toArray());die;
                 $openStations = WorkflowProcessUserTable::instance()->getWaitingStationByVersionId($workflow['WorkflowVersion']['id'])->toArray();
                 $data = $sendMail->prepareData($openStations);
                 $stillOpenWorkflows[$a]['workflow_id'] = $workflow['id'];
+                $stillOpenWorkflows[$a]['name'] = $workflow['name'];
                 $stillOpenWorkflows[$a]['workflowversion_id'] = $workflow['WorkflowVersion']['id'];
                 $stillOpenWorkflows[$a++]['users'] = $data;
             }
             $stillOpenWorkflows = $sendMail->sortByUser($stillOpenWorkflows);
-            // SENDMAIL!
-            //&print_r ($stillOpenWorkflows);die;
+            foreach($stillOpenWorkflows as $userToSend) {
+                $umSettings = new UserMailSettings($userToSend['user_id']);
+                $reminder = new SendReminderEmail($umSettings, $this, $userToSend);
+            }
 
         }
         return sfView::NONE;

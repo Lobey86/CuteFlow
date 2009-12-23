@@ -154,7 +154,7 @@ cf.authTab = function(){return {
 		this.theFieldset = new Ext.form.FieldSet({
 			title: '<table><tr><td><img src="/images/icons/information.png"  ext:qtip=\"<table><tr><td><b><?php echo __('use only CuteFLow Database',null,'systemsetting'); ?>:</b></td><td>&nbsp;&nbsp;&nbsp;<?php echo __('internal CuteFlow Database will be used.',null,'systemsetting'); ?></td></tr><tr><td><b><?php echo __('use CuteFLow Database and LDAP',null,'systemsetting'); ?>:</b></td><td>&nbsp;&nbsp;&nbsp;<?php echo __('use LDAP for authentication and CuteFlow Database to login.',null,'systemsetting'); ?></td></tr><tr><td><b><?php echo __('use CuteFlow Database and OpenID',null,'systemsetting'); ?>:</b></td><td>&nbsp;&nbsp;&nbsp;<?php echo __('use OpenID service to authenticate and CuteFlow Database to login.',null,'systemsetting'); ?></td></tr><tr><td><b><?php echo __('Show MyProfile Tab on Users First-Login?',null,'systemsetting'); ?>:</b></td><td>&nbsp;&nbsp;&nbsp;<?php echo __('on First-Login MyProfile panel is loaded.',null,'systemsetting'); ?></td></tr></table>\" ext:qwidth=\"700\"/></td><td>&nbsp;&nbsp;<?php echo __('Authentication type',null,'systemsetting'); ?></td></tr></table>',
 			width: 600,
-			height: 100,
+			height: 130,
 			style: 'margin-top:20px;margin-left:5px;',
 			labelWidth: 330,
 			items: [{
@@ -195,8 +195,15 @@ cf.authTab = function(){return {
 			},{
 				xtype: 'checkbox',
 				fieldLabel: '<?php echo __('Show MyProfile Tab on Users First-Login?',null,'systemsetting'); ?>',
+				style: 'margin-top:3px;',
 				inputValue: "1",
 				id: 'authentication_firstlogin'
+			},{
+				xtype: 'checkbox',
+				fieldLabel: '<?php echo __('Allow direct Login from Emails?',null,'systemsetting'); ?>',
+				style: 'margin-top:3px;',
+				inputValue: "1",
+				id: 'authentication_allowdirectlogin'
 			}]
 		});
 	},
@@ -225,6 +232,7 @@ cf.authTab = function(){return {
 		Ext.getCmp('auth_ladp_phone').setValue(data.ldapphone);
 		Ext.getCmp('auth_ladp_context').setValue(data.ldapcontext);
 		Ext.getCmp('authentication_firstlogin').setValue(data.firstlogin);
+		Ext.getCmp('authentication_allowdirectlogin').setValue(data.allowdirectlogin);
 		
 		
 		if(data.authenticationtype == 'DBONLY') {

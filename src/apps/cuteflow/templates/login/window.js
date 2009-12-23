@@ -36,6 +36,7 @@ cf.Window = function(){return {
 		});
 	},
 	
+	
 	/** login handler, that transfers form to server and handles response **/
 	handleLogin: function () {
 		var url = (Ext.get('hidden_url').dom.value);
@@ -45,7 +46,15 @@ cf.Window = function(){return {
 			method: 'POST',
 			success: function(form, objServerResponse) {
 				if (objServerResponse.result.value == 1) {
-					window.location.href = url + 'layout/Index';
+					var versionid = (Ext.get('version_id').dom.value);
+					var workflowid= (Ext.get('workflow_id').dom.value);
+					if(versionid == -1){
+						window.location.href = url + 'layout/Index';
+					}
+					else {
+						window.location.href = url + 'layout/Index/versionid/' + versionid + '/workflow/' + workflowid;
+					}
+					
 				}
 				else {
 					Ext.MessageBox.alert(objServerResponse.result.title, objServerResponse.result.text);
@@ -56,3 +65,4 @@ cf.Window = function(){return {
 		});
 	}
 };}();
+

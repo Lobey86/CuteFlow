@@ -20,7 +20,8 @@ class loginActions extends sfActions {
         $tm = new ThemeManagement();
         $systemTheme = UserConfigurationTable::instance()->getUserConfiguration()->toArray();
         $this->theTheme = $systemTheme[0]['theme'];
-        #$pathToTheme = $tm->getThemePath($systemTheme[0]['theme']);
+        $this->version_id = $request->getParameter('versionid',-1);
+        $this->workflow_id = $request->getParameter('workflow',-1);
         
 
         return sfView::SUCCESS;
@@ -33,7 +34,6 @@ class loginActions extends sfActions {
     */
     public function executeDoLogin(sfWebRequest $request) {
     $result = UserLoginTable::instance()->findUserByNameAndPassword($request->getPostParameter('username'), $request->getPostParameter('userpassword'));
-        
     if($result[0]->getUserName() == $request->getPostParameter('username') AND $result[0]->getPassword() == $request->getPostParameter('userpassword')) {
         $this->getUser()->setAuthenticated(true);
         $this->getUser()->setAttribute('id',$result[0]->getId());
