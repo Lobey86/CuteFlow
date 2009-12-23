@@ -53,27 +53,28 @@ class PrepareReminderEmail {
                     $result[$a]['user_id'] = $user['user_id'];
                     $result[$a]['workflows'][$b]['workflow_id'] = $workflow['workflow_id'];
                     $result[$a]['workflows'][$b]['workflowversion_id'] = $workflow['workflowversion_id'];
+                    $result[$a]['workflows'][$b]['name'] = $workflow['name'];
                     $a++;
                 }
                 else {
-                    #echo $user['user_id'] . '<br>'
                     $needle = array_search($user['user_id'], $arrayToCheck);
-                    if($needle == false) {
+                    if($needle === false) {
                         $arrayToCheck[$a] = $user['user_id'];
                         $result[$a]['user_id'] = $user['user_id'];
                         $result[$a]['workflows'][$b]['workflow_id'] = $workflow['workflow_id'];
                         $result[$a]['workflows'][$b]['workflowversion_id'] = $workflow['workflowversion_id'];
+                        $result[$a]['workflows'][$b]['name'] = $workflow['name'];
                         $a++;
                     }
                     else {
                         $b++;
                         $result[$needle]['workflows'][$b]['workflow_id'] = $workflow['workflow_id'];
                         $result[$needle]['workflows'][$b]['workflowversion_id'] = $workflow['workflowversion_id'];
+                        $result[$needle]['workflows'][$b]['name'] = $workflow['name'];
                     }
                 }
-                
+                $start = false;
             }
-            $start = false;
         }
         return $result;
     }
