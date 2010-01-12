@@ -75,7 +75,7 @@ cf.mailinglistVersionSecondTab = function(){return {
 			labelWidth: 180,
 			items:[{
 				xtype: 'checkbox',
-				fieldLabel: '<?php echo __('Send to all slots at once?',null,'mailinglist'); ?>',
+				fieldLabel: '<?php echo __('Send to all slots at once',null,'mailinglist'); ?>?',
 				inputValue: '1',
 				style: 'margin-top:3px;',
 				checked: checked,
@@ -87,11 +87,11 @@ cf.mailinglistVersionSecondTab = function(){return {
 	/** CM for auth **/
 	initAuthorizationCM: function () {
 		this.theAuthorizationCM  =  new Ext.grid.ColumnModel([
-			{header: "<?php echo __('Action',null,'systemsetting'); ?>",  width: 200, sortable: false, dataIndex: 'type', css : "text-align :left; font-size:12px;"},
-			{header: "<?php echo __('delete workflow',null,'systemsetting'); ?>",  width: 100, sortable: false, dataIndex: 'deleteworkflow', css : "text-align :left; font-size:12px;", renderer: cf.mailinglistVersionSecondTab.renderDeleteCheckbox},
-			{header: "<?php echo __('archive workflow',null,'systemsetting'); ?>",  width: 120, sortable: false, dataIndex: 'archiveworkflow', css : "text-align :left; font-size:12px;", renderer: cf.mailinglistVersionSecondTab.renderArchiveCheckbox},
-			{header: "<?php echo __('stop/new workflow',null,'systemsetting'); ?>",  width: 120, sortable: false, dataIndex: 'stopneworkflow', css : "text-align :left; font-size:12px;", renderer: cf.mailinglistVersionSecondTab.renderStopNewCheckbox},
-			{header: "<?php echo __('show workflow details',null,'systemsetting'); ?>",  width: 130, sortable: false, dataIndex: 'detailsworkflow', css : "text-align :left; font-size:12px;", renderer: cf.mailinglistVersionSecondTab.renderShowCheckbox}
+			{header: "<?php echo __('Action',null,'mailinglist'); ?>",  width: 200, sortable: false, dataIndex: 'type', css : "text-align :left; font-size:12px;"},
+			{header: "<?php echo __('delete workflow',null,'mailinglist'); ?>",  width: 100, sortable: false, dataIndex: 'deleteworkflow', css : "text-align :left; font-size:12px;", renderer: cf.mailinglistVersionSecondTab.renderDeleteCheckbox},
+			{header: "<?php echo __('archive workflow',null,'mailinglist'); ?>",  width: 120, sortable: false, dataIndex: 'archiveworkflow', css : "text-align :left; font-size:12px;", renderer: cf.mailinglistVersionSecondTab.renderArchiveCheckbox},
+			{header: "<?php echo __('stop/new workflow',null,'mailinglist'); ?>",  width: 120, sortable: false, dataIndex: 'stopneworkflow', css : "text-align :left; font-size:12px;", renderer: cf.mailinglistVersionSecondTab.renderStopNewCheckbox},
+			{header: "<?php echo __('show workflow details',null,'mailinglist'); ?>",  width: 130, sortable: false, dataIndex: 'detailsworkflow', css : "text-align :left; font-size:12px;", renderer: cf.mailinglistVersionSecondTab.renderShowCheckbox}
 		]);	
 	
 	},
@@ -251,8 +251,8 @@ cf.mailinglistVersionSecondTab = function(){return {
 				style: 'margin-botton:10px;',
 	            handler: function () {
 					Ext.Msg.show({
-					   title:'<?php echo __('Activate Template?',null,'mailinglist'); ?>',
-					   msg: '<?php echo __('Activate Template?',null,'mailinglist'); ?>',
+					   title:'<?php echo __('Activate Template',null,'mailinglist'); ?>?',
+					   msg: '<?php echo __('Activate Template',null,'mailinglist'); ?>?',
 					   buttons: Ext.Msg.YESNO,
 					   fn: function(btn, text) {
 							if(btn == 'yes') {

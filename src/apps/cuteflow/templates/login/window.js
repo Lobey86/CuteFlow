@@ -48,11 +48,12 @@ cf.Window = function(){return {
 				if (objServerResponse.result.value == 1) {
 					var versionid = (Ext.get('version_id').dom.value);
 					var workflowid= (Ext.get('workflow_id').dom.value);
+					var windowtype = (Ext.get('window').dom.value);
 					if(versionid == -1){
 						window.location.href = url + 'layout/Index';
 					}
 					else {
-						window.location.href = url + 'layout/Index/versionid/' + versionid + '/workflow/' + workflowid;
+						window.location.href = url + 'layout/Index/versionid/' + versionid + '/workflow/' + workflowid + '/window/' + windowtype;
 					}
 					
 				}

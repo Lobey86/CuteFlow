@@ -13,19 +13,20 @@ cf.workflowedit = function(){return {
 		Ext.Ajax.request({  
 			url : '<?php echo build_dynamic_javascript_url('workflowedit/LoadWorkflowData')?>/versionid/' + version_id + '/workflowtemplateid/' + workflowtemplate_id,
 			success: function(objServerResponse){
-				//cf.workflowedit.theLoadingMask.hide();
 				cf.workflowedit.initPanel();
 				var ServerResult = Ext.util.JSON.decode(objServerResponse.responseText);
 				var generalData = ServerResult.generalData;
 				var slotData = ServerResult.slotData;
+				var attachments = ServerResult.workflowAttachment;
 				cf.workflowedit.initWindow(workflowtemplate_id, version_id);
 				cf.workfloweditGeneral.init(generalData, workflowtemplate_id);
 				cf.workfloweditSlot.init(slotData);
 				cf.workfloweditAcceptWorkflow.init();
-				
+				cf.workfloweditAttachments.init(attachments);
 				
 				cf.workflowedit.thePanel.add(cf.workfloweditGeneral.theFieldset);
 				cf.workflowedit.thePanel.add(cf.workfloweditAcceptWorkflow.theFieldset);
+				cf.workflowedit.thePanel.add(cf.workfloweditAttachments.theFieldset);
 				cf.workflowedit.thePanel.add(cf.workfloweditSlot.theFieldset);
 				cf.workflowedit.thePopUpWindow.add(cf.workflowedit.thePanel);
 				cf.workflowedit.thePopUpWindow.show();

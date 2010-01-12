@@ -86,8 +86,8 @@ cf.mailinglistVersionFirstTab = function(){return {
 					  c.getEl().on({
 						click: function(el){
 							Ext.Msg.show({
-							   title:'<?php echo __('Activate Template?',null,'mailinglist'); ?>',
-							   msg: '<?php echo __('Activate Template?',null,'mailinglist'); ?>',
+							   title:'<?php echo __('Activate Template',null,'mailinglist'); ?>?',
+							   msg: '<?php echo __('Activate Template',null,'mailinglist'); ?>?',
 							   buttons: Ext.Msg.YESNO,
 							   fn: function(btn, text) {
 									if(btn == 'yes') {

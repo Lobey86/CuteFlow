@@ -59,12 +59,12 @@ cf.restartWorkflowFirstTab = function(){return {
 		fieldset2.add(this.theColumnPanel);
 		
 		var fieldset3 = cf.restartWorkflowFirstTab.createFieldset('restartWorkflowFirstTab_fieldset3', '<?php echo __('Additional Settings',null,'workflowmanagement'); ?>', false, 250, true);
-		var cb1 = this.createCheckbox('restartWorkflowFirstTabSettings[0]','<?php echo __('Sending notification',null,'workflowmanagement'); ?>',true,'', 1);
-		var cb2 = this.createCheckbox('restartWorkflowFirstTabSettings[1]','&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo __('After succeeded circulation',null,'workflowmanagement'); ?>',true,'', 2);
-		var cb3 = this.createCheckbox('restartWorkflowFirstTabSettings[2]','&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo __('After succeeded slot end',null,'workflowmanagement'); ?>',false,'', 4);
-		var cb4 = this.createCheckbox('restartWorkflowFirstTabSettings[3]','<?php echo __('Archive after succeeded circulation',null,'workflowmanagement'); ?>',true,'', 8);
-		var cb5 = this.createCheckbox('restartWorkflowFirstTabSettings[4]','<?php echo __('Delete after succeeded circulation',null,'workflowmanagement'); ?>',false,'', 16);
-		var cb6 = this.createCheckbox('restartWorkflowFirstTabSettings[5]','<?php echo __('Show receiver name in workflow',null,'workflowmanagement'); ?>',false,'', 32);
+		var cb1 = this.createLabel();
+		var cb2 = this.createCheckbox('restartWorkflowFirstTabSettings[0]','&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo __('After succeeded circulation',null,'workflowmanagement'); ?>',true,'', 1);
+		var cb3 = this.createCheckbox('restartWorkflowFirstTabSettings[1]','&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo __('After succeeded slot end',null,'workflowmanagement'); ?>',false,'', 2);
+		var cb4 = this.createCheckbox('restartWorkflowFirstTabSettings[2]','<?php echo __('Archive after succeeded circulation',null,'workflowmanagement'); ?>',true,'', 4);
+		var cb5 = this.createCheckbox('restartWorkflowFirstTabSettings[3]','<?php echo __('Delete after succeeded circulation',null,'workflowmanagement'); ?>',false,'', 8);
+		var cb6 = this.createCheckbox('restartWorkflowFirstTabSettings[4]','<?php echo __('Show receiver name in workflow',null,'workflowmanagement'); ?>',false,'', 16);
 		
 		fieldset3.add([cb1,cb2,cb3,cb4,cb5,cb6]);
 		this.theFirstTabPanel.add(fieldset1);
@@ -72,6 +72,13 @@ cf.restartWorkflowFirstTab = function(){return {
 		this.theFirstTabPanel.add(fieldset3);
 	},
 	
+	
+	createLabel: function () {
+		var label = new Ext.form.Label({
+			html: '<span style="font-size:12px;font-family:Tahoma, Geneva, sans-serif;"><?php echo __('Sending notification',null,'workflowmanagement'); ?>:</span>'
+		});	
+		return label;
+	},
 	
 	initHiddenfield: function() {
 		this.theHiddenField = new Ext.form.Hidden({
