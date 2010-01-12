@@ -35,7 +35,7 @@ cf.documenttemplatePopUpWindow = function(){return {
 		this.theTabPanel.add(cf.documenttemplatePopUpFirstTab.theFirstTabPanel);
 		cf.documenttemplatePopUpSecondTab.init();
 		this.theTabPanel.add(cf.documenttemplatePopUpSecondTab.theColumnPanel);
-		this.initWindow(id, '<?php echo __('Create new document template',null,'documenttemplate'); ?>');
+		this.initWindow(id, '<?php echo __('Edit document template',null,'documenttemplate'); ?>');
 		this.theDocumenttemplatePopUpWindow.add(this.theTabPanel);
 		this.theDocumenttemplatePopUpWindow.show();
 		this.theTabPanel.setActiveTab(1);

@@ -241,8 +241,8 @@ cf.documenttemplatePopUpSecondTabLeftColumn = function(){return {
 					  c.getEl().on({
 						click: function(el){
 							Ext.Msg.show({
-							   title:'<?php echo __('Delete slot?',null,'documenttemplate'); ?>',
-							   msg: '<?php echo __('Delete slot?',null,'documenttemplate'); ?>',
+							   title:'<?php echo __('Delete slot',null,'documenttemplate'); ?>?',
+							   msg: '<?php echo __('Delete slot',null,'documenttemplate'); ?>?',
 							   buttons: Ext.Msg.YESNO,
 							   fn: function(btn, text) {
 									if(btn == 'yes') {
@@ -279,7 +279,7 @@ cf.documenttemplatePopUpSecondTabLeftColumn = function(){return {
 	/** CM for all grids in fieldset **/
 	initGridCM: function () {
 		this.theGridCM = new Ext.grid.ColumnModel([
-			{header: "<div ext:qtip=\"<?php echo __('Notice: empty records are not saved!',null,'documenttemplate'); ?>\" ext:qwidth=\"200\"><?php echo __('Field',null,'documenttemplate'); ?></div>", width: 230, sortable: false, dataIndex: 'title', css : "text-align : left;font-size:12px;align:left;"},
+			{header: "<div ext:qtip=\"<?php echo __('Notice: empty records are not saved',null,'documenttemplate'); ?>\" ext:qwidth=\"200\"><?php echo __('Field',null,'documenttemplate'); ?></div>", width: 230, sortable: false, dataIndex: 'title', css : "text-align : left;font-size:12px;align:left;"},
 			{header: "<div ext:qtip=\"<table><tr><td><img src='/images/icons/delete.png' />&nbsp;&nbsp;</td><td><?php echo __('Remove Field',null,'documenttemplate'); ?></td></tr></table>\" ext:qwidth=\"160\"><?php echo __('Action',null,'documenttemplate'); ?></div>", width: 60, sortable: false, dataIndex: 'unique_id', css : "text-align:left;font-size:12px;align:center;", renderer: this.renderRowDelete}
 		]);
 	},

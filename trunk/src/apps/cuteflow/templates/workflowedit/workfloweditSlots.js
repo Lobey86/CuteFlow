@@ -275,7 +275,6 @@ cf.workfloweditSlot = function(){return {
 			fieldLabel: name,
 			disabled: disabled,
 			value: value,
-			style: "background-color: #C0C0C0; background-image:none;",
 			id: 'TEXTFIELD__' + id,
 			name: 'REGEX__' + regex,
 			width: 200

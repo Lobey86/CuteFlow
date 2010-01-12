@@ -52,8 +52,8 @@ cf.documenttemplateVersionSecondTab = function(){return {
 				style: 'margin-botton:10px;',
 	            handler: function () {
 					Ext.Msg.show({
-					   title:'<?php echo __('Activate Template?',null,'documenttemplate'); ?>',
-					   msg: '<?php echo __('Activate Template?',null,'documenttemplate'); ?>',
+					   title:'<?php echo __('Activate Template',null,'documenttemplate'); ?>?',
+					   msg: '<?php echo __('Activate Template',null,'documenttemplate'); ?>?',
 					   buttons: Ext.Msg.YESNO,
 					   fn: function(btn, text) {
 							if(btn == 'yes') {

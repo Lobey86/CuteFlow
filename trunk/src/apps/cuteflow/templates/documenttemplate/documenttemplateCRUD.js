@@ -58,7 +58,7 @@ cf.documenttemplateCRUD = function(){return {
 				cf.documenttemplatePopUpWindow.theDocumenttemplatePopUpWindow.hide();
 				cf.documenttemplatePopUpWindow.theDocumenttemplatePopUpWindow.destroy();
 				Ext.Msg.minWidth = 200;
-				Ext.MessageBox.alert('<?php echo __('OK',null,'form'); ?>',title);
+				Ext.MessageBox.alert('<?php echo __('OK',null,'documenttemplate'); ?>',title);
 			}
 		});
 		
@@ -127,7 +127,7 @@ cf.documenttemplateCRUD = function(){return {
 			}
 			if(save == false) {
 				Ext.Msg.minWidth = 300;
-				Ext.MessageBox.alert('<?php echo __('Error',null,'form'); ?>','<?php echo __('Add some Fields to your slots and set slotname',null,'form'); ?>');
+				Ext.MessageBox.alert('<?php echo __('Error',null,'documenttemplate'); ?>','<?php echo __('Add some Fields to your slots and set slotname',null,'documenttemplate'); ?>');
 				cf.documenttemplatePopUpWindow.theTabPanel.setActiveTab(1);
 				return false;
 			}
@@ -137,7 +137,7 @@ cf.documenttemplateCRUD = function(){return {
 		}
 		else {
 			Ext.Msg.minWidth = 200;
-			Ext.MessageBox.alert('<?php echo __('Error',null,'form'); ?>','<?php echo __('Add some Slots!',null,'form'); ?>');
+			Ext.MessageBox.alert('<?php echo __('Error',null,'documenttemplate'); ?>','<?php echo __('Please add some Slots',null,'documenttemplate'); ?>');
 			cf.documenttemplatePopUpWindow.theTabPanel.setActiveTab(1);
 			return false;
 		}

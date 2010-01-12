@@ -232,8 +232,8 @@ cf.documenttemplatePanelGrid = function(){return {
 						click: function(el){
 							if (c.disabled == false) {
 								Ext.Msg.show({
-								   title:'<?php echo __('Delete form?',null,'documenttemplate'); ?>',
-								   msg: '<?php echo __('Delete form?',null,'documenttemplate'); ?>',
+								   title:'<?php echo __('Delete template',null,'documenttemplate'); ?>?',
+								   msg: '<?php echo __('Delete template',null,'documenttemplate'); ?>?',
 								   buttons: Ext.Msg.YESNO,
 								   fn: function(btn, text) {
 										if(btn == 'yes') {

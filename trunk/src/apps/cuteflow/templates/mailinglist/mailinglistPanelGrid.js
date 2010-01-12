@@ -38,7 +38,7 @@ cf.mailinglistPanelGrid = function(){return {
 			{header: "<?php echo __('Name',null,'mailinglist'); ?>", width: 280, sortable: false, dataIndex: 'name', css : "text-align : left;font-size:12px;align:center;"},
 			{header: "<?php echo __('Document Template',null,'mailinglist'); ?>", width: 280, sortable: false, dataIndex: 'formtemplate_name', css : "text-align : left;font-size:12px;align:center;"},
 			{header: "<?php echo __('is default',null,'mailinglist'); ?>", width: 150, sortable: false, dataIndex: 'isdefault', css : "text-align:center;font-size:12px;align:center;", renderer: this.renderRadiobox},
-			{header: "<div ext:qtip=\"<table><tr><td><img src='/images/icons/group_edit.png' />&nbsp;&nbsp;</td><td><?php echo __('Edit Mailing list template',null,'mailinglist'); ?></td></tr><tr><td><img src='/images/icons/clock.png' />&nbsp;&nbsp;</td><td><?php echo __('Show Document template versions',null,'documenttemplate'); ?></td></tr><tr><td><img src='/images/icons/group_delete.png' />&nbsp;&nbsp;</td><td><?php echo __('Delete Mailing List template',null,'mailinglist'); ?></td></tr><tr><td><img src='/images/icons/table_lightning.png' />&nbsp;&nbsp;</td><td><?php echo __('Adapt Mailinglist to current Document Template',null,'mailinglist'); ?></td></tr></table>\" ext:qwidth=\"300\"><?php echo __('Action',null,'mailinglist'); ?></div>", width: 100, sortable: false, dataIndex: 'action', css : "text-align : left;font-size:12px;align:center;" ,renderer: this.renderAction}
+			{header: "<div ext:qtip=\"<table><tr><td><img src='/images/icons/group_edit.png' />&nbsp;&nbsp;</td><td><?php echo __('Edit Mailing list template',null,'mailinglist'); ?></td></tr><tr><td><img src='/images/icons/clock.png' />&nbsp;&nbsp;</td><td><?php echo __('Show Mailinglist template versions',null,'mailinglist'); ?></td></tr><tr><td><img src='/images/icons/group_delete.png' />&nbsp;&nbsp;</td><td><?php echo __('Delete Mailing List template',null,'mailinglist'); ?></td></tr><tr><td><img src='/images/icons/table_lightning.png' />&nbsp;&nbsp;</td><td><?php echo __('Adapt Mailinglist to current Document Template',null,'mailinglist'); ?></td></tr></table>\" ext:qwidth=\"300\"><?php echo __('Action',null,'mailinglist'); ?></div>", width: 100, sortable: false, dataIndex: 'action', css : "text-align : left;font-size:12px;align:center;" ,renderer: this.renderAction}
 		]);
 	},
 	
@@ -137,7 +137,7 @@ cf.mailinglistPanelGrid = function(){return {
 	/** init grid **/
 	initGrid: function () {
 		this.theMailinglistGrid = new Ext.grid.GridPanel({
-			title: '<?php echo __('Document templates',null,'mailinglist'); ?>',
+			title: '<?php echo __('Mailinglist templates',null,'mailinglist'); ?>',
 			stripeRows: true,
 			border: true,
 			width: 'auto',
@@ -178,8 +178,8 @@ cf.mailinglistPanelGrid = function(){return {
 							if (c.disabled == false) {
 								Ext.Msg.minWidth = 320;
 								Ext.Msg.show({
-								   title:'<?php echo __('Adapt mailinglist?',null,'mailinglist'); ?>',
-								   msg: '<?php echo __('Adapt mailinglist to current Document Template?',null,'mailinglist'); ?>',
+								   title:'<?php echo __('Adapt mailinglist',null,'mailinglist'); ?>?',
+								   msg: '<?php echo __('Adapt mailinglist to current Document Template',null,'mailinglist'); ?>?',
 								   buttons: Ext.Msg.YESNO,
 								   fn: function(btn, text) {
 										if(btn == 'yes') {
@@ -258,8 +258,8 @@ cf.mailinglistPanelGrid = function(){return {
 						click: function(el){
 							if (c.disabled == false) {
 								Ext.Msg.show({
-								   title:'<?php echo __('Delete mailinglist?',null,'mailinglist'); ?>',
-								   msg: '<?php echo __('Delete mailinglist?',null,'mailinglist'); ?>',
+								   title:'<?php echo __('Delete mailinglist',null,'mailinglist'); ?>?',
+								   msg: '<?php echo __('Delete mailinglist',null,'mailinglist'); ?>?',
 								   buttons: Ext.Msg.YESNO,
 								   fn: function(btn, text) {
 										if(btn == 'yes') {

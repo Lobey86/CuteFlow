@@ -12,12 +12,14 @@ cf.Navigation = function(){return {
 	theFirstLogin				  : false,
 	theWorfklowVersionId		  : false,
 	theWorfklowId		 		  : false,
+	theWorklfowWindow			  : false,
 	
 	/** functions loads accordion for region west **/
 	init: function () {
 		
 		this.theWorfklowVersionId = (Ext.get('version_id').dom.value);
 		this.theWorfklowId = (Ext.get('workflow_id').dom.value);
+		this.theWorklfowWindow = (Ext.get('window').dom.value);
 
 		this.theUserFirstLogin = '<?php echo UserSettingClass::getFirstLogin();?>';
 		this.theFirstLogin = '<?php echo SystemSetting::getFirstLogin();?>';
@@ -96,7 +98,12 @@ cf.Navigation = function(){return {
 		}
 		this.theAccordion.doLayout();
 		if(cf.Navigation.theWorfklowVersionId != -1) {
-			cf.workflowedit.init(cf.Navigation.theWorfklowId, cf.Navigation.theWorfklowVersionId);
+			if(cf.Navigation.theWorklfowWindow == 'edit') {
+				cf.workflowedit.init(cf.Navigation.theWorfklowId, cf.Navigation.theWorfklowVersionId);
+			}
+			else {
+				cf.workflowdetails.init(cf.Navigation.theWorfklowId,cf.Navigation.theWorfklowVersionId, true, false, true );
+			}
 		}
 	},
 	
