@@ -13,13 +13,16 @@ class JavaScriptCompressor {
 
 
     public function writeJavaScript() {
-        for($a=0;$a<$this->files['template_uncompressed'];$a++) {
-           $fileContent = file_get_contents($this->files['template_uncompressed'][$a]);
-           $fileJS = new JavaScriptPacker($fileContent);
-           echo $fileJS->pack();die;
-
-
-
+        for($a=0;$a<count($this->files['template_uncompressed']);$a++) {
+            $fileContent = file_get_contents($this->files['template_uncompressed'][$a]);
+            $t1 = microtime(true);
+            $packer = new JavaScriptPacker($fileContent, 'None', true, false);
+            $packed = $packer->pack();
+            $path = $this->files['template'][$a];
+            $file = fopen($path,'w+');
+            rewind($file);
+            fwrite($file, $packed);
+            fclose($file);
         }
 
 
@@ -53,7 +56,7 @@ class JavaScriptCompressor {
             $files = $this->getFilesInDirectory($path);
             foreach($files as $file) {
                 $result['template'][$a] = sfConfig::get('sf_app_dir') . '/templates/' .$folder.'/'.$file;
-                $result['template_uncompressed'][$a]  = sfConfig::get('sf_app_dir') . '/templates_uncompressed/' .$folder.'/'.$file;
+                $result['template_uncompressed'][$a++]  = sfConfig::get('sf_app_dir') . '/templates_uncompressed/' .$folder.'/'.$file;
             }
         }
         return $result;
