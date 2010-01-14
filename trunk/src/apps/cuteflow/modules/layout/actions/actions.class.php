@@ -19,6 +19,7 @@ class layoutActions extends sfActions {
 
         
         $loginObject = new Login();
+        
         // Load UserSetting and Store to session here
         $userSettings = UserSettingTable::instance()->getUserSettingById($this->getUser()->getAttribute('id'));
         $this->getUser()->setAttribute('userSettings', $userSettings[0]->toArray());
@@ -31,6 +32,7 @@ class layoutActions extends sfActions {
         $this->getUser()->setAttribute('credential', $rights);
         $this->version_id  = $request->getParameter('versionid',-1);
         $this->workflow_id  = $request->getParameter('workflow',-1);
+        $this->window  = $request->getParameter('window',-1);
         return sfView::SUCCESS;
     }
 
@@ -44,6 +46,17 @@ class layoutActions extends sfActions {
         return sfView::NONE;
     }
 
+    public function executeTest(sfWebRequest $request) {
+        $versionId = 5;
+        $templateId = 5;
+        $user_id = 1;
+        $test = new PrepareStationEmail($versionId, $templateId, $user_id);
+
+        return sfView::NONE;
+    }
+
+
+    
     public function executeLinklogin(sfWebRequest $request) {
 
         $settings = AuthenticationConfigurationTable::instance()->getAuthenticationConfiguration()->toArray();
@@ -59,22 +72,22 @@ class layoutActions extends sfActions {
                     $this->getUser()->setAttribute('userrole',$userLogin[0]->getRoleId());
                     $this->getUser()->setCulture($settings[0]->getLanguage());
                     $this->getUser()->setAttribute('env', str_replace('/', '', $request->getScriptName()));
-                    $this->redirect($this->generateUrl('default', array('module' => 'layout', 'action' => 'index', 'versionid' => $request->getParameter('versionid'), 'workflow' => $request->getParameter('workflowid'))));
+                    $this->redirect($this->generateUrl('default', array('module' => 'layout', 'action' => 'index', 'versionid' => $request->getParameter('versionid'), 'workflow' => $request->getParameter('workflowid'), 'window' => $request->getParameter('window'))));
                 }
                 else { // user is not found or is deleted
                     $this->redirect('login/index');
                 }
             }
             else { // user is already logged in
-                $this->redirect($this->generateUrl('default', array('module' => 'layout', 'action' => 'index', 'versionid' => $request->getParameter('versionid'), 'workflow' => $request->getParameter('workflowid'))));
+                $this->redirect($this->generateUrl('default', array('module' => 'layout', 'action' => 'index', 'versionid' => $request->getParameter('versionid'), 'workflow' => $request->getParameter('workflowid'), 'window' => $request->getParameter('window'))));
             }
         }
         else { // allow direct login is denied
             if($this->getUser()->isAuthenticated() == true) { // user is already logged in
-                $this->redirect($this->generateUrl('default', array('module' => 'layout', 'action' => 'index', 'versionid' => $request->getParameter('versionid'), 'workflow' => $request->getParameter('workflowid'))));
+                $this->redirect($this->generateUrl('default', array('module' => 'layout', 'action' => 'index', 'versionid' => $request->getParameter('versionid'), 'workflow' => $request->getParameter('workflowid'), 'window' => $request->getParameter('window'))));
             }
             else { // move to login page
-                $this->redirect($this->generateUrl('default', array('module' => 'login', 'action' => 'index', 'versionid' => $request->getParameter('versionid'), 'workflow' => $request->getParameter('workflowid'))));
+                $this->redirect($this->generateUrl('default', array('module' => 'login', 'action' => 'index', 'versionid' => $request->getParameter('versionid'), 'workflow' => $request->getParameter('workflowid'), 'window' => $request->getParameter('window'))));
             }
         }
         return sfView::NONE;
