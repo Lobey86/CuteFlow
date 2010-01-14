@@ -8,5 +8,6 @@ class ProjectConfiguration extends sfProjectConfiguration
   {
     // for compatibility / remove and enable only the plugins you want
     $this->enableAllPluginsExcept(array('sfPropelPlugin', 'sfCompat10Plugin'));
+    date_default_timezone_set('UTC');
   }
 }
