@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * Class adds the WorkflowProcess and WorkflowProcessUser to database
  */

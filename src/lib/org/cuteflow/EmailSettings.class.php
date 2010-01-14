@@ -10,6 +10,7 @@ class EmailSettings {
     public $subject;
     public $body;
     public $contentType;
+    public $attachments;
 
     public function __construct() {
         sfLoader::loadHelpers('I18N');
@@ -37,16 +38,31 @@ class EmailSettings {
         $this->body = $body;
     }
 
+
+    public function setAttachments($items) {
+        $a = 0;
+        foreach($items as $attachment) {
+            $this->attachments[$a]['filepath'] = $attachment['filepath'];
+            $this->attachments[$a++]['filename'] = $attachment['filename'];
+        }
+    }
+
+
     public function sendEmail() {
         $mailerObject = sfContext::getInstance()->getMailer();
-
         $message = Swift_Message::newInstance()
             ->setFrom($this->sender)
             ->setTo($this->receiver)
             ->setSubject($this->subject)
             ->setContentType($this->contentType)
             ->setBody($this->body);
-            //->attach(Swift_Attachment::fromPath('/path/to/a/file.zip'))
+        if(isset($this->attachments)) {
+            foreach($this->attachments as $file) {
+                $fileObj = new File();
+                $filecontent = $fileObj->getFileContent($file['filepath']);
+                $message->attach(Swift_Attachment::newInstance($filecontent, $file['filename']));
+            }
+        }
         $mailerObject->send($message);
         
     }

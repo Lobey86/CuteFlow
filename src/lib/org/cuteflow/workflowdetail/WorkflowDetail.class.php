@@ -45,7 +45,11 @@ class WorkflowDetail {
         $result['mailinglist'] = $mailinglist[0]['name'];
         $result['mailinglist_id'] = $workflowtemplate[0]['id'];
         $result['workflowtemplateid'] = $data[0]->getWorkflowtemplateId();
-        $result['content'] = $data[0]->getContent();
+
+        $textReplace = new ReplaceTags($data[0]->getId(), $data[0]->getContent(), $this->culture);
+        $newText = $textReplace->getText();
+        
+        $result['content'] = $newText;
         $result['created_at'] = format_date($data[0]->getCreatedAt(), 'g', $this->culture);
         $result['sender_id'] = $workflowtemplate[0]['sender_id'];
         $result['sender'] = $userdata->getFirstname() . ' ' . $userdata->getLastname() . ' <i>('.$user[0]->getUsername().')</i>';
@@ -353,7 +357,10 @@ class WorkflowDetail {
                 $result['hashname'] = $file[0]['hashname'];
                 $result['filename'] = $file[0]['filename'];
                 $url = url_for('file/ShowAttachment');
+                $plainUrl = url_for('file/ShowAttachment', true);
                 $url .= '/workflowid/' .  $workflowtemplate[0]['workflowtemplate_id'] . '/versionid/' . $versionid. '/attachmentid/' . $file[0]['id'] . '/file/1';
+                $plainUrl .= '/workflowid/' .  $workflowtemplate[0]['workflowtemplate_id'] . '/versionid/' . $versionid. '/attachmentid/' . $file[0]['id'] . '/file/1';
+                $result['plainurl'] = $plainUrl;
                 $result['link'] = '<a href="'.$url.'" target="_blank">'.$result['filename'].'</a>';
                 break;
         }

@@ -15,6 +15,8 @@ class CreateNextStation extends WorkflowCreation{
     public $sendToAllReceivers;
     public $sendToAllAtOnce;
     public $workflowtemplate_id;
+    public $workflow;
+    public $workflowversion;
 
     /**
      *
@@ -47,6 +49,8 @@ class CreateNextStation extends WorkflowCreation{
     public function setSendToAllAtOnce() {
         $workflow = WorkflowVersionTable::instance()->getWorkflowVersionById($this->version_id);
         $workflowVersion = WorkflowTemplateTable::instance()->getWorkflowTemplateByVersionId($this->version_id);
+        $this->workflow = $workflow->toArray();
+        $this->workflowversion = $workflowVersion->toArray();
         $template = MailinglistVersionTable::instance()->getSingleVersionById($workflowVersion[0]->getMailinglisttemplateversionId())->toArray();
         $this->sendToAllAtOnce = $template[0]['sendtoallslotsatonce'];
         $this->workflowtemplate_id = $workflow[0]->getWorkflowtemplateId();
@@ -121,7 +125,25 @@ class CreateNextStation extends WorkflowCreation{
             }
             if($isCompleted == true) {
                 WorkflowTemplateTable::instance()->setWorkflowFinished($this->workflowtemplate_id);
+                $this->checkEndAction();
             }
+        }
+    }
+
+
+    public function checkEndAction() {
+        sfLoader::loadHelpers('EndAction');
+        $data = getEndAction($this->workflowversion[0]['endaction']);
+        
+        if($data[0] == 1) { // send notification when workflow is completed
+            $email = new SendWorkflowCompleted($this->workflowversion[0], $this->workflow[0]['id']);
+        }
+        if($data[2] == 1) { // archive workflow
+            WorkflowTemplateTable::instance()->archiveWorkflow($this->workflowversion[0]['id']);
+        }
+
+        if($data[3] == 1) { // delete workflow
+            WorkflowTemplateTable::instance()->deleteWorkflow($this->workflowversion[0]['id']);
         }
     }
 

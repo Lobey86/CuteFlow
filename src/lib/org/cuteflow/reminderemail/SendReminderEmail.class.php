@@ -2,15 +2,12 @@
 
 class SendReminderEmail extends EmailSettings{
 
-
-    
-
     public function  __construct(UserMailSettings $userSettings, cronjobActions $controller, array $openWorkflows) {
+        $sf_i18n = $controller->getContext()->getI18N();
+        $sf_i18n->setCulture($userSettings->userSettings['language']);
         $content['text'] = $controller->getContext()->getI18N()->__('You need to complete the following workflows' ,null,'sendreminderemail');
         $this->setSender($userSettings->userSettings['systemreplyaddress']);
         $this->setReceiver(array ($userSettings->userData['email'] => $userSettings->userData['firstname'] . ' ' . $userSettings->userData['lastname']));
-        $sf_i18n = $controller->getContext()->getI18N();
-        $sf_i18n->setCulture($userSettings->userSettings['language']);
         $subject = $controller->getContext()->getI18N()->__('CuteFlow: open workflows' ,null,'sendreminderemail');
         $worfklowname = $controller->getContext()->getI18N()->__('Workflowname' ,null,'sendreminderemail');
         $linkTo = $controller->getContext()->getI18N()->__('Direct link to workflow' ,null,'sendreminderemail');
