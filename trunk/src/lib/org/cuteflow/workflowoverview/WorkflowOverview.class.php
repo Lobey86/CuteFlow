@@ -34,7 +34,6 @@ class WorkflowOverview {
         $openInPopUp = $userSettings['showcirculationinpopup'];
         foreach($data as $item) {
             $sender = UserLoginTable::instance()->findActiveUserById($item->getSenderId());
-            //$workflowtemplate = WorkflowTemplateTable::instance()->getWorkflowTemplateById($item->getActiveversionId())->toArray();
             $mailinglist = MailinglistTemplateTable::instance()->getMailinglistByVersionId($item->getMailinglisttemplateversionId());
             $inProgress = createDayOutOfDateSince($item->getVersioncreatedAt());
             $inProgress = addColor($inProgress, $userSettings['markred'],$userSettings['markorange'],$userSettings['markyellow']);

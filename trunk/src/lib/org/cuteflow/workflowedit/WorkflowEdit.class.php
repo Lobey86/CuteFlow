@@ -15,7 +15,7 @@ class WorkflowEdit {
     }
 
 
-    public function setContext (sfContext $context_in) {
+    public function setContext ($context_in) {
         $this->context = $context_in;
     }
 
@@ -24,9 +24,12 @@ class WorkflowEdit {
     }
 
     public function setUser(myUser $user_in) {
-        $this->user = $user_in;
+        $this->user = $user_in->getAttribute('id');
     }
 
+    public function setUserId($userId) {
+        $this->user = $userId;
+    }
 
     public function buildSlots(Doctrine_Collection $data, $version_id) {
         
@@ -46,13 +49,12 @@ class WorkflowEdit {
             $a++;
         }
         $mergedResult = $this->mergeArray($result, $version_id);
-        #print_r ($mergedResult);die;
         return $mergedResult;
     }
 
     private function checkSlotVisability($workflowslot_id) {
         $activeUser = array();
-        $activeUser = WorkflowProcessUserTable::instance()->getActiveProcessUserForWorkflowSlot($workflowslot_id,$this->user->getAttribute('id'))->toArray();
+        $activeUser = WorkflowProcessUserTable::instance()->getActiveProcessUserForWorkflowSlot($workflowslot_id,$this->user)->toArray();
         if(empty($activeUser) == true) {
             return 1;
         }
@@ -103,7 +105,6 @@ class WorkflowEdit {
 
 
     private function mergeArray(array $result) {
-        // CURRENT, TEMPLATE, TOPMOST
         $return = array();
         $activeSlot = array();
         $inacitveSlot = array();

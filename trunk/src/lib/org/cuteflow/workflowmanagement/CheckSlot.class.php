@@ -94,6 +94,7 @@ class CheckSlot {
         $slotArray = $nextSlot->toArray();
         if(empty($slotArray) == true AND $this->nextStation->sendToAllAtOnce != 1) { // workflow has finifshed
             WorkflowTemplateTable::instance()->setWorkflowFinished($this->nextStation->workflowtemplate_id);
+            $this->nextStation->checkEndAction();
         }
         else {
             if($this->nextStation->sendToAllAtOnce == 0) {
@@ -111,6 +112,7 @@ class CheckSlot {
      * @param Doctrine_Collection $slot, WorkflowSlot Object that contains the next slot which is needed to be added.
      */
     public function addNewSlot(Doctrine_Collection $slot) {
+        $mail = new SendSlotReachedEmail($this->nextStation->workflowslot_id, $slot[0]->getId(), $this->nextStation->workflowtemplate_id, $this->nextStation->version_id);
         $documenttemplateSlot = $slot[0]->getDocumenttemplateSlot()->toArray();
         $slotUser = WorkflowSlotUserTable::instance()->getUserBySlotId($slot[0]->getId())->toArray();
         if($documenttemplateSlot[0]['sendtoallreceivers'] == 1) {
