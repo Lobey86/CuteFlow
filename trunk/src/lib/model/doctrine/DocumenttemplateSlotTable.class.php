@@ -39,4 +39,17 @@ class DocumenttemplateSlotTable extends Doctrine_Table {
             ->where('dts.id = ?', $slot_id)
             ->execute();
     }
+
+
+    public function getSlotByWorkflowSlotId($workflowslot_id) {
+        return Doctrine_Query::create()
+            ->select('dts.*')
+            ->from('DocumenttemplateSlot dts')
+            ->leftJoin('dts.WorkflowSlot wfs')
+            ->where('wfs.id = ?', $workflowslot_id)
+            ->execute();
+        
+
+    }
+
 }

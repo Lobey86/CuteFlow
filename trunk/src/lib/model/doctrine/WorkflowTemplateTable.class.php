@@ -13,6 +13,20 @@ class WorkflowTemplateTable extends Doctrine_Table {
     }
 
 
+
+
+    public function archiveWorkflow($id) {
+        Doctrine_Query::create()
+            ->update('WorkflowTemplate wft')
+            ->set('wft.isarchived','?', 1)
+            ->set('wft.archived_at','?', time())
+            ->where('wft.id = ?', $id)
+            ->execute();
+        return true;
+    }
+
+    
+
     public function getAllWorkflowTemplates($offset, $limit) {
         return Doctrine_Query::create()
             ->from('WorkflowTemplate wft')
@@ -34,6 +48,14 @@ class WorkflowTemplateTable extends Doctrine_Table {
             ->execute();
     }
 
+    public function updateEndaction($id, $reason) {
+        Doctrine_Query::create()
+            ->update('WorkflowTemplate wft')
+            ->set('wft.endaction','?', $reason)
+            ->where('wft.id = ?', $id)
+            ->execute();
+        return true;
+    }
 
     public function getWorkflowTemplateByVersionId($id) {
         return Doctrine_Query::create()
@@ -42,6 +64,16 @@ class WorkflowTemplateTable extends Doctrine_Table {
             ->leftJoin('wft.WorkflowVersion wv')
             ->where('wv.id = ?' ,$id)
             ->execute();
+    }
+
+
+    public function deleteWorkflow($id) {
+        Doctrine_Query::create()
+            ->update('WorkflowTemplate wft')
+            ->set('wft.deleted_at','?', time())
+            ->where('wft.id = ?', $id)
+            ->execute();
+        return true;
     }
 
 
