@@ -27,14 +27,14 @@ class workfloweditActions extends sfActions {
         $detailsObj->setContext($this->getContext());
         $workflowsettings = WorkflowVersionTable::instance()->getWorkflowVersionById($request->getParameter('versionid'));
         $generalData = $detailsObj->buildHeadLine($workflowsettings);
+        $attachments = $detailsObj->buildAttachments($workflowsettings, $request->getParameter('versionid'));
         
         $slotObj = new WorkflowEdit();
         $slotObj->setUser($this->getUser());
         $slotObj->setCulture($this->getUser()->getCulture());
         $slotObj->setContext($this->getContext());
         $slotData = $slotObj->buildSlots($workflowsettings, $request->getParameter('versionid'));
-        #print_r ($slotData);die;
-        $this->renderText('{"generalData":'.json_encode($generalData).',"slotData":'.json_encode($slotData).'}');
+        $this->renderText('{"generalData":'.json_encode($generalData).',"slotData":'.json_encode($slotData).', "workflowAttachment" : '.json_encode($attachments).'}');
         return sfView::NONE;
     }
 

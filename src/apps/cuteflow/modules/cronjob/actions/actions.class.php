@@ -21,6 +21,9 @@ class cronjobActions extends sfActions {
     public function executeStartWorkflow(sfWebRequest $request) {
         $workflows = WorkflowVersionTable::instance()->getWorkflowsToStart(time())->toArray();
         foreach($workflows as $workflow) {
+            $sender = WorkflowTemplateTable::instance()->getWorkflowTemplateById($workflow['workflowtemplate_id'])->toArray();
+            $userSettings = new UserMailSettings($sender[0]['sender_id']);
+            $sendMail = new SendStartWorkflowEmail($userSettings, $this, $workflow, $sender);
             $workflowTemplate = WorkflowTemplateTable::instance()->getWorkflowTemplateByVersionId($workflow['id']);
             WorkflowVersionTable::instance()->startWorkflowInFuture($workflow['id']);
             $sendToAllSlotsAtOnce = $workflowTemplate[0]->getMailinglistVersion()->toArray();
@@ -64,6 +67,15 @@ class cronjobActions extends sfActions {
             }
 
         }
+        return sfView::NONE;
+    }
+
+    
+    public function executeBuildJavaScriptFiles(sfWebRequest $request) {
+        $autoLoader = new JavaScriptAutoLoader();
+        $compressor = new JavaScriptCompressor();
+       
+        #$this->renderText('<b> All JavaScript Files are loaded </b><br /><br />');
         return sfView::NONE;
     }
 

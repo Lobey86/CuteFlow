@@ -48,6 +48,7 @@ class restartworkflowActions extends sfActions {
         $content = $createWorkObj->createRestartContenttype($request->getPostParameters());
 
         $workflowtemplate_id = WorkflowVersionTable::instance()->getWorkflowVersionById($version_id)->toArray();
+        WorkflowTemplateTable::instance()->updateEndaction($workflowtemplate_id,$endreason);
         $currentVersion = WorkflowVersionTable::instance()->getLastVersionById($workflowtemplate_id[0]['workflowtemplate_id'])->toArray();
         $slots = WorkflowSlotTable::instance()->getSlotByVersionId($version_id);
 
@@ -249,8 +250,9 @@ class restartworkflowActions extends sfActions {
             $calc = new SetStation($newVersionId, $newUserSlotId, $currentUserSlotId, $direction);
 
         }
-        echo '{"success":true}';die;
-        $this->renderText('{success:true}');
+        #die;
+        #echo '{"success":true}';die;
+        $this->renderText('{"success":true}');
         return sfView::NONE;
     }
 

@@ -15,6 +15,7 @@ class loginActions extends sfActions {
     * @param sfRequest $request A request object
     */
     public function executeIndex(sfWebRequest $request) {
+        $this->getUser()->setAuthenticated(false);
         sfLoader::loadHelpers('Url');
         $this->getUser()->setCulture(Language::loadDefaultLanguage());
         $tm = new ThemeManagement();
@@ -22,7 +23,7 @@ class loginActions extends sfActions {
         $this->theTheme = $systemTheme[0]['theme'];
         $this->version_id = $request->getParameter('versionid',-1);
         $this->workflow_id = $request->getParameter('workflow',-1);
-        
+        $this->window  = $request->getParameter('window',-1);
 
         return sfView::SUCCESS;
     }
