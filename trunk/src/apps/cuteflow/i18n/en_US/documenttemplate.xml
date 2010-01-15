@@ -230,6 +230,10 @@
         <source>Saving Data</source>
         <target>Saving Data</target>
      </trans-unit>
+	 <trans-unit id="58">
+        <source>Delete successful</source>
+        <target>Delete successful</target>
+     </trans-unit> 
 	</body>
   </file>
 </xliff>
