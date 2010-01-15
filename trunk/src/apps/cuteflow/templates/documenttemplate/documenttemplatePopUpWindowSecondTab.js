@@ -25,7 +25,7 @@ cf.documenttemplatePopUpSecondTab = function(){return {
 			layout: 'column',
 			frame:true,
 			title: '<?php echo __('Set Fields to Template',null,'documenttemplate'); ?>',
-			height: cf.Layout.theRegionWest.getHeight() - 148,
+			height: cf.Layout.theRegionWest.getHeight() + cf.Layout.theRegionNorth.getHeight() - 148,
 			border: false,
 			style: 'border:none;',
 			autoScroll: false,
@@ -43,7 +43,7 @@ cf.documenttemplatePopUpSecondTab = function(){return {
 			border: false,
 			autoScroll: true,
 			columnWidth: .5,
-			height: cf.Layout.theRegionWest.getHeight() - 177,
+			height: cf.Layout.theRegionWest.getHeight() + cf.Layout.theRegionNorth.getHeight() - 177,
 			width: 370
 		});
 	},

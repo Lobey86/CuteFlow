@@ -27,7 +27,7 @@ cf.menueSettingModuleGrid = function(){return {
 			enableDragDrop:true,
 		    ddText: '<?php echo __('Drag Drop to change order',null,'menuesetting'); ?>',
 		    title: '<?php echo __('Menue Settings',null,'menuesetting'); ?>',
-			height: cf.Layout.theRegionWest.getHeight() - 50,
+			height: cf.Layout.theRegionWest.getHeight() + cf.Layout.theRegionNorth.getHeight() - 50,
 			style: 'margin-left:5px;margin-top:5px;',
 			border: true,
 			store: this.theModuleStore,

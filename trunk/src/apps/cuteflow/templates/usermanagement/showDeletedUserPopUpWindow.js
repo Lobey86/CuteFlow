@@ -17,7 +17,7 @@ cf.showDeletedUserPopUpWindow = function(){return {
 			modal: true,
 			closable: true,
 			modal: true,
-			height: cf.Layout.theRegionWest.getHeight() - 120,
+			height: cf.Layout.theRegionWest.getHeight() + cf.Layout.theRegionNorth.getHeight() - 120,
 			width: 800,
 			autoScroll: false,
 			title: '<?php echo __('Deleted user',null,'usermanagement'); ?>',

@@ -111,7 +111,7 @@ cf.workflowmanagementPanelGrid = function(){return {
 			stripeRows: true,
 			border: true,
 			width: 'auto',
-			height: cf.Layout.theRegionWest.getHeight() - 100,
+			height: cf.Layout.theRegionWest.getHeight() + cf.Layout.theRegionNorth.getHeight() - 100,
 			collapsible: false,
 			style:'margin-top:5px;margin-left:5px;margin-right:5px;',
 			store: this.theWorkflowStore,

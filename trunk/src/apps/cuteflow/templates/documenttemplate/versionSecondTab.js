@@ -144,7 +144,7 @@ cf.documenttemplateVersionSecondTab = function(){return {
 			title: grid_id + ': ' + created_at,
 			closable: true,
 			frame: true,
-			height: cf.Layout.theRegionWest.getHeight() - 148
+			height: cf.Layout.theRegionWest.getHeight() + cf.Layout.theRegionNorth.getHeight() - 148
 		});
 		return panel;
 	}

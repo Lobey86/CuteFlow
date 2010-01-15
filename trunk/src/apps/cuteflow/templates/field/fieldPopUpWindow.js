@@ -154,7 +154,7 @@ cf.createFileWindow = function(){return {
 			modal: true,
 			closable: true,
 			modal: true,
-			height: cf.Layout.theRegionWest.getHeight() - 50,
+			height: cf.Layout.theRegionWest.getHeight() + cf.Layout.theRegionNorth.getHeight() - 50,
 			width: 700,
 			autoScroll: false,
 			shadow: false,

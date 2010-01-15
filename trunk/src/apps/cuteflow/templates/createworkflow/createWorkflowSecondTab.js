@@ -104,7 +104,7 @@ cf.createWorkflowSecondTab = function(){return {
 			closable: false,
             ddText: '<?php echo __('Move left please',null,'mailinglist'); ?>',  
 			title: '<table><tr><td><img src="/images/icons/user_suit.png" /></td><td><?php echo __('User',null,'mailinglist'); ?></td></tr></table>',
-			height: cf.Layout.theRegionWest.getHeight() - 190,
+			height: cf.Layout.theRegionWest.getHeight() + cf.Layout.theRegionNorth.getHeight() - 190,
 			width:340,
 			border: true,
 			style: 'margin-right:20px;',
@@ -132,7 +132,7 @@ cf.createWorkflowSecondTab = function(){return {
 			columnWidth: .5,
 			autoScroll: true,
 			width: 290,
-			height: cf.Layout.theRegionWest.getHeight() - 170
+			height: cf.Layout.theRegionWest.getHeight() + cf.Layout.theRegionNorth.getHeight() - 170
 		});
 		
 	},
@@ -145,7 +145,7 @@ cf.createWorkflowSecondTab = function(){return {
 			columnWidth: .5,
 			autoScroll: true,
 			width: 280,
-		    height: cf.Layout.theRegionWest.getHeight() - 170
+		    height: cf.Layout.theRegionWest.getHeight() + cf.Layout.theRegionNorth.getHeight() - 170
 		});
 	},	
 	
@@ -161,7 +161,7 @@ cf.createWorkflowSecondTab = function(){return {
 			frame:true,
 			layout: 'column',
 			autoScroll: true,
-			height: cf.Layout.theRegionWest.getHeight() - 148,
+			height: cf.Layout.theRegionWest.getHeight() + cf.Layout.theRegionNorth.getHeight() - 148,
 			width: 600,
 			border: false,
 			style: 'border:none;',

@@ -46,7 +46,7 @@ cf.workflowdetails = function(){return {
 			modal: true,
 			closable: true,
 			modal: true,
-			height: cf.Layout.theRegionWest.getHeight() - 40,
+			height: cf.Layout.theRegionWest.getHeight() + cf.Layout.theRegionNorth.getHeight() - 40,
 			width: cf.Layout.theRegionWest.getWidth() +  cf.Layout.theRegionCenter.getWidth() - 40,
 			autoScroll: true,
 			title: '<?php echo __('Workflow details',null,'workflowmanagement'); ?>',

@@ -152,7 +152,7 @@ cf.documenttemplateVersionFirstTab = function(){return {
 			stripeRows: true,
 			border: true,
 			width: 'auto',
-			height: cf.Layout.theRegionWest.getHeight() - 210,
+			height: cf.Layout.theRegionWest.getHeight() + cf.Layout.theRegionNorth.getHeight() - 210,
 			collapsible: false,
 			style:'margin-top:5px;margin-left:5px;margin-right:5px;',
 			store: this.theGridStore,
@@ -168,7 +168,7 @@ cf.documenttemplateVersionFirstTab = function(){return {
 		this.theFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('Select Document template',null,'documenttemplate'); ?>',
 			width: 'auto',
-			height: cf.Layout.theRegionWest.getHeight() - 190,
+			height: cf.Layout.theRegionWest.getHeight() + cf.Layout.theRegionNorth.getHeight() - 190,
 			style: 'margin-top:20px;margin-left:5px;',
 			labelWidth: 170
 		});
@@ -180,7 +180,7 @@ cf.documenttemplateVersionFirstTab = function(){return {
 		this.thePanel = new Ext.Panel({
 			title: '<?php echo __('Select Document template',null,'documenttemplate'); ?>',
 			frame:true,
-			height: cf.Layout.theRegionWest.getHeight() - 148
+			height: cf.Layout.theRegionWest.getHeight() + cf.Layout.theRegionNorth.getHeight() - 148
 		});
 		
 	}

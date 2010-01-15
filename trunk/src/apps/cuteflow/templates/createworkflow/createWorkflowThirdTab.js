@@ -30,7 +30,7 @@ cf.createWorkflowThirdTab = function(){return {
 			title: '<?php echo __('Fields',null,'workflowmanagement'); ?>',
 			frame:true,
 			autoScroll: true,
-			height: cf.Layout.theRegionWest.getHeight() - 148,
+			height: cf.Layout.theRegionWest.getHeight() + cf.Layout.theRegionNorth.getHeight() - 148,
 			width: 600,
 			border: false,
 			style: 'border:none;'

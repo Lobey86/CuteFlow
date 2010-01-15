@@ -162,7 +162,7 @@ cf.documenttemplatePopUpSecondTabRightColumn = function(){return {
 			enableDragDrop:true,
 			autoScroll: true,
 			ddGroup : 'documenttemplaterid',
-			height: cf.Layout.theRegionWest.getHeight() - 190,
+			height: cf.Layout.theRegionWest.getHeight() + cf.Layout.theRegionNorth.getHeight() - 190,
 			width:'auto',
 			collapsible: false,
 			store: this.theFormStore,

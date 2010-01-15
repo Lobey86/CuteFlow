@@ -50,7 +50,7 @@ cf.showDeletedUserGrid = function(){return {
 			collapsible:false,
 			closable: false,
 			title: '<?php echo __('User overview',null,'usermanagement'); ?>',
-			height: cf.Layout.theRegionWest.getHeight() - 80,
+			height: cf.Layout.theRegionWest.getHeight() + cf.Layout.theRegionNorth.getHeight() - 80,
 			border: true,
 			store: this.theDeletedUserStore,
 			cm: this.theDeletedGridCM

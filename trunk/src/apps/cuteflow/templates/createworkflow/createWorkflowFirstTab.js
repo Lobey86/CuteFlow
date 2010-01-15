@@ -506,7 +506,7 @@ cf.createWorkflowFirstTab = function(){return {
 			title: '<?php echo __('General Settings',null,'workflowmanagement'); ?>',
 			frame:true,
 			autoScroll: true,
-			height: cf.Layout.theRegionWest.getHeight() - 148
+			height: cf.Layout.theRegionWest.getHeight() + cf.Layout.theRegionNorth.getHeight() - 148
 		});
 	},
 	

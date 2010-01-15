@@ -101,7 +101,7 @@ cf.userFirstTab = function(){return {
 				style: 'margin-top:20px;margin-left:5px;',
 				items:[{
 					xtype: 'combo',
-					fieldLabel : '<?php echo __('Userrole',null,'usermanagementpopup'); ?>',
+					fieldLabel : '<?php echo __('Userrole',null,'usermanagement'); ?>',
 					id: 'userFirstTab_userrole_id',
 					valueField: 'id',
 					mode: 'local',
@@ -247,7 +247,7 @@ cf.userFirstTab = function(){return {
 		this.thePanel = new Ext.Panel ({
 			closable: false,
 			width: 650,
-			height: cf.Layout.theRegionWest.getHeight() - 230,
+			height: cf.Layout.theRegionWest.getHeight() + cf.Layout.theRegionNorth.getHeight() - 230,
 			autoScroll: true,
 			title: '<?php echo __('Login Data',null,'usermanagement'); ?>',
 			shadow: false,

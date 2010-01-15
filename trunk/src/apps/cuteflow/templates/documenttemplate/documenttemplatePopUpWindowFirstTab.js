@@ -16,7 +16,7 @@ cf.documenttemplatePopUpFirstTab = function(){return {
 		this.theFirstTabPanel = new Ext.FormPanel({
 			title: '<?php echo __('Description',null,'documenttemplate'); ?>',
 			frame:true,
-			height: cf.Layout.theRegionWest.getHeight() - 148
+			height: cf.Layout.theRegionWest.getHeight() + cf.Layout.theRegionNorth.getHeight() - 148
 		});
 	},
 
