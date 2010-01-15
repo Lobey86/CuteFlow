@@ -108,7 +108,10 @@ class WorkflowOverview {
                 }
             }
         }
-        $percentDone = (($toComplete/100) * $alreadyCompleted)*100;
+        
+        $percentDone = ($toComplete/$toComplete);
+        $fullPercentDone = 100 / $toComplete;
+        $percentDone = $fullPercentDone * $alreadyCompleted;
         if($percentDone > 100) {
             $percentDone = 100;
         }
