@@ -38,7 +38,7 @@ cf.menueSettingGroupWindow = function(){return {
 			closable: true,
 			modal: true,
 			width: 563,
-			height: cf.Layout.theRegionWest.getHeight() - 80,
+			height: cf.Layout.theRegionWest.getHeight() + cf.Layout.theRegionNorth.getHeight() - 80,
 			autoScroll: true,
 			title: '<?php echo __('Change order of module items',null,'menuesetting'); ?>',
 			shadow: false,

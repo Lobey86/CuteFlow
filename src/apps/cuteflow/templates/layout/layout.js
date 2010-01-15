@@ -36,19 +36,27 @@ cf.Layout = function(){return {
 					layout:'fit',							
 					bodyStyle:'background-color:#f0f0f0;',
 					title:' '
+				},{
+					region:'north',
+					border:false,
+					height: 85,
+					layout:'fit',							
+					bodyStyle:'background-color:#f0f0f0;',
+					title:' '
 				}]
 			});
 			this.theRegionWest =  this.theMainLayout.layout.west.panel;
-			this.theRegionCenter =  this.theMainLayout.layout.center.panel;	
+			this.theRegionCenter = this.theMainLayout.layout.center.panel;
+			this.theRegionNorth = this.theMainLayout.layout.north.panel;
 			cf.Navigation.init();
 			cf.TabPanel.init();
-			
+			cf.cuteFlowLogo.init();
 			cf.Layout.theRegionWest.add(cf.Navigation.theAccordion);
 			cf.TabPanel.theTabPanel.add({title: 'Welcome', closable: 'false', html: 'fewfwe'});
 			this.theRegionCenter.add(cf.TabPanel.theTabPanel);
-	
-			
+			this.theRegionNorth.add(cf.cuteFlowLogo.thePanel);	
 			this.theMainLayout.doLayout();
+			
 		}
 	}
 };}();

@@ -69,7 +69,7 @@ cf.menueSettingGroupGrid = function(){return {
 		    ddText: '<?php echo __('Drag Drop to change order',null,'menuesetting'); ?>', 
 			width: 530,
 			title: '<?php echo __('Change order of module items',null,'menuesetting'); ?>',
-			height: cf.Layout.theRegionWest.getHeight() - 180,
+			height: cf.Layout.theRegionWest.getHeight() + cf.Layout.theRegionNorth.getHeight() - 180,
 			style: 'margin-top:10px;margin-left:10px;',
 			border: true,
 			store: this.theGroupStore,

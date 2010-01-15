@@ -36,7 +36,6 @@ cf.administration_sendmessage = function(){return {
 			modal: true,
 			closable: true,
 			modal: true,
-			autoScroll: false,
 			shadow: false,
 			minimizable: false,
 			draggable: false,
@@ -64,6 +63,7 @@ cf.administration_sendmessage = function(){return {
 			layout: 'form',
 			width: 620,
 			height: 590,
+			autoScroll: true,
 			title: '<?php echo __('Send Message',null,'sendmessage'); ?>',
 			style:'margin-top:5px;margin-left:5px;margin-right:10px;',
 			collapsible:false

@@ -203,7 +203,7 @@ cf.mailinglistVersionSecondTab = function(){return {
 		this.theFirstPanel = new Ext.Panel({
 			title: '<?php echo __('General Settings',null,'mailinglist'); ?>',
 			frame:true,
-			height: cf.Layout.theRegionWest.getHeight() - 144
+			height: cf.Layout.theRegionWest.getHeight() + cf.Layout.theRegionNorth.getHeight() - 144
 		});
 	},
 	
@@ -212,7 +212,7 @@ cf.mailinglistVersionSecondTab = function(){return {
 		this.theSecondPanel = new Ext.Panel({
 			title: '<?php echo __('Slot settings',null,'mailinglist'); ?>',
 			frame:true,
-			height: cf.Layout.theRegionWest.getHeight() - 144
+			height: cf.Layout.theRegionWest.getHeight() + cf.Layout.theRegionNorth.getHeight() - 144
 		});
 	
 	},

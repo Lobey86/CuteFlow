@@ -131,10 +131,10 @@ cf.UserSearchbar = function(){return {
 				}]
 		});
 		this.theUserSearchbar.on('expand', function() {
-			cf.UserGrid.theUserGrid.setSize({width: 'auto', height: cf.Layout.theRegionWest.getHeight() - 282});
+			cf.UserGrid.theUserGrid.setSize({width: 'auto', height: cf.Layout.theRegionWest.getHeight() + cf.Layout.theRegionNorth.getHeight() - 282});
 		});
 		this.theUserSearchbar.on('collapse', function() {
-			cf.UserGrid.theUserGrid.setSize({width: 'auto', height: cf.Layout.theRegionWest.getHeight() - 85});
+			cf.UserGrid.theUserGrid.setSize({width: 'auto', height: cf.Layout.theRegionWest.getHeight() + cf.Layout.theRegionNorth.getHeight() - 85});
 		});
 	},
 	

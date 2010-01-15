@@ -149,7 +149,7 @@ cf.editUserWindow = function(){return {
 			modal: true,
 			closable: true,
 			modal: true,
-			height: cf.Layout.theRegionWest.getHeight() - 120,
+			height: cf.Layout.theRegionWest.getHeight() + cf.Layout.theRegionNorth.getHeight() - 120,
 			width: 700,
 			autoScroll: false,
 			shadow: false,
