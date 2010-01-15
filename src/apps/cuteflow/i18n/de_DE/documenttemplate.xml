@@ -229,7 +229,11 @@
 	 <trans-unit id="57">
         <source>Saving Data</source>
         <target>Speichere Daten</target>
-     </trans-unit>		 
+     </trans-unit>
+	 <trans-unit id="58">
+        <source>Delete successful</source>
+        <target>L&#246;schen erfolgreich</target>
+     </trans-unit> 
 	</body>
   </file>
 </xliff>

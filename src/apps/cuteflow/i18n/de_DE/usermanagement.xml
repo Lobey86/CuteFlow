@@ -386,6 +386,18 @@
         <source>User activated</source>
         <target>Benutzer aktiviert</target>
     </trans-unit>
+	<trans-unit id="97">
+        <source>User language</source>
+        <target>Benutzersprache</target>
+    </trans-unit>
+	<trans-unit id="98">
+        <source>User</source>
+        <target>Benutzer</target>
+    </trans-unit>
+	<trans-unit id="99">
+        <source>Select Theme</source>
+        <target>Theme w&#228;hlen</target>
+    </trans-unit>
     </body>
   </file>
 </xliff>
