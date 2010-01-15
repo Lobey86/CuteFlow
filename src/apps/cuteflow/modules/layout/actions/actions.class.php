@@ -47,11 +47,11 @@ class layoutActions extends sfActions {
     }
 
     public function executeTest(sfWebRequest $request) {
-        $versionId = 5;
-        $templateId = 5;
+        $versionId = 1;
+        $templateId = 1;
         $user_id = 1;
         $test = new PrepareStationEmail($versionId, $templateId, $user_id);
-
+        die;
         return sfView::NONE;
     }
 
