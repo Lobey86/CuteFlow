@@ -62,7 +62,7 @@ cf.workflowdetailsDetails = function(){return {
 				);	
 				
 				if(user.decissionstate == 'STOPPEDBYUSER') {
-					user.decissioninwords = user.decissioninwords.replace('<table><tr>','<table><tr><td><img ext:qtip="<table><tr><td>Endreasion</td><td>'+user.endreasion+'</td></tr></table>" ext:qwidth="350" src="/images/icons/information.png" /></td>');
+					user.decissioninwords = user.decissioninwords.replace('<table><tr>','<table><tr><td><img ext:qtip="<table><tr><td><?php echo __('Endreason',null,'workflowmanagement'); ?></td><td>'+user.endreasion+'</td></tr></table>" ext:qwidth="350" src="/images/icons/information.png" /></td>');
 				}
 				
 				grid.store.add(new Rec({
@@ -143,7 +143,7 @@ cf.workflowdetailsDetails = function(){return {
 			{header: "<?php echo __('Status',null,'workflowmanagement'); ?>", width: 150, sortable: false, dataIndex: 'statusinwords', css : "text-align : left;font-size:12px;align:center;", hidden: false},
 			{header: "<?php echo __('In progress since',null,'workflowmanagement'); ?>", width: 150, sortable: false, dataIndex: 'duration', css : "text-align : left;font-size:12px;align:center;",  hidden: false},
 			{header: "<?php echo __('Group',null,'workflowmanagement'); ?>", width: 150, sortable: false, dataIndex: 'slotgroup', css : "text-align : left;font-size:12px;align:center;",  hidden: true},
-			{header: "<div ext:qtip=\"<table><tr><td><img src='/images/icons/retry.png' />&nbsp;&nbsp;</td><td><?php echo __('Send again to station',null,'documenttemplate'); ?></td></tr><tr><td><img src='/images/icons/state_skip.png' />&nbsp;&nbsp;</td><td><?php echo __('Skip station',null,'documenttemplate'); ?></td></tr><tr><td><img src='/images/icons/cs_subs.jpg' />&nbsp;&nbsp;</td><td><?php echo __('Select Useragent',null,'documenttemplate'); ?></td></tr><tr><td><img src='/images/icons/cs.jpg' />&nbsp;&nbsp;</td><td><?php echo __('Change current station',null,'documenttemplate'); ?></td></tr></table>\" ext:qwidth=\"230\"><?php echo __('Action',null,'documenttemplate'); ?></div>", width: 80, sortable: false, dataIndex: 'action', css : "text-align : left;font-size:12px;align:center;"}
+			{header: "<div ext:qtip=\"<table><tr><td><img src='/images/icons/retry.png' />&nbsp;&nbsp;</td><td><?php echo __('Send again to station',null,'workflowmanagement'); ?></td></tr><tr><td><img src='/images/icons/state_skip.png' />&nbsp;&nbsp;</td><td><?php echo __('Skip station',null,'workflowmanagement'); ?></td></tr><tr><td><img src='/images/icons/cs_subs.jpg' />&nbsp;&nbsp;</td><td><?php echo __('Select Useragent',null,'workflowmanagement'); ?></td></tr><tr><td><img src='/images/icons/cs.jpg' />&nbsp;&nbsp;</td><td><?php echo __('Change current station',null,'workflowmanagement'); ?></td></tr></table>\" ext:qwidth=\"230\"><?php echo __('Action',null,'documenttemplate'); ?></div>", width: 80, sortable: false, dataIndex: 'action', css : "text-align : left;font-size:12px;align:center;"}
 		]);
 		
 	},
