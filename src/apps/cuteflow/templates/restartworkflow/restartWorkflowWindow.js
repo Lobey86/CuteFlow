@@ -43,7 +43,7 @@ cf.restartWorkflowWindow = function(){return {
 			draggable: true,
 			resizable: true,
 	        plain: true,
-			title:  '<?php echo __('Create new workflow',null,'workflowmanagement'); ?>',
+			title:  '<?php echo __('Restart workflow',null,'workflowmanagement'); ?>',
 	        buttonAlign: 'center',
 			buttons:[{
 				text:'<?php echo __('Store',null,'documenttemplate'); ?>', 
