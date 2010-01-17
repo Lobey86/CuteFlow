@@ -271,6 +271,7 @@ cf.createWorkflowThirdTab = function(){return {
 			id: 'DATE_' + data.field_id + '_' + cf.createWorkflowThirdTab.theUniqueFieldId++,
 			fieldLabel: data.field_name,
 			disabled: false,
+			editable: false,
 			value: data.items.defaultvalue,
 			width:200
 		});	

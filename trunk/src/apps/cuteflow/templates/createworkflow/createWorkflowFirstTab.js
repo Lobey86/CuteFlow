@@ -80,7 +80,7 @@ cf.createWorkflowFirstTab = function(){return {
 	
 	initDatefieldCheckbox: function () {
 		this.theDatefieldCheckbox = new Ext.form.Checkbox({
-			fieldLabel: '<?php echo __('Start workflow immediately?',null,'workflowmanagement'); ?>',
+			fieldLabel: '<?php echo __('Start workflow immediately',null,'workflowmanagement'); ?>',
 			inputValue: '1',
 			style: 'margin-top:3px;',
 			checked: true,
@@ -403,7 +403,7 @@ cf.createWorkflowFirstTab = function(){return {
 			editable: false,
 			format:'d-m-Y',
 			id: 'createWorkflowFirstTab_datepicker',
-			fieldLabel: "<span ext:qtip=\"<table><tr><td><?php echo __('<b>Datefield is empty</b>',null,'workflowmanagement'); ?></td><td><?php echo __(' : Workflow will start immediately',null,'workflowmanagement'); ?></td></tr><tr><td><?php echo __('<b>Datefield is set</b>',null,'workflowmanagement'); ?></td><td> : <?php echo __('Workflow will start at selected date',null,'workflowmanagement'); ?></td></tr></table>\" ext:qwidth=\"350\"><?php echo __('Startdate of Workflow',null,'workflowmanagement'); ?></span>",
+			fieldLabel: "<span ext:qtip=\"<table><tr><td><b><?php echo __('Datefield is empty',null,'workflowmanagement'); ?></b></td><td> : <?php echo __('Workflow will start immediately',null,'workflowmanagement'); ?></td></tr><tr><td><b><?php echo __('Datefield is set',null,'workflowmanagement'); ?></b></td><td> : <?php echo __('Workflow will start at selected date',null,'workflowmanagement'); ?></td></tr></table>\" ext:qwidth=\"350\"><?php echo __('Startdate of Workflow',null,'workflowmanagement'); ?></span>",
 			width:170	
 		});
 		if (Ext.isIE6 == true) {
