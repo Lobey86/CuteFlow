@@ -16,23 +16,23 @@
 		</trans-unit>
 		<trans-unit id="4">
 			<source>System settings</source>
-			<target>Systemeinstellungen</target>
+			<target>System settings</target>
 		</trans-unit>
 		<trans-unit id="5">
 			<source>Send Message</source>
-			<target>Benachrichtigungen</target>
+			<target>Send Message</target>
 		</trans-unit>
 		<trans-unit id="6">
 			<source>Insufficient rights</source>
-			<target>keine Berechtigung</target>
+			<target>Insufficient rights</target>
 		</trans-unit>
 		<trans-unit id="7">
 			<source>Error</source>
-			<target>Fehler</target>
+			<target>Error</target>
 		</trans-unit>
 		<trans-unit id="8">
 			<source>Userrole management</source>
-			<target>Benutzerrechte verwalten</target>
+			<target>Userrole management</target>
 		</trans-unit>
 		<trans-unit id="9">
 			<source>STOPPEDBYADMIN</source>
@@ -45,6 +45,206 @@
 		<trans-unit id="11">
 			<source>DONE</source>
 			<target>Station completed</target>
+		</trans-unit>
+		<trans-unit id="12">
+			<source>Saving Data</source>
+			<target>Saving Data</target>
+		</trans-unit>
+		<trans-unit id="13">
+			<source>Preparing Data...</source>
+			<target>Preparing Data...</target>
+		</trans-unit>
+		<trans-unit id="14">
+			<source>Workflow created</source>
+			<target>Umlauf erstellt</target>
+		</trans-unit>
+		<trans-unit id="15">
+			<source>OK</source>
+			<target>OK</target>
+		</trans-unit>
+		<trans-unit id="16">
+			<source>Error</source>
+			<target>Error</target>
+		</trans-unit>
+		<trans-unit id="17">
+			<source>Please select a Mailinglist</source>
+			<target>Please select a Mailinglist</target>
+		</trans-unit>
+		<trans-unit id="18">
+			<source>Please set a workflow name</source>
+			<target>Please set a workflow name</target>
+		</trans-unit>
+		<trans-unit id="19">
+			<source>Add some Users to your slots</source>
+			<target>Add some Users to your slots</target>
+		</trans-unit>
+		<trans-unit id="20">
+			<source>Numberformat is not correct</source>
+			<target>Numberformat is not correct</target>
+		</trans-unit>
+		<trans-unit id="21">
+			<source>Regular Expression is not correct</source>
+			<target>Regular Expression is not correct</target>
+		</trans-unit>
+		<trans-unit id="22">
+			<source>Textfieldvalue is not correct</source>
+			<target>Textfieldvalue is not correct</target>
+		</trans-unit>
+		<trans-unit id="23">
+			<source>No attachment selected</source>
+			<target>No attachment selected</target>
+		</trans-unit>
+		<trans-unit id="24">
+			<source>Attachment is not correct</source>
+			<target>Attachment is not correct</target>
+		</trans-unit>
+		<trans-unit id="25">
+			<source>Set name, mailinglist, attachments and start date</source>
+			<target>Set name, mailinglist, attachments and start date</target>
+		</trans-unit>
+		<trans-unit id="26">
+			<source>Select Additional text</source>
+			<target>Select Additional text</target>
+		</trans-unit>
+		<trans-unit id="27">
+			<source>Additional Settings</source>
+			<target>Additional Settings</target>
+		</trans-unit>
+		<trans-unit id="28">
+			<source>After succeeded circulation</source>
+			<target>After succeeded circulation</target>
+		</trans-unit>
+		<trans-unit id="29">
+			<source>After succeeded slot end</source>
+			<target>After succeeded slot end</target>
+		</trans-unit>
+		<trans-unit id="30">
+			<source>Archive after succeeded circulation</source>
+			<target>Archive after succeeded circulation</target>
+		</trans-unit>
+		<trans-unit id="31">
+			<source>Delete after succeeded circulation</source>
+			<target>Delete after succeeded circulation</target>
+		</trans-unit>
+		<trans-unit id="32">
+			<source>Show receiver name in workflow</source>
+			<target>Show receiver name in workflow</target>
+		</trans-unit>
+		<trans-unit id="33">
+			<source>Sending notification</source>
+			<target>Sending notification</target>
+		</trans-unit>
+		<trans-unit id="34">
+			<source>Start workflow immediately?</source>
+			<target>Start workflow immediately?</target>
+		</trans-unit>
+		<trans-unit id="35">
+			<source>Content Type</source>
+			<target>Content Type</target>
+		</trans-unit>
+		<trans-unit id="36">
+			<source>Plain</source>
+			<target>Plain</target>
+		</trans-unit>
+		<trans-unit id="37">
+			<source>HTML</source>
+			<target>HTML</target>
+		</trans-unit>
+		<trans-unit id="38">
+			<source>Spaceholder</source>
+			<target>Spaceholder</target>
+		</trans-unit>
+		<trans-unit id="39">
+			<source>Insert Placeholder</source>
+			<target>Insert Placeholder</target>
+		</trans-unit>
+		<trans-unit id="40">
+			<source>Action</source>
+			<target>Action</target>
+		</trans-unit>
+		<trans-unit id="41">
+			<source>File</source>
+			<target>File</target>
+		</trans-unit>
+		<trans-unit id="42">
+			<source>Remove file</source>
+			<target>Remove file</target>
+		</trans-unit>
+		<trans-unit id="43">
+			<source>Add new attachment</source>
+			<target>Add new attachment</target>
+		</trans-unit>
+		<trans-unit id="44">
+			<source>Add attachments</source>
+			<target>Add attachments</target>
+		</trans-unit>
+		<trans-unit id="45">
+			<source>Select attachment</source>
+			<target>Select attachment</target>
+		</trans-unit>
+		<trans-unit id="46">
+			<source>Select a file</source>
+			<target>Select a file</target>
+		</trans-unit>
+		<trans-unit id="47">
+			<source>Select Additional text</source>
+			<target>Select Additional text</target>
+		</trans-unit>
+		<trans-unit id="48">
+			<source>Datefield is empty</source>
+			<target>Datefield is empty</target>
+		</trans-unit>
+		<trans-unit id="49">
+			<source>Workflow will start immediately</source>
+			<target>Workflow will start immediately</target>
+		</trans-unit>
+		<trans-unit id="50">
+			<source>Datefield is set</source>
+			<target>Datefield is set</target>
+		</trans-unit>
+		<trans-unit id="51">
+			<source>Workflow will start at selected date</source>
+			<target>Workflow will start at selected date</target>
+		</trans-unit>
+		<trans-unit id="52">
+			<source>Startdate of Workflow</source>
+			<target>Startdate of Workflow</target>
+		</trans-unit>
+		<trans-unit id="53">
+			<source>Mailinglist</source>
+			<target>Mailinglist</target>
+		</trans-unit>
+		<trans-unit id="54">
+			<source>General Settings</source>
+			<target>General Settings</target>
+		</trans-unit>
+		<trans-unit id="55">
+			<source>Workflow name</source>
+			<target>Workflow name</target>
+		</trans-unit>
+		<trans-unit id="56">
+			<source>Search for User...</source>
+			<target>Search for User...</target>
+		</trans-unit>
+		<trans-unit id="57">
+			<source>Clear field</source>
+			<target>Clear field</target>
+		</trans-unit>
+		<trans-unit id="58">
+			<source>Sender of circulation</source>
+			<target>Sender of circulation</target>
+		</trans-unit>
+		<trans-unit id="59">
+			<source>Fields</source>
+			<target>Fields</target>
+		</trans-unit>
+		<trans-unit id="60">
+			<source>Select a file</source>
+			<target>Select a file</target>
+		</trans-unit>
+		<trans-unit id="61">
+			<source>Create new workflow</source>
+			<target>Create new workflow</target>
 		</trans-unit>
 	</body>
   </file>
