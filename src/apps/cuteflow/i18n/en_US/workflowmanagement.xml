@@ -56,7 +56,7 @@
 		</trans-unit>
 		<trans-unit id="14">
 			<source>Workflow created</source>
-			<target>Umlauf erstellt</target>
+			<target>Workflow created</target>
 		</trans-unit>
 		<trans-unit id="15">
 			<source>OK</source>
@@ -135,8 +135,8 @@
 			<target>Sending notification</target>
 		</trans-unit>
 		<trans-unit id="34">
-			<source>Start workflow immediately?</source>
-			<target>Start workflow immediately?</target>
+			<source>Start workflow immediately</source>
+			<target>Start workflow immediately</target>
 		</trans-unit>
 		<trans-unit id="35">
 			<source>Content Type</source>
@@ -245,6 +245,206 @@
 		<trans-unit id="61">
 			<source>Create new workflow</source>
 			<target>Create new workflow</target>
+		</trans-unit>
+		<trans-unit id="62">
+			<source>Mailing list</source>
+			<target>Mailing list</target>
+		</trans-unit>
+		<trans-unit id="63">
+			<source>Workflow details</source>
+			<target>Workflow details</target>
+		</trans-unit>
+		<trans-unit id="64">
+			<source>Attachments</source>
+			<target>Attachments</target>
+		</trans-unit>
+		<trans-unit id="65">
+			<source>Updating Data...</source>
+			<target>Updating Data...</target>
+		</trans-unit>
+		<trans-unit id="66">
+			<source>Station skipped</source>
+			<target>Station skipped</target>
+		</trans-unit>
+		<trans-unit id="67">
+			<source>Useragent set</source>
+			<target>Useragent set</target>
+		</trans-unit>
+		<trans-unit id="68">
+			<source>Station set</source>
+			<target>Station set</target>
+		</trans-unit>
+		<trans-unit id="69">
+			<source>Stations</source>
+			<target>Stations</target>
+		</trans-unit>
+		<trans-unit id="70">
+			<source>Station</source>
+			<target>Station</target>
+		</trans-unit>
+		<trans-unit id="71">
+			<source>Endreason</source>
+			<target>Endreason</target>
+		</trans-unit>
+		<trans-unit id="72">
+			<source>Station</source>
+			<target>Station</target>
+		</trans-unit>
+		<trans-unit id="72">
+			<source>Received at</source>
+			<target>Received at</target>
+		</trans-unit>
+		<trans-unit id="73">
+			<source>Status</source>
+			<target>Status</target>
+		</trans-unit>
+		<trans-unit id="74">
+			<source>In progress since</source>
+			<target>In progress since</target>
+		</trans-unit>
+		<trans-unit id="75">
+			<source>Group</source>
+			<target>Group</target>
+		</trans-unit>
+		<trans-unit id="76">
+			<source>Send again to station</source>
+			<target>Send again to station</target>
+		</trans-unit>
+		<trans-unit id="77">
+			<source>Skip station</source>
+			<target>Skip station</target>
+		</trans-unit>
+		<trans-unit id="78">
+			<source>Select Useragent</source>
+			<target>Select Useragent</target>
+		</trans-unit>
+		<trans-unit id="79">
+			<source>Change current station</source>
+			<target>Change current station</target>
+		</trans-unit>
+		<trans-unit id="80">
+			<source>Mailinglist</source>
+			<target>Mailinglist</target>
+		</trans-unit>
+		<trans-unit id="81">
+			<source>Sender</source>
+			<target>Sender</target>
+		</trans-unit>
+		<trans-unit id="82">
+			<source>Worklfow name</source>
+			<target>Worklfow name</target>
+		</trans-unit>
+		<trans-unit id="83">
+			<source>Description</source>
+			<target>Description</target>
+		</trans-unit>
+		<trans-unit id="84">
+			<source>Revision</source>
+			<target>Revision</target>
+		</trans-unit>
+		<trans-unit id="85">
+			<source>General informations</source>
+			<target>General informations</target>
+		</trans-unit>
+		<trans-unit id="86">
+			<source>Notice</source>
+			<target>Notice</target>
+		</trans-unit>
+		<trans-unit id="87">
+			<source>Same station selected</source>
+			<target>Same station selected</target>
+		</trans-unit>
+		<trans-unit id="88">
+			<source>Available Useragents</source>
+			<target>Available Useragents</target>
+		</trans-unit>
+		<trans-unit id="89">
+			<source>Name</source>
+			<target>Name</target>
+		</trans-unit>
+		<trans-unit id="90">
+			<source>Set as Useragent</source>
+			<target>Set as Useragent</target>
+		</trans-unit>
+		<trans-unit id="91">
+			<source>Select a Useragent</source>
+			<target>Select a Useragent</target>
+		</trans-unit>
+		<trans-unit id="92">
+			<source>Workflow values</source>
+			<target>Workflow values</target>
+		</trans-unit>
+		<trans-unit id="93">
+			<source>Edit workflow</source>
+			<target>Edit workflow</target>
+		</trans-unit>
+		<trans-unit id="94">
+			<source>Accept Workflow</source>
+			<target>Accept Workflow</target>
+		</trans-unit>
+		<trans-unit id="95">
+			<source>Refuse Workflow</source>
+			<target>Refuse Workflow</target>
+		</trans-unit>
+		<trans-unit id="96">
+			<source>End reason</source>
+			<target>End reason</target>
+		</trans-unit>
+		<trans-unit id="97">
+			<source>Attachments</source>
+			<target>Attachments</target>
+		</trans-unit>
+		<trans-unit id="98">
+			<source>Workflow saved</source>
+			<target>Workflow saved</target>
+		</trans-unit>
+		<trans-unit id="99">
+			<source>General informations</source>
+			<target>General informations</target>
+		</trans-unit>
+		<trans-unit id="100">
+			<source>Workflow Details</source>
+			<target>Workflow Details</target>
+		</trans-unit>
+		<trans-unit id="101">
+			<source>Created At</source>
+			<target>Created At</target>
+		</trans-unit>
+		<trans-unit id="102">
+			<source>Available slots to edit</source>
+			<target>Available slots to edit</target>
+		</trans-unit>
+		<trans-unit id="103">
+			<source>Restart workflow</source>
+			<target>Restart workflow</target>
+		</trans-unit>
+		<trans-unit id="104">
+			<source>Restart settings</source>
+			<target>Restart settings</target>
+		</trans-unit>
+		<trans-unit id="105">
+			<source>Use values from current version</source>
+			<target>Use values from current version</target>
+		</trans-unit>
+		<trans-unit id="106">
+			<source>Start at Station</source>
+			<target>Start at Station</target>
+		</trans-unit>
+		<trans-unit id="107">
+			<source>Start at the beginning</source>
+			<target>Start at the beginning</target>
+		</trans-unit>
+		<trans-unit id="108">
+			<source>Start at last station</source>
+			<target>Start at last station</target>
+		</trans-unit>
+		<trans-unit id="109">
+			<source>Select other station</source>
+			<target>Select other station</target>
+		</trans-unit>
+		<trans-unit id="110">
+			<source>Select a station</source>
+			<target>Select a station</target>
 		</trans-unit>
 	</body>
   </file>
