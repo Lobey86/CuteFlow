@@ -304,7 +304,7 @@
      </trans-unit>	
 	 <trans-unit id="76">
         <source>Field type</source>
-        <target>Felt Typ</target>
+        <target>Feld Typ</target>
      </trans-unit>	
 	 <trans-unit id="77">
         <source>Write protected</source>
