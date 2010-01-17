@@ -148,7 +148,7 @@ cf.workflowdetailsSelectStation = function(){return {
 										if(btn == 'yes') {
 											if(workflowslotuser_id == cf.workflowdetailsSelectStation.theWorkflowSlotUserId) {
 												Ext.Msg.minWidth = 200;
-												Ext.MessageBox.alert('<?php echo __('Notice',null,'workflowmanagement'); ?>', '<?php echo __('Same station selected!',null,'workflowmanagement'); ?>');
+												Ext.MessageBox.alert('<?php echo __('Notice',null,'workflowmanagement'); ?>', '<?php echo __('Same station selected',null,'workflowmanagement'); ?>!');
 											}
 											else {
 												var move;
@@ -168,7 +168,7 @@ cf.workflowdetailsSelectStation = function(){return {
 							else {
 								if(workflowslotuser_id == cf.workflowdetailsSelectStation.theWorkflowSlotUserId) {
 									Ext.Msg.minWidth = 200;
-									Ext.MessageBox.alert('<?php echo __('Notice',null,'workflowmanagement'); ?>', '<?php echo __('Same station selected!',null,'workflowmanagement'); ?>');
+									Ext.MessageBox.alert('<?php echo __('Notice',null,'workflowmanagement'); ?>', '<?php echo __('Same station selected!',null,'workflowmanagement'); ?>!');
 								}
 								else {
 									var move;
