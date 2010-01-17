@@ -25,11 +25,11 @@ cf.restartWorkflowFirstTab = function(){return {
 		this.theUniqueFileStoreId = 1;
 		this.theUniqueFileId = 0;
 		this.initPanel();
-		var fieldset1 = cf.restartWorkflowFirstTab.createFieldset('restartWorkflowFirstTab_fieldset1', '<?php echo __('Set start date',null,'workflowmanagement'); ?>', false, 300, true);
+		var fieldset1 = cf.restartWorkflowFirstTab.createFieldset('restartWorkflowFirstTab_fieldset1', '<?php echo __('Restart settings',null,'workflowmanagement'); ?>', false, 300, true);
 		this.initFileGrid();
 		this.initHiddenfield();
 		this.initStartPoint();
-		var cb7 = this.createCheckbox('restartWorkflowFirstTab_useoldvalues','<?php echo __('Use values from current version?',null,'workflowmanagement'); ?>',false,'', 1);
+		var cb7 = this.createCheckbox('restartWorkflowFirstTab_useoldvalues','<?php echo __('Use values from current version',null,'workflowmanagement'); ?>?',false,'', 1);
 		
 		
 		fieldset1.add(this.theMailinglist);
