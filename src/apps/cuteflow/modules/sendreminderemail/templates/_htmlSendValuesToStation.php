@@ -62,7 +62,7 @@
                     }
                     else if ($field['type'] == 'FILE') {
                         if($slot['isdisabled'] == 0) {
-                            echo $field['items']['plainurl'];
+                            echo '<a href="'.$field['items']['plainurl'].'" target="_blank">'.$field['items']['filename'].'</a>';
                         }
                     }
                     else if ($field['type'] == 'CHECKBOX') {

@@ -41,7 +41,7 @@ class fieldActions extends sfActions {
         FieldTable::instance()->deleteField($request->getParameter('id'));
         return sfView::NONE;
     }
-
+    
 
     /**
      * Save fields

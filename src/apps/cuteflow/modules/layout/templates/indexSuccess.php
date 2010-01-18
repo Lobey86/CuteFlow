@@ -1,6 +1,16 @@
-<?php #use_helper('Partial') ?>
-<?php  #include_partial('javaScriptFiles'); ?>
-
+<script type="text/javascript" src="/djs/layout/main.js"></script>
+<script type="text/javascript" src="/djs/layout/layout.js"></script>
+<script type="text/javascript" src="/djs/layout/regionWest.js"></script>
+<script type="text/javascript" src="/djs/layout/regionCenter.js"></script>
+<script type="text/javascript" src="/djs/layout/regionNorth.js"></script>
+<?php
+    $test = new JavaScriptLoader();
+    $files = $test->getAllFiles();
+    $data = $files['djs'];
+    foreach($data as $item) {
+        echo ' <script type="text/javascript" src="'.$item.'"></script>' . "\n";
+    }
+?>
 
 <input type="hidden" id="version_id" value="<?php echo $version_id?>">
 <input type="hidden" id="workflow_id" value="<?php echo $workflow_id?>">
@@ -10,5 +20,7 @@
         echo '<link rel="stylesheet" type="text/css" media="screen" href="/themes/'.$theTheme.'" />';
     }
  ?>
+
+
 
 <script type="text/javascript" src="/js/i18n/<?php echo Login::buildExtjsLanguage($sf_user->getCulture());?>/ext-lang.js"/>
