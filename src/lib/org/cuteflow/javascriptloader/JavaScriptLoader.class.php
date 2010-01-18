@@ -62,7 +62,7 @@ class JavaScriptLoader {
         $result = array();
         $a = 0;
         foreach($this->folders as $folder){
-            $path = sfConfig::get('sf_app_dir') . '/templates_uncompressed/' . $folder;
+            $path = sfConfig::get('sf_app_dir') . '/templates/' . $folder;
             $files = $this->getFilesInDirectory($path);
             foreach($files as $file) {
                 $result['template'][$a] = sfConfig::get('sf_app_dir') . '/templates/' .$folder.'/'.$file;
