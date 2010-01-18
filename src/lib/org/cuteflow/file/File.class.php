@@ -11,7 +11,8 @@ class File {
 
 
     public function getFileContent($filepath) {
-        $fc = file_get_contents($filepath);
+
+        $fc = @file_get_contents($filepath);
         return $fc;
     }
 
