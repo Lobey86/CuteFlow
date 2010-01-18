@@ -34,6 +34,7 @@ class ReplaceTags {
     public function replacePlaceholder($text) {
         $date = format_date(time(), 'g', $this->culture);
         $text = str_replace('{%CIRCULATION_TITLE%}', $this->workflow['name'], $text);
+        $text = str_replace('{%CIRCULATION_ID%}', $this->workflow['id'], $text);
         $text = str_replace('{%SENDER_USERNAME%}', $this->theSender->userData['username'], $text);
         $text = str_replace('{%SENDER_FULLNAME%}', $this->theSender->userData['firstname'] . ' ' . $this->theSender->userData['lastname'], $text);
         $text = str_replace('{%TIME%}', format_date(time(), 'g', $this->culture), $text);
