@@ -446,12 +446,12 @@ cf.createWorkflowFirstTab = function(){return {
 						catch(e){
 							
 						}
-						cf.createWorkflowFirstTab.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Preparing Data...',null,'workflowmanagement'); ?>'});					
+						cf.createWorkflowFirstTab.theLoadingMask = new Ext.LoadMask(cf.createWorkflowWindow.theCreateWorkflowWindow.body, {msg:'<?php echo __('Preparing Data...',null,'workflowmanagement'); ?>'});					
 						cf.createWorkflowFirstTab.theLoadingMask.show();
 						var data = combo.store.findExact('value', combo.getValue());
 						cf.createWorkflowSecondTab.init(data.data.activeversionid);
 						cf.createWorkflowWindow.theTabPanel.add(cf.createWorkflowSecondTab.theSecondPanel);
-						//cf.createWorkflowWindow.theTabPanel.setActiveTab(1);
+						cf.createWorkflowWindow.theTabPanel.setActiveTab(1);
 						cf.createWorkflowThirdTab.init(data.data.activeversionid);
 						cf.createWorkflowWindow.theTabPanel.add(cf.createWorkflowThirdTab.theThirdPanel);
 						cf.createWorkflowWindow.theTabPanel.setActiveTab(0);
@@ -469,7 +469,7 @@ cf.createWorkflowFirstTab = function(){return {
 			this.theMailinglist.style = 'margin-top:0px;margin-bottom:1px;';
 		}
 		this.theMailinglist.on('render', function(combo) {
-			cf.createWorkflowFirstTab.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Preparing Data...',null,'workflowmanagement'); ?>'});					
+			cf.createWorkflowFirstTab.theLoadingMask = new Ext.LoadMask(cf.createWorkflowWindow.theCreateWorkflowWindow.body, {msg:'<?php echo __('Preparing Data...',null,'workflowmanagement'); ?>'});					
 			cf.createWorkflowFirstTab.theLoadingMask.show();
 			Ext.Ajax.request({  
 				url: '<?php echo build_dynamic_javascript_url('createworkflow/LoadAllMailinglist')?>',
@@ -490,7 +490,7 @@ cf.createWorkflowFirstTab = function(){return {
 						combo.setValue(defaultdata);
 						cf.createWorkflowSecondTab.init(singleData.data.activeversionid);
 						cf.createWorkflowWindow.theTabPanel.add(cf.createWorkflowSecondTab.theSecondPanel);
-						//cf.createWorkflowWindow.theTabPanel.setActiveTab(1);
+						cf.createWorkflowWindow.theTabPanel.setActiveTab(1);
 						cf.createWorkflowThirdTab.init(singleData.data.activeversionid);
 						cf.createWorkflowWindow.theTabPanel.add(cf.createWorkflowThirdTab.theThirdPanel);
 						cf.createWorkflowWindow.theTabPanel.setActiveTab(0);

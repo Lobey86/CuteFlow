@@ -45,7 +45,7 @@ cf.workflowdetailsGeneral = function(){return {
 			listeners: {
 	    		select: {
 	    			fn:function(combo, value) {
-						cf.workflowdetailsGeneral.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'workflowmanagement'); ?>'});					
+	    				cf.workflowdetailsGeneral.theLoadingMask = new Ext.LoadMask(cf.workflowdetails.thePanelToShow.body, {msg:'<?php echo __('Loading Data...',null,'workflowmanagement'); ?>'});					
 						cf.workflowdetailsGeneral.theLoadingMask.show();
 						Ext.Ajax.request({  
 							url : '<?php echo build_dynamic_javascript_url('workflowdetail/LoadVersion')?>/versionid/' + combo.getValue(),

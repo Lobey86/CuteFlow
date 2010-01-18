@@ -185,7 +185,7 @@ cf.workflowmanagementPanelGrid = function(){return {
 							}
 							else {
 								Ext.Msg.minWidth = 300;
-								Ext.MessageBox.alert('<?php echo __('Notice',null,'workflowmanagement'); ?>','<?php echo __('Workflow has already been completed!',null,'workflowmanagement'); ?>');
+								Ext.MessageBox.alert('<?php echo __('Notice',null,'workflowmanagement'); ?>','<?php echo __('Workflow has already been completed',null,'workflowmanagement'); ?>!');
 							}
 						},
 					scope: c

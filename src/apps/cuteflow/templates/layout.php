@@ -4,14 +4,6 @@
     <?php include_http_metas() ?>
     <?php include_metas() ?>
     <?php include_title() ?>
-    <?php
-    /*$autoLoader = new JavaScriptAutoLoader();
-    $files = $autoLoader->getJavaScriptFiles();
-    foreach($files as $file) {
-        echo $file . "\n";
-    }*/
-
-    ?>
     <link rel="shortcut icon" href="/favicon.ico" />
   </head>
   <body>

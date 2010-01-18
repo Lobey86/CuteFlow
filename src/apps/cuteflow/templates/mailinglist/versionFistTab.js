@@ -91,7 +91,7 @@ cf.mailinglistVersionFirstTab = function(){return {
 							   buttons: Ext.Msg.YESNO,
 							   fn: function(btn, text) {
 									if(btn == 'yes') {
-										cf.mailinglistCRUD.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Updating Data...',null,'mailinglist'); ?>'});					
+										cf.mailinglistCRUD.theLoadingMask = new Ext.LoadMask(cf.mailinglistVersionPopUp.theVersionWindow.body, {msg:'<?php echo __('Updating Data...',null,'mailinglist'); ?>'});					
 										cf.mailinglistCRUD.theLoadingMask.show();
 										Ext.Ajax.request({  
 											url : '<?php echo build_dynamic_javascript_url('mailinglist/ActivateMailinglist')?>/id/' + id + '/mailinglistid/' + mailinglisttemplate_id, 
@@ -130,7 +130,7 @@ cf.mailinglistVersionFirstTab = function(){return {
 				render: function(c){
 					  c.getEl().on({
 						click: function(el){
-							cf.mailinglistVersionFirstTab.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'mailinglist'); ?>'});					
+							cf.mailinglistVersionFirstTab.theLoadingMask = new Ext.LoadMask(cf.mailinglistVersionPopUp.theVersionWindow.body, {msg:'<?php echo __('Loading Data...',null,'mailinglist'); ?>'});					
 							cf.mailinglistVersionFirstTab.theLoadingMask.show();
 							Ext.Ajax.request({  
 								url : '<?php echo build_dynamic_javascript_url('mailinglist/LoadSingleMailinglist')?>/id/' + id, 

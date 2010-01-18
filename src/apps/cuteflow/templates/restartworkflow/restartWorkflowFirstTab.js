@@ -25,7 +25,7 @@ cf.restartWorkflowFirstTab = function(){return {
 		this.theUniqueFileStoreId = 1;
 		this.theUniqueFileId = 0;
 		this.initPanel();
-		var fieldset1 = cf.restartWorkflowFirstTab.createFieldset('restartWorkflowFirstTab_fieldset1', '<?php echo __('Restart settings',null,'workflowmanagement'); ?>', false, 300, true);
+		var fieldset1 = cf.restartWorkflowFirstTab.createFieldset('restartWorkflowFirstTab_fieldset1', '<?php echo __('Restart settings',null,'workflowmanagement'); ?>', false, 300, true, false);
 		this.initFileGrid();
 		this.initHiddenfield();
 		this.initStartPoint();
@@ -41,7 +41,7 @@ cf.restartWorkflowFirstTab = function(){return {
 				
 		
 			
-		var fieldset2 = cf.restartWorkflowFirstTab.createFieldset('restartWorkflowFirstTab_fieldset2', '<?php echo __('Select Additional text',null,'workflowmanagement'); ?>', false, 370, true);
+		var fieldset2 = cf.restartWorkflowFirstTab.createFieldset('restartWorkflowFirstTab_fieldset2', '<?php echo __('Select Additional text',null,'workflowmanagement'); ?>', false, 370, true, true);
 		this.initAdditionaltextcombo();
 		this.initContenttypecombo();
 		this.initColumnPanel();
@@ -58,7 +58,7 @@ cf.restartWorkflowFirstTab = function(){return {
 		fieldset2.add(this.theContenttypeCombo);
 		fieldset2.add(this.theColumnPanel);
 		
-		var fieldset3 = cf.restartWorkflowFirstTab.createFieldset('restartWorkflowFirstTab_fieldset3', '<?php echo __('Additional Settings',null,'workflowmanagement'); ?>', false, 250, true);
+		var fieldset3 = cf.restartWorkflowFirstTab.createFieldset('restartWorkflowFirstTab_fieldset3', '<?php echo __('Additional Settings',null,'workflowmanagement'); ?>', false, 250, true, true);
 		var cb1 = this.createLabel();
 		var cb2 = this.createCheckbox('restartWorkflowFirstTabSettings[0]','&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo __('After succeeded circulation',null,'workflowmanagement'); ?>',true,'', 1);
 		var cb3 = this.createCheckbox('restartWorkflowFirstTabSettings[1]','&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo __('After succeeded slot end',null,'workflowmanagement'); ?>',false,'', 2);
@@ -445,14 +445,14 @@ cf.restartWorkflowFirstTab = function(){return {
 	
 	
 		
-	createFieldset: function(id, label, collapsed, height, autoscroll) {
+	createFieldset: function(id, label, collapsed, height, autoscroll, collapsible) {
 		var fieldset = new Ext.form.FieldSet({
 			title: label,
 			height: height,
 			style: 'margin-left:5px;margin-top:5px',
 			width:cf.Layout.theRegionWest.getWidth() +  cf.Layout.theRegionCenter.getWidth() - 100,
 			autoScroll: autoscroll,
-			collapsible: true,
+			collapsible: collapsible,
 			collapsed: collapsed,
 			id: id,
 			labelWidth:220

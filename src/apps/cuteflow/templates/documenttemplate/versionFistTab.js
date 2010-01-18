@@ -89,7 +89,7 @@ cf.documenttemplateVersionFirstTab = function(){return {
 							   buttons: Ext.Msg.YESNO,
 							   fn: function(btn, text) {
 									if(btn == 'yes') {
-										cf.documenttemplateVersionFirstTab.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Updating Data...',null,'documenttemplate'); ?>'});					
+										cf.documenttemplateVersionFirstTab.theLoadingMask = new Ext.LoadMask(cf.documenttemplateVersionPopUp.theVersionWindow.body, {msg:'<?php echo __('Updating Data...',null,'documenttemplate'); ?>'});					
 										cf.documenttemplateVersionFirstTab.theLoadingMask.show();
 										Ext.Ajax.request({  
 											url : '<?php echo build_dynamic_javascript_url('documenttemplate/ActivateDocumenttemplate')?>/id/' + id + '/documenttemplateid/' + documenttemplate_id, 
@@ -128,7 +128,7 @@ cf.documenttemplateVersionFirstTab = function(){return {
 				render: function(c){
 					  c.getEl().on({
 						click: function(el){
-							cf.documenttemplateVersionFirstTab.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'documenttemplate'); ?>'});					
+							cf.documenttemplateVersionFirstTab.theLoadingMask = new Ext.LoadMask(cf.documenttemplateVersionPopUp.theVersionWindow.body, {msg:'<?php echo __('Loading Data...',null,'documenttemplate'); ?>'});					
 							cf.documenttemplateVersionFirstTab.theLoadingMask.show();
 							Ext.Ajax.request({  
 								url : '<?php echo build_dynamic_javascript_url('documenttemplate/LoadSingleDocumenttemplate')?>/id/' + id, 
