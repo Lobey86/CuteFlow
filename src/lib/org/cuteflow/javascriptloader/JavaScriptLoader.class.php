@@ -34,10 +34,10 @@ class JavaScriptLoader {
 
     public function getFolders() {
         $result = array();
-        $filepath = sfConfig::get('sf_app_dir') . '/templates_uncompressed';
+        $filepath = sfConfig::get('sf_app_dir') . '/templates';
         $files = scandir($filepath);
         foreach($files as $folder) {
-            if($folder != '.' AND $folder != '..' AND $folder != '.svn' AND $this->checkFolder($folder) == false) {
+            if($folder != '.' AND $folder != '..' AND $folder != '.svn' AND $folder != 'layout.php' AND $this->checkFolder($folder) == false) {
                 $result[] = $folder;
             }
         }
@@ -79,13 +79,13 @@ class JavaScriptLoader {
             if(!in_array(strtolower($resource),$exempt)) {
                 if(is_dir($directory.$resource.'/'))
                     array_merge($files,
-                        self::getFiles($directory.$resource.'/',$exempt,$files));
+                        self::getFilesInDirectory($directory.$resource.'/',$exempt,$files));
                 else
                     $files[] = $resource;
             }
         }
         closedir($handle);
-        return $files;
+        return $files; 
     }
     
 
