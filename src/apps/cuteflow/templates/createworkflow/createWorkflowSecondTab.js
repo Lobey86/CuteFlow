@@ -24,8 +24,8 @@ cf.createWorkflowSecondTab = function(){return {
 		this.initRightPanel();
 		this.theRightPanel.add(this.theGrid);
 		this.initPanel();
-		this.theSecondPanel.add(this.theLeftPanel);
-		this.theSecondPanel.add(this.theRightPanel);
+		this.theSecondPanel.add(this.theRightPanel)
+		this.theSecondPanel.add(this.theLeftPanel);;
 		this.loadData(id);
 	},
 	
@@ -124,7 +124,7 @@ cf.createWorkflowSecondTab = function(){return {
 	},
 	
 	
-	/** left paneö **/
+	/** left panel **/
 	initLeftPanel: function () {
 		this.theLeftPanel = new Ext.Panel ({
 			frame:true,

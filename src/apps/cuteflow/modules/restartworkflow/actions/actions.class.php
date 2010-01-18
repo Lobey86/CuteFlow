@@ -24,7 +24,8 @@ class restartworkflowActions extends sfActions {
         $workObj = new RestartWorkflow();
         $data = WorkflowSlotTable::instance()->getSlotByVersionId($request->getParameter('versionid'));
         $json_data = $workObj->buildSelectStation($data);
-        $this->renderText('{"result" : '.json_encode($json_data).'}');
+        $workflowSendSlot = $workObj->getSendToAllSlots($request->getParameter('versionid'));
+        $this->renderText('{"result" : '.json_encode($json_data).', "sendtoallslots" : '.$workflowSendSlot.'}');
         return sfView::NONE;
     }
 
@@ -250,9 +251,11 @@ class restartworkflowActions extends sfActions {
             $calc = new SetStation($newVersionId, $newUserSlotId, $currentUserSlotId, $direction);
 
         }
+        $this->getResponse()->setHttpHeader('Content-Type','text/plain; charset=utf-8');
+        $this->renderText('<html><body>{success: true}</body></html>');
+        die;
         #die;
         #echo '{"success":true}';die;
-        $this->renderText('{"success":true}');
         return sfView::NONE;
     }
 
