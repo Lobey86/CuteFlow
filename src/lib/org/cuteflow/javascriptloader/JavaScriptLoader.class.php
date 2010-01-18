@@ -66,8 +66,7 @@ class JavaScriptLoader {
             $files = $this->getFilesInDirectory($path);
             foreach($files as $file) {
                 $result['template'][$a] = sfConfig::get('sf_app_dir') . '/templates/' .$folder.'/'.$file;
-                $result['djs'][$a] = '/djs/' .$folder.'/'.$file;
-                $result['template_uncompressed'][$a++]  = sfConfig::get('sf_app_dir') . '/templates_uncompressed/' .$folder.'/'.$file;
+                $result['djs'][$a++] = '/djs/' .$folder.'/'.$file;
             }
         }
         return $result;
