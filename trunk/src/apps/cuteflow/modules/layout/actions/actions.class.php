@@ -47,6 +47,11 @@ class layoutActions extends sfActions {
     }
 
     public function executeTest(sfWebRequest $request) {
+
+        $test = new JavaScriptCompressor();
+
+        die;
+
         $versionId = 1;
         $templateId = 1;
         $user_id = 1;
