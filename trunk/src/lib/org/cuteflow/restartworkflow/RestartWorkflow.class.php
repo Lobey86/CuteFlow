@@ -328,16 +328,6 @@ class RestartWorkflow {
                         $lastProcessUser = $lastProcess['process'][$c];
                         $user_id = $lastProcessUser['user_id'];
                         $wfsUid = $newProcessUser['id'];
-                        /*if($lastSlots['sendtoallreceivers'] == 1) {
-                            $wfsUid = $newSlots['slotuser_id'][($b+$processCounter)]['id'];
-                            if($lastProcessUser['decissionstate'] != 'USERAGENTSET') {
-                                $processCounter++;
-                            }
-                            $processCounter++;
-                        }
-                        else {
-                            $wfsUid = $newProcessUser['id'];
-                        }*/
 
                         if($lastProcessUser['decissionstate'] == 'STOPPEDBYADMIN' OR $lastProcessUser['decissionstate'] == 'STOPPEDBYUSER') {
                             $setDecission = 'WAITING';
@@ -369,10 +359,14 @@ class RestartWorkflow {
                 }
             }
         }
-        
+    }
 
 
 
+    public function getSendToAllSlots($versionid) {
+        $template = WorkflowTemplateTable::instance()->getWorkflowTemplateByVersionId($versionid)->toArray();
+        $mailinglist = MailinglistTemplateTable::instance()->getMailinglistByVersionId($template[0]['mailinglisttemplateversion_id']);
+        return $mailinglist[0]['MailinglistVersion']['sendtoallslotsatonce'];
     }
 
 
