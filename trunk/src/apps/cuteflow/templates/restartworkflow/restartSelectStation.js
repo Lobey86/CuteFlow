@@ -37,7 +37,6 @@ cf.restartSelectStation = function(){return {
 		]);
 		this.theStore = new Ext.data.GroupingStore({
             reader: reader,
-			
             groupField:'slotgroup'
         })
 	},
@@ -64,48 +63,59 @@ cf.restartSelectStation = function(){return {
 				success: function(objServerResponse){
 					var ServerResult = Ext.util.JSON.decode(objServerResponse.responseText);
 					var data = ServerResult.result;
-					cf.restartSelectStation.addData(data);
+					var sendtoallslots = ServerResult.sendtoallslots;
+					cf.restartSelectStation.addData(data, sendtoallslots);
 				}
 			});
 				
 		});
 	},
 	
-	addData: function (data) {
-		for(var a=0;a<data.length;a++){
-			var user = data[a];
-			var uniqueId = cf.restartSelectStation.theUniqueId++;
+	addData: function (data, sendtoallslots) {
+		if(sendtoallslots == 1) {
+			cf.restartWorkflowFirstTab.theStartPoint.setValue('LASTSTATION');
+			Ext.Msg.minWidth = 250;
+			Ext.MessageBox.alert('<?php echo __('Notice',null,'workflowmanagement'); ?>','<?php echo __('Workflow is set to send all Slots at once. A station cannot be selected',null,'workflowmanagement'); ?>');
+			cf.restartSelectStation.theSelectStationWindow.hide();
+			cf.restartSelectStation.theSelectStationWindow.destroy();
 			
-			var Rec = Ext.data.Record.create(
-				{name: 'workflowslotuser_id'},
-				{name: 'user_id'},
-				{name: 'slotgroup'},
-				{name: 'plainusername'},
-				{name: 'slotposition'},
-				{name: 'userposition'},
-				{name: 'username'},
-				{name: 'workflowslot_id'},
-				{name: 'workflowtemplate_id'},
-				{name: 'slotname'},
-				{name: 'action'}
-			);	
-
-			cf.restartSelectStation.theGrid.store.add(new Rec({
-				workflowslotuser_id: user.workflowslotuser_id, 
-				user_id: user.user_id,
-				plainusername: user.plainusername,
-				slotgroup: user.slotgroup, 
-				slotposition: user.slotposition,
-				userposition: user.userposition,
-				username: user.username, 
-				workflowslot_id: user.workflowslot_id, 
-				workflowtemplate_id: user.workflowtemplate_id, 
-				slotname: user.slotname, 
-				action: '<center><table><tr><td width="16"><div id="selectNewStationForRestart'+ uniqueId +'"></div></td></tr></table></center>'
-			}));
-			
-			cf.restartSelectStation.createSetStationButton.defer(10,this, [uniqueId, user.slotposition, user.userposition ,user.plainusername, user.slotgroup]);
-			
+		}
+		else {
+			for(var a=0;a<data.length;a++){
+				var user = data[a];
+				var uniqueId = cf.restartSelectStation.theUniqueId++;
+				
+				var Rec = Ext.data.Record.create(
+					{name: 'workflowslotuser_id'},
+					{name: 'user_id'},
+					{name: 'slotgroup'},
+					{name: 'plainusername'},
+					{name: 'slotposition'},
+					{name: 'userposition'},
+					{name: 'username'},
+					{name: 'workflowslot_id'},
+					{name: 'workflowtemplate_id'},
+					{name: 'slotname'},
+					{name: 'action'}
+				);	
+	
+				cf.restartSelectStation.theGrid.store.add(new Rec({
+					workflowslotuser_id: user.workflowslotuser_id, 
+					user_id: user.user_id,
+					plainusername: user.plainusername,
+					slotgroup: user.slotgroup, 
+					slotposition: user.slotposition,
+					userposition: user.userposition,
+					username: user.username, 
+					workflowslot_id: user.workflowslot_id, 
+					workflowtemplate_id: user.workflowtemplate_id, 
+					slotname: user.slotname, 
+					action: '<center><table><tr><td width="16"><div id="selectNewStationForRestart'+ uniqueId +'"></div></td></tr></table></center>'
+				}));
+				
+				cf.restartSelectStation.createSetStationButton.defer(10,this, [uniqueId, user.slotposition, user.userposition ,user.plainusername, user.slotgroup]);
+				
+			}
 		}
 		cf.restartSelectStation.theLoadingMask.hide();
 	},
@@ -122,7 +132,6 @@ cf.restartSelectStation = function(){return {
 							cf.restartWorkflowFirstTab.theHiddenField.setValue('SLOT__' + slotposition + '__USER__' + userposition);
 							cf.restartSelectStation.theSelectStationWindow.hide();
 							cf.restartSelectStation.theSelectStationWindow.destroy();
-							//alert('TemplateId ' + template_id + ' WorkflowslotuserId ' + workflowslotuser_id);
 						},
 					scope: c
 				});

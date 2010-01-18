@@ -244,6 +244,19 @@ cf.createWorkflowCRUD = function(){return {
 				catch(e) {
 					
 				}
+			},
+			failure: function(objServerResponse){
+				cf.workflowmanagementPanelGrid.theWorkflowStore.reload();
+				cf.createWorkflowWindow.theCreateWorkflowWindow.hide();
+				cf.createWorkflowWindow.theCreateWorkflowWindow.destroy();
+				Ext.Msg.minWidth = 200;
+				Ext.MessageBox.alert('<?php echo __('OK',null,'workflowmanagement'); ?>','<?php echo __('Workflow created',null,'workflowmanagement'); ?>');
+				try {
+					cf.todoPanelGrid.theTodoStore.reload();
+				}
+				catch(e) {
+					
+				}
 			}
 		});
 	},

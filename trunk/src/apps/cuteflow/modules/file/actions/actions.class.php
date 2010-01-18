@@ -34,6 +34,7 @@ class fileActions extends sfActions {
         }
         $filepath = sfConfig::get('sf_upload_dir') . '/' . $workflowid . '/' . $versionid . '/' . $attachment[0]['hashname'];
         $file = new File();
+
         $filecontent = $file->getFileContent($filepath);
         $contenttyoe = $file->getContenttype($attachment[0]['hashname']);
 
@@ -42,9 +43,10 @@ class fileActions extends sfActions {
 
         $response->setHttpHeader('Content-Type', 'application/octet-stream');
         $this->getResponse()->setHttpHeader('Content-Disposition', 'attachment; filename=' . $attachment[0]['filename']);
-        $response->setHttpHeader('Content-Length', filesize($filepath));
+        $response->setHttpHeader('Content-Length', @filesize($filepath));
         $response->sendHttpHeaders(); // send the headers before the file
         $response->setContent($filecontent);
+         
         return sfView::NONE;
     }
 
