@@ -33,6 +33,17 @@ class WorkflowVersionTable extends Doctrine_Table {
             ->execute();
     }
 
+
+    public function getAllVersionRevisionByWorkflowId($workflow_id) {
+        return Doctrine_Query::create()
+            ->from('WorkflowVersion wfv')
+            ->select('wfv.*,')
+            ->where('wfv.workflowtemplate_id = ?' ,$workflow_id)
+            ->orderBy('wfv.id DESC')
+            ->execute();
+    }
+
+
     public function getWorkflowVersionById($id) {
         return Doctrine_Query::create()
             ->from('WorkflowVersion wfv')
