@@ -1,7 +1,8 @@
 /**
-* Class creates Layout with Region West and Center (2 BorderLayout)
+* Class creates Layout with Region West,North and Center (3 BorderLayout)
 * West = Navigation
 * Center = Tabpanel
+* North = CuteFlow Logo
 * When layout is initialized, a welcome tab is shown
 */
 cf.Layout = function(){return {

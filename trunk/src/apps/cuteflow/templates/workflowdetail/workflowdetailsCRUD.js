@@ -5,9 +5,8 @@ cf.workflowdetailsCRUD = function(){return {
 	
 	
 	skipStation: function (id, templateversion_id, workflowslot_id, workflowuser_id) {
-		cf.workflowdetailsCRUD.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Updating Data...',null,'workflowmanagement'); ?>'});					
+		cf.workflowdetailsCRUD.theLoadingMask = new Ext.LoadMask(cf.workflowdetails.thePanelToShow.body, {msg:'<?php echo __('Updating Data...',null,'workflowmanagement'); ?>'});					
 		cf.workflowdetailsCRUD.theLoadingMask.show();
-		//alert('<?php echo build_dynamic_javascript_url('workflowdetail/SkipStation')?>/versionid/' + templateversion_id + '/workflowprocessuserid/' + id);
 		
 		Ext.Ajax.request({  
 			url : '<?php echo build_dynamic_javascript_url('workflowdetail/SkipStation')?>/versionid/' + templateversion_id + '/workflowprocessuserid/' + id + '/workflowslotid/' + workflowslot_id + '/workflowslotuserid/' + workflowuser_id,
@@ -35,7 +34,7 @@ cf.workflowdetailsCRUD = function(){return {
 	},
 	
 	setUseragent: function (user_id, workflowuserprocessid, templateversion_id) {
-		cf.workflowdetailsCRUD.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Updating Data...',null,'workflowmanagement'); ?>'});					
+		cf.workflowdetailsCRUD.theLoadingMask = new Ext.LoadMask(cf.workflowdetailsSelectUseragent.thePopUpWindow.body, {msg:'<?php echo __('Updating Data...',null,'workflowmanagement'); ?>'});					
 		cf.workflowdetailsCRUD.theLoadingMask.show();
 		Ext.Ajax.request({  
 			url : '<?php echo build_dynamic_javascript_url('workflowdetail/SetUseragent')?>/userid/' + user_id + '/workflowprocessuserid/' + workflowuserprocessid + '/versionid/' + templateversion_id,
@@ -68,7 +67,7 @@ cf.workflowdetailsCRUD = function(){return {
 	
 	
 	setNewStation: function (templateversion_id, newWorkflowUserSlotId, currentWorkflowUserSlotId, direction) {
-		cf.workflowdetailsCRUD.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Updating Data...',null,'workflowmanagement'); ?>'});					
+		cf.workflowdetailsCRUD.theLoadingMask = new Ext.LoadMask(cf.workflowdetailsSelectStation.thePopUpWindow.body, {msg:'<?php echo __('Updating Data...',null,'workflowmanagement'); ?>'});					
 		cf.workflowdetailsCRUD.theLoadingMask.show();
 		Ext.Ajax.request({  
 			url : '<?php echo build_dynamic_javascript_url('workflowdetail/SetNewStation')?>/newworkflowuserslotid/' + newWorkflowUserSlotId + '/currentworkflowuserslotid/' + currentWorkflowUserSlotId + '/versionid/' + templateversion_id + '/direction/' + direction,
