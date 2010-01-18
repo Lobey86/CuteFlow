@@ -58,14 +58,16 @@ class WorkflowDetail {
     }
 
     public function getVersion($workflowtemplate_id) {
-        $allVersions = WorkflowVersionTable::instance()->getAllVersionByWorkflowId($workflowtemplate_id);
+        $allVersions = WorkflowVersionTable::instance()->getAllVersionRevisionByWorkflowId($workflowtemplate_id);
         $result = array();
         $a = 0;
+        $counter = count($allVersions);
         foreach($allVersions as $version) {
             $result[$a]['versionid'] = $version->getId();
             $result[$a]['version'] = $version->getVersion();
             $result[$a]['activeversion'] = $version->getActiveversion();
-            $result[$a++]['text'] = '#' . $version->getVersion() . ' - ' . format_date($version->getCreatedAt(), 'g', $this->culture);
+            $result[$a++]['text'] = '#' . $counter . ' - ' . format_date($version->getCreatedAt(), 'g', $this->culture);
+            $counter--;
         }
         return $result;
     }
@@ -283,8 +285,9 @@ class WorkflowDetail {
             case 'TEXTFIELD':
                 $items = WorkflowSlotFieldTextfieldTable::instance()->getAllItemsByWorkflowFieldId($field->getId())->toArray();
                 $fieldData = FieldTextfieldTable::instance()->getTextfieldByFieldId($field->getFieldId())->toArray();
-
-                $result['value'] = $items[0]['value'];
+                $replaceObj = new ReplaceTags($versionid, $items[0]['value'], $this->culture);
+                $value = $replaceObj->getText();
+                $result['value'] = $value;
                 $result['regex'] = $fieldData[0]['regex'];
                 $result['id'] = $items[0]['id'];
                 break;
