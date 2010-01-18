@@ -478,6 +478,10 @@
 			<source>Workflow has already been completed</source>
 			<target>Workflow has already been completed</target>
 		</trans-unit>
+		<trans-unit id="119">
+			<source>Workflow is set to send all Slots at once. A station cannot be selected</source>
+			<target>Workflow is set to send all Slots at once. A station cannot be selected</target>
+		</trans-unit>
 	</body>
   </file>
 </xliff>

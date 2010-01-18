@@ -92,7 +92,7 @@
      </trans-unit>		
 	 <trans-unit id="23">
         <source>User</source>
-        <target>Error</target>
+        <target>User</target>
      </trans-unit>
 	 <trans-unit id="24">
         <source>Remove user</source>
