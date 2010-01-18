@@ -446,6 +446,38 @@
 			<source>Select a station</source>
 			<target>Station w&#228;hlen</target>
 		</trans-unit>
+		<trans-unit id="111">
+			<source>Workflow Management</source>
+			<target>Umlauf Verwaltung</target>
+		</trans-unit>
+		<trans-unit id="112">
+			<source>Workflow stopped</source>
+			<target>Umlauf angehalten</target>
+		</trans-unit>
+		<trans-unit id="113">
+			<source>Stopping workflow...</source>
+			<target>Beende Umlauf...</target>
+		</trans-unit>
+		<trans-unit id="114">
+			<source>Starting workflow...</source>
+			<target>Starte Umlauf...</target>
+		</trans-unit>
+		<trans-unit id="115">
+			<source>Workflow has been started</source>
+			<target>Umlauf gestartet</target>
+		</trans-unit>
+		<trans-unit id="116">
+			<source>Create new Workflow</source>
+			<target>Neuen Umlauf erstellen</target>
+		</trans-unit>
+		<trans-unit id="117">
+			<source>Workflow templates</source>
+			<target>Uml&#228;ufe</target>
+		</trans-unit>
+		<trans-unit id="118">
+			<source>Workflow has already been completed</source>
+			<target>Umlauf wurde bereits ausgef&#252;llt</target>
+		</trans-unit>
 	</body>
   </file>
 </xliff>

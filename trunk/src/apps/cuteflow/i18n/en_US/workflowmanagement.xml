@@ -446,6 +446,38 @@
 			<source>Select a station</source>
 			<target>Select a station</target>
 		</trans-unit>
+		<trans-unit id="111">
+			<source>Workflow Management</source>
+			<target>Workflow Management</target>
+		</trans-unit>
+		<trans-unit id="112">
+			<source>Workflow stopped</source>
+			<target>Workflow stopped</target>
+		</trans-unit>
+		<trans-unit id="113">
+			<source>Stopping workflow...</source>
+			<target>Stopping workflow...</target>
+		</trans-unit>
+		<trans-unit id="114">
+			<source>Starting workflow...</source>
+			<target>Starting workflow...</target>
+		</trans-unit>
+		<trans-unit id="115">
+			<source>Workflow has been started</source>
+			<target>Workflow has been started</target>
+		</trans-unit>
+		<trans-unit id="116">
+			<source>Create new Workflow</source>
+			<target>Create new Workflow</target>
+		</trans-unit>
+		<trans-unit id="117">
+			<source>Workflow templates</source>
+			<target>Workflow templates</target>
+		</trans-unit>
+		<trans-unit id="118">
+			<source>Workflow has already been completed</source>
+			<target>Workflow has already been completed</target>
+		</trans-unit>
 	</body>
   </file>
 </xliff>
