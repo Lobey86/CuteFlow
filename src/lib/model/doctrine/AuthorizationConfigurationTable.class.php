@@ -20,13 +20,24 @@ class AuthorizationConfigurationTable extends Doctrine_Table {
      * @param string $orderby, orderby if needed
      * @return Doctrine_Collection
      */
-    public function getAuthorizationConfiguration() {
+    public function getAuthorizationConfiguration($allRoles = true) {
+        $query = Doctrine_Query::create()
+            ->select('ac.*')
+            ->from('AuthorizationConfiguration ac');
+        if($allRoles == false) {
+            $query->where('ac.type != ?', 'allroles');
+        }
+        return $query->execute();
+    }
+
+    public function getAllRoles() {
         return Doctrine_Query::create()
             ->select('ac.*')
             ->from('AuthorizationConfiguration ac')
+            ->where('ac.type = ?', 'allroles')
             ->execute();
     }
-
+    
     /**
      * Update table items for AuthorizationConfiguration
      * @param int $id, id of the row to update
