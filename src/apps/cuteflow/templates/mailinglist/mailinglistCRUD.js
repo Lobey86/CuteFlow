@@ -20,7 +20,6 @@ cf.mailinglistCRUD = function(){return {
 				Ext.MessageBox.alert('<?php echo __('OK',null,'mailinglist'); ?>', '<?php echo __('Update successful',null,'mailinglist'); ?>');
 			}
 		});
-		//alert(id);
 		
 	},
 	
@@ -111,6 +110,44 @@ cf.mailinglistCRUD = function(){return {
 			}
 			counter++;
 		}
+		
+		var authCounter = 0;
+		var grid = cf.mailinglistThirdTab.theAuthorizationGrid;
+		for(var c=0;c<grid.store.getCount();c++) {
+			var row = grid.getStore().getAt(c);
+			var hiddenfield = new Ext.form.Field({
+				autoCreate : {tag:'input', type: 'hidden', name: 'auth['+authCounter+'][type]', value:row.data.type, width: 0}			
+			});
+			cf.mailinglistFirstTab.theFormPanel.add(hiddenfield);
+			
+			
+			var hiddenfield = new Ext.form.Field({
+				autoCreate : {tag:'input', type: 'hidden', name: 'auth['+authCounter+'][deleteworkflow]', value:row.data.deleteworkflow, width: 0}			
+			});
+			cf.mailinglistFirstTab.theFormPanel.add(hiddenfield);
+			
+			var hiddenfield = new Ext.form.Field({
+				autoCreate : {tag:'input', type: 'hidden', name: 'auth['+authCounter+'][archiveworkflow]', value:row.data.archiveworkflow, width: 0}			
+			});
+			cf.mailinglistFirstTab.theFormPanel.add(hiddenfield);
+			
+						var hiddenfield = new Ext.form.Field({
+				autoCreate : {tag:'input', type: 'hidden', name: 'auth['+authCounter+'][stopneworkflow]', value:row.data.stopneworkflow, width: 0}			
+			});
+			cf.mailinglistFirstTab.theFormPanel.add(hiddenfield);
+			
+						var hiddenfield = new Ext.form.Field({
+				autoCreate : {tag:'input', type: 'hidden', name: 'auth['+authCounter+'][detailsworkflow]', value:row.data.detailsworkflow, width: 0}			
+			});
+			cf.mailinglistFirstTab.theFormPanel.add(hiddenfield);
+			authCounter++;
+			
+			
+		}
+		
+		
+		
+		
 		
 		return true;
 	},

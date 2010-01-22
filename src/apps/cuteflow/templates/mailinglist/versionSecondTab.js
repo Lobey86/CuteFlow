@@ -350,43 +350,26 @@ cf.mailinglistVersionSecondTab = function(){return {
 	renderDeleteCheckbox: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 		var id = record.data['raw_type'];
 		var databaseId = record.data['id'];
-		cf.mailinglistFirstTab.createCheckbox.defer(500,this, [id, 'databaseid_'+databaseId+'mailinglistFirstTabCheckboxDelete_'+ id, 'deleteworkflow', record.data['deleteworkflow'],databaseId]);
+		cf.mailinglistThirdTab.createCheckbox.defer(500,this, [id, 'databaseid_'+databaseId+'mailinglistFirstTabCheckboxDelete_'+ id, 'deleteworkflow', record.data['deleteworkflow'],databaseId]);
 		return '<center><table><tr><td><div id="databaseid_'+databaseId+'mailinglistFirstTabCheckboxDelete_'+ id +'"></div></td></tr></table></center>';
 	},
 	renderArchiveCheckbox: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 		var id = record.data['raw_type'];
 		var databaseId = record.data['id'];
-		cf.mailinglistFirstTab.createCheckbox.defer(500,this, [id, 'databaseid_'+databaseId+'mailinglistFirstTabCheckboxArchive_'+ id, 'archiveworkflow', record.data['archiveworkflow'],databaseId]);
+		cf.mailinglistThirdTab.createCheckbox.defer(500,this, [id, 'databaseid_'+databaseId+'mailinglistFirstTabCheckboxArchive_'+ id, 'archiveworkflow', record.data['archiveworkflow'],databaseId]);
 		return '<center><table><tr><td><div id="databaseid_'+databaseId+'mailinglistFirstTabCheckboxArchive_'+ id +'"></div></td></tr></table></center>';
 	},
 	renderStopNewCheckbox: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 		var id = record.data['raw_type'];
 		var databaseId = record.data['id'];
-		cf.mailinglistFirstTab.createCheckbox.defer(500,this, [id, 'databaseid_'+databaseId+'mailinglistFirstTabCheckboxStopNew_'+ id, 'stopneworkflow', record.data['stopneworkflow'],databaseId]);
+		cf.mailinglistThirdTab.createCheckbox.defer(500,this, [id, 'databaseid_'+databaseId+'mailinglistFirstTabCheckboxStopNew_'+ id, 'stopneworkflow', record.data['stopneworkflow'],databaseId]);
 		return '<center><table><tr><td><div id="databaseid_'+databaseId+'mailinglistFirstTabCheckboxStopNew_'+ id +'"></div></td></tr></table></center>';
 	},
 	renderShowCheckbox: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 		var id = record.data['raw_type'];
 		var databaseId = record.data['id'];
-		cf.mailinglistFirstTab.createCheckbox.defer(500,this, [id, 'databaseid_'+databaseId+'mailinglistFirstTabCheckboxShow_'+ id, 'detailsworkflow', record.data['detailsworkflow'],databaseId]);
+		cf.mailinglistThirdTab.createCheckbox.defer(500,this, [id, 'databaseid_'+databaseId+'mailinglistFirstTabCheckboxShow_'+ id, 'detailsworkflow', record.data['detailsworkflow'],databaseId]);
 		return '<center><table><tr><td><div id="databaseid_'+databaseId+'mailinglistFirstTabCheckboxShow_'+ id +'"></div></td></tr></table></center>';
-	},
-	
-	/** 
-	*
-	*
-	*create checkbox for auth tab
-	*
-	**/
-	createCheckbox: function (id, div, table, value, databaseid) {
-		value = value == 0 ? false : true;
-		var name = id + '__' + table;
-		var check = new Ext.form.Checkbox({
-			renderTo: div,
-			name: 'mailinglistFirstTab[' + name + ']',
-			inputValue: 1,
-			checked: value
-		});
 	}
 	
 	

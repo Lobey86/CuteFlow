@@ -116,8 +116,8 @@ class mailinglistActions extends sfActions {
         $mailinglisttemplate->save();
         $mailinglisttemplate_id = $mailinglisttemplate->getId();
         $mailinglistversion_id = $mailinglist->storeVersion($mailinglisttemplate_id, 1, $activeVersion[0]['id'], $sendToAll);
-        $mailinglist->createAuthorizationEntry($mailinglistversion_id);
-        $mailinglist->saveAuthorization($mailinglistversion_id,isset($data['mailinglistFirstTab']) ? $data['mailinglistFirstTab'] : array());
+        //$mailinglist->createAuthorizationEntry($mailinglistversion_id);
+        $mailinglist->saveAuthorization($mailinglistversion_id, $data['auth']);
         $mailinglist->saveUser($mailinglistversion_id, isset($data['user']) ? $data['user'] : array());
         $slots = $data['slot'];
         $mailinglist->storeMailinglist($slots, $mailinglistversion_id);
@@ -137,8 +137,7 @@ class mailinglistActions extends sfActions {
         $mailingsdata = MailinglistVersionTable::instance()->getVersionById($request->getParameter('id'))->toArray();
         MailinglistVersionTable::instance()->setMailinglistInactiveById($request->getParameter('id'));
         $mailinglistversion_id = $mailinglist->storeVersion($mailingsdata[0]['mailinglisttemplate_id'],$mailingsdata[0]['version']+1, $mailingsdata[0]['documenttemplateversion_id'], $sendToAll);
-        $mailinglist->createAuthorizationEntry($mailinglistversion_id);
-        $mailinglist->saveAuthorization($mailinglistversion_id, isset($data['mailinglistFirstTab']) ? $data['mailinglistFirstTab'] : array());
+        $mailinglist->saveAuthorization($mailinglistversion_id, $data['auth']);
         $mailinglist->saveUser($mailinglistversion_id, isset($data['user']) ? $data['user'] : array());
         $slots = $data['slot'];
         $mailinglist->storeMailinglist($slots, $mailinglistversion_id);
@@ -190,9 +189,26 @@ class mailinglistActions extends sfActions {
      */
     public function executeLoadAuthorization(sfWebRequest $request) {
         $sysObj = new SystemSetting();
+        $auth = new MergeAuthorization();
         $data = MailinglistAuthorizationSettingTable::instance()->getAuthorizationById($request->getParameter('id'))->toArray();
+        $defaultRole = AuthorizationConfigurationTable::instance()->getAllRoles()->toArray();
         $worklfosettings = $sysObj->buildAuthorizationColumns($data, $this->getContext());
-        $this->renderText('{"result":'.json_encode($worklfosettings).'}');
+        $allRoles = RoleTable::instance()->getAllRole()->toArray();
+        $mergedRoles = $auth->mergeRoles($allRoles, $defaultRole, $worklfosettings);
+        
+        $this->renderText('{"result":'.json_encode($mergedRoles).'}');
+        return sfView::NONE;
+    }
+
+        public function executeLoadDefaultAuthorization(sfWebRequest $request) {
+        $sysObj = new SystemSetting();
+        $auth = new MergeAuthorization();
+        $authorization = AuthorizationConfigurationTable::instance()->getAuthorizationConfiguration(false)->toArray();
+        $defaultRole = AuthorizationConfigurationTable::instance()->getAllRoles()->toArray();
+        $worklfosettings = $sysObj->buildAuthorizationColumns($authorization, $this->getContext());
+        $allRoles = RoleTable::instance()->getAllRole()->toArray();
+        $mergedRoles = $auth->mergeRoles($allRoles, $defaultRole, $worklfosettings);
+        $this->renderText('{"result":'.json_encode($mergedRoles).'}');
         return sfView::NONE;
     }
 
