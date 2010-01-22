@@ -12,13 +12,17 @@ cf.mailinglistPopUpWindow = function(){return {
 	initNewMailinglist: function (id) {
 		this.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'usermanagement'); ?>'});					
 		this.theLoadingMask.show();
-		cf.mailinglistFirstTab.init('<?php echo build_dynamic_javascript_url('systemsetting/LoadAuthorization')?>',id);
+		cf.mailinglistFirstTab.init('<?php echo build_dynamic_javascript_url('mailinglist/Load')?>',id);
+		cf.mailinglistThirdTab.init('<?php echo build_dynamic_javascript_url('mailinglist/LoadDefaultAuthorization')?>',id);
 		this.initTabPanel();
 		this.initWindow('','<?php echo __('Create new Mailing list',null,'mailinglist'); ?>');
 		this.theTabPanel.add(cf.mailinglistFirstTab.theFormPanel);
+		this.theTabPanel.add(cf.mailinglistThirdTab.thePanel);
 		this.theMailinglistPopUpWindow.add(this.theTabPanel);
 		this.theMailinglistPopUpWindow.doLayout();
 		this.theMailinglistPopUpWindow.show();
+		this.theTabPanel.setActiveTab(1);
+		this.theTabPanel.setActiveTab(0);
 		this.theLoadingMask.hide();
 		
 	},
@@ -32,12 +36,16 @@ cf.mailinglistPopUpWindow = function(){return {
 		this.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'usermanagement'); ?>'});					
 		this.theLoadingMask.show();
 		cf.mailinglistFirstTab.init('<?php echo build_dynamic_javascript_url('mailinglist/LoadAuthorization')?>/id/'+activeversion_id,activeversion_id);
+		cf.mailinglistThirdTab.init('<?php echo build_dynamic_javascript_url('mailinglist/LoadAuthorization')?>/id/'+activeversion_id,id);
 		this.initTabPanel();
 		this.initWindow(id,'<?php echo __('Edit existing Mailing list',null,'mailinglist'); ?>');
 		this.theTabPanel.add(cf.mailinglistFirstTab.theFormPanel);
+		this.theTabPanel.add(cf.mailinglistThirdTab.thePanel);
 		this.theMailinglistPopUpWindow.add(this.theTabPanel);
 		this.theMailinglistPopUpWindow.doLayout();
 		this.theMailinglistPopUpWindow.show();
+		this.theTabPanel.setActiveTab(1);
+		this.theTabPanel.setActiveTab(0);
 		this.theLoadingMask.hide();
 		this.addData(activeversion_id);
 		
