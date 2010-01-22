@@ -20,7 +20,6 @@ class Language {
             $dir = array();
             $language = array();
             $dir = array_diff(scandir(sfConfig::get('sf_app_i18n_dir')), Array( ".", "..",".svn"));
-            
             foreach($dir AS $item) {
                 $language = explode('_', $item);
                 $result[] = $item;
