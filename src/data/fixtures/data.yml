@@ -799,7 +799,12 @@ AuthorizationConfiguration:
     archiveworkflow: 0
     stopneworkflow: 0
     detailsworkflow: 0
-
+  ac6:
+    type: allroles
+    deleteworkflow: 0
+    archiveworkflow: 1
+    stopneworkflow: 1
+    detailsworkflow: 0
 
 DocumenttemplateTemplate:
   dt1:
