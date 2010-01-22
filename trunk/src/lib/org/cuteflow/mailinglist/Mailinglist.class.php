@@ -73,11 +73,23 @@ class Mailinglist {
      * @param array $data, data to activate
      */
     public function saveAuthorization($id, array $data) {
-        foreach ($data as $item => $key) {
+        foreach($data as $singleAuth) {
+           $asObj = new MailinglistAuthorizationSetting();
+           $asObj->setType($singleAuth['type']);
+           $asObj->setMailinglistversionId($id);
+           $asObj->setDeleteworkflow($singleAuth['deleteworkflow']);
+           $asObj->setArchiveworkflow($singleAuth['archiveworkflow']);
+           $asObj->setStopneworkflow($singleAuth['stopneworkflow']);
+           $asObj->setDetailsworkflow($singleAuth['detailsworkflow']);
+           $asObj->save();
+        }
+
+
+        /*foreach ($data as $item => $key) {
             $item_data = array();
             $item_data = explode('__', $item);
             MailinglistAuthorizationSettingTable::instance()->updateAuthorizationConfigurationById($id, $item_data[0],$item_data[1]);
-        }
+        }*/
     }
 
     /**

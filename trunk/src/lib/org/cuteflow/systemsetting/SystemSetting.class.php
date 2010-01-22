@@ -96,6 +96,8 @@ class SystemSetting {
             $result[$a]['type'] = $context->getI18N()->__($item['type'],null,'systemsetting');
             $result[$a]['raw_type'] = $item['type'];
             $result[$a]['id'] = $item['id'];
+            $result[$a]['isRole'] = false;
+            $result[$a]['roleId'] = -1;
             $result[$a]['deleteworkflow'] = $item['deleteworkflow'];
             $result[$a]['archiveworkflow'] = $item['archiveworkflow'];
             $result[$a]['stopneworkflow'] = $item['stopneworkflow'];
