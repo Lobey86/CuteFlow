@@ -34,6 +34,26 @@
 			<source>Direct link to workflow</source>
 			<target>Direct link to workflow</target>
 		</trans-unit>
+		<trans-unit id="9">
+			<source>You have to fill out the fields in the workflow</source>
+			<target>You have to fill out the fields in the workflow</target>
+		</trans-unit>
+		<trans-unit id="10">
+			<source>File</source>
+			<target>File</target>
+		</trans-unit>
+		<trans-unit id="11">
+			<source>Accept Workflow</source>
+			<target>Accept Workflow</target>
+		</trans-unit>
+		<trans-unit id="12">
+			<source>Deny Workflow</source>
+			<target>Deny Workflow</target>
+		</trans-unit>
+		<trans-unit id="13">
+			<source>Save</source>
+			<target>Save</target>
+		</trans-unit>
 	</body>
   </file>
 </xliff>

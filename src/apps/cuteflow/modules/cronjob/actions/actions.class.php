@@ -19,65 +19,10 @@ class cronjobActions extends sfActions {
     }
 
     public function executeStartWorkflow(sfWebRequest $request) {
-        $workflows = WorkflowVersionTable::instance()->getWorkflowsToStart(time())->toArray();
-        foreach($workflows as $workflow) {
-            $sender = WorkflowTemplateTable::instance()->getWorkflowTemplateById($workflow['workflowtemplate_id'])->toArray();
-            $userSettings = new UserMailSettings($sender[0]['sender_id']);
-            $sendMail = new SendStartWorkflowEmail($userSettings, $this, $workflow, $sender);
-            $workflowTemplate = WorkflowTemplateTable::instance()->getWorkflowTemplateByVersionId($workflow['id']);
-            WorkflowVersionTable::instance()->startWorkflowInFuture($workflow['id']);
-            $sendToAllSlotsAtOnce = $workflowTemplate[0]->getMailinglistVersion()->toArray();
-            if($sendToAllSlotsAtOnce[0]['sendtoallslotsatonce'] == 1) {
-                $calc = new CreateWorkflow($workflow['id']);
-                $calc->addAllSlots();
-            }
-            else {
-                $calc = new CreateWorkflow($workflow['id']);
-                $calc->addSingleSlot();
-            }
 
-        }
         return sfView::NONE;
     }
 
-
-
-
-    public function executeSendReminderEmail(sfWebRequest $request) {
-        $wfSettings = SystemConfigurationTable::instance()->getSystemConfiguration()->toArray();
-        
-        if($wfSettings[0]['sendremindermail'] == 1) {
-
-            $sendMail = new PrepareReminderEmail();
-            $stillOpenWorkflows = array();
-            $a = 0;
-            $openWorkflows = WorkflowTemplateTable::instance()->getAllRunningWorkflows();
-            foreach($openWorkflows as $workflow) {
-                $openStations = WorkflowProcessUserTable::instance()->getWaitingStationByVersionId($workflow['WorkflowVersion']['id'])->toArray();
-                $data = $sendMail->prepareData($openStations);
-                $stillOpenWorkflows[$a]['workflow_id'] = $workflow['id'];
-                $stillOpenWorkflows[$a]['name'] = $workflow['name'];
-                $stillOpenWorkflows[$a]['workflowversion_id'] = $workflow['WorkflowVersion']['id'];
-                $stillOpenWorkflows[$a++]['users'] = $data;
-            }
-            $stillOpenWorkflows = $sendMail->sortByUser($stillOpenWorkflows);
-            foreach($stillOpenWorkflows as $userToSend) {
-                $umSettings = new UserMailSettings($userToSend['user_id']);
-                $reminder = new SendReminderEmail($umSettings, $this, $userToSend);
-            }
-
-        }
-        return sfView::NONE;
-    }
-
-    
-    public function executeBuildJavaScriptFiles(sfWebRequest $request) {
-        $autoLoader = new JavaScriptAutoLoader();
-        $compressor = new JavaScriptCompressor();
-       
-        #$this->renderText('<b> All JavaScript Files are loaded </b><br /><br />');
-        return sfView::NONE;
-    }
 
 
 
