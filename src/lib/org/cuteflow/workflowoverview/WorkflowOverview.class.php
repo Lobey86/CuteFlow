@@ -30,6 +30,11 @@ class WorkflowOverview {
     public function buildData(Doctrine_Collection $data) {
         $result = array();
         $a = 0;
+
+        $authSettings = new CreateWorkflowAuthorizationRights();
+        $authSettings->setDefaultRole();
+        $authSettings->setUserRole($this->userId);
+
         $userSettings = $this->user->getAttribute('userSettings');
         $openInPopUp = $userSettings['showcirculationinpopup'];
         foreach($data as $item) {
@@ -49,6 +54,7 @@ class WorkflowOverview {
             $result[$a]['openinpopup'] = $openInPopUp;
             $result[$a]['isstopped'] = $item->getIsstopped();
             $result[$a]['process'] = $this->getProcess($item->getActiveversionId());
+            $result[$a]['auth'] = $authSettings->getRights($item->getMailinglisttemplateversionId(), $item->getActiveversionId());
             if($item->getIscompleted() == 0 OR $item->getIscompleted() == '') {
                  $result[$a]['iscompleted'] = 0;
             }
