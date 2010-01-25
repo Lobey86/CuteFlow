@@ -63,4 +63,14 @@ class MailinglistAuthorizationSettingTable extends Doctrine_Table {
     }
 
 
+    public function getSettingsByType($name, $mailinglistVersionId) {
+        return Doctrine_Query::create()
+            ->select('mlas.*')
+            ->from('MailinglistAuthorizationSetting mlas')
+            ->where ('mlas.type = ?',$name)
+            ->andWhere('mlas.mailinglistversion_id = ?', $mailinglistVersionId)
+            ->execute();
+    }
+
+
 }

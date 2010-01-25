@@ -30,4 +30,23 @@ class WorkflowSlotFieldCheckboxgroupTable extends Doctrine_Table {
             ->execute();
     }
 
+    public function getCheckboxgroupById($id) {
+        return Doctrine_Query::create()
+            ->from('WorkflowSlotFieldCheckboxgroup wsfcg')
+            ->select('wsfcg.*,')
+            ->where('wsfcg.id = ?' ,$id)
+            ->orderBy('wsfcg.position ASC')
+            ->execute();
+    }
+
+
+    public function setToNullByFieldId($wfsId) {
+        Doctrine_Query::create()
+            ->update('WorkflowSlotFieldCheckboxgroup wsfcg')
+            ->set('wsfcg.value','?', 0)
+            ->where ('wsfcg.workflowslotfield_id = ?',$wfsId)
+            ->execute();
+
+    }
+
 }
