@@ -1018,18 +1018,18 @@ MailinglistAuthorizationSetting:
     detailsworkflow: 1
   mlaus2: 
     mailinglistversion_id: 1
-    type: thesender
+    type: sender
     deleteworkflow: 0
     archiveworkflow: 0
     stopneworkflow: 0
     detailsworkflow: 0
   mlaus3:
     mailinglistversion_id: 1
-    type: sender
-    deleteworkflow:
-    archiveworkflow:
-    stopneworkflow:
-    detailsworkflow:
+    type: allowedsender
+    deleteworkflow: 1
+    archiveworkflow: 0
+    stopneworkflow: 1
+    detailsworkflow: 1
   mlaus4:
     mailinglistversion_id: 1
     type: senderwithrights
@@ -1053,18 +1053,18 @@ MailinglistAuthorizationSetting:
     detailsworkflow: 1
   mlaus7:
     mailinglistversion_id: 2
-    type: thesender
+    type: sender
     deleteworkflow: 0
     archiveworkflow: 0
     stopneworkflow: 0
     detailsworkflow: 0
   mlaus8:
     mailinglistversion_id: 2
-    type: sender
-    deleteworkflow:
-    archiveworkflow:
-    stopneworkflow:
-    detailsworkflow:
+    type: allowedsender
+    deleteworkflow: 1
+    archiveworkflow: 1
+    stopneworkflow: 0
+    detailsworkflow: 0
   mlaus9:
     mailinglistversion_id: 2
     type: senderwithrights
@@ -1088,18 +1088,18 @@ MailinglistAuthorizationSetting:
     detailsworkflow: 1
   mlaus12:
     mailinglistversion_id: 3
-    type: thesender
+    type: sender
     deleteworkflow: 0
     archiveworkflow: 0
     stopneworkflow: 0
     detailsworkflow: 0
   mlaus13:
     mailinglistversion_id: 3
-    type: sender
-    deleteworkflow:
-    archiveworkflow:
-    stopneworkflow:
-    detailsworkflow:
+    type: allowedsender
+    deleteworkflow: 0
+    archiveworkflow: 1
+    stopneworkflow: 1
+    detailsworkflow: 0
   mlaus14:
     mailinglistversion_id: 3
     type: senderwithrights
