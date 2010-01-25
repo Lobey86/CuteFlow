@@ -85,4 +85,31 @@ class RoleTable extends Doctrine_Table {
                 ->execute();
    }
 
+
+
+   
+   public function getRoleByUserId($userId) {
+       return Doctrine_Query::create()
+                ->from('Role r')
+                ->select('r.description')
+                ->leftJoin('r.UserLogin ul')
+                ->where('ul.id = ?', $userId)
+                ->execute();
+   }
+
+  
+
+
+   
+   public function getRoleByRightAndRoleName($rightId, $rolename) {
+      return Doctrine_Query::create()
+            ->from('Role r')
+            ->select('r.*')
+            ->leftJoin('r.CredentialRole cr')
+            ->where('r.description = ?', $rolename)
+            ->andWhere('cr.credential_id = ?', $rightId)
+            ->execute();
+       
+   }
+
 }

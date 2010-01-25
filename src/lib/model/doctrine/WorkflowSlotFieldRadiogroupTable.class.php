@@ -30,5 +30,24 @@ class WorkflowSlotFieldRadiogroupTable extends Doctrine_Table {
             ->execute();
     }
 
+    public function getRadiogroupById($id) {
+      return Doctrine_Query::create()
+            ->from('WorkflowSlotFieldRadiogroup wsfrg')
+            ->select('wsfrg.*,')
+            ->where('wsfrg.id = ?' ,$id)
+            ->orderBy('wsfrg.position ASC')
+            ->execute();
+    }
+
+
+    public function setToNullByFieldId($wfsId) {
+        Doctrine_Query::create()
+            ->update('WorkflowSlotFieldRadiogroup wsfrg')
+            ->set('wsfrg.value','?', 0)
+            ->where ('wsfrg.workflowslotfield_id = ?',$wfsId)
+            ->execute();
+
+    }
+
 
 }

@@ -103,4 +103,17 @@ class CredentialTable extends Doctrine_Table {
         return true;
     }
 
+
+    public function getCredentialIdByRight($group, $module, $right) {
+        return Doctrine_Query::create()
+            ->select('c.*')
+            ->from('Credential c')
+            ->where('c.usermodule = ?', $group)
+            ->andWhere('c.usergroup = ?', $module)
+            ->andWhere('c.userright = ?', $right)
+            ->execute();
+        
+    }
+
+
 }

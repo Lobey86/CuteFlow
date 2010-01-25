@@ -44,4 +44,16 @@ class MailinglistAllowedSenderTable extends Doctrine_Table {
         return true;
     }
 
+
+    public function  getAllowedSenderByMailinglistIdAndUserId($userId, $versionId) {
+        return Doctrine_Query::create()
+               ->select('mlas.*')
+               ->from('MailinglistAllowedSender mlas')
+               ->where('mlas.mailinglistversion_id = ?', $versionId)
+               ->andWhere('mlas.user_id = ?', $userId)
+               ->orderBy('mlas.position asc')
+               ->execute();
+        
+    }
+
 }
