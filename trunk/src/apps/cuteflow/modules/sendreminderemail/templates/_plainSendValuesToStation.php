@@ -2,7 +2,7 @@
 
 echo $text['workflow'][0] . ' ' . $text['workflow'][1] . "\n";
 
-echo $url = url_for('layout/linklogin',true).'/versionid/'.$workflowverion.'/workflowid/'.$workflow. '/userid/'.$userid.'/window/follow';
+echo $url = url_for('layout/linklogin',true).'/versionid/'.$workflowverion.'/workflowid/'.$workflow. '/userid/'.$userid.'/window/edit';
 echo "\n\n";
 
 foreach($slots as $slot) {

@@ -56,6 +56,7 @@ cf.workflowmanagementPanelGrid = function(){return {
 					{name: 'process'},
 					{name: 'name'},
 					{name: 'isstopped'},
+					{name: 'auth'},
 					{name: 'currentlyrunning'},
 					{name: 'versioncreated_at'},
 					{name: 'activeversion_id'}
@@ -135,23 +136,31 @@ cf.workflowmanagementPanelGrid = function(){return {
 		var iscompleted = record.data['iscompleted'];
 		var workflowisstarted = record.data['workflowisstarted'];
 		
-		var btnDetails = cf.workflowmanagementPanelGrid.createDetailsButton.defer(10,this, [id, activeversion_id, openinpopup]);
-		var btnEdit = cf.workflowmanagementPanelGrid.createDeleteButton.defer(10,this, [id, activeversion_id]);
-		var btnEdit = cf.workflowmanagementPanelGrid.createArchiveButton.defer(10,this, [id, activeversion_id]);
-		var btnEdit = cf.workflowmanagementPanelGrid.createStopButton.defer(10,this, [id, activeversion_id, isstopped, workflowisstarted, iscompleted]);
-		return '<table><tr><td width="16"><div id="workflowoverview_delete'+ id +'"></div></td><td width="16"><div id="workflowoverview_details'+ id +'"></div></td><td width="16"><div id="workflowoverview_acrhive'+ id +'"></div></td><td width="16"><div id="workflowoverview_stop'+ id +'"></div></td></tr></table></center>';
+		var rights = record.data['auth'];
+		
+		var btnDetails = cf.workflowmanagementPanelGrid.createDetailsButton.defer(10,this, [id, activeversion_id, openinpopup, rights.detailsworkflow]);
+		var btnEdit1 = cf.workflowmanagementPanelGrid.createDeleteButton.defer(10,this, [id, activeversion_id, rights.deleteworkflow]);
+		var btnEdit2 = cf.workflowmanagementPanelGrid.createArchiveButton.defer(10,this, [id, activeversion_id, rights.archiveworkflow]);
+		var btnEdit3 = cf.workflowmanagementPanelGrid.createStopButton.defer(10,this, [id, activeversion_id, isstopped, workflowisstarted, iscompleted, rights.stopneworkflow]);
+		return '<table><tr><td width="16"><div id="workflowoverview_delete'+ id +'"></div></td><td width="16"><div id="workflowoverview_details'+ id +'"></div></td><td width="16"><div id="workflowoverview_archive'+ id +'"></div></td><td width="16"><div id="workflowoverview_stop'+ id +'"></div></td></tr></table></center>';
 	},
 	
 	
-	createArchiveButton: function (version_id) {
+	createArchiveButton: function (id, version_id, right) {
 		var btn_copy = new Ext.form.Label({
 			html: '<span style="cursor:pointer;"><img src="/images/icons/disk.png" /></span>',
-			renderTo: 'workflowoverview_acrhive' + version_id,
+			renderTo: 'workflowoverview_archive' + id,
 			listeners: {
 				render: function(c){
 					c.getEl().on({
 						click: function(el){
-							alert('archiv');
+							if(right == 1) {
+								alert('archiv');
+							}
+							else {
+								Ext.Msg.minWidth = 200;
+								Ext.MessageBox.alert('<?php echo __('Error',null,'workflowmanagement'); ?>', '<?php echo __('Permission denied',null,'workflowmanagement'); ?>');
+							}
 						},
 					scope: c
 					});
@@ -160,8 +169,7 @@ cf.workflowmanagementPanelGrid = function(){return {
 		});
 	},
 	
-	createStopButton: function (template_id, activeversion_id, isstopped, workflowisstarted, iscompleted) {
-		//alert(iscompleted);
+	createStopButton: function (template_id, activeversion_id, isstopped, workflowisstarted, iscompleted, right) {
 		var disabled = iscompleted == 1 ? true : false;
 		var btn_copy = new Ext.form.Label({
 			html: '<span style="cursor:pointer;"><img src="/images/icons/control_stop_blue.png" /></span>',
@@ -172,14 +180,26 @@ cf.workflowmanagementPanelGrid = function(){return {
 						click: function(el){
 							if(iscompleted != 1) {
 								if(isstopped == 1) {
-									cf.restartWorkflowWindow.init(activeversion_id);
-								}
-								else {
-									if(workflowisstarted == 1) {
-										cf.workflowmanagementPanelCRUD.stopWorkflow(template_id, activeversion_id);
+									if(right == 1) {
+										cf.restartWorkflowWindow.init(activeversion_id);
 									}
 									else {
-										cf.workflowmanagementPanelCRUD.startWorkflow(template_id);
+										Ext.Msg.minWidth = 200;
+										Ext.MessageBox.alert('<?php echo __('Error',null,'workflowmanagement'); ?>', '<?php echo __('Permission denied',null,'workflowmanagement'); ?>');
+									}
+								}
+								else {
+									if(right == 1) {
+										if(workflowisstarted == 1) {
+											cf.workflowmanagementPanelCRUD.stopWorkflow(template_id, activeversion_id);
+										}
+										else {
+											cf.workflowmanagementPanelCRUD.startWorkflow(template_id);
+										}
+									}
+									else {
+										Ext.Msg.minWidth = 200;
+										Ext.MessageBox.alert('<?php echo __('Error',null,'workflowmanagement'); ?>', '<?php echo __('Permission denied',null,'workflowmanagement'); ?>');
 									}
 								}
 							}
@@ -207,7 +227,7 @@ cf.workflowmanagementPanelGrid = function(){return {
 	},
 	
 	
-	createDetailsButton: function (template_id, activeversion_id, openinpopup) {
+	createDetailsButton: function (template_id, activeversion_id, openinpopup, right) {
 		var btn_copy = new Ext.form.Label({
 			renderTo: 'workflowoverview_details' + template_id,
 			html: '<span style="cursor:pointer;"><img src="/images/icons/zoom.png" /></span>',
@@ -215,7 +235,13 @@ cf.workflowmanagementPanelGrid = function(){return {
 				render: function(c){
 					c.getEl().on({
 						click: function(el){
-							cf.workflowdetails.init(template_id, activeversion_id, openinpopup, false, true);
+							if(right == 1) {
+								cf.workflowdetails.init(template_id, activeversion_id, openinpopup, false, true);
+							}
+							else {
+								Ext.Msg.minWidth = 200;
+								Ext.MessageBox.alert('<?php echo __('Error',null,'workflowmanagement'); ?>', '<?php echo __('Permission denied',null,'workflowmanagement'); ?>');
+							}
 						},
 					scope: c
 					});
@@ -225,7 +251,7 @@ cf.workflowmanagementPanelGrid = function(){return {
 		
 	},
 	
-	createDeleteButton: function (template_id, activeversion_id) {
+	createDeleteButton: function (template_id, activeversion_id, right) {
 		var btn_copy = new Ext.form.Label({
 			renderTo: 'workflowoverview_delete' + template_id,
 			html: '<span style="cursor:pointer;"><img src="/images/icons/delete.png" /></span>',
@@ -233,7 +259,13 @@ cf.workflowmanagementPanelGrid = function(){return {
 				render: function(c){
 					c.getEl().on({
 						click: function(el){
-							alert('delete');
+							if(right == 1) {
+								alert('delete');
+							}
+							else {
+								Ext.Msg.minWidth = 200;
+								Ext.MessageBox.alert('<?php echo __('Error',null,'workflowmanagement'); ?>', '<?php echo __('Permission denied',null,'workflowmanagement'); ?>');
+							}
 						},
 					scope: c
 					});

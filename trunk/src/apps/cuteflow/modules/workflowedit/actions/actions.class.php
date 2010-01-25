@@ -39,6 +39,74 @@ class workfloweditActions extends sfActions {
     }
 
 
+    /**
+     * Save the workflow out of an IFRAME
+     */
+    public function executeSaveIFrame (sfWebRequest $request) {
+        $workflowSaveObj = new SaveWorkflow();
+        $data = $request->getPostParameters();
+        if($data['workfloweditAcceptWorkflow_decission'] == 1) {
+            if(isset($data['field'])) {
+                foreach($data['field'] as $field) {
+                    switch ($field['type']) {
+                        case 'TEXTFIELD':
+                            WorkflowSlotFieldTextfieldTable::instance()->updateTextfieldByWorkflowFieldId($field['field_id'],$field['value']);
+                            break;
+                        case 'CHECKBOX':
+                            $value = isset($field['value']) == true ? 1 : 0;
+                            WorkflowSlotFieldCheckboxTable::instance()->updateCheckboxByWorkflowFieldId($field['field_id'],$value);
+                            break;
+                        case 'NUMBER':
+                            WorkflowSlotFieldNumberTable::instance()->updateNumberByWorkflowFieldId($field['field_id'],$field['value']);
+                            break;
+                        case 'DATE':
+                            WorkflowSlotFieldDateTable::instance()->updateDateByWorkflowFieldId($field['field_id'],$field['value']);
+                            break;
+                        case 'TEXTAREA':
+                            WorkflowSlotFieldTextareaTable::instance()->updateTextareaByWorkflowFieldId($field['field_id'],$field['value']);
+                            break;
+                        case 'RADIOGROUP':
+                            $radioGroupId = WorkflowSlotFieldRadiogroupTable::instance()->getRadiogroupById($field['field_id'])->toArray();
+                            WorkflowSlotFieldRadiogroupTable::instance()->setToNullByFieldId($radioGroupId[0]['workflowslotfield_id']);
+                            if(isset($field['id'])) {
+                                WorkflowSlotFieldRadiogroupTable::instance()->updateRadiogroupById($field['id'],1);
+                            }
+                            break;
+                        case 'CHECKBOXGROUP':
+                            $checkGroupId = WorkflowSlotFieldCheckboxgroupTable::instance()->getCheckboxgroupById($field['field_id'])->toArray();
+                            WorkflowSlotFieldCheckboxgroupTable::instance()->setToNullByFieldId($checkGroupId[0]['workflowslotfield_id']);
+                            if(isset($field['items']) == true) {
+                                foreach($field['items'] as $singleItem) {
+                                    WorkflowSlotFieldCheckboxgroupTable::instance()->updateCheckboxgroupById($singleItem['id'],1);
+                                }
+                            }
+                            break;
+                        case 'COMBOBOX':
+                            if($field['id'] != '') {
+                                $comboboxGroupId = WorkflowSlotFieldComboboxTable::instance()->getComboboxById($field['id'])->toArray();
+                                WorkflowSlotFieldComboboxTable::instance()->setToNullByFieldId($comboboxGroupId[0]['workflowslotfield_id']);
+                                WorkflowSlotFieldComboboxTable::instance()->updateComboboxById($field['id'],1);
+                            }
+                            break;
+                        case 'FILE':
+                            break;
+                        }
+
+                }
+            }
+            $slots = $data['slot'];
+            $workflowSaveObj->getNextStation($slots,$request->getParameter('userid'),$request->getParameter('versionid'));
+        }
+        else {
+            $workflowSaveObj->denyWorkflow($data, $request->getParameter('workflowid'), $request->getParameter('userid'), $request->getParameter('versionid'));
+        }
+        return sfView::NONE;
+    }
+
+
+
+
+
 
     public function executeSaveWorkflow(sfWebRequest $request) {
         $data = $request->getPostParameters();
@@ -90,59 +158,11 @@ class workfloweditActions extends sfActions {
                 }
             }
             $slots = $data['slot'];
-            foreach($slots as $slot) {
-                $wfProcessData = WorkflowProcessUserTable::instance()->getActiveProcessUserForWorkflowSlot($slot['workflowslot_id'],$this->getUser()->getAttribute('id'))->toArray();
-                $toChange = WorkflowProcessUserTable::instance()->getWaitingStation($slot['workflowslot_id'],$this->getUser()->getAttribute('id'));
-                foreach($toChange as $itemToChange) {
-                    $pdoObj = Doctrine::getTable('WorkflowProcessUser')->find($itemToChange->getId());
-                    $pdoObj->setDecissionstate('DONE');
-                    $pdoObj->setDateofdecission(time());
-                    $pdoObj->save();
-                }
-                $versionId = $request->getParameter('versionid');
-                $wfSlotId = $slot['workflowslot_id'];
-                $wsUserId = $wfProcessData[0]['workflowslotuser_id'];
-                $checkWorkflow = new CreateNextStation($versionId,$wfSlotId,$wsUserId);
-            }
-            $workflowVersion = WorkflowTemplateTable::instance()->getWorkflowTemplateByVersionId($request->getParameter('versionid'));
-            $workflowData = MailinglistVersionTable::instance()->getSingleVersionById($workflowVersion[0]->getMailinglisttemplateversionId())->toArray();
-
-
-            if($workflowData[0]['sendtoallslotsatonce'] == 1) {
-                $slots = WorkflowSlotTable::instance()->getSlotByVersionId($request->getParameter('versionid'));
-                $isCompleted = true;
-                foreach($slots as $slot) {
-                    $users = WorkflowSlotUserTable::instance()->getUserBySlotId($slot->getId());
-                    foreach($users as $user) {
-                        $processUsers = WorkflowProcessUserTable::instance()->getProcessUserByWorkflowSlotUserId($user->getId());
-                        foreach($processUsers as $singleUser) {
-                            $userArray = $singleUser->toArray();
-                            if($userArray['decissionstate'] == 'WAITING') {
-                                $isCompleted = false;
-                            }
-                        }
-                    }
-                }
-                if($isCompleted == true) {
-                    WorkflowTemplateTable::instance()->setWorkflowFinished($workflowVersion[0]['id']);
-                }
-            }
+            $workflowSaveObj->getNextStation($slots,$this->getUser()->getAttribute('id'),$request->getParameter('versionid'));
         }
         else { // user denies workflow
-            WorkflowTemplateTable::instance()->stopWorkflow($request->getParameter('workflowid'), $this->getUser()->getAttribute('id'));
-            WorkflowVersionTable::instance()->setEndReason($request->getParameter('versionid'), $data['workfloweditAcceptWorkflow_reason']);
-            $workflowToStop = WorkflowProcessUserTable::instance()->getWaitingStationToStopByUser($request->getParameter('versionid'));
-            foreach($workflowToStop as $itemToChange) {
-                $pdoObj = Doctrine::getTable('WorkflowProcessUser')->find($itemToChange->getId());
-                $pdoObj->setDecissionstate('STOPPEDBYUSER');
-                $pdoObj->setDateofdecission(time());
-                $pdoObj->save();
-            }
-            //$workflowEdit->stopWorkflow($request->getParameter('workflowid'),$request->getParameter('versionid'), $this->getUser()->getAttribute('id'), $data['workfloweditAcceptWorkflow_reason']);
+            $workflowSaveObj->denyWorkflow($data, $request->getParameter('workflowid'), $this->getUser()->getAttribute('id'), $request->getParameter('versionid'));
         }
-
-
-
         $this->renderText('{success:true}');
         return sfView::NONE;
     }

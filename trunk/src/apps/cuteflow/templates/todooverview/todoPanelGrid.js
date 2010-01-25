@@ -52,6 +52,7 @@ cf.todoPanelGrid = function(){return {
 					{name: 'openinpopup'},
 					{name: 'name'},
 					{name: 'isstopped'},
+					{name: 'auth'},
 					{name: 'currentlyrunning'},
 					{name: 'versioncreated_at'},
 					{name: 'activeversion_id'}
@@ -119,8 +120,11 @@ cf.todoPanelGrid = function(){return {
 		var activeversion_id = record.data['activeversion_id'];
 		var openinpopup = record.data['openinpopup'];
 		var isstopped = record.data['isstopped'];
-		var btnDetails = cf.todoPanelGrid.createDetailsButton.defer(10,this, [id, activeversion_id, openinpopup]);
-		var btnEdit = cf.todoPanelGrid.createDeleteButton.defer(10,this, [id, activeversion_id]);
+		
+		var rights = record.data['auth'];
+		
+		var btnDetails = cf.todoPanelGrid.createDetailsButton.defer(10,this, [id, activeversion_id, openinpopup, rights.detailsworkflow]);
+		var btnEdit = cf.todoPanelGrid.createDeleteButton.defer(10,this, [id, activeversion_id, rights.deleteworkflow]);
 		var btnEdit = cf.todoPanelGrid.createEditButton.defer(10,this, [id, activeversion_id]);
 		return '<table><tr><td width="16"><div id="todooverview_delete'+ id +'"></div></td><td width="16"><div id="todooverview_details'+ id +'"></div></td><td width="16"><div id="todooverview_edit'+ id +'"></div></td></tr></table></center>';
 	},
@@ -144,7 +148,7 @@ cf.todoPanelGrid = function(){return {
 	},
 	
 	
-	createDetailsButton: function (template_id, activeversion_id, openinpopup) {
+	createDetailsButton: function (template_id, activeversion_id, openinpopup, right) {
 		var btn_copy = new Ext.form.Label({
 			renderTo: 'todooverview_details' + template_id,
 			html: '<span style="cursor:pointer;"><img src="/images/icons/zoom.png" /></span>',
@@ -152,7 +156,13 @@ cf.todoPanelGrid = function(){return {
 				render: function(c){
 					c.getEl().on({
 						click: function(el){
-							cf.workflowdetails.init(template_id, activeversion_id, openinpopup, false, false);
+							if(right == 1) {
+								cf.workflowdetails.init(template_id, activeversion_id, openinpopup, false, false);
+							}
+							else {
+								Ext.Msg.minWidth = 200;
+								Ext.MessageBox.alert('<?php echo __('Error',null,'workflowmanagement'); ?>', '<?php echo __('Permission denied',null,'workflowmanagement'); ?>');
+							}
 						},
 					scope: c
 					});
@@ -162,7 +172,7 @@ cf.todoPanelGrid = function(){return {
 		
 	},
 	
-	createDeleteButton: function (template_id, activeversion_id) {
+	createDeleteButton: function (template_id, activeversion_id, right) {
 		var btn_copy = new Ext.form.Label({
 			renderTo: 'todooverview_delete' + template_id,
 			html: '<span style="cursor:pointer;"><img src="/images/icons/delete.png" /></span>',
@@ -170,7 +180,13 @@ cf.todoPanelGrid = function(){return {
 				render: function(c){
 					c.getEl().on({
 						click: function(el){
-							alert('delete');
+							if(right == 1) {
+								alert('delete');
+							}
+							else {
+								Ext.Msg.minWidth = 200;
+								Ext.MessageBox.alert('<?php echo __('Error',null,'workflowmanagement'); ?>', '<?php echo __('Permission denied',null,'workflowmanagement'); ?>');
+							}
 						},
 					scope: c
 					});

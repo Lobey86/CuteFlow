@@ -32,7 +32,27 @@
 		</trans-unit>
 		<trans-unit id="8">
 			<source>Direct link to workflow</source>
-			<target>Direct link to workflow</target>
+			<target>Direkter Link</target>
+		</trans-unit>
+		<trans-unit id="9">
+			<source>You have to fill out the fields in the workflow</source>
+			<target>Sie m&#252;ssen folgende Felder ausf&#252;llen</target>
+		</trans-unit>
+		<trans-unit id="10">
+			<source>File</source>
+			<target>Datei</target>
+		</trans-unit>
+		<trans-unit id="11">
+			<source>Accept Workflow</source>
+			<target>Umlauf annehmen</target>
+		</trans-unit>
+		<trans-unit id="12">
+			<source>Deny Workflow</source>
+			<target>Umlauf ablehnen</target>
+		</trans-unit>
+		<trans-unit id="13">
+			<source>Save</source>
+			<target>Speichern</target>
 		</trans-unit>
 	</body>
   </file>
