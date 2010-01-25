@@ -21,7 +21,6 @@ class PrepareStationEmail {
         $this->workflowDetailsObj->setCulture($this->userSettings->userSettings['language']);
         $this->setWorkflowDetailData();
         $this->setAttachments();
-
         $this->workflowEditObj = new WorkflowEdit();
         $this->workflowEditObj->setContext(sfContext::getInstance());
         $this->workflowEditObj->setCulture($this->userSettings->userSettings['language']);

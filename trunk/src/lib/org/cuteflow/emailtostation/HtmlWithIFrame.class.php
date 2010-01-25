@@ -18,13 +18,17 @@ class HtmlWithIFrame extends EmailSettings {
 
         $subject = sfContext::getInstance()->getI18N()->__('CuteFlow: values to' ,null,'sendstationmail') . ' ' . $this->data->workflowDetailsData['workflow'];
         $linkTo = sfContext::getInstance()->getI18N()->__('Direct link to workflow' ,null,'sendstationmail');
-        $content['workflow'][0] = sfContext::getInstance()->getI18N()->__('You have received values for the workflow' ,null,'sendstationmail');
+        $content['workflow'][0] = sfContext::getInstance()->getI18N()->__('You have to fill out the fields in the workflow' ,null,'sendstationmail');
         $content['workflow'][1] = $this->data->workflowDetailsData['workflow'];
         $content['workflow'][2] = sfContext::getInstance()->getI18N()->__('Slot' ,null,'sendstationmail');
         $content['workflow'][3] = sfContext::getInstance()->getI18N()->__('Yes' ,null,'sendstationmail');
         $content['workflow'][4] = sfContext::getInstance()->getI18N()->__('No' ,null,'sendstationmail');
         $content['workflow'][5] = sfContext::getInstance()->getI18N()->__('Field' ,null,'sendstationmail');
         $content['workflow'][6] = sfContext::getInstance()->getI18N()->__('Value' ,null,'sendstationmail');
+        $content['workflow'][7] = sfContext::getInstance()->getI18N()->__('File' ,null,'sendstationmail');
+        $content['workflow'][8] = sfContext::getInstance()->getI18N()->__('Accept Workflow' ,null,'sendstationmail');
+        $content['workflow'][9] = sfContext::getInstance()->getI18N()->__('Deny Workflow' ,null,'sendstationmail');
+        $content['workflow'][10] = sfContext::getInstance()->getI18N()->__('Save' ,null,'sendstationmail');
 
 
 
