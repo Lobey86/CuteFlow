@@ -1,16 +1,16 @@
-cf.todoPanelGrid = function(){return {
+cf.archiveWorkflow = function(){return {
 	
-	theTodoGrid						:false,
+	theArchiveGrid					:false,
 	isInitialized					:false,
-	theTodoStore					:false,
-	theTodoCM						:false,
+	theArchiveStore					:false,
+	theArchiveCM					:false,
 	theTopToolBar					:false,
 	theBottomToolBar				:false,
 	theLoadingMask					:false,
 	
 	init:function () {
-		cf.todoPanelGrid.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'workflowmanagement'); ?>'});					
-		cf.todoPanelGrid.theLoadingMask.show();
+		cf.archiveWorkflow.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'workflowmanagement'); ?>'});					
+		cf.archiveWorkflow.theLoadingMask.show();
 		this.initStore();
 		//this.initBottomToolbar();
 		this.initCM();
@@ -21,7 +21,7 @@ cf.todoPanelGrid = function(){return {
 	
 	/** init CM for the grid **/
 	initCM: function () {
-		this.theTodoCM  =  new Ext.grid.ColumnModel([
+		this.theArchiveCM  =  new Ext.grid.ColumnModel([
 			{header: "#", width: 50, sortable: true, dataIndex: '#', css : "text-align : left;font-size:12px;align:center;"},
 			{header: "<?php echo __('Name',null,'workflowmanagement'); ?>", width: 140, sortable: true, dataIndex: 'name', css : "text-align : left;font-size:12px;align:center;", hidden: false},
 			{header: "<?php echo __('Current station',null,'workflowmanagement'); ?>", width: 140, sortable: true, dataIndex: 'currentstation', css : "text-align : left;font-size:12px;align:center;", hidden: false},
@@ -29,16 +29,16 @@ cf.todoPanelGrid = function(){return {
 			{header: "<?php echo __('Sender',null,'workflowmanagement'); ?>", width: 230, sortable: true, dataIndex: 'sendername', css : "text-align : left;font-size:12px;align:center;",  hidden: false},
 			{header: "<?php echo __('Running for',null,'workflowmanagement'); ?>", width: 80, sortable: true, dataIndex: 'currentlyrunning', css : "text-align : left;font-size:12px;align:center;",  hidden: false},
 			{header: "<?php echo __('Sendet at',null,'workflowmanagement'); ?>", width: 120, sortable: true, dataIndex: 'versioncreated_at', css : "text-align : left;font-size:12px;align:center;",  hidden: false},
-			{header: "<div ext:qtip=\"<table><tr><td><img src='/images/icons/table_edit.png' />&nbsp;&nbsp;</td><td><?php echo __('Edit Document template',null,'documenttemplate'); ?></td></tr><tr><td><img src='/images/icons/clock.png' />&nbsp;&nbsp;</td><td><?php echo __('Show Document template versions',null,'documenttemplate'); ?></td></tr><tr><td><img src='/images/icons/table_delete.png' />&nbsp;&nbsp;</td><td><?php echo __('Delete Document template',null,'documenttemplate'); ?></td></tr></table>\" ext:qwidth=\"230\"><?php echo __('Action',null,'documenttemplate'); ?></div>", width: 80, sortable: false, dataIndex: 'action', css : "text-align : left;font-size:12px;align:center;", renderer: this.renderButton}
+			{header: "<div ext:qtip=\"<table><tr><td><img src='/images/icons/database_refresh.png' />&nbsp;&nbsp;</td><td><?php echo __('Move to workflow and remove from archive',null,'workflowmanagement'); ?></td></tr></table>\" ext:qwidth=\"230\"><?php echo __('Action',null,'documenttemplate'); ?></div>", width: 80, sortable: false, dataIndex: 'action', css : "text-align : left;font-size:12px;align:center;", renderer: this.renderButton}
 		]);
 	},
 	
 	/** init store for the grid **/
 	initStore: function () {
-		this.theTodoStore = new Ext.data.JsonStore({
+		this.theArchiveStore = new Ext.data.JsonStore({
 				root: 'result',
 				totalProperty: 'total',
-				url: '<?php echo build_dynamic_javascript_url('todooverview/LoadAllOwnWorkflow')?>',
+				url: '<?php echo build_dynamic_javascript_url('archiveoverview/LoadAllArchivedWorkflow')?>',
 				autoload: false,
 				fields: [
 					{name: '#'},
@@ -95,7 +95,7 @@ cf.todoPanelGrid = function(){return {
 	
 	
 	initGrid: function () {
-		this.theTodoGrid = new Ext.grid.GridPanel({
+		this.theArchiveGrid = new Ext.grid.GridPanel({
 			title: '<?php echo __('Workflow templates',null,'workflowmanagement'); ?>',
 			stripeRows: true,
 			border: true,
@@ -103,14 +103,14 @@ cf.todoPanelGrid = function(){return {
 			height: cf.Layout.theRegionWest.getHeight() - 100,
 			collapsible: false,
 			style:'margin-top:5px;margin-left:5px;margin-right:5px;',
-			store: this.theTodoStore,
+			store: this.theArchiveStore,
 			tbar: this.theTopToolBar,
 			bbar: this.theBottomToolBar,
-			cm: this.theTodoCM
+			cm: this.theArchiveCM
 		});
-		this.theTodoGrid.on('afterrender', function(grid) {
-			cf.todoPanelGrid.theTodoStore.load();
-			cf.todoPanelGrid.theLoadingMask.hide();
+		this.theArchiveGrid.on('afterrender', function(grid) {
+			cf.archiveWorkflow.theArchiveStore.load();
+			cf.archiveWorkflow.theLoadingMask.hide();
 		});	
 		
 	},
@@ -123,77 +123,35 @@ cf.todoPanelGrid = function(){return {
 		
 		var rights = record.data['auth'];
 		
-		var btnDetails = cf.todoPanelGrid.createDetailsButton.defer(10,this, [id, activeversion_id, openinpopup, rights.detailsworkflow]);
-		var btnEdit = cf.todoPanelGrid.createDeleteButton.defer(10,this, [id, activeversion_id, rights.deleteworkflow]);
-		var btnEdit = cf.todoPanelGrid.createEditButton.defer(10,this, [id, activeversion_id]);
-		return '<center><table><tr><td width="16"><div id="todooverview_delete'+ id +'"></div></td><td width="16"><div id="todooverview_details'+ id +'"></div></td><td width="16"><div id="todooverview_edit'+ id +'"></div></td></tr></table></center>';
+		var btnDetails = cf.archiveWorkflow.createRemoveFromArchive.defer(10,this, [id, activeversion_id, openinpopup, rights.detailsworkflow]);
+		return '<center><table><tr><td width="16"><div id="archiveoverview_remove'+ id +'"></div></td></tr></table></center>';
 	},
 	
 	
-	createEditButton: function (template_id, activeversion_id) {
+	createRemoveFromArchive: function (template_id, activeversion_id) {
 		var btn_copy = new Ext.form.Label({
-			html: '<span style="cursor:pointer;"><img src="/images/icons/pencil.png" /></span>',
-			renderTo: 'todooverview_edit' + template_id,
+			html: '<span style="cursor:pointer;"><img src="/images/icons/database_refresh.png" /></span>',
+			renderTo: 'archiveoverview_remove' + template_id,
 			listeners: {
 				render: function(c){
 					c.getEl().on({
 						click: function(el){
-							cf.workflowedit.init(template_id, activeversion_id);
+							Ext.Msg.show({
+							   title:'<?php echo __('Archive workflow',null,'workflowmanagement'); ?>?',
+							   msg: '<?php echo __('Archive workflow',null,'workflowmanagement'); ?>?',
+							   buttons: Ext.Msg.YESNO,
+							   fn: function(btn, text) {
+									if(btn == 'yes') {
+										cf.archivePanelCRUD.removeFromArchive(template_id, activeversion_id);
+									}
+							   }
+							});
 						},
 					scope: c
 					});
 				}
 			}
 		});
-	},
-	
-	
-	createDetailsButton: function (template_id, activeversion_id, openinpopup, right) {
-		var btn_copy = new Ext.form.Label({
-			renderTo: 'todooverview_details' + template_id,
-			html: '<span style="cursor:pointer;"><img src="/images/icons/zoom.png" /></span>',
-			listeners: {
-				render: function(c){
-					c.getEl().on({
-						click: function(el){
-							if(right == 1) {
-								cf.workflowdetails.init(template_id, activeversion_id, openinpopup, false, false);
-							}
-							else {
-								Ext.Msg.minWidth = 200;
-								Ext.MessageBox.alert('<?php echo __('Error',null,'workflowmanagement'); ?>', '<?php echo __('Permission denied',null,'workflowmanagement'); ?>');
-							}
-						},
-					scope: c
-					});
-				}
-			}
-		});
-		
-	},
-	
-	createDeleteButton: function (template_id, activeversion_id, right) {
-		var btn_copy = new Ext.form.Label({
-			renderTo: 'todooverview_delete' + template_id,
-			html: '<span style="cursor:pointer;"><img src="/images/icons/delete.png" /></span>',
-			listeners: {
-				render: function(c){
-					c.getEl().on({
-						click: function(el){
-							if(right == 1) {
-								alert('delete');
-							}
-							else {
-								Ext.Msg.minWidth = 200;
-								Ext.MessageBox.alert('<?php echo __('Error',null,'workflowmanagement'); ?>', '<?php echo __('Permission denied',null,'workflowmanagement'); ?>');
-							}
-						},
-					scope: c
-					});
-				}
-			}
-		});
-		
 	}
 	
 	

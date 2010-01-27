@@ -1,3 +1,3 @@
 <?php
-    echo $text . ' ' . url_for('layout/linklogin',true).'/versionid/'.$workflow['id'].'/workflowid/'.$workflow['workflowtemplate_id'] . '/userid/'.$userid.'/window/follow';
+    echo $text . ' ' . $serverPath . '/layout/linklogin/versionid/'.$workflow['id'].'/workflowid/'.$workflow['workflowtemplate_id'] . '/userid/'.$userid.'/window/follow';
 ?>
