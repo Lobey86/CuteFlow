@@ -8,7 +8,13 @@ class WorkflowDetail {
     private $context;
     private $versionid;
 
-    public function  __construct() {
+    public function  __construct($loadHelper = true) {
+        if($loadHelper == true) {
+            $this->loadHelper();
+        }
+    }
+
+    public function loadHelper() {
         sfLoader::loadHelpers('Date');
         sfLoader::loadHelpers('CalculateDate');
         sfLoader::loadHelpers('ColorBuilder');
@@ -45,10 +51,9 @@ class WorkflowDetail {
         $result['mailinglist'] = $mailinglist[0]['name'];
         $result['mailinglist_id'] = $workflowtemplate[0]['id'];
         $result['workflowtemplateid'] = $data[0]->getWorkflowtemplateId();
-
-        $textReplace = new ReplaceTags($data[0]->getId(), $data[0]->getContent(), $this->culture);
-        $newText = $textReplace->getText();
         
+        $textReplace = new ReplaceTags($data[0]->getId(), $data[0]->getContent(), $this->culture, $this->context);
+        $newText = $textReplace->getText();
         $result['content'] = $newText;
         $result['created_at'] = format_date($data[0]->getCreatedAt(), 'g', $this->culture);
         $result['sender_id'] = $workflowtemplate[0]['sender_id'];
@@ -285,7 +290,7 @@ class WorkflowDetail {
             case 'TEXTFIELD':
                 $items = WorkflowSlotFieldTextfieldTable::instance()->getAllItemsByWorkflowFieldId($field->getId())->toArray();
                 $fieldData = FieldTextfieldTable::instance()->getTextfieldByFieldId($field->getFieldId())->toArray();
-                $replaceObj = new ReplaceTags($versionid, $items[0]['value'], $this->culture);
+                $replaceObj = new ReplaceTags($versionid, $items[0]['value'], $this->culture, $context);
                 $value = $replaceObj->getText();
                 $result['value'] = $value;
                 $result['regex'] = $fieldData[0]['regex'];

@@ -2,7 +2,7 @@
 
 class SendReminderEmail extends EmailSettings{
 
-    public function  __construct(UserMailSettings $userSettings, sfContext $controller, array $openWorkflows) {
+    public function  __construct(UserMailSettings $userSettings, sfContext $controller, array $openWorkflows, $serverUrl) {
         $sf_i18n = $controller->getI18N();
         $sf_i18n->setCulture($userSettings->userSettings['language']);
 
@@ -18,6 +18,7 @@ class SendReminderEmail extends EmailSettings{
                           'workflow' => $openWorkflows['workflows'],
                           'workflowname' => $worfklowname,
                           'userid' => $userSettings->userData['user_id'],
+                          'serverPath' => $serverUrl,
                           'linkto' => $linkTo
                           );
         
