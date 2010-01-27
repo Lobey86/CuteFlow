@@ -54,6 +54,16 @@ class WorkflowProcessUserTable extends Doctrine_Table {
     }
 
 
+    public function getProcessAndSubstituteProcessByProcessId($id) {
+        return Doctrine_Query::create()
+            ->select('wfpu.*')
+            ->from('WorkflowProcessUser wfpu')
+            ->where('wfpu.id = ?', $id)
+            ->orWhere('wfpu.isuseragentof = ?', $id)
+            ->orderBy('wfpu.id ASC')
+            ->execute();
+    }
+
     /**
      * Set a Process to useragent set
      *
@@ -64,12 +74,21 @@ class WorkflowProcessUserTable extends Doctrine_Table {
         Doctrine_Query::create()
             ->update('WorkflowProcessUser wpu')
             ->set('wpu.decissionstate','?','USERAGENTSET')
+            ->set('wpu.dateofdecission','?', time())
             ->where('wpu.id = ?', $id)
             ->execute();
         return true;
         
     }
 
+    public function getWaitingProcess() {
+        return Doctrine_Query::create()
+            ->select('wfpu.*')
+            ->from('WorkflowProcessUser wfpu')
+            ->leftJoin('wfpu.WorkflowProcess wfp')
+            ->where('wfpu.decissionstate = ?', 'WAITING')
+            ->execute();
+    }
 
     public function getWaitingStationToStopByUser($version_id) {
         return Doctrine_Query::create()
@@ -144,5 +163,30 @@ class WorkflowProcessUserTable extends Doctrine_Table {
             ->execute();
     }
 
+
+    public function setProcessToUseragentSetByCronjob($id) {
+        Doctrine_Query::create()
+            ->update('WorkflowProcessUser wpu')
+            ->set('wpu.decissionstate','?','USERAGENTSET')
+            ->set('wpu.dateofdecission','?', time())
+            ->set('wpu.useragentsetbycronjob','?', 1)
+            ->where('wpu.id = ?', $id)
+            ->execute();
+        return true;
+
+    }
+
+
+    public function setProcessToUseragentSetByCronjobAndByProcessId($processId, $flag) {
+        $query = Doctrine_Query::create()
+            ->update('WorkflowProcessUser wpu')
+            ->set('wpu.decissionstate','?','USERAGENTSET')
+            ->set('wpu.dateofdecission','?', time())
+            ->where('wpu.workflowprocess_id = ?', $processId)
+            ->andWhere('wpu.useragentsetbycronjob = ?',$flag)
+            ->execute();
+        return true;
+    }
+    
 
 }

@@ -105,6 +105,9 @@ class UserLoginTable extends Doctrine_Table {
         return true;
     }
 
+
+
+
     /**
      * Loads user by username
      * @param string$username, username to load

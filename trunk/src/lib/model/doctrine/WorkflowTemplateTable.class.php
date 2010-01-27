@@ -25,6 +25,18 @@ class WorkflowTemplateTable extends Doctrine_Table {
         return true;
     }
 
+
+    public function removeFromArchive($id) {
+        Doctrine_Query::create()
+            ->update('WorkflowTemplate wft')
+            ->set('wft.isarchived','?', 0)
+            ->set('wft.archived_at', 'null')
+            ->set('wft.archived_by', 'null')
+            ->where('wft.id = ?', $id)
+            ->execute();
+        return true;
+    }
+
     
 
     public function getAllWorkflowTemplates($offset, $limit) {
@@ -89,6 +101,34 @@ class WorkflowTemplateTable extends Doctrine_Table {
         
     }
 
+
+    public function deleteAndStopWorkflow($user_id, $id) {
+       Doctrine_Query::create()
+            ->update('WorkflowTemplate wft')
+            ->set('wft.isstopped','?',1)
+            ->set('wft.stopped_at','?', time())
+            ->set('wft.stopped_by','?', $user_id)
+            ->set('wft.deleted_at','?', time())
+            ->where('wft.id = ?', $id)
+            ->execute();
+        return true;
+    }
+
+
+    public function archiveAndStopWorkflow($user_id, $id) {
+         Doctrine_Query::create()
+            ->update('WorkflowTemplate wft')
+            ->set('wft.isstopped','?',1)
+            ->set('wft.stopped_at','?', time())
+            ->set('wft.stopped_by','?', $user_id)
+            ->set('wft.isarchived','?', 1)
+            ->set('wft.archived_at','?', time())
+            ->set('wft.archived_by','?', $user_id)
+            ->where('wft.id = ?', $id)
+            ->execute();
+        return true;
+    }
+
     public function setWorkflowFinished($id) {
         Doctrine_Query::create()
             ->update('WorkflowTemplate wft')
@@ -120,6 +160,23 @@ class WorkflowTemplateTable extends Doctrine_Table {
             ->execute();
     }
 
+
+    public function getArchivedWorkflowTemplates($offset, $limit, $user_id) {
+        return Doctrine_Query::create()
+            ->from('WorkflowTemplate wft')
+            ->select('wft.*, wfv.id as activeversion_id,wfv.workflowisstarted as workflowisstarted,wfv.startworkflow_at as startworkflow_at, wfv.created_at as versioncreated_at, wft.iscompleted')
+            ->leftJoin('wft.WorkflowVersion wfv')
+            ->leftJoin('wfv.WorkflowSlot wfs')
+            ->leftJoin('wfs.WorkflowProcess wfp')
+            ->leftJoin('wfp.WorkflowProcessUser wfpu')
+            ->where('wft.deleted_at IS NULL')
+            ->andWhere('wft.isarchived = ?', 1)
+            ->andWhere('wft.isstopped = ?', 1)
+            ->andWhere('wfv.activeversion = ?', 1)
+            ->andWhere('wfv.workflowisstarted = ?', 1)
+            ->orderBy('wft.id DESC')
+            ->execute();
+    }
 
     public function restartWorkflow($id) {
         Doctrine_Query::create()

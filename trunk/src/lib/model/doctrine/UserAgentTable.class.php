@@ -12,6 +12,15 @@ class UserAgentTable extends Doctrine_Table {
         return Doctrine::getTable('UserAgent');
     }
 
+
+    public function getAllUserAgents($id) {
+        return Doctrine_Query::create()
+            ->select('ua.*')
+            ->from('UserAgent ua')
+            ->where('ua.user_id = ?', $id)
+            ->execute();
+    }
+
     /**
      * Loads all user agents for a specific userid
      * @param int $id, useragents for user
