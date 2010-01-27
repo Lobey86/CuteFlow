@@ -9,8 +9,7 @@
  * call task: php symfony calculateUserAgent --env="" --host="http://cuteflow"
  *
  */
-
-class startWorkflowTask extends sfBaseTask
+class calculateUserAgentTask extends sfBaseTask
 {
   protected function configure()
   {
@@ -21,52 +20,43 @@ class startWorkflowTask extends sfBaseTask
 
     $this->addOptions(array(
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'cuteflow'),
-      new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', ''),
+      new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', ''), // for dev, use cuteflow_dev.php
       new sfCommandOption('host', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'http://cuteflow'), // http://cuteflow is default
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'doctrine'),
       // add your own options here
     ));
 
     $this->namespace        = '';
-    $this->name             = 'startWorkflow';
+    $this->name             = 'calculateUserAgent';
     $this->briefDescription = '';
     $this->detailedDescription = <<<EOF
-The [startWorkflow|INFO] task does things.
+The [calculateUserAgent|INFO] task does things.
 Call it with:
 
-  [php symfony startWorkflow|INFO]
+  [php symfony calculateUserAgent|INFO]
 EOF;
   }
 
     protected function execute($arguments = array(), $options = array()) {
+        // initialize the database connection
         $databaseManager = new sfDatabaseManager($this->configuration);
         $connection = $databaseManager->getDatabase($options['connection'] ? $options['connection'] : null)->getConnection();
         $context = sfContext::createInstance($this->configuration);
-        sfProjectConfiguration::getActive()->loadHelpers('Partial', 'I18N', 'Url');
+        $context->getConfiguration()->loadHelpers('Partial', 'I18N', 'Url', 'Date', 'CalculateDate', 'ColorBuilder', 'Icon');
         if($options['env'] == '') {
             $serverUrl = $options['host'];
         }
         else {
             $serverUrl = $options['host'] . '/' . $options['env'];
         }
+        $process = WorkflowProcessUserTable::instance()->getWaitingProcess();
+        $sub = new CheckSubstitute($process, $context, $serverUrl);
 
-        $workflows = WorkflowVersionTable::instance()->getWorkflowsToStart(time())->toArray();
-        foreach($workflows as $workflow) {
-            $sender = WorkflowTemplateTable::instance()->getWorkflowTemplateById($workflow['workflowtemplate_id'])->toArray();
-            $userSettings = new UserMailSettings($sender[0]['sender_id']);
-            $sendMail = new SendStartWorkflowEmail($userSettings, $context, $workflow, $sender, $serverUrl);
-            $workflowTemplate = WorkflowTemplateTable::instance()->getWorkflowTemplateByVersionId($workflow['id']);
-            WorkflowVersionTable::instance()->startWorkflowInFuture($workflow['id']);
-            $sendToAllSlotsAtOnce = $workflowTemplate[0]->getMailinglistVersion()->toArray();
-            if($sendToAllSlotsAtOnce[0]['sendtoallslotsatonce'] == 1) {
-                $calc = new CreateWorkflow($workflow['id']);
-                $calc->addAllSlots();
-            }
-            else {
-                $calc = new CreateWorkflow($workflow['id']);
-                $calc->addSingleSlot();
-            }
+        die;
+        $versionId = 1;
+        $templateId = 1;
+        $user_id = 1;
 
-        }
-  }
+        $test = new PrepareStationEmail($versionId, $templateId, $user_id, $context, $serverUrl);
+    }
 }
