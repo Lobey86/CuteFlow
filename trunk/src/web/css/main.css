@@ -71,6 +71,12 @@
 	height:16px;
 }
 
+.usermodule_workflow_usergroupIcon_archive{
+	background-image: url(/images/icons/disk.png) !important; 
+	width: 16px;
+	height:16px;
+}
+
 
 .no-icon {
 	display : none;
