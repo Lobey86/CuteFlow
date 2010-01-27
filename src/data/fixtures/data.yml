@@ -107,6 +107,10 @@ Credential:
     userModule: workflow
     userGroup: todo
     userRight: showModule
+  c28:
+    userModule: workflow
+    userGroup: archive
+    userRight: showModule
 Role:
   r1:
     description: admin
@@ -206,6 +210,9 @@ CredentialRole:
   rc30:
     role_id: 1
     credential_id: 27
+  rc31:
+    role_id: 1
+    credential_id: 28
 
 
 UserLogin:
@@ -248,6 +255,21 @@ UserData:
     firstname: Härbert
     lastname: Bert
 
+UserAgent:
+  ua1:
+    user_id: 1
+    useragent_id: 2
+    position: 1
+  ua2:
+    user_id: 1
+    useragent_id: 3
+    position: 2
+  ua3:
+    user_id: 1
+    useragent_id: 4
+    position: 3
+
+
 UserSetting:
   us1:
      user_id: 1
@@ -257,8 +279,8 @@ UserSetting:
      markorange: 10
      refreshtime: 180
      displayeditem: 25
-     durationtype: DAYS
-     durationlength: 5
+     durationtype: MINUTES
+     durationlength: 1
      emailformat: plain
      emailtype: VALUES
      circulationdefaultsortcolumn: NAME
