@@ -643,6 +643,7 @@ WorkflowProcessUser:
     decissionstate: {type: string(50) }
     dateofdecission: {type: string(50) }
     isuseragentof: { type: integer, length: 10 }
+    useragentsetbycronjob: { type: integer(1), length: 3, default: 0 }
     resendet: { type: integer, length: 10 }
   relations:
     WorkflowProcessUser: { class: WorkflowProcessUser, local: id, foreign: isuseragentof, foreignType: one, type: one }
