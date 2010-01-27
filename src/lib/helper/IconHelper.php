@@ -19,6 +19,10 @@
             break;
             case 'DONE':
                 return '<img src="/images/icons/accept.png" />';
+            case 'DELETED':
+                return '<img src="/images/icons/delete.png" />';
+            case 'ARCHIVED':
+                return '<img src="/images/icons/disk.png" />';
             break;
         }
 
