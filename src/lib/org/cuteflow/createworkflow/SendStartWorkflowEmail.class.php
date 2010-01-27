@@ -2,7 +2,7 @@
 class SendStartWorkflowEmail extends EmailSettings {
 
 
-    public function  __construct(UserMailSettings $userSettings, sfContext $controller, array $workflowVersion, array $workflowTemplate) {
+    public function  __construct(UserMailSettings $userSettings, sfContext $controller, array $workflowVersion, array $workflowTemplate, $serverUrl) {
         $sf_i18n = $controller->getI18N();
         $sf_i18n->setCulture($userSettings->userSettings['language']);
 
@@ -18,6 +18,7 @@ class SendStartWorkflowEmail extends EmailSettings {
         $bodyData = array('text' => $content['text'],
                           'userid' => $userSettings->userData['user_id'],
                           'workflow' => $workflowVersion,
+                          'serverPath' => $serverUrl,
                           'linkto'  => $linkTo
                           );
         $this->setBody(get_partial('createworkflow/' . $userSettings->userSettings['emailformat'] . 'StartWorkflowInFuture', $bodyData));

@@ -8,8 +8,13 @@ class ReplaceTags {
     public $culture;
     public $workflowVersion;
     
-    public function __construct($versionId, $text, $culture) {
-        sfLoader::loadHelpers('Date');
+    public function __construct($versionId, $text, $culture, $context = false) {
+        if($context == false) {
+            sfLoader::loadHelpers('Date');
+        }
+        else {
+            $context->getConfiguration()->loadHelpers('Date');
+        }
         $this->setWorkflow($versionId);
         $this->setWorkflowVersion($versionId);
         $this->culture = $culture;

@@ -5,8 +5,19 @@ class WorkflowEdit {
     private $context;
     private $user;
     private $culture;
+    private $helperFlag;
     
-    public function  __construct() {
+    public function  __construct($loadHelper = true) {
+        $this->helperFlag = $loadHelper;
+        if($loadHelper == true) {
+            $this->loadHelper();
+        }
+
+
+    }
+
+
+    public function loadHelper() {
         sfLoader::loadHelpers('Date');
         sfLoader::loadHelpers('CalculateDate');
         sfLoader::loadHelpers('ColorBuilder');
@@ -70,7 +81,7 @@ class WorkflowEdit {
         $result = array();
         $a = 0;
         $fields = WorkflowSlotFieldTable::instance()->getWorkflowSlotFieldBySlotIdWithValues($slot->getId());
-        $workflowDetail = new WorkflowDetail();
+        $workflowDetail = new WorkflowDetail($this->helperFlag);
         $column = 'LEFT';
         foreach($fields as $field) {
             $docField = $field->getField()->toArray();

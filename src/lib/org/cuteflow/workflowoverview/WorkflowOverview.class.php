@@ -34,7 +34,6 @@ class WorkflowOverview {
         $authSettings = new CreateWorkflowAuthorizationRights();
         $authSettings->setDefaultRole();
         $authSettings->setUserRole($this->userId);
-
         $userSettings = $this->user->getAttribute('userSettings');
         $openInPopUp = $userSettings['showcirculationinpopup'];
         foreach($data as $item) {
@@ -82,6 +81,11 @@ class WorkflowOverview {
             else {
                 $result[$a]['currentstation'] = $this->getCurrentStation($item->getActiveversionId(), $item->getSenderId());
                 $result[$a]['currentlyrunning'] = '<table><tr><td width="20">' . $inProgress . ' </td><td>' . $this->context->getI18N()->__('Day(s)' ,null,'workflowmanagement') . '</td></tr></table>';
+            }
+
+            if($item->getIsarchived() == 1) {
+                $result[$a]['currentstation'] = '<table><tr><td width="16"><img src="/images/icons/circ_archived.gif" /></td><td>'.$this->context->getI18N()->__('Workflow archived' ,null,'workflowmanagement').'</td></tr></table>';
+                $result[$a]['currentlyrunning'] = '-';
             }
 
             $result[$a]['versioncreated_at'] = format_date($item->getVersioncreatedAt(), 'g', $this->culture);
