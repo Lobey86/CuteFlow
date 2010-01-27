@@ -3,14 +3,14 @@
     <head></head>
     <body>
     <iframe width="100%" frameborder="0" src="<?php echo url_for('workflowedit/saveIFrame',true) . '/versionid/'.$workflowverion.'/workflowid/'.$workflow. '/userid/'.$userid; ?>">
-     <?php echo '<form action="' . url_for('workflowedit/saveIFrame',true) . '/versionid/'.$workflowverion.'/workflowid/'.$workflow. '/userid/'.$userid .'" method="post">'; ?>
+     <?php echo '<form action="' . $serverPath . '/workflowedit/saveIFrame/versionid/'.$workflowverion.'/workflowid/'.$workflow. '/userid/'.$userid .'" method="post">'; ?>
         <table width="823">
             <tr>
                 <td colspan="2" width="587" height="35" style="background-color:#CCC;font-size:16px;font-family:Tahoma, Geneva, sans-serif;">&nbsp;<?php echo $text['workflow'][0] . ' <b>' . $text['workflow'][1] . '</b>';?></td>
             </tr>
             <tr>
                 <?php
-                    $url = url_for('layout/linklogin',true).'/versionid/'.$workflowverion.'/workflowid/'.$workflow. '/userid/'.$userid.'/window/edit';
+                    $url = $serverPath . '/layout/linklogin/versionid/'.$workflowverion.'/workflowid/'.$workflow. '/userid/'.$userid.'/window/edit';
                 ?>
                 <td colspan="2" style="font-size:16px;font-family:Tahoma, Geneva, sans-serif;"><a href="<?php echo $url; ?>" target="_blank"><?php echo $linkto;?></a></td>
             </tr>

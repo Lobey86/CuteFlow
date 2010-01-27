@@ -482,6 +482,50 @@
 			<source>Workflow is set to send all Slots at once. A station cannot be selected</source>
 			<target>Umlauf wird an alle Slots auf einmal versendet. Eine Station kann nicht gew&#228;hlt werden.</target>
 		</trans-unit>
+		<trans-unit id="120">
+			<source>DELETED</source>
+			<target>Umlauf gel&#246;scht</target>
+		</trans-unit>
+		<trans-unit id="121">
+			<source>ARCHIVED</source>
+			<target>Umlauf archiviert</target>
+		</trans-unit>
+			<trans-unit id="122">
+			<source>Workflow deleted</source>
+			<target>Umlauf gel&#246;scht</target>
+		</trans-unit>
+		<trans-unit id="123">
+			<source>Deleting workflow...</source>
+			<target>L&#246;sche Umlauf</target>
+		</trans-unit>
+		<trans-unit id="124">
+			<source>Delete workflow</source>
+			<target>Umlauf l&#246;schen</target>
+		</trans-unit>
+		<trans-unit id="125">
+			<source>Archived workflows</source>
+			<target>Archivierte Uml&#228;ufe</target>
+		</trans-unit>
+		<trans-unit id="126">
+			<source>Archive workflow</source>
+			<target>Umlauf archivieren</target>
+		</trans-unit>
+		<trans-unit id="127">
+			<source>Archive workflow...</source>
+			<target>Archiviere Umlauf</target>
+		</trans-unit>
+		<trans-unit id="128">
+			<source>Workflow archived</source>
+			<target>Umlauf archiviert</target>
+		</trans-unit>		
+		<trans-unit id="129">
+			<source>Workflow moved</source>
+			<target>Umlauf verschoben</target>
+		</trans-unit>
+		<trans-unit id="130">
+			<source>Moving workflow...</source>
+			<target>Verschiebe Umlauf...</target>
+		</trans-unit>
 	</body>
   </file>
 </xliff>

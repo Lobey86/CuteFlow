@@ -46,6 +46,41 @@ class workflowoverviewActions extends sfActions {
     }
 
 
+    /*
+    *  Delete Workflow
+    */
+    public function executeDeleteWorkflow(sfWebRequest $request) {
+        WorkflowTemplateTable::instance()->deleteAndStopWorkflow($request->getParameter('workflowtemplateid'), $this->getUser()->getAttribute('id'));
+        $workflow = new WorkflowOverview($this->getContext(), $this->getUser());
+        $workflow->setUserId($this->getUser()->getAttribute('id'));
+        $workflow->setCulture($this->getUser()->getCulture());
+        $data = WorkflowProcessUserTable::instance()->getWaitingStationToStopByUser($request->getParameter('versionid'));
+        foreach($data as $itemToChange) {
+                $pdoObj = Doctrine::getTable('WorkflowProcessUser')->find($itemToChange->getId());
+                $pdoObj->setDecissionstate('DELETED');
+                $pdoObj->setDateofdecission(time());
+                $pdoObj->save();
+        }
+
+        return sfView::NONE;
+    }
+
+
+    public function executeArchiveWorkflow(sfWebRequest $request) {
+        WorkflowTemplateTable::instance()->archiveAndStopWorkflow($request->getParameter('workflowtemplateid'), $this->getUser()->getAttribute('id'));
+        $workflow = new WorkflowOverview($this->getContext(), $this->getUser());
+        $workflow->setUserId($this->getUser()->getAttribute('id'));
+        $workflow->setCulture($this->getUser()->getCulture());
+        $data = WorkflowProcessUserTable::instance()->getWaitingStationToStopByUser($request->getParameter('versionid'));
+        foreach($data as $itemToChange) {
+                $pdoObj = Doctrine::getTable('WorkflowProcessUser')->find($itemToChange->getId());
+                $pdoObj->setDecissionstate('ARCHIVED');
+                $pdoObj->setDateofdecission(time());
+                $pdoObj->save();
+        }
+        return sfView::NONE;
+    }
+
     public function executeStartWorkflow(sfWebRequest $request) {
         WorkflowVersionTable::instance()->startWorkflow($request->getParameter('versionid'));
         $workflowVersion = WorkflowTemplateTable::instance()->getWorkflowTemplateByVersionId($request->getParameter('versionid'));

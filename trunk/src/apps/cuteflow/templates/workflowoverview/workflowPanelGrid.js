@@ -142,7 +142,7 @@ cf.workflowmanagementPanelGrid = function(){return {
 		var btnEdit1 = cf.workflowmanagementPanelGrid.createDeleteButton.defer(10,this, [id, activeversion_id, rights.deleteworkflow]);
 		var btnEdit2 = cf.workflowmanagementPanelGrid.createArchiveButton.defer(10,this, [id, activeversion_id, rights.archiveworkflow]);
 		var btnEdit3 = cf.workflowmanagementPanelGrid.createStopButton.defer(10,this, [id, activeversion_id, isstopped, workflowisstarted, iscompleted, rights.stopneworkflow]);
-		return '<table><tr><td width="16"><div id="workflowoverview_delete'+ id +'"></div></td><td width="16"><div id="workflowoverview_details'+ id +'"></div></td><td width="16"><div id="workflowoverview_archive'+ id +'"></div></td><td width="16"><div id="workflowoverview_stop'+ id +'"></div></td></tr></table></center>';
+		return '<center><table><tr><td width="16"><div id="workflowoverview_delete'+ id +'"></div></td><td width="16"><div id="workflowoverview_details'+ id +'"></div></td><td width="16"><div id="workflowoverview_archive'+ id +'"></div></td><td width="16"><div id="workflowoverview_stop'+ id +'"></div></td></tr></table></center>';
 	},
 	
 	
@@ -155,7 +155,16 @@ cf.workflowmanagementPanelGrid = function(){return {
 					c.getEl().on({
 						click: function(el){
 							if(right == 1) {
-								alert('archiv');
+								Ext.Msg.show({
+								   title:'<?php echo __('Archive workflow',null,'workflowmanagement'); ?>?',
+								   msg: '<?php echo __('Archive workflow',null,'workflowmanagement'); ?>?',
+								   buttons: Ext.Msg.YESNO,
+								   fn: function(btn, text) {
+										if(btn == 'yes') {
+											cf.workflowmanagementPanelCRUD.archiveWorkflow(id, version_id);
+										}
+								   }
+								});
 							}
 							else {
 								Ext.Msg.minWidth = 200;
@@ -260,7 +269,16 @@ cf.workflowmanagementPanelGrid = function(){return {
 					c.getEl().on({
 						click: function(el){
 							if(right == 1) {
-								alert('delete');
+								Ext.Msg.show({
+								   title:'<?php echo __('Delete workflow',null,'workflowmanagement'); ?>?',
+								   msg: '<?php echo __('Delete workflow',null,'workflowmanagement'); ?>?',
+								   buttons: Ext.Msg.YESNO,
+								   fn: function(btn, text) {
+										if(btn == 'yes') {
+											cf.workflowmanagementPanelCRUD.deleteWorkflow(template_id, activeversion_id);
+										}
+								   }
+								});
 							}
 							else {
 								Ext.Msg.minWidth = 200;

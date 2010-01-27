@@ -30,7 +30,7 @@
 
                     echo '<tr>';
                     echo '<td style="background-color:'.$colorFlag.'">'.$wf['name'].'</td>';
-                    echo '<td style="background-color:'.$colorFlag.'"><a href="'.url_for('layout/linklogin',true).'/versionid/'.$wf['workflowversion_id'].'/workflowid/'.$wf['workflow_id'].'/userid/'.$userid.'/window/edit" target="_blank">'.$linkto.'</a></td>';
+                    echo '<td style="background-color:'.$colorFlag.'"><a href="'.$serverPath.'/layout/linklogin/versionid/'.$wf['workflowversion_id'].'/workflowid/'.$wf['workflow_id'].'/userid/'.$userid.'/window/edit" target="_blank">'.$linkto.'</a></td>';
                     echo '</tr>';
                 }
 

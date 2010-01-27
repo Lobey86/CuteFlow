@@ -54,6 +54,10 @@
 			<source>Save</source>
 			<target>Save</target>
 		</trans-unit>
+		<trans-unit id="14">
+			<source>You have received values for the workflow</source>
+			<target>You have received values for the workflow</target>
+		</trans-unit>
 	</body>
   </file>
 </xliff>

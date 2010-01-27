@@ -107,6 +107,7 @@ class workflowdetailActions extends sfActions
         $processObj->setUserId($useragent_id);
         $processObj->setInprogresssince(time());
         $processObj->setDecissionstate('WAITING');
+        $processObj->setUseragentsetbycronjob(0);
         $processObj->setIsuseragentof($workflowprocess_id);
         $processObj->setResendet(0);
         $processObj->save();

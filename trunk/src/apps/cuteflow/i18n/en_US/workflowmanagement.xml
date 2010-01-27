@@ -482,6 +482,50 @@
 			<source>Workflow is set to send all Slots at once. A station cannot be selected</source>
 			<target>Workflow is set to send all Slots at once. A station cannot be selected</target>
 		</trans-unit>
+				<trans-unit id="120">
+			<source>DELETED</source>
+			<target>Workflow deleted</target>
+		</trans-unit>
+		<trans-unit id="121">
+			<source>ARCHIVED</source>
+			<target>Workflow archived</target>
+		</trans-unit>
+		<trans-unit id="122">
+			<source>Workflow deleted</source>
+			<target>Workflow deleted</target>
+		</trans-unit>
+		<trans-unit id="123">
+			<source>Deleting workflow...</source>
+			<target>Deleting workflow...</target>
+		</trans-unit>
+		<trans-unit id="124">
+			<source>Delete workflow</source>
+			<target>Delete workflow</target>
+		</trans-unit>
+		<trans-unit id="125">
+			<source>Archived workflows</source>
+			<target>Archived workflows</target>
+		</trans-unit>
+		<trans-unit id="126">
+			<source>Archive workflow</source>
+			<target>Archive workflow</target>
+		</trans-unit>
+		<trans-unit id="127">
+			<source>Archive workflow...</source>
+			<target>Archive workflow...</target>
+		</trans-unit>
+		<trans-unit id="128">
+			<source>Workflow archived</source>
+			<target>Workflow archived</target>
+		</trans-unit>
+		<trans-unit id="129">
+			<source>Workflow moved</source>
+			<target>Workflow moved</target>
+		</trans-unit>
+		<trans-unit id="130">
+			<source>Moving workflow...</source>
+			<target>Moving workflow...</target>
+		</trans-unit>
 	</body>
   </file>
 </xliff>

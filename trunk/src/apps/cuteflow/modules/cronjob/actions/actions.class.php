@@ -19,6 +19,21 @@ class cronjobActions extends sfActions {
     }
 
     public function executeStartWorkflow(sfWebRequest $request) {
+        $context = sfContext::getInstance();
+        $context->getConfiguration()->loadHelpers('Partial', 'I18N', 'Url', 'Date', 'CalculateDate', 'ColorBuilder', 'Icon');
+        $versionId = 1;
+        $templateId = 1;
+        $user_id = 1;
+        $test = new PrepareStationEmail($versionId, $templateId, $user_id, $context);
+
+
+        #$process = WorkflowProcessUserTable::instance()->getWaitingProcess();
+
+
+        #$sub = new CheckSubstitute($process);
+
+
+
 
         return sfView::NONE;
     }
