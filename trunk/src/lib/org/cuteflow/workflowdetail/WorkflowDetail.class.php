@@ -6,11 +6,12 @@ class WorkflowDetail {
     private $culture;
     private $user;
     private $context;
-    private $versionid;
+    public $serverUrl;
 
     public function  __construct($loadHelper = true) {
         if($loadHelper == true) {
             $this->loadHelper();
+            $this->setServerUrl(url_for('layout/index',true));
         }
     }
 
@@ -34,6 +35,12 @@ class WorkflowDetail {
 
     public function setUser(myUser $user_in) {
         $this->user = $user_in;
+    }
+
+
+    public function setServerUrl($url) {
+        $url = str_replace('/layout', '', $url);
+        $this->serverUrl = $url;
     }
 
     public function buildHeadLine(Doctrine_Collection $data) {
@@ -360,15 +367,15 @@ class WorkflowDetail {
 
                 $file = WorkflowSlotFieldFileTable::instance()->getAllItemsByWorkflowFieldId($field->getId())->toArray();
                 $workflowtemplate = WorkflowVersionTable::instance()->getWorkflowVersionById($versionid)->toArray();
-                
                 $result['filepath'] = sfConfig::get('sf_upload_dir') . '/' . $workflowtemplate[0]['workflowtemplate_id'] . '/' . $versionid . '/' . $file[0]['hashname'] ;
                 $result['hashname'] = $file[0]['hashname'];
                 $result['filename'] = $file[0]['filename'];
-                $url = url_for('file/ShowAttachment');
-                $plainUrl = url_for('file/ShowAttachment', true);
+                $url = $this->serverUrl . '/file/ShowAttachment';
+                $plainUrl = $this->serverUrl . '/file/ShowAttachment';
                 $url .= '/workflowid/' .  $workflowtemplate[0]['workflowtemplate_id'] . '/versionid/' . $versionid. '/attachmentid/' . $file[0]['id'] . '/file/1';
                 $plainUrl .= '/workflowid/' .  $workflowtemplate[0]['workflowtemplate_id'] . '/versionid/' . $versionid. '/attachmentid/' . $file[0]['id'] . '/file/1';
                 $result['plainurl'] = $plainUrl;
+                $result['url'] = $url;
                 $result['link'] = '<a href="'.$url.'" target="_blank">'.$result['filename'].'</a>';
                 break;
         }
@@ -383,7 +390,7 @@ class WorkflowDetail {
             $result[$a]['filepath'] = sfConfig::get('sf_upload_dir') . '/' . $file['workflowtemplate_id'] . '/' . $file['workflowversion_id'] . '/' . $file['hashname'] ;
             $result[$a]['hashname'] = $file['hashname'];
             $result[$a]['filename'] = $file['filename'];
-            $url = url_for('file/ShowAttachment');
+            $url = $this->serverUrl . '/file/ShowAttachment';
             $url .= '/workflowid/' .  $file['workflowversion_id'] . '/versionid/' . $file['workflowversion_id'] . '/attachmentid/' . $file['id'] . '/file/0';
             $result[$a]['link'] = '<a href="'.$url.'" target="_blank">'.$result[$a]['filename'].'</a>';
             $a++;

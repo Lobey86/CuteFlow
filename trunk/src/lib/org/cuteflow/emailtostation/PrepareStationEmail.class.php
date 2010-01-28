@@ -23,12 +23,14 @@ class PrepareStationEmail {
             $this->templateId = $templateId;
             $this->workflowSettings = WorkflowVersionTable::instance()->getWorkflowVersionById($versionId);
             $this->workflowDetailsObj = new WorkflowDetail(false);
+            $this->workflowDetailsObj->setServerUrl($serverUrl);
             $this->workflowDetailsObj->setCulture($this->userSettings->userSettings['language']);
             $this->workflowDetailsObj->setContext($context);
             $this->setWorkflowDetailData();
             $this->setAttachments();
 
             $this->workflowEditObj = new WorkflowEdit(false);
+            $this->workflowEditObj->setServerUrl($serverUrl);
             $this->workflowEditObj->setContext($context);
             $this->workflowEditObj->setCulture($this->userSettings->userSettings['language']);
             $this->workflowEditObj->setUserId($this->userId);
@@ -39,7 +41,7 @@ class PrepareStationEmail {
 
     public function checkSendingRight() {
         $wfSettings = SystemConfigurationTable::instance()->getSystemConfiguration()->toArray();
-        if($wfSettings[0]['sendreceiveremail'] == 1) {
+        if($wfSettings[0]['sendreceivermail'] == 1) {
             return true;
         }
         else {
