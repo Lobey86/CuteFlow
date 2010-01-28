@@ -51,7 +51,11 @@ class layoutActions extends sfActions {
         $versionId = 1;
         $templateId = 1;
         $user_id = 1;
-        $test = new PrepareStationEmail($versionId, $templateId, $user_id);
+        sfLoader::loadHelpers('Url');
+        sfLoader::loadHelpers('Partial');
+        $serverUrl = str_replace('/layout', '',url_for('layout/index',true));
+        $context = sfContext::getInstance();
+        $test = new PrepareStationEmail($versionId, $templateId, $user_id, $context, $serverUrl);
         die;
         return sfView::NONE;
     }

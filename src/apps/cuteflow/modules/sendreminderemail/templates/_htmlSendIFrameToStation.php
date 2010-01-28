@@ -36,6 +36,13 @@
             $fieldcounter = 0;
             $slotcounter = 0;
             foreach($slots as $slot) {
+                $slotIsDisabled = $slot['isdisabled'];
+                if($slotIsDisabled == 1) {
+                    $color = '#CCCCCC';
+                }
+                else {
+                    $color = '#FFFF99';
+                }
                 $fields = $slot['fields'];
                 $leftString = '';
                 $rightString = '';
@@ -43,10 +50,10 @@
                 echo '<td colspan="2" height="20" style="background-color:#F90;font-size:15px;font-family:Tahoma, Geneva, sans-serif;">'.$text['workflow'][2] . ': ' .  $slot['slotname'].'</td>';
                 echo '</tr>';
                 echo '<tr>';
-                echo '<td colspan="2" height="10"><input type="hidden" name="slot['.$slotcounter++.'][workflowslot_id]" value="'.$slot['workflowslot_id'].'"/></td>';
+                echo '<input type="hidden" name="slot['.$slotcounter++.'][workflowslot_id]" value="'.$slot['workflowslot_id'].'"/>';
                 echo '</tr>';
                 foreach($fields as $field) {
-                    $fieldHtml = $buildIframe->getField($field,$fieldcounter, $text['workflow'][7]);
+                    $fieldHtml = $buildIframe->getField($field,$fieldcounter, $text['workflow'][7], $slotIsDisabled);
                     $fieldcounter++;
                     if($field['column'] == 'LEFT') {
                         $leftString .= $fieldHtml . '<br />';
@@ -55,7 +62,7 @@
                         $rightString .= $fieldHtml . '<br />';
                     }
                 }
-                echo '<tr><td>' . $leftString . '</td><td>' . $rightString . '</td></tr>';
+                echo '<tr style="background-color:'.$color.';"><td style="background-color:'.$color.';">' . $leftString . '</td><td style="background-color:'.$color.';">' . $rightString . '</td></tr>';
                 echo '<tr>';
                 echo '</tr>';
 
