@@ -49,14 +49,15 @@ EOF;
         else {
             $serverUrl = $options['host'] . '/' . $options['env'];
         }
-        $process = WorkflowProcessUserTable::instance()->getWaitingProcess();
-        $sub = new CheckSubstitute($process, $context, $serverUrl);
+        #$process = WorkflowProcessUserTable::instance()->getWaitingProcess();
+        #$sub = new CheckSubstitute($process, $context, $serverUrl);
 
-        die;
+        #die;
         $versionId = 1;
         $templateId = 1;
         $user_id = 1;
 
         $test = new PrepareStationEmail($versionId, $templateId, $user_id, $context, $serverUrl);
+        die;
     }
 }
