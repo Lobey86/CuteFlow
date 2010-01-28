@@ -19,6 +19,8 @@ class WorkflowTemplateTable extends Doctrine_Table {
         Doctrine_Query::create()
             ->update('WorkflowTemplate wft')
             ->set('wft.isarchived','?', 1)
+            ->set('wft.isstopped','?',1)
+            ->set('wft.stopped_at','?', time())
             ->set('wft.archived_at','?', time())
             ->where('wft.id = ?', $id)
             ->execute();
