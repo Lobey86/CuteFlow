@@ -37,7 +37,7 @@ foreach($slots as $slot) {
         }
         else if ($field['type'] == 'FILE') {
             if($slot['isdisabled'] == 0) {
-                echo $field['items']['plainurl'];
+                echo $field['items']['url'];
             }
         }
         else if ($field['type'] == 'CHECKBOX') {
