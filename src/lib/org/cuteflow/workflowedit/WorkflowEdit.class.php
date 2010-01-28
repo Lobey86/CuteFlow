@@ -6,19 +6,20 @@ class WorkflowEdit {
     private $user;
     private $culture;
     private $helperFlag;
+    public $serverUrl;
     
     public function  __construct($loadHelper = true) {
         $this->helperFlag = $loadHelper;
         if($loadHelper == true) {
             $this->loadHelper();
+            $this->setServerUrl(url_for('layout/index',true));
         }
-
-
     }
 
 
     public function loadHelper() {
         sfLoader::loadHelpers('Date');
+        sfLoader::loadHelpers('Url');
         sfLoader::loadHelpers('CalculateDate');
         sfLoader::loadHelpers('ColorBuilder');
         sfLoader::loadHelpers('I18N');
@@ -40,6 +41,11 @@ class WorkflowEdit {
 
     public function setUserId($userId) {
         $this->user = $userId;
+    }
+
+    public function setServerUrl($url) {
+        $url = str_replace('/layout', '', $url);
+        $this->serverUrl = $url;
     }
 
     public function buildSlots(Doctrine_Collection $data, $version_id) {
@@ -82,6 +88,7 @@ class WorkflowEdit {
         $a = 0;
         $fields = WorkflowSlotFieldTable::instance()->getWorkflowSlotFieldBySlotIdWithValues($slot->getId());
         $workflowDetail = new WorkflowDetail($this->helperFlag);
+        $workflowDetail->setServerUrl($this->serverUrl);
         $column = 'LEFT';
         foreach($fields as $field) {
             $docField = $field->getField()->toArray();

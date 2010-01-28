@@ -7,10 +7,16 @@ class BuildIFrameEmail {
     }
 
 
-    public function getField(array $field, $fieldcounter, $fileTranslation) {
+    public function getField(array $field, $fieldcounter, $fileTranslation, $slotIsDisabled) {
         $hiddenField = $this->getHiddenField($field['type'], $fieldcounter);
         $hiddenIdField = '';
-        $disabled = $field['writeprotected'] == 1 ? 'disabled' : '';
+        if($slotIsDisabled == 1) {
+            $disabled = 'disabled';
+        }
+        else {
+            $disabled = $field['writeprotected'] == 1 ? 'disabled' : '';
+        }
+        
         $theField = '';
         switch ($field['type']) {
            case 'TEXTFIELD':
