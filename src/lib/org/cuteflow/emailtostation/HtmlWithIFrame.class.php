@@ -41,6 +41,7 @@ class HtmlWithIFrame extends EmailSettings {
                           'workflow' => $this->data->templateId,
                           'slots' => $this->data->slots,
                           'serverPath' => $this->data->serverUrl,
+                          'additionalText' => $this->data->workflowDetailsData['content'],
                           'linkto'  => $linkTo
                   );
         $this->setBody(get_partial('sendreminderemail/htmlSendIFrameToStation', $bodyData));
