@@ -1,4 +1,10 @@
- <form action="<?php echo $serverPath . '/workflowedit/saveIFrame/versionid/'.$workflowverion.'/workflowid/'.$workflow. '/userid/'.$userid; ?>" method="post">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+    </head>
+<body>
+<?php use_helper('I18N') ?> 
+<form action="<?php echo $serverPath . '/workflowedit/saveIFrame/versionid/'.$workflowverion.'/workflowid/'.$workflow. '/userid/'.$userid; ?>" method="post">
     <table width="823">
         <tr>
             <td colspan="2" width="587" height="35" style="background-color:#CCC;font-size:16px;font-family:Tahoma, Geneva, sans-serif;">&nbsp;<?php echo $text['workflow'][0] . ' <b>' . $text['workflow'][1] . '</b>';?></td>
@@ -13,20 +19,33 @@
             <td height="20"></td>
             <td height="20"></td>
         </tr>
+        <?php
+        if($error == 1) {
+            echo '<tr>';
+            echo '<td colspan="2" style="font-size:16px;font-family:Tahoma, Geneva, sans-serif;color:red"><b>';
+            echo __('Some values are not correct',null,'sendstationmail');
+            echo '</b></td></tr>';
+            echo '<tr><td height="20"></td><td height="20"></td></tr>';
+        }
+        ?>
         <tr>
             <td height="20" colspan="2">
                 <input type="radio" name="workfloweditAcceptWorkflow_decission" value="1" checked> <?php echo $text['workflow'][8]?><br />
                 <input type="radio" name="workfloweditAcceptWorkflow_decission" value="0"> <?php echo $text['workflow'][9]?><br />
                 <textarea name="workfloweditAcceptWorkflow_reason" cols=20" rows="8"></textarea>
-
-
             </td>
         </tr>
         <tr>
             <td height="20"></td>
             <td height="20"></td>
         </tr>
-
+        <tr>
+            <td height="20" colspan="2"><input type="submit" value="<?php echo $text['workflow'][10]; ?>" /></td>
+        </tr>
+        <tr>
+            <td height="20"></td>
+            <td height="20"></td>
+        </tr>
         <?php
         $buildIframe = new BuildIFrameEmail();
         $fieldcounter = 0;
@@ -64,3 +83,5 @@
         </tr>
     </table>
  </form>
+</body>
+</html>
