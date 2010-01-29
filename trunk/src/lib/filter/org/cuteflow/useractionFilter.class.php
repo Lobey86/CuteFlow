@@ -11,14 +11,9 @@ class useractionFilter extends sfFilter {
     public function execute($filterChain) {
         $user_id =  sfContext::getInstance()->getUser()->getAttribute('id');
         if($user_id != '') {
-            $timestamp = time();
-            $datum = date("Y-m-d",$timestamp);
-            $uhrzeit = date("H:i:s",$timestamp);
-            $date =  $datum . ' ' . $uhrzeit;
-
             Doctrine_Query::create()
                 ->update('UserData ud')
-                ->set('ud.lastaction','?',$date)
+                ->set('ud.lastaction','?',time())
                 ->where('ud.user_id = ?', $user_id)
                 ->execute();
         }
