@@ -63,5 +63,28 @@ class SaveWorkflow {
         return true;
     }
 
+
+
+    public function checkFields(array $fields) {
+        $failure = array();
+        $failure['isFalse'] = 0;
+        $counter = 0;
+        foreach($fields as $field) {
+            if($field['type'] == 'TEXTFIELD' OR $field['type'] == 'NUMBER' OR $field['type'] == 'DATE') {
+                if($field['value'] != '') {
+                    if($field['regex'] != '') {
+                        if (@!preg_match('/'.$field['regex'].'/', $field['value'])) {
+                            $failure[$counter++] = $field['name'];
+                            $failure['isFalse'] = 1;
+                            $correctFields = false;
+                        }
+                    }
+                }
+            }
+        }
+        return $failure;
+
+    }
+
 }
 ?>

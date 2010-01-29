@@ -28,6 +28,9 @@ class HtmlWithIFrame extends EmailSettings {
         $content['workflow'][8] = $this->data->context->getI18N()->__('Accept Workflow' ,null,'sendstationmail');
         $content['workflow'][9] = $this->data->context->getI18N()->__('Deny Workflow' ,null,'sendstationmail');
         $content['workflow'][10] = $this->data->context->getI18N()->__('Save' ,null,'sendstationmail');
+        $content['workflow'][11] = $this->data->context->getI18N()->__('Your email client does not support iframe' ,null,'sendstationmail');
+
+        
 
 
 

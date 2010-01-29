@@ -21,7 +21,9 @@ class BuildIFrameEmail {
         switch ($field['type']) {
            case 'TEXTFIELD':
                $hiddenIdField = $this->getHiddenIdField($field['items']['id'], $fieldcounter);
-               $theField = '<table><tr><td width="180">' . $field['fieldname'] . ': </td><td><input '.$disabled.' type="text" name="field['.$fieldcounter.'][value]" value="'.$field['items']['value'].'" /></td></tr></table>';
+               $regExfield = $this->getRegExField($field['items']['id'], $field['items']['regex'], $fieldcounter);
+               $fieldName = $this->getFieldName($field['fieldname'], $fieldcounter);
+               $theField = '<table><tr><td width="180">'.$regExfield . $fieldName . $field['fieldname'] . ': </td><td><input '.$disabled.' type="text" name="field['.$fieldcounter.'][value]" value="'.$field['items']['value'].'" /></td></tr></table>';
                break;
            case 'CHECKBOX':
                $hiddenIdField = $this->getHiddenIdField($field['items']['id'], $fieldcounter);
@@ -30,15 +32,19 @@ class BuildIFrameEmail {
                break;
            case 'NUMBER':
                $hiddenIdField = $this->getHiddenIdField($field['items']['id'], $fieldcounter);
-               $theField = '<table><tr><td width="180">' . $field['fieldname'] . ': </td><td><input '.$disabled.' type="text" name="field['.$fieldcounter.'][value]" value="'.$field['items']['value'].'" /></td></tr></table>';
+               $regExfield = $this->getRegExField($field['items']['id'], $field['items']['regex'], $fieldcounter);
+               $fieldName = $this->getFieldName($field['fieldname'], $fieldcounter);
+               $theField = '<table><tr><td width="180">'.$regExfield. $fieldName .$field['fieldname'] . ': </td><td><input '.$disabled.' type="text" name="field['.$fieldcounter.'][value]" value="'.$field['items']['value'].'" /></td></tr></table>';
                break;
            case 'DATE':
                $hiddenIdField = $this->getHiddenIdField($field['items']['id'], $fieldcounter);
-               $theField = '<table><tr><td width="180">' . $field['fieldname'] . ': </td><td><input '.$disabled.' type="text" name="field['.$fieldcounter.'][value]" value="'.$field['items']['value'].'" /></td></tr></table>';
+               $regExfield = $this->getRegExField($field['items']['id'], $field['items']['regex'], $fieldcounter);
+               $fieldName = $this->getFieldName($field['fieldname'], $fieldcounter);
+               $theField = '<table><tr><td width="180">'. $regExfield . $fieldName . $field['fieldname'] . ': </td><td><input '.$disabled.' type="text" name="field['.$fieldcounter.'][value]" value="'.$field['items']['value'].'" /></td></tr></table>';
                break;
            case 'TEXTAREA':
                $hiddenIdField = $this->getHiddenIdField($field['items']['id'], $fieldcounter);
-               $theField = '<table><tr><td width="180">' . $field['fieldname'] . ': </td><td><textarea '.$disabled.' name="field['.$fieldcounter.'][value]" cols="25" rows="6">'.strip_tags($field['items']['value']).'</textarea></td></tr></table>';
+               $theField = '<table><tr><td width="180">' . $field['fieldname'] . ': </td><td><textarea '.$disabled.' name="field['.$fieldcounter.'][value]" cols="25" rows="6">'.$field['items']['value'].'</textarea></td></tr></table>';
                break;
            case 'RADIOGROUP':
                $theBox = '';
@@ -85,6 +91,17 @@ class BuildIFrameEmail {
     }
 
 
+    public function getFieldName($name, $fieldcounter) {
+        $fieldString = '<input type="hidden" name="field['.$fieldcounter.'][name]" value="'.$name.'" />';
+        return $fieldString;
+        
+    }
+
+
+    public function getRegExField($fieldId, $regEx, $fieldcounter) {
+        $fieldString = '<input type="hidden" name="field['.$fieldcounter.'][regex]" value="'.$regEx.'" />';
+        return $fieldString;
+    }
 
     public function getHiddenField($type, $fieldcounter) {
         $fieldString = '<input type="hidden" name="field['.$fieldcounter.'][type]" value="'.$type.'" />';

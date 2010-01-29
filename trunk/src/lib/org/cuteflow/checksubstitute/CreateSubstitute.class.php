@@ -101,7 +101,8 @@ class CreateSubstitute {
      * @param int $userAgentOffset, offset for the array
      */
     public function setNewUserAgent(array $userAgent, $sumUseragenttime, $userAgentOffset) {
-        if($this->currentTime > ($sumUseragenttime + $this->process['inprogresssince'])) {
+        $decissionstate = 'WAITING';
+        /*if($this->currentTime > ($sumUseragenttime + $this->process['inprogresssince'])) {
             $decissionstate = 'USERAGENTSET';
             $userAgentOffset++;
             $nextUserAgent = $this->getNextUserAgent($userAgentOffset);
@@ -127,7 +128,7 @@ class CreateSubstitute {
         }
         else {
             $decissionstate = 'WAITING';
-        }
+        }*/
 
         if($decissionstate == 'WAITING') {
             WorkflowProcessUserTable::instance()->setProcessToUseragentSet($this->process['id']);
