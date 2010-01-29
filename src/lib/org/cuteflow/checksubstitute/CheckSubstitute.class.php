@@ -84,6 +84,7 @@ class CheckSubstitute {
         foreach($this->openProcesses as $process) {
             // check only entries, where a useragent is set
             if($process['hasUserAgent'] == 1) {
+                #print_r ($process);die;
                 $sub = new CreateSubstitute($this, $process);
             }
         }
