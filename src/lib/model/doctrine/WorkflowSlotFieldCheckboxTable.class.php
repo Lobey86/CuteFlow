@@ -27,4 +27,12 @@ class WorkflowSlotFieldCheckboxTable extends Doctrine_Table {
             ->execute();
     }
 
+
+    public function updateCheckboxById($id, $value) {
+        Doctrine_Query::create()
+            ->update('WorkflowSlotFieldCheckbox wsfcb')
+            ->set('wsfcb.value','?',$value)
+            ->where ('wsfcb.id = ?',$id)
+            ->execute();
+    }
 }

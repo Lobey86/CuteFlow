@@ -27,4 +27,12 @@ class WorkflowSlotFieldTextareaTable extends Doctrine_Table {
             ->execute();
     }
 
+    public function updateTextareaById ($id, $value) {
+        Doctrine_Query::create()
+            ->update('WorkflowSlotFieldTextarea wsft')
+            ->set('wsft.value','?',$value)
+            ->where ('wsft.id = ?',$id)
+            ->execute();
+    }
+
 }
