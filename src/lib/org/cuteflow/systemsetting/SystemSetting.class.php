@@ -65,7 +65,6 @@ class SystemSetting {
         $data['userTab_markyellow'] = $data['userTab_markyellow'] == '' ? 7 : $data['userTab_markyellow'];
         $data['userTab_markorange'] = $data['userTab_markorange'] == '' ? 10 : $data['userTab_markorange'];
         $data['userTab_defaultdurationlength'] = $data['userTab_defaultdurationlength'] == '' ? 3 : $data['userTab_defaultdurationlength'];
-        $data['userTab_showinpopup'] = isset($data['userTab_showinpopup']) ? $data['userTab_showinpopup'] : 0;
         return $data;
     }
 

@@ -35,7 +35,6 @@ class WorkflowOverview {
         $authSettings->setDefaultRole();
         $authSettings->setUserRole($this->userId);
         $userSettings = $this->user->getAttribute('userSettings');
-        $openInPopUp = $userSettings['showcirculationinpopup'];
         foreach($data as $item) {
             $sender = UserLoginTable::instance()->findActiveUserById($item->getSenderId());
             $mailinglist = MailinglistTemplateTable::instance()->getMailinglistByVersionId($item->getMailinglisttemplateversionId());
@@ -50,7 +49,6 @@ class WorkflowOverview {
             $result[$a]['sender_id'] = $item->getSenderId();
             $result[$a]['sendername'] = $username;
             $result[$a]['name'] = $item->getName();
-            $result[$a]['openinpopup'] = $openInPopUp;
             $result[$a]['isstopped'] = $item->getIsstopped();
             $result[$a]['process'] = $this->getProcess($item->getActiveversionId());
             $result[$a]['auth'] = $authSettings->getRights($item->getMailinglisttemplateversionId(), $item->getActiveversionId());
@@ -92,7 +90,7 @@ class WorkflowOverview {
             
             $result[$a++]['activeversion_id'] = $item->getActiveversionId();
         }
-        //print_r ($result);die;
+        #print_r ($result);die;
         return $result;
 
     }

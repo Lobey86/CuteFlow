@@ -43,8 +43,7 @@ class PlainHtmlWithValues extends EmailSettings {
         
         $this->setBody(get_partial('sendreminderemail/' . $this->data->userSettings->userSettings['emailformat'] . 'SendValuesToStation', $bodyData));
         $this->setAttachments($this->data->attachments);
-        $this->sendEmail();die;
-        print_r ($this->data->slots);die;
+        $this->sendEmail();
     }
 
 }

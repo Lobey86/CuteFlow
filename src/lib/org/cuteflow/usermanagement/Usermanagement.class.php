@@ -176,7 +176,6 @@ class Usermanagement {
             $result['emailtype'] = $usersettings->getEmailtype();
             $result['circulationdefaultsortcolumn'] = $usersettings->getCirculationdefaultsortcolumn();
             $result['circulationdefaultsortdirection'] = $usersettings->getCirculationdefaultsortdirection();
-            $result['showcirculationinpopup'] = $usersettings->getShowcirculationinpopup();
         }
         return $result;
     }
