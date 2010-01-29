@@ -49,7 +49,6 @@ cf.todoPanelGrid = function(){return {
 					{name: 'sendername'},
 					{name: 'currentstation'},
 					{name: 'isstopped'},
-					{name: 'openinpopup'},
 					{name: 'name'},
 					{name: 'isstopped'},
 					{name: 'auth'},
@@ -118,12 +117,11 @@ cf.todoPanelGrid = function(){return {
 	renderButton: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 		var id = record.data['id'];
 		var activeversion_id = record.data['activeversion_id'];
-		var openinpopup = record.data['openinpopup'];
 		var isstopped = record.data['isstopped'];
 		
 		var rights = record.data['auth'];
 		
-		var btnDetails = cf.todoPanelGrid.createDetailsButton.defer(10,this, [id, activeversion_id, openinpopup, rights.detailsworkflow]);
+		var btnDetails = cf.todoPanelGrid.createDetailsButton.defer(10,this, [id, activeversion_id, rights.detailsworkflow]);
 		var btnEdit = cf.todoPanelGrid.createDeleteButton.defer(10,this, [id, activeversion_id, rights.deleteworkflow]);
 		var btnEdit = cf.todoPanelGrid.createEditButton.defer(10,this, [id, activeversion_id]);
 		return '<center><table><tr><td width="16"><div id="todooverview_delete'+ id +'"></div></td><td width="16"><div id="todooverview_details'+ id +'"></div></td><td width="16"><div id="todooverview_edit'+ id +'"></div></td></tr></table></center>';
@@ -148,7 +146,7 @@ cf.todoPanelGrid = function(){return {
 	},
 	
 	
-	createDetailsButton: function (template_id, activeversion_id, openinpopup, right) {
+	createDetailsButton: function (template_id, activeversion_id, right) {
 		var btn_copy = new Ext.form.Label({
 			renderTo: 'todooverview_details' + template_id,
 			html: '<span style="cursor:pointer;"><img src="/images/icons/zoom.png" /></span>',
@@ -157,7 +155,7 @@ cf.todoPanelGrid = function(){return {
 					c.getEl().on({
 						click: function(el){
 							if(right == 1) {
-								cf.workflowdetails.init(template_id, activeversion_id, openinpopup, false, false);
+								cf.workflowdetails.init(template_id, activeversion_id, false, false);
 							}
 							else {
 								Ext.Msg.minWidth = 200;

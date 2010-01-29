@@ -52,7 +52,6 @@ cf.workflowmanagementPanelGrid = function(){return {
 					{name: 'workflowisstarted'},
 					{name: 'iscompleted'},
 					{name: 'isstopped'},
-					{name: 'openinpopup'},
 					{name: 'process'},
 					{name: 'name'},
 					{name: 'isstopped'},
@@ -131,14 +130,13 @@ cf.workflowmanagementPanelGrid = function(){return {
 		var id = record.data['id'];
 		var activeversion_id = record.data['activeversion_id'];
 		
-		var openinpopup = record.data['openinpopup'];
 		var isstopped = record.data['isstopped'];
 		var iscompleted = record.data['iscompleted'];
 		var workflowisstarted = record.data['workflowisstarted'];
 		
 		var rights = record.data['auth'];
 		
-		var btnDetails = cf.workflowmanagementPanelGrid.createDetailsButton.defer(10,this, [id, activeversion_id, openinpopup, rights.detailsworkflow]);
+		var btnDetails = cf.workflowmanagementPanelGrid.createDetailsButton.defer(10,this, [id, activeversion_id, rights.detailsworkflow]);
 		var btnEdit1 = cf.workflowmanagementPanelGrid.createDeleteButton.defer(10,this, [id, activeversion_id, rights.deleteworkflow]);
 		var btnEdit2 = cf.workflowmanagementPanelGrid.createArchiveButton.defer(10,this, [id, activeversion_id, rights.archiveworkflow]);
 		var btnEdit3 = cf.workflowmanagementPanelGrid.createStopButton.defer(10,this, [id, activeversion_id, isstopped, workflowisstarted, iscompleted, rights.stopneworkflow]);
@@ -236,7 +234,7 @@ cf.workflowmanagementPanelGrid = function(){return {
 	},
 	
 	
-	createDetailsButton: function (template_id, activeversion_id, openinpopup, right) {
+	createDetailsButton: function (template_id, activeversion_id, right) {
 		var btn_copy = new Ext.form.Label({
 			renderTo: 'workflowoverview_details' + template_id,
 			html: '<span style="cursor:pointer;"><img src="/images/icons/zoom.png" /></span>',
@@ -245,7 +243,7 @@ cf.workflowmanagementPanelGrid = function(){return {
 					c.getEl().on({
 						click: function(el){
 							if(right == 1) {
-								cf.workflowdetails.init(template_id, activeversion_id, openinpopup, false, true);
+								cf.workflowdetails.init(template_id, activeversion_id, false, true);
 							}
 							else {
 								Ext.Msg.minWidth = 200;

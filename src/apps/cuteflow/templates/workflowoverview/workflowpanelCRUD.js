@@ -9,6 +9,7 @@ cf.workflowmanagementPanelCRUD = function(){return {
 		Ext.Ajax.request({  
 			url : '<?php echo build_dynamic_javascript_url('workflowoverview/StopWorkflow')?>/versionid/' + version_id + '/workflowtemplateid/' + workflow_id,
 			success: function(objServerResponse){
+				cf.workflowmanagementPanelCRUD.reloadAll();
 				cf.workflowmanagementPanelGrid.theWorkflowStore.reload();
 				cf.workflowmanagementPanelCRUD.theLoadingMask.hide();
 				Ext.Msg.minWidth = 200;
@@ -24,6 +25,7 @@ cf.workflowmanagementPanelCRUD = function(){return {
 		Ext.Ajax.request({  
 			url : '<?php echo build_dynamic_javascript_url('workflowoverview/StartWorkflow')?>/versionid/' + version_id,
 			success: function(objServerResponse){
+				cf.workflowmanagementPanelCRUD.reloadAll();
 				cf.workflowmanagementPanelGrid.theWorkflowStore.reload();
 				cf.workflowmanagementPanelCRUD.theLoadingMask.hide();
 				Ext.Msg.minWidth = 200;
@@ -40,6 +42,7 @@ cf.workflowmanagementPanelCRUD = function(){return {
 		Ext.Ajax.request({  
 			url : '<?php echo build_dynamic_javascript_url('workflowoverview/DeleteWorkflow')?>/versionid/' + version_id + '/workflowtemplateid/' + workflow_id,
 			success: function(objServerResponse){
+				cf.workflowmanagementPanelCRUD.reloadAll();
 				cf.workflowmanagementPanelGrid.theWorkflowStore.reload();
 				cf.workflowmanagementPanelCRUD.theLoadingMask.hide();
 				Ext.Msg.minWidth = 200;
@@ -55,14 +58,32 @@ cf.workflowmanagementPanelCRUD = function(){return {
 		Ext.Ajax.request({  
 			url : '<?php echo build_dynamic_javascript_url('workflowoverview/ArchiveWorkflow')?>/versionid/' + version_id + '/workflowtemplateid/' + workflow_id,
 			success: function(objServerResponse){
+				cf.workflowmanagementPanelCRUD.reloadAll();
 				cf.workflowmanagementPanelGrid.theWorkflowStore.reload();
 				cf.workflowmanagementPanelCRUD.theLoadingMask.hide();
 				Ext.Msg.minWidth = 200;
 				Ext.MessageBox.alert('<?php echo __('OK',null,'workflowmanagement'); ?>', '<?php echo __('Workflow archived',null,'workflowmanagement'); ?>');
 			}
 		});
+	},
+	
+	
+	reloadAll: function () {
+		try {
+			cf.todoPanelGrid.theTodoStore.reload();
+		}	
+		catch(e) {
+			
+		}
 		
+		try {
+			cf.archiveWorkflow.theArchiveStore.reload();
+		}
+		catch(e) {
+			
+		}
 	}
+	
 	
 	
 	

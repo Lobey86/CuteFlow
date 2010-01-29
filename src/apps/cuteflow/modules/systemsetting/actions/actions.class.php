@@ -49,10 +49,6 @@ class systemsettingActions extends sfActions {
         $sysObj = new SystemSetting();
         $data = $request->getPostParameters();
 
-        // new database
-        if (isset($data['productive_checkbox'])) {
-
-        }
         
         // save auth settings
         if (isset($data['authentication_type'])) {

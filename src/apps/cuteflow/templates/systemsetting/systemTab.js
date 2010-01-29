@@ -51,11 +51,6 @@ cf.systemTab = function(){return {
 				id: 'systemsetting_showposition'
 			},{
 				xtype: 'checkbox',
-				fieldLabel: '<?php echo __('Allow unenctypted requests?',null,'systemsetting'); ?>',
-				inputValue: "1",
-				id: 'systemsetting_allowunencryptedrequest'
-			},{
-				xtype: 'checkbox',
 				fieldLabel: '<?php echo __('Send Mails to circulation receivers',null,'systemsetting'); ?>',
 				inputValue: "1",
 				id: 'systemsetting_sendreceivermail'
@@ -132,7 +127,6 @@ cf.systemTab = function(){return {
 		cf.systemTab.addLanguage.defer(500, this, [data.language]);
 		
 		Ext.getCmp('systemsetting_showposition').setValue(data.showpositioninmail);
-		Ext.getCmp('systemsetting_allowunencryptedrequest').setValue(data.allowunencryptedrequest);
 		Ext.getCmp('systemsetting_sendreceivermail').setValue(data.sendreceivermail);
 		Ext.getCmp('systemsetting_sendremindermail').setValue(data.sendremindermail);
 		Ext.getCmp('systemsetting_slotvisible_id').setValue(data.visibleslots);

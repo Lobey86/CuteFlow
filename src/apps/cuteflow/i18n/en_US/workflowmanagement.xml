@@ -526,6 +526,14 @@
 			<source>Moving workflow...</source>
 			<target>Moving workflow...</target>
 		</trans-unit>
+		<trans-unit id="131">
+			<source>Email send</source>
+			<target>Email send</target>
+		</trans-unit>
+		<trans-unit id="132">
+			<source>Sending Email...</source>
+			<target>Sending Email...</target>
+		</trans-unit>
 	</body>
   </file>
 </xliff>

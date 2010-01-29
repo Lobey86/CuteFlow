@@ -20,7 +20,7 @@ cf.administration_systemsetting = function(){return {
 			this.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'usermanagement'); ?>'});					
 			this.theLoadingMask.show();
 			
-			cf.databaseTab.init();
+			//cf.databaseTab.init();
 			cf.emailTab.init();
 			cf.systemTab.init();
 			cf.authTab.init();
@@ -31,7 +31,7 @@ cf.administration_systemsetting = function(){return {
 			this.initFormPanel();
 			this.initPanel();
 			this.initMainPanel();
-			this.theTabPanel.add(cf.databaseTab.theDatabaseTab);
+			//this.theTabPanel.add(cf.databaseTab.theDatabaseTab);
 			this.theTabPanel.add(cf.emailTab.theEmailTab);
 			this.theTabPanel.add(cf.systemTab.theSystemTab);
 			this.theTabPanel.add(cf.authTab.theAuthTab);

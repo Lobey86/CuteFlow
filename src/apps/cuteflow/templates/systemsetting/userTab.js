@@ -140,12 +140,6 @@ cf.userTab = function(){return {
 					width:100
 				}]
 			},{
-				xtype: 'checkbox',
-				fieldLabel: '<?php echo __('Show Circulationdetails in PopUp?',null,'systemsetting'); ?>',
-				inputValue: "1",
-				id: 'userTab_showinpopup'
-			
-			},{
 				xtype:'textfield',
 				fieldLabel: '<?php echo __('Change yellow after...days',null,'systemsetting'); ?>',
 				width:40,
@@ -378,7 +372,6 @@ cf.userTab = function(){return {
 		Ext.getCmp('userTab_markyellow').setValue(data.markyellow);
 		Ext.getCmp('userTab_markorange').setValue(data.markorange);
 		Ext.getCmp('userTab_markred').setValue(data.markred);
-		Ext.getCmp('userTab_showinpopup').setValue(data.showcirculationinpopup);
 		
 		Ext.getCmp('userTab_language_id').setValue(data.language);
 		cf.administration_systemsetting.theLoadingMask.hide();

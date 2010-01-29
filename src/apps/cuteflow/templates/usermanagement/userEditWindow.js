@@ -94,7 +94,7 @@ cf.editUserWindow = function(){return {
 					Ext.getCmp('userFourthTab_refreshtime_id').setValue(data.result.refreshtime);
 					Ext.getCmp('userFourthTab_circulationdefaultsortcolumn_id').setValue(data.result.circulationdefaultsortcolumn);
 					Ext.getCmp('userFourthTab_circulationdefaultsortdirection_id').setValue(data.result.circulationdefaultsortdirection);
-					Ext.getCmp('userFourthTab_showinpopup').setValue(data.result.showcirculationinpopup);
+					
 					Ext.getCmp('userFourthTab_markyellow').setValue(data.result.markyellow);
 					Ext.getCmp('userFourthTab_markorange').setValue(data.result.markorange);
 					Ext.getCmp('userFourthTab_markred').setValue(data.result.markred);
