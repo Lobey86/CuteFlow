@@ -29,28 +29,7 @@ class UserLoginTable extends Doctrine_Table {
             ->execute();
     }
 
-    /**
-     *
-     * @param String $receiver, can be ALL, SENDER, ONLINE
-     * @return Doctrine_Collection
-     */
-    public function getUserDataByReceiver($receiver) {
-        $query = Doctrine_Query::create()
-            ->from('UserLogin ul')
-            ->select('CONCAT(ud.firstname,\' \',ud.lastname) AS name, ul.email')
-            ->leftJoin('ul.UserData ud');
 
-        if($receiver == 'ALL') { // send to all
-            // do nothing
-        }
-        elseif($receiver == 'SENDER') { // sender only
-
-        }
-        else { // online
-
-        }
-        return $query->execute();
-    }
 
     /**
      * Get total sum of users

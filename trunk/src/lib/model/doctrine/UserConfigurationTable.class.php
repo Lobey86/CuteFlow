@@ -46,7 +46,6 @@ class UserConfigurationTable extends Doctrine_Table {
             ->set('uc.circulationdefaultsortcolumn', '?', $data['userTab_circulationdefaultsortcolumn'])
             ->set('uc.circulationdefaultsortdirection', '?', $data['userTab_circulationdefaultsortdirection'])
             ->set('uc.role_id', '?', $data['userTab_userrole'])
-            ->set('uc.showcirculationinpopup','?',$data['userTab_showinpopup'])
             ->where('uc.id = ?',1)
             ->execute();
         return true;

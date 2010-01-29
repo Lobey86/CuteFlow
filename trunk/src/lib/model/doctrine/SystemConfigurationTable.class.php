@@ -33,7 +33,6 @@ class SystemConfigurationTable extends Doctrine_Table {
             ->update('SystemConfiguration sc')
             ->set('sc.language','?',$data['systemsetting_language'])
             ->set('sc.showpositioninmail','?',$data['systemsetting_showposition'])
-            ->set('sc.allowunencryptedrequest','?',$data['systemsetting_allowunencryptedrequest'])
             ->set('sc.sendreceivermail','?',$data['systemsetting_sendreceivermail'])
             ->set('sc.sendremindermail','?',$data['systemsetting_sendremindermail'])
             ->set('sc.visibleslots','?',$data['systemsetting_slotvisible'])

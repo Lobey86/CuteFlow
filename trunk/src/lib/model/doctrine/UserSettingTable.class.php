@@ -57,7 +57,6 @@ class UserSettingTable extends Doctrine_Table {
            ->set('us.displayeditem','?',$data['userFourthTab_itemsperpage'])
            ->set('us.circulationdefaultsortcolumn','?',$data['userFourthTab_circulationdefaultsortcolumn'])
            ->set('us.circulationdefaultsortdirection','?',$data['userFourthTab_circulationdefaultsortdirection'])
-           ->set('us.showcirculationinpopup','?',$data['userFourthTab_showinpopup'])
             ->set('us.theme','?',$data['userFourthTab_theme'])
            ->where('us.user_id = ?', $user_id)
            ->execute();
