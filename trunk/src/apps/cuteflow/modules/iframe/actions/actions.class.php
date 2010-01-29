@@ -45,7 +45,7 @@ class iframeActions extends sfActions {
         $editObj->setUserId($userId);
         $this->slots = $editObj->buildSlots($wfSettings , $versionId);
 
-
+        #print_r ($this->slots);die;
 
         $content['workflow'][0] = $context->getI18N()->__('You have to fill out the fields in the workflow' ,null,'sendstationmail');
         $content['workflow'][1] = $workflow[0]['name'];
@@ -59,7 +59,7 @@ class iframeActions extends sfActions {
         $content['workflow'][9] = $context->getI18N()->__('Deny Workflow' ,null,'sendstationmail');
         $content['workflow'][10] = $context->getI18N()->__('Save' ,null,'sendstationmail');
 
-
+        $this->error = $request->getParameter('error',0);
         $this->serverPath = $serverUrl;
         $this->workflowverion = $versionId;
         $this->userid  = $userId;

@@ -58,6 +58,18 @@
 			<source>You have received values for the workflow</source>
 			<target>You have received values for the workflow</target>
 		</trans-unit>
+		<trans-unit id="15">
+			<source>Worklfow has been saved</source>
+			<target>Worklfow has been saved</target>
+		</trans-unit>
+		<trans-unit id="16">
+			<source>Some values are not correct</source>
+			<target>Some values are not correct</target>
+		</trans-unit>
+		<trans-unit id="17">
+			<source>Your email client does not support iframe</source>
+			<target>Your email client does not support iframe</target>
+		</trans-unit>
 	</body>
   </file>
 </xliff>

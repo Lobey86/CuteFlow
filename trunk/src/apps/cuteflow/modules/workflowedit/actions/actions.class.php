@@ -43,63 +43,79 @@ class workfloweditActions extends sfActions {
      * Save the workflow out of an IFRAME
      */
     public function executeSaveIFrame (sfWebRequest $request) {
+        $failure = array();
         $workflowSaveObj = new SaveWorkflow();
         $data = $request->getPostParameters();
-        print_r ($data);die;
-        if($data['workfloweditAcceptWorkflow_decission'] == 1) {
-            if(isset($data['field'])) {
-                foreach($data['field'] as $field) {
-                    switch ($field['type']) {
-                        case 'TEXTFIELD':
-                            WorkflowSlotFieldTextfieldTable::instance()->updateTextfieldByWorkflowFieldId($field['field_id'],$field['value']);
-                            break;
-                        case 'CHECKBOX':
-                            $value = isset($field['value']) == true ? 1 : 0;
-                            WorkflowSlotFieldCheckboxTable::instance()->updateCheckboxByWorkflowFieldId($field['field_id'],$value);
-                            break;
-                        case 'NUMBER':
-                            WorkflowSlotFieldNumberTable::instance()->updateNumberByWorkflowFieldId($field['field_id'],$field['value']);
-                            break;
-                        case 'DATE':
-                            WorkflowSlotFieldDateTable::instance()->updateDateByWorkflowFieldId($field['field_id'],$field['value']);
-                            break;
-                        case 'TEXTAREA':
-                            WorkflowSlotFieldTextareaTable::instance()->updateTextareaByWorkflowFieldId($field['field_id'],$field['value']);
-                            break;
-                        case 'RADIOGROUP':
-                            $radioGroupId = WorkflowSlotFieldRadiogroupTable::instance()->getRadiogroupById($field['field_id'])->toArray();
-                            WorkflowSlotFieldRadiogroupTable::instance()->setToNullByFieldId($radioGroupId[0]['workflowslotfield_id']);
-                            if(isset($field['id'])) {
-                                WorkflowSlotFieldRadiogroupTable::instance()->updateRadiogroupById($field['id'],1);
-                            }
-                            break;
-                        case 'CHECKBOXGROUP':
-                            $checkGroupId = WorkflowSlotFieldCheckboxgroupTable::instance()->getCheckboxgroupById($field['field_id'])->toArray();
-                            WorkflowSlotFieldCheckboxgroupTable::instance()->setToNullByFieldId($checkGroupId[0]['workflowslotfield_id']);
-                            if(isset($field['items']) == true) {
-                                foreach($field['items'] as $singleItem) {
-                                    WorkflowSlotFieldCheckboxgroupTable::instance()->updateCheckboxgroupById($singleItem['id'],1);
+        if(!empty($data)) {
+            $failure = $workflowSaveObj->checkFields($data['field']);
+            if($failure['isFalse'] == 0) {
+                if($data['workfloweditAcceptWorkflow_decission'] == 1) {
+                    if(isset($data['field'])) {
+                        foreach($data['field'] as $field) {
+                            switch ($field['type']) {
+                                case 'TEXTFIELD':
+                                    WorkflowSlotFieldTextfieldTable::instance()->updateTextfieldById($field['field_id'],$field['value']);
+                                    break;
+                                case 'CHECKBOX':
+                                    $value = isset($field['value']) == true ? 1 : 0;
+                                    WorkflowSlotFieldCheckboxTable::instance()->updateCheckboxById($field['field_id'],$value);
+                                    break;
+                                case 'NUMBER':
+                                    WorkflowSlotFieldNumberTable::instance()->updateNumberById($field['field_id'],$field['value']);
+                                    break;
+                                case 'DATE':
+                                    WorkflowSlotFieldDateTable::instance()->updateDateById($field['field_id'],$field['value']);
+                                    break;
+                                case 'TEXTAREA':
+                                    WorkflowSlotFieldTextareaTable::instance()->updateTextareaById($field['field_id'],$field['value']);
+                                    break;
+                                case 'RADIOGROUP':
+                                    $radioGroupId = WorkflowSlotFieldRadiogroupTable::instance()->getRadiogroupById($field['field_id'])->toArray();
+                                    WorkflowSlotFieldRadiogroupTable::instance()->setToNullByFieldId($radioGroupId[0]['workflowslotfield_id']);
+                                    if(isset($field['id'])) {
+                                        WorkflowSlotFieldRadiogroupTable::instance()->updateRadiogroupById($field['id'],1);
+                                    }
+                                    break;
+                                case 'CHECKBOXGROUP':
+                                    $checkGroupId = WorkflowSlotFieldCheckboxgroupTable::instance()->getCheckboxgroupById($field['field_id'])->toArray();
+                                    WorkflowSlotFieldCheckboxgroupTable::instance()->setToNullByFieldId($checkGroupId[0]['workflowslotfield_id']);
+                                    if(isset($field['items']) == true) {
+                                        foreach($field['items'] as $singleItem) {
+                                            WorkflowSlotFieldCheckboxgroupTable::instance()->updateCheckboxgroupById($singleItem['id'],1);
+                                        }
+                                    }
+                                    break;
+                                case 'COMBOBOX':
+                                    if($field['id'] != '') {
+                                        $comboboxGroupId = WorkflowSlotFieldComboboxTable::instance()->getComboboxById($field['id'])->toArray();
+                                        WorkflowSlotFieldComboboxTable::instance()->setToNullByFieldId($comboboxGroupId[0]['workflowslotfield_id']);
+                                        WorkflowSlotFieldComboboxTable::instance()->updateComboboxById($field['id'],1);
+                                    }
+                                    break;
+                                case 'FILE':
+                                    break;
                                 }
-                            }
-                            break;
-                        case 'COMBOBOX':
-                            if($field['id'] != '') {
-                                $comboboxGroupId = WorkflowSlotFieldComboboxTable::instance()->getComboboxById($field['id'])->toArray();
-                                WorkflowSlotFieldComboboxTable::instance()->setToNullByFieldId($comboboxGroupId[0]['workflowslotfield_id']);
-                                WorkflowSlotFieldComboboxTable::instance()->updateComboboxById($field['id'],1);
-                            }
-                            break;
-                        case 'FILE':
-                            break;
-                        }
 
+                        }
+                    }
+                    $slots = $data['slot'];
+                    $workflowSaveObj->getNextStation($slots,$request->getParameter('userid'),$request->getParameter('versionid'));
                 }
+                else {
+                    $workflowSaveObj->denyWorkflow($data, $request->getParameter('workflowid'), $request->getParameter('userid'), $request->getParameter('versionid'));
+                }
+                $this->setLayout(false);
+                $this->setTemplate('writing');
+                return sfView::SUCCESS;
             }
-            $slots = $data['slot'];
-            $workflowSaveObj->getNextStation($slots,$request->getParameter('userid'),$request->getParameter('versionid'));
+            else {
+                return $this->redirect($this->generateUrl('default', array('module' => 'iframe', 'action' => 'getIFrame', 'userid' => $request->getParameter('userid'), 'workflowid' => $request->getParameter('workflowid'), 'versionid' => $request->getParameter('versionid'), 'error' => 1)));
+            }
         }
         else {
-            $workflowSaveObj->denyWorkflow($data, $request->getParameter('workflowid'), $request->getParameter('userid'), $request->getParameter('versionid'));
+               $this->setLayout(false);
+               $this->setTemplate('failure');
+               return sfView::SUCCESS;
         }
         return sfView::NONE;
     }
