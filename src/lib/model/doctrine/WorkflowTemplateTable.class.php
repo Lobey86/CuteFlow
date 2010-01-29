@@ -13,6 +13,15 @@ class WorkflowTemplateTable extends Doctrine_Table {
     }
 
 
+    public function getWorkflowSender() {
+        return Doctrine_Query::create()
+            ->select('DISTINCT wft.sender_id as id')
+            ->from('WorkflowTemplate wft')
+            ->where('wft.deleted_at IS NULL')
+            ->andWhere('wft.isarchived = ?', 0)
+            ->andWhere('wft.isstopped = ?', 0)
+            ->execute();
+    }
 
 
     public function archiveWorkflow($id) {

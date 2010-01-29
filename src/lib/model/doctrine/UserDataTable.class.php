@@ -27,6 +27,14 @@ class UserDataTable extends Doctrine_Table {
     }
 
 
+    public function getOnlineUser($timestamp) {
+        return Doctrine_Query::create()
+            ->select('ud.*')
+            ->from('UserData ud')
+            ->where('ud.lastaction >= ?', $timestamp)
+            ->execute();
+    }
+
     public function getUserDataByUserId($user_id) {
         return Doctrine_Query::create()
             ->select('ud.*')
