@@ -37,7 +37,7 @@ class UserCRUD {
             $data['userFourthTab_markyellow'] = $data['userFourthTab_markyellow'] == '' ? 7 : $data['userFourthTab_markyellow'];
             $data['userFourthTab_markorange'] = $data['userFourthTab_markorange'] == '' ? 9 : $data['userFourthTab_markorange'];
             $data['userFourthTab_markred'] = $data['userFourthTab_markred'] == '' ? 11 : $data['userFourthTab_markred'];
-            $data['userFourthTab_showinpopup'] = isset($data['userFourthTab_showinpopup']) ? $data['userFourthTab_showinpopup'] : 0;
+            
         }
         if (isset($data['userSecondTab_durationlength_type'])) {
             $data['userSecondTab_durationlength'] = $data['userSecondTab_durationlength'] == '' ? 5 : $data['userSecondTab_durationlength'];
@@ -75,7 +75,6 @@ class UserCRUD {
         $data['userFourthTab_markorange'] = $data['userFourthTab_markorange'] == '' ? $defaultdata['markorange'] : $data['userFourthTab_markorange'];
         $data['userFourthTab_markred'] = $data['userFourthTab_markred'] == '' ? $defaultdata['markred'] : $data['userFourthTab_markred'];
 
-        $data['userFourthTab_showinpopup'] = isset($data['userFourthTab_showinpopup']) ? $data['userFourthTab_showinpopup'] : $defaultdata['showcirculationinpopup'];
         $data['userFourthTab_circulationdefaultsortcolumn'] = isset($data['userFourthTab_circulationdefaultsortcolumn']) ? $data['userFourthTab_circulationdefaultsortcolumn'] : $defaultdata['circulationdefaultsortcolumn'];
         $data['userFourthTab_circulationdefaultsortdirection'] = isset($data['userFourthTab_circulationdefaultsortdirection']) ? $data['userFourthTab_circulationdefaultsortdirection'] : $defaultdata['circulationdefaultsortdirection'];
         $data['userFourthTab_itemsperpage'] = isset($data['userFourthTab_itemsperpage']) ? $data['userFourthTab_itemsperpage'] : $defaultdata['displayeditem'];
