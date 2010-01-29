@@ -42,7 +42,7 @@ UserData:
     department: { type: string(100) }
     burdencenter: { type: string(100) }
     comment: { type: string(1000) }
-    lastaction: timestamp
+    lastaction: { type: string(100) }
   relations:
     UserLogin: { class: UserLogin, local: user_id, foreign: id, foreignType: one, type: one }
 
@@ -96,7 +96,6 @@ UserSetting:
     emailtype: { type: string(100) }
     circulationdefaultsortcolumn: { type: string(45) }
     circulationdefaultsortdirection: { type: string(45) }
-    showcirculationinpopup: {type: integer(1), length: 3}
     theme: { type: string(100) }
     firstlogin: {type: integer(1), length: 3}
 
@@ -185,7 +184,6 @@ UserConfiguration:
     emailformat: { type: string(45) }
     emailtype: { type: string(45) }
     theme: { type: string(100) }
-    showcirculationinpopup: {type: integer(1), length: 3}
     circulationdefaultsortcolumn: { type: string(45) }
     circulationdefaultsortdirection: { type: string(45) }
   relations:
