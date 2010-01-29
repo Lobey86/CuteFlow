@@ -281,11 +281,10 @@ UserSetting:
      displayeditem: 25
      durationtype: MINUTES
      durationlength: 1
-     emailformat: plain
+     emailformat: html
      emailtype: VALUES
      circulationdefaultsortcolumn: NAME
      circulationdefaultsortdirection: ASC
-     showcirculationinpopup: 1
      firstlogin: 1
      theme: DEFAULT
   us2:
@@ -302,7 +301,6 @@ UserSetting:
      emailtype: IFRAME
      circulationdefaultsortcolumn: STATION
      circulationdefaultsortdirection: DESC
-     showcirculationinpopup: 0
      firstlogin: 1
      theme: DEFAULT
   us3:
@@ -319,7 +317,6 @@ UserSetting:
      emailtype: IFRAME
      circulationdefaultsortcolumn: STATION
      circulationdefaultsortdirection: DESC
-     showcirculationinpopup: 0
      firstlogin: 1
      theme: DEFAULT
   us4:
@@ -336,7 +333,6 @@ UserSetting:
      emailtype: IFRAME
      circulationdefaultsortcolumn: STATION
      circulationdefaultsortdirection: DESC
-     showcirculationinpopup: 0
      firstlogin: 1
      theme: DEFAULT
 
@@ -553,6 +549,8 @@ SystemConfiguration:
    sc1:
      language: en_US
      visibleslots: CURRENT
+     sendreceivermail: 1
+     sendremindermail: 1
 
 AuthenticationConfiguration:
   ac:
@@ -577,7 +575,6 @@ UserConfiguration:
     emailtype: VALUES
     circulationdefaultsortcolumn: START
     circulationdefaultsortdirection: ASC
-    showcirculationinpopup: 0
     theme: DEFAULT
 
 WorkflowConfiguration:
