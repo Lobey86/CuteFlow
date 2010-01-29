@@ -33,13 +33,23 @@ class workflowdetailActions extends sfActions
         $generalData = $detailsObj->buildHeadLine($workflowsettings);
         $userData = $detailsObj->buildUserData($workflowsettings, $request->getParameter('versionid'));
         $workflowData = $detailsObj->buildWorkflowData($workflowsettings, $request->getParameter('versionid'));
-        $attachments = $detailsObj->buildAttachments($workflowsettings, $request->getParameter('versionid'));
-
-
+        $attachments = $detailsObj->buildAttachments($workflowsettings, $request->getParameter('versionid'));        
         $this->renderText('{"generalData":'.json_encode($generalData).', "detailData" : '.json_encode($userData).', "workflowData" : '.json_encode($workflowData).', "workflowAttachment" : '.json_encode($attachments).'}');
         return sfView::NONE;
     }
 
+
+    public function executeResendEmail(sfWebRequest $request) {
+        sfLoader::loadHelpers('Url');
+        sfLoader::loadHelpers('Partial');
+        $serverUrl = str_replace('/layout', '', url_for('layout/index',true));
+        $context = sfContext::getInstance();
+        $versionId = $request->getParameter('versionid');
+        $user_id = $request->getParameter('userid');
+        $workflow = WorkflowVersionTable::instance()->getWorkflowVersionById($versionId)->toArray();
+        $test = new PrepareStationEmail($versionId, $workflow[0]['workflowtemplate_id'], $user_id, $context, $serverUrl);
+        return sfView::NONE;
+    }
 
     public function executeLoadVersion(sfWebRequest $request) {
         $detailsObj = new WorkflowDetail();

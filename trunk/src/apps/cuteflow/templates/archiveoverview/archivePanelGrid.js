@@ -49,7 +49,6 @@ cf.archiveWorkflow = function(){return {
 					{name: 'sendername'},
 					{name: 'currentstation'},
 					{name: 'isstopped'},
-					{name: 'openinpopup'},
 					{name: 'name'},
 					{name: 'isstopped'},
 					{name: 'auth'},
@@ -118,17 +117,77 @@ cf.archiveWorkflow = function(){return {
 	renderButton: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 		var id = record.data['id'];
 		var activeversion_id = record.data['activeversion_id'];
-		var openinpopup = record.data['openinpopup'];
 		var isstopped = record.data['isstopped'];
 		
 		var rights = record.data['auth'];
 		
-		var btnDetails = cf.archiveWorkflow.createRemoveFromArchive.defer(10,this, [id, activeversion_id, openinpopup, rights.detailsworkflow]);
-		return '<center><table><tr><td width="16"><div id="archiveoverview_remove'+ id +'"></div></td></tr></table></center>';
+		var btnDetails = cf.archiveWorkflow.createRemoveFromArchive.defer(10,this, [id, activeversion_id, rights.archiveworkflow]);
+		var btnDetails = cf.archiveWorkflow.createDetailsButton.defer(10,this, [id, activeversion_id, rights.detailsworkflow]);
+		var btnEdit1 = cf.archiveWorkflow.createDeleteButton.defer(10,this, [id, activeversion_id, rights.deleteworkflow]);
+		return '<center><table><tr><td width="16"><div id="archiveoverview_delete'+ id +'"></div></td><td width="16"><div id="archiveoverview_details'+ id +'"></div></td><td width="16"><div id="archiveoverview_remove'+ id +'"></div></td></tr></table></center>';
 	},
 	
 	
-	createRemoveFromArchive: function (template_id, activeversion_id) {
+	
+	createDetailsButton: function (template_id, activeversion_id, right) {
+		var btn_copy = new Ext.form.Label({
+			renderTo: 'archiveoverview_details' + template_id,
+			html: '<span style="cursor:pointer;"><img src="/images/icons/zoom.png" /></span>',
+			listeners: {
+				render: function(c){
+					c.getEl().on({
+						click: function(el){
+							if(right == 1) {
+								cf.workflowdetails.init(template_id, activeversion_id, false, true);
+							}
+							else {
+								Ext.Msg.minWidth = 200;
+								Ext.MessageBox.alert('<?php echo __('Error',null,'workflowmanagement'); ?>', '<?php echo __('Permission denied',null,'workflowmanagement'); ?>');
+							}
+						},
+					scope: c
+					});
+				}
+			}
+		});
+		
+	},
+	
+	createDeleteButton: function (template_id, activeversion_id, right) {
+		var btn_copy = new Ext.form.Label({
+			renderTo: 'archiveoverview_delete' + template_id,
+			html: '<span style="cursor:pointer;"><img src="/images/icons/delete.png" /></span>',
+			listeners: {
+				render: function(c){
+					c.getEl().on({
+						click: function(el){
+							if(right == 1) {
+								Ext.Msg.show({
+								   title:'<?php echo __('Delete workflow',null,'workflowmanagement'); ?>?',
+								   msg: '<?php echo __('Delete workflow',null,'workflowmanagement'); ?>?',
+								   buttons: Ext.Msg.YESNO,
+								   fn: function(btn, text) {
+										if(btn == 'yes') {
+											cf.workflowmanagementPanelCRUD.deleteWorkflow(template_id, activeversion_id);
+										}
+								   }
+								});
+							}
+							else {
+								Ext.Msg.minWidth = 200;
+								Ext.MessageBox.alert('<?php echo __('Error',null,'workflowmanagement'); ?>', '<?php echo __('Permission denied',null,'workflowmanagement'); ?>');
+							}
+						},
+					scope: c
+					});
+				}
+			}
+		});
+		
+	},
+	
+	
+	createRemoveFromArchive: function (template_id, activeversion_id, right) {
 		var btn_copy = new Ext.form.Label({
 			html: '<span style="cursor:pointer;"><img src="/images/icons/database_refresh.png" /></span>',
 			renderTo: 'archiveoverview_remove' + template_id,
@@ -136,16 +195,22 @@ cf.archiveWorkflow = function(){return {
 				render: function(c){
 					c.getEl().on({
 						click: function(el){
-							Ext.Msg.show({
-							   title:'<?php echo __('Archive workflow',null,'workflowmanagement'); ?>?',
-							   msg: '<?php echo __('Archive workflow',null,'workflowmanagement'); ?>?',
-							   buttons: Ext.Msg.YESNO,
-							   fn: function(btn, text) {
-									if(btn == 'yes') {
-										cf.archivePanelCRUD.removeFromArchive(template_id, activeversion_id);
-									}
-							   }
-							});
+							if(right == 1) {
+								Ext.Msg.show({
+								   title:'<?php echo __('Remove from Archive',null,'workflowmanagement'); ?>?',
+								   msg: '<?php echo __('Remove from Archive',null,'workflowmanagement'); ?>?',
+								   buttons: Ext.Msg.YESNO,
+								   fn: function(btn, text) {
+										if(btn == 'yes') {
+											cf.archivePanelCRUD.removeFromArchive(template_id, activeversion_id);
+										}
+								   }
+								});
+							}
+							else {
+								Ext.Msg.minWidth = 200;
+								Ext.MessageBox.alert('<?php echo __('Error',null,'workflowmanagement'); ?>', '<?php echo __('Permission denied',null,'workflowmanagement'); ?>');
+							}
 						},
 					scope: c
 					});

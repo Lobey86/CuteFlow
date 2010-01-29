@@ -8,10 +8,10 @@ cf.emailTab = function(){return {
 	/** call all necessary functions **/
 	init: function () {
 		this.initEmail();
-		this.initSendingType();
+		//this.initSendingType();
 		this.initEmailTab();
 		this.theEmailTab.add(this.theEmailReplay);
-		this.theEmailTab.add(this.theEmailSendingType);
+		//this.theEmailTab.add(this.theEmailSendingType);
 	},
 	
 	/** builds the tab **/
@@ -177,12 +177,14 @@ cf.emailTab = function(){return {
 	
 	/** add data for email tab to the combo and textfields **/
 	addData: function (data) {
+			Ext.getCmp('emailtab_systemreplyaddress').setValue(data.systemreplyaddress);
+			/*
 			Ext.getCmp('email_sendmail').setValue(data.sendmailpath);
 			Ext.getCmp('email_smtp_server').setValue(data.smtphost);
 			Ext.getCmp('email_smtp_port').setValue(data.smtpport);
 			Ext.getCmp('email_smtp_username').setValue(data.smtpusername);
 			Ext.getCmp('email_smtp_password').setValue(data.smtppassword);
-			//alert(data.smtpuseauth);
+			
 			Ext.getCmp('email_smtp_auth').setValue(data.smtpuseauth);
 			Ext.getCmp('emailtab_encryption_id').setValue(data.smtpencryption);
 			Ext.getCmp('emailtab_emailtype_id').setValue(data.activetype);
@@ -217,7 +219,7 @@ cf.emailTab = function(){return {
 			if (Ext.isIE7 == true) {
 				Ext.getCmp('emailtab_emailtype_id').style = 'margin-top:0px;margin-bottom:1px;';
 				Ext.getCmp('emailtab_encryption_id').style = 'margin-top:0px;margin-bottom:1px;';
-			}
+			}*/
 		}
 
 };}();

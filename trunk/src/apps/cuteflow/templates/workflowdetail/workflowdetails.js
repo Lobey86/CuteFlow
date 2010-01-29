@@ -4,7 +4,7 @@ cf.workflowdetails = function(){return {
 	thePopUpWindow				:false,
 	thePanelToShow				:false,
 	
-	init: function (workflowtemplate_id, version_id, openinpopup, showAction, workflowAdmin) {
+	init: function (workflowtemplate_id, version_id, showAction, workflowAdmin) {
 		cf.workflowdetails.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'workflowmanagement'); ?>'});					
 		cf.workflowdetails.theLoadingMask.show();
 		
@@ -20,7 +20,7 @@ cf.workflowdetails = function(){return {
 				var attachments = ServerResult.workflowAttachment;
 				
 				
-				cf.workflowdetails.thePanelToShow = openinpopup == true ? cf.workflowdetails.initWindow() : '';
+				cf.workflowdetails.initWindow();
 				cf.workflowdetailsGeneral.init(generalData, workflowtemplate_id);
 				cf.workflowdetailsDetails.init(detailData, workflowAdmin);
 				cf.workflowdetailsAttachments.init(attachments);
@@ -31,7 +31,7 @@ cf.workflowdetails = function(){return {
 				cf.workflowdetails.thePanelToShow.add(cf.workflowdetailsAttachments.theFieldset);
 				cf.workflowdetails.thePanelToShow.add(cf.workflowdetailsValue.theFieldset);
 				cf.workflowdetails.thePanelToShow.doLayout();
-				openinpopup == true ? cf.workflowdetails.thePanelToShow.show() : '';
+				cf.workflowdetails.thePanelToShow.show();
 			}
 		});
 		
@@ -42,7 +42,7 @@ cf.workflowdetails = function(){return {
 	
 	
 	initWindow: function () {
-		var thePopUpWindow = new Ext.Window({
+		this.thePanelToShow = new Ext.Window({
 			modal: true,
 			closable: true,
 			modal: true,
@@ -56,11 +56,10 @@ cf.workflowdetails = function(){return {
 			resizable: true,
 	        plain: false,
 			close : function(){
-				thePopUpWindow.hide();
-				thePopUpWindow.destroy();
+				cf.workflowdetails.thePanelToShow.hide();
+				cf.workflowdetails.thePanelToShow.destroy();
 			}
 		});
-		return thePopUpWindow;
 	}
 	
 	

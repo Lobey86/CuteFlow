@@ -27,22 +27,41 @@ class sendmessageActions extends sfActions {
      * @return <type>
      */
     public function executeSendMail(sfWebRequest $request) {
-
-
-        $user = UserLoginTable::instance()->getUserDataByReceiver($request->getPostParameter('receiver'));
-        $recevier = $user->toArray();
+        $subject = $request->getParameter('subject');
+        $type = $request->getParameter('type');
+        $content = $request->getParameter('description');
+        $decission = $request->getParameter('receiver');
+        switch ($decission) {
+            case 'ALL':
+                $users = UserLoginTable::instance()->getAllUser(-1, -1)->toArray();
+                break;
+            case 'SENDER':
+                $users = WorkflowTemplateTable::instance()->getWorkflowSender()->toArray();
+                break;
+            case 'ONLINE':
+                $currentTime = time();
+                $fiveMinutes = (1 * 60)*5;
+                $fiveMinutesAgo = $currentTime - $fiveMinutes;
+                $users = UserDataTable::instance()->getOnlineUser($fiveMinutesAgo)->toArray();
+                break;
+        }
         
-        $email = EmailConfigurationTable::instance()->getEmailConfiguration();
-        $mail = new MailDaemon($email);
+        
+        foreach($users as $user) {
+            if($decission == 'SENDER') {
+               $userData = new UserMailSettings($user['sender_id']);
+            }
+            elseif ($decission == 'ALL') {
+                $userData = new UserMailSettings($user['id']);
+            }
+            else {
+                $userData = new UserMailSettings($user['user_id']);
+            }
+            $send = new SendMessage();
+            $send->sendSystemMail($userData, $subject, $content, $type);
+        }
 
-        $mailObject = $mail->getSwiftObject();
-        $mailObject->setCharset(sfConfig::get('sf_charset'));
-        $mailObject->setContentType('text/' . $request->getPostParameter('type'));
-        $mailObject->setSubject( $request->getPostParameter('subject'));
-        $mailObject->setFrom(array($email[0]->getSystemreplyaddress() => $email[0]->getSystemreplyaddress()));
-        $mailObject->setBody( $request->getPostParameter('description'));
-        $mailObject->setTo($mail->buildReceiver($recevier));
-        $mail->send();
+
         $this->renderText('{success:true}');
         return sfView::NONE;
     }

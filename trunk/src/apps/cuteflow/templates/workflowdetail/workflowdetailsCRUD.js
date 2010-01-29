@@ -64,6 +64,20 @@ cf.workflowdetailsCRUD = function(){return {
 		
 	},
 	
+	resendStation: function (versionid, userid) {
+		cf.workflowdetailsCRUD.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Sending Email...',null,'workflowmanagement'); ?>'});					
+		cf.workflowdetailsCRUD.theLoadingMask.show();
+		Ext.Ajax.request({  
+			url : '<?php echo build_dynamic_javascript_url('workflowdetail/ResendEmail')?>/versionid/' + versionid + '/userid/' + userid,
+			success: function(objServerResponse){
+				Ext.Msg.minWidth = 200;
+				Ext.MessageBox.alert('<?php echo __('OK',null,'workflowmanagement'); ?>', '<?php echo __('Email send',null,'workflowmanagement'); ?>');
+				cf.workflowdetailsCRUD.theLoadingMask.hide();
+			}
+		});
+			
+	},
+	
 	
 	
 	setNewStation: function (templateversion_id, newWorkflowUserSlotId, currentWorkflowUserSlotId, direction) {

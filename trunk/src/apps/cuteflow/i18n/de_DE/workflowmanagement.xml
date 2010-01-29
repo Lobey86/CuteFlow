@@ -526,6 +526,14 @@
 			<source>Moving workflow...</source>
 			<target>Verschiebe Umlauf...</target>
 		</trans-unit>
+		<trans-unit id="131">
+			<source>Email send</source>
+			<target>Email versendet</target>
+		</trans-unit>
+		<trans-unit id="132">
+			<source>Sending Email...</source>
+			<target>Versende Email...</target>
+		</trans-unit>
 	</body>
   </file>
 </xliff>

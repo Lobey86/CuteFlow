@@ -55,6 +55,7 @@ cf.workflowdetailsDetails = function(){return {
 					{name: 'workflowslot_id'},
 					{name: 'status'},
 					{name: 'isuseragentof'},
+					{name: 'user_id'},
 					{name: 'duration'},
 					{name: 'slotgroup'},
 					{name: 'version_id'},
@@ -76,14 +77,11 @@ cf.workflowdetailsDetails = function(){return {
 					status:user.decissionstate, 
 					workflowslot_id:slot.workflowslot_id,
 					receivedat:user.received,
+					user_id:user.user_id,
 					statusinwords:user.decissioninwords,
 					duration: user.received == null ? '' : user.inprogresssince ,
 					slotgroup: user.slotgroup
 				}));	
-					
-					
-								
-				
 			}
 				
 			
@@ -102,9 +100,9 @@ cf.workflowdetailsDetails = function(){return {
 				var sendtoallatonce = row.data.senttoallatonce;
 				var workflowuserid = row.data.id;
 				var sendtoallreceivers = row.data.sendtoallreceivers;
-				
+				var userid = row.data.user_id;
 				row.data.action =  '<center><table><tr><td width="16"><div id="workflowdetailresend'+ id +'"></div></td><td width="16"><div id="workflowdetailskip'+ id +'"></div></td><td width="16"><div id="workflowdetailuseragent'+ id +'"></div></td><td width="16"><div id="workflowdetailselectstation'+ id +'"></div></td></tr></table></center>';
-				var btnDetails = cf.workflowdetailsDetails.createResendButton.defer(1,this, [id]);
+				var btnDetails = cf.workflowdetailsDetails.createResendButton.defer(1,this, [id,templateversion_id, userid]);
 				var btnDetails = cf.workflowdetailsDetails.createSkipButton.defer(1,this, [id, templateversion_id, workflowslot_id, workflowuser_id]);
 				var btnDetails = cf.workflowdetailsDetails.createUserAgentButton.defer(1,this, [id, isuseragentof, templateversion_id]);
 				var btnDetails = cf.workflowdetailsDetails.createSelectStationButton.defer(1,this, [id,templateversion_id,sendtoallatonce, workflowuserid]);
@@ -158,7 +156,7 @@ cf.workflowdetailsDetails = function(){return {
 		});
 	},
 	
-	createResendButton: function (id) {
+	createResendButton: function (id, version_id, userid) {
 		var btn_copy = new Ext.form.Label({
 			renderTo: 'workflowdetailresend' + id,
 			html: '<span style="cursor:pointer;"><img src="/images/icons/retry.png" /></span>',
@@ -166,7 +164,7 @@ cf.workflowdetailsDetails = function(){return {
 				render: function(c){
 					c.getEl().on({
 						click: function(el){
-							alert(id);
+							cf.workflowdetailsCRUD.resendStation(version_id, userid);
 						},
 					scope: c
 					});
