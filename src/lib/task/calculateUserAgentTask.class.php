@@ -3,10 +3,10 @@
  *
  * The Task can be called in DEV and PROD environment, by default productive system is loaded
  *
- * env: "" = Productive system,
- *      cuteflow_dev.php = DEV System
+ * setenvironment: "" = Productive system,
+ *                 "cuteflow_dev.php" = DEV System
  *
- * call task: php symfony calculateUserAgent --env="" --host="http://cuteflow"
+ * call task: php symfony calculateUserAgent --setenvironment="" --host="http://cuteflow"
  *
  */
 class calculateUserAgentTask extends sfBaseTask
@@ -20,7 +20,8 @@ class calculateUserAgentTask extends sfBaseTask
 
     $this->addOptions(array(
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'cuteflow'),
-      new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', ''), // for dev, use cuteflow_dev.php
+      new sfCommandOption('setenvironment', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment in large', ''), // for dev, use cuteflow_dev.php
+      new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', ''),
       new sfCommandOption('host', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'http://cuteflow'), // http://cuteflow is default
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'doctrine'),
       // add your own options here
@@ -43,21 +44,16 @@ EOF;
         $connection = $databaseManager->getDatabase($options['connection'] ? $options['connection'] : null)->getConnection();
         $context = sfContext::createInstance($this->configuration);
         $context->getConfiguration()->loadHelpers('Partial', 'I18N', 'Url', 'Date', 'CalculateDate', 'ColorBuilder', 'Icon');
-        if($options['env'] == '') {
-            $serverUrl = $options['host'];
-        }
-        else {
-            $serverUrl = $options['host'] . '/' . $options['env'];
-        }
-        #$process = WorkflowProcessUserTable::instance()->getWaitingProcess();
-        #$sub = new CheckSubstitute($process, $context, $serverUrl);
+        $serverUrl = $options['setenvironment'] == '' ? $serverUrl = $options['host'] : $serverUrl = $options['host'] . '/' . $options['setenvironment'];
+        $process = WorkflowProcessUserTable::instance()->getWaitingProcess();
+        $sub = new CheckSubstitute($process, $context, $serverUrl);
 
-        #die;
+        /*die;
         $versionId = 1;
         $templateId = 1;
         $user_id = 1;
 
         $test = new PrepareStationEmail($versionId, $templateId, $user_id, $context, $serverUrl);
-        die;
+        die;*/
     }
 }

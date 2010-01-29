@@ -3,10 +3,10 @@
  *
  * The Task can be called in DEV and PROD environment, by default productive system is loaded
  *
- * env: "" = Productive system,
- *      cuteflow_dev.php = DEV System
+ * setenvironment: "" = Productive system,
+ *                 "cuteflow_dev.php" = DEV System
  *
- * call task: php symfony calculateUserAgent --env="" --host="http://cuteflow"
+ * call task: php symfony calculateUserAgent --setenvironment="" --host="http://cuteflow"
  *
  */
 
@@ -21,7 +21,8 @@ class startWorkflowTask extends sfBaseTask
 
     $this->addOptions(array(
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'cuteflow'),
-      new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', ''),
+      new sfCommandOption('setenvironment', null, sfCommandOption::PARAMETER_REQUIRED, 'The real environment', ''),
+     new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', ''),
       new sfCommandOption('host', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'http://cuteflow'), // http://cuteflow is default
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'doctrine'),
       // add your own options here
@@ -43,13 +44,7 @@ EOF;
         $connection = $databaseManager->getDatabase($options['connection'] ? $options['connection'] : null)->getConnection();
         $context = sfContext::createInstance($this->configuration);
         sfProjectConfiguration::getActive()->loadHelpers('Partial', 'I18N', 'Url');
-        if($options['env'] == '') {
-            $serverUrl = $options['host'];
-        }
-        else {
-            $serverUrl = $options['host'] . '/' . $options['env'];
-        }
-
+        $serverUrl = $options['setenvironment'] == '' ? $serverUrl = $options['host'] : $serverUrl = $options['host'] . '/' . $options['setenvironment'];
         $workflows = WorkflowVersionTable::instance()->getWorkflowsToStart(time())->toArray();
         foreach($workflows as $workflow) {
             $sender = WorkflowTemplateTable::instance()->getWorkflowTemplateById($workflow['workflowtemplate_id'])->toArray();
