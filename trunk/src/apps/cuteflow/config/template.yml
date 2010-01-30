@@ -3,3 +3,29 @@ disabled:
     login
   module_2:
     layout
+  module_3:
+    additionaltext
+  module_4:
+    createworkflow
+  module_5:
+    mailinglist
+  module_6:
+    restartworkflow
+  module_7:
+    usermanagement
+  module_8:
+    workflowedit
+  module_9:
+    workflowoverview
+  module_10:
+    field
+  module_11:
+    documenttemplate
+  module_12:
+    todooverview
+  module_13:
+    workflowoverview
+  module_14:
+    field
+  module_15:
+    workflowoverview
