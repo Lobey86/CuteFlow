@@ -9,6 +9,10 @@ class Login {
 
     }
 
+    public static function getBackgroundColor() {
+       $config =  SystemConfigurationTable::instance()->getSystemConfiguration()->toArray();
+       return $config[0]['colorofnorthregion'];
+    }
 
     /**
      *
