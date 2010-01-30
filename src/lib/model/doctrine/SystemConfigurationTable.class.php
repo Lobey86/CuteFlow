@@ -36,6 +36,7 @@ class SystemConfigurationTable extends Doctrine_Table {
             ->set('sc.sendreceivermail','?',$data['systemsetting_sendreceivermail'])
             ->set('sc.sendremindermail','?',$data['systemsetting_sendremindermail'])
             ->set('sc.visibleslots','?',$data['systemsetting_slotvisible'])
+            ->set('sc.colorofnorthregion','?',$data['systemsetting_color'])
             ->where ('sc.id = ?',1)
             ->execute();
         return true;
