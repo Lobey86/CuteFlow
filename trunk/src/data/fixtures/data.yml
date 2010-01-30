@@ -551,6 +551,7 @@ SystemConfiguration:
      visibleslots: CURRENT
      sendreceivermail: 1
      sendremindermail: 1
+     colorofnorthregion: '#DFE8F6'
 
 AuthenticationConfiguration:
   ac:
