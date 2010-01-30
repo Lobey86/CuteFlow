@@ -31,7 +31,6 @@ class systemsettingActions extends sfActions {
         $auth = AuthenticationConfigurationTable::instance()->getAuthenticationConfiguration()->toArray();
         $system = SystemConfigurationTable::instance()->getSystemConfiguration()->toArray();
         $usersettings = UserConfigurationTable::instance()->getUserConfiguration()->toArray();
-
         $email[0]['smtpencryption'] =  $email[0]['smtpencryption'] == '' ? 'NONE' :  $email[0]['smtpencryption'];
         
         $this->renderText('{"email":'.json_encode($email[0]).',"auth":'.json_encode($auth[0]).',"system" : '.json_encode($system[0]).',"user" : '.json_encode($usersettings[0]).'}');

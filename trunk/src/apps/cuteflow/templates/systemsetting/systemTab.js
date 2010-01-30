@@ -5,17 +5,23 @@ cf.systemTab = function(){return {
 	theLanguageFieldset			:false,
 	theWorkflowFieldset			:false,
 	theLanguageCombo			:false,
+	theColorFieldset			:false,
 	theComboStore				:false,
+	thePicker					:false,
 	
 	
 	/** load all nedded functions **/
 	init: function () {
 		this.initStore();
 		this.initLanguageFieldset();
+		this.initColorPicker();
+		this.initColorFieldset();
+		this.theColorFieldset.add(this.thePicker);
 		this.initWorkflowSettingsFieldset();
 		this.initSystemTab();
 		this.theSystemTab.add(this.theLanguageFieldset);
 		this.theSystemTab.add(this.theWorkflowFieldset);
+		this.theSystemTab.add(this.theColorFieldset);
 	},
 	
 	/** init the tab **/
@@ -35,6 +41,30 @@ cf.systemTab = function(){return {
 	        plain: false
 		});
 	},
+	
+	initColorFieldset: function () {
+		this.theColorFieldset = new Ext.form.FieldSet({
+			title: '<?php echo __('Set Background of Navigation north',null,'systemsetting'); ?>',
+			width: 600,
+			height: 90,
+			style: 'margin-top:20px;margin-left:5px;',
+			labelWidth: 330
+		});
+			
+		
+	},
+	
+	initColorPicker: function () {
+		this.thePicker = new Ext.form.ColorField({
+			fieldLabel: '<?php echo __('Select color',null,'field'); ?>',
+			id: 'systemsetting_color',
+			width: 230,
+			editable: true,
+			allowBlank: false
+		});
+		
+	},
+	
 	
 	/** init workflow settings **/
 	initWorkflowSettingsFieldset: function () {
@@ -130,6 +160,7 @@ cf.systemTab = function(){return {
 		Ext.getCmp('systemsetting_sendreceivermail').setValue(data.sendreceivermail);
 		Ext.getCmp('systemsetting_sendremindermail').setValue(data.sendremindermail);
 		Ext.getCmp('systemsetting_slotvisible_id').setValue(data.visibleslots);
+		Ext.getCmp('systemsetting_color').setValue(data.colorofnorthregion);
 		
 		if (Ext.isIE7 == true) {
 			Ext.getCmp('systemsetting_language_id').style = 'margin-top:0px;margin-bottom:1px;';
