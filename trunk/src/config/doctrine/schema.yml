@@ -137,10 +137,10 @@ SystemConfiguration:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
     language: { type: string(20), default: en_US}
     showpositioninmail: { type: integer(1), length: 3}
-    allowunencryptedrequest: { type: integer(1), length: 3}
     sendreceivermail: { type: integer(1), length: 3}
     sendremindermail: {type: integer(1), length: 3}
     visibleslots: { type: string(45) }
+    colorofnorthregion: { type: string(45) }
 
 AuthenticationConfiguration:
   tableName: cf_authenticationconfiguration
