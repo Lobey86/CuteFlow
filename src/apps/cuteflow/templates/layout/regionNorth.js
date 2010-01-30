@@ -12,6 +12,7 @@ cf.cuteFlowLogo = function(){return {
 				frame:true,
 				border: false,
 				autoScroll: true,
+				bodyStyle: 'background-color:<?php echo Login::getBackgroundColor();?>',
 				width: 'auto',
 				html: 'TESTEN',
 			    height: 'auto'
