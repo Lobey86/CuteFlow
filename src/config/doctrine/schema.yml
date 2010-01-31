@@ -504,6 +504,7 @@ WorkflowVersionAttachment:
  
 WorkflowSlot:
   tableName: cf_workflowslot
+  actAs: [Timestampable]
   columns:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
     workflowversion_id: { type: integer, length: 10 }
