@@ -298,7 +298,7 @@ UserSetting:
      durationtype: MINUTES
      durationlength: 50
      emailformat: html
-     emailtype: IFRAME
+     emailtype: VALUES
      circulationdefaultsortcolumn: STATION
      circulationdefaultsortdirection: DESC
      firstlogin: 1
@@ -314,7 +314,7 @@ UserSetting:
      durationtype: MINUTES
      durationlength: 50
      emailformat: html
-     emailtype: IFRAME
+     emailtype: VALUES
      circulationdefaultsortcolumn: STATION
      circulationdefaultsortdirection: DESC
      firstlogin: 1
@@ -330,7 +330,7 @@ UserSetting:
      durationtype: MINUTES
      durationlength: 50
      emailformat: html
-     emailtype: IFRAME
+     emailtype: VALUES
      circulationdefaultsortcolumn: STATION
      circulationdefaultsortdirection: DESC
      firstlogin: 1
@@ -372,11 +372,6 @@ UserWorkflowConfiguration:
     columntext: MAILINGLIST
     isactive: 'false'
     position: 7
-  uwc8:
-    user_id: 1
-    columntext: TEMPLATE
-    isactive: 'false'
-    position: 8
   uwc9:
     user_id: 2
     columntext: NAME
@@ -412,11 +407,6 @@ UserWorkflowConfiguration:
     columntext: MAILINGLIST
     isactive: 'false'
     position: 7
-  uwc16:
-    user_id: 2
-    columntext: TEMPLATE
-    isactive: 'false'
-    position: 8
   uwc17:
     user_id: 3
     columntext: NAME
@@ -442,7 +432,7 @@ UserWorkflowConfiguration:
     columntext: SENDER
     isactive: 'false'
     position: 5
-  uwc226:
+  uwc22:
     user_id: 3
     columntext: TOTALTIME
     isactive: 'false'
@@ -452,11 +442,6 @@ UserWorkflowConfiguration:
     columntext: MAILINGLIST
     isactive: 'false'
     position: 7
-  uwc24:
-    user_id: 3
-    columntext: TEMPLATE
-    isactive: 'false'
-    position: 8
   uwc25:
     user_id: 4
     columntext: NAME
@@ -492,51 +477,6 @@ UserWorkflowConfiguration:
     columntext: MAILINGLIST
     isactive: 'false'
     position: 7
-  uwc32:
-    user_id: 4
-    columntext: TEMPLATE
-    isactive: 'false'
-    position: 8  
-  wc33:
-    user_id: 1
-    columntext: USERDEFINED1
-    isactive: 'false'
-    position: 9
-  wc34:
-    user_id: 1
-    columntext: USERDEFINED2
-    isactive: 'false'
-    position: 10
-  wc35:
-    user_id: 2
-    columntext: USERDEFINED1
-    isactive: 'false'
-    position: 9
-  wc36:
-    user_id: 2
-    columntext: USERDEFINED2
-    isactive: 'false'
-    position: 10
-  wc37:
-    user_id: 3
-    columntext: USERDEFINED1
-    isactive: 'false'
-    position: 9
-  wc38:
-    user_id: 3
-    columntext: USERDEFINED2
-    isactive: 'false'
-    position: 10
-  wc39:
-    user_id: 4
-    columntext: USERDEFINED1
-    isactive: 'false'
-    position: 9
-  wc40:
-    user_id: 4
-    columntext: USERDEFINED2
-    isactive: 'false'
-    position: 10
 
 EmailConfiguration:
   ec1:
@@ -612,18 +552,6 @@ WorkflowConfiguration:
     columntext: MAILINGLIST
     isactive: 'false'
     position: 7
-  wc8:
-    columntext: TEMPLATE
-    isactive: 'false'
-    position: 8
-  wc9:
-    columntext: USERDEFINED1
-    isactive: 'false'
-    position: 9
-  wc10:
-    columntext: USERDEFINED2
-    isactive: 'false'
-    position: 10
 
 Field:
   f1:
@@ -710,7 +638,7 @@ FieldFile:
 FieldNumber:
   fn1:
     field_id: 5
-    regex: ^[-]{0,1}[0-9]$
+    regex: ^[-]{0,1}[0-9]{0,}[,]{0,1}[.]{0,1}[0-9]{0,}$
     defaultvalue: 5
     comboboxvalue: EMPTY
 
