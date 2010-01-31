@@ -43,10 +43,22 @@ EOF;
         $databaseManager = new sfDatabaseManager($this->configuration);
         $connection = $databaseManager->getDatabase($options['connection'] ? $options['connection'] : null)->getConnection();
         $context = sfContext::createInstance($this->configuration);
-        $context->getConfiguration()->loadHelpers('Partial', 'I18N', 'Url', 'Date', 'CalculateDate', 'ColorBuilder', 'Icon');
+        $context->getConfiguration()->loadHelpers('Partial', 'I18N', 'Url', 'Date', 'CalculateDate', 'ColorBuilder', 'Icon', 'EndAction');
         $serverUrl = $options['setenvironment'] == '' ? $serverUrl = $options['host'] : $serverUrl = $options['host'] . '/' . $options['setenvironment'];
-        $process = WorkflowProcessUserTable::instance()->getWaitingProcess();
-        $sub = new CheckSubstitute($process, $context, $serverUrl);
+
+        $system = SystemConfigurationTable::instance()->getSystemConfiguration()->toArray();
+
+        if($system[0]['individualcronjob'] == 1) {
+            $systemConifg = new CheckSubstituteRun($context);
+            if($systemConifg->checkRun($system[0]['cronjobdays'],$system[0]['cronjobfrom'],$system[0]['cronjobto']) == true) {
+                $process = WorkflowProcessUserTable::instance()->getWaitingProcess();
+                $sub = new CheckSubstitute($process, $context, $serverUrl, $system[0]['setuseragenttype']);
+            }
+        }
+        else {
+            $process = WorkflowProcessUserTable::instance()->getWaitingProcess();
+            $sub = new CheckSubstitute($process, $context, $serverUrl, $system[0]['setuseragenttype']);
+        }
 
         /*die;
         $versionId = 1;
