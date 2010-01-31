@@ -12,23 +12,23 @@
     </trans-unit>
 	<trans-unit id="3">
         <source>DAYS</source>
-        <target>Days</target>
+        <target>Station l&#228;uft seit</target>
     </trans-unit>
 	<trans-unit id="4">
         <source>START</source>
-        <target>Start</target>
+        <target>Umlauf gestartet an</target>
     </trans-unit>
 	<trans-unit id="5">
         <source>SENDER</source>
-        <target>Sender</target>
+        <target>Umlaufsender</target>
     </trans-unit>
 	<trans-unit id="6">
         <source>TOTALTIME</source>
-        <target>Totaltime</target>
+        <target>Gesamtlaufzeit</target>
     </trans-unit>
 	<trans-unit id="7">
         <source>MAILINGLIST</source>
-        <target>Mailinglist</target>
+        <target>Verteiler</target>
     </trans-unit>
 	<trans-unit id="8">
         <source>TEMPLATE</source>

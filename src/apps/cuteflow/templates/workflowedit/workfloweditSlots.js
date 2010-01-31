@@ -21,6 +21,9 @@ cf.workfloweditSlot = function(){return {
 				
 			for(var b=0;b<slot.fields.length;b++) {
 				var field = slot.fields[b];	
+				if(field.color == null) {
+					field.color = '';
+				}
 				switch (field.type) {
 					case "TEXTFIELD":
 						var label = this.createTextfield(field.workflowslotfield_id, field.fieldname, field.items.value, field.writeprotected, field.color, field.items.regex);
@@ -59,7 +62,7 @@ cf.workfloweditSlot = function(){return {
 						attachment.add(label);
 						attachment.setVisible(true);
 					    break;
-				}	
+				}
 			}
 			columnPanel.add(leftPanel);
 			columnPanel.add(rightPanel);
@@ -71,6 +74,23 @@ cf.workfloweditSlot = function(){return {
 	},
 	
 	
+	createTextfield: function (id, name, value, writeprotected, color, regex) {
+		
+		var disabled = writeprotected == 1 ? true : false;
+		var textfield = new Ext.form.TextField({
+			fieldLabel: name,
+			disabled: disabled,
+			value: value,
+			id: 'TEXTFIELD__' + id,
+			name: 'REGEX__' + regex,
+			width: 200
+		});
+		if (color != '' && color != '#FFFFFF') {
+			textfield.style = 'background-color: '+color+'; background-image:none;';
+		}
+		return textfield;
+	},
+
 	createAttachment: function () {
 		var theFieldset = new Ext.form.FieldSet({
 			title: '<table><tr><td><img src="/images/icons/attach.png" /> </td><td><?php echo __('Attachments',null,'workflowmanagement'); ?></td></tr></table>',
@@ -83,6 +103,8 @@ cf.workfloweditSlot = function(){return {
 		return theFieldset;
 		
 	},
+	
+	
 	createFile: function (link) {
 		var id = cf.workfloweditSlot.theFielUniqueId++;
 		var label = new Ext.form.Label({
@@ -269,21 +291,7 @@ cf.workfloweditSlot = function(){return {
 	},
 
 	
-	createTextfield: function (id, name, value, writeprotected, color, regex) {
-		var disabled = writeprotected == 1 ? true : false;
-		var textfield = new Ext.form.TextField({
-			fieldLabel: name,
-			disabled: disabled,
-			value: value,
-			id: 'TEXTFIELD__' + id,
-			name: 'REGEX__' + regex,
-			width: 200
-		});
-		if (color != '' && color != '#FFFFFF') {
-			textfield.style = 'background-color: '+color+'; background-image:none;';
-		}
-		return textfield;
-	},
+
 
 	createNumber: function (id, name, value, writeprotected, color, regex, emptytext) {
 		var disabled = writeprotected == 1 ? true : false;

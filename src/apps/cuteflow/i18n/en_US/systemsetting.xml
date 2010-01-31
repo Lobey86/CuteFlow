@@ -12,15 +12,15 @@
     </trans-unit>
 	<trans-unit id="3">
         <source>DAYS</source>
-        <target>Tage</target>
+        <target>Station running for</target>
     </trans-unit>
 	<trans-unit id="4">
         <source>START</source>
-        <target>Start</target>
+        <target>Workflow started</target>
     </trans-unit>
 	<trans-unit id="5">
         <source>SENDER</source>
-        <target>Sender</target>
+        <target>Workflowsender</target>
     </trans-unit>
 	<trans-unit id="6">
         <source>TOTALTIME</source>
