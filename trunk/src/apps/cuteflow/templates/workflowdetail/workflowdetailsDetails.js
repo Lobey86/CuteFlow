@@ -130,7 +130,7 @@ cf.workflowdetailsDetails = function(){return {
 		this.theStore = new Ext.data.GroupingStore({
             reader: reader,
             groupField:'slotgroup'
-        })
+        });
 		
 	},
 	

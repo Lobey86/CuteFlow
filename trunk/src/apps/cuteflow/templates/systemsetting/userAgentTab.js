@@ -15,6 +15,47 @@ cf.userAgentSetting = function(){return {
 	
 	
 	
+	addData: function (data) {
+		Ext.getCmp('useragent_useragentsettings').setValue(data.individualcronjob);
+		if(data.individualcronjob == 1){
+			cf.userAgentSetting.theConfigFieldset.setVisible(true);
+		}
+		else {
+			cf.userAgentSetting.theConfigFieldset.setVisible(false);
+		}
+		Ext.getCmp('useragent_useragentcreation').setValue(data.setuseragenttype);
+		for(var a=0;a<data.datestore.length;a++) {
+			var item = data.datestore[a];
+			var Rec = Ext.data.Record.create(
+				{name: 'id'},
+				{name: 'text'}
+			);	
+			Ext.getCmp('useragent_useragentsettings_to_id').store.add(new Rec({
+				id: item.value,
+				text: item.name
+			}));
+			Ext.getCmp('useragent_useragentsettings_from_id').store.add(new Rec({
+				id: item.value,
+				text: item.name
+			}));
+		}
+
+		Ext.getCmp('useragent_useragentsettings_to_id').setValue(data.cronjobto);
+		Ext.getCmp('useragent_useragentsettings_from_id').setValue(data.cronjobfrom);
+		
+		
+		Ext.getCmp('useragent_useragentsettings_monday').setValue(data.cronjobdays.mon);
+		Ext.getCmp('useragent_useragentsettings_tuesday').setValue(data.cronjobdays.tue);
+		Ext.getCmp('useragent_useragentsettings_wednesday').setValue(data.cronjobdays.wed);
+		
+		Ext.getCmp('useragent_useragentsettings_thursday').setValue(data.cronjobdays.thu);
+		Ext.getCmp('useragent_useragentsettings_friday').setValue(data.cronjobdays.fri);
+		Ext.getCmp('useragent_useragentsettings_saturday').setValue(data.cronjobdays.sat);
+		
+		Ext.getCmp('useragent_useragentsettings_sunday').setValue(data.cronjobdays.son);
+	},
+	
+	
 	initUserAgentTab: function () {
 		this.theUserAgentTab = new Ext.Panel({
 			modal: true,
@@ -48,6 +89,7 @@ cf.userAgentSetting = function(){return {
 				xtype:'checkbox',
 				style: 'margin-top:3px;',
 				inputValue: '1',
+				name: 'useragenttime[0]',
 				id: 'useragent_useragentsettings_monday',
 				fieldLabel: '&nbsp;&nbsp;&nbsp;&nbsp;<?php echo __('Monday',null,'systemsetting'); ?>'
 			},{
@@ -55,35 +97,41 @@ cf.userAgentSetting = function(){return {
 				style: 'margin-top:3px;',
 				inputValue: '2',
 				id: 'useragent_useragentsettings_tuesday',
+				name: 'useragenttime[1]',
 				fieldLabel: '&nbsp;&nbsp;&nbsp;&nbsp;<?php echo __('Tuesday',null,'systemsetting'); ?>'
 			},{
 				xtype:'checkbox',
 				style: 'margin-top:3px;',
 				inputValue: '4',
+				name: 'useragenttime[2]',
 				id: 'useragent_useragentsettings_wednesday',
 				fieldLabel: '&nbsp;&nbsp;&nbsp;&nbsp;<?php echo __('Wednesday',null,'systemsetting'); ?>'
 			},{
 				xtype:'checkbox',
 				style: 'margin-top:3px;',
 				inputValue: '8',
+				name: 'useragenttime[3]',
 				id: 'useragent_useragentsettings_thursday',
 				fieldLabel: '&nbsp;&nbsp;&nbsp;&nbsp;<?php echo __('Thursday',null,'systemsetting'); ?>'
 			},{
 				xtype:'checkbox',
 				style: 'margin-top:3px;',
 				inputValue: '16',
+				name: 'useragenttime[4]',
 				id: 'useragent_useragentsettings_friday',
 				fieldLabel: '&nbsp;&nbsp;&nbsp;&nbsp;<?php echo __('Friday',null,'systemsetting'); ?>'
 			},{
 				xtype:'checkbox',
 				style: 'margin-top:3px;',
 				inputValue: '32',
+				name: 'useragenttime[5]',
 				id: 'useragent_useragentsettings_saturday',
 				fieldLabel: '&nbsp;&nbsp;&nbsp;&nbsp;<?php echo __('Saturday',null,'systemsetting'); ?>'
 			},{
 				xtype:'checkbox',
 				style: 'margin-top:3px;',
 				inputValue: '64',
+				name: 'useragenttime[6]',
 				id: 'useragent_useragentsettings_sunday',
 				fieldLabel: '&nbsp;&nbsp;&nbsp;&nbsp;<?php echo __('Sonday',null,'systemsetting'); ?>'
 			},{
@@ -103,8 +151,7 @@ cf.userAgentSetting = function(){return {
 				triggerAction: 'all',
 				foreSelection: true,
 				store: new Ext.data.SimpleStore({
-					 fields:['id','text'],
-       				 data:[['mysql', '<?php echo __('MySQL',null,'systemsetting'); ?>'],['oracle', '<?php echo __('Oracle',null,'systemsetting'); ?>'],['sqlite', '<?php echo __('Sqlite',null,'systemsetting'); ?>'],['postgresql', '<?php echo __('PostgresQL',null,'systemsetting'); ?>']]
+					 fields:['id','text']
    				})
 			},{
 				
@@ -121,23 +168,10 @@ cf.userAgentSetting = function(){return {
 				triggerAction: 'all',
 				foreSelection: true,
 				store: new Ext.data.SimpleStore({
-					 fields:['id','text'],
-       				 data:[['mysql', '<?php echo __('MySQL',null,'systemsetting'); ?>'],['oracle', '<?php echo __('Oracle',null,'systemsetting'); ?>'],['sqlite', '<?php echo __('Sqlite',null,'systemsetting'); ?>'],['postgresql', '<?php echo __('PostgresQL',null,'systemsetting'); ?>']]
+					 fields:['id','text']
    				})
 			}]
 		});	
-		
-		if (Ext.isIE6 == true) {
-			/*Ext.getCmp('userThirdTab_zip').style = 'margin-top:0px;margin-bottom:0px;margin-right:5px;';
-			Ext.getCmp('userThirdTab_city').style = 'margin-top:0px;margin-bottom:0px;';
-			Ext.getCmp('userThirdTab_city').setSize({width: 164})*/
-		}
-		else if (Ext.isIE7 == true) {
-			/*Ext.getCmp('userThirdTab_zip').style = 'margin-top:0px;margin-bottom:0px;margin-right:5px;';
-			Ext.getCmp('userThirdTab_city').style = 'margin-top:0px;margin-bottom:0px;';
-			Ext.getCmp('userThirdTab_city').setSize({width: 162})*/
-			
-		}
 	},
 	
 	initUserAgentFieldset: function () {
@@ -164,8 +198,9 @@ cf.userAgentSetting = function(){return {
 			},{
 				xtype:'checkbox',
 				style: 'margin-top:3px;',
+				inputValue: '1',
 				id: 'useragent_useragentcreation',
-				fieldLabel: '<?php echo __('Create ueragent foreach cronjob run',null,'systemsetting'); ?>'			
+				fieldLabel: '<?php echo __('Add useragents when cronjob time is exceeded',null,'systemsetting'); ?>'			
 			}]
 		});
 	}
