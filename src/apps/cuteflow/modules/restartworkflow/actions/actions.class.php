@@ -32,13 +32,13 @@ class restartworkflowActions extends sfActions {
 
 
     public function executeRestartWorkflow(sfWebRequest $request) {
+        $this->getResponse()->setHttpHeader('Content-type', 'text/plain');
         if($request->getPostParameter('restartWorkflowFirstTabSettings') != 'BEGINNING' AND $request->getPostParameter('restartWorkflowFirstTabSettings') != 'LASTSTATION') {
             $slotOrder = array();
             $slotOrder = explode('__', $request->getPostParameter('restartWorkflowFirstTab_startpointid'));
         }
 
-        
-        
+      
         $createWorkObj = new PrepareWorkflowData();
         $startDate = array();
 
@@ -251,12 +251,9 @@ class restartworkflowActions extends sfActions {
             $calc = new SetStation($newVersionId, $newUserSlotId, $currentUserSlotId, $direction);
 
         }
-        $this->getResponse()->setHttpHeader('Content-Type','text/plain; charset=utf-8');
-        $this->renderText('<html><body>{success: true}</body></html>');
-        die;
-        #die;
-        #echo '{"success":true}';die;
-        return sfView::NONE;
+        //$this->getResponse()->setHttpHeader('Content-Type','text/plain; charset=utf-8');
+        
+        echo '{"success":true}';die;
     }
 
 
