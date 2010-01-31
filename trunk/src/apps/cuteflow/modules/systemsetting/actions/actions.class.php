@@ -32,8 +32,9 @@ class systemsettingActions extends sfActions {
         $system = SystemConfigurationTable::instance()->getSystemConfiguration()->toArray();
         $usersettings = UserConfigurationTable::instance()->getUserConfiguration()->toArray();
         $email[0]['smtpencryption'] =  $email[0]['smtpencryption'] == '' ? 'NONE' :  $email[0]['smtpencryption'];
-        
-        $this->renderText('{"email":'.json_encode($email[0]).',"auth":'.json_encode($auth[0]).',"system" : '.json_encode($system[0]).',"user" : '.json_encode($usersettings[0]).'}');
+        $userAgent = $systemObj->buildUserAgent($system, sfContext::getInstance());
+
+        $this->renderText('{"email":'.json_encode($email[0]).',"auth":'.json_encode($auth[0]).',"system" : '.json_encode($system[0]).',"user" : '.json_encode($usersettings[0]).',"useragent" : '.json_encode($userAgent).'}');
         return sfView::NONE;
     }
 
@@ -89,11 +90,22 @@ class systemsettingActions extends sfActions {
                 AuthorizationConfigurationTable::instance()->updateAuthorizationConfigurationById($item_data[0],$item_data[1]);
             }
         }
-
+        // save theme
         if(isset($data['guitab_theme'])) {
             UserConfigurationTable::instance()->updateTheme($data['guitab_theme']);
-            
         }
+
+
+        if(isset($data['useragent_useragentsettings']) OR isset($data['useragent_useragentcreation'])) {
+            $data = $sysObj->prepareUserAgentData($data);
+            SystemConfigurationTable::instance()->updateUserAgent($data);
+        }
+        else {
+            $data['useragent_useragentsettings'] = 0;
+            $data['useragent_useragentcreation'] = 0;
+            $data['writeDays'] = 0;
+        }
+        SystemConfigurationTable::instance()->updateUserAgent($data);
 
         // save worklfow config 
         WorkflowConfigurationTable::instance()->deleteSettings();

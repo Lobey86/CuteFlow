@@ -21,6 +21,7 @@ class workfloweditActions extends sfActions {
 
 
     public function executeLoadWorkflowData(sfWebRequest $request) {
+        sfLoader::loadHelpers('EndAction');
         $detailsObj = new WorkflowDetail();
         $detailsObj->setUser($this->getUser());
         $detailsObj->setCulture($this->getUser()->getCulture());
@@ -28,13 +29,17 @@ class workfloweditActions extends sfActions {
         $workflowsettings = WorkflowVersionTable::instance()->getWorkflowVersionById($request->getParameter('versionid'));
         $generalData = $detailsObj->buildHeadLine($workflowsettings);
         $attachments = $detailsObj->buildAttachments($workflowsettings, $request->getParameter('versionid'));
-        
+        $userData = $detailsObj->buildUserData($workflowsettings, $request->getParameter('versionid'));
+        $workflowDecission = WorkflowTemplateTable::instance()->getWorkflowTemplateById($workflowsettings[0]->getWorkflowtemplateId())->toArray();        
+        $endAction = getEndAction($workflowDecission[0]['endaction']);
+
         $slotObj = new WorkflowEdit();
         $slotObj->setUser($this->getUser());
         $slotObj->setCulture($this->getUser()->getCulture());
         $slotObj->setContext($this->getContext());
         $slotData = $slotObj->buildSlots($workflowsettings, $request->getParameter('versionid'));
-        $this->renderText('{"generalData":'.json_encode($generalData).',"slotData":'.json_encode($slotData).', "workflowAttachment" : '.json_encode($attachments).'}');
+        
+        $this->renderText('{"generalData":'.json_encode($generalData).',"slotData":'.json_encode($slotData).', "workflowAttachment" : '.json_encode($attachments).', "userData" : '.json_encode($userData).',"showName": '.$endAction[0].'}');
         return sfView::NONE;
     }
 
