@@ -141,6 +141,11 @@ SystemConfiguration:
     sendremindermail: {type: integer(1), length: 3}
     visibleslots: { type: string(45) }
     colorofnorthregion: { type: string(45) }
+    individualcronjob: {type: integer(1), length: 3}
+    setuseragenttype: {type: integer(1), length: 3}
+    cronjobdays: {type: integer(1), length: 3}
+    cronjobfrom: { type: string(45) }
+    cronjobto: { type: string(45) }
 
 AuthenticationConfiguration:
   tableName: cf_authenticationconfiguration
