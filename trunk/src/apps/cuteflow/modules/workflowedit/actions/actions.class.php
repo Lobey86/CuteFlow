@@ -132,7 +132,7 @@ class workfloweditActions extends sfActions {
 
     public function executeSaveWorkflow(sfWebRequest $request) {
         $data = $request->getPostParameters();
-        $workflowSaveObj = new WorkflowEdit();
+        $workflowSaveObj = new SaveWorkflow();
         if($data['workfloweditAcceptWorkflow_decission'] == 1) { // user accepted Workflow
             if(isset($data['field'])) {
                 foreach($data['field'] as $field) {

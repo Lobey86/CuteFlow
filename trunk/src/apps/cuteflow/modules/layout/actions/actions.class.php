@@ -21,9 +21,16 @@ class layoutActions extends sfActions {
         $loginObject = new Login();
         
         // Load UserSetting and Store to session here
+
         $userSettings = UserSettingTable::instance()->getUserSettingById($this->getUser()->getAttribute('id'));
+        $userWorkflowSetting = UserWorkflowConfigurationTable::instance()->getSingleUserWorkflowConfigurattion($this->getUser()->getAttribute('id'))->toArray();
         $this->getUser()->setAttribute('userSettings', $userSettings[0]->toArray());
         $config = SystemConfigurationTable::instance()->getSystemConfiguration()->toArray();
+        $this->getUser()->setAttribute('userWorkflowSettings', $loginObject->generateUserWorklowView($userWorkflowSetting, sfContext::getInstance()));
+
+        $data = $this->getUser()->getAttribute('userWorkflowSettings');
+       # print_r ($userWorkflowSetting);die;
+
 
         $this->systemConfiguration = $config[0];
         $this->theTheme = $userSettings[0]->getTheme();

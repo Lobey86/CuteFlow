@@ -9,9 +9,6 @@ cf.workfloweditHiddenPanel = function(){return {
 		this.initStore();
 		this.initCM();
 		this.initGrid(data, showNames);
-		
-		
-		
 	},
 	
 	
@@ -34,8 +31,6 @@ cf.workfloweditHiddenPanel = function(){return {
 		this.theGrid.on('afterrender', function(grid) {
 			cf.workfloweditHiddenPanel.addItems(grid, data, showNames);			
 		});
-		
-		
 	},
 	
 	
@@ -86,12 +81,6 @@ cf.workfloweditHiddenPanel = function(){return {
 			}	
 		}
 	},
-	
-	
-	
-	
-	
-	
 	
 	initStore: function () {
 		var reader = new Ext.data.ArrayReader({}, [

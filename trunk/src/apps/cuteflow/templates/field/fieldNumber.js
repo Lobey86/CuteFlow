@@ -3,9 +3,9 @@ cf.fieldNumber = function(){return {
 	
 	theNumberFieldset					:false,
 	// reg ex can be changed here
-	theRegularExpressionPositive		: '^[0-9]$',
-	theRegularExpressionNegative		: '^[-]{1}[0-9]$',
-	theRegularExpressionAll				: '^[-]{0,1}[0-9]$',
+	theRegularExpressionPositive		: '^[0-9]{0,}[,]{0,1}[.]{0,1}[0-9]{0,}$',
+	theRegularExpressionNegative		: '^[-]{1}[0-9]{0,}[,]{0,1}[.]{0,1}[0-9]{0,}$',
+	theRegularExpressionAll				: '^[-]{0,1}[0-9]{0,}[,]{0,1}[.]{0,1}[0-9]{0,}$',
 	
 	
 	/** init fieldset **/

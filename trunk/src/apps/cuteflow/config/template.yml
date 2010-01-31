@@ -6,26 +6,27 @@ disabled:
   module_3:
     additionaltext
   module_4:
-    createworkflow
+    archiveoverview
   module_5:
-    mailinglist
-  module_6:
-    restartworkflow
-  module_7:
-    usermanagement
-  module_8:
-    workflowedit
-  module_9:
-    workflowoverview
-  module_10:
-    field
-  module_11:
     documenttemplate
-  module_12:
-    todooverview
-  module_13:
-    workflowoverview
-  module_14:
+  module_6:
     field
+  module_7:
+    mailinglist
+  module_8:
+    menuesetting
+  module_9:
+    userrolemanagement
+  module_10:
+    createworkflow
+  module_11:
+    restartworkflow
+  module_12:
+    systemsetting
+  module_13:
+    menuesetting
+  module_14:
+    userrolemanagement
   module_15:
-    workflowoverview
+    usermanagement
+   
