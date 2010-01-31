@@ -42,4 +42,20 @@ class SystemConfigurationTable extends Doctrine_Table {
         return true;
     }
 
+
+    public function updateUserAgent(array $data) {
+        $query = Doctrine_Query::create()
+            ->update('SystemConfiguration sc')
+            ->set('sc.individualcronjob','?',$data['useragent_useragentsettings'])
+            ->set('sc.setuseragenttype','?',$data['useragent_useragentcreation']);
+        if($data['writeDays'] == 1) {
+            $query->set('sc.cronjobdays','?',$data['counter'])
+                  ->set('sc.cronjobfrom','?',$data['useragent_useragentsettings_from'])
+                  ->set('sc.cronjobto','?',$data['useragent_useragentsettings_to']);
+        }
+            $query->where ('sc.id = ?',1)
+                  ->execute();
+        return true;
+    }
+
 }
