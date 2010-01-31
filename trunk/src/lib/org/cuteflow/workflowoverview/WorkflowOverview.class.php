@@ -48,6 +48,7 @@ class WorkflowOverview {
             $result[$a]['mailinglisttemplate'] = $mailinglist[0]->getName();
             $result[$a]['sender_id'] = $item->getSenderId();
             $result[$a]['sendername'] = $username;
+            
             $result[$a]['name'] = $item->getName();
             $result[$a]['isstopped'] = $item->getIsstopped();
             $result[$a]['process'] = $this->getProcess($item->getActiveversionId());
@@ -64,26 +65,34 @@ class WorkflowOverview {
             if($item->getIsstopped() == 1) {
                 $result[$a]['currentstation'] = '<table><tr><td width="16"><img src="/images/icons/circ_stop.gif" /></td><td>'.$this->context->getI18N()->__('Workflow stopped' ,null,'workflowmanagement').'</td></tr></table>';
                 $result[$a]['currentlyrunning'] = '-';
+                $result[$a]['stationrunning'] = '-';
                // $result[$a]['process'] = '-';
             }
             elseif($item->getIscompleted() == 1) {
                 $result[$a]['currentstation'] = '<table><tr><td width="16"><img src="/images/icons/circ_done.gif" /></td><td>'.$this->context->getI18N()->__('Workflow completed' ,null,'workflowmanagement').'</td></tr></table>';
                 $result[$a]['currentlyrunning'] = '-';
+                $result[$a]['stationrunning'] = '-';
             }
             elseif($item->getWorkflowisstarted() == 0) {
                 $startdateofWorkflow = date('Y-m-d',$item->getStartworkflowAt());
                 $startdateofWorkflow = format_date($startdateofWorkflow, 'p', $this->culture);
                 $result[$a]['currentstation'] = '<table><tr><td width="16"><img src="/images/icons/circ_waiting.gif" /></td><td>'.$this->context->getI18N()->__('Startdate' ,null,'workflowmanagement').': '.$startdateofWorkflow.'</td></tr></table>';
                 $result[$a]['currentlyrunning'] = '-';
+                $result[$a]['stationrunning'] = '-';
             }
             else {
-                $result[$a]['currentstation'] = $this->getCurrentStation($item->getActiveversionId(), $item->getSenderId());
+                $stationSettings =  $this->getCurrentStation($item->getActiveversionId(), $item->getSenderId());;
+                $result[$a]['currentstation'] = $stationSettings[0];
                 $result[$a]['currentlyrunning'] = '<table><tr><td width="20">' . $inProgress . ' </td><td>' . $this->context->getI18N()->__('Day(s)' ,null,'workflowmanagement') . '</td></tr></table>';
+                $slotRunning = createDayOutOfDateSince($stationSettings[1]);
+                $slotRunning = addColor($slotRunning, $userSettings['markred'],$userSettings['markorange'],$userSettings['markyellow']);
+                $result[$a]['stationrunning'] = '<table><tr><td width="20">' . $slotRunning . ' </td><td>' . $this->context->getI18N()->__('Day(s)' ,null,'workflowmanagement') . '</td></tr></table>';
             }
 
             if($item->getIsarchived() == 1) {
                 $result[$a]['currentstation'] = '<table><tr><td width="16"><img src="/images/icons/circ_archived.gif" /></td><td>'.$this->context->getI18N()->__('Workflow archived' ,null,'workflowmanagement').'</td></tr></table>';
                 $result[$a]['currentlyrunning'] = '-';
+                $result[$a]['stationrunning'] = '-';
             }
 
             $result[$a]['versioncreated_at'] = format_date($item->getVersioncreatedAt(), 'g', $this->culture);
@@ -150,6 +159,7 @@ class WorkflowOverview {
 
 
     public function getCurrentStation($activeversion_id, $sender_id) {
+        $result = array();
         $activeVersion = WorkflowProcessTable::instance()->getCurrentStation($activeversion_id);
         $user = $activeVersion[0]->getWorkflowProcessUser()->toArray();
         $workflowslot = $activeVersion[0]->getWorkflowSlot()->toArray();      
@@ -158,7 +168,9 @@ class WorkflowOverview {
         $userdata = UserLoginTable::instance()->findActiveUserById($user['user_id'])->toArray();
         $username = $userdata[0]['username'];
         $currentStation .= ' <i>(' . $username . ')</i>';
-        return $currentStation;
+        $result[0] = $currentStation;
+        $result[1] = $workflowslot[0]['updated_at'];
+        return $result;
     }
 
 

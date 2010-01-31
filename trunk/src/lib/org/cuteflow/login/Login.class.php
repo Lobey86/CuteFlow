@@ -90,5 +90,52 @@ class Login {
 
 
 
+    public function generateUserWorklowView(array $data, sfContext $context) {
+        sfLoader::loadHelpers('I18N');
+        $a = 0;
+        foreach($data as $item) {
+            $result[$a]['columntext'] = $item['columntext'];
+            $result[$a]['hidden'] = $item['isactive'] == 'true' ? 'false' : 'true';
+            $result[$a]['text'] = $context->getI18N()->__($item['columntext'] ,null,'systemsetting');
+            switch($item['columntext']) {
+                case 'NAME':
+                    $result[$a]['store'] = 'name';
+                    $result[$a]['width'] = '140';
+                    break;
+                case 'STATION':
+                    $result[$a]['store'] = 'currentstation';
+                    $result[$a]['width'] = '180';
+                    break;
+                case 'DAYS':
+                    $result[$a]['store'] = 'stationrunning';
+                    $result[$a]['width'] = '100';
+                    break;
+                case 'START':
+                    $result[$a]['store'] = 'versioncreated_at';
+                    $result[$a]['width'] = '120';
+                    break;
+                case 'SENDER':
+                    $result[$a]['store'] = 'sendername';
+                    $result[$a]['width'] = '200';
+                    break;
+                case 'TOTALTIME':
+                    $result[$a]['store'] = 'currentlyrunning';
+                    $result[$a]['width'] = '80';
+                    break;
+                case 'MAILINGLIST':
+                    $result[$a]['store'] = 'mailinglisttemplate';
+                    $result[$a]['width'] = '150';
+                    break;
+            }
+            $a++;
+        }
+        //unset($result[7]);
+        //unset($result[8]);
+        return $result;
+        
+    }
+
+
+
 }
 ?>
