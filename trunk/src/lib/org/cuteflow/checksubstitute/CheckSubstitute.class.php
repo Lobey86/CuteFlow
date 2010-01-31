@@ -11,9 +11,11 @@ class CheckSubstitute {
     public $currentTime;
     public $serverUrl;
     public $context;
+    public $cronJobSetting;
 
-    public function __construct(Doctrine_Collection $openProcesses, $context, $serverUrl) {
+    public function __construct(Doctrine_Collection $openProcesses, $context, $serverUrl, $cronjobSetting) {
         $result = $this->checkForSubstitute($openProcesses);
+        $this->cronJobSetting = $cronjobSetting;
         $this->severUrl = $serverUrl;
         $this->context = $context;
         $this->openProcesses = $result;
