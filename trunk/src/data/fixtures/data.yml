@@ -552,6 +552,11 @@ SystemConfiguration:
      sendreceivermail: 1
      sendremindermail: 1
      colorofnorthregion: '#DFE8F6'
+     individualcronjob: 1
+     setuseragenttype: 1
+     cronjobdays: 96
+     cronjobfrom: 08:00
+     cronjobto: 17:00
 
 AuthenticationConfiguration:
   ac:
