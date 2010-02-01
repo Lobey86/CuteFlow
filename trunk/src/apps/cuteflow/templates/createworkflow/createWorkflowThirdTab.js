@@ -150,9 +150,6 @@ cf.createWorkflowThirdTab = function(){return {
 		if (Ext.isIE6 == true) {
 			combo.style = 'margin-top:0px;margin-bottom:0px;';
 		}
-		else if (Ext.isIE7 == true) {
-			combo.style = 'margin-top:0px;margin-bottom:1px;';
-		}
 		
 		return combo;
 		

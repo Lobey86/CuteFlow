@@ -250,9 +250,6 @@ cf.authTab = function(){return {
 		
 		Ext.getCmp('authentication_type_id').setValue(data.authenticationtype);
 		
-		if (Ext.isIE7 == true) {
-			Ext.getCmp('authentication_type_id').style = 'margin-top:0px;margin-bottom:1px;';
-		}
 		
 	}
 

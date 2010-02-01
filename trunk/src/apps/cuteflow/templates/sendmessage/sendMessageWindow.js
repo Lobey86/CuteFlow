@@ -46,11 +46,6 @@ cf.administration_sendmessage = function(){return {
 	        layout: 'fit',
 	        title: '<?php echo __('Send Message',null,'sendmessage'); ?>'
 	    });
-	    
-		if (Ext.isIE7 == true) {
-				Ext.getCmp('administration_sendmessage_type_id').style = 'margin-top:0px;margin-bottom:1px;';
-				Ext.getCmp('administration_sendmessage_sendto_id').style = 'margin-top:0px;margin-bottom:1px;';
-		}
 		
 	},
 	

@@ -1,4 +1,4 @@
-/** init second tab for version popuü**/
+/** init second tab for version popu**/
 cf.documenttemplateVersionSecondTab = function(){return {
 	
 	theGridCM					:false,
@@ -38,7 +38,7 @@ cf.documenttemplateVersionSecondTab = function(){return {
 	* init toolbar
 	*
 	*@param int id, id of the version
-	@param int documenttemplateid, id of the template
+	*@param int documenttemplateid, id of the template
 	*
 	*/
 	initToolbar: function (id, documenttemplateid) {
@@ -135,7 +135,7 @@ cf.documenttemplateVersionSecondTab = function(){return {
 	*
 	*@param int id of the version
 	*@param string created_at, creatíon time
-	@param int grid_id, # id of grid
+	*@param int grid_id, # id of grid
 	*
 	*/
 	initTab: function (id, created_at, grid_id) {

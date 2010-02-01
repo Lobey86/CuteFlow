@@ -409,9 +409,6 @@ cf.createWorkflowFirstTab = function(){return {
 		if (Ext.isIE6 == true) {
 			this.theDatepicker.style = 'margin-top:0px;margin-bottom:0px;';
 		}
-		else if (Ext.isIE7 == true) {
-			this.theDatepicker.style = 'margin-top:0px;margin-bottom:1px;';
-		}
 	},
 	
 	initMailinglist: function () {
@@ -465,9 +462,7 @@ cf.createWorkflowFirstTab = function(){return {
 		if (Ext.isIE6 == true) {
 			this.theMailinglist.style = 'margin-top:0px;margin-bottom:0px;';
 		}
-		else if (Ext.isIE7 == true) {
-			this.theMailinglist.style = 'margin-top:0px;margin-bottom:1px;';
-		}
+
 		this.theMailinglist.on('render', function(combo) {
 			cf.createWorkflowFirstTab.theLoadingMask = new Ext.LoadMask(cf.createWorkflowWindow.theCreateWorkflowWindow.body, {msg:'<?php echo __('Preparing Data...',null,'workflowmanagement'); ?>'});					
 			cf.createWorkflowFirstTab.theLoadingMask.show();

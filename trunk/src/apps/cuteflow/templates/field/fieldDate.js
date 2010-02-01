@@ -80,10 +80,7 @@ cf.fieldDate = function(){return {
    				width:280	
 			}]
 		});
-		if (Ext.isIE7 == true) {
-			Ext.getCmp('fieldDate_date').style = 'margin-top:0px;margin-bottom:1px;';
-			Ext.getCmp('fieldDate_format_id').style = 'margin-top:0px;margin-bottom:1px;';
-		}		
+	
 	},
 	/**
 	* function changes the date field to the select format in the combobox
