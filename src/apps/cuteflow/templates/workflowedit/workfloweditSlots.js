@@ -154,10 +154,7 @@ cf.workfloweditSlot = function(){return {
 		
 		if (Ext.isIE6 == true) {
 			combo.style = 'margin-top:0px;margin-bottom:0px;';
-		}
-		else if (Ext.isIE7 == true) {
-			combo.style = 'margin-top:0px;margin-bottom:1px;';
-		}		
+		}	
 		
 		if (color != '' && color != '#FFFFFF') {
 			combo.style = 'background-color: '+color+'; background-image:none;';
@@ -328,7 +325,7 @@ cf.workfloweditSlot = function(){return {
 	initSlotFieldset: function () {
 		this.theFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('Available slots to edit',null,'workflowmanagement'); ?>',
-			autoScroll: true,
+			autoScroll: false,
 			style: 'margin-top:5px;margin-left:10px;',
 			width: cf.Layout.theRegionWest.getWidth() +  cf.Layout.theRegionCenter.getWidth() - 100,
 			height: 'auto'
@@ -342,7 +339,7 @@ cf.workfloweditSlot = function(){return {
 			layout: 'form',
 			style: 'border:none;',
 			border: false,
-			autoScroll: true,
+			autoScroll: false,
 			width: (cf.Layout.theRegionWest.getWidth() +  cf.Layout.theRegionCenter.getWidth() - 210) / 2,
 			height: 'auto'
 		});	
