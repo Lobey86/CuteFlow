@@ -46,8 +46,8 @@ cf.mailinglistPopUpWindow = function(){return {
 		this.theMailinglistPopUpWindow.show();
 		this.theTabPanel.setActiveTab(1);
 		this.theTabPanel.setActiveTab(0);
-		this.theLoadingMask.hide();
 		this.addData(activeversion_id);
+		this.theLoadingMask.hide();
 		
 	},
 	
