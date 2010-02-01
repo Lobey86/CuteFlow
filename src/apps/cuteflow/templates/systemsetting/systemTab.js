@@ -162,10 +162,6 @@ cf.systemTab = function(){return {
 		Ext.getCmp('systemsetting_slotvisible_id').setValue(data.visibleslots);
 		Ext.getCmp('systemsetting_color').setValue(data.colorofnorthregion);
 		
-		if (Ext.isIE7 == true) {
-			Ext.getCmp('systemsetting_language_id').style = 'margin-top:0px;margin-bottom:1px;';
-			Ext.getCmp('systemsetting_slotvisible_id').style = 'margin-top:0px;margin-bottom:1px;';
-		}
 	},
 	
 	addLanguage: function (data) {

@@ -106,22 +106,22 @@ cf.mailinglistThirdTab = function(){return {
 	/** render checkbox to grid **/
 	renderDeleteCheckbox: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 		var id = record.data['raw_type'];
-		cf.mailinglistThirdTab.createCheckbox.defer(500,this, [id, 'mailinglistFirstTabCheckboxDelete_'+ id, 'deleteworkflow', record.data['deleteworkflow']]);
+		cf.mailinglistThirdTab.createCheckbox.defer(1500,this, [id, 'mailinglistFirstTabCheckboxDelete_'+ id, 'deleteworkflow', record.data['deleteworkflow']]);
 		return '<center><table><tr><td><div id="mailinglistFirstTabCheckboxDelete_'+ id +'"></div></td></tr></table></center>';
 	},
 	renderArchiveCheckbox: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 		var id = record.data['raw_type'];
-		cf.mailinglistThirdTab.createCheckbox.defer(500,this, [id, 'mailinglistFirstTabCheckboxArchive_'+ id, 'archiveworkflow', record.data['archiveworkflow']]);
+		cf.mailinglistThirdTab.createCheckbox.defer(1500,this, [id, 'mailinglistFirstTabCheckboxArchive_'+ id, 'archiveworkflow', record.data['archiveworkflow']]);
 		return '<center><table><tr><td><div id="mailinglistFirstTabCheckboxArchive_'+ id +'"></div></td></tr></table></center>';
 	},
 	renderStopNewCheckbox: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 		var id = record.data['raw_type'];
-		cf.mailinglistThirdTab.createCheckbox.defer(500,this, [id, 'mailinglistFirstTabCheckboxStopNew_'+ id, 'stopneworkflow', record.data['stopneworkflow']]);
+		cf.mailinglistThirdTab.createCheckbox.defer(1500,this, [id, 'mailinglistFirstTabCheckboxStopNew_'+ id, 'stopneworkflow', record.data['stopneworkflow']]);
 		return '<center><table><tr><td><div id="mailinglistFirstTabCheckboxStopNew_'+ id +'"></div></td></tr></table></center>';
 	},
 	renderShowCheckbox: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 		var id = record.data['raw_type'];
-		cf.mailinglistThirdTab.createCheckbox.defer(500,this, [id, 'mailinglistFirstTabCheckboxShow_'+ id, 'detailsworkflow', record.data['detailsworkflow']]);
+		cf.mailinglistThirdTab.createCheckbox.defer(1500,this, [id, 'mailinglistFirstTabCheckboxShow_'+ id, 'detailsworkflow', record.data['detailsworkflow']]);
 		return '<center><table><tr><td><div id="mailinglistFirstTabCheckboxShow_'+ id +'"></div></td></tr></table></center>';
 	},
 	

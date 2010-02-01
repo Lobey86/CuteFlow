@@ -396,19 +396,7 @@ cf.userTab = function(){return {
 		}
 		else if (Ext.isIE7 == true) {
 			Ext.getCmp('userTab_defaultdurationlength').setSize({width:40, height: 24});
-			Ext.getCmp('userTab_defaultdurationlength').style = 'margin-top:0px;margin-bottom:1px;';
-			
-			
-			
-			
-			Ext.getCmp('userTab_circulationdefaultsortdirection_id').style = 'margin-top:0px;margin-bottom:1px;';
-			Ext.getCmp('userTab_defaultdurationtype_id').style = 'margin-top:0px;margin-bottom:1px;';
-			Ext.getCmp('userTab_emailformat_id').style = 'margin-top:0px;margin-bottom:1px;';
-			Ext.getCmp('userTab_emailtype_id').style = 'margin-top:0px;margin-bottom:1px;';
-			Ext.getCmp('userTab_circulationdefaultsortcolumn_id').style = 'margin-top:0px;margin-bottom:1px;';
-			Ext.getCmp('userTab_userrole_id').style = 'margin-top:0px;margin-bottom:1px;';
-			Ext.getCmp('userTab_itemsperpage_id').style = 'margin-top:0px;margin-bottom:1px;';
-			Ext.getCmp('userTab_refreshtime_id').style = 'margin-top:0px;margin-bottom:1px;';
+
 		}
 		else if (Ext.isGecko == true) {
 			Ext.getCmp('userTab_defaultdurationlength').style = 'margin-bottom:1px;';

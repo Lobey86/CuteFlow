@@ -106,9 +106,7 @@ cf.databaseTab = function(){return {
 			}]
 		});
 		
-		if (Ext.isIE7 == true) {
-			Ext.getCmp('productive_database_id').style = 'margin-top:0px;margin-bottom:1px;';
-		}
+
 		
 	}
 	

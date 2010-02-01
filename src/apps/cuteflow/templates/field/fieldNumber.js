@@ -77,9 +77,7 @@ cf.fieldNumber = function(){return {
    				width:280
 			}]
 		});
-		if (Ext.isIE7 == true) {
-			Ext.getCmp('fieldNumber_regularexpressioncombo_id').style = 'margin-top:0px;margin-bottom:1px;';
-		}
+
 		
 	},
 	/** 
