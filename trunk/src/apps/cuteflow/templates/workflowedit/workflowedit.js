@@ -8,8 +8,8 @@ cf.workflowedit = function(){return {
 	
 	
 	init: function (workflowtemplate_id, version_id) {
-		//cf.workflowedit.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'workflowmanagement'); ?>'});					
-		//cf.workflowedit.theLoadingMask.show();
+		cf.workflowedit.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'workflowmanagement'); ?>'});					
+		cf.workflowedit.theLoadingMask.show();
 		
 		Ext.Ajax.request({  
 			url : '<?php echo build_dynamic_javascript_url('workflowedit/LoadWorkflowData')?>/versionid/' + version_id + '/workflowtemplateid/' + workflowtemplate_id,
@@ -40,11 +40,10 @@ cf.workflowedit = function(){return {
 				
 				cf.workflowedit.thePopUpWindow.add(cf.workflowedit.theLeftPanel);
 				cf.workflowedit.thePopUpWindow.add(cf.workflowedit.thePanel);
-				//cf.workflowedit.theLoadingMask.hide();
 				cf.workflowedit.thePopUpWindow.doLayout();
 				cf.workflowedit.thePopUpWindow.show();
 				
-				//cf.workflowedit.theLoadingMask.hide();
+				cf.workflowedit.theLoadingMask.hide();
 			}
 		});
 		
