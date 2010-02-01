@@ -1,7 +1,7 @@
 cf.workflowdetails = function(){return {
 	
 	theLoadingMask				:false,
-	thePopUpWindow				:false,
+	thePanel					:false,
 	thePanelToShow				:false,
 	
 	init: function (workflowtemplate_id, version_id, showAction, workflowAdmin) {
@@ -24,12 +24,15 @@ cf.workflowdetails = function(){return {
 				cf.workflowdetailsGeneral.init(generalData, workflowtemplate_id);
 				cf.workflowdetailsDetails.init(detailData, workflowAdmin);
 				cf.workflowdetailsAttachments.init(attachments);
+				cf.workflowdetails.initPanel();
 				
 				cf.workflowdetailsValue.init(valueData);
-				cf.workflowdetails.thePanelToShow.add(cf.workflowdetailsGeneral.theFieldset);
-				cf.workflowdetails.thePanelToShow.add(cf.workflowdetailsDetails.theFieldset);
-				cf.workflowdetails.thePanelToShow.add(cf.workflowdetailsAttachments.theFieldset);
-				cf.workflowdetails.thePanelToShow.add(cf.workflowdetailsValue.theFieldset);
+				cf.workflowdetails.thePanel.add(cf.workflowdetailsGeneral.theFieldset);
+				cf.workflowdetails.thePanel.add(cf.workflowdetailsDetails.theFieldset);
+				cf.workflowdetails.thePanel.add(cf.workflowdetailsAttachments.theFieldset);
+				cf.workflowdetails.thePanel.add(cf.workflowdetailsValue.theFieldset);
+				cf.workflowdetails.thePanel.doLayout();
+				cf.workflowdetails.thePanelToShow.add(cf.workflowdetails.thePanel);
 				cf.workflowdetails.thePanelToShow.doLayout();
 				cf.workflowdetails.thePanelToShow.show();
 			}
@@ -37,6 +40,17 @@ cf.workflowdetails = function(){return {
 		
 		
 		
+		
+	},
+	
+	initPanel:function () {
+		this.thePanel = new Ext.FormPanel({
+			frame: true,
+			region: 'center',
+			width: 'auto',
+			autoScroll:true,
+			height: cf.Layout.theRegionWest.getHeight() + cf.Layout.theRegionNorth.getHeight() - 75
+		});	
 		
 	},
 	
