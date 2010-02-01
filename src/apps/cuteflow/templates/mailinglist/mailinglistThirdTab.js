@@ -14,7 +14,7 @@ cf.mailinglistThirdTab = function(){return {
 		this.initPanel();
 		this.initAuthCM();
 		this.initAuthStore(storeurl);
-		this.initAuthGrid();
+		this.initAuthGrid(storeurl);
 		this.initAuthorizationFieldset();
 		
 		this.theAuthorizationFieldset.add(this.theAuthorizationGrid);
@@ -55,7 +55,6 @@ cf.mailinglistThirdTab = function(){return {
 	initAuthStore: function (url) {
 		this.theAuthorizationStore = new Ext.data.JsonStore({
 				root: 'result',
-				url: url,
 				fields: [
 					{name: 'type'},
 					{name: 'id'},
@@ -83,7 +82,7 @@ cf.mailinglistThirdTab = function(){return {
 	
 		
 	/** init auth grid **/
-	initAuthGrid: function () {
+	initAuthGrid: function (storeurl) {
 		this.theAuthorizationGrid = new Ext.grid.GridPanel({
 			frame:false,
 			autoScroll: true,
@@ -96,7 +95,43 @@ cf.mailinglistThirdTab = function(){return {
 			cm: this.theAuthorizationCM
 		});
 		this.theAuthorizationGrid.on('render', function(grid) {
-			cf.mailinglistThirdTab.theAuthorizationStore.load();
+			Ext.Ajax.request({  
+				url : storeurl,
+				success: function(objServerResponse){
+					var ServerResult = Ext.util.JSON.decode(objServerResponse.responseText);
+					var data = ServerResult.result;
+					for(var a=0;a<data.length;a++) {
+						var item = data[a];
+						var Rec = Ext.data.Record.create(
+							{name: 'type'},
+							{name: 'id'},
+							{name: 'raw_type'},
+							{name: 'deleteworkflow'},
+							{name: 'archiveworkflow'},
+							{name: 'stopneworkflow'},
+							{name: 'detailsworkflow'}	
+						);	
+						
+						grid.store.add(new Rec({
+							type: item.type,
+							id: item.id, 
+							raw_type: item.raw_type,
+							deleteworkflow: item.deleteworkflow,
+							archiveworkflow: item.archiveworkflow,
+							stopneworkflow: item.stopneworkflow,
+							detailsworkflow: item.detailsworkflow
+						}));	
+						
+						
+						
+					}
+					
+					
+				}
+			});
+			
+			
+			//cf.mailinglistThirdTab.theAuthorizationStore.load();
 		});
 	
 	},
