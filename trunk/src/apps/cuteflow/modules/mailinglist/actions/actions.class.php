@@ -208,6 +208,7 @@ class mailinglistActions extends sfActions {
         $worklfosettings = $sysObj->buildAuthorizationColumns($authorization, $this->getContext());
         $allRoles = RoleTable::instance()->getAllRole()->toArray();
         $mergedRoles = $auth->mergeRoles($allRoles, $defaultRole, $worklfosettings);
+        #print_r ($mergedRoles);die;
         $this->renderText('{"result":'.json_encode($mergedRoles).'}');
         return sfView::NONE;
     }
