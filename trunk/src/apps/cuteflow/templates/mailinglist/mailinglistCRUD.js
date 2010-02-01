@@ -115,6 +115,8 @@ cf.mailinglistCRUD = function(){return {
 		var grid = cf.mailinglistThirdTab.theAuthorizationGrid;
 		for(var c=0;c<grid.store.getCount();c++) {
 			var row = grid.getStore().getAt(c);
+			
+			
 			var hiddenfield = new Ext.form.Field({
 				autoCreate : {tag:'input', type: 'hidden', name: 'auth['+authCounter+'][type]', value:row.data.type, width: 0}			
 			});
@@ -136,7 +138,7 @@ cf.mailinglistCRUD = function(){return {
 			});
 			cf.mailinglistFirstTab.theFormPanel.add(hiddenfield);
 			
-						var hiddenfield = new Ext.form.Field({
+				var hiddenfield = new Ext.form.Field({
 				autoCreate : {tag:'input', type: 'hidden', name: 'auth['+authCounter+'][detailsworkflow]', value:row.data.detailsworkflow, width: 0}			
 			});
 			cf.mailinglistFirstTab.theFormPanel.add(hiddenfield);
@@ -165,7 +167,7 @@ cf.mailinglistCRUD = function(){return {
 		cf.mailinglistFirstTab.theFormPanel.getForm().submit({
 			url: url,
 			method: 'POST',
-			waitMsg: '<?php echo __('Saving Data',null,'mailinglist'); ?>',
+			//waitMsg: '<?php echo __('Saving Data',null,'mailinglist'); ?>',
 			success: function(objServerResponse){
 				cf.mailinglistPanelGrid.theMailinglistStore.reload();
 				cf.mailinglistPopUpWindow.theMailinglistPopUpWindow.hide();
