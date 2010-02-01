@@ -113,10 +113,10 @@ cf.mailinglistThirdTab = function(){return {
 						);	
 						
 						
-						var deletewf = cf.mailinglistThirdTab.createCheckbox(item.raw_type,'deleteworkflow',item.deleteworkflow);
+						/*var deletewf = cf.mailinglistThirdTab.createCheckbox(item.raw_type,'deleteworkflow',item.deleteworkflow);
 						var archive = cf.mailinglistThirdTab.createCheckbox(item.raw_type,'archiveworkflow',item.archiveworkflow);
 						var stopnew = cf.mailinglistThirdTab.createCheckbox(item.raw_type,'stopneworkflow',item.stopneworkflow);
-						var details = cf.mailinglistThirdTab.createCheckbox(item.raw_type,'detailsworkflow',item.detailsworkflow);
+						var details = cf.mailinglistThirdTab.createCheckbox(item.raw_type,'detailsworkflow',item.detailsworkflow);*/
 						
 			
 						var id = item.raw_type;
@@ -124,17 +124,15 @@ cf.mailinglistThirdTab = function(){return {
 							type: item.type,
 							id: item.id, 
 							raw_type: item.raw_type,
-							deleteworkflow: '<center><table><tr><td><div id="deleteworkflow"></div></td></tr></table></center>',
-							archiveworkflow: archive,
-							stopneworkflow: stopnew,
-							detailsworkflow: details
-						}));
-						
-						
-						
+							deleteworkflow: '<center><table><tr><td><div id="deleteworkflow_'+id+'"></div></td></tr></table></center>',
+							archiveworkflow: '<center><table><tr><td><div id="archiveworkflow_'+id+'"></div></td></tr></table></center>',
+							stopneworkflow: '<center><table><tr><td><div id="stopnewworkflow_'+id+'"></div></td></tr></table></center>',
+							detailsworkflow: '<center><table><tr><td><div id="detailsworkflow_'+id+'"></div></td></tr></table></center>'
+						}));	
 					}
+					cf.mailinglistThirdTab.addBoxes.defer(1500,this, [data]);
 					
-					deletewf.applyToMarkup('deleteworkflow');
+					
 				}
 				
 				
@@ -144,12 +142,26 @@ cf.mailinglistThirdTab = function(){return {
 		});
 	
 	},
+	
+	addBoxes: function (data) {
+		for(var a=0;a<data.length;a++) {
+			var item = data[a];
+			deletewf = cf.mailinglistThirdTab.createCheckbox(item.raw_type,item.deleteworkflow,'deleteworkflow');
+			deletewf = cf.mailinglistThirdTab.createCheckbox(item.raw_type,item.deleteworkflow,'archiveworkflow');
+			deletewf = cf.mailinglistThirdTab.createCheckbox(item.raw_type,item.deleteworkflow,'stopnewworkflow');
+			deletewf = cf.mailinglistThirdTab.createCheckbox(item.raw_type,item.deleteworkflow,'detailsworkflow');
+		}
+	},
+	
+	
 		/** create checkbox, toactivate a item **/
-	createCheckbox: function (id, table, value) {
+	createCheckbox: function (id, value, div) {
+		//alert(div + '_' + id);
 		value = value == 0 ? false : true;
-		var name = id + '__' + table;
+		var name = id + '__' + div;
 		var check = new Ext.form.Checkbox({
 			name: 'mailinglistFirstTab[' + name + ']',
+			renderTo:div + '_' + id,
 			inputValue: 1,
 			checked: value
 		});
