@@ -14,7 +14,7 @@ cf.mailinglistThirdTab = function(){return {
 		this.initPanel();
 		this.initAuthCM();
 		this.initAuthStore(storeurl);
-		this.initAuthGrid(storeurl);
+		this.initAuthGrid();
 		this.initAuthorizationFieldset();
 		
 		this.theAuthorizationFieldset.add(this.theAuthorizationGrid);
@@ -53,8 +53,9 @@ cf.mailinglistThirdTab = function(){return {
 	*@param string url, url to load
 	*/
 	initAuthStore: function (url) {
-		this.theAuthorizationStore = new Ext.data.Store({
+		this.theAuthorizationStore = new Ext.data.JsonStore({
 				root: 'result',
+				url: url,
 				fields: [
 					{name: 'type'},
 					{name: 'id'},
@@ -73,16 +74,16 @@ cf.mailinglistThirdTab = function(){return {
 	initAuthCM: function () {
 		this.theAuthorizationCM  =  new Ext.grid.ColumnModel([
 			{header: "<?php echo __('Action',null,'mailinglist'); ?>",  width: 200, sortable: false, dataIndex: 'type', css : "text-align :left; font-size:12px;"},
-			{header: "<?php echo __('delete workflow',null,'mailinglist'); ?>",  width: 100, sortable: false, dataIndex: 'deleteworkflow', css : "text-align :left; font-size:12px;"},
-			{header: "<?php echo __('archive workflow',null,'mailinglist'); ?>",  width: 120, sortable: false, dataIndex: 'archiveworkflow', css : "text-align :left; font-size:12px;"},
-			{header: "<?php echo __('stop/new workflow',null,'mailinglist'); ?>",  width: 120, sortable: false, dataIndex: 'stopneworkflow', css : "text-align :left; font-size:12px;"},
-			{header: "<?php echo __('show workflow details',null,'mailinglist'); ?>",  width: 130, sortable: false, dataIndex: 'detailsworkflow', css : "text-align :left; font-size:12px;"}
+			{header: "<?php echo __('delete workflow',null,'mailinglist'); ?>",  width: 100, sortable: false, dataIndex: 'deleteworkflow', css : "text-align :left; font-size:12px;", renderer: cf.mailinglistThirdTab.renderDeleteCheckbox},
+			{header: "<?php echo __('archive workflow',null,'mailinglist'); ?>",  width: 120, sortable: false, dataIndex: 'archiveworkflow', css : "text-align :left; font-size:12px;", renderer: cf.mailinglistThirdTab.renderArchiveCheckbox},
+			{header: "<?php echo __('stop/new workflow',null,'mailinglist'); ?>",  width: 120, sortable: false, dataIndex: 'stopneworkflow', css : "text-align :left; font-size:12px;", renderer: cf.mailinglistThirdTab.renderStopNewCheckbox},
+			{header: "<?php echo __('show workflow details',null,'mailinglist'); ?>",  width: 130, sortable: false, dataIndex: 'detailsworkflow', css : "text-align :left; font-size:12px;", renderer: cf.mailinglistThirdTab.renderShowCheckbox}
 		]);	
 	},
 	
 		
 	/** init auth grid **/
-	initAuthGrid: function (storeurl) {
+	initAuthGrid: function () {
 		this.theAuthorizationGrid = new Ext.grid.GridPanel({
 			frame:false,
 			autoScroll: true,
@@ -94,84 +95,16 @@ cf.mailinglistThirdTab = function(){return {
 			store: this.theAuthorizationStore,
 			cm: this.theAuthorizationCM
 		});
-		this.theAuthorizationGrid.on('render', function(grid) {
-			Ext.Ajax.request({  
-				url : storeurl,
-				success: function(objServerResponse){
-					var ServerResult = Ext.util.JSON.decode(objServerResponse.responseText);
-					var data = ServerResult.result;
-					for(var a=0;a<data.length;a++) {
-						var item = data[a];
-						var Rec = Ext.data.Record.create(
-							{name: 'type'},
-							{name: 'id'},
-							{name: 'raw_type'},
-							{name: 'deleteworkflow'},
-							{name: 'archiveworkflow'},
-							{name: 'stopneworkflow'},
-							{name: 'detailsworkflow'}	
-						);	
-						
-						
-						/*var deletewf = cf.mailinglistThirdTab.createCheckbox(item.raw_type,'deleteworkflow',item.deleteworkflow);
-						var archive = cf.mailinglistThirdTab.createCheckbox(item.raw_type,'archiveworkflow',item.archiveworkflow);
-						var stopnew = cf.mailinglistThirdTab.createCheckbox(item.raw_type,'stopneworkflow',item.stopneworkflow);
-						var details = cf.mailinglistThirdTab.createCheckbox(item.raw_type,'detailsworkflow',item.detailsworkflow);*/
-						
-			
-						var id = item.raw_type;
-						grid.store.add(new Rec({
-							type: item.type,
-							id: item.id, 
-							raw_type: item.raw_type,
-							deleteworkflow: '<center><table><tr><td><div id="deleteworkflow_'+id+'"></div></td></tr></table></center>',
-							archiveworkflow: '<center><table><tr><td><div id="archiveworkflow_'+id+'"></div></td></tr></table></center>',
-							stopneworkflow: '<center><table><tr><td><div id="stopnewworkflow_'+id+'"></div></td></tr></table></center>',
-							detailsworkflow: '<center><table><tr><td><div id="detailsworkflow_'+id+'"></div></td></tr></table></center>'
-						}));	
-					}
-					cf.mailinglistThirdTab.addBoxes.defer(1500,this, [data]);
-					
-					
-				}
-				
-				
-			});
-			
-			
+		this.theAuthorizationGrid.on('afterrender', function(grid) {
+			cf.mailinglistThirdTab.theAuthorizationStore.load();
 		});
 	
 	},
-	
-	addBoxes: function (data) {
-		for(var a=0;a<data.length;a++) {
-			var item = data[a];
-			deletewf = cf.mailinglistThirdTab.createCheckbox(item.raw_type,item.deleteworkflow,'deleteworkflow');
-			deletewf = cf.mailinglistThirdTab.createCheckbox(item.raw_type,item.deleteworkflow,'archiveworkflow');
-			deletewf = cf.mailinglistThirdTab.createCheckbox(item.raw_type,item.deleteworkflow,'stopnewworkflow');
-			deletewf = cf.mailinglistThirdTab.createCheckbox(item.raw_type,item.deleteworkflow,'detailsworkflow');
-		}
-	},
-	
-	
-		/** create checkbox, toactivate a item **/
-	createCheckbox: function (id, value, div) {
-		//alert(div + '_' + id);
-		value = value == 0 ? false : true;
-		var name = id + '__' + div;
-		var check = new Ext.form.Checkbox({
-			name: 'mailinglistFirstTab[' + name + ']',
-			renderTo:div + '_' + id,
-			inputValue: 1,
-			checked: value
-		});
-		return check;
-	}
 	
 	
 		
 	/** render checkbox to grid **/
-	/*renderDeleteCheckbox: function (data, cell, record, rowIndex, columnIndex, store, grid) {
+	renderDeleteCheckbox: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 		var id = record.data['raw_type'];
 		cf.mailinglistThirdTab.createCheckbox.defer(1500,this, [id, 'mailinglistFirstTabCheckboxDelete_'+ id, 'deleteworkflow', record.data['deleteworkflow']]);
 		return '<center><table><tr><td><div id="mailinglistFirstTabCheckboxDelete_'+ id +'"></div></td></tr></table></center>';
@@ -190,9 +123,19 @@ cf.mailinglistThirdTab = function(){return {
 		var id = record.data['raw_type'];
 		cf.mailinglistThirdTab.createCheckbox.defer(1500,this, [id, 'mailinglistFirstTabCheckboxShow_'+ id, 'detailsworkflow', record.data['detailsworkflow']]);
 		return '<center><table><tr><td><div id="mailinglistFirstTabCheckboxShow_'+ id +'"></div></td></tr></table></center>';
-	},*/
+	},
 	
-
+	/** create checkbox, toactivate a item **/
+	createCheckbox: function (id, div, table, value) {
+		value = value == 0 ? false : true;
+		var name = id + '__' + table;
+		var check = new Ext.form.Checkbox({
+			renderTo: div,
+			name: 'mailinglistFirstTab[' + name + ']',
+			inputValue: 1,
+			checked: value
+		});
+	}
 	
 	
 };}();
