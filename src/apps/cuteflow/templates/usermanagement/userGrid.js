@@ -36,6 +36,7 @@ cf.UserGrid = function(){return {
 			frame:false,
 			autoScroll: true,
 			collapsible:true,
+			loadMask: true,
 			closable: true,
 			title: '<?php echo __('User overview',null,'usermanagement'); ?>',
 			//height: cf.Layout.theRegionWest.getHeight() - 85,

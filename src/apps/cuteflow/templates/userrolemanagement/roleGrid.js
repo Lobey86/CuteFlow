@@ -27,6 +27,7 @@ cf.UserRoleGrid = function(){return {
 		this.theUserRoleGrid = new Ext.grid.GridPanel({
 			title: '<?php echo __('Role management',null,'userrolemanagement'); ?>',
 			stripeRows: true,
+			loadMask: true,
 			border: true,
 			collapsible: false,
 			style:'margin-top:5px;margin-left:5px;margin-right:5px;',

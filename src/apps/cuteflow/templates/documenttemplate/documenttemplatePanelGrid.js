@@ -12,8 +12,6 @@ cf.documenttemplatePanelGrid = function(){return {
 	
 	/** inits all necessary functions to build the grid and its toolbars **/
 	init: function () {
-		cf.documenttemplatePanelGrid.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'documenttemplate'); ?>'});					
-		cf.documenttemplatePanelGrid.theLoadingMask.show();
 		this.initStore();
 		this.initBottomToolbar();
 		this.initCM();
@@ -141,6 +139,7 @@ cf.documenttemplatePanelGrid = function(){return {
 			stripeRows: true,
 			border: true,
 			width: 'auto',
+			loadMask: true,
 			height: cf.Layout.theRegionWest.getHeight() - 100,
 			collapsible: false,
 			style:'margin-top:5px;margin-left:5px;margin-right:5px;',
@@ -151,7 +150,6 @@ cf.documenttemplatePanelGrid = function(){return {
 		});
 		this.theDocumenttemplateGrid.on('afterrender', function(grid) {
 			cf.documenttemplatePanelGrid.theDocumenttemplateStore.load();
-			cf.documenttemplatePanelGrid.theLoadingMask.hide();
 		});	
 		
 	}, 

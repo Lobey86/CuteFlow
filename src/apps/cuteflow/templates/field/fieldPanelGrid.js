@@ -174,6 +174,7 @@ cf.fieldPanelGrid = function(){return {
 			width: 'auto',
 			height: cf.Layout.theRegionWest.getHeight() - 100,
 			collapsible: false,
+			loadMask: true,
 			style:'margin-top:5px;margin-left:5px;margin-right:5px;',
 			store: this.theFieldStore,
 			tbar: this.theTopToolBar,

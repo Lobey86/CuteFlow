@@ -116,7 +116,7 @@ class additionaltextActions extends sfActions {
         $result->toArray();
         
         $textObj = new AdditionalText();
-        $textObj->setTitle('Kopie ' . $result[0]['title']);
+        $textObj->setTitle('## ' . $result[0]['title']);
         $textObj->setContent($result[0]['content']);
         $textObj->setContenttype($result[0]['contenttype']);
         $textObj->setIsactive(0);

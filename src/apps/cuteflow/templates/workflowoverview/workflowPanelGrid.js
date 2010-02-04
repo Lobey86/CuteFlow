@@ -9,8 +9,6 @@ cf.workflowmanagementPanelGrid = function(){return {
 	theLoadingMask					:false,
 	
 	init:function () {
-		cf.workflowmanagementPanelGrid.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'workflowmanagement'); ?>'});					
-		cf.workflowmanagementPanelGrid.theLoadingMask.show();
 		this.initStore();
 		//this.initBottomToolbar();
 		this.initCM();
@@ -119,6 +117,7 @@ cf.workflowmanagementPanelGrid = function(){return {
 			width: 'auto',
 			height: cf.Layout.theRegionWest.getHeight() + cf.Layout.theRegionNorth.getHeight() - 100,
 			collapsible: false,
+			loadMask: true,
 			style:'margin-top:5px;margin-left:5px;margin-right:5px;',
 			store: this.theWorkflowStore,
 			tbar: this.theTopToolBar,
@@ -127,7 +126,6 @@ cf.workflowmanagementPanelGrid = function(){return {
 		});
 		this.theWorkflowGrid.on('afterrender', function(grid) {
 			cf.workflowmanagementPanelGrid.theWorkflowStore.load();
-			cf.workflowmanagementPanelGrid.theLoadingMask.hide();
 		});	
 		
 	},

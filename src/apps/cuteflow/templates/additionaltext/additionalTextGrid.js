@@ -48,6 +48,7 @@ cf.additionalTextGrid = function(){return {
 			frame:false,
 			autoScroll: true,
 			collapsible:false,
+			loadMask: true,
 			closable: false,
 			title: '<?php echo __('Available Additional Textes',null,'additionaltext'); ?>',
 			border: true,
