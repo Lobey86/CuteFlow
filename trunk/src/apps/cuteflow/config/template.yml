@@ -3,30 +3,4 @@ disabled:
     login
   module_2:
     layout
-  module_3:
-    additionaltext
-  module_4:
-    archiveoverview
-  module_5:
-    documenttemplate
-  module_6:
-    field
-  module_7:
-    mailinglist
-  module_8:
-    menuesetting
-  module_9:
-    userrolemanagement
-  module_10:
-    createworkflow
-  module_11:
-    restartworkflow
-  module_12:
-    systemsetting
-  module_13:
-    menuesetting
-  module_14:
-    userrolemanagement
-  module_15:
-    usermanagement
    

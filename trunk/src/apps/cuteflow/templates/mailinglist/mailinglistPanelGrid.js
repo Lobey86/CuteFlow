@@ -12,8 +12,6 @@ cf.mailinglistPanelGrid = function(){return {
 	
 	/** inits all necessary functions to build the grid and its toolbars **/
 	init: function () {
-		this.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'usermanagement'); ?>'});					
-		this.theLoadingMask.show();
 		this.initStore();
 		this.initBottomToolbar();
 		this.initCM();
@@ -142,6 +140,7 @@ cf.mailinglistPanelGrid = function(){return {
 			border: true,
 			width: 'auto',
 			height: cf.Layout.theRegionWest.getHeight() - 100,
+			loadMask: true,
 			collapsible: false,
 			style:'margin-top:5px;margin-left:5px;margin-right:5px;',
 			store: this.theMailinglistStore,
@@ -151,7 +150,6 @@ cf.mailinglistPanelGrid = function(){return {
 		});
 		this.theMailinglistGrid.on('afterrender', function(grid) {
 			cf.mailinglistPanelGrid.theMailinglistStore.load();
-			cf.mailinglistPanelGrid.theLoadingMask.hide();
 		});	
 		
 	}, 

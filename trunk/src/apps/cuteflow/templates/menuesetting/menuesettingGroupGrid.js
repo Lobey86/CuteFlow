@@ -62,6 +62,7 @@ cf.menueSettingGroupGrid = function(){return {
 			frame:false,
 			autoScroll: true,
 			collapsible:false,
+			loadMask: true,
 			closable: false,
 			ddGroup : 'theGroupGridDD',
 			allowContainerDrop : true,

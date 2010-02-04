@@ -9,8 +9,6 @@ cf.todoPanelGrid = function(){return {
 	theLoadingMask					:false,
 	
 	init:function () {
-		cf.todoPanelGrid.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'workflowmanagement'); ?>'});					
-		cf.todoPanelGrid.theLoadingMask.show();
 		this.initStore();
 		//this.initBottomToolbar();
 		this.initCM();
@@ -102,6 +100,7 @@ cf.todoPanelGrid = function(){return {
 			stripeRows: true,
 			border: true,
 			width: 'auto',
+			loadMask: true,
 			height: cf.Layout.theRegionWest.getHeight() - 100,
 			collapsible: false,
 			style:'margin-top:5px;margin-left:5px;margin-right:5px;',
@@ -112,7 +111,6 @@ cf.todoPanelGrid = function(){return {
 		});
 		this.theTodoGrid.on('afterrender', function(grid) {
 			cf.todoPanelGrid.theTodoStore.load();
-			cf.todoPanelGrid.theLoadingMask.hide();
 		});	
 		
 	},

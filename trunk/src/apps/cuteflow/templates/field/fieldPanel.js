@@ -23,6 +23,8 @@ cf.management_field = function(){return {
 			plain: true,
 			frame: false,
 			layout: 'fit',
+			height: 'auto',
+			width: 'auto',
 			autoScroll:false,
 			bodyStyle:'margin-top:1px'
 		});

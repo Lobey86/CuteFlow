@@ -22,6 +22,7 @@ cf.menueSettingModuleGrid = function(){return {
 			autoScroll: true,
 			collapsible:false,
 			closable: false,
+			loadMask: true,
 			ddGroup : 'theModuleGridDD',
 			allowContainerDrop : true,
 			enableDragDrop:true,
