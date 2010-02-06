@@ -20,12 +20,14 @@ class todooverviewActions extends sfActions {
 
 
     public function executeLoadAllOwnWorkflow(sfWebRequest $request) {
+        $limit = $this->getUser()->getAttribute('userSettings');
         $workflow = new WorkflowOverview($this->getContext(), $this->getUser());
         $workflow->setUserId($this->getUser()->getAttribute('id'));
         $workflow->setCulture($this->getUser()->getCulture());
-        $data = WorkflowTemplateTable::instance()->getAllToDoWorkflowTemplates(-1, -1,$this->getUser()->getAttribute('id'));
-        $json_data = $workflow->buildData($data);
-        $this->renderText('({"result":'.json_encode($json_data).'})');
+        $anz = WorkflowTemplateTable::instance()->getAllToDoWorkflowTemplates(-1,-1,$this->getUser()->getAttribute('id'));
+        $data = WorkflowTemplateTable::instance()->getAllToDoWorkflowTemplates($request->getParameter('limit',$limit['displayeditem']),$request->getParameter('start',0),$this->getUser()->getAttribute('id'));
+        $json_data = $workflow->buildData($data, $request->getParameter('start',0));
+        $this->renderText('({"total":"'.count($anz).'","result":'.json_encode($json_data).'})');
         return sfView::NONE;
     }
 

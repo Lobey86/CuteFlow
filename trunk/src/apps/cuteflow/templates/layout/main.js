@@ -15,8 +15,30 @@ cf.Main = function(){return {
 	
 	/** call to init main layout **/
 	init: function(){
+		setTimeout('cf.Main.sessionCheck()',600000);// 600.000 = 10 mins
 		cf.Layout.init();
+	},
+	
+	
+	
+	sessionCheck: function () {
+		setTimeout('cf.Main.sessionCheck()',600000);// 600.000 = 10 mins
+		Ext.Ajax.request({  
+		url : '<?php echo build_dynamic_javascript_url('layout/CheckSession')?>',
+			success: function(objServerResponse){
+				theJsonTreeData = Ext.util.JSON.decode(objServerResponse.responseText);
+				var session = theJsonTreeData.result;
+				if(session != 1) {
+					window.location.href = '<?php echo build_dynamic_javascript_url('login/index')?>';
+				}
+				
+				
+			}
+		});
 	}
+	
+	
+	
 };}();
 
 Ext.lib.Event.resolveTextNode = Ext.isGecko ? function(node){

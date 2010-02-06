@@ -50,10 +50,10 @@ cf.Window = function(){return {
 					var workflowid= (Ext.get('workflow_id').dom.value);
 					var windowtype = (Ext.get('window').dom.value);
 					if(versionid == -1){
-						window.location.href = url + 'layout/Index';
+						window.location.href = url + 'layout/index';
 					}
 					else {
-						window.location.href = url + 'layout/Index/versionid/' + versionid + '/workflow/' + workflowid + '/window/' + windowtype;
+						window.location.href = url + 'layout/index/versionid/' + versionid + '/workflow/' + workflowid + '/window/' + windowtype;
 					}
 					
 				}

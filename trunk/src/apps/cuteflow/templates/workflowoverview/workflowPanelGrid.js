@@ -10,12 +10,36 @@ cf.workflowmanagementPanelGrid = function(){return {
 	
 	init:function () {
 		this.initStore();
-		//this.initBottomToolbar();
+		this.initBottomToolbar();
 		this.initCM();
 		this.initTopToolBar();
 		this.initGrid();
+		setTimeout('cf.workflowmanagementPanelGrid.storeReload()',<?php $arr = $sf_user->getAttribute('userSettings'); echo $arr['refreshtime']*1000;?>);
 	},
 	
+	
+	initBottomToolbar: function () {
+		this.theBottomToolBar =  new Ext.PagingToolbar({
+			pageSize: <?php $arr = $sf_user->getAttribute('userSettings'); echo $arr['displayeditem'];?>,
+			store: this.theWorkflowStore,
+			displayInfo: true,
+			style: 'margin-bottom:10px;',
+			displayMsg: '<?php echo __('Displaying topics',null,'documenttemplate'); ?> {0} - {1} <?php echo __('of',null,'documenttemplate'); ?> {2}',
+			emptyMsg: '<?php echo __('No records found',null,'documenttemplate'); ?>'
+		});	
+		
+	},
+	
+	storeReload: function () {
+		setTimeout('cf.workflowmanagementPanelGrid.storeReload()',<?php $arr = $sf_user->getAttribute('userSettings'); echo $arr['refreshtime']*1000;?>);
+		try {
+			cf.workflowmanagementPanelGrid.theWorkflowStore.reload();
+		}
+		catch(e) {
+			
+		}
+		
+	},
 	
 	/** init CM for the grid **/
 	initCM: function () {
@@ -97,8 +121,8 @@ cf.workflowmanagementPanelGrid = function(){return {
 				listeners: {
 		    		select: {
 		    			fn:function(combo, value) {
-		    				//cf.documenttemplatePanelGrid.theBottomToolBar.pageSize = combo.getValue();
-		    				//cf.documenttemplatePanelGrid.theDocumenttemplateStore.load({params:{start: 0, limit: combo.getValue()}});
+		    				cf.workflowmanagementPanelGrid.theBottomToolBar.pageSize = combo.getValue();
+		    				cf.workflowmanagementPanelGrid.theWorkflowStore.load({params:{start: 0, limit: combo.getValue()}});
 		    			}
 		    		}
 		    	}

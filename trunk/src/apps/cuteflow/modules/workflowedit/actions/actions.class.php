@@ -48,6 +48,7 @@ class workfloweditActions extends sfActions {
      * Save the workflow out of an IFRAME
      */
     public function executeSaveIFrame (sfWebRequest $request) {
+        sfLoader::loadHelpers('Url');
         $failure = array();
         $workflowSaveObj = new SaveWorkflow();
         $data = $request->getPostParameters();
@@ -104,6 +105,10 @@ class workfloweditActions extends sfActions {
                         }
                     }
                     $slots = $data['slot'];
+                    $context = sfContext::getInstance();
+                    $context->getConfiguration()->loadHelpers('Partial', 'I18N', 'Url', 'Date', 'CalculateDate', 'ColorBuilder', 'Icon', 'EndAction');
+                    $workflowSaveObj->setContext($context);
+                    $workflowSaveObj->setServerUrl(str_replace('/layout', '', url_for('layout/index',true)));
                     $workflowSaveObj->getNextStation($slots,$request->getParameter('userid'),$request->getParameter('versionid'));
                 }
                 else {
@@ -131,6 +136,7 @@ class workfloweditActions extends sfActions {
 
 
     public function executeSaveWorkflow(sfWebRequest $request) {
+        sfLoader::loadHelpers('Url');
         $data = $request->getPostParameters();
         $workflowSaveObj = new SaveWorkflow();
         if($data['workfloweditAcceptWorkflow_decission'] == 1) { // user accepted Workflow
@@ -179,7 +185,11 @@ class workfloweditActions extends sfActions {
                     }
                 }
             }
+            $context = sfContext::getInstance();
+            $context->getConfiguration()->loadHelpers('Partial', 'I18N', 'Url', 'Date', 'CalculateDate', 'ColorBuilder', 'Icon', 'EndAction');
             $slots = $data['slot'];
+            $workflowSaveObj->setContext($context);
+            $workflowSaveObj->setServerUrl(str_replace('/layout', '', url_for('layout/index',true)));
             $workflowSaveObj->getNextStation($slots,$this->getUser()->getAttribute('id'),$request->getParameter('versionid'));
         }
         else { // user denies workflow
