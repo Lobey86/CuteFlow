@@ -17,6 +17,7 @@ class CreateNextStation extends WorkflowCreation{
     public $workflowtemplate_id;
     public $workflow;
     public $workflowversion;
+    public $saveWorkflowObject;
 
     /**
      *
@@ -24,7 +25,8 @@ class CreateNextStation extends WorkflowCreation{
      * @param int $workflowslot_id, current workflowslot id
      * @param int $workflowslotuser_id, current workflowslotuser id
      */
-    public function __construct($version_id, $workflowslot_id, $workflowslotuser_id) {
+    public function __construct($version_id, $workflowslot_id, $workflowslotuser_id, SaveWorkflow $saveWfObj) {
+        $this->saveWorkflowObject = $saveWfObj;
         $this->version_id = $version_id;
         $this->workflowslot_id = $workflowslot_id;
         $this->workflowslotuser_id = $workflowslotuser_id;
@@ -95,6 +97,8 @@ class CreateNextStation extends WorkflowCreation{
             else {
                 $processId = $this->addProcess($this->workflowtemplate_id, $this->version_id, $this->workflowslot_id);
                 $this->addProcessUser($nextUser[0]['id'], $nextUser[0]['user_id'], $processId);
+                $mail = new PrepareStationEmail($this->version_id,$this->workflowtemplate_id, $nextUser[0]['user_id'], $this->saveWorkflowObject->context,$this->saveWorkflowObject->serverUrl );
+
                 $this->checkSendToAllAtOnce();
             }
         }

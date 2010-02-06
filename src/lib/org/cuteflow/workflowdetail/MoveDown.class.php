@@ -38,6 +38,7 @@ class MoveDown extends WorkflowSetStation {
                  $wfpu->setDecissionstate('WAITING');
                  $wfpu->setResendet(0);
                  $wfpu->save();
+                 $mail = new PrepareStationEmail($this->station->version_id, $this->station->workflowtemplate_id, $item['user_id'], $this->station->context, $this->station->serverUrl);
             }
         }
     }
@@ -67,6 +68,7 @@ class MoveDown extends WorkflowSetStation {
         $workflowPU->setDecissionstate('WAITING');
         $workflowPU->setResendet(0);
         $workflowPU->save();
+        $mail = new PrepareStationEmail($this->station->version_id, $this->station->workflowtemplate_id, $user->getUserId(), $this->station->context, $this->station->serverUrl);
 
     }
     
