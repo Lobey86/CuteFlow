@@ -55,20 +55,18 @@ class layoutActions extends sfActions {
         return sfView::NONE;
     }
 
-    public function executeTest(sfWebRequest $request) {
 
-        $versionId = 1;
-        $templateId = 1;
-        $user_id = 1;
-        sfLoader::loadHelpers('Url');
-        sfLoader::loadHelpers('Partial');
-        $serverUrl = str_replace('/layout', '',url_for('layout/index',true));
-        $context = sfContext::getInstance();
-        $test = new PrepareStationEmail($versionId, $templateId, $user_id, $context, $serverUrl);
-        die;
+
+    public function executeCheckSession(sfWebRequest $request) {
+        if($this->getUser()->hasAttribute('id')) {
+            $result = 1;
+        }
+        else {
+            $result = 0;
+        }
+        $this->renderText('{"result":'.$result.'}');
         return sfView::NONE;
     }
-
 
     
     public function executeLinklogin(sfWebRequest $request) {

@@ -21,11 +21,13 @@ class workflowoverviewActions extends sfActions {
 
     public function executeLoadAllWorkflow(sfWebRequest $request) {
         $workflow = new WorkflowOverview($this->getContext(), $this->getUser());
+        $limit = $this->getUser()->getAttribute('userSettings');
         $workflow->setUserId($this->getUser()->getAttribute('id'));
         $workflow->setCulture($this->getUser()->getCulture());
-        $data = WorkflowTemplateTable::instance()->getAllWorkflowTemplates(-1, -1);
-        $json_data = $workflow->buildData($data);
-        $this->renderText('({"result":'.json_encode($json_data).'})');
+        $anz = WorkflowTemplateTable::instance()->getSumAllWorkflowTemplates();
+        $data = WorkflowTemplateTable::instance()->getAllWorkflowTemplates($request->getParameter('limit',$limit['displayeditem']),$request->getParameter('start',0));
+        $json_data = $workflow->buildData($data, $request->getParameter('start',0));
+        $this->renderText('({"total":"'.$anz[0]->getAnzahl().'","result":'.json_encode($json_data).'})');
         return sfView::NONE;
     }
 

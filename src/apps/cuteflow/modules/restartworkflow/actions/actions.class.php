@@ -38,7 +38,11 @@ class restartworkflowActions extends sfActions {
             $slotOrder = explode('__', $request->getPostParameter('restartWorkflowFirstTab_startpointid'));
         }
 
-      
+        sfLoader::loadHelpers('Url');
+        $context = sfContext::getInstance();
+        $context->getConfiguration()->loadHelpers('Partial', 'I18N', 'Url', 'Date', 'CalculateDate', 'ColorBuilder', 'Icon', 'EndAction');
+
+        
         $createWorkObj = new PrepareWorkflowData();
         $startDate = array();
 
@@ -207,15 +211,21 @@ class restartworkflowActions extends sfActions {
         if($request->getPostParameter('restartWorkflowFirstTab_startpoint') == 'BEGINNING'){
             if($sendToAllSlotsAtOnce[0]['sendtoallslotsatonce'] == 1) {
                 $calc = new CreateWorkflow($newVersionId);
+                $calc->setServerUrl(str_replace('/layout', '', url_for('layout/index',true)));
+                $calc->setContext($context);
                 $calc->addAllSlots();
             }
             else {
                 $calc = new CreateWorkflow($newVersionId);
+                $calc->setServerUrl(str_replace('/layout', '', url_for('layout/index',true)));
+                $calc->setContext($context);
                 $calc->addSingleSlot();
             }
         }
         else if ($request->getPostParameter('restartWorkflowFirstTab_startpoint') == 'LASTSTATION') {
             $wfRestart = new RestartWorkflow();
+            $wfRestart->setContext($context);
+            $wfRestart->setServerUrl(str_replace('/layout', '', url_for('layout/index',true)));
             $lastStationdata = $wfRestart->getRestartData($version_id);
 
             $wfRestart->restartAtLastStation($lastStationdata, $dataStore, $newVersionId, $workflowtemplate_id[0]['workflowtemplate_id']);
@@ -248,7 +258,7 @@ class restartworkflowActions extends sfActions {
             $wfProcessUser->setDateofdecission(time());
             $wfProcessUser->setResendet(0);
             $wfProcessUser->save();
-            $calc = new SetStation($newVersionId, $newUserSlotId, $currentUserSlotId, $direction);
+            $calc = new SetStation($newVersionId, $newUserSlotId, $currentUserSlotId, $direction, $context, str_replace('/layout', '', url_for('layout/index',true)));
 
         }
         //$this->getResponse()->setHttpHeader('Content-Type','text/plain; charset=utf-8');

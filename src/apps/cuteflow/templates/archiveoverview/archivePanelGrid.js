@@ -12,12 +12,35 @@ cf.archiveWorkflow = function(){return {
 		cf.archiveWorkflow.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'workflowmanagement'); ?>'});					
 		cf.archiveWorkflow.theLoadingMask.show();
 		this.initStore();
-		//this.initBottomToolbar();
+		this.initBottomToolbar();
 		this.initCM();
 		this.initTopToolBar();
 		this.initGrid();
+		setTimeout('cf.archiveWorkflow.storeReload()',<?php $arr = $sf_user->getAttribute('userSettings'); echo $arr['refreshtime']*1000?>);
 	},
 	
+	
+	storeReload: function () {
+		setTimeout('cf.archiveWorkflow.storeReload()',<?php $arr = $sf_user->getAttribute('userSettings'); echo $arr['refreshtime']*1000 ?>);
+		try {
+			cf.archiveWorkflow.theArchiveStore.reload();
+		}
+		catch(e) {
+			
+		}
+	},
+	
+	initBottomToolbar: function () {
+		this.theBottomToolBar =  new Ext.PagingToolbar({
+			pageSize: <?php $arr = $sf_user->getAttribute('userSettings'); echo $arr['displayeditem'];?>,
+			store: this.theArchiveStore,
+			displayInfo: true,
+			style: 'margin-bottom:10px;',
+			displayMsg: '<?php echo __('Displaying topics',null,'documenttemplate'); ?> {0} - {1} <?php echo __('of',null,'documenttemplate'); ?> {2}',
+			emptyMsg: '<?php echo __('No records found',null,'documenttemplate'); ?>'
+		});	
+		
+	},
 	
 	/** init CM for the grid **/
 	initCM: function () {
@@ -84,8 +107,8 @@ cf.archiveWorkflow = function(){return {
 				listeners: {
 		    		select: {
 		    			fn:function(combo, value) {
-		    				//cf.documenttemplatePanelGrid.theBottomToolBar.pageSize = combo.getValue();
-		    				//cf.documenttemplatePanelGrid.theDocumenttemplateStore.load({params:{start: 0, limit: combo.getValue()}});
+		    				cf.archiveWorkflow.theBottomToolBar.pageSize = combo.getValue();
+		    				cf.archiveWorkflow.theArchiveStore.load({params:{start: 0, limit: combo.getValue()}});
 		    			}
 		    		}
 		    	}

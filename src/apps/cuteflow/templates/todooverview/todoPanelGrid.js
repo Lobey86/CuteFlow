@@ -10,12 +10,35 @@ cf.todoPanelGrid = function(){return {
 	
 	init:function () {
 		this.initStore();
-		//this.initBottomToolbar();
+		this.initBottomToolbar();
 		this.initCM();
 		this.initTopToolBar();
 		this.initGrid();
+		setTimeout('cf.todoPanelGrid.storeReload()',<?php $arr = $sf_user->getAttribute('userSettings'); echo $arr['refreshtime']*1000?>);
 	},
 	
+	initBottomToolbar: function () {
+		this.theBottomToolBar =  new Ext.PagingToolbar({
+			pageSize: <?php $arr = $sf_user->getAttribute('userSettings'); echo $arr['displayeditem'];?>,
+			store: this.theTodoStore,
+			displayInfo: true,
+			style: 'margin-bottom:10px;',
+			displayMsg: '<?php echo __('Displaying topics',null,'documenttemplate'); ?> {0} - {1} <?php echo __('of',null,'documenttemplate'); ?> {2}',
+			emptyMsg: '<?php echo __('No records found',null,'documenttemplate'); ?>'
+		});	
+		
+	},
+	
+	storeReload: function () {
+		setTimeout('cf.todoPanelGrid.storeReload()',<?php $arr = $sf_user->getAttribute('userSettings'); echo $arr['refreshtime']*1000?>);
+		try {
+			cf.todoPanelGrid.theTodoStore.reload();
+		}
+		catch(e) {
+			
+		}
+		
+	},
 	
 	/** init CM for the grid **/
 	initCM: function () {
@@ -82,8 +105,8 @@ cf.todoPanelGrid = function(){return {
 				listeners: {
 		    		select: {
 		    			fn:function(combo, value) {
-		    				//cf.documenttemplatePanelGrid.theBottomToolBar.pageSize = combo.getValue();
-		    				//cf.documenttemplatePanelGrid.theDocumenttemplateStore.load({params:{start: 0, limit: combo.getValue()}});
+		    				cf.todoPanelGrid.theBottomToolBar.pageSize = combo.getValue();
+		    				cf.todoPanelGrid.theTodoStore.load({params:{start: 0, limit: combo.getValue()}});
 		    			}
 		    		}
 		    	}

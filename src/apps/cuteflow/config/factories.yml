@@ -1,3 +1,11 @@
+user:
+  class: myUser
+  param:
+    timeout:         32400
+
+
+
+
 mailer:
   class: sfMailer
   param:

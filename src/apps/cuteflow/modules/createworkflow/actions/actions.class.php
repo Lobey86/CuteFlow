@@ -19,9 +19,10 @@ class createworkflowActions extends sfActions {
     }
 
 
-    public function executeCreateWorkflow(sfWebRequest $request) {
-        $this->getResponse()->setHttpHeader('Content-type', 'text/plain');
+    public function executeCreateWorkflow(sfWebRequest $request) {        
 
+        $this->getResponse()->setHttpHeader('Content-type', 'text/plain');
+        sfLoader::loadHelpers('Url');
         //$response->setStatusCode(200);
 
         $createWorkObj = new PrepareWorkflowData();
@@ -165,14 +166,11 @@ class createworkflowActions extends sfActions {
                         $file = $allFiles[$fieldToStore];
                         $upload = new FileUpload();
                         $upload->uploadFormFile($file, $field_id,$template_id,$workflow_id);
-
-
-
                     }
             }
 
         }
-        
+        /*
         $files = $_FILES;
         $keys = array();
         $keys = array_keys($files);
@@ -183,20 +181,27 @@ class createworkflowActions extends sfActions {
                 $fileUpload = new FileUpload();
                 $fileUpload->uploadFile($files[$key],$template_id,$workflow_id);
             }
-        }
+        }*/
 
-
+        $context = sfContext::getInstance();
+        $context->getConfiguration()->loadHelpers('Partial', 'I18N', 'Url', 'Date', 'CalculateDate', 'ColorBuilder', 'Icon', 'EndAction');
         $sendToAllSlotsAtOnce = MailinglistVersionTable::instance()->getActiveVersionById($request->getPostParameter('createWorkflowFirstTab_mailinglist'))->toArray();
         if($startDate['workflowisstarted'] == 1) {
             if($sendToAllSlotsAtOnce[0]['sendtoallslotsatonce'] == 1) {
                 $calc = new CreateWorkflow($template_id);
+                $calc->setContext($context);
+                $calc->setServerUrl(str_replace('/layout', '', url_for('layout/index',true)));
                 $calc->addAllSlots();
             }
             else {
                 $calc = new CreateWorkflow($template_id);
+                $calc->setContext($context);
+                $calc->setServerUrl(str_replace('/layout', '', url_for('layout/index',true)));
                 $calc->addSingleSlot();
             }
         }
+        $this->renderText('{"success":true}');
+        return sfView::HEADER_ONLY;
         echo '{"success":true}';die;
         //$this->getResponse()->setHttpHeader('Content-Type','application/json; charset=utf-8');
         #$this->getResponse()->setHttpHeader('X-JSON', json_encode(array('success' => 'true')));
