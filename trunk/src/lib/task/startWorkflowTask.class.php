@@ -55,10 +55,14 @@ EOF;
             $sendToAllSlotsAtOnce = $workflowTemplate[0]->getMailinglistVersion()->toArray();
             if($sendToAllSlotsAtOnce[0]['sendtoallslotsatonce'] == 1) {
                 $calc = new CreateWorkflow($workflow['id']);
+                $calc->setServerUrl($serverUrl);
+                $calc->setContext($context);
                 $calc->addAllSlots();
             }
             else {
                 $calc = new CreateWorkflow($workflow['id']);
+                $calc->setServerUrl($serverUrl);
+                $calc->setContext($context);
                 $calc->addSingleSlot();
             }
 
