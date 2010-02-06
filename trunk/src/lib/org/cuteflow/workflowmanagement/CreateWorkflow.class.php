@@ -11,6 +11,8 @@ class CreateWorkflow{
     private $version_id;
     private $workflow_id;
     private $slots;
+    public $context;
+    public $serverUrl;
 
     /**
      *
@@ -20,6 +22,15 @@ class CreateWorkflow{
         $this->version_id = $version_in;
         $this->getSlots($this->version_id);
         $this->setWorkflowId();
+    }
+
+    public function setServerUrl($url) {
+        $this->serverUrl = $url;
+    }
+    
+    
+    public function setContext(sfContext $context) {
+        $this->context = $context;
     }
 
     /**
@@ -41,7 +52,7 @@ class CreateWorkflow{
      * is called when only a single slot is needed to set
      */
     public function addSingleSlot() {
-        $slotObj = new CreateSlot($this->slots[0], $this->version_id, $this->workflow_id);
+        $slotObj = new CreateSlot($this->slots[0], $this->version_id, $this->workflow_id, $this);
     }
 
     /**
@@ -49,7 +60,7 @@ class CreateWorkflow{
      */
     public function addAllSlots() {
         foreach($this->slots as $slot) {
-            $slotObj = new CreateSlot($slot, $this->version_id, $this->workflow_id);
+            $slotObj = new CreateSlot($slot, $this->version_id, $this->workflow_id, $this);
         }
 
     }

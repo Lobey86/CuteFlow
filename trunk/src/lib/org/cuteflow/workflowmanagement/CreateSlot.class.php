@@ -10,6 +10,7 @@ class CreateSlot {
     public $version_id;
     public $slotSettings;
     public $workflow_id;
+    public $workflowObj;
 
 
     /**
@@ -18,7 +19,8 @@ class CreateSlot {
      * @param int $version_id, id of the current version
      * @param int $workflow_id, id of the workflowtemplate
      */
-    public function  __construct(WorkflowSlot $slot, $version_id, $workflow_id) {
+    public function  __construct(WorkflowSlot $slot, $version_id, $workflow_id, CreateWorkflow $createWf) {
+        $this->workflowObj = $createWf;
         $this->slot = $slot;
         $this->version_id = $version_id;
         $this->workflow_id = $workflow_id;

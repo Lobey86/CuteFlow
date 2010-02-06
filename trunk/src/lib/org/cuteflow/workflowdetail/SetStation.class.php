@@ -10,6 +10,9 @@ class SetStation {
     public $currentWorkflowSlotUser_id;
     public $move;
 
+    public $context;
+    public $serverUrl;
+
     public $currentWorkflowSlot;
     public $currentWorkflowSlotUser;
 
@@ -20,7 +23,9 @@ class SetStation {
     public $newWorkflowSlotUser;
 
 
-    public function  __construct($version_id, $newWorkflowSlotUser_id, $currentWorkflowSlotUser_id, $move) {
+    public function  __construct($version_id,$newWorkflowSlotUser_id, $currentWorkflowSlotUser_id, $move, sfContext $context, $serverUrl) {
+        $this->context = $context;
+        $this->serverUrl = $serverUrl;
         $this->version_id = $version_id;
         $this->newWorkflowSlotUser_id = $newWorkflowSlotUser_id;
         $this->currentWorkflowSlotUser_id = $currentWorkflowSlotUser_id;
@@ -34,6 +39,14 @@ class SetStation {
         $this->setCurrentSlotSendToAllReceiver();
         $this->setNewSlotSendToAllReceiver();
         $this->makeDecission();
+    }
+
+    public function setContext(sfContext $context) {
+        $this->context = $context;
+    }
+
+    public function setServerUrl($url) {
+        $this->serverUrl = $url;
     }
 
     public function setCurrentSlotSendToAllReceiver() {

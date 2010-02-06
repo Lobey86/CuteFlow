@@ -37,6 +37,9 @@ class MoveUp extends WorkflowSetStation{
                  $wfpu->setDecissionstate($decission);
                  $wfpu->setResendet(0);
                  $wfpu->save();
+                 if($decission == 'WAITING') {
+                     $mail = new PrepareStationEmail($this->station->version_id, $this->station->workflowtemplate_id, $item['user_id'], $this->station->context, $this->station->serverUrl);
+                 }
             }
         }
         
@@ -84,6 +87,7 @@ class MoveUp extends WorkflowSetStation{
                  $wfpu->setDecissionstate('WAITING');
                  $wfpu->setResendet(0);
                  $wfpu->save();
+                 $mail = new PrepareStationEmail($this->station->version_id, $this->station->workflowtemplate_id, $nextUser[0]['user_id'], $this->station->context, $this->station->serverUrl);
                  return true;
              }
          }

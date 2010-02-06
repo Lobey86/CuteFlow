@@ -6,9 +6,20 @@ class RestartWorkflow {
 
 
     private $newValue;
+    public $context;
+    public $serverUrl;
 
     public function  __construct() {
         
+    }
+
+
+    public function setContext(sfContext $context) {
+        $this->context = $context;
+    }
+
+    public function setServerUrl($url) {
+        $this->serverUrl = $url;
     }
 
     public function setNewValue($value) {
@@ -354,6 +365,10 @@ class RestartWorkflow {
                         $wfProcessUser->setResendet(0);
                         $wfProcessUser->setIsuseragentof($lastProcessUser['isuseragentof']);
                         $wfProcessUser->save();
+
+                        if($setDecission == 'WAITING') {
+                            $mail = new PrepareStationEmail($version_id, $workflow_id, $user_id, $this->context, $this->serverUrl);
+                        }
 
                     }
                 }

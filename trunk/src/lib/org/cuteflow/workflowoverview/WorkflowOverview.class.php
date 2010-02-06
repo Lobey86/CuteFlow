@@ -27,10 +27,10 @@ class WorkflowOverview {
         $this->culture = $culture;
     }
 
-    public function buildData(Doctrine_Collection $data) {
+    public function buildData(Doctrine_Collection $data, $counter) {
         $result = array();
         $a = 0;
-
+        $counter++;
         $authSettings = new CreateWorkflowAuthorizationRights();
         $authSettings->setDefaultRole();
         $authSettings->setUserRole($this->userId);
@@ -42,7 +42,7 @@ class WorkflowOverview {
             $inProgress = addColor($inProgress, $userSettings['markred'],$userSettings['markorange'],$userSettings['markyellow']);
             $userdata = $sender[0]->getUserData()->toArray();
             $username = $sender[0]->getUsername() . ' (' . $userdata['firstname'] . ' ' . $userdata['lastname'] . ')';
-            $result[$a]['#'] = $a+1;
+            $result[$a]['#'] = $counter++;;
             $result[$a]['id'] = $item->getId();
             $result[$a]['mailinglisttemplate_id'] = $item->getMailinglisttemplateversionId();
             $result[$a]['mailinglisttemplate'] = $mailinglist[0]->getName();
@@ -81,12 +81,19 @@ class WorkflowOverview {
                 $result[$a]['stationrunning'] = '-';
             }
             else {
-                $stationSettings =  $this->getCurrentStation($item->getActiveversionId(), $item->getSenderId());;
-                $result[$a]['currentstation'] = $stationSettings[0];
-                $result[$a]['currentlyrunning'] = '<table><tr><td width="20">' . $inProgress . ' </td><td>' . $this->context->getI18N()->__('Day(s)' ,null,'workflowmanagement') . '</td></tr></table>';
-                $slotRunning = createDayOutOfDateSince($stationSettings[1]);
-                $slotRunning = addColor($slotRunning, $userSettings['markred'],$userSettings['markorange'],$userSettings['markyellow']);
-                $result[$a]['stationrunning'] = '<table><tr><td width="20">' . $slotRunning . ' </td><td>' . $this->context->getI18N()->__('Day(s)' ,null,'workflowmanagement') . '</td></tr></table>';
+                $stationSettings =  $this->getCurrentStation($item->getActiveversionId(), $item->getSenderId());
+                if(!empty($stationSettings)) {
+                    $result[$a]['currentstation'] = $stationSettings[0];
+                    $result[$a]['currentlyrunning'] = '<table><tr><td width="20">' . $inProgress . ' </td><td>' . $this->context->getI18N()->__('Day(s)' ,null,'workflowmanagement') . '</td></tr></table>';
+                    $slotRunning = createDayOutOfDateSince($stationSettings[1]);
+                    $slotRunning = addColor($slotRunning, $userSettings['markred'],$userSettings['markorange'],$userSettings['markyellow']);
+                    $result[$a]['stationrunning'] = '<table><tr><td width="20">' . $slotRunning . ' </td><td>' . $this->context->getI18N()->__('Day(s)' ,null,'workflowmanagement') . '</td></tr></table>';
+                }
+                else {
+                    $result[$a]['currentstation'] = '-';
+                    $result[$a]['currentlyrunning'] = '-';
+                    $result[$a]['stationrunning'] = '-';
+                }
             }
 
             if($item->getIsarchived() == 1) {
@@ -162,14 +169,18 @@ class WorkflowOverview {
         $result = array();
         $activeVersion = WorkflowProcessTable::instance()->getCurrentStation($activeversion_id);
         $user = $activeVersion[0]->getWorkflowProcessUser()->toArray();
-        $workflowslot = $activeVersion[0]->getWorkflowSlot()->toArray();      
-        $slot = DocumenttemplateSlotTable::instance()->getSlotById($workflowslot[0]['slot_id'])->toArray();
-        $currentStation = $slot[0]['name'];
-        $userdata = UserLoginTable::instance()->findActiveUserById($user['user_id'])->toArray();
-        $username = $userdata[0]['username'];
-        $currentStation .= ' <i>(' . $username . ')</i>';
-        $result[0] = $currentStation;
-        $result[1] = $workflowslot[0]['updated_at'];
+        $workflowslot = $activeVersion[0]->getWorkflowSlot()->toArray();
+        if(!empty($workflowslot)) {
+            $slot = DocumenttemplateSlotTable::instance()->getSlotById($workflowslot[0]['slot_id'])->toArray();
+            $currentStation = $slot[0]['name'];
+            $userdata = UserLoginTable::instance()->findActiveUserById($user['user_id'])->toArray();
+            $username = $userdata[0]['username'];
+            $currentStation .= ' <i>(' . $username . ')</i>';
+            $result[0] = $currentStation;
+            $result[1] = $workflowslot[0]['updated_at'];
+            return $result;
+        }
+
         return $result;
     }
 

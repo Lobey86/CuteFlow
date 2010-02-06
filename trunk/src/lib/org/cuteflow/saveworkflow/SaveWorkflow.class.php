@@ -2,10 +2,20 @@
 
 class SaveWorkflow {
 
+    public $context;
+    public $serverUrl;
+
     public function  __construct() {
 
     }
 
+    public function setContext(sfContext $context) {
+        $this->context = $context;
+    }
+
+    public function setServerUrl($url) {
+        $this->serverUrl = $url;
+    }
 
 
     public function getNextStation(array $slots, $userId, $versionId) {
@@ -21,7 +31,7 @@ class SaveWorkflow {
             $versionId = $versionId;
             $wfSlotId = $slot['workflowslot_id'];
             $wsUserId = $wfProcessData[0]['workflowslotuser_id'];
-            $checkWorkflow = new CreateNextStation($versionId,$wfSlotId,$wsUserId);
+            $checkWorkflow = new CreateNextStation($versionId,$wfSlotId,$wsUserId, $this);
         }
         $workflowVersion = WorkflowTemplateTable::instance()->getWorkflowTemplateByVersionId($versionId);
         $workflowData = MailinglistVersionTable::instance()->getSingleVersionById($workflowVersion[0]->getMailinglisttemplateversionId())->toArray();
