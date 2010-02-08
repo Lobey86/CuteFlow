@@ -56,7 +56,7 @@ cf.systemTab = function(){return {
 	
 	initColorPicker: function () {
 		this.thePicker = new Ext.form.ColorField({
-			fieldLabel: '<?php echo __('Select color',null,'field'); ?>',
+			fieldLabel: '<?php echo __('Select color',null,'systemsetting'); ?>',
 			id: 'systemsetting_color',
 			width: 230,
 			editable: true,
@@ -69,14 +69,14 @@ cf.systemTab = function(){return {
 	/** init workflow settings **/
 	initWorkflowSettingsFieldset: function () {
 		this.theWorkflowFieldset = new Ext.form.FieldSet({
-			title: '<table><tr><td><img src="/images/icons/information.png"  ext:qtip=\"<table><tr><td><b><?php echo __('Show position in Mail?',null,'systemsetting'); ?></b></td><td>&nbsp;&nbsp;&nbsp;Show Position in Mail</td></tr><tr><td><b><?php echo __('Allow unenctypted requests?',null,'systemsetting'); ?></b></td><td>&nbsp;&nbsp;&nbsp;Show Position in Mail</td></tr><tr><td><b><?php echo __('Send Mails to circulation receivers',null,'systemsetting'); ?></b></td><td>&nbsp;&nbsp;&nbsp;Show Position in Mail</td></tr><tr><td><b><?php echo __('Send Reminder-EMails with all open circulations<br>(Activated Cronjob needed)',null,'systemsetting'); ?></b></td><td>&nbsp;&nbsp;&nbsp;Show Position in Mail</td></tr><tr><td><b><?php echo __('Slot-Visibility',null,'systemsetting'); ?></b></td><td>&nbsp;&nbsp;&nbsp;Show Position in Mail</td></tr></table>\" ext:qwidth=\"500\"/>&nbsp;&nbsp;</td><td><?php echo __('Workflow settings',null,'systemsetting'); ?></td></tr></table>',
+			title: '<?php echo __('Workflow settings',null,'systemsetting'); ?>',
 			width: 600,
 			height: 190,
 			style: 'margin-top:20px;margin-left:5px;',
 			labelWidth: 330,
 			items:[{
 				xtype: 'checkbox',
-				fieldLabel: '<?php echo __('Show position in Mail?',null,'systemsetting'); ?>',
+				fieldLabel: '<?php echo __('Show position in Mail',null,'systemsetting'); ?>?',
 				inputValue: "1",
 				id: 'systemsetting_showposition'
 			},{
@@ -86,7 +86,7 @@ cf.systemTab = function(){return {
 				id: 'systemsetting_sendreceivermail'
 			},{
 				xtype: 'checkbox',
-				fieldLabel: '<?php echo __('Send Reminder-EMails with all open circulations<br>(Activated Cronjob needed)',null,'systemsetting'); ?>',
+				fieldLabel: '<?php echo __('Send Reminder-EMails with all open circulations)',null,'systemsetting'); ?><br /> (<?php echo __('(Activated Cronjob needed)',null,'systemsetting'); ?>)',
 				inputValue: "1",
 				id: 'systemsetting_sendremindermail'
 			},{
@@ -114,7 +114,7 @@ cf.systemTab = function(){return {
 	/** init language fieldset with combo **/
 	initLanguageFieldset: function () {
 		this.theLanguageFieldset = new Ext.form.FieldSet({
-			title: '<table><tr><td><img src="/images/icons/information.png"  ext:qtip=\"<table><tr><td><b><?php echo __('Default system language',null,'systemsetting'); ?>:</b></td><td>&nbsp;&nbsp;&nbsp;Change the default language on Login-Page</td></tr></table>\" ext:qwidth=\"500\"/>&nbsp;&nbsp;</td><td><?php echo __('Default system language',null,'systemsetting'); ?></td></tr></table>',
+			title: '<?php echo __('Default system language',null,'systemsetting'); ?>',
 			width: 600,
 			height: 80,
 			style: 'margin-top:20px;margin-left:5px;',

@@ -21,14 +21,14 @@ cf.authTab = function(){return {
 	/** fieldset for ldap authentication **/
 	initLdapFieldset: function () {
 		this.theLdapFieldset = new Ext.form.FieldSet({
-			title: '<table><tr><td><img src="/images/icons/information.png"  ext:qtip=\"<table><tr><td><b><?php echo __('Add User automatic to Cuteflowdatabase when in LDAP?',null,'systemsetting'); ?></b></td><td>&nbsp;&nbsp;&nbsp;<?php echo __('User is added automatic to CuteFlow database, when is authenticated to ldap directory',null,'systemsetting'); ?></td></tr></table>\" ext:qwidth=\"800\"/></td><td>&nbsp;&nbsp;<?php echo __('LDAP Settings',null,'systemsetting'); ?></td></tr></table>',
+			title: '<?php echo __('LDAP Settings',null,'systemsetting'); ?>',
 			width: 600,
 			height: 420,
 			style: 'margin-top:20px;margin-left:5px;',
 			labelWidth: 330,
 			items: [{
 				xtype: 'checkbox',
-				fieldLabel: '<?php echo __('Add User automatic to Cuteflowdatabase when in LDAP?',null,'systemsetting'); ?>',
+				fieldLabel: '<?php echo __('Add User automatic to Cuteflowdatabase when in LDAP',null,'systemsetting'); ?>?',
 				inputValue: "1",
 				id: 'auth_ladp_adduser'	
 			},{
@@ -116,7 +116,7 @@ cf.authTab = function(){return {
 	/** fieldset for OpenID authentication **/
 	initOpenIdFieldset: function () {
 		this.theOpenIdFieldset = new Ext.form.FieldSet({
-			title: '<table><tr><td><img src="/images/icons/information.png"  ext:qtip=\"<table><tr><td><b><?php echo __('OpenID Server',null,'systemsetting'); ?></b></td><td>&nbsp;&nbsp;&nbsp;<?php echo __('Authenticate using OpenID',null,'systemsetting'); ?></td></tr></table>\" ext:qwidth=\"600\"/></td><td>&nbsp;&nbsp;<?php echo __('OpenID Server',null,'systemsetting'); ?></td></tr></table>',
+			title: '<?php echo __('OpenID Server',null,'systemsetting'); ?>',
 			width: 600,
 			height: 80,
 			style: 'margin-top:20px;margin-left:5px;',
@@ -152,7 +152,7 @@ cf.authTab = function(){return {
 	/** init fieldset, with combo to change the authentication type **/
 	initTypeFieldset: function () {
 		this.theFieldset = new Ext.form.FieldSet({
-			title: '<table><tr><td><img src="/images/icons/information.png"  ext:qtip=\"<table><tr><td><b><?php echo __('use only CuteFLow Database',null,'systemsetting'); ?>:</b></td><td>&nbsp;&nbsp;&nbsp;<?php echo __('internal CuteFlow Database will be used.',null,'systemsetting'); ?></td></tr><tr><td><b><?php echo __('use CuteFLow Database and LDAP',null,'systemsetting'); ?>:</b></td><td>&nbsp;&nbsp;&nbsp;<?php echo __('use LDAP for authentication and CuteFlow Database to login.',null,'systemsetting'); ?></td></tr><tr><td><b><?php echo __('use CuteFlow Database and OpenID',null,'systemsetting'); ?>:</b></td><td>&nbsp;&nbsp;&nbsp;<?php echo __('use OpenID service to authenticate and CuteFlow Database to login.',null,'systemsetting'); ?></td></tr><tr><td><b><?php echo __('Show MyProfile Tab on Users First-Login?',null,'systemsetting'); ?>:</b></td><td>&nbsp;&nbsp;&nbsp;<?php echo __('on First-Login MyProfile panel is loaded.',null,'systemsetting'); ?></td></tr></table>\" ext:qwidth=\"700\"/></td><td>&nbsp;&nbsp;<?php echo __('Authentication type',null,'systemsetting'); ?></td></tr></table>',
+			title: '<?php echo __('use only CuteFLow Database',null,'systemsetting'); ?>',
 			width: 600,
 			height: 130,
 			style: 'margin-top:20px;margin-left:5px;',
@@ -194,13 +194,13 @@ cf.authTab = function(){return {
 				}
 			},{
 				xtype: 'checkbox',
-				fieldLabel: '<?php echo __('Show MyProfile Tab on Users First-Login?',null,'systemsetting'); ?>',
+				fieldLabel: '<?php echo __('Show MyProfile Tab on Users First-Login',null,'systemsetting'); ?>?',
 				style: 'margin-top:3px;',
 				inputValue: "1",
 				id: 'authentication_firstlogin'
 			},{
 				xtype: 'checkbox',
-				fieldLabel: '<?php echo __('Allow direct Login from Emails?',null,'systemsetting'); ?>',
+				fieldLabel: '<?php echo __('Allow direct Login from Emails',null,'systemsetting'); ?>?',
 				style: 'margin-top:3px;',
 				inputValue: "1",
 				id: 'authentication_allowdirectlogin'
