@@ -60,14 +60,15 @@ cf.workflowdetailsGeneral = function(){return {
 								cf.workflowdetails.thePanelToShow.doLayout();
 								
 								cf.workflowdetailsDetails.init(detailData, 1);
-								cf.workflowdetails.thePanelToShow.add(cf.workflowdetailsDetails.theFieldset);
-								
+								//cf.workflowdetails.thePanelToShow.add(cf.workflowdetailsDetails.theFieldset);
+								cf.workflowdetails.thePanel.add(cf.workflowdetailsDetails.theFieldset);
 								
 								cf.workflowdetails.thePanelToShow.remove(cf.workflowdetailsAttachments.theFieldset);
 								cf.workflowdetailsAttachments.theFieldset.destroy();
 								cf.workflowdetails.thePanelToShow.doLayout();
 								cf.workflowdetailsAttachments.init(attachments);
-							    cf.workflowdetails.thePanelToShow.add(cf.workflowdetailsAttachments.theFieldset);
+							    //cf.workflowdetails.thePanelToShow.add(cf.workflowdetailsAttachments.theFieldset);
+							    cf.workflowdetails.thePanel.add(cf.workflowdetailsAttachments.theFieldset);
 								
 
 								cf.workflowdetails.thePanelToShow.remove(cf.workflowdetailsValue.theFieldset);
@@ -75,7 +76,9 @@ cf.workflowdetailsGeneral = function(){return {
 								cf.workflowdetails.thePanelToShow.doLayout();
 								cf.workflowdetailsValue.init(valueData);
 								
-								cf.workflowdetails.thePanelToShow.add(cf.workflowdetailsValue.theFieldset);
+								//cf.workflowdetails.thePanelToShow.add(cf.workflowdetailsValue.theFieldset);
+								cf.workflowdetails.thePanel.add(cf.workflowdetailsValue.theFieldset);
+								cf.workflowdetails.thePanel.doLayout();
 								cf.workflowdetails.thePanelToShow.doLayout();
 								cf.workflowdetailsGeneral.theLoadingMask.hide();
 							}

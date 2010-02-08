@@ -352,7 +352,7 @@ cf.workfloweditSlot = function(){return {
 		    layout: 'column',
 		    width: cf.Layout.theRegionWest.getWidth() +  cf.Layout.theRegionCenter.getWidth() - 180,
 		    height:'auto',
-		    frame:true,
+		    frame:false,
 		    autoScroll:true,
 		    disabled: disabled,
 			border: false,

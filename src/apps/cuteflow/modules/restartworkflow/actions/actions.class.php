@@ -32,11 +32,13 @@ class restartworkflowActions extends sfActions {
 
 
     public function executeRestartWorkflow(sfWebRequest $request) {
-        $this->getResponse()->setHttpHeader('Content-type', 'text/plain');
+       
         if($request->getPostParameter('restartWorkflowFirstTabSettings') != 'BEGINNING' AND $request->getPostParameter('restartWorkflowFirstTabSettings') != 'LASTSTATION') {
             $slotOrder = array();
             $slotOrder = explode('__', $request->getPostParameter('restartWorkflowFirstTab_startpointid'));
         }
+
+
 
         sfLoader::loadHelpers('Url');
         $context = sfContext::getInstance();
@@ -52,14 +54,22 @@ class restartworkflowActions extends sfActions {
         $startDate = $createWorkObj->createStartDate('');
         $content = $createWorkObj->createRestartContenttype($request->getPostParameters());
 
+
+
         $workflowtemplate_id = WorkflowVersionTable::instance()->getWorkflowVersionById($version_id)->toArray();
-        WorkflowTemplateTable::instance()->updateEndaction($workflowtemplate_id,$endreason);
+
+
+        WorkflowTemplateTable::instance()->updateEndaction($workflowtemplate_id[0]['id'],$endreason);
+
+
         $currentVersion = WorkflowVersionTable::instance()->getLastVersionById($workflowtemplate_id[0]['workflowtemplate_id'])->toArray();
         $slots = WorkflowSlotTable::instance()->getSlotByVersionId($version_id);
+
 
         WorkflowVersionTable::instance()->setVersionInactive($version_id);
         WorkflowTemplateTable::instance()->restartWorkflow($workflowtemplate_id[0]['workflowtemplate_id']);
 
+        
         $wfRestart = new RestartWorkflow();
         $wfRestart->setNewValue($newValue);
         $data = $wfRestart->buildSaveData($slots);
@@ -74,7 +84,7 @@ class restartworkflowActions extends sfActions {
         $wfVersion->setVersion($currentVersion[0]['version']+1);
         $wfVersion->save();
         $newVersionId = $wfVersion->getId();
-        
+
         $dataStore = array();
         $slotCounter = 0;
 
@@ -191,6 +201,8 @@ class restartworkflowActions extends sfActions {
 
         }
 
+         
+        
         $files = $_FILES;
         $keys = array();
         $keys = array_keys($files);
@@ -261,8 +273,6 @@ class restartworkflowActions extends sfActions {
             $calc = new SetStation($newVersionId, $newUserSlotId, $currentUserSlotId, $direction, $context, str_replace('/layout', '', url_for('layout/index',true)));
 
         }
-        //$this->getResponse()->setHttpHeader('Content-Type','text/plain; charset=utf-8');
-        
         echo '{"success":true}';die;
     }
 

@@ -164,7 +164,7 @@
      </trans-unit>	
 	 <trans-unit id="41">
         <source>created at</source>
-        <target>Berstellt am</target>
+        <target>Erstellt am</target>
      </trans-unit>	
 	 <trans-unit id="42">
         <source>currently active</source>

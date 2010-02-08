@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xliff version="1.0">
-  <file original="global" source-language="en_US" target-language="de_DE" datatype="plaintext">
+  <file original="global" source-language="en_US" target-language="en_US" datatype="plaintext">
     <body>  
      <trans-unit id="1">
         <source>NAME</source>
@@ -136,7 +136,7 @@
     </trans-unit>
 	<trans-unit id="34">
         <source>Plain</source>
-        <target>Plain</target>
+        <target>Text</target>
     </trans-unit>
 	<trans-unit id="35">
         <source>HTML</source>
@@ -144,7 +144,7 @@
     </trans-unit>
 	<trans-unit id="36">
         <source>Notice</source>
-        <target>Notiz</target>
+        <target>Hinweis</target>
     </trans-unit>
 	<trans-unit id="37">
         <source>None</source>
@@ -202,7 +202,7 @@
         <source>Slot-Visibility</source>
         <target>Slot-Sichtbarkeit</target>
     </trans-unit>
-	     <trans-unit id="51">
+	 <trans-unit id="51">
         <source>Only current user slot</source>
         <target>Nur Benutzerslots</target>
     </trans-unit>
@@ -278,7 +278,7 @@
         <source>Useragent Settings</source>
         <target>Stellvertreter Einstellungen</target>
     </trans-unit>
-		<trans-unit id="70">
+	<trans-unit id="70">
         <source>Cronjob will run on selected days</source>
         <target>Cronjob wird nur zu gew&#228;hlten Tagen laufen</target>
     </trans-unit>
@@ -324,7 +324,7 @@
     </trans-unit>
 	<trans-unit id="80">
         <source>Set Time for UserAgent Cronjob</source>
-        <target>Zeit für Stellvertreter Cronjob setzen</target>
+        <target>Zeit f&#252;r Stellvertreter Cronjob setzen</target>
     </trans-unit>
 	<trans-unit id="81">
         <source>Add useragents when cronjob time is exceeded</source>
@@ -362,9 +362,9 @@
         <source>Email Format</source>
         <target>Email Format</target>
     </trans-unit>
-	     <trans-unit id="90">
+	 <trans-unit id="90">
         <source>Plain</source>
-        <target>Plain</target>
+        <target>Text</target>
     </trans-unit>
 	<trans-unit id="91">
         <source>HTML</source>
@@ -372,7 +372,7 @@
     </trans-unit>
 	<trans-unit id="92">
         <source>Notice</source>
-        <target>Notice</target>
+        <target>Hinweus</target>
     </trans-unit>
 	<trans-unit id="93">
         <source>None</source>
@@ -529,6 +529,30 @@
 	<trans-unit id="131">
         <source>Allow direct Login from Emails</source>
         <target>Direkter Login aus Emails zulassen</target>
+    </trans-unit>
+	<trans-unit id="132">
+        <source>Reply Settings</source>
+        <target>Antwort Einstellungen</target>
+    </trans-unit>
+	<trans-unit id="133">
+        <source>Select Authentication</source>
+        <target>Authentifizierung w&#228;hlen</target>
+    </trans-unit>
+	<trans-unit id="134">
+        <source>use only CuteFlow Database</source>
+        <target>nur CuteFlow Datenbank</target>
+    </trans-unit>
+	<trans-unit id="135">
+        <source>use CuteFlow Database and LDAP</source>
+        <target>CuteFLow Datenbank und LDAP</target>
+    </trans-unit>
+	<trans-unit id="136">
+        <source>use CuteFlow Database and LDAP</source>
+        <target>CuteFlow Datenbank und LDAP</target>
+    </trans-unit>
+	<trans-unit id="137">
+        <source>User Settings</source>
+        <target>Benutzer Einstellungen</target>
     </trans-unit>
     </body>
   </file>

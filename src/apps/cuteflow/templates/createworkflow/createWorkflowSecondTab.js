@@ -158,10 +158,10 @@ cf.createWorkflowSecondTab = function(){return {
 	initPanel: function () {
 		this.theSecondPanel = new Ext.Panel({
 			title: '<?php echo __('Mailing list',null,'mailinglist'); ?>',
-			frame:true,
+			frame: false,
 			layout: 'column',
 			autoScroll: true,
-			height: cf.Layout.theRegionWest.getHeight() + cf.Layout.theRegionNorth.getHeight() - 148,
+			height: 'auto',
 			width: 600,
 			border: false,
 			style: 'border:none;',

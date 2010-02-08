@@ -170,7 +170,7 @@ class createworkflowActions extends sfActions {
             }
 
         }
-        /*
+        
         $files = $_FILES;
         $keys = array();
         $keys = array_keys($files);
@@ -181,7 +181,7 @@ class createworkflowActions extends sfActions {
                 $fileUpload = new FileUpload();
                 $fileUpload->uploadFile($files[$key],$template_id,$workflow_id);
             }
-        }*/
+        }
 
         $context = sfContext::getInstance();
         $context->getConfiguration()->loadHelpers('Partial', 'I18N', 'Url', 'Date', 'CalculateDate', 'ColorBuilder', 'Icon', 'EndAction');
@@ -200,16 +200,8 @@ class createworkflowActions extends sfActions {
                 $calc->addSingleSlot();
             }
         }
-        $this->renderText('{"success":true}');
-        return sfView::HEADER_ONLY;
+
         echo '{"success":true}';die;
-        //$this->getResponse()->setHttpHeader('Content-Type','application/json; charset=utf-8');
-        #$this->getResponse()->setHttpHeader('X-JSON', json_encode(array('success' => 'true')));
-        #return sfView::NONE;
-        #$this->getResponse()->setHttpHeader("X-JSON", '({"success":true})');
-        #$this->getResponse()->setHttpHeader('Content-Type','text/plain; charset=utf-8');
-        #return $this->renderText('{"success":true}');
-        #return sfView::HEADER_ONLY;
     }
 
 

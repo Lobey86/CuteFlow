@@ -11,8 +11,8 @@ cf.restartWorkflowCRUD = function(){return {
 			waitMsg: '<?php echo __('Saving Data',null,'usermanagement'); ?>',
 			success: function(objServerResponse){
 				cf.workflowmanagementPanelGrid.theWorkflowStore.reload();
-				cf.createWorkflowWindow.theCreateWorkflowWindow.hide();
-				cf.createWorkflowWindow.theCreateWorkflowWindow.destroy();
+				cf.restartWorkflowWindow.theRestartWorkflowWindow.hide();
+				cf.restartWorkflowWindow.theRestartWorkflowWindow.destroy();
 				Ext.Msg.minWidth = 200;
 				Ext.MessageBox.alert('<?php echo __('OK',null,'workflowmanagement'); ?>','<?php echo __('Workflow restarted',null,'workflowmanagement'); ?>');
 				try {
@@ -25,8 +25,8 @@ cf.restartWorkflowCRUD = function(){return {
 			},
 			failure: function(objServerResponse){
 				cf.workflowmanagementPanelGrid.theWorkflowStore.reload();
-				cf.createWorkflowWindow.theCreateWorkflowWindow.hide();
-				cf.createWorkflowWindow.theCreateWorkflowWindow.destroy();
+				cf.restartWorkflowWindow.theRestartWorkflowWindow.hide();
+				cf.restartWorkflowWindow.theRestartWorkflowWindow.destroy();
 				Ext.Msg.minWidth = 200;
 				Ext.MessageBox.alert('<?php echo __('OK',null,'workflowmanagement'); ?>','<?php echo __('Workflow restarted',null,'workflowmanagement'); ?>');
 				try {
