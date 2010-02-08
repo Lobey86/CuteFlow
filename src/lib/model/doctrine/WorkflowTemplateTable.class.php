@@ -85,6 +85,7 @@ class WorkflowTemplateTable extends Doctrine_Table {
     }
 
     public function updateEndaction($id, $reason) {
+        
         Doctrine_Query::create()
             ->update('WorkflowTemplate wft')
             ->set('wft.endaction','?', $reason)
