@@ -53,10 +53,14 @@ cf.Layout = function(){return {
 			cf.TabPanel.init();
 			cf.cuteFlowLogo.init();
 			cf.Layout.theRegionWest.add(cf.Navigation.theAccordion);
-			cf.TabPanel.theTabPanel.add({title: 'Welcome', closable: 'false', html: 'fewfwe'});
 			this.theRegionCenter.add(cf.TabPanel.theTabPanel);
 			this.theRegionNorth.add(cf.cuteFlowLogo.thePanel);	
 			this.theMainLayout.doLayout();
+			
+			cf.workflow_todo.init();
+			cf.workflow_todo.setInitialized(true);
+			cf.TabPanel.theTabPanel.add(cf.workflow_todo.getInstance());
+			cf.TabPanel.theTabPanel.setActiveTab(cf.workflow_todo.getInstance());
 			
 		}
 	}
