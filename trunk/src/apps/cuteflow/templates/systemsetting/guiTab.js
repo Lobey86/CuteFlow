@@ -79,7 +79,7 @@ cf.guiTab = function(){return {
 	
 	initThemeFieldset: function () {
 		this.theThemeFieldset = new Ext.form.FieldSet({
-			title: '<table><tr><td><img src="/images/icons/information.png"  ext:qtip=\"Settings will automatic be loaded,<br>when a new user is added to database\" ext:qwidth=\"300\"/></td><td>&nbsp;&nbsp;<?php echo __('Set Default Theme',null,'systemsetting'); ?></td></tr></table>',
+			title: '<?php echo __('Set Default Theme',null,'systemsetting'); ?>',
 			width: 430,
 			height: 80,
 			style: 'margin-top:20px;margin-left:5px;',
@@ -118,7 +118,7 @@ cf.guiTab = function(){return {
 	/** init a fieldset **/
 	initGuiFieldset: function () {
 		this.theGuiFieldset = new Ext.form.FieldSet({
-			title: '<table><tr><td><img src="/images/icons/information.png"  ext:qtip=\"Settings will automatic be loaded,<br>when a new user is added to database\" ext:qwidth=\"300\"/></td><td>&nbsp;&nbsp;<?php echo __('GUI Workflow Settings',null,'systemsetting'); ?></td></tr></table>',
+			title: '<?php echo __('GUI Workflow Settings',null,'systemsetting'); ?>',
 			width: 430,
 			height: 490,
 			style: 'margin-top:20px;margin-left:5px;',
@@ -193,8 +193,8 @@ cf.guiTab = function(){return {
 	/** cm for grid **/
 	initCM : function () {
 		this.theGuiCM  =  new Ext.grid.ColumnModel([
-			{header: "<center><div ext:qtip=\"<table><tr><td><img src='/images/icons/checkbox.png' />&nbsp;&nbsp;</td><td><?php echo __('Activate Item',null,'systemsetting'); ?></td></tr></table>\" ext:qwidth=\"200\"><?php echo __('Activate Item',null,'usermanagement'); ?></div></center>",  width: 90, sortable: false, dataIndex: 'id', css : "text-align :left; font-size:12px;", renderer: cf.guiTab.renderAction},
-			{header: "<?php echo __('Column',null,'usermanagement'); ?>",  width: 200, sortable: false, dataIndex: 'columntext', css : "text-align :left; font-size:12px;"}
+			{header: "<?php echo __('Activate Item',null,'systemsetting'); ?>",  width: 90, sortable: false, dataIndex: 'id', css : "text-align :left; font-size:12px;", renderer: cf.guiTab.renderAction},
+			{header: "<?php echo __('Column',null,'systemsetting'); ?>",  width: 200, sortable: false, dataIndex: 'columntext', css : "text-align :left; font-size:12px;"}
 		]);	
 		
 	},

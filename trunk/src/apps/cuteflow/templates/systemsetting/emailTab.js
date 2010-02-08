@@ -35,7 +35,7 @@ cf.emailTab = function(){return {
 	/** set Fieldset with textfield to enter Systemreplayaddress **/
 	initEmail: function () {
 		this.theEmailReplay = new Ext.form.FieldSet({
-			title: '<table><tr><td><img src="/images/icons/information.png"  ext:qtip=\"Set System reply address which is added,<br>when CuteFlow is sending emails\" ext:qwidth=\"300\"/></td><td>&nbsp;&nbsp;<?php echo __('Reply Settings',null,'systemsetting'); ?></td></tr></table>',
+			title: '<?php echo __('Reply Settings',null,'systemsetting'); ?>',
 			width: 600,
 			height: 70,
 			style: 'margin-top:20px;margin-left:5px;',

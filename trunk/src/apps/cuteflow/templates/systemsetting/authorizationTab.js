@@ -89,7 +89,7 @@ cf.authorizationTab = function(){return {
 	
 	initFieldset: function () {
 		this.theAuthorizationFieldset = new Ext.form.FieldSet({
-			title: '<table><tr><td><img src="/images/icons/information.png"  ext:qtip=\"Set which right can handle Workflows\" ext:qwidth=\"300\"/></td><td>&nbsp;&nbsp;<?php echo __(' Authorization Settings',null,'systemsetting'); ?></td></tr></table>',
+			title: '<?php echo __('Authorization Settings',null,'systemsetting'); ?>',
 			width: 750,
 			height: 520,
 			style: 'margin-top:20px;margin-left:5px;',
