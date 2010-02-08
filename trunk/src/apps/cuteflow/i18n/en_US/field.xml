@@ -434,6 +434,10 @@
         <source>NEGATIVE</source>
         <target>only negativ numbers</target>
      </trans-unit>
+	 <trans-unit id="109">
+        <source>File settings</source>
+        <target>File settings</target>
+     </trans-unit>
     </body>
   </file>
 </xliff>

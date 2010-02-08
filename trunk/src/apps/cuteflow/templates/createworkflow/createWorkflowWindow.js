@@ -28,7 +28,7 @@ cf.createWorkflowWindow = function(){return {
 	initFormPanel: function () {
 		this.theFormPanel = new Ext.FormPanel({
 			frame:true,
-			//fileUpload: true,
+			fileUpload: true,
 			autoScroll: true,
 			height: 'auto'
 		});

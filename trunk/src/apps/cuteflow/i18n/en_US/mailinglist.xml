@@ -290,6 +290,18 @@
         <source>Allowed Sender</source>
         <target>Allowed Sender</target>
      </trans-unit>	
+	 <trans-unit id="73">
+        <source>Authorization settings</source>
+        <target>Authorization settings</target>
+     </trans-unit>
+	 <trans-unit id="74">
+        <source>Edit existing Mailing list</source>
+        <target>Edit existing Mailing list</target>
+     </trans-unit>		 
+	 <trans-unit id="75">
+        <source>Create new Mailing list</source>
+        <target>Create new Mailing list</target>
+     </trans-unit>	
 	</body>
   </file>
 </xliff>

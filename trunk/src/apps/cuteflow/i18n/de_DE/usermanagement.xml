@@ -256,7 +256,7 @@
     </trans-unit>
 	<trans-unit id="64">
         <source>Mailing list</source>
-        <target>Mail Liste</target>
+        <target>Verteiler</target>
     </trans-unit>
 	<trans-unit id="65">
         <source>Template</source>
@@ -397,6 +397,18 @@
 	<trans-unit id="99">
         <source>Select Theme</source>
         <target>Theme w&#228;hlen</target>
+    </trans-unit>
+	<trans-unit id="100">
+        <source>Notice</source>
+        <target>Hinweis</target>
+    </trans-unit>
+	<trans-unit id="101">
+        <source>For changes in own Profile it is recommended</source>
+        <target>Bei &#196;nderungen im eigenen Profil muss die Seite</target>
+    </trans-unit>
+	<trans-unit id="102">
+        <source>to reload the page. Unsaved data is getting lost. Proceed</source>
+        <target>neu geladen werden. Ungespeicherte Daten gehen verloren. Weiter</target>
     </trans-unit>
     </body>
   </file>

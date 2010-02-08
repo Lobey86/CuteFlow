@@ -534,6 +534,58 @@
 			<source>Sending Email...</source>
 			<target>Sending Email...</target>
 		</trans-unit>
+		<trans-unit id="133">
+			<source>My Workflows</source>
+			<target>My Workflows</target>
+		</trans-unit>
+		<trans-unit id="134">
+			<source>Day(s)</source>
+			<target>Day(s)</target>
+		</trans-unit>
+		<trans-unit id="135">
+			<source>Delete Workflow</source>
+			<target>Delete Workflow</target>
+		</trans-unit>
+		<trans-unit id="136">
+			<source>Show Details</source>
+			<target>Show Details</target>
+		</trans-unit>
+		<trans-unit id="123">
+			<source>Archive Workflow</source>
+			<target>Archive Workflow</target>
+		</trans-unit>
+		<trans-unit id="124">
+			<source>Stop Workflow</source>
+			<target>Stop Workflow</target>
+		</trans-unit>
+		<trans-unit id="125">
+			<source>Start Workflow</source>
+			<target>Start Workflow</target>
+		</trans-unit>
+			<trans-unit id="126">
+			<source>Edit Workflow</source>
+			<target>Edit Workflow</target>
+		</trans-unit>
+		<trans-unit id="127">
+			<source>Remove from Archive</source>
+			<target>Remove from Archive</target>
+		</trans-unit>
+		<trans-unit id="128">
+			<source>Mailing list</source>
+			<target>Mailing list</target>
+		</trans-unit>
+		<trans-unit id="129">
+			<source>Loading Data...</source>
+			<target>Loading Data...</target>
+		</trans-unit>
+		<trans-unit id="130">
+			<source>already done</source>
+			<target>already done</target>
+		</trans-unit>
+		<trans-unit id="131">
+			<source>Displaying topics</source>
+			<target>Displaying topics</target>
+		</trans-unit>
 	</body>
   </file>
 </xliff>

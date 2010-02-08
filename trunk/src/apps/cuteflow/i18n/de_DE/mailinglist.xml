@@ -289,7 +289,19 @@
 	 <trans-unit id="72">
         <source>Allowed Sender</source>
         <target>Verf&#252;gbare Sender</target>
-     </trans-unit>	 
+     </trans-unit>
+	 <trans-unit id="73">
+        <source>Authorization settings</source>
+        <target>Authorisierungs Einstellungen</target>
+     </trans-unit>
+	 <trans-unit id="74">
+        <source>Edit existing Mailing list</source>
+        <target>Verteiler bearbeiten</target>
+     </trans-unit>		 
+	 <trans-unit id="75">
+        <source>Create new Mailing list</source>
+        <target>Neuer Verteiler anlegen</target>
+     </trans-unit>		 
 	</body>
   </file>
 </xliff>

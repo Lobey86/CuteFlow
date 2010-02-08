@@ -86,7 +86,7 @@ cf.systemTab = function(){return {
 				id: 'systemsetting_sendreceivermail'
 			},{
 				xtype: 'checkbox',
-				fieldLabel: '<?php echo __('Send Reminder-EMails with all open circulations)',null,'systemsetting'); ?><br /> (<?php echo __('(Activated Cronjob needed)',null,'systemsetting'); ?>)',
+				fieldLabel: '<?php echo __('Send Reminder-EMails with all open circulations',null,'systemsetting'); ?><br /> (<?php echo __('Activated Cronjob needed',null,'systemsetting'); ?>)',
 				inputValue: "1",
 				id: 'systemsetting_sendremindermail'
 			},{

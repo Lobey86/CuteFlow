@@ -448,11 +448,13 @@ cf.createWorkflowFirstTab = function(){return {
 						var data = combo.store.findExact('value', combo.getValue());
 						cf.createWorkflowSecondTab.init(data.data.activeversionid);
 						cf.createWorkflowWindow.theTabPanel.add(cf.createWorkflowSecondTab.theSecondPanel);
-						cf.createWorkflowWindow.theTabPanel.setActiveTab(1);
 						cf.createWorkflowThirdTab.init(data.data.activeversionid);
 						cf.createWorkflowWindow.theTabPanel.add(cf.createWorkflowThirdTab.theThirdPanel);
-						cf.createWorkflowWindow.theTabPanel.setActiveTab(0);
-						cf.createWorkflowFirstTab.theLoadingMask.hide();
+						cf.createWorkflowFirstTab.showTab.defer(1,this,[2]);
+						cf.createWorkflowFirstTab.showTab.defer(1200,this,[1]);
+						cf.createWorkflowFirstTab.showTab.defer(1200,this,[0]);
+						cf.createWorkflowFirstTab.hideLabel.defer(3000,this,[]);
+						
 					}
 				}
 			},
@@ -485,15 +487,25 @@ cf.createWorkflowFirstTab = function(){return {
 						combo.setValue(defaultdata);
 						cf.createWorkflowSecondTab.init(singleData.data.activeversionid);
 						cf.createWorkflowWindow.theTabPanel.add(cf.createWorkflowSecondTab.theSecondPanel);
-						cf.createWorkflowWindow.theTabPanel.setActiveTab(1);
 						cf.createWorkflowThirdTab.init(singleData.data.activeversionid);
 						cf.createWorkflowWindow.theTabPanel.add(cf.createWorkflowThirdTab.theThirdPanel);
-						cf.createWorkflowWindow.theTabPanel.setActiveTab(0);
+						cf.createWorkflowFirstTab.showTab.defer(1,this,[2]);
+						cf.createWorkflowFirstTab.showTab.defer(1200,this,[1]);
+						cf.createWorkflowFirstTab.showTab.defer(1200,this,[0]);
 					}
-					cf.createWorkflowFirstTab.theLoadingMask.hide();
+					cf.createWorkflowFirstTab.hideLabel.defer(3000,this,[]);
 				}
 			});	
 		});	
+	},
+	
+	hideLabel: function () {
+		cf.createWorkflowFirstTab.theLoadingMask.hide();
+	},
+	
+	showTab: function (tab) {
+		cf.createWorkflowWindow.theTabPanel.setActiveTab(tab);
+		
 	},
 	
 	initPanel: function () {

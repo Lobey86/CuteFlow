@@ -398,6 +398,18 @@
         <source>Select Theme</source>
         <target>Select Theme</target>
     </trans-unit>
+		<trans-unit id="100">
+        <source>Notice</source>
+        <target>Notice</target>
+    </trans-unit>
+	<trans-unit id="101">
+        <source>For changes in own Profile it is recommended</source>
+        <target>For changes in own Profile it is recommended</target>
+    </trans-unit>
+	<trans-unit id="102">
+        <source>to reload the page. Unsaved data is getting lost. Proceed</source>
+        <target>to reload the page. Unsaved data is getting lost. Proceed</target>
+    </trans-unit>
     </body>
   </file>
 </xliff>
