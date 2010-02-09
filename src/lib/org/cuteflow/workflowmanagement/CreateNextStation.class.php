@@ -138,7 +138,6 @@ class CreateNextStation extends WorkflowCreation{
     public function checkEndAction() {
         sfLoader::loadHelpers('EndAction');
         $data = getEndAction($this->workflowversion[0]['endaction']);
-        
         if($data[0] == 1) { // send notification when workflow is completed
             $email = new SendWorkflowCompleted($this->workflowversion[0], $this->workflow[0]['id']);
         }
