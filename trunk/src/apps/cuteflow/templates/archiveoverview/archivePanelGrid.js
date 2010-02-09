@@ -124,6 +124,7 @@ cf.archiveWorkflow = function(){return {
 			title: '<?php echo __('Workflow templates',null,'workflowmanagement'); ?>',
 			stripeRows: true,
 			border: true,
+			loadMask: true,
 			width: 'auto',
 			height: cf.Layout.theRegionWest.getHeight() - 100,
 			collapsible: false,
