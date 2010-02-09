@@ -105,9 +105,15 @@ class WorkflowTemplateTable extends Doctrine_Table {
 
 
     public function deleteWorkflow($id) {
+        date_default_timezone_set('Europe/Paris');
+        $timestamp = time();
+        $date = date("Y-m-d",$timestamp);
+        $time = date("H:i:s",$timestamp);
+        $stamp = $date . ' ' . $time;
+
         Doctrine_Query::create()
             ->update('WorkflowTemplate wft')
-            ->set('wft.deleted_at','?', time())
+            ->set('wft.deleted_at','?', $stamp)
             ->where('wft.id = ?', $id)
             ->execute();
         return true;
@@ -128,12 +134,17 @@ class WorkflowTemplateTable extends Doctrine_Table {
 
 
     public function deleteAndStopWorkflow($user_id, $id) {
-       Doctrine_Query::create()
+        date_default_timezone_set('Europe/Paris');
+        $timestamp = time();
+        $date = date("Y-m-d",$timestamp);
+        $time = date("H:i:s",$timestamp);
+        $stamp = $date . ' ' . $time;
+        Doctrine_Query::create()
             ->update('WorkflowTemplate wft')
             ->set('wft.isstopped','?',1)
             ->set('wft.stopped_at','?', time())
             ->set('wft.stopped_by','?', $user_id)
-            ->set('wft.deleted_at','?', time())
+            ->set('wft.deleted_at','?', $stamp)
             ->where('wft.id = ?', $id)
             ->execute();
         return true;
@@ -236,14 +247,14 @@ class WorkflowTemplateTable extends Doctrine_Table {
             $query->limit($limit)
                   ->offset($offset);
         }
-        return $query->where('wft.deleted_at IS NULL')
+        $query->where('wft.deleted_at IS NULL')
             ->andWhere('wft.isarchived = ?', 1)
             ->andWhere('wft.isstopped = ?', 1)
             ->andWhere('wfv.activeversion = ?', 1)
             ->andWhere('wfv.workflowisstarted = ?', 1)
-            ->orderBy('wft.id DESC')
-            ->execute();
+            ->orderBy('wft.id DESC');
 
+            return $query->execute();
     }
 
     public function restartWorkflow($id) {
