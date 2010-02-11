@@ -418,6 +418,10 @@
         <source>Workflow Circulation settings</source>
         <target>Workflow Circulation settings</target>
      </trans-unit>
+	  <trans-unit id="105">
+        <source>Items per Page</source>
+        <target>Items per Page</target>
+     </trans-unit>
     </body>
   </file>
 </xliff>

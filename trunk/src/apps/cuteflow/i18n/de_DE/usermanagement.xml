@@ -418,6 +418,10 @@
         <source>Workflow Circulation settings</source>
         <target>Umlauf Einstellungen</target>
      </trans-unit>
+	  <trans-unit id="105">
+        <source>Items per Page</source>
+        <target>Treffer pro Seite</target>
+     </trans-unit>
     </body>
   </file>
 </xliff>
