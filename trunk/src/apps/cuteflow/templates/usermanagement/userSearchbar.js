@@ -70,6 +70,7 @@ cf.UserSearchbar = function(){return {
 				        layout: 'column',
 				        items:[{
 							xtype: 'button',
+							icon: '/images/icons/zoom.png',
 							text: '<?php echo __('Search',null,'usermanagement'); ?>',
 							width: 70,
 							height:25,
@@ -112,6 +113,7 @@ cf.UserSearchbar = function(){return {
 							}
 						},{
 							xtype: 'button',
+							icon: '/images/icons/delete.png',
 							text: '<?php echo __('Discard',null,'usermanagement'); ?>',
 							width: 70,
 							height:25,
