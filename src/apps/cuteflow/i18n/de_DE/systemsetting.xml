@@ -16,7 +16,7 @@
     </trans-unit>
 	<trans-unit id="4">
         <source>START</source>
-        <target>Umlauf gestartet an</target>
+        <target>Umlauf gestartet am</target>
     </trans-unit>
 	<trans-unit id="5">
         <source>SENDER</source>
@@ -554,6 +554,10 @@
         <source>User Settings</source>
         <target>Benutzer Einstellungen</target>
     </trans-unit>
+    <trans-unit id="138">
+        <source>Workflow Circulation settings</source>
+        <target>Umlauf Einstellungen</target>
+     </trans-unit>
     </body>
   </file>
 </xliff>

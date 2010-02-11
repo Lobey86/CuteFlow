@@ -213,6 +213,7 @@ class createworkflowActions extends sfActions {
     public function executeLoadAllMailinglist(sfWebRequest $request) {
         $mailinglist = new Mailinglist();
         $data = MailinglistTemplateTable::instance()->getAllMailinglistTemplates(-1,-1);
+        $data = MailinglistTemplateTable::instance()->getAllowedMailinglistTemplates($this->getUser()->getAttribute('id'));
         $json_result = $mailinglist->buildAllMailinglists($data);
         $this->renderText('{"result":'.json_encode($json_result).'}');
         return sfView::NONE;
