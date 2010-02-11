@@ -47,7 +47,6 @@ EOF;
         $serverUrl = $options['setenvironment'] == '' ? $serverUrl = $options['host'] : $serverUrl = $options['host'] . '/' . $options['setenvironment'];
 
         $system = SystemConfigurationTable::instance()->getSystemConfiguration()->toArray();
-
         if($system[0]['individualcronjob'] == 1) {
             $systemConifg = new CheckSubstituteRun($context);
             if($systemConifg->checkRun($system[0]['cronjobdays'],$system[0]['cronjobfrom'],$system[0]['cronjobto']) == true) {
