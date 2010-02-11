@@ -12,7 +12,6 @@ class CheckSubstituteRun {
         $hour = $this->checkDate($hour);
         $from = $this->checkDate($from);
         $to = $this->checkDate($to);
-        
         if($this->checkDays($days) == 1) {
             if($hour >= $from AND $hour <= $to) {
                 return true;
