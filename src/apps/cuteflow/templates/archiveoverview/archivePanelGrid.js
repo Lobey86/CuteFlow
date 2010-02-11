@@ -89,7 +89,10 @@ cf.archiveWorkflow = function(){return {
 	/** init toolbar for grid, contains ajax search **/
 	initTopToolBar: function () {
 		this.theTopToolBar = new Ext.Toolbar({
-			items: ['->',{
+			items: ['->',            {
+            	xtype: 'label',
+            	html: '<?php echo __('Items per Page',null,'usermanagement'); ?>: '
+            },{
 				xtype: 'combo', // number of records to display in grid
 				mode: 'local',
 				value: '<?php $arr = $sf_user->getAttribute('userSettings'); echo $arr['displayeditem'];?>',

@@ -37,9 +37,8 @@ cf.UserGrid = function(){return {
 			autoScroll: true,
 			collapsible:true,
 			loadMask: true,
-			closable: true,
+			closable: false,
 			title: '<?php echo __('User overview',null,'usermanagement'); ?>',
-			//height: cf.Layout.theRegionWest.getHeight() - 85,
 			border: true,
 			store: this.theUserStore,
 			cm: this.theGridCm,
@@ -85,6 +84,9 @@ cf.UserGrid = function(){return {
                 }
             },'->',
             {
+            	xtype: 'label',
+            	html: '<?php echo __('Items per Page',null,'usermanagement'); ?>: '
+            },{
 				xtype: 'combo', // number of records to display in grid
 				mode: 'local',
 				value: '<?php $arr = $sf_user->getAttribute('userSettings'); echo $arr['displayeditem'];?>',

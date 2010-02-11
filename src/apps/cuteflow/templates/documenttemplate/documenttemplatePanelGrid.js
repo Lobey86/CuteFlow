@@ -92,7 +92,12 @@ cf.documenttemplatePanelGrid = function(){return {
 					cf.documenttemplatePopUpWindow.initNewDocumenttemplate('');
 	            }
 				
-			},'->',{
+			},'->',
+            {
+            	xtype: 'label',
+            	html: '<?php echo __('Items per Page',null,'usermanagement'); ?>: '
+            },
+			{
 				xtype: 'combo', // number of records to display in grid
 				mode: 'local',
 				value: '<?php $arr = $sf_user->getAttribute('userSettings'); echo $arr['displayeditem'];?>',
