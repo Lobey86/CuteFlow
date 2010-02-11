@@ -554,6 +554,10 @@
         <source>User Settings</source>
         <target>User Settings</target>
     </trans-unit>
+	<trans-unit id="138">
+        <source>Workflow Circulation settings</source>
+        <target>Workflow Circulation settings</target>
+     </trans-unit>
     </body>
   </file>
 </xliff>

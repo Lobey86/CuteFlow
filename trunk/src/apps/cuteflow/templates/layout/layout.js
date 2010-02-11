@@ -28,7 +28,7 @@ cf.Layout = function(){return {
 					layout:'fit',
 					title:' ',
 					bodyStyle:'padding:5px;font-size:11px;background-color:#f4f4f4;',
-					collapsible:true,
+					collapsible:false,
 					split:true,
 					collapseMode:'mini'
 				},{

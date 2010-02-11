@@ -167,7 +167,7 @@ cf.mailinglistCRUD = function(){return {
 		cf.mailinglistFirstTab.theFormPanel.getForm().submit({
 			url: url,
 			method: 'POST',
-			//waitMsg: '<?php echo __('Saving Data',null,'mailinglist'); ?>',
+			waitMsg: '<?php echo __('Saving Data',null,'mailinglist'); ?>',
 			success: function(objServerResponse){
 				cf.mailinglistPanelGrid.theMailinglistStore.reload();
 				cf.mailinglistPopUpWindow.theMailinglistPopUpWindow.hide();

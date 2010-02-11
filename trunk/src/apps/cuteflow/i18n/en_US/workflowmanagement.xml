@@ -586,6 +586,22 @@
 			<source>Displaying topics</source>
 			<target>Displaying topics</target>
 		</trans-unit>
+		<trans-unit id="132">
+			<source>Current Position</source>
+			<target>Current Position</target>
+		</trans-unit>
+		<trans-unit id="133">
+			<source>Workflow restarted</source>
+			<target>Workflow restarted</target>
+		</trans-unit>
+		<trans-unit id="134">
+			<source>Select a User from Slot</source>
+			<target>Select a User from Slot</target>
+		</trans-unit>
+		<trans-unit id="135">
+			<source>Same station selected</source>
+			<target>Same station selected</target>
+		</trans-unit>
 	</body>
   </file>
 </xliff>

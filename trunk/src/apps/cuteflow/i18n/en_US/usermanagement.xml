@@ -410,6 +410,14 @@
         <source>to reload the page. Unsaved data is getting lost. Proceed</source>
         <target>to reload the page. Unsaved data is getting lost. Proceed</target>
     </trans-unit>
+	<trans-unit id="103">
+        <source>User Data</source>
+        <target>User Data</target>
+     </trans-unit>
+	  <trans-unit id="104">
+        <source>Workflow Circulation settings</source>
+        <target>Workflow Circulation settings</target>
+     </trans-unit>
     </body>
   </file>
 </xliff>

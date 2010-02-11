@@ -10,8 +10,8 @@
                 <td height="20"></td>
             </tr>
             <tr>
-                <td style="background-color:#F90"><b><?php echo $workflowname?></b></td>
-                <td style="background-color:#F90"><b><?php echo $linkto?></b></td>
+                <td style="background-color:#F90;font-size:14px;font-family:Tahoma, Geneva, sans-serif;"><b><?php echo $workflowname?></b></td>
+                <td style="background-color:#F90;font-size:14px;font-family:Tahoma, Geneva, sans-serif;"><b><?php echo $linkto?></b></td>
             </tr>
             <tr>
                 <td colspan="2" height="7"></td>
@@ -29,8 +29,8 @@
                     }
 
                     echo '<tr>';
-                    echo '<td style="background-color:'.$colorFlag.'">'.$wf['name'].'</td>';
-                    echo '<td style="background-color:'.$colorFlag.'"><a href="'.$serverPath.'/layout/linklogin/versionid/'.$wf['workflowversion_id'].'/workflowid/'.$wf['workflow_id'].'/userid/'.$userid.'/window/edit" target="_blank">'.$linkto.'</a></td>';
+                    echo '<td style="background-color:'.$colorFlag.';font-size:14px;font-family:Tahoma, Geneva, sans-serif;">'.$wf['name'].'</td>';
+                    echo '<td style="background-color:'.$colorFlag.';font-size:14px;font-family:Tahoma, Geneva, sans-serif;"><a href="'.$serverPath.'/layout/linklogin/versionid/'.$wf['workflowversion_id'].'/workflowid/'.$wf['workflow_id'].'/userid/'.$userid.'/window/edit" target="_blank">'.$linkto.'</a></td>';
                     echo '</tr>';
                 }
 

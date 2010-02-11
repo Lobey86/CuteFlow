@@ -2,7 +2,7 @@
 <xliff version="1.0">
   <file original="global" source-language="en_US" target-language="de_DE" datatype="plaintext">
     <body>
-		 <trans-unit id="1">
+		<trans-unit id="1">
 			<source>DEFAULT</source>
 			<target>Blau</target>
 		</trans-unit>

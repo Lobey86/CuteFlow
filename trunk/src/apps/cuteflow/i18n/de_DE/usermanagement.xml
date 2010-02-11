@@ -410,6 +410,14 @@
         <source>to reload the page. Unsaved data is getting lost. Proceed</source>
         <target>neu geladen werden. Ungespeicherte Daten gehen verloren. Weiter</target>
     </trans-unit>
+	 <trans-unit id="103">
+        <source>User Data</source>
+        <target>Benutzerdaten</target>
+     </trans-unit>
+	  <trans-unit id="104">
+        <source>Workflow Circulation settings</source>
+        <target>Umlauf Einstellungen</target>
+     </trans-unit>
     </body>
   </file>
 </xliff>
