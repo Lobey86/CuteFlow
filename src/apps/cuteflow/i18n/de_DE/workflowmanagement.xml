@@ -602,6 +602,10 @@
 			<source>Same station selected</source>
 			<target>Gleiche Station gew&#228;hlt</target>
 		</trans-unit>
+		<trans-unit id="136">
+			<source>Move right</source>
+			<target>Nach rechts</target>
+		</trans-unit>
 	</body>
   </file>
 </xliff>
