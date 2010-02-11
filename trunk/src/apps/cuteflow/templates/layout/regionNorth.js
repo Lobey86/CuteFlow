@@ -12,9 +12,9 @@ cf.cuteFlowLogo = function(){return {
 				frame:true,
 				border: false,
 				autoScroll: true,
-				bodyStyle: 'background-color:<?php echo Login::getBackgroundColor();?>',
+				bodyStyle: 'background-color:<?php echo Login::getBackgroundColor();?>;',
 				width: 'auto',
-				html: 'TESTEN',
+				html:'<div><img src="/images/logo/logo.png" /></div>',
 			    height: 'auto'
 			});
 		}

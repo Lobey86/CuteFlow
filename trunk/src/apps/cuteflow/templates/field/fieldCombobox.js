@@ -29,6 +29,7 @@ cf.fieldCombobox = function(){return {
 		this.theComboboxFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('Combobox settings',null,'field'); ?>',
 			width: 600,
+			frame: false,
 			height: 250,
 			hidden: true,
 			style: 'margin-top:20px;margin-left:5px;',
@@ -61,7 +62,7 @@ cf.fieldCombobox = function(){return {
 	initGrid: function () {
 		this.theComboboxGrid = new Ext.grid.EditorGridPanel({
 			stripeRows: true,
-			border: true,
+			border: false,
 			enableDragDrop:true,
 			ddGroup : 'comboboxDragDrop',
 			sm: new Ext.grid.RowSelectionModel(),

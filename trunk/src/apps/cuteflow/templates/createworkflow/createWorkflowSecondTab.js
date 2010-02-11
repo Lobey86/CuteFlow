@@ -98,11 +98,11 @@ cf.createWorkflowSecondTab = function(){return {
 	/** init grid **/
 	initGrid: function () {
 		this.theGrid = new Ext.grid.GridPanel({
-			frame:false,
+			frame:true,
 			autoScroll: true,
 			collapsible:false,
 			closable: false,
-            ddText: '<?php echo __('Move left please',null,'mailinglist'); ?>',  
+            ddText: '<?php echo __('Move right',null,'workflowmanagement'); ?>',  
 			title: '<table><tr><td><img src="/images/icons/user_suit.png" /></td><td><?php echo __('User',null,'mailinglist'); ?></td></tr></table>',
 			height: cf.Layout.theRegionWest.getHeight() + cf.Layout.theRegionNorth.getHeight() - 190,
 			width:340,
@@ -162,8 +162,8 @@ cf.createWorkflowSecondTab = function(){return {
 			layout: 'column',
 			autoScroll: true,
 			height: 'auto',
-			width: 600,
-			border: false,
+			width: 600,			
+			border: 'none',
 			style: 'border:none;',
 			layoutConfig: {
 				columns: 2
