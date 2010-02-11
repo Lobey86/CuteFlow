@@ -13,6 +13,20 @@ class MailinglistTemplateTable extends Doctrine_Table {
     }
 
 
+    public function getAllowedMailinglistTemplates($userId) {
+        return Doctrine_Query::create()
+            ->select('mlt.*')
+            ->from('MailinglistTemplate mlt')
+            ->leftJoin('mlt.MailinglistVersion mlv')
+            ->leftJoin('mlv.MailinglistAllowedSender mlas')
+            ->where ('mlt.deleted_at IS NULL')
+            ->andWhere('mlas.user_id = ?', $userId)
+            ->andWhere('mlv.activeversion = ?', 1)
+            ->orderBy('mlt.id DESC')
+            ->groupBy('mlt.id')
+            ->execute();
+    }
+
     /**
      * Get total sum of mailinglist templates
      *
