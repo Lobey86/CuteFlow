@@ -19,9 +19,9 @@ cf.UserGrid = function(){return {
 	/** main init function **/
 	init:function() {	
 		this.initGridStore();
+		this.initBottomToolBar();
 		this.initColumnModel();
 		this.initTopToolBar();
-		this.initBottomToolBar();
 		this.initUserGrid();
 		this.initGridbarPanel();
 		this.theGridPanel.add(this.theUserGrid);
@@ -35,8 +35,9 @@ cf.UserGrid = function(){return {
 		this.theUserGrid = new Ext.grid.GridPanel({
 			frame:false,
 			autoScroll: true,
-			collapsible:true,
+			collapsible:false,
 			loadMask: true,
+			height: cf.Layout.theRegionWest.getHeight() - 100,
 			closable: false,
 			title: '<?php echo __('User overview',null,'usermanagement'); ?>',
 			border: true,
@@ -130,6 +131,7 @@ cf.UserGrid = function(){return {
 			closable: false,
 			plain: true,
 			frame: false,
+			height: cf.Layout.theRegionWest.getHeight() - 80,
 			border: false,
 			layout: 'fit',
 			style:'margin-top:5px;margin-left:5px;'

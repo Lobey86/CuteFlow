@@ -130,11 +130,14 @@ cf.UserSearchbar = function(){return {
 					}]
 				}]
 		});
+		
 		this.theUserSearchbar.on('expand', function() {
-			cf.UserGrid.theUserGrid.setSize({width: 'auto', height: cf.Layout.theRegionWest.getHeight() + cf.Layout.theRegionNorth.getHeight() - 282});
+			cf.UserGrid.theGridPanel.setSize({width: 'auto', height: cf.Layout.theRegionWest.getHeight() - 272});
+			cf.UserGrid.theUserGrid.setSize({width: 'auto', height: cf.Layout.theRegionWest.getHeight() - 292});
 		});
 		this.theUserSearchbar.on('collapse', function() {
-			cf.UserGrid.theUserGrid.setSize({width: 'auto', height: cf.Layout.theRegionWest.getHeight() + cf.Layout.theRegionNorth.getHeight() - 85});
+			cf.UserGrid.theGridPanel.setSize({width: 'auto', height: cf.Layout.theRegionWest.getHeight() - 80});
+			cf.UserGrid.theUserGrid.setSize({width: 'auto', height: cf.Layout.theRegionWest.getHeight() - 100});
 		});
 	},
 	
