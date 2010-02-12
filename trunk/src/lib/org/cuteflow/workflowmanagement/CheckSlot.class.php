@@ -104,6 +104,8 @@ class CheckSlot {
     }
 
 
+
+
     /**
      *
      * Function checks if the next slot, needs to be sendet to all receivers at once,
