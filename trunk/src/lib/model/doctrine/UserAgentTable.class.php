@@ -34,7 +34,7 @@ class UserAgentTable extends Doctrine_Table {
             ->leftJoin('ua.UserData ud')
             ->leftJoin('ud.UserLogin ul')
             ->orderBy('ua.position asc')
-            ->where('ul.deleted_at IS NULL')
+            ->andWhere('ul.deleted_at IS NULL')
             ->execute();
     }
 
