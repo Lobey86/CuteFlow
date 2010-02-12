@@ -134,12 +134,12 @@ cf.UserSearchbar = function(){return {
 		});
 		
 		this.theUserSearchbar.on('expand', function() {
-			cf.UserGrid.theGridPanel.setSize({width: 'auto', height: cf.Layout.theRegionWest.getHeight() - 272});
-			cf.UserGrid.theUserGrid.setSize({width: 'auto', height: cf.Layout.theRegionWest.getHeight() - 292});
+			cf.UserGrid.theGridPanel.setSize({width: 'auto', height: cf.Layout.theRegionWest.getHeight() - 262});
+			cf.UserGrid.theUserGrid.setSize({width: 'auto', height: cf.Layout.theRegionWest.getHeight() - 282});
 		});
 		this.theUserSearchbar.on('collapse', function() {
-			cf.UserGrid.theGridPanel.setSize({width: 'auto', height: cf.Layout.theRegionWest.getHeight() - 80});
-			cf.UserGrid.theUserGrid.setSize({width: 'auto', height: cf.Layout.theRegionWest.getHeight() - 100});
+			cf.UserGrid.theGridPanel.setSize({width: 'auto', height: cf.Layout.theRegionWest.getHeight() - 70});
+			cf.UserGrid.theUserGrid.setSize({width: 'auto', height: cf.Layout.theRegionWest.getHeight() - 90});
 		});
 	},
 	

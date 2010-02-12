@@ -153,9 +153,8 @@ cf.mailinglistVersionSecondTab = function(){return {
 		});
 		
 		var allowedsendergrid = new Ext.grid.GridPanel({
-			title: '<?php echo __('Allowed Sender',null,'mailinglist'); ?>',
 			stripeRows: true,
-			border: true,
+			border: false,
 			width: 290,
 			height:200,
 			enableDragDrop:false,

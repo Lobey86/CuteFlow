@@ -26,24 +26,20 @@ cf.Layout = function(){return {
 					border:true,
 					autoScroll:true,
 					layout:'fit',
-					title:' ',
 					bodyStyle:'padding:5px;font-size:11px;background-color:#f4f4f4;',
 					collapsible:false,
-					split:true,
-					collapseMode:'mini'
+					split:true
 				},{
 					region:'center',
 					border:false,
 					layout:'fit',							
-					bodyStyle:'background-color:#f0f0f0;',
-					title:' '
+					bodyStyle:'background-color:#f0f0f0;'
 				},{
 					region:'north',
 					border:false,
 					height: 85,
 					layout:'fit',							
-					bodyStyle:'background-color:#f0f0f0;',
-					title:' '
+					bodyStyle:'background-color:#f0f0f0;'
 				}]
 			});
 			this.theRegionWest =  this.theMainLayout.layout.west.panel;

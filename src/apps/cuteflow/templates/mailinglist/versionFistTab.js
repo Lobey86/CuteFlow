@@ -153,7 +153,7 @@ cf.mailinglistVersionFirstTab = function(){return {
 		this.theGrid = new Ext.grid.GridPanel({
 			title: '<?php echo __('Mailinglist templates',null,'mailinglist'); ?>',
 			stripeRows: true,
-			border: true,
+			border: false,
 			width: 'auto',
 			height: cf.Layout.theRegionWest.getHeight() + cf.Layout.theRegionNorth.getHeight() - 210,
 			collapsible: false,
