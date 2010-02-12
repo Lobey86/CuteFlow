@@ -14,7 +14,7 @@ class SendSlotReachedEmail extends EmailSettings {
     public function  __construct($currentWorklfowSlotId, $nextWorkflowSlotId, $workflowtemplateId, $workflowversionId) { 
         sfLoader::loadHelpers('EndAction');
         $this->setWorkflowTemplateSettings($workflowtemplateId);
-        if($this->checkState() == true) {
+        if($this->checkState() == 1) {
             sfLoader::loadHelpers('Partial');
             $this->workflowVersionId = $workflowversionId;
             $this->setCurrentSlot($currentWorklfowSlotId);
@@ -29,10 +29,10 @@ class SendSlotReachedEmail extends EmailSettings {
     public function checkState() {
         $data = getEndAction($this->workflowTemplateSettings['endaction']);
         if($data[1] == 1) {
-            return true;
+            return 1;
         }
         else {
-            return false;
+            return 0;
         }
     }
 

@@ -54,6 +54,7 @@ class SaveWorkflow {
             }
             if($isCompleted == true) {
                 WorkflowTemplateTable::instance()->setWorkflowFinished($workflowVersion[0]['id']);
+                $checkWorkflow->checkEndAction();
             }
         }
         return true;
@@ -72,7 +73,6 @@ class SaveWorkflow {
         }
         return true;
     }
-
 
 
     public function checkFields(array $fields) {
