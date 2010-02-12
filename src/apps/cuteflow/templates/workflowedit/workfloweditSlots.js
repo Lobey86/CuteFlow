@@ -60,7 +60,12 @@ cf.workfloweditSlot = function(){return {
 	    			case "FILE":
 						var label = this.createFile(field.items.link);
 						attachment.add(label);
-						attachment.setVisible(true);
+						if(slot.isdisabled == 1) {
+							attachment.setVisible(false);
+						}
+						else {
+							attachment.setVisible(true);
+						}
 					    break;
 				}
 			}
