@@ -422,6 +422,10 @@
         <source>Items per Page</source>
         <target>Items per Page</target>
      </trans-unit>
+	  <trans-unit id="106">
+        <source>Login Data</source>
+        <target>Login Data</target>
+     </trans-unit>
     </body>
   </file>
 </xliff>
