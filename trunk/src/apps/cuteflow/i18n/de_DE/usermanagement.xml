@@ -422,6 +422,10 @@
         <source>Items per Page</source>
         <target>Treffer pro Seite</target>
      </trans-unit>
+	  <trans-unit id="106">
+        <source>Login Data</source>
+        <target>Anmelde Daten</target>
+     </trans-unit>
     </body>
   </file>
 </xliff>
