@@ -19,6 +19,8 @@ abstract class BaseWorkflowSlotForm extends BaseFormDoctrine
       'workflowversion_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('WorkflowVersion'), 'add_empty' => true)),
       'slot_id'            => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DocumenttemplateSlot'), 'add_empty' => true)),
       'position'           => new sfWidgetFormInputText(),
+      'created_at'         => new sfWidgetFormDateTime(),
+      'updated_at'         => new sfWidgetFormDateTime(),
     ));
 
     $this->setValidators(array(
@@ -26,6 +28,8 @@ abstract class BaseWorkflowSlotForm extends BaseFormDoctrine
       'workflowversion_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('WorkflowVersion'), 'required' => false)),
       'slot_id'            => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('DocumenttemplateSlot'), 'required' => false)),
       'position'           => new sfValidatorInteger(array('required' => false)),
+      'created_at'         => new sfValidatorDateTime(),
+      'updated_at'         => new sfValidatorDateTime(),
     ));
 
     $this->widgetSchema->setNameFormat('workflow_slot[%s]');

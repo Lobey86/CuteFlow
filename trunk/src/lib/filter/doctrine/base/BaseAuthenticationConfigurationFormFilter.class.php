@@ -30,6 +30,7 @@ abstract class BaseAuthenticationConfigurationFormFilter extends BaseFormFilterD
       'ldapadduser'                => new sfWidgetFormFilterInput(),
       'openidserver'               => new sfWidgetFormFilterInput(),
       'firstlogin'                 => new sfWidgetFormFilterInput(),
+      'allowdirectlogin'           => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
@@ -50,6 +51,7 @@ abstract class BaseAuthenticationConfigurationFormFilter extends BaseFormFilterD
       'ldapadduser'                => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'openidserver'               => new sfValidatorPass(array('required' => false)),
       'firstlogin'                 => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'allowdirectlogin'           => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
     ));
 
     $this->widgetSchema->setNameFormat('authentication_configuration_filters[%s]');
@@ -87,6 +89,7 @@ abstract class BaseAuthenticationConfigurationFormFilter extends BaseFormFilterD
       'ldapadduser'                => 'Number',
       'openidserver'               => 'Text',
       'firstlogin'                 => 'Number',
+      'allowdirectlogin'           => 'Number',
     );
   }
 }

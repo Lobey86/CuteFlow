@@ -26,7 +26,6 @@ abstract class BaseUserConfigurationFormFilter extends BaseFormFilterDoctrine
       'emailformat'                     => new sfWidgetFormFilterInput(),
       'emailtype'                       => new sfWidgetFormFilterInput(),
       'theme'                           => new sfWidgetFormFilterInput(),
-      'showcirculationinpopup'          => new sfWidgetFormFilterInput(),
       'circulationdefaultsortcolumn'    => new sfWidgetFormFilterInput(),
       'circulationdefaultsortdirection' => new sfWidgetFormFilterInput(),
     ));
@@ -45,7 +44,6 @@ abstract class BaseUserConfigurationFormFilter extends BaseFormFilterDoctrine
       'emailformat'                     => new sfValidatorPass(array('required' => false)),
       'emailtype'                       => new sfValidatorPass(array('required' => false)),
       'theme'                           => new sfValidatorPass(array('required' => false)),
-      'showcirculationinpopup'          => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'circulationdefaultsortcolumn'    => new sfValidatorPass(array('required' => false)),
       'circulationdefaultsortdirection' => new sfValidatorPass(array('required' => false)),
     ));
@@ -81,7 +79,6 @@ abstract class BaseUserConfigurationFormFilter extends BaseFormFilterDoctrine
       'emailformat'                     => 'Text',
       'emailtype'                       => 'Text',
       'theme'                           => 'Text',
-      'showcirculationinpopup'          => 'Number',
       'circulationdefaultsortcolumn'    => 'Text',
       'circulationdefaultsortdirection' => 'Text',
     );

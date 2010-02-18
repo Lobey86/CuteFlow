@@ -27,7 +27,7 @@ abstract class BaseUserDataFormFilter extends BaseFormFilterDoctrine
       'department'   => new sfWidgetFormFilterInput(),
       'burdencenter' => new sfWidgetFormFilterInput(),
       'comment'      => new sfWidgetFormFilterInput(),
-      'lastaction'   => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
+      'lastaction'   => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
@@ -45,7 +45,7 @@ abstract class BaseUserDataFormFilter extends BaseFormFilterDoctrine
       'department'   => new sfValidatorPass(array('required' => false)),
       'burdencenter' => new sfValidatorPass(array('required' => false)),
       'comment'      => new sfValidatorPass(array('required' => false)),
-      'lastaction'   => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
+      'lastaction'   => new sfValidatorPass(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('user_data_filters[%s]');
@@ -80,7 +80,7 @@ abstract class BaseUserDataFormFilter extends BaseFormFilterDoctrine
       'department'   => 'Text',
       'burdencenter' => 'Text',
       'comment'      => 'Text',
-      'lastaction'   => 'Date',
+      'lastaction'   => 'Text',
     );
   }
 }
