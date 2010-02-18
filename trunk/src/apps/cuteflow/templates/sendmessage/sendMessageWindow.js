@@ -211,6 +211,7 @@ cf.administration_sendmessage = function(){return {
 					cf.administration_sendmessage.theSendMessagePanel.getForm().submit({
 						url: '<?php echo build_dynamic_javascript_url('sendmessage/SendMail')?>',
 						method: 'POST',
+						waitMsg: '<?php echo __('Sending...',null,'sendmessage'); ?>',
 						success: function() {
 							cf.TabPanel.theTabPanel.remove(cf.administration_sendmessage.theSystemMessageWindow);
 							cf.administration_sendmessage.theSystemMessageWindow.hide();
