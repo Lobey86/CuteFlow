@@ -108,7 +108,7 @@ class Login {
                     break;
                 case 'DAYS':
                     $result[$a]['store'] = 'stationrunning';
-                    $result[$a]['width'] = '100';
+                    $result[$a]['width'] = '130';
                     break;
                 case 'START':
                     $result[$a]['store'] = 'versioncreated_at';
