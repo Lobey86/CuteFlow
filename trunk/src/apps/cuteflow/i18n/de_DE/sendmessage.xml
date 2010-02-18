@@ -61,7 +61,11 @@
 	 <trans-unit id="15">
         <source>Emails send</source>
         <target>Email versendet</target>
-     </trans-unit> 
+     </trans-unit>
+	 <trans-unit id="16">
+        <source>Sending...</source>
+        <target>Sende Emails...</target>
+     </trans-unit> 	 
     </body>
   </file>
 </xliff>

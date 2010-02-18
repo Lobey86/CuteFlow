@@ -62,6 +62,10 @@
         <source>Emails send</source>
         <target>Emails send</target>
      </trans-unit> 
+	 <trans-unit id="16">
+        <source>Sending...</source>
+        <target>Sending...</target>
+     </trans-unit> 
     </body>
   </file>
 </xliff>
