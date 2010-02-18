@@ -5,22 +5,26 @@ user:
 
 
 
+#Swift_SmtpTransport: use SMTP to send mai,
+#Swift_SendmailTransport: use sendmail, to send mail
+#Swift_MailTransport: use PHP mail() function to send mail
 
-mailer:
-  class: sfMailer
-  param:
-    logging:           %SF_LOGGING_ENABLED%
-    charset:           %SF_CHARSET%
-    delivery_strategy: realtime
-    transport:
-      class: Swift_SmtpTransport
-      param:
-        host:       cuteflow
-        port:       25
-        encryption: ~
-        username:   ~
-        password:   ~
 
+dev:
+  mailer:
+    class: sfMailer
+    param:
+      logging:           %SF_LOGGING_ENABLED%
+      charset:           %SF_CHARSET%
+      delivery_strategy: realtime
+      transport:
+        class: Swift_SmtpTransport
+        param:
+          host:       localhost
+          port:       25
+          encryption: ~
+          username:   ~
+          password:   ~
 
 prod:
   logger:
@@ -28,6 +32,20 @@ prod:
     param:
       level:   err
       loggers: ~
+  mailer:
+    class: sfMailer
+    param:
+      logging:           %SF_LOGGING_ENABLED%
+      charset:           %SF_CHARSET%
+      delivery_strategy: realtime
+      transport:
+        class: Swift_SmtpTransport
+        param:
+          host:       localhost
+          port:       25
+          encryption: ~
+          username:   ~
+          password:   ~
 
 cli:
   controller:
@@ -54,6 +72,20 @@ all:
     param:
       generate_shortest_url:            true
       extra_parameters_as_query_string: true
+   mailer:
+    class: sfMailer
+    param:
+      logging:           %SF_LOGGING_ENABLED%
+      charset:           %SF_CHARSET%
+      delivery_strategy: realtime
+      transport:
+        class: Swift_SmtpTransport
+        param:
+          host:       localhost
+          port:       25
+          encryption: ~
+          username:   ~
+          password:   ~	  
 
 #all:
 #  controller:
