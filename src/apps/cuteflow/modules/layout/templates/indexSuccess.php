@@ -1,8 +1,19 @@
+
+
+<div id="loading">
+    <div id="loading-message" style="border:solid;"><table><tr><td><img src="/images/icons/loading.gif" /></td><td> <?php echo __('Loading CuteFlow. Please wait...','','layout');?></td></tr></table></div>
+</div>
+
+
+
+
 <script type="text/javascript" src="/djs/layout/main.js"></script>
 <script type="text/javascript" src="/djs/layout/layout.js"></script>
 <script type="text/javascript" src="/djs/layout/regionWest.js"></script>
 <script type="text/javascript" src="/djs/layout/regionCenter.js"></script>
 <script type="text/javascript" src="/djs/layout/regionNorth.js"></script>
+
+
 <?php
     $test = new JavaScriptLoader();
     $files = $test->getAllFiles();
@@ -20,7 +31,6 @@
         echo '<link rel="stylesheet" type="text/css" media="screen" href="/themes/'.$theTheme.'" />';
     }
  ?>
-
-
-
 <script type="text/javascript" src="/js/i18n/<?php echo Login::buildExtjsLanguage($sf_user->getCulture());?>/ext-lang.js"/>
+
+

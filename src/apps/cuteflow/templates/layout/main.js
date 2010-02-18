@@ -15,6 +15,7 @@ cf.Main = function(){return {
 	
 	/** call to init main layout **/
 	init: function(){
+		cf.Main.hideLoadingMask();
 		setTimeout('cf.Main.sessionCheck()',600000);// 600.000 = 10 mins
 		cf.Layout.init();
 	},
@@ -35,6 +36,17 @@ cf.Main = function(){return {
 				
 			}
 		});
+	},
+	
+	hideLoadingMask: function () {
+		var loadingMask = Ext.get('loading-message');
+	    loadingMask.shift({
+			remove: true,
+			duration: 1,
+			opacity: 0.1,
+			easing: 'bounceOut'
+     	});
+
 	}
 	
 	
