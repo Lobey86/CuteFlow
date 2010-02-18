@@ -5,6 +5,20 @@
     <?php include_metas() ?>
     <?php include_title() ?>
     <link rel="shortcut icon" href="/favicon.ico" />
+    <style type="text/css">
+        #loading {
+             position: absolute;
+             top: 40%;
+             left: 45%;
+             z-index: 2;
+        }
+        #loading SPAN {
+             background: url('/images/icons/loading.gif') no-repeat left center;
+             padding: 5px 30px;
+             display: block;
+        }
+</style>
+
   </head>
   <body>
     <?php echo $sf_content ?>

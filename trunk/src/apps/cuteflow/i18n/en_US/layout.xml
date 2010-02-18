@@ -34,6 +34,10 @@
 			<source>Userrole management</source>
 			<target>Userrole management</target>
 		</trans-unit>
+		<trans-unit id="9">
+			<source>Loading CuteFlow. Please wait...</source>
+			<target>Loading CuteFlow. Please wait...</target>
+		</trans-unit>
 	</body>
   </file>
 </xliff>
