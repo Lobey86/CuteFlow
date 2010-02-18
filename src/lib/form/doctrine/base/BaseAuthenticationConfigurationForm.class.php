@@ -33,6 +33,7 @@ abstract class BaseAuthenticationConfigurationForm extends BaseFormDoctrine
       'ldapadduser'                => new sfWidgetFormInputText(),
       'openidserver'               => new sfWidgetFormInputText(),
       'firstlogin'                 => new sfWidgetFormInputText(),
+      'allowdirectlogin'           => new sfWidgetFormInputText(),
     ));
 
     $this->setValidators(array(
@@ -54,6 +55,7 @@ abstract class BaseAuthenticationConfigurationForm extends BaseFormDoctrine
       'ldapadduser'                => new sfValidatorInteger(array('required' => false)),
       'openidserver'               => new sfValidatorString(array('max_length' => 100, 'required' => false)),
       'firstlogin'                 => new sfValidatorInteger(array('required' => false)),
+      'allowdirectlogin'           => new sfValidatorInteger(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('authentication_configuration[%s]');

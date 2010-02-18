@@ -29,7 +29,6 @@ abstract class BaseUserConfigurationForm extends BaseFormDoctrine
       'emailformat'                     => new sfWidgetFormInputText(),
       'emailtype'                       => new sfWidgetFormInputText(),
       'theme'                           => new sfWidgetFormInputText(),
-      'showcirculationinpopup'          => new sfWidgetFormInputText(),
       'circulationdefaultsortcolumn'    => new sfWidgetFormInputText(),
       'circulationdefaultsortdirection' => new sfWidgetFormInputText(),
     ));
@@ -49,7 +48,6 @@ abstract class BaseUserConfigurationForm extends BaseFormDoctrine
       'emailformat'                     => new sfValidatorString(array('max_length' => 45, 'required' => false)),
       'emailtype'                       => new sfValidatorString(array('max_length' => 45, 'required' => false)),
       'theme'                           => new sfValidatorString(array('max_length' => 100, 'required' => false)),
-      'showcirculationinpopup'          => new sfValidatorInteger(array('required' => false)),
       'circulationdefaultsortcolumn'    => new sfValidatorString(array('max_length' => 45, 'required' => false)),
       'circulationdefaultsortdirection' => new sfValidatorString(array('max_length' => 45, 'required' => false)),
     ));

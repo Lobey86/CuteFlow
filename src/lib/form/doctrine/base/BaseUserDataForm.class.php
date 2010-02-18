@@ -30,7 +30,7 @@ abstract class BaseUserDataForm extends BaseFormDoctrine
       'department'   => new sfWidgetFormInputText(),
       'burdencenter' => new sfWidgetFormInputText(),
       'comment'      => new sfWidgetFormTextarea(),
-      'lastaction'   => new sfWidgetFormDateTime(),
+      'lastaction'   => new sfWidgetFormInputText(),
     ));
 
     $this->setValidators(array(
@@ -49,7 +49,7 @@ abstract class BaseUserDataForm extends BaseFormDoctrine
       'department'   => new sfValidatorString(array('max_length' => 100, 'required' => false)),
       'burdencenter' => new sfValidatorString(array('max_length' => 100, 'required' => false)),
       'comment'      => new sfValidatorString(array('max_length' => 1000, 'required' => false)),
-      'lastaction'   => new sfValidatorDateTime(array('required' => false)),
+      'lastaction'   => new sfValidatorString(array('max_length' => 100, 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('user_data[%s]');

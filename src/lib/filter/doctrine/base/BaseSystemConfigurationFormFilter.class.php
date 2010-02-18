@@ -13,21 +13,31 @@ abstract class BaseSystemConfigurationFormFilter extends BaseFormFilterDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'language'                => new sfWidgetFormFilterInput(),
-      'showpositioninmail'      => new sfWidgetFormFilterInput(),
-      'allowunencryptedrequest' => new sfWidgetFormFilterInput(),
-      'sendreceivermail'        => new sfWidgetFormFilterInput(),
-      'sendremindermail'        => new sfWidgetFormFilterInput(),
-      'visibleslots'            => new sfWidgetFormFilterInput(),
+      'language'           => new sfWidgetFormFilterInput(),
+      'showpositioninmail' => new sfWidgetFormFilterInput(),
+      'sendreceivermail'   => new sfWidgetFormFilterInput(),
+      'sendremindermail'   => new sfWidgetFormFilterInput(),
+      'visibleslots'       => new sfWidgetFormFilterInput(),
+      'colorofnorthregion' => new sfWidgetFormFilterInput(),
+      'individualcronjob'  => new sfWidgetFormFilterInput(),
+      'setuseragenttype'   => new sfWidgetFormFilterInput(),
+      'cronjobdays'        => new sfWidgetFormFilterInput(),
+      'cronjobfrom'        => new sfWidgetFormFilterInput(),
+      'cronjobto'          => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
-      'language'                => new sfValidatorPass(array('required' => false)),
-      'showpositioninmail'      => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
-      'allowunencryptedrequest' => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
-      'sendreceivermail'        => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
-      'sendremindermail'        => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
-      'visibleslots'            => new sfValidatorPass(array('required' => false)),
+      'language'           => new sfValidatorPass(array('required' => false)),
+      'showpositioninmail' => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'sendreceivermail'   => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'sendremindermail'   => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'visibleslots'       => new sfValidatorPass(array('required' => false)),
+      'colorofnorthregion' => new sfValidatorPass(array('required' => false)),
+      'individualcronjob'  => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'setuseragenttype'   => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'cronjobdays'        => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'cronjobfrom'        => new sfValidatorPass(array('required' => false)),
+      'cronjobto'          => new sfValidatorPass(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('system_configuration_filters[%s]');
@@ -47,13 +57,18 @@ abstract class BaseSystemConfigurationFormFilter extends BaseFormFilterDoctrine
   public function getFields()
   {
     return array(
-      'id'                      => 'Number',
-      'language'                => 'Text',
-      'showpositioninmail'      => 'Number',
-      'allowunencryptedrequest' => 'Number',
-      'sendreceivermail'        => 'Number',
-      'sendremindermail'        => 'Number',
-      'visibleslots'            => 'Text',
+      'id'                 => 'Number',
+      'language'           => 'Text',
+      'showpositioninmail' => 'Number',
+      'sendreceivermail'   => 'Number',
+      'sendremindermail'   => 'Number',
+      'visibleslots'       => 'Text',
+      'colorofnorthregion' => 'Text',
+      'individualcronjob'  => 'Number',
+      'setuseragenttype'   => 'Number',
+      'cronjobdays'        => 'Number',
+      'cronjobfrom'        => 'Text',
+      'cronjobto'          => 'Text',
     );
   }
 }
