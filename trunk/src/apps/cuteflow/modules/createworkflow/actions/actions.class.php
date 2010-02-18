@@ -200,7 +200,6 @@ class createworkflowActions extends sfActions {
                 $calc->addSingleSlot();
             }
         }
-
         echo '{"success":true}';die;
     }
 
