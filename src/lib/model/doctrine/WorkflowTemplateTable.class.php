@@ -133,7 +133,7 @@ class WorkflowTemplateTable extends Doctrine_Table {
     }
 
 
-    public function deleteAndStopWorkflow($user_id, $id) {
+    public function deleteAndStopWorkflow($id, $user_id) {
         date_default_timezone_set('Europe/Paris');
         $timestamp = time();
         $date = date("Y-m-d",$timestamp);
@@ -261,7 +261,7 @@ class WorkflowTemplateTable extends Doctrine_Table {
         Doctrine_Query::create()
             ->update('WorkflowTemplate wft')
             ->set('wft.stopped_at','?','')
-            ->set('wft.stopped_by','null')
+            //->set('wft.stopped_by','?','')
             ->set('wft.isstopped','?', 0)
             ->where('wft.id = ?', $id)
             ->execute();
