@@ -20,7 +20,7 @@ dev:
       transport:
         class: Swift_SmtpTransport
         param:
-          host:       srv-de-vm-ecs
+          host:       localhost
           port:       25
           encryption: ~
           username:   ~

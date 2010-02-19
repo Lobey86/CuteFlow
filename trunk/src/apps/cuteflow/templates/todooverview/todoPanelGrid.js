@@ -206,7 +206,16 @@ cf.todoPanelGrid = function(){return {
 					c.getEl().on({
 						click: function(el){
 							if(right == 1) {
-								alert('delete');
+								Ext.Msg.show({
+								   title:'<?php echo __('Delete workflow',null,'workflowmanagement'); ?>?',
+								   msg: '<?php echo __('Delete workflow',null,'workflowmanagement'); ?>?',
+								   buttons: Ext.Msg.YESNO,
+								   fn: function(btn, text) {
+										if(btn == 'yes') {
+											cf.workflowmanagementPanelCRUD.deleteWorkflow(template_id, activeversion_id);
+										}
+								   }
+								});
 							}
 							else {
 								Ext.Msg.minWidth = 200;

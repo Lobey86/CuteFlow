@@ -200,7 +200,11 @@ class createworkflowActions extends sfActions {
                 $calc->addSingleSlot();
             }
         }
-        echo '{"success":true}';die;
+        $this->getResponse()->setHttpHeader('Content-Type','text/html; charset=utf-8');
+        $json = array('success' => true);
+        $string = '<textarea>'.json_encode($json).'</textarea>';
+        $this->renderText($string);
+        return sfView::NONE;
     }
 
 
