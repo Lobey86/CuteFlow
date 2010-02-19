@@ -123,16 +123,26 @@ class WorkflowOverview {
             foreach($users as $user) {
                 $processUser = WorkflowProcessUserTable::instance()->getProcessUserByWorkflowSlotUserId($user->getId())->toArray();
                 if(!empty($processUser)) {
+                    $waiting = true;
                     foreach($processUser as $process) {
-                        if($process['decissionstate'] != 'WAITING') {
+                        if(count($processUser) == 1 AND $process['decissionstate'] != 'WAITING') {
                             $alreadyCompleted++;
                         }
+                        else {
+                            if($process['decissionstate'] != 'WAITING') {
+                                $waiting = false;
+                            }
+                            else {
+                                $waiting = true;
+                            }
+                        }
                     }
-
+                    if(count($processUser) > 1 AND $waiting == false) {
+                        $alreadyCompleted++;
+                    }
                 }
             }
         }
-        
         $percentDone = ($toComplete/$toComplete);
         $fullPercentDone = 100 / $toComplete;
         $percentDone = $fullPercentDone * $alreadyCompleted;
@@ -161,7 +171,7 @@ class WorkflowOverview {
         else {
             $color = '#00FF00';
         }
-        return '<div style="background-color:'.$color.'; width:'.$percentDone.'px;">'.$percentDone . ' %'.'</div>';
+        return '<div style="background-color:'.$color.'; width:'.$percentDone.'px;">'.floor($percentDone) . ' %'.'</div>';
     }
 
 
