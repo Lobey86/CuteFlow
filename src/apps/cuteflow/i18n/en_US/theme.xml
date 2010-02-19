@@ -10,6 +10,10 @@
 			<source>xtheme-human.css</source>
 			<target>Orange</target>
 		</trans-unit>
+			<trans-unit id="3">
+			<source>xtheme-tp.css</source>
+			<target>Silver</target>
+		</trans-unit>
 	</body>
   </file>
 </xliff>

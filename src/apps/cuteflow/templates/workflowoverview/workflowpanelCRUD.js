@@ -10,7 +10,6 @@ cf.workflowmanagementPanelCRUD = function(){return {
 			url : '<?php echo build_dynamic_javascript_url('workflowoverview/StopWorkflow')?>/versionid/' + version_id + '/workflowtemplateid/' + workflow_id,
 			success: function(objServerResponse){
 				cf.workflowmanagementPanelCRUD.reloadAll();
-				cf.workflowmanagementPanelGrid.theWorkflowStore.reload();
 				cf.workflowmanagementPanelCRUD.theLoadingMask.hide();
 				Ext.Msg.minWidth = 200;
 				Ext.MessageBox.alert('<?php echo __('OK',null,'workflowmanagement'); ?>', '<?php echo __('Workflow stopped',null,'workflowmanagement'); ?>');
@@ -26,7 +25,6 @@ cf.workflowmanagementPanelCRUD = function(){return {
 			url : '<?php echo build_dynamic_javascript_url('workflowoverview/StartWorkflow')?>/versionid/' + version_id,
 			success: function(objServerResponse){
 				cf.workflowmanagementPanelCRUD.reloadAll();
-				cf.workflowmanagementPanelGrid.theWorkflowStore.reload();
 				cf.workflowmanagementPanelCRUD.theLoadingMask.hide();
 				Ext.Msg.minWidth = 200;
 				Ext.MessageBox.alert('<?php echo __('OK',null,'workflowmanagement'); ?>', '<?php echo __('Workflow has been started',null,'workflowmanagement'); ?>');
@@ -43,7 +41,6 @@ cf.workflowmanagementPanelCRUD = function(){return {
 			url : '<?php echo build_dynamic_javascript_url('workflowoverview/DeleteWorkflow')?>/versionid/' + version_id + '/workflowtemplateid/' + workflow_id,
 			success: function(objServerResponse){
 				cf.workflowmanagementPanelCRUD.reloadAll();
-				cf.workflowmanagementPanelGrid.theWorkflowStore.reload();
 				cf.workflowmanagementPanelCRUD.theLoadingMask.hide();
 				Ext.Msg.minWidth = 200;
 				Ext.MessageBox.alert('<?php echo __('OK',null,'workflowmanagement'); ?>', '<?php echo __('Workflow deleted',null,'workflowmanagement'); ?>');
@@ -59,7 +56,6 @@ cf.workflowmanagementPanelCRUD = function(){return {
 			url : '<?php echo build_dynamic_javascript_url('workflowoverview/ArchiveWorkflow')?>/versionid/' + version_id + '/workflowtemplateid/' + workflow_id,
 			success: function(objServerResponse){
 				cf.workflowmanagementPanelCRUD.reloadAll();
-				cf.workflowmanagementPanelGrid.theWorkflowStore.reload();
 				cf.workflowmanagementPanelCRUD.theLoadingMask.hide();
 				Ext.Msg.minWidth = 200;
 				Ext.MessageBox.alert('<?php echo __('OK',null,'workflowmanagement'); ?>', '<?php echo __('Workflow archived',null,'workflowmanagement'); ?>');
@@ -80,6 +76,12 @@ cf.workflowmanagementPanelCRUD = function(){return {
 			cf.archiveWorkflow.theArchiveStore.reload();
 		}
 		catch(e) {
+			
+		}
+		try{
+			cf.workflowmanagementPanelGrid.theWorkflowStore.reload();
+		}
+		catch(e){
 			
 		}
 	}

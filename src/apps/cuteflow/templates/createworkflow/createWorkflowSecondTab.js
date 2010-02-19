@@ -157,7 +157,7 @@ cf.createWorkflowSecondTab = function(){return {
 	*/
 	initPanel: function () {
 		this.theSecondPanel = new Ext.Panel({
-			title: '<?php echo __('Mailing list',null,'mailinglist'); ?>',
+			title: '<?php echo __('Mailing list',null,'workflowmanagement'); ?>',
 			frame: false,
 			layout: 'column',
 			autoScroll: true,
