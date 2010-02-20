@@ -69,7 +69,6 @@ cf.workflowdetailsValue = function(){return {
 					case "FILE":
 						var label = this.createFile(fielditem);
 						fieldset.insert(0,label);
-						//fielditem.column == 'LEFT' ? leftPanel.add(label) : rightPanel.add(label);
 					break;
 				}	
 				
@@ -121,14 +120,6 @@ cf.workflowdetailsValue = function(){return {
 		if(activeName != -1) {
 			combo.setValue(activeName);
 		}
-		
-		if (Ext.isIE6 == true) {
-			combo.style = 'margin-top:0px;margin-bottom:0px;';
-		}
-		else if (Ext.isIE7 == true) {
-			combo.style = 'margin-top:0px;margin-bottom:1px;';
-		}
-		
 		return combo;
 		
 	},
