@@ -10,8 +10,11 @@ cf.workflow_workflowmanagement = function(){return {
 		if (this.isInitialized == false) {
 			this.isInitialized = true;
 			cf.workflowmanagementPanelGrid.init();
+			cf.workflowFilterPanel.init();
 			this.initPanel();
+			this.theWorkflowPanel.add(cf.workflowFilterPanel.theColumnPanel);
 			this.theWorkflowPanel.add(cf.workflowmanagementPanelGrid.theWorkflowGrid);
+		
 		}
 	},
 	
