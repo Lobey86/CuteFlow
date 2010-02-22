@@ -10,9 +10,9 @@ cf.workflow_archive = function(){return {
 		if (this.isInitialized == false) {
 			this.isInitialized = true;
 			cf.archiveWorkflow.init();
-			cf.filterPanel.init('',cf.todoPanelGrid.theTodoGrid.store,'archiveFilter');
+			cf.archiveFilterPanel.init();
 			this.initPanel();
-			this.theArchivePanel.add(cf.filterPanel.theColumnPanel);
+			this.theArchivePanel.add(cf.archiveFilterPanel.theColumnPanel);
 			this.theArchivePanel.add(cf.archiveWorkflow.theArchiveGrid);
 			
 		}
