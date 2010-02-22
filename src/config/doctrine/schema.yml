@@ -652,3 +652,35 @@ WorkflowProcessUser:
   relations:
     WorkflowProcessUser: { class: WorkflowProcessUser, local: id, foreign: isuseragentof, foreignType: one, type: one }
 
+
+Filter:
+  tableName: cf_filter
+  columns:
+    id: { type: integer, length: 10, primary: true, autoincrement: true }
+    filtername: {type: string(200) }
+    name: {type: string(200) }
+    sender_id: { type: integer, length: 10 }
+    daysfrom: {type: string(200) }
+    daysto: {type: string(200) }
+    sendetfrom: {type: string(200) }
+    sendetto: {type: string(200) }
+    workflowprocessuser_id: { type: integer, length: 10 }
+    mailinglistversion_id: { type: integer, length: 10 }
+    documenttemplate_id: { type: integer, length: 10 }
+  relations:
+    UserLogin: { class: UserLogin, local: sender_id, foreign: id, foreignType: one, type: many }
+    WorkflowProcessUser: { class: WorkflowProcessUser, local: workflowprocessuser_id, foreign: id, foreignType: one, type: many }
+    MailinglistVersion: { class: MailinglistVersion, local: mailinglistversion_id, foreign: id, foreignType: one, type: many }
+    DocumentTemplateVersion: { class: DocumentTemplateVersion, local: documenttemplate_id, foreign: id, foreignType: one, type: many }
+
+FilterField:
+  tableName: cf_filterfield
+  columns:
+    id: { type: integer, length: 10, primary: true, autoincrement: true }
+    filter_id:  { type: integer, length: 10 }
+    field_id:  { type: integer, length: 10 }
+    operator: {type: string(20) }
+    value: {type: string(200) }
+  relations:
+    Filter: { class: Filter, local: filter_id, foreign: id, foreignType: one, type: many }
+    Field: { class: Field, local: field_id, foreign: id, foreignType: one, type: many }
