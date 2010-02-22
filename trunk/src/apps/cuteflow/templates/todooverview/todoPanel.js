@@ -10,7 +10,9 @@ cf.workflow_todo = function(){return {
 		if (this.isInitialized == false) {
 			this.isInitialized = true;
 			cf.todoPanelGrid.init();
+			cf.todoFilterPanel.init();
 			this.initPanel();
+			this.theTodoPanel.add(cf.todoFilterPanel.theColumnPanel);
 			this.theTodoPanel.add(cf.todoPanelGrid.theTodoGrid);
 		}
 	},
