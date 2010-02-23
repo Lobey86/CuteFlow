@@ -666,12 +666,13 @@ Filter:
     sendetto: {type: string(200) }
     workflowprocessuser_id: { type: integer, length: 10 }
     mailinglistversion_id: { type: integer, length: 10 }
-    documenttemplate_id: { type: integer, length: 10 }
+    documenttemplateversion_id: { type: integer, length: 10 }
   relations:
+    FilterField: { class: FilterField, local: id, foreign: filter_id, foreignType: many, type: one }
     UserLogin: { class: UserLogin, local: sender_id, foreign: id, foreignType: one, type: many }
     WorkflowProcessUser: { class: WorkflowProcessUser, local: workflowprocessuser_id, foreign: id, foreignType: one, type: many }
     MailinglistVersion: { class: MailinglistVersion, local: mailinglistversion_id, foreign: id, foreignType: one, type: many }
-    DocumentTemplateVersion: { class: DocumentTemplateVersion, local: documenttemplate_id, foreign: id, foreignType: one, type: many }
+    DocumentTemplateVersion: { class: DocumentTemplateVersion, local: documenttemplateversion_id, foreign: id, foreignType: one, type: many }
 
 FilterField:
   tableName: cf_filterfield
