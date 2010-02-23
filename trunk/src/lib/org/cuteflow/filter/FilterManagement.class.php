@@ -8,6 +8,14 @@ class FilterManagement {
     }
 
 
+    public function buildFilter(Doctrine_Collection $filter) {
+        $result = array();
+        $result = $filter[0]->toArray();
+        $filterFields = FilterFieldTable::instance()->getFilterFieldByFilterId($filter[0]->getId())->toArray();
+        $result['fields'] = $filterFields;
+        return $result;
+    }
+
     public function getRunningStation(Doctrine_Collection $data) {
         $result = array();
         $a = 0;
