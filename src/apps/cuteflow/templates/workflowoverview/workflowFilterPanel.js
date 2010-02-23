@@ -58,7 +58,7 @@ cf.workflowFilterPanel = function(){return {
 		    id: 'workflowColumnPanel',
 		    height: 480,
 			collapsible:true,
-			collapsed: false,
+			collapsed: true,
 		    title: '<?php echo __('Searchbar',null,'workflowmanagement'); ?>',
 			border: true,
 			layoutConfig: {

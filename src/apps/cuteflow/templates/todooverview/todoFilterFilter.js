@@ -7,6 +7,7 @@ cf.todoFilterFilter = function(){return {
 	theCM					:false,
 	theStore				:false,
 	theId					:false,
+	theLoadingMask			:false,
 	
 	
 	init: function () {
@@ -54,6 +55,71 @@ cf.todoFilterFilter = function(){return {
 				render: function(c){
 					c.getEl().on({
 						click: function(el){
+							cf.todoFilterPanel.theSearchPanel.getForm().reset();
+							cf.todoFilterPanel.theFieldGrid.store.removeAll();
+							cf.todoFilterPanel.theCounter = 0;
+							cf.todoFilterFilter.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Filter...',null,'workflowmanagement'); ?>'});					
+							cf.todoFilterFilter.theLoadingMask.show();
+							Ext.Ajax.request({  
+								url : '<?php echo build_dynamic_javascript_url('filter/LoadSingleFilter')?>/id/' + id,
+								success: function(objServerResponse){
+									
+									var filterData = Ext.util.JSON.decode(objServerResponse.responseText);
+									var data = filterData.result;
+									
+									
+									
+									if(data.name != '') {
+										cf.todoFilterPanel.theName.setValue(data.name);
+									}
+									if (data.sender_id != 0 && data.sender_id != '') {
+										cf.todoFilterPanel.theSenderCombo.setValue(data.sender_id);
+									}
+									if (data.daysfrom != '') {
+										Ext.getCmp('todofilter_daysfrom').setValue(data.daysfrom);
+									}
+									if (data.daysto != '') {
+										Ext.getCmp('todofilter_daysto').setValue(data.daysto);
+									}
+									
+									if(data.sendetfrom != '') {
+										Ext.getCmp('todofilter_sendetfrom').setValue(data.sendetfrom);
+									}
+									if (data.sendetto != '') {
+										Ext.getCmp('todofilter_sendetto').setValue(data.sendetto);
+									}
+									
+									if(data.workflowprocessuser_id != 0 && data.workflowprocessuser_id != '') {
+										cf.todoFilterPanel.theCurrentStation.setValue(data.workflowprocessuser_id);
+									}
+									
+									if(data.documenttemplateversion_id != 0 && data.documenttemplateversion_id != '') {
+										cf.todoFilterPanel.theDocumenttemplateCombo.setValue(data.documenttemplateversion_id);
+									}
+									
+									if(data.mailinglistversion_id != 0 && data.mailinglistversion_id != '') {
+										cf.todoFilterPanel.theMailinglistCombo.setValue(data.mailinglistversion_id);
+									}
+									
+									try{
+										var fields = data.fields;
+										for(var a=0;a<fields.length;a++) {
+											var item = fields[a];
+											var counter = cf.todoFilterPanel.theCounter;
+											var Rec = Ext.data.Record.create({name: 'field'},{name: 'operator'},{name: 'value'},{name: 'unique_id'});
+											cf.todoFilterPanel.theFieldGrid.store.add(new Rec({field: counter, operator: 'OPERATOR_' + counter, value: 'VALUE_' + counter, unique_id: counter}));
+											cf.todoFilterFilter.addValues.defer(700,this,[a, item.field_id, item.operator, item.value]);
+										}
+										
+										
+									}
+									catch(e) {
+										
+									}
+									cf.todoFilterFilter.theLoadingMask.hide();
+									
+								}
+							});
 						},
 					scope: c
 					});
@@ -62,7 +128,13 @@ cf.todoFilterFilter = function(){return {
 		});
 	},
 	
+	addValues: function (id, field_id, operator, value) {
+		Ext.getCmp('todoFilterField_' + id).setValue(field_id);
+		Ext.getCmp('todoFilterOperator_' + id).setValue(operator);
+		Ext.getCmp('todoFilterValue_' + id).setValue(value);
 		
+			
+	},
 	createDeleteButton: function (id, idName) {
 		var btn_copy = new Ext.form.Label({
 			html: '<span style="cursor:pointer;"><img src="/images/icons/zoom_out.png" /></span>',

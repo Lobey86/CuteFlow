@@ -55,10 +55,11 @@ cf.todoFilterPanel = function(){return {
 		    layout: 'column',
 		    plain: false,
 		    width: 'auto',
+		    style:'margin-top:5px;margin-left:5px;margin-right:5px;',
 		    height: 480,
 		    id: 'todoColumnPanel',
 			collapsible:true,
-			collapsed: false,
+			collapsed: true,
 		    title: '<?php echo __('Searchbar',null,'workflowmanagement'); ?>',
 			border: true,
 			layoutConfig: {
@@ -132,6 +133,7 @@ cf.todoFilterPanel = function(){return {
 				type: 'reset',
 				style:'margin-bottom:5px;margin-left:25px;',
 				handler: function () {
+					cf.todoFilterPanel.theCounter = 0;
 					cf.todoFilterPanel.theSearchPanel.getForm().reset();
 					cf.todoFilterPanel.theFieldGrid.store.removeAll();
 				}
@@ -163,6 +165,7 @@ cf.todoFilterPanel = function(){return {
 		var combo = new Ext.form.ComboBox({
 			valueField: 'id',
 			displayField: 'title',
+			id: 'todoFilterField_' + id,
 			editable: false,
 			hiddenName: 'field['+id+']',
 			mode: 'local',
@@ -188,25 +191,25 @@ cf.todoFilterPanel = function(){return {
 	
 	renderCombo: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 		var counter = cf.todoFilterPanel.theCounter;
-		cf.todoFilterPanel.addFieldCombo.defer(200,this,[counter]);
+		cf.todoFilterPanel.addFieldCombo.defer(100,this,[counter]);
 		return '<div id="TODOFIELD_'+ counter +'"></div>';
 	},
 	
 	renderOperator: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 		var counter = cf.todoFilterPanel.theCounter;
-		cf.todoFilterPanel.addOperatorCombo.defer(200,this,[counter]);
+		cf.todoFilterPanel.addOperatorCombo.defer(100,this,[counter]);
 		return '<div id="TODOOPERATOR_'+ counter +'"></div>';
 	},
 	
 	renderTextfeld: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 		var counter = cf.todoFilterPanel.theCounter;
-		cf.todoFilterPanel.addValueTextfield.defer(200,this,[counter]);
+		cf.todoFilterPanel.addValueTextfield.defer(100,this,[counter]);
 		return '<div id="TODOVALUE_'+ counter +'"></div>';
 	},
 	
 	renderAction: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 		var counter = cf.todoFilterPanel.theCounter++;
-		cf.todoFilterPanel.addDeleteButton.defer(200,this,[counter]);
+		cf.todoFilterPanel.addDeleteButton.defer(100,this,[counter]);
 		return '<div id="TODOACTION_'+ counter +'"></div>';
 	},
 	
@@ -214,6 +217,7 @@ cf.todoFilterPanel = function(){return {
 	addValueTextfield: function (id) {
 		var textfield = new Ext.form.TextField({
 			allowBlank: true,
+			id: 'todoFilterValue_' + id,
 			name: 'value['+id+']',
 			width: 110
 		});
@@ -243,6 +247,7 @@ cf.todoFilterPanel = function(){return {
 			valueField: 'id',
 			displayField: 'title',
 			editable: false,
+			id: 'todoFilterOperator_' + id,
 			hiddenName: 'operator['+id+']',
 			mode: 'local',
 			store: new Ext.data.SimpleStore({
@@ -307,15 +312,17 @@ cf.todoFilterPanel = function(){return {
 			items:[{
 				xtype: 'textfield',
 				style: 'margin-right:5px;',
+				id: 'todofilter_daysfrom',
 				name: 'filter_daysinprogress_from',
 				allowBlank: true,
-				width: 80
+				width: 116
 			},{
 				xtype: 'textfield',
 				allowBlank: true,
+				id: 'todofilter_daysto',
 				name: 'filter_daysinprogress_to',
 				style: 'margin-right:5px;',
-				width: 80
+				width: 116
 			}]
 		});	
 		
@@ -333,6 +340,7 @@ cf.todoFilterPanel = function(){return {
                 xtype:'datefield',
                 name: 'filter_sendet_from',
                 format: 'd-m-Y',
+                id: 'todofilter_sendetfrom',
             	allowBlank:true,
                 width: 111
 
@@ -343,6 +351,7 @@ cf.todoFilterPanel = function(){return {
 			},{
                 xtype:'datefield',
                 name: 'filter_sendet_to',
+                id: 'todofilter_sendetto',
                 format: 'd-m-Y',
             	allowBlank:true,
                 width: 110
@@ -368,7 +377,7 @@ cf.todoFilterPanel = function(){return {
 			displayField: 'name',
 			hiddenName:'filter_mailinglist',
 			editable: false,
-			mode: 'remote',
+			mode: 'local',
 			store: new Ext.data.JsonStore({
 				root: 'result',
 				url: '<?php echo build_dynamic_javascript_url('filter/LoadMailinglist')?>',
@@ -385,7 +394,7 @@ cf.todoFilterPanel = function(){return {
 			labelWidth:300,
 			width: 225
 		});
-		
+		this.theMailinglistCombo.store.load();
 	},
 	
 	
@@ -396,7 +405,7 @@ cf.todoFilterPanel = function(){return {
 			displayField: 'name',
 			editable: false,
 			hiddenName: 'filter_documenttemplate',
-			mode: 'remote',
+			mode: 'local',
 			store: new Ext.data.JsonStore({
 				root: 'result',
 				url: '<?php echo build_dynamic_javascript_url('filter/LoadDocumenttemplate')?>',
@@ -412,6 +421,7 @@ cf.todoFilterPanel = function(){return {
 			forceSelection:true,
 			width: 225
 		});
+		this.theDocumenttemplateCombo.store.load();
 	},
 	
 	
@@ -422,7 +432,7 @@ cf.todoFilterPanel = function(){return {
 			displayField: 'name',			
 			hiddenName:'filter_sender',
 			editable: false,
-			mode: 'remote',
+			mode: 'local',
 			store: new Ext.data.JsonStore({
 				root: 'result',
 				url: '<?php echo build_dynamic_javascript_url('filter/LoadSender')?>',
@@ -439,6 +449,7 @@ cf.todoFilterPanel = function(){return {
 			labelWidth:300,
 			width: 225
 		});
+		this.theSenderCombo.store.load();
 		
 	},
 	
@@ -449,7 +460,7 @@ cf.todoFilterPanel = function(){return {
 			displayField: 'name',
 			editable: false,
 			hiddenName: 'filter_currentstation',
-			mode: 'remote',
+			mode: 'local',
 			store: new Ext.data.JsonStore({
 				root: 'result',
 				url: '<?php echo build_dynamic_javascript_url('filter/LoadStation')?>',
@@ -466,6 +477,7 @@ cf.todoFilterPanel = function(){return {
 			labelWidth:300,
 			width: 225
 		});
+		this.theCurrentStation.store.load();
 		
 		
 	}
