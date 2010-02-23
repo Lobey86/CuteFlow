@@ -13,6 +13,14 @@ class FilterFieldTable extends Doctrine_Table {
     }
 
 
+    public function getFilterFieldByFilterId($id) {
+        return Doctrine_Query::create()
+           ->select('ff.*')
+           ->from('FilterField ff')
+           ->where('ff.filter_id = ?', $id)
+           ->orderBy('ff.id ASC')
+           ->execute();
+    }
 
     public function deleteFieldsByFilterId($id) {
         Doctrine_Query::create()
