@@ -73,7 +73,7 @@ cf.todoFilterCRUD = function(){return {
 		cf.todoFilterPanel.theSearchPanel.getForm().submit({
 			url: '<?php echo build_dynamic_javascript_url('filter/SaveFilter')?>/workflowid/',
 			method: 'POST',
-			//waitMsg: '<?php echo __('Saving Data',null,'workflowmanagement'); ?>',
+			waitMsg: '<?php echo __('Saving Data',null,'workflowmanagement'); ?>',
 			success: function(objServerResponse){
 				cf.todoFilterCRUD.reloadGrid();
 				cf.todoFilterCRUD.theWindow.hide();

@@ -78,7 +78,7 @@ class filterActions extends sfActions
         $filter->setSendetto($request->getPostParameter('filter_sendet_to',''));
         $filter->setWorkflowprocessuserId($request->getPostParameter('filter_currentstation',-1));
         $filter->setMailinglistversionId($request->getPostParameter('filter_mailinglist',-1));
-        $filter->setDocumenttemplateId($request->getPostParameter('filter_documenttemplate',-1));
+        $filter->setDocumenttemplateversionId($request->getPostParameter('filter_documenttemplate',-1));
         $filter->save();
         $filterId = $filter->getId();
 
@@ -100,10 +100,6 @@ class filterActions extends sfActions
                 }
                 
             }
-
-
-
-
         }
 
 
@@ -120,6 +116,13 @@ class filterActions extends sfActions
     }
 
 
+    public function executeLoadSingleFilter(sfWebRequest $request) {
+        $filtObj = new FilterManagement();
+        $filters = FilterTable::instance()->getFilterById($request->getParameter('id'));
+        $json_data = $filtObj->buildFilter($filters);
+        $this->renderText('({"result":'.json_encode($json_data).'})');
+        return sfView::NONE;
+    }
 
     public function executeDeleteFilter(sfWebRequest $request) {
         FilterFieldTable::instance()->deleteFieldsByFilterId($request->getParameter('id'));

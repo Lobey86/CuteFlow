@@ -58,7 +58,7 @@ cf.archiveFilterPanel = function(){return {
 		    id: 'archiveColumnPanel',
 		    height: 480,
 			collapsible:true,
-			collapsed: false,
+			collapsed: true,
 		    title: '<?php echo __('Searchbar',null,'archivemanagement'); ?>',
 			border: true,
 			layoutConfig: {
