@@ -67,22 +67,28 @@ class filterActions extends sfActions
 
 
     public function executeSaveFilter(sfWebRequest $request) {
+		
+		$sender_id = $request->getPostParameter('filter_sender') == '' ? -1 : $request->getPostParameter('filter_sender');
+		$currentStation_id = $request->getPostParameter('filter_currentstation') == '' ? -1 : $request->getPostParameter('filter_currentstation');
+		$mailingList = $request->getPostParameter('filter_mailinglist') == '' ? -1 : $request->getPostParameter('filter_mailinglist');
+		$documentTemplate = $request->getPostParameter('filter_documenttemplate') == '' ? -1 : $request->getPostParameter('filter_documenttemplate');	
 
         $filter = new Filter();
         $filter->setFiltername($request->getPostParameter('filter_hiddenname',''));
         $filter->setName($request->getPostParameter('filter_name',''));
-        $filter->setSenderId($request->getPostParameter('filter_sender',-1));
+        $filter->setSenderId($sender_id);
         $filter->setDaysfrom($request->getPostParameter('filter_daysinprogress_from',''));
         $filter->setDaysto($request->getPostParameter('filter_daysinprogress_to',''));
         $filter->setSendetfrom($request->getPostParameter('filter_sendet_from',''));
         $filter->setSendetto($request->getPostParameter('filter_sendet_to',''));
-        $filter->setWorkflowprocessuserId($request->getPostParameter('filter_currentstation',-1));
-        $filter->setMailinglistversionId($request->getPostParameter('filter_mailinglist',-1));
-        $filter->setDocumenttemplateversionId($request->getPostParameter('filter_documenttemplate',-1));
+        $filter->setWorkflowprocessuserId($currentStation_id);
+        $filter->setMailinglistversionId($mailingList);
+        $filter->setDocumenttemplateversionId($documentTemplate);
         $filter->save();
         $filterId = $filter->getId();
 
-
+		$this->renderText('{success:true}');
+        return sfView::NONE;
         if($request->hasParameter('field')) {
             $fields = $request->getParameter('field');
             $operators = $request->getParameter('operator');
