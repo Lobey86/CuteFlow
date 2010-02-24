@@ -71,7 +71,7 @@ cf.todoFilterCRUD = function(){return {
 		cf.todoFilterPanel.theHiddenFilterName.setValue(cf.todoFilterCRUD.theTextfield.getValue());
 		
 		cf.todoFilterPanel.theSearchPanel.getForm().submit({
-			url: '<?php echo build_dynamic_javascript_url('filter/SaveFilter')?>/workflowid/',
+			url: '<?php echo build_dynamic_javascript_url('filter/SaveFilter')?>',
 			method: 'POST',
 			waitMsg: '<?php echo __('Saving Data',null,'workflowmanagement'); ?>',
 			success: function(objServerResponse){
