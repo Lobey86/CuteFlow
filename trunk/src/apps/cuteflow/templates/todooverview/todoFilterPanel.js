@@ -107,7 +107,7 @@ cf.todoFilterPanel = function(){return {
 	        items:[{
 				xtype: 'button',
 				icon: '/images/icons/zoom.png',
-				text: '<?php echo __('Seacrh',null,'workflowmanagement'); ?>',
+				text: '<?php echo __('Search',null,'workflowmanagement'); ?>',
 				width: 70,
 				height:25,
 				style:'margin-bottom:5px;margin-left:35px;',
