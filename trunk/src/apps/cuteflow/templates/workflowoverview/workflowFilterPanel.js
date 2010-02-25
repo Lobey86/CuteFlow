@@ -30,7 +30,7 @@ cf.workflowFilterPanel = function(){return {
 		this.initCurrentStationCombo();
 		this.initDaysInProgress();
 		this.initSendetAt();
-		this.initPanel(id);
+		this.initPanel();
 		this.initCM();
 		this.initTopToolBar();
 		this.initFieldGrid();
@@ -55,8 +55,9 @@ cf.workflowFilterPanel = function(){return {
 		    layout: 'column',
 		    plain: false,
 		    width: 'auto',
-		    id: 'workflowColumnPanel',
+		    style:'margin-top:5px;margin-left:5px;margin-right:5px;',
 		    height: 480,
+		    id: 'workflowColumnPanel',
 			collapsible:true,
 			collapsed: true,
 		    title: '<?php echo __('Searchbar',null,'workflowmanagement'); ?>',
@@ -66,6 +67,12 @@ cf.workflowFilterPanel = function(){return {
 				fitHeight: true,
 				split: true
 			}
+		});
+		this.theColumnPanel.on('beforeexpand', function(panel) {
+			cf.workflowFilterPanel.theMailinglistCombo.store.load();
+			cf.workflowFilterPanel.theDocumenttemplateCombo.store.load();
+			cf.workflowFilterPanel.theSenderCombo.store.load();
+			cf.workflowFilterPanel.theCurrentStation.store.load();
 		});
 		
 		
@@ -111,7 +118,14 @@ cf.workflowFilterPanel = function(){return {
 				height:25,
 				style:'margin-bottom:5px;margin-left:35px;',
 				handler: function (){
-					alert('suchen');
+					var url = cf.createFilterUrl.buildUrl(cf.workflowFilterPanel.theName, cf.workflowFilterPanel.theSenderCombo, Ext.getCmp('workflowfilter_daysfrom'), Ext.getCmp('workflowfilter_daysto'), Ext.getCmp('workflowfilter_sendetfrom'),Ext.getCmp('workflowfilter_sendetto'), cf.workflowFilterPanel.theCurrentStation, cf.workflowFilterPanel.theMailinglistCombo, cf.workflowFilterPanel.theDocumenttemplateCombo, cf.workflowFilterPanel.theFieldGrid, 'workflow');                                         
+					if(url != '') {
+						var loadUrl = encodeURI('<?php echo build_dynamic_javascript_url('workflowoverview/LoadAllWorkflowByFilter')?>' + url);
+						cf.workflowmanagementPanelGrid.theWorkflowStore.proxy.setApi(Ext.data.Api.actions.read,loadUrl);
+						cf.workflowmanagementPanelGrid.theWorkflowStore.load();
+					}	
+					cf.workflowFilterPanel.theColumnPanel.expand(false);
+					cf.workflowFilterPanel.theColumnPanel.collapse(true);
 				}
 			},{
 				xtype: 'button',
@@ -126,14 +140,18 @@ cf.workflowFilterPanel = function(){return {
 			},{
 				xtype: 'button',
 				icon: '/images/icons/delete.png',
-				text: '<?php echo __('Reset',null,'workflowmanagement'); ?>',
+				text: '<?php echo __('Reset Filter',null,'workflowmanagement'); ?>',
 				width: 100,
 				height:25,
 				type: 'reset',
 				style:'margin-bottom:5px;margin-left:25px;',
 				handler: function () {
+					cf.workflowFilterPanel.theCounter = 0;
 					cf.workflowFilterPanel.theSearchPanel.getForm().reset();
 					cf.workflowFilterPanel.theFieldGrid.store.removeAll();
+					var loadUrl = '<?php echo build_dynamic_javascript_url('workflowoverview/LoadAllWorkflow')?>';
+					cf.workflowmanagementPanelGrid.theWorkflowStore.proxy.setApi(Ext.data.Api.actions.read,loadUrl);
+					cf.workflowmanagementPanelGrid.theWorkflowStore.load();
 				}
 			}]
 		});
@@ -150,7 +168,7 @@ cf.workflowFilterPanel = function(){return {
 		this.theToolBar = new Ext.Toolbar({
 			items:[{
 				icon: '/images/icons/zoom_in.png',
-		        tooltip:'<?php echo __('Add new Mailing List',null,'workflowmanagement'); ?>',
+		        tooltip:'<?php echo __('Add new Search item',null,'workflowmanagement'); ?>',
 		        handler: function () {
 		        	cf.workflowFilterPanel.addSearchItem();
 		        }
@@ -163,6 +181,7 @@ cf.workflowFilterPanel = function(){return {
 		var combo = new Ext.form.ComboBox({
 			valueField: 'id',
 			displayField: 'title',
+			id: 'workflowFilterField_' + id,
 			editable: false,
 			hiddenName: 'field['+id+']',
 			mode: 'local',
@@ -188,25 +207,25 @@ cf.workflowFilterPanel = function(){return {
 	
 	renderCombo: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 		var counter = cf.workflowFilterPanel.theCounter;
-		cf.workflowFilterPanel.addFieldCombo.defer(200,this,[counter]);
+		cf.workflowFilterPanel.addFieldCombo.defer(100,this,[counter]);
 		return '<div id="WORKFLOWFIELD_'+ counter +'"></div>';
 	},
 	
 	renderOperator: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 		var counter = cf.workflowFilterPanel.theCounter;
-		cf.workflowFilterPanel.addOperatorCombo.defer(200,this,[counter]);
+		cf.workflowFilterPanel.addOperatorCombo.defer(100,this,[counter]);
 		return '<div id="WORKFLOWOPERATOR_'+ counter +'"></div>';
 	},
 	
 	renderTextfeld: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 		var counter = cf.workflowFilterPanel.theCounter;
-		cf.workflowFilterPanel.addValueTextfield.defer(200,this,[counter]);
+		cf.workflowFilterPanel.addValueTextfield.defer(100,this,[counter]);
 		return '<div id="WORKFLOWVALUE_'+ counter +'"></div>';
 	},
 	
 	renderAction: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 		var counter = cf.workflowFilterPanel.theCounter++;
-		cf.workflowFilterPanel.addDeleteButton.defer(200,this,[counter]);
+		cf.workflowFilterPanel.addDeleteButton.defer(100,this,[counter]);
 		return '<div id="WORKFLOWACTION_'+ counter +'"></div>';
 	},
 	
@@ -214,6 +233,7 @@ cf.workflowFilterPanel = function(){return {
 	addValueTextfield: function (id) {
 		var textfield = new Ext.form.TextField({
 			allowBlank: true,
+			id: 'workflowFilterValue_' + id,
 			name: 'value['+id+']',
 			width: 110
 		});
@@ -243,6 +263,7 @@ cf.workflowFilterPanel = function(){return {
 			valueField: 'id',
 			displayField: 'title',
 			editable: false,
+			id: 'workflowFilterOperator_' + id,
 			hiddenName: 'operator['+id+']',
 			mode: 'local',
 			store: new Ext.data.SimpleStore({
@@ -307,15 +328,17 @@ cf.workflowFilterPanel = function(){return {
 			items:[{
 				xtype: 'textfield',
 				style: 'margin-right:5px;',
+				id: 'workflowfilter_daysfrom',
 				name: 'filter_daysinprogress_from',
 				allowBlank: true,
-				width: 80
+				width: 116
 			},{
 				xtype: 'textfield',
 				allowBlank: true,
+				id: 'workflowfilter_daysto',
 				name: 'filter_daysinprogress_to',
 				style: 'margin-right:5px;',
-				width: 80
+				width: 116
 			}]
 		});	
 		
@@ -332,7 +355,8 @@ cf.workflowFilterPanel = function(){return {
 			items:[{
                 xtype:'datefield',
                 name: 'filter_sendet_from',
-                format: 'd-m-Y',
+                format: 'Y-m-d',
+                id: 'workflowfilter_sendetfrom',
             	allowBlank:true,
                 width: 111
 
@@ -343,7 +367,8 @@ cf.workflowFilterPanel = function(){return {
 			},{
                 xtype:'datefield',
                 name: 'filter_sendet_to',
-                format: 'd-m-Y',
+                id: 'workflowfilter_sendetto',
+                format: 'Y-m-d',
             	allowBlank:true,
                 width: 110
 			}]
@@ -368,7 +393,7 @@ cf.workflowFilterPanel = function(){return {
 			displayField: 'name',
 			hiddenName:'filter_mailinglist',
 			editable: false,
-			mode: 'remote',
+			mode: 'local',
 			store: new Ext.data.JsonStore({
 				root: 'result',
 				url: '<?php echo build_dynamic_javascript_url('filter/LoadMailinglist')?>',
@@ -396,7 +421,7 @@ cf.workflowFilterPanel = function(){return {
 			displayField: 'name',
 			editable: false,
 			hiddenName: 'filter_documenttemplate',
-			mode: 'remote',
+			mode: 'local',
 			store: new Ext.data.JsonStore({
 				root: 'result',
 				url: '<?php echo build_dynamic_javascript_url('filter/LoadDocumenttemplate')?>',
@@ -412,6 +437,7 @@ cf.workflowFilterPanel = function(){return {
 			forceSelection:true,
 			width: 225
 		});
+		
 	},
 	
 	
@@ -422,7 +448,7 @@ cf.workflowFilterPanel = function(){return {
 			displayField: 'name',			
 			hiddenName:'filter_sender',
 			editable: false,
-			mode: 'remote',
+			mode: 'local',
 			store: new Ext.data.JsonStore({
 				root: 'result',
 				url: '<?php echo build_dynamic_javascript_url('filter/LoadSender')?>',
@@ -440,6 +466,7 @@ cf.workflowFilterPanel = function(){return {
 			width: 225
 		});
 		
+		
 	},
 	
 	initCurrentStationCombo: function () {
@@ -449,7 +476,7 @@ cf.workflowFilterPanel = function(){return {
 			displayField: 'name',
 			editable: false,
 			hiddenName: 'filter_currentstation',
-			mode: 'remote',
+			mode: 'local',
 			store: new Ext.data.JsonStore({
 				root: 'result',
 				url: '<?php echo build_dynamic_javascript_url('filter/LoadStation')?>',
@@ -466,6 +493,7 @@ cf.workflowFilterPanel = function(){return {
 			labelWidth:300,
 			width: 225
 		});
+		
 		
 		
 	}

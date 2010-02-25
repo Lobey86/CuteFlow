@@ -71,7 +71,7 @@ cf.workflowFilterCRUD = function(){return {
 		cf.workflowFilterPanel.theHiddenFilterName.setValue(cf.workflowFilterCRUD.theTextfield.getValue());
 		
 		cf.workflowFilterPanel.theSearchPanel.getForm().submit({
-			url: '<?php echo build_dynamic_javascript_url('filter/SaveFilter')?>/workflowid/',
+			url: '<?php echo build_dynamic_javascript_url('filter/SaveFilter')?>',
 			method: 'POST',
 			waitMsg: '<?php echo __('Saving Data',null,'workflowmanagement'); ?>',
 			success: function(objServerResponse){
@@ -100,6 +100,21 @@ cf.workflowFilterCRUD = function(){return {
 		catch(e) {
 			
 		}
+		try {
+			cf.workflowFilterFilter.theStore.reload();
+		}
+		catch(e) {
+			
+		}
+		try {
+			cf.workflowFilterFilter.theStore.reload();
+		}
+		catch(e) {
+			
+		}
+		
+		
+		
 	}
 
 	

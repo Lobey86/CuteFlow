@@ -18,10 +18,10 @@ cf.archiveFilterCRUD = function(){return {
 			resizable: true,
 	        plain: false,
 	        border:false,
-			title:  '<?php echo __('Enter Filtername',null,'archivemanagement'); ?>',
+			title:  '<?php echo __('Enter Filtername',null,'workflowmanagement'); ?>',
 	        buttonAlign: 'center',
 			buttons:[{
-				text:'<?php echo __('Store',null,'archivemanagement'); ?>', 
+				text:'<?php echo __('Store',null,'workflowmanagement'); ?>', 
 				icon: '/images/icons/accept.png',
 				handler: function () {
 					if(cf.archiveFilterCRUD.theTextfield.getValue() != '') {
@@ -29,12 +29,12 @@ cf.archiveFilterCRUD = function(){return {
 					}
 					else {
 						Ext.Msg.minWidth = 200;
-						Ext.MessageBox.alert('<?php echo __('Error',null,'archivemanagement'); ?>','<?php echo __('Please enter Filtername',null,'archivemanagement'); ?>');
+						Ext.MessageBox.alert('<?php echo __('Error',null,'workflowmanagement'); ?>','<?php echo __('Please enter Filtername',null,'workflowmanagement'); ?>');
 					}
 					
 				}
 			},{
-				text:'<?php echo __('Close',null,'archivemanagement'); ?>', 
+				text:'<?php echo __('Close',null,'workflowmanagement'); ?>', 
 				icon: '/images/icons/cancel.png',
 				handler: function () {
 					cf.archiveFilterCRUD.theWindow.hide();
@@ -71,9 +71,9 @@ cf.archiveFilterCRUD = function(){return {
 		cf.archiveFilterPanel.theHiddenFilterName.setValue(cf.archiveFilterCRUD.theTextfield.getValue());
 		
 		cf.archiveFilterPanel.theSearchPanel.getForm().submit({
-			url: '<?php echo build_dynamic_javascript_url('filter/SaveFilter')?>/archiveid/',
+			url: '<?php echo build_dynamic_javascript_url('filter/SaveFilter')?>',
 			method: 'POST',
-			waitMsg: '<?php echo __('Saving Data',null,'archivemanagement'); ?>',
+			waitMsg: '<?php echo __('Saving Data',null,'workflowmanagement'); ?>',
 			success: function(objServerResponse){
 				cf.archiveFilterCRUD.reloadGrid();
 				cf.archiveFilterCRUD.theWindow.hide();
@@ -95,7 +95,7 @@ cf.archiveFilterCRUD = function(){return {
 	
 	reloadGrid: function () {
 		try {
-			cf.todoFilterFilter.theStore.reload();
+			cf.archiveFilterFilter.theStore.reload();
 		}
 		catch(e) {
 			
@@ -112,6 +112,9 @@ cf.archiveFilterCRUD = function(){return {
 		catch(e) {
 			
 		}
+		
+		
+		
 	}
 
 	

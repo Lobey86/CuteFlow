@@ -89,7 +89,19 @@ cf.archiveWorkflow = function(){return {
 	/** init toolbar for grid, contains ajax search **/
 	initTopToolBar: function () {
 		this.theTopToolBar = new Ext.Toolbar({
-			items: ['->',            {
+			items: [{
+				icon: '/images/icons/zoom_out.png',
+	            tooltip:'<?php echo __('Reset Filter',null,'workflowmanagement'); ?>',
+	            handler: function () {
+					cf.workflowFilterPanel.theCounter = 0;
+					cf.archiveFilterPanel.theSearchPanel.getForm().reset();
+					cf.archiveFilterPanel.theFieldGrid.store.removeAll();
+					var loadUrl = '<?php echo build_dynamic_javascript_url('archiveoverview/LoadAllArchivedWorkflow')?>';
+					cf.archiveWorkflow.theArchiveStore.proxy.setApi(Ext.data.Api.actions.read,loadUrl);
+					cf.archiveWorkflow.theArchiveStore.load();
+				}
+				
+			},'->',            {
             	xtype: 'label',
             	html: '<?php echo __('Items per Page',null,'usermanagement'); ?>: '
             },{
@@ -129,7 +141,7 @@ cf.archiveWorkflow = function(){return {
 			border: true,
 			loadMask: true,
 			width: 'auto',
-			height: cf.Layout.theRegionWest.getHeight() - 100,
+			height: cf.Layout.theRegionWest.getHeight()-60,
 			collapsible: false,
 			style:'margin-top:5px;margin-left:5px;margin-right:5px;',
 			store: this.theArchiveStore,

@@ -24,10 +24,10 @@ class workflowoverviewActions extends sfActions {
         $limit = $this->getUser()->getAttribute('userSettings');
         $workflow->setUserId($this->getUser()->getAttribute('id'));
         $workflow->setCulture($this->getUser()->getCulture());
-        $anz = WorkflowTemplateTable::instance()->getSumAllWorkflowTemplates();
+        $anz = WorkflowTemplateTable::instance()->getAllWorkflowTemplates(-1, -1);
         $data = WorkflowTemplateTable::instance()->getAllWorkflowTemplates($request->getParameter('limit',$limit['displayeditem']),$request->getParameter('start',0));
         $json_data = $workflow->buildData($data, $request->getParameter('start',0));
-        $this->renderText('({"total":"'.$anz[0]->getAnzahl().'","result":'.json_encode($json_data).'})');
+        $this->renderText('({"total":"'.count($anz).'","result":'.json_encode($json_data).'})');
         return sfView::NONE;
     }
 
@@ -99,6 +99,19 @@ class workflowoverviewActions extends sfActions {
     }
 
 
+    public function executeLoadAllWorkflowByFilter(sfWebRequest $request) {
+        $limit = $this->getUser()->getAttribute('userSettings');
+        $workflow = new WorkflowOverview($this->getContext(), $this->getUser());
+        $workflow->setUserId($this->getUser()->getAttribute('id'));
+        $workflow->setCulture($this->getUser()->getCulture());
+        $filter = new FilterManagement();
+        $filterOptions = $filter->checkFilter($request);
+        $anz = WorkflowTemplateTable::instance()->getAllWorkflowTemplatesByFilter(-1, -1, $filterOptions);
+        $data = WorkflowTemplateTable::instance()->getAllWorkflowTemplatesByFilter($request->getParameter('limit',$limit['displayeditem']),$request->getParameter('start',0),$filterOptions);
+        $json_data = $workflow->buildData($data, $request->getParameter('start',0));
+        $this->renderText('({"total":"'.count($anz).'","result":'.json_encode($json_data).'})');
+        return sfView::NONE;
+    }
 
 
 

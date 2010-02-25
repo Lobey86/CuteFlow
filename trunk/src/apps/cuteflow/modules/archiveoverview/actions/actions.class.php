@@ -27,16 +27,30 @@ class archiveoverviewActions extends sfActions {
         $workflow = new WorkflowOverview($this->getContext(), $this->getUser());
         $workflow->setUserId($this->getUser()->getAttribute('id'));
         $workflow->setCulture($this->getUser()->getCulture());
-        $anz = WorkflowTemplateTable::instance()->getSumArchivedWorkflowTemplates();
+        $anz = WorkflowTemplateTable::instance()->getArchivedWorkflowTemplates(-1,-1);
         $data = WorkflowTemplateTable::instance()->getArchivedWorkflowTemplates($request->getParameter('limit',$limit['displayeditem']),$request->getParameter('start',0));
         $json_data = $workflow->buildData($data, $request->getParameter('start',0));
-        $this->renderText('({"total":"'.$anz[0]->getAnzahl().'","result":'.json_encode($json_data).'})');
+        $this->renderText('({"total":"'.count($anz).'","result":'.json_encode($json_data).'})');
         return sfView::NONE;
     }
 
     
     public function executeRemoveFromArchive(sfWebRequest $request) {
         WorkflowTemplateTable::instance()->removeFromArchive($request->getParameter('workflowtemplateid'), $this->getUser()->getAttribute('id'));
+        return sfView::NONE;
+    }
+
+    public function executeLoadAllArchivedWorkflowByFilter(sfWebRequest $request) {
+        $limit = $this->getUser()->getAttribute('userSettings');
+        $workflow = new WorkflowOverview($this->getContext(), $this->getUser());
+        $workflow->setUserId($this->getUser()->getAttribute('id'));
+        $workflow->setCulture($this->getUser()->getCulture());
+        $filter = new FilterManagement();
+        $filterOptions = $filter->checkFilter($request);
+        $anz = WorkflowTemplateTable::instance()->getAllArchivedWorkflowTemplatesByFilter(-1,-1, $filterOptions);
+        $data = WorkflowTemplateTable::instance()->getAllArchivedWorkflowTemplatesByFilter($request->getParameter('limit',$limit['displayeditem']),$request->getParameter('start',0), $filterOptions);
+        $json_data = $workflow->buildData($data, $request->getParameter('start',0));
+        $this->renderText('({"total":"'.count($anz).'","result":'.json_encode($json_data).'})');
         return sfView::NONE;
     }
 

@@ -103,7 +103,18 @@ cf.workflowmanagementPanelGrid = function(){return {
 					cf.createWorkflowWindow.init();
 	            }
 				
-			},'->',{
+			},'-',{
+				icon: '/images/icons/zoom_out.png',
+	            tooltip:'<?php echo __('Reset Filter',null,'workflowmanagement'); ?>',
+	            handler: function () {
+					cf.workflowFilterPanel.theCounter = 0;
+					cf.workflowFilterPanel.theSearchPanel.getForm().reset();
+					cf.workflowFilterPanel.theFieldGrid.store.removeAll();
+					var loadUrl = '<?php echo build_dynamic_javascript_url('workflowoverview/LoadAllWorkflow')?>';
+					cf.workflowmanagementPanelGrid.theWorkflowStore.proxy.setApi(Ext.data.Api.actions.read,loadUrl);
+					cf.workflowmanagementPanelGrid.theWorkflowStore.load();
+				}
+            },'->',{
             	xtype: 'label',
             	html: '<?php echo __('Items per Page',null,'usermanagement'); ?>: '
             },{
@@ -142,7 +153,7 @@ cf.workflowmanagementPanelGrid = function(){return {
 			stripeRows: true,
 			border: true,
 			width: 'auto',
-			height: cf.Layout.theRegionWest.getHeight() + cf.Layout.theRegionNorth.getHeight() - 100,
+			height: cf.Layout.theRegionWest.getHeight()-60,
 			collapsible: false,
 			loadMask: true,
 			style:'margin-top:5px;margin-left:5px;margin-right:5px;',

@@ -68,6 +68,12 @@ cf.todoFilterPanel = function(){return {
 				split: true
 			}
 		});
+		this.theColumnPanel.on('beforeexpand', function(panel) {
+			cf.todoFilterPanel.theMailinglistCombo.store.load();
+			cf.todoFilterPanel.theDocumenttemplateCombo.store.load();
+			cf.todoFilterPanel.theSenderCombo.store.load();
+			cf.todoFilterPanel.theCurrentStation.store.load();
+		});
 		
 		
 	},
@@ -112,7 +118,14 @@ cf.todoFilterPanel = function(){return {
 				height:25,
 				style:'margin-bottom:5px;margin-left:35px;',
 				handler: function (){
-					alert('suchen');
+					var url = cf.createFilterUrl.buildUrl(cf.todoFilterPanel.theName, cf.todoFilterPanel.theSenderCombo, Ext.getCmp('todofilter_daysfrom'), Ext.getCmp('todofilter_daysto'), Ext.getCmp('todofilter_sendetfrom'),Ext.getCmp('todofilter_sendetto'), cf.todoFilterPanel.theCurrentStation, cf.todoFilterPanel.theMailinglistCombo, cf.todoFilterPanel.theDocumenttemplateCombo, cf.todoFilterPanel.theFieldGrid, 'todo');                                         
+					if(url != '') {
+						var loadUrl = encodeURI('<?php echo build_dynamic_javascript_url('todooverview/LoadAllOwnWorkflowByFilter')?>' + url);
+						cf.todoPanelGrid.theTodoStore.proxy.setApi(Ext.data.Api.actions.read,loadUrl);
+						cf.todoPanelGrid.theTodoStore.load();
+					}	
+					cf.todoFilterPanel.theColumnPanel.expand(false);
+					cf.todoFilterPanel.theColumnPanel.collapse(true);
 				}
 			},{
 				xtype: 'button',
@@ -136,6 +149,9 @@ cf.todoFilterPanel = function(){return {
 					cf.todoFilterPanel.theCounter = 0;
 					cf.todoFilterPanel.theSearchPanel.getForm().reset();
 					cf.todoFilterPanel.theFieldGrid.store.removeAll();
+					var loadUrl = '<?php echo build_dynamic_javascript_url('todooverview/LoadAllOwnWorkflow')?>';
+					cf.todoPanelGrid.theTodoStore.proxy.setApi(Ext.data.Api.actions.read,loadUrl);
+					cf.todoPanelGrid.theTodoStore.load();
 				}
 			}]
 		});
@@ -152,7 +168,7 @@ cf.todoFilterPanel = function(){return {
 		this.theToolBar = new Ext.Toolbar({
 			items:[{
 				icon: '/images/icons/zoom_in.png',
-		        tooltip:'<?php echo __('Add new Mailing List',null,'workflowmanagement'); ?>',
+		        tooltip:'<?php echo __('Add new Search item',null,'workflowmanagement'); ?>',
 		        handler: function () {
 		        	cf.todoFilterPanel.addSearchItem();
 		        }
@@ -339,7 +355,7 @@ cf.todoFilterPanel = function(){return {
 			items:[{
                 xtype:'datefield',
                 name: 'filter_sendet_from',
-                format: 'd-m-Y',
+                format: 'Y-m-d',
                 id: 'todofilter_sendetfrom',
             	allowBlank:true,
                 width: 111
@@ -352,7 +368,7 @@ cf.todoFilterPanel = function(){return {
                 xtype:'datefield',
                 name: 'filter_sendet_to',
                 id: 'todofilter_sendetto',
-                format: 'd-m-Y',
+                format: 'Y-m-d',
             	allowBlank:true,
                 width: 110
 			}]
@@ -394,7 +410,7 @@ cf.todoFilterPanel = function(){return {
 			labelWidth:300,
 			width: 225
 		});
-		this.theMailinglistCombo.store.load();
+		
 	},
 	
 	
@@ -421,7 +437,7 @@ cf.todoFilterPanel = function(){return {
 			forceSelection:true,
 			width: 225
 		});
-		this.theDocumenttemplateCombo.store.load();
+		
 	},
 	
 	
@@ -449,7 +465,7 @@ cf.todoFilterPanel = function(){return {
 			labelWidth:300,
 			width: 225
 		});
-		this.theSenderCombo.store.load();
+		
 		
 	},
 	
@@ -477,7 +493,7 @@ cf.todoFilterPanel = function(){return {
 			labelWidth:300,
 			width: 225
 		});
-		this.theCurrentStation.store.load();
+		
 		
 		
 	}

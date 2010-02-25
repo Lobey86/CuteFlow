@@ -67,12 +67,10 @@ cf.todoFilterFilter = function(){return {
 									var filterData = Ext.util.JSON.decode(objServerResponse.responseText);
 									var data = filterData.result;
 									
-									
-									
 									if(data.name != '') {
 										cf.todoFilterPanel.theName.setValue(data.name);
 									}
-									if (data.sender_id != 0 && data.sender_id != '') {
+									if (data.sender_id != 0 && data.sender_id != '' && data.sender_id != -1) {
 										cf.todoFilterPanel.theSenderCombo.setValue(data.sender_id);
 									}
 									if (data.daysfrom != '') {
@@ -89,15 +87,15 @@ cf.todoFilterFilter = function(){return {
 										Ext.getCmp('todofilter_sendetto').setValue(data.sendetto);
 									}
 									
-									if(data.workflowprocessuser_id != 0 && data.workflowprocessuser_id != '') {
+									if(data.workflowprocessuser_id != 0 && data.workflowprocessuser_id != '' & data.workflowprocessuser_id != -1) {
 										cf.todoFilterPanel.theCurrentStation.setValue(data.workflowprocessuser_id);
 									}
 									
-									if(data.documenttemplateversion_id != 0 && data.documenttemplateversion_id != '') {
+									if(data.documenttemplateversion_id != 0 && data.documenttemplateversion_id != '' && data.documenttemplateversion_id != -1) {
 										cf.todoFilterPanel.theDocumenttemplateCombo.setValue(data.documenttemplateversion_id);
 									}
 									
-									if(data.mailinglistversion_id != 0 && data.mailinglistversion_id != '') {
+									if(data.mailinglistversion_id != 0 && data.mailinglistversion_id != '' && data.mailinglistversion_id != -1) {
 										cf.todoFilterPanel.theMailinglistCombo.setValue(data.mailinglistversion_id);
 									}
 									
