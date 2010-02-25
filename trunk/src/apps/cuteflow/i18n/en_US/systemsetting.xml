@@ -558,6 +558,10 @@
         <source>Workflow Circulation settings</source>
         <target>Workflow Circulation settings</target>
      </trans-unit>
+	 <trans-unit id="139">
+        <source>Allow System to send Emails</source>
+		<target>Allow System to send Emails</target>
+     </trans-unit>
     </body>
   </file>
 </xliff>

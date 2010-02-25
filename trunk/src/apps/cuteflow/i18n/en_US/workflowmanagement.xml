@@ -606,6 +606,118 @@
 			<source>Move right</source>
 			<target>Move right</target>
 		</trans-unit>
+		<trans-unit id="137">
+			<source>Reset Filter</source>
+			<target>Reset Filter</target>
+		</trans-unit>
+		<trans-unit id="138">
+			<source>Saving Data</source>
+			<target>Saving Data</target>
+		</trans-unit>
+		<trans-unit id="139">
+			<source>Please enter Filtername</source>
+			<target>Please enter Filtername</target>
+		</trans-unit>
+		<trans-unit id="140">
+			<source>Enter Filtername</source>
+			<target>Enter Filtername</target>
+		</trans-unit>
+		<trans-unit id="141">
+			<source>Searchbar</source>
+			<target>Searchbar</target>
+		</trans-unit>
+		<trans-unit id="142">
+			<source>Search</source>
+			<target>Search</target>
+		</trans-unit>
+		<trans-unit id="143">
+			<source>Save filter</source>
+			<target>Save filter</target>
+		</trans-unit>
+		<trans-unit id="144">
+			<source>Add new Search item</source>
+			<target>Add new Search item</target>
+		</trans-unit>
+		<trans-unit id="145">
+			<source>Field</source>
+			<target>Field</target>
+		</trans-unit>
+		<trans-unit id="146">
+			<target>Operator</target>
+			<source>Operator</source>
+		</trans-unit>
+		<trans-unit id="147">
+			<source>Value</source>
+			<target>Value</target>
+		</trans-unit>
+		<trans-unit id="148">
+			<source>Fields</source>
+			<target>Fields</target>
+		</trans-unit>
+		<trans-unit id="149">
+			<source>Days from</source>
+			<target>Days from</target>
+		</trans-unit>
+		<trans-unit id="150">
+			<source>to</source>
+			<target>to</target>
+		</trans-unit>
+		<trans-unit id="151">
+			<source>Sendet from</source>
+			<target>Sendet from</target>
+		</trans-unit>
+		<trans-unit id="152">
+			<source>to</source>
+			<target>to</target>
+		</trans-unit>
+		<trans-unit id="153">
+			<source>Name</source>
+			<target>Name</target>
+		</trans-unit>
+		<trans-unit id="154">
+			<source>Mailing list</source>
+			<target>Mailing list</target>
+		</trans-unit>
+		<trans-unit id="155">
+			<source>Documenttemplate</source>
+			<target>Documenttemplate</target>
+		</trans-unit>
+		<trans-unit id="156">
+			<source>Sender</source>
+			<target>Sender</target>
+		</trans-unit>
+		<trans-unit id="157">
+			<source>Active Station</source>
+			<target>Active Station</target>
+		</trans-unit>
+		<trans-unit id="158">
+			<source>Filter Name</source>
+			<target>Filter Name</target>
+		</trans-unit>
+		<trans-unit id="159">
+			<source>Load Filter</source>
+			<target>Load Filter</target>
+		</trans-unit>
+		<trans-unit id="160">
+			<source>Delete Filter</source>
+			<target>Delete Filter</target>
+		</trans-unit>
+		<trans-unit id="161">
+			<source>Loading Filter</source>
+			<target>Loading Filter</target>
+		</trans-unit>
+		<trans-unit id="162">
+			<source>Delete Filter</source>
+			<target>Delete Filter</target>
+		</trans-unit>
+		<trans-unit id="163">
+			<source>Available Filters</source>
+			<target>Available Filters</target>
+		</trans-unit>
+		<trans-unit id="164">
+			<source>Reset</source>
+			<target>Reset</target>
+		</trans-unit>
 	</body>
   </file>
 </xliff>

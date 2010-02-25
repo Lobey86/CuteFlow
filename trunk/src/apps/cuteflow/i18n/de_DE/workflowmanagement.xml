@@ -606,6 +606,118 @@
 			<source>Move right</source>
 			<target>Nach rechts</target>
 		</trans-unit>
+		<trans-unit id="137">
+			<source>Reset Filter</source>
+			<target>Filter zur&#252;ck setzen</target>
+		</trans-unit>
+		<trans-unit id="138">
+			<source>Saving Data</source>
+			<target>Speichere Daten</target>
+		</trans-unit>
+		<trans-unit id="139">
+			<source>Please enter Filtername</source>
+			<target>Bitte Filtername angeben</target>
+		</trans-unit>
+		<trans-unit id="140">
+			<source>Enter Filtername</source>
+			<target>Filtername eingeben</target>
+		</trans-unit>
+		<trans-unit id="141">
+			<source>Searchbar</source>
+			<target>Suche</target>
+		</trans-unit>
+		<trans-unit id="142">
+			<source>Search</source>
+			<target>Suchen</target>
+		</trans-unit>
+		<trans-unit id="143">
+			<source>Save filter</source>
+			<target>Filter speichern</target>
+		</trans-unit>
+		<trans-unit id="144">
+			<source>Add new Search item</source>
+			<target>Neuer Sucheintrag anlegen</target>
+		</trans-unit>
+		<trans-unit id="145">
+			<source>Field</source>
+			<target>Feld</target>
+		</trans-unit>
+		<trans-unit id="146">
+			<target>Operator</target>
+			<source>Operand</source>
+		</trans-unit>
+		<trans-unit id="147">
+			<source>Value</source>
+			<target>Wert</target>
+		</trans-unit>
+		<trans-unit id="148">
+			<source>Fields</source>
+			<target>Felder</target>
+		</trans-unit>
+		<trans-unit id="149">
+			<source>Days from</source>
+			<target>Tage von</target>
+		</trans-unit>
+		<trans-unit id="150">
+			<source>to</source>
+			<target>bis</target>
+		</trans-unit>
+		<trans-unit id="151">
+			<source>Sendet from</source>
+			<target>Gesendet am</target>
+		</trans-unit>
+		<trans-unit id="152">
+			<source>to</source>
+			<target>bis</target>
+		</trans-unit>
+		<trans-unit id="153">
+			<source>Name</source>
+			<target>Name</target>
+		</trans-unit>
+		<trans-unit id="154">
+			<source>Mailing list</source>
+			<target>Verteiler</target>
+		</trans-unit>
+		<trans-unit id="155">
+			<source>Documenttemplate</source>
+			<target>Dokumentenvorlage</target>
+		</trans-unit>
+		<trans-unit id="156">
+			<source>Sender</source>
+			<target>Sender</target>
+		</trans-unit>
+		<trans-unit id="157">
+			<source>Active Station</source>
+			<target>Aktive Station</target>
+		</trans-unit>
+		<trans-unit id="158">
+			<source>Filter Name</source>
+			<target>Filter Name</target>
+		</trans-unit>
+		<trans-unit id="159">
+			<source>Load Filter</source>
+			<target>Lade Filter</target>
+		</trans-unit>
+		<trans-unit id="160">
+			<source>Delete Filter</source>
+			<target>L&#246;sche Filter</target>
+		</trans-unit>
+		<trans-unit id="161">
+			<source>Loading Filter</source>
+			<target>Lade Filter</target>
+		</trans-unit>
+		<trans-unit id="162">
+			<source>Delete Filter</source>
+			<target>Filter l&#246;schen</target>
+		</trans-unit>
+		<trans-unit id="163">
+			<source>Available Filters</source>
+			<target>Verf&#252;gbare Filter</target>
+		</trans-unit>
+		<trans-unit id="164">
+			<source>Reset</source>
+			<target>Zur&#252;ck setzen</target>
+		</trans-unit>
 	</body>
   </file>
 </xliff>
