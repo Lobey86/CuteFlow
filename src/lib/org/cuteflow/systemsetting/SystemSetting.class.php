@@ -87,8 +87,9 @@ class SystemSetting {
      * @return array $data
      */
     public function buildEmailSetting(array $data) {
-        $data['emailtab_encryption'] = $data['emailtab_encryption'] == 'NONE' ? '' : $data['emailtab_encryption'];
-        $data['email_smtp_auth'] = isset($data['email_smtp_auth']) ? 1 : 0;
+        //$data['emailtab_encryption'] = $data['emailtab_encryption'] == 'NONE' ? '' : $data['emailtab_encryption'];
+        //$data['email_smtp_auth'] = isset($data['email_smtp_auth']) ? 1 : 0;
+        $data['email_allowsendingemails'] = isset($data['emailtab_allowsendingemails']) ? 1 : 0;
         return $data;
     }
 

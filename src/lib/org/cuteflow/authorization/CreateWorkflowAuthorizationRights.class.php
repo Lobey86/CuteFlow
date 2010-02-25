@@ -20,8 +20,6 @@ class CreateWorkflowAuthorizationRights {
         $role = RoleTable::instance()->getRoleByUserId($userId)->toArray();
         $this->userroleName = $role[0]['description'];
         $this->userId = $userId;
-
-        
     }
 
 
