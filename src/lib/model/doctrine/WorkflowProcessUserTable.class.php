@@ -90,6 +90,7 @@ class WorkflowProcessUserTable extends Doctrine_Table {
             ->execute();
     }
 
+
     public function getWaitingStationToStopByUser($version_id) {
         return Doctrine_Query::create()
             ->select('wfpu.*')
