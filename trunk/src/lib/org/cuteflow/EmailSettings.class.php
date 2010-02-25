@@ -63,7 +63,15 @@ class EmailSettings {
                 $message->attach(Swift_Attachment::newInstance($filecontent, $file['filename']));
             }
         }
-        $mailerObject->send($message);
+        try {
+            $sendingright = EmailConfigurationTable::instance()->getEmailConfiguration()->toArray();
+            if($sendingright[0]['allowemailtransport'] == 1) {
+                $mailerObject->send($message);
+            }
+        }
+        catch (Exception $e) {
+            
+        }
         
     }
 
