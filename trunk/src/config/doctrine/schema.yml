@@ -129,6 +129,7 @@ EmailConfiguration:
     smtpencryption: { type: string(100)}
     sendmailpath: { type: string(100)}
     systemreplyaddress: { type: string(100)}
+    allowemailtransport: { type: integer(1), length: 3}
     activetype: { type: string(20)}
 
 SystemConfiguration:
@@ -361,7 +362,7 @@ DocumenttemplateVersion:
   relations:
     DocumenttemplateSlot: { class: DocumenttemplateSlot, local: id, foreign: documenttemplateversion_id, foreignType: many, type: one }
     MailinglistVersion: { class: MailinglistVersion, local: id, foreign: documenttemplateversion_id, foreignType: many, type: one }
-
+    WorkflowTemplate: { class: WorkflowTemplate, local: id, foreign: documenttemplateversion_id, foreignType: many, type: one }
 
 DocumenttemplateSlot:
   tableName: cf_documenttemplateslot
@@ -455,6 +456,7 @@ WorkflowTemplate:
   columns:
     id: { type: integer, length: 10, primary: true, autoincrement: true }
     mailinglisttemplateversion_id: { type: integer, length: 10 }
+    documenttemplateversion_id: { type: integer, length: 10 }
     sender_id: { type: integer, length: 10 }
     name: {type: string(100) }
     isstopped: { type: integer(1), length: 3 }
