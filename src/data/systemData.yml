@@ -279,6 +279,7 @@ EmailConfiguration:
      smtpport: 25
      smtphost: cuteflow
      systemreplyaddress: mschaefer1982@gmx.de
+     allowemailtransport: 0
 
 SystemConfiguration:
    sc1:
