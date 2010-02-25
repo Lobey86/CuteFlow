@@ -30,7 +30,7 @@ cf.archiveFilterPanel = function(){return {
 		this.initCurrentStationCombo();
 		this.initDaysInProgress();
 		this.initSendetAt();
-		this.initPanel(id);
+		this.initPanel();
 		this.initCM();
 		this.initTopToolBar();
 		this.initFieldGrid();
@@ -55,17 +55,24 @@ cf.archiveFilterPanel = function(){return {
 		    layout: 'column',
 		    plain: false,
 		    width: 'auto',
-		    id: 'archiveColumnPanel',
+		    style:'margin-top:5px;margin-left:5px;margin-right:5px;',
 		    height: 480,
+		    id: 'archiveColumnPanel',
 			collapsible:true,
 			collapsed: true,
-		    title: '<?php echo __('Searchbar',null,'archivemanagement'); ?>',
+		    title: '<?php echo __('Searchbar',null,'workflowmanagement'); ?>',
 			border: true,
 			layoutConfig: {
 				columns: 2,
 				fitHeight: true,
 				split: true
 			}
+		});
+		this.theColumnPanel.on('beforeexpand', function(panel) {
+			cf.archiveFilterPanel.theMailinglistCombo.store.load();
+			cf.archiveFilterPanel.theDocumenttemplateCombo.store.load();
+			cf.archiveFilterPanel.theSenderCombo.store.load();
+			cf.archiveFilterPanel.theCurrentStation.store.load();
 		});
 		
 		
@@ -111,12 +118,19 @@ cf.archiveFilterPanel = function(){return {
 				height:25,
 				style:'margin-bottom:5px;margin-left:35px;',
 				handler: function (){
-					alert('suchen');
+					var url = cf.createFilterUrl.buildUrl(cf.archiveFilterPanel.theName, cf.archiveFilterPanel.theSenderCombo, Ext.getCmp('archivefilter_daysfrom'), Ext.getCmp('archivefilter_daysto'), Ext.getCmp('archivefilter_sendetfrom'),Ext.getCmp('archivefilter_sendetto'), cf.archiveFilterPanel.theCurrentStation, cf.archiveFilterPanel.theMailinglistCombo, cf.archiveFilterPanel.theDocumenttemplateCombo, cf.archiveFilterPanel.theFieldGrid, 'archive');                                         
+					if(url != '') {
+						var loadUrl = encodeURI('<?php echo build_dynamic_javascript_url('archiveoverview/LoadAllArchivedWorkflowByFilter')?>' + url);
+						cf.archiveWorkflow.theArchiveStore.proxy.setApi(Ext.data.Api.actions.read,loadUrl);
+						cf.archiveWorkflow.theArchiveStore.load();
+					}	
+					cf.archiveFilterPanel.theColumnPanel.expand(false);
+					cf.archiveFilterPanel.theColumnPanel.collapse(true);
 				}
 			},{
 				xtype: 'button',
 				icon: '/images/icons/disk.png',
-				text: '<?php echo __('Save filter',null,'archivemanagement'); ?>',
+				text: '<?php echo __('Save filter',null,'workflowmanagement'); ?>',
 				width: 100,
 				height:25,
 				style:'margin-bottom:5px;margin-left:35px;',
@@ -126,14 +140,18 @@ cf.archiveFilterPanel = function(){return {
 			},{
 				xtype: 'button',
 				icon: '/images/icons/delete.png',
-				text: '<?php echo __('Reset',null,'archivemanagement'); ?>',
+				text: '<?php echo __('Reset',null,'workflowmanagement'); ?>',
 				width: 100,
 				height:25,
 				type: 'reset',
 				style:'margin-bottom:5px;margin-left:25px;',
 				handler: function () {
+					cf.archiveFilterPanel.theCounter = 0;
 					cf.archiveFilterPanel.theSearchPanel.getForm().reset();
 					cf.archiveFilterPanel.theFieldGrid.store.removeAll();
+					var loadUrl = '<?php echo build_dynamic_javascript_url('archiveoverview/LoadAllArchivedWorkflow')?>';
+					cf.archiveWorkflow.theArchiveStore.proxy.setApi(Ext.data.Api.actions.read,loadUrl);
+					cf.archiveWorkflow.theArchiveStore.load();
 				}
 			}]
 		});
@@ -150,7 +168,7 @@ cf.archiveFilterPanel = function(){return {
 		this.theToolBar = new Ext.Toolbar({
 			items:[{
 				icon: '/images/icons/zoom_in.png',
-		        tooltip:'<?php echo __('Add new Mailing List',null,'archivemanagement'); ?>',
+		        tooltip:'<?php echo __('Add new Search item',null,'workflowmanagement'); ?>',
 		        handler: function () {
 		        	cf.archiveFilterPanel.addSearchItem();
 		        }
@@ -163,6 +181,7 @@ cf.archiveFilterPanel = function(){return {
 		var combo = new Ext.form.ComboBox({
 			valueField: 'id',
 			displayField: 'title',
+			id: 'archiveFilterField_' + id,
 			editable: false,
 			hiddenName: 'field['+id+']',
 			mode: 'local',
@@ -188,25 +207,25 @@ cf.archiveFilterPanel = function(){return {
 	
 	renderCombo: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 		var counter = cf.archiveFilterPanel.theCounter;
-		cf.archiveFilterPanel.addFieldCombo.defer(200,this,[counter]);
+		cf.archiveFilterPanel.addFieldCombo.defer(100,this,[counter]);
 		return '<div id="ARCHIVEFIELD_'+ counter +'"></div>';
 	},
 	
 	renderOperator: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 		var counter = cf.archiveFilterPanel.theCounter;
-		cf.archiveFilterPanel.addOperatorCombo.defer(200,this,[counter]);
+		cf.archiveFilterPanel.addOperatorCombo.defer(100,this,[counter]);
 		return '<div id="ARCHIVEOPERATOR_'+ counter +'"></div>';
 	},
 	
 	renderTextfeld: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 		var counter = cf.archiveFilterPanel.theCounter;
-		cf.archiveFilterPanel.addValueTextfield.defer(200,this,[counter]);
+		cf.archiveFilterPanel.addValueTextfield.defer(100,this,[counter]);
 		return '<div id="ARCHIVEVALUE_'+ counter +'"></div>';
 	},
 	
 	renderAction: function (data, cell, record, rowIndex, columnIndex, store, grid) {
 		var counter = cf.archiveFilterPanel.theCounter++;
-		cf.archiveFilterPanel.addDeleteButton.defer(200,this,[counter]);
+		cf.archiveFilterPanel.addDeleteButton.defer(100,this,[counter]);
 		return '<div id="ARCHIVEACTION_'+ counter +'"></div>';
 	},
 	
@@ -214,6 +233,7 @@ cf.archiveFilterPanel = function(){return {
 	addValueTextfield: function (id) {
 		var textfield = new Ext.form.TextField({
 			allowBlank: true,
+			id: 'archiveFilterValue_' + id,
 			name: 'value['+id+']',
 			width: 110
 		});
@@ -243,11 +263,12 @@ cf.archiveFilterPanel = function(){return {
 			valueField: 'id',
 			displayField: 'title',
 			editable: false,
+			id: 'archiveFilterOperator_' + id,
 			hiddenName: 'operator['+id+']',
 			mode: 'local',
 			store: new Ext.data.SimpleStore({
 				fields: [{name: 'id'},{name: 'title'}],
-				data:[['=', '='],['<','<'],['>', '>'],['<=', '<='],['>=', '>='],['~', '<?php echo __('~ (like)',null,'archivemanagement'); ?>']]
+				data:[['=', '='],['<','<'],['>', '>'],['<=', '<='],['>=', '>='],['~', '<?php echo __('~ (like)',null,'workflowmanagement'); ?>']]
 			}),
 			triggerAction: 'all',
 			selectOnFocus:true,
@@ -260,10 +281,10 @@ cf.archiveFilterPanel = function(){return {
 	
 	initCM: function () {
 		this.theGridCM = new Ext.grid.ColumnModel([
-			{header: "<?php echo __('Field',null,'archivemanagement'); ?>", width: 160, sortable: true, dataIndex: 'field', css : "text-align : left;font-size:12px;align:center;", renderer: this.renderCombo},
-			{header: "<?php echo __('Operator',null,'archivemanagement'); ?>", width: 130, sortable: true, dataIndex: 'operator', css : "text-align : left;font-size:12px;align:center;", renderer: this.renderOperator},
-			{header: "<?php echo __('Value',null,'archivemanagement'); ?>", width: 130, sortable: true, dataIndex: 'value', css : "text-align : left;font-size:12px;align:center;", renderer:this.renderTextfeld},
-			{header: "<?php echo __('Action',null,'archivemanagement'); ?>", width: 45, sortable: true, dataIndex: 'unique_id', css : "text-align : left;font-size:12px;align:center;", renderer:this.renderAction}		
+			{header: "<?php echo __('Field',null,'workflowmanagement'); ?>", width: 160, sortable: true, dataIndex: 'field', css : "text-align : left;font-size:12px;align:center;", renderer: this.renderCombo},
+			{header: "<?php echo __('Operator',null,'workflowmanagement'); ?>", width: 130, sortable: true, dataIndex: 'operator', css : "text-align : left;font-size:12px;align:center;", renderer: this.renderOperator},
+			{header: "<?php echo __('Value',null,'workflowmanagement'); ?>", width: 130, sortable: true, dataIndex: 'value', css : "text-align : left;font-size:12px;align:center;", renderer:this.renderTextfeld},
+			{header: "<?php echo __('Action',null,'workflowmanagement'); ?>", width: 45, sortable: true, dataIndex: 'unique_id', css : "text-align : left;font-size:12px;align:center;", renderer:this.renderAction}		
 		]);
 		
 	},
@@ -272,7 +293,7 @@ cf.archiveFilterPanel = function(){return {
 	
 	initFieldGrid: function () {
 		this.theFieldGrid = new Ext.grid.GridPanel({
-			title: '<?php echo __('Fields',null,'archivemanagement'); ?>',
+			title: '<?php echo __('Fields',null,'workflowmanagement'); ?>',
 			stripeRows: true,
 			border: true,
 			width: 500,
@@ -298,7 +319,7 @@ cf.archiveFilterPanel = function(){return {
 	
 	initDaysInProgress: function () {
 		this.daysInProgress = new Ext.Panel({
-			fieldLabel: '<?php echo __('Days from',null,'archivemanagement'); ?>...<?php echo __('to',null,'archivemanagement'); ?>',
+			fieldLabel: '<?php echo __('Days from',null,'workflowmanagement'); ?>...<?php echo __('to',null,'workflowmanagement'); ?>',
 			border: false,
 			layout: 'column',
 			layoutConfig: {
@@ -307,15 +328,17 @@ cf.archiveFilterPanel = function(){return {
 			items:[{
 				xtype: 'textfield',
 				style: 'margin-right:5px;',
+				id: 'archivefilter_daysfrom',
 				name: 'filter_daysinprogress_from',
 				allowBlank: true,
-				width: 80
+				width: 116
 			},{
 				xtype: 'textfield',
 				allowBlank: true,
+				id: 'archivefilter_daysto',
 				name: 'filter_daysinprogress_to',
 				style: 'margin-right:5px;',
-				width: 80
+				width: 116
 			}]
 		});	
 		
@@ -323,7 +346,7 @@ cf.archiveFilterPanel = function(){return {
 	
 	initSendetAt: function () {
 		this.sendetAt = new Ext.Panel({
-			fieldLabel: '<?php echo __('Sendet from',null,'archivemanagement'); ?>...<?php echo __('to',null,'archivemanagement'); ?>',
+			fieldLabel: '<?php echo __('Sendet from',null,'workflowmanagement'); ?>...<?php echo __('to',null,'workflowmanagement'); ?>',
 			border: false,
 			layout: 'column',
 			layoutConfig: {
@@ -331,8 +354,9 @@ cf.archiveFilterPanel = function(){return {
 			},
 			items:[{
                 xtype:'datefield',
-                format: 'd-m-Y',
                 name: 'filter_sendet_from',
+                format: 'Y-m-d',
+                id: 'archivefilter_sendetfrom',
             	allowBlank:true,
                 width: 111
 
@@ -342,8 +366,9 @@ cf.archiveFilterPanel = function(){return {
 				border: false,
 			},{
                 xtype:'datefield',
-                format: 'd-m-Y',
                 name: 'filter_sendet_to',
+                id: 'archivefilter_sendetto',
+                format: 'Y-m-d',
             	allowBlank:true,
                 width: 110
 			}]
@@ -353,7 +378,7 @@ cf.archiveFilterPanel = function(){return {
 	
 	initName: function () {
 		this.theName = new Ext.form.TextField({
-			fieldLabel: '<?php echo __('Name',null,'archivemanagement'); ?>',
+			fieldLabel: '<?php echo __('Name',null,'workflowmanagement'); ?>',
 			allowBlank: true,
 			style: 'margin-top:2px;',
 			name: 'filter_name',
@@ -363,12 +388,12 @@ cf.archiveFilterPanel = function(){return {
 	
 	initMailinglistCombo: function () {
 		this.theMailinglistCombo = 	new Ext.form.ComboBox({
-			fieldLabel: '<?php echo __('Mailing list',null,'archivemanagement'); ?>',
+			fieldLabel: '<?php echo __('Mailing list',null,'workflowmanagement'); ?>',
 			valueField: 'id',
 			displayField: 'name',
 			hiddenName:'filter_mailinglist',
 			editable: false,
-			mode: 'remote',
+			mode: 'local',
 			store: new Ext.data.JsonStore({
 				root: 'result',
 				url: '<?php echo build_dynamic_javascript_url('filter/LoadMailinglist')?>',
@@ -391,12 +416,12 @@ cf.archiveFilterPanel = function(){return {
 	
 	initDocumenttemplateCombo: function (){
 		this.theDocumenttemplateCombo = new Ext.form.ComboBox({
-			fieldLabel: '<?php echo __('Documenttemplate',null,'archivemanagement'); ?>',
+			fieldLabel: '<?php echo __('Documenttemplate',null,'workflowmanagement'); ?>',
 			valueField: 'id',
 			displayField: 'name',
 			editable: false,
 			hiddenName: 'filter_documenttemplate',
-			mode: 'remote',
+			mode: 'local',
 			store: new Ext.data.JsonStore({
 				root: 'result',
 				url: '<?php echo build_dynamic_javascript_url('filter/LoadDocumenttemplate')?>',
@@ -412,17 +437,18 @@ cf.archiveFilterPanel = function(){return {
 			forceSelection:true,
 			width: 225
 		});
+		
 	},
 	
 	
 	initSenderCombo: function () {
 		this.theSenderCombo = new Ext.form.ComboBox({
-			fieldLabel: '<?php echo __('Sender',null,'archivemanagement'); ?>',
+			fieldLabel: '<?php echo __('Sender',null,'workflowmanagement'); ?>',
 			valueField: 'id',
 			displayField: 'name',			
 			hiddenName:'filter_sender',
 			editable: false,
-			mode: 'remote',
+			mode: 'local',
 			store: new Ext.data.JsonStore({
 				root: 'result',
 				url: '<?php echo build_dynamic_javascript_url('filter/LoadSender')?>',
@@ -440,16 +466,17 @@ cf.archiveFilterPanel = function(){return {
 			width: 225
 		});
 		
+		
 	},
 	
 	initCurrentStationCombo: function () {
 		this.theCurrentStation = new Ext.form.ComboBox({
-			fieldLabel: '<?php echo __('Active Station',null,'archivemanagement'); ?>',
+			fieldLabel: '<?php echo __('Active Station',null,'workflowmanagement'); ?>',
 			valueField: 'id',
 			displayField: 'name',
 			editable: false,
 			hiddenName: 'filter_currentstation',
-			mode: 'remote',
+			mode: 'local',
 			store: new Ext.data.JsonStore({
 				root: 'result',
 				url: '<?php echo build_dynamic_javascript_url('filter/LoadStation')?>',
@@ -466,6 +493,7 @@ cf.archiveFilterPanel = function(){return {
 			labelWidth:300,
 			width: 225
 		});
+		
 		
 		
 	}

@@ -32,4 +32,20 @@ class todooverviewActions extends sfActions {
     }
 
 
+
+    public function executeLoadAllOwnWorkflowByFilter(sfWebRequest $request) {
+        $limit = $this->getUser()->getAttribute('userSettings');
+        $workflow = new WorkflowOverview($this->getContext(), $this->getUser());
+        $workflow->setUserId($this->getUser()->getAttribute('id'));
+        $workflow->setCulture($this->getUser()->getCulture());
+        $filter = new FilterManagement();
+        $filterOptions = $filter->checkFilter($request);
+        $anz = WorkflowTemplateTable::instance()->getAllToDoWorkflowTemplatesByFilter(-1,-1,$this->getUser()->getAttribute('id'), $filterOptions);
+        $data = WorkflowTemplateTable::instance()->getAllToDoWorkflowTemplatesByFilter($request->getParameter('limit',$limit['displayeditem']),$request->getParameter('start',0),$this->getUser()->getAttribute('id'), $filterOptions);
+
+        $json_data = $workflow->buildData($data, $request->getParameter('start',0));
+        $this->renderText('({"total":"'.count($anz).'","result":'.json_encode($json_data).'})');
+        return sfView::NONE;
+    }
+
 }

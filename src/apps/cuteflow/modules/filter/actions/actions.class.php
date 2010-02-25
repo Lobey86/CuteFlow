@@ -68,10 +68,10 @@ class filterActions extends sfActions
 
     public function executeSaveFilter(sfWebRequest $request) {
 		
-		$sender_id = $request->getPostParameter('filter_sender') == '' ? -1 : $request->getPostParameter('filter_sender');
-		$currentStation_id = $request->getPostParameter('filter_currentstation') == '' ? -1 : $request->getPostParameter('filter_currentstation');
-		$mailingList = $request->getPostParameter('filter_mailinglist') == '' ? -1 : $request->getPostParameter('filter_mailinglist');
-		$documentTemplate = $request->getPostParameter('filter_documenttemplate') == '' ? -1 : $request->getPostParameter('filter_documenttemplate');	
+        $sender_id = $request->getPostParameter('filter_sender') == '' ? -1 : $request->getPostParameter('filter_sender');
+        $currentStation_id = $request->getPostParameter('filter_currentstation') == '' ? -1 : $request->getPostParameter('filter_currentstation');
+        $mailingList = $request->getPostParameter('filter_mailinglist') == '' ? -1 : $request->getPostParameter('filter_mailinglist');
+        $documentTemplate = $request->getPostParameter('filter_documenttemplate') == '' ? -1 : $request->getPostParameter('filter_documenttemplate');
 
         $filter = new Filter();
         $filter->setFiltername($request->getPostParameter('filter_hiddenname',''));

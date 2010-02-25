@@ -7,6 +7,7 @@ cf.workflowFilterFilter = function(){return {
 	theCM					:false,
 	theStore				:false,
 	theId					:false,
+	theLoadingMask			:false,
 	
 	
 	init: function () {
@@ -43,17 +44,80 @@ cf.workflowFilterFilter = function(){return {
 		var id = record.data['id'];
 		var btnEdit1 = cf.workflowFilterFilter.createLoadButton.defer(10,this, [id]);
 		var btnEdit2 = cf.workflowFilterFilter.createDeleteButton.defer(10,this, [id]);
-		return '<center><table><tr><td width="16"><div id="WorkflowFilterLoad'+ id +'"></div></td><td width="16"><div id="WorkflowFilterDelete'+ id +'"></div></td></tr></table></center>';
+		return '<center><table><tr><td width="16"><div id="workflowFilterLoad'+ id +'"></div></td><td width="16"><div id="workflowFilterDelete'+ id +'"></div></td></tr></table></center>';
 	},
 	
 	createLoadButton: function (id, idName) {
 		var btn_copy = new Ext.form.Label({
 			html: '<span style="cursor:pointer;"><img src="/images/icons/wand.png" /></span>',
-			renderTo: 'WorkflowFilterLoad'+ id,
+			renderTo: 'workflowFilterLoad'+ id,
 			listeners: {
 				render: function(c){
 					c.getEl().on({
 						click: function(el){
+							cf.workflowFilterPanel.theSearchPanel.getForm().reset();
+							cf.workflowFilterPanel.theFieldGrid.store.removeAll();
+							cf.workflowFilterPanel.theCounter = 0;
+							cf.workflowFilterFilter.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Filter',null,'workflowmanagement'); ?>...'});					
+							cf.workflowFilterFilter.theLoadingMask.show();
+							Ext.Ajax.request({  
+								url : '<?php echo build_dynamic_javascript_url('filter/LoadSingleFilter')?>/id/' + id,
+								success: function(objServerResponse){
+									
+									var filterData = Ext.util.JSON.decode(objServerResponse.responseText);
+									var data = filterData.result;
+									
+									if(data.name != '') {
+										cf.workflowFilterPanel.theName.setValue(data.name);
+									}
+									if (data.sender_id != 0 && data.sender_id != '' && data.sender_id != -1) {
+										cf.workflowFilterPanel.theSenderCombo.setValue(data.sender_id);
+									}
+									if (data.daysfrom != '') {
+										Ext.getCmp('workflowfilter_daysfrom').setValue(data.daysfrom);
+									}
+									if (data.daysto != '') {
+										Ext.getCmp('workflowfilter_daysto').setValue(data.daysto);
+									}
+									
+									if(data.sendetfrom != '') {
+										Ext.getCmp('workflowfilter_sendetfrom').setValue(data.sendetfrom);
+									}
+									if (data.sendetto != '') {
+										Ext.getCmp('workflowfilter_sendetto').setValue(data.sendetto);
+									}
+									
+									if(data.workflowprocessuser_id != 0 && data.workflowprocessuser_id != '' & data.workflowprocessuser_id != -1) {
+										cf.workflowFilterPanel.theCurrentStation.setValue(data.workflowprocessuser_id);
+									}
+									
+									if(data.documenttemplateversion_id != 0 && data.documenttemplateversion_id != '' && data.documenttemplateversion_id != -1) {
+										cf.workflowFilterPanel.theDocumenttemplateCombo.setValue(data.documenttemplateversion_id);
+									}
+									
+									if(data.mailinglistversion_id != 0 && data.mailinglistversion_id != '' && data.mailinglistversion_id != -1) {
+										cf.workflowFilterPanel.theMailinglistCombo.setValue(data.mailinglistversion_id);
+									}
+									
+									try{
+										var fields = data.fields;
+										for(var a=0;a<fields.length;a++) {
+											var item = fields[a];
+											var counter = cf.workflowFilterPanel.theCounter;
+											var Rec = Ext.data.Record.create({name: 'field'},{name: 'operator'},{name: 'value'},{name: 'unique_id'});
+											cf.workflowFilterPanel.theFieldGrid.store.add(new Rec({field: counter, operator: 'OPERATOR_' + counter, value: 'VALUE_' + counter, unique_id: counter}));
+											cf.workflowFilterFilter.addValues.defer(700,this,[a, item.field_id, item.operator, item.value]);
+										}
+										
+										
+									}
+									catch(e) {
+										
+									}
+									cf.workflowFilterFilter.theLoadingMask.hide();
+									
+								}
+							});
 						},
 					scope: c
 					});
@@ -62,11 +126,15 @@ cf.workflowFilterFilter = function(){return {
 		});
 	},
 	
-		
+	addValues: function (id, field_id, operator, value) {
+		Ext.getCmp('workflowFilterField_' + id).setValue(field_id);
+		Ext.getCmp('workflowFilterOperator_' + id).setValue(operator);
+		Ext.getCmp('workflowFilterValue_' + id).setValue(value);
+	},
 	createDeleteButton: function (id, idName) {
 		var btn_copy = new Ext.form.Label({
 			html: '<span style="cursor:pointer;"><img src="/images/icons/zoom_out.png" /></span>',
-			renderTo: 'WorkflowFilterDelete'+ id,
+			renderTo: 'workflowFilterDelete'+ id,
 			listeners: {
 				render: function(c){
 					c.getEl().on({

@@ -39,6 +39,7 @@ class createworkflowActions extends sfActions {
 
         $workflow = new WorkflowTemplate();
         $workflow->setMailinglisttemplateversionId($sendToAllSlotsAtOnce[0]['id']);
+        $workflow->setDocumenttemplateversionId($sendToAllSlotsAtOnce[0]['documenttemplateversion_id']);
         $workflow->setName($request->getPostParameter('createWorkflowFirstTab_name'));
         $workflow->setSenderId($this->getUser()->getAttribute('id'));
         $workflow->setIsarchived(0);

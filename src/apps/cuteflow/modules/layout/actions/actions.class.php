@@ -66,7 +66,17 @@ class layoutActions extends sfActions {
         return sfView::NONE;
     }
 
-    
+    /**
+     * Action Test
+     */
+    public function executeTest(sfWebRequest $request) {
+        $mail = new EmailSettings();
+        $mail->setReceiver('cuteflow@cuteflow.de');
+        $mail->setSender(array ('cuteflow@cuteflow.de' => 'cuteflow@cuteflow.de'));
+        $mail->setBody('fewfew');
+        $mail->sendEmail();
+        return sfView::NONE;
+    }
     public function executeLinklogin(sfWebRequest $request) {
 
         $settings = AuthenticationConfigurationTable::instance()->getAuthenticationConfiguration()->toArray();

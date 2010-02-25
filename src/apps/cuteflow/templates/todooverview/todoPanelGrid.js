@@ -87,7 +87,19 @@ cf.todoPanelGrid = function(){return {
 	/** init toolbar for grid, contains ajax search **/
 	initTopToolBar: function () {
 		this.theTopToolBar = new Ext.Toolbar({
-			items: ['->',{
+			items: [{
+				icon: '/images/icons/zoom_out.png',
+	            tooltip:'<?php echo __('Reset Filter',null,'workflowmanagement'); ?>',
+	            handler: function () {
+					cf.todoFilterPanel.theCounter = 0;
+					cf.todoFilterPanel.theSearchPanel.getForm().reset();
+					cf.todoFilterPanel.theFieldGrid.store.removeAll();
+					var loadUrl = '<?php echo build_dynamic_javascript_url('todooverview/LoadAllOwnWorkflow')?>';
+					cf.todoPanelGrid.theTodoStore.proxy.setApi(Ext.data.Api.actions.read,loadUrl);
+					cf.todoPanelGrid.theTodoStore.load();
+	            }
+				
+			},'->',{
             	xtype: 'label',
             	html: '<?php echo __('Items per Page',null,'usermanagement'); ?>: '
             },{

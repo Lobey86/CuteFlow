@@ -37,10 +37,17 @@ cf.emailTab = function(){return {
 		this.theEmailReplay = new Ext.form.FieldSet({
 			title: '<?php echo __('Reply Settings',null,'systemsetting'); ?>',
 			width: 600,
-			height: 70,
+			height: 90,
 			style: 'margin-top:20px;margin-left:5px;',
 			labelWidth: 330,
 			items:[{
+				xtype: 'checkbox',
+				width: 200,
+				id: 'emailtab_allowsendingemails',
+				allowBlank: false,
+				inputValue: "1",
+				fieldLabel: '<?php echo __('Allow System to send Emails',null,'systemsetting'); ?>?'
+			},{
 				xtype: 'textfield',
 				width: 200,
 				id: 'emailtab_systemreplyaddress',
@@ -178,6 +185,8 @@ cf.emailTab = function(){return {
 	/** add data for email tab to the combo and textfields **/
 	addData: function (data) {
 			Ext.getCmp('emailtab_systemreplyaddress').setValue(data.systemreplyaddress);
+			Ext.getCmp('emailtab_allowsendingemails').setValue(data.allowemailtransport);
+			
 			/*
 			Ext.getCmp('email_sendmail').setValue(data.sendmailpath);
 			Ext.getCmp('email_smtp_server').setValue(data.smtphost);
