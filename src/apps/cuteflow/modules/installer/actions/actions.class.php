@@ -44,6 +44,7 @@ class installerActions extends sfActions
         $data = $sysObj->buildEmailSetting($data);
         EmailConfigurationTable::instance()->updateEmailConfiguration($data);
         $taskCC = new sfCacheClearTask(sfContext::getInstance()->getEventDispatcher(), new sfFormatter());
+        UserLoginTable::instance()->updateEmail($data['productive_emailadresse']);
         $taskCC->run(array(), array());
         $this->renderText('{success:true}');
         return sfView::NONE;
