@@ -166,6 +166,8 @@ class WorkflowTemplateTable extends Doctrine_Table {
         
     }
 
+
+
     public function getSumAllToDoWorkflowTemplates($user_id) {
         return Doctrine_Query::create()
             ->from('WorkflowTemplate wft')
