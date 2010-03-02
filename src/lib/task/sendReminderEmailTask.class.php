@@ -50,7 +50,6 @@ EOF;
 
         $wfSettings = SystemConfigurationTable::instance()->getSystemConfiguration()->toArray();
         if($wfSettings[0]['sendremindermail'] == 1) {
-            
             $sendMail = new PrepareReminderEmail();
             $stillOpenWorkflows = array();
             $a = 0;
