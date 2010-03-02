@@ -13,27 +13,29 @@ abstract class BaseEmailConfigurationFormFilter extends BaseFormFilterDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'smtphost'           => new sfWidgetFormFilterInput(),
-      'smtpuseauth'        => new sfWidgetFormFilterInput(),
-      'smtpport'           => new sfWidgetFormFilterInput(),
-      'smtpusername'       => new sfWidgetFormFilterInput(),
-      'smtppassword'       => new sfWidgetFormFilterInput(),
-      'smtpencryption'     => new sfWidgetFormFilterInput(),
-      'sendmailpath'       => new sfWidgetFormFilterInput(),
-      'systemreplyaddress' => new sfWidgetFormFilterInput(),
-      'activetype'         => new sfWidgetFormFilterInput(),
+      'smtphost'            => new sfWidgetFormFilterInput(),
+      'smtpuseauth'         => new sfWidgetFormFilterInput(),
+      'smtpport'            => new sfWidgetFormFilterInput(),
+      'smtpusername'        => new sfWidgetFormFilterInput(),
+      'smtppassword'        => new sfWidgetFormFilterInput(),
+      'smtpencryption'      => new sfWidgetFormFilterInput(),
+      'sendmailpath'        => new sfWidgetFormFilterInput(),
+      'systemreplyaddress'  => new sfWidgetFormFilterInput(),
+      'allowemailtransport' => new sfWidgetFormFilterInput(),
+      'activetype'          => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
-      'smtphost'           => new sfValidatorPass(array('required' => false)),
-      'smtpuseauth'        => new sfValidatorPass(array('required' => false)),
-      'smtpport'           => new sfValidatorPass(array('required' => false)),
-      'smtpusername'       => new sfValidatorPass(array('required' => false)),
-      'smtppassword'       => new sfValidatorPass(array('required' => false)),
-      'smtpencryption'     => new sfValidatorPass(array('required' => false)),
-      'sendmailpath'       => new sfValidatorPass(array('required' => false)),
-      'systemreplyaddress' => new sfValidatorPass(array('required' => false)),
-      'activetype'         => new sfValidatorPass(array('required' => false)),
+      'smtphost'            => new sfValidatorPass(array('required' => false)),
+      'smtpuseauth'         => new sfValidatorPass(array('required' => false)),
+      'smtpport'            => new sfValidatorPass(array('required' => false)),
+      'smtpusername'        => new sfValidatorPass(array('required' => false)),
+      'smtppassword'        => new sfValidatorPass(array('required' => false)),
+      'smtpencryption'      => new sfValidatorPass(array('required' => false)),
+      'sendmailpath'        => new sfValidatorPass(array('required' => false)),
+      'systemreplyaddress'  => new sfValidatorPass(array('required' => false)),
+      'allowemailtransport' => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'activetype'          => new sfValidatorPass(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('email_configuration_filters[%s]');
@@ -53,16 +55,17 @@ abstract class BaseEmailConfigurationFormFilter extends BaseFormFilterDoctrine
   public function getFields()
   {
     return array(
-      'id'                 => 'Number',
-      'smtphost'           => 'Text',
-      'smtpuseauth'        => 'Text',
-      'smtpport'           => 'Text',
-      'smtpusername'       => 'Text',
-      'smtppassword'       => 'Text',
-      'smtpencryption'     => 'Text',
-      'sendmailpath'       => 'Text',
-      'systemreplyaddress' => 'Text',
-      'activetype'         => 'Text',
+      'id'                  => 'Number',
+      'smtphost'            => 'Text',
+      'smtpuseauth'         => 'Text',
+      'smtpport'            => 'Text',
+      'smtpusername'        => 'Text',
+      'smtppassword'        => 'Text',
+      'smtpencryption'      => 'Text',
+      'sendmailpath'        => 'Text',
+      'systemreplyaddress'  => 'Text',
+      'allowemailtransport' => 'Number',
+      'activetype'          => 'Text',
     );
   }
 }
