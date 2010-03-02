@@ -17,6 +17,7 @@ abstract class BaseWorkflowTemplateForm extends BaseFormDoctrine
     $this->setWidgets(array(
       'id'                            => new sfWidgetFormInputHidden(),
       'mailinglisttemplateversion_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('MailinglistVersion'), 'add_empty' => true)),
+      'documenttemplateversion_id'    => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DocumenttemplateVersion'), 'add_empty' => true)),
       'sender_id'                     => new sfWidgetFormInputText(),
       'name'                          => new sfWidgetFormInputText(),
       'isstopped'                     => new sfWidgetFormInputText(),
@@ -36,6 +37,7 @@ abstract class BaseWorkflowTemplateForm extends BaseFormDoctrine
     $this->setValidators(array(
       'id'                            => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
       'mailinglisttemplateversion_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('MailinglistVersion'), 'required' => false)),
+      'documenttemplateversion_id'    => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('DocumenttemplateVersion'), 'required' => false)),
       'sender_id'                     => new sfValidatorInteger(array('required' => false)),
       'name'                          => new sfValidatorString(array('max_length' => 100, 'required' => false)),
       'isstopped'                     => new sfValidatorInteger(array('required' => false)),
