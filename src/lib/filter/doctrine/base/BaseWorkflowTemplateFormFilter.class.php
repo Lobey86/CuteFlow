@@ -14,6 +14,7 @@ abstract class BaseWorkflowTemplateFormFilter extends BaseFormFilterDoctrine
   {
     $this->setWidgets(array(
       'mailinglisttemplateversion_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('MailinglistVersion'), 'add_empty' => true)),
+      'documenttemplateversion_id'    => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DocumenttemplateVersion'), 'add_empty' => true)),
       'sender_id'                     => new sfWidgetFormFilterInput(),
       'name'                          => new sfWidgetFormFilterInput(),
       'isstopped'                     => new sfWidgetFormFilterInput(),
@@ -32,6 +33,7 @@ abstract class BaseWorkflowTemplateFormFilter extends BaseFormFilterDoctrine
 
     $this->setValidators(array(
       'mailinglisttemplateversion_id' => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('MailinglistVersion'), 'column' => 'id')),
+      'documenttemplateversion_id'    => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('DocumenttemplateVersion'), 'column' => 'id')),
       'sender_id'                     => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'name'                          => new sfValidatorPass(array('required' => false)),
       'isstopped'                     => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
@@ -67,6 +69,7 @@ abstract class BaseWorkflowTemplateFormFilter extends BaseFormFilterDoctrine
     return array(
       'id'                            => 'Number',
       'mailinglisttemplateversion_id' => 'ForeignKey',
+      'documenttemplateversion_id'    => 'ForeignKey',
       'sender_id'                     => 'Number',
       'name'                          => 'Text',
       'isstopped'                     => 'Number',
