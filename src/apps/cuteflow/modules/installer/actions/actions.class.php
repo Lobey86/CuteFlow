@@ -37,12 +37,14 @@ class installerActions extends sfActions
         $sysObj = new SystemSetting();
         $installer = new Installer();
         $data = $request->getPostParameters();
-        $data = $sysObj->buildEmailSetting($data);
-        EmailConfigurationTable::instance()->updateEmailConfiguration($data);
         $installer->createConfigFile($data);
         $task = new sfDoctrineBuildAllReLoadTask(sfContext::getInstance()->getEventDispatcher(), new sfFormatter());
         chdir(sfConfig::get('sf_root_dir'));
         $task->run(array(),array('--no-confirmation', '--env=all', '--dir='.sfConfig::get('sf_root_dir').'/data/fixtures/'.$data['productive_data'].''));
+        $data = $sysObj->buildEmailSetting($data);
+        EmailConfigurationTable::instance()->updateEmailConfiguration($data);
+        $taskCC = new sfCacheClearTask(sfContext::getInstance()->getEventDispatcher(), new sfFormatter());
+        $taskCC->run(array(), array());
         $this->renderText('{success:true}');
         return sfView::NONE;
     }
