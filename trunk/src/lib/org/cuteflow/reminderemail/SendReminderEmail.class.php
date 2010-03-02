@@ -1,6 +1,6 @@
 <?php
 
-class SendReminderEmail extends EmailSettings{
+class SendReminderEmail extends EmailSettings {
 
     public function  __construct(UserMailSettings $userSettings, sfContext $controller, array $openWorkflows, $serverUrl) {
         $sf_i18n = $controller->getI18N();

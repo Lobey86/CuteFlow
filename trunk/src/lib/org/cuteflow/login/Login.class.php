@@ -89,6 +89,16 @@ class Login {
     }
 
 
+    public function checkInstaller() {
+        $file = sfConfig::get('sf_root_dir') . '/config/installed';
+        if(file_exists($file) == true) {
+            return true;
+        }
+        else {
+            return false;
+        }
+
+    }
 
     public function generateUserWorklowView(array $data, sfContext $context) {
         sfLoader::loadHelpers('I18N');
