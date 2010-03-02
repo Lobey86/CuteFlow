@@ -27,16 +27,14 @@ class layoutActions extends sfActions {
         $this->getUser()->setAttribute('userWorkflowSettings', $loginObject->generateUserWorklowView($userWorkflowSetting, sfContext::getInstance()));
 
         $data = $this->getUser()->getAttribute('userWorkflowSettings');
-       # print_r ($userWorkflowSetting);die;
 
 
-        $this->systemConfiguration = $config[0];
-        $this->theTheme = $userSettings[0]->getTheme();
-        // Load credentials and store them to session here
         $credentials = CredentialTable::instance()->getAllCredentials();
         $userrights = CredentialRoleTable::instance()->getCredentialRoleById($this->getUser()->getAttribute('id'));
         $rights = $loginObject->loadUserRight($credentials, $userrights);
         $this->getUser()->setAttribute('credential', $rights);
+        $this->systemConfiguration = $config[0];
+        $this->theTheme = $userSettings[0]->getTheme();
         $this->version_id  = $request->getParameter('versionid',-1);
         $this->workflow_id  = $request->getParameter('workflow',-1);
         $this->window  = $request->getParameter('window',-1);
@@ -69,14 +67,17 @@ class layoutActions extends sfActions {
     /**
      * Action Test
      */
-    public function executeTest(sfWebRequest $request) {
+    /*public function executeTest(sfWebRequest $request) {
         $mail = new EmailSettings();
         $mail->setReceiver('cuteflow@cuteflow.de');
         $mail->setSender(array ('cuteflow@cuteflow.de' => 'cuteflow@cuteflow.de'));
         $mail->setBody('fewfew');
         $mail->sendEmail();
         return sfView::NONE;
-    }
+    }*/
+
+
+
     public function executeLinklogin(sfWebRequest $request) {
 
         $settings = AuthenticationConfigurationTable::instance()->getAuthenticationConfiguration()->toArray();

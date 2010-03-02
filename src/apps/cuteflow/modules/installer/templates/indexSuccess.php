@@ -1,0 +1,1 @@
+<input type="hidden" id="url_login" value="<?php echo url_for('login/index'); ?>">

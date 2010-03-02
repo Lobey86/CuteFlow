@@ -70,10 +70,10 @@ class systemsettingActions extends sfActions {
         }
 
         // store Email tab
-        //if (isset($data['emailtab_emailtype'])) {
-        $data = $sysObj->buildEmailSetting($data);
-        EmailConfigurationTable::instance()->updateEmailConfiguration($data);
-        //}
+        if (isset($data['emailtab_emailtype'])) {
+            $data = $sysObj->buildEmailSetting($data);
+            EmailConfigurationTable::instance()->updateEmailConfiguration($data);
+        }
 
         // store user tab
         if (isset($data['userTab_defaultdurationtype'])) {
