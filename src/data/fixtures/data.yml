@@ -482,7 +482,7 @@ EmailConfiguration:
   ec1:
      activetype: SMTP
      smtpport: 25
-     smtphost: cuteflow
+     smtphost: localhost
      systemreplyaddress: mschaefer1982@gmx.de
      allowemailtransport: 0
 
