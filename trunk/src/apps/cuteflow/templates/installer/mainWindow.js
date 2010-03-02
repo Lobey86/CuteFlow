@@ -70,7 +70,7 @@ cf.mainWindow = function(){return {
 							Ext.Msg.minWidth = 200;
 							Ext.MessageBox.alert('<?php echo __('CuteFlow installed',null,'installer'); ?>','<?php echo __('CuteFlow installed',null,'installer'); ?>');
 							var url = Ext.get('url_login').dom.value;
-							window.location.href = url + 'login/index';
+							window.location.href = url;
 						}
 					});
 				}
