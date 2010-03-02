@@ -4,26 +4,28 @@ disabled:
   module_2:
     layout
   module_3:
-    additionaltext
+    installer
   module_4:
-    documenttemplate
+    additionaltext
   module_5:
     documenttemplate
   module_6:
-    field
-  module_7:
-    mailinglist
-  module_8:
-    menuesetting
-  module_9:
-    restartworkflow
-  module_10:
-    systemsetting
-  module_11:
     documenttemplate
+  module_7:
+    field
+  module_8:
+    mailinglist
+  module_9:
+    menuesetting
+  module_10:
+    restartworkflow
+  module_11:
+    userrolemanagement
   module_12:
-    workflowdetail
+    documenttemplate
   module_13:
-    workflowedit
+    workflowdetail
   module_14:
+    workflowedit
+  module_15:
     userrolemanagement

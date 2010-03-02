@@ -1,36 +1,37 @@
-/** tab to change emailsending settings **/
-cf.emailTab = function(){return {
+cf.firstTab = function(){return {
 	
-	theEmailTab				:false,
+	
+	thePanel				:false,
 	theEmailReplay			:false,
 	theEmailSendingType		:false,
-	
-	/** call all necessary functions **/
-	init: function () {
+	/** Calls all necessary function to display the login form **/
+	init: function(){
 		this.initEmail();
 		this.initSendingType();
-		this.initEmailTab();
-		this.theEmailTab.add(this.theEmailReplay);
-		this.theEmailTab.add(this.theEmailSendingType);
+		this.initPanel();
+		this.thePanel.add(this.theEmailReplay);
+		this.thePanel.add(this.theEmailSendingType);
 	},
 	
-	/** builds the tab **/
-	initEmailTab: function () {
-		this.theEmailTab = new Ext.Panel({
-			modal: true,
+	initPanel: function () {
+		this.thePanel = new Ext.Panel({
+			modal: false,
 			closable: false,
-			modal: true,
-			width: 650,
-			height: 600,
+			title: '<?php echo __('Email Settings',null,'installer'); ?>',
+			layout: 'form',
+			width: 1000,
+			height: 660,
 			autoScroll: true,
-			title: '<?php echo __('Email',null,'systemsetting'); ?>',
 			shadow: false,
 			minimizable: false,
+			autoScroll: false,
 			draggable: false,
 			resizable: false,
-	        plain: false
+			plain: false
 		});
+		
 	},
+	
 	
 	/** set Fieldset with textfield to enter Systemreplayaddress **/
 	initEmail: function () {
@@ -52,6 +53,7 @@ cf.emailTab = function(){return {
 				width: 200,
 				id: 'emailtab_systemreplyaddress',
 				allowBlank: false,
+				value: 'cuteflow@cuteflow.de',
 				vtype:'email',
 				fieldLabel: '<?php echo __('System reply address',null,'systemsetting'); ?>'
 			}]
@@ -100,7 +102,7 @@ cf.emailTab = function(){return {
 								Ext.getCmp('email_smtp_password').setVisible(true);
 								//Ext.getCmp('email_smtp_auth').setVisible(true);
 								Ext.getCmp('emailtab_encryption_id').setVisible(true);
-								cf.emailTab.theEmailSendingType.setHeight(250);
+								cf.firstTab.theEmailSendingType.setHeight(250);
 							}
 							else if (combo.getValue() == 'SENDMAIL') {
 								Ext.getCmp('email_smtp_server').hide();
@@ -110,7 +112,7 @@ cf.emailTab = function(){return {
 								//Ext.getCmp('email_smtp_auth').hide();
 								Ext.getCmp('emailtab_encryption_id').hide();
 								Ext.getCmp('email_sendmail').setVisible(true);
-								cf.emailTab.theEmailSendingType.setHeight(100);
+								cf.firstTab.theEmailSendingType.setHeight(100);
 							}
 							else {
 								
@@ -121,7 +123,7 @@ cf.emailTab = function(){return {
 								Ext.getCmp('email_sendmail').hide();
 								//Ext.getCmp('email_smtp_auth').hide();
 								Ext.getCmp('emailtab_encryption_id').hide();
-								cf.emailTab.theEmailSendingType.setHeight(80);
+								cf.firstTab.theEmailSendingType.setHeight(80);
 							}
 						}
 					}
@@ -175,60 +177,16 @@ cf.emailTab = function(){return {
 			},{
 				xtype : 'textfield',
 				fieldLabel: '<?php echo __('Absolute path of Sendmail (e.g. /usr/bin/sendmail -bs))',null,'systemsetting'); ?>',
+				hidden: true,
 				id: 'email_sendmail',
 				width:200
 			}]
 
 		});
 		
-	},
-	
-	/** add data for email tab to the combo and textfields **/
-	addData: function (data) {
-			Ext.getCmp('emailtab_systemreplyaddress').setValue(data.systemreplyaddress);
-			Ext.getCmp('emailtab_allowsendingemails').setValue(data.allowemailtransport);
-			
-			
-			Ext.getCmp('email_sendmail').setValue(data.sendmailpath);
-			Ext.getCmp('email_smtp_server').setValue(data.smtphost);
-			Ext.getCmp('email_smtp_port').setValue(data.smtpport);
-			Ext.getCmp('email_smtp_username').setValue(data.smtpusername);
-			Ext.getCmp('email_smtp_password').setValue(data.smtppassword);
-			
-			//Ext.getCmp('email_smtp_auth').setValue(data.smtpuseauth);
-			Ext.getCmp('emailtab_encryption_id').setValue(data.smtpencryption);
-			Ext.getCmp('emailtab_emailtype_id').setValue(data.activetype);
-			Ext.getCmp('emailtab_systemreplyaddress').setValue(data.systemreplyaddress);
-			
-			if (data.activetype == 'SMTP'){
-				Ext.getCmp('email_sendmail').hide();
-				cf.emailTab.theEmailSendingType.setHeight(250);
-				cf.emailTab.theEmailSendingType.setWidth(600);
-			}
-			else if(data.activetype == 'SENDMAIL') {
-				Ext.getCmp('email_smtp_server').hide();
-				Ext.getCmp('email_smtp_port').hide();
-				Ext.getCmp('email_smtp_username').hide();
-				Ext.getCmp('email_smtp_password').hide();
-				//Ext.getCmp('email_smtp_auth').hide();
-				Ext.getCmp('emailtab_encryption_id').hide();
-				cf.emailTab.theEmailSendingType.setHeight(100);
-				cf.emailTab.theEmailSendingType.setWidth(600);
-			}
-			else {
-				Ext.getCmp('email_smtp_server').hide();
-				Ext.getCmp('email_smtp_port').hide();
-				Ext.getCmp('email_smtp_username').hide();
-				Ext.getCmp('email_smtp_password').hide();
-				Ext.getCmp('email_smtp_auth').hide();
-				Ext.getCmp('email_sendmail').hide();
-				Ext.getCmp('emailtab_encryption_id').hide();
-				cf.emailTab.theEmailSendingType.setHeight(80);
-				cf.emailTab.theEmailSendingType.setWidth(600);
-			}
-		}
-
+	}	
 };}();
+
 
 Ext.override(Ext.layout.FormLayout, {
 	renderItem : function(c, position, target){

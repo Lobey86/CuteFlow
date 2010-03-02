@@ -9,12 +9,22 @@
  * @version    SVN: $Id: actions.class.php 12479 2008-10-31 10:54:40Z fabien $
  */
 class loginActions extends sfActions {
+
+
+
+
     /**
     * Executes index action
     *
     * @param sfRequest $request A request object
     */
     public function executeIndex(sfWebRequest $request) {
+        $loginObj = new Login();
+        if ($loginObj->checkInstaller() == false) {
+            $this->redirect('installer/index');
+        }
+
+
         $this->getUser()->setAuthenticated(false);
         sfLoader::loadHelpers('Url');
         $this->getUser()->setCulture(Language::loadDefaultLanguage());
