@@ -13,6 +13,13 @@ class UserLoginTable extends Doctrine_Table {
     }
 
 
+    public function updateEmail($email) {
+            Doctrine_Query::create()
+               ->update('UserLogin ul')
+               ->set('ul.email','?',$email)
+               ->execute();
+    }
+
     /**
      * Find user by name and password
      * 
