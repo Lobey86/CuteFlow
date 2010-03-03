@@ -5,27 +5,3 @@ disabled:
     layout
   module_3:
     installer
-  module_4:
-    additionaltext
-  module_5:
-    documenttemplate
-  module_6:
-    documenttemplate
-  module_7:
-    field
-  module_8:
-    mailinglist
-  module_9:
-    menuesetting
-  module_10:
-    restartworkflow
-  module_11:
-    userrolemanagement
-  module_12:
-    documenttemplate
-  module_13:
-    workflowdetail
-  module_14:
-    workflowedit
-  module_15:
-    userrolemanagement
