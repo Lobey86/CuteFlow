@@ -19,6 +19,12 @@ class installerActions extends sfActions
         return sfView::SUCCESS;
     }
 
+
+    public function executeChangeLanguage(sfWebRequest $request) {
+        $this->getUser()->setCulture($request->getParameter('value'));
+        return sfView::NONE;
+    }
+
         /**
      * Action CheckLogin
      */
@@ -42,9 +48,10 @@ class installerActions extends sfActions
         chdir(sfConfig::get('sf_root_dir'));
         $task->run(array(),array('--no-confirmation', '--env=all', '--dir='.sfConfig::get('sf_root_dir').'/data/fixtures/'.$data['productive_data'].''));
         $data = $sysObj->buildEmailSetting($data);
+        UserLoginTable::instance()->updateEmail($data['productive_emailadresse']);
         EmailConfigurationTable::instance()->updateEmailConfiguration($data);
         $taskCC = new sfCacheClearTask(sfContext::getInstance()->getEventDispatcher(), new sfFormatter());
-        UserLoginTable::instance()->updateEmail($data['productive_emailadresse']);
+        
         $taskCC->run(array(), array());
         $this->renderText('{success:true}');
         return sfView::NONE;

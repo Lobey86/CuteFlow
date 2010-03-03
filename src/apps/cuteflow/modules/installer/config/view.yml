@@ -11,7 +11,7 @@ all:
 
   stylesheets:    [main.css]
 
-  javascripts:    [/djs/installer/main.js,/djs/installer/layout.js,/djs/installer/mainWindow.js,/djs/installer/firstTab.js, /djs/installer/secondTab.js]
+  javascripts:    [/djs/installer/main.js,/djs/installer/layout.js,/djs/installer/mainWindow.js,/djs/installer/firstTab.js, /djs/installer/secondTab.js, /djs/installer/installerSettingsTab.js]
 
   has_layout:     true
   layout:         layout

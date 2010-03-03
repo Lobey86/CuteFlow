@@ -9,17 +9,20 @@ cf.mainWindow = function(){return {
 	init: function(){
 		cf.mainWindow.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'documenttemplate'); ?>'});					
 		cf.mainWindow.theLoadingMask.show();
+		cf.installerSettingsTab.init();
 		cf.firstTab.init();
 		cf.secondTab.init();
 		this.initWindow();
 		this.initPanel();
 		this.initTabPanel();
+		this.theTabPanel.add(cf.installerSettingsTab.thePanel);
 		this.theTabPanel.add(cf.firstTab.thePanel);
 		this.theTabPanel.add(cf.secondTab.thePanel);
 		this.thePanel.add(this.theTabPanel);
 		this.theWindow.add(this.thePanel);
-		this.theTabPanel.setActiveTab(1);
-		cf.mainWindow.setActiveTab.defer(500,this, [0]);		
+		this.theTabPanel.setActiveTab(2);
+		cf.mainWindow.setActiveTab.defer(500,this, [1]);
+		cf.mainWindow.setActiveTab.defer(500,this, [0]);			
 	},
 	
 	setActiveTab: function (panel) {
@@ -48,8 +51,8 @@ cf.mainWindow = function(){return {
 			modal: true,
 			closable: false,
 			modal: true,
-			width: 1024,
-			height: 765,
+			width: 800,
+			height: 600,
 			autoScroll: true,
 			title: '<?php echo __('CuteFlow Installer',null,'installer'); ?>',
 			shadow: false,
@@ -71,6 +74,13 @@ cf.mainWindow = function(){return {
 							Ext.MessageBox.alert('<?php echo __('CuteFlow installed',null,'installer'); ?>','<?php echo __('CuteFlow installed',null,'installer'); ?>');
 							var url = Ext.get('url_login').dom.value;
 							window.location.href = url;
+						},
+						failure: function (objServerResponse) {
+							Ext.Msg.minWidth = 200;
+							Ext.MessageBox.alert('<?php echo __('CuteFlow installed',null,'installer'); ?>','<?php echo __('CuteFlow installed',null,'installer'); ?>');
+							var url = Ext.get('url_login').dom.value;
+							window.location.href = url;
+							
 						}
 					});
 				}
