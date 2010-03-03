@@ -26,9 +26,27 @@ class Installer {
         $file = sfConfig::get('sf_root_dir') . '/config/installed';
         $fileHanlder = fopen($file,"w+");
         fclose($fileHanlder);
+        return true;
     }
-    
 
 
+    public static function getInstallerLanguage() {
+        $file = sfConfig::get('sf_app_dir') . '/config/i18n.yml';
+        $array = sfYAML::Load($file);
+        $ymlCulture = $array['all']['default_culture'];
+        sfLoader::loadHelpers('I18N');
+        $result = array();
+        $result = explode('_', $ymlCulture);
+        return format_language($result[0]);
+    }
+
+
+
+    public static function getLanguage($language) {
+        sfLoader::loadHelpers('I18N');
+        $result = array();
+        $result = explode('_', $language);
+        return format_language($result[0]);
+    }
 }
 ?>
