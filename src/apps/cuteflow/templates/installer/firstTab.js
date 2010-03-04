@@ -36,7 +36,7 @@ cf.firstTab = function(){return {
 	/** set Fieldset with textfield to enter Systemreplayaddress **/
 	initEmail: function () {
 		this.theEmailReplay = new Ext.form.FieldSet({
-			title: '<?php echo __('Reply Settings',null,'systemsetting'); ?>',
+			title: '<?php echo __('Reply Settings',null,'installer'); ?>',
 			width: 600,
 			height: 90,
 			style: 'margin-top:20px;margin-left:5px;',
@@ -47,7 +47,7 @@ cf.firstTab = function(){return {
 				id: 'emailtab_allowsendingemails',
 				allowBlank: false,
 				inputValue: "1",
-				fieldLabel: '<?php echo __('Allow System to send Emails',null,'systemsetting'); ?>?'
+				fieldLabel: '<?php echo __('Allow System to send emails',null,'systemsetting'); ?>?'
 			},{
 				xtype: 'textfield',
 				width: 200,

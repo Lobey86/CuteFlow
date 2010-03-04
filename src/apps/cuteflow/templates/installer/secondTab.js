@@ -54,13 +54,13 @@ cf.secondTab = function(){return {
 				foreSelection: true,
 				store: new Ext.data.SimpleStore({
 					 fields:['id','text'],
-       				 data:[['systemData.yml', '<?php echo __('System Data only',null,'installer'); ?>'],['data.yml', '<?php echo __('Some Examples',null,'installer'); ?>']]
+       				 data:[['systemData.yml', '<?php echo __('System Data only',null,'installer'); ?>'],['data.yml', '<?php echo __('Data with some Examples',null,'installer'); ?>']]
    				}),
    				fieldLabel: '<?php echo __('System data',null,'installer'); ?>',
    				width:300
 			},{
 				xtype : 'textfield',
-				fieldLabel: '<?php echo __('Set email adresse of users and admin',null,'installer'); ?>',
+				fieldLabel: '<?php echo __('Set email adresse of admin',null,'installer'); ?>',
 				id: 'productive_emailadresse',
 				value: 'cuteflow@cuteflow.de',
 				vtype:'email',
@@ -103,32 +103,32 @@ cf.secondTab = function(){return {
 	       				 ['sqlite', '<?php echo __('SQLite 2',null,'systemsetting'); ?>']
        				 ]
    				}),
-   				fieldLabel: '<?php echo __('Select Database',null,'systemsetting'); ?>',
+   				fieldLabel: '<?php echo __('Select Database',null,'installer'); ?>',
    				width:300
 			},{
 				xtype : 'textfield',
-				fieldLabel: '<?php echo __('Host',null,'systemsetting'); ?>',
+				fieldLabel: '<?php echo __('Host',null,'installer'); ?>',
 				id: 'productive_host',
 				value: 'localhost',
 				disabled: false,
 				width:300
 			},{
 				xtype : 'textfield',
-				fieldLabel: '<?php echo __('Database',null,'systemsetting'); ?>',
+				fieldLabel: '<?php echo __('Databasename',null,'installer'); ?>',
 				id: 'productive_databasename',
 				value: 'cuteflow',
 				disabled: false,
 				width:300
 			},{
 				xtype : 'textfield',
-				fieldLabel: '<?php echo __('Username',null,'systemsetting'); ?>',
+				fieldLabel: '<?php echo __('Username',null,'installer'); ?>',
 				id: 'productive_username',
 				value: 'root',
 				disabled: false,
 				width:300
 			},{
 				xtype : 'textfield',
-				fieldLabel: '<?php echo __('Password',null,'systemsetting'); ?>',
+				fieldLabel: '<?php echo __('Password',null,'installer'); ?>',
 				id: 'productive_password',
 				disabled: false,
 				width:300
