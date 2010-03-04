@@ -7,7 +7,7 @@ cf.mainWindow = function(){return {
 	
 	/** Calls all necessary function to display the login form **/
 	init: function(){
-		cf.mainWindow.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'documenttemplate'); ?>'});					
+		cf.mainWindow.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'installer'); ?>'});					
 		cf.mainWindow.theLoadingMask.show();
 		cf.installerSettingsTab.init();
 		cf.firstTab.init();

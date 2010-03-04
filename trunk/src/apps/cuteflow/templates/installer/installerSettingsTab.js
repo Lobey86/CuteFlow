@@ -60,7 +60,7 @@ cf.installerSettingsTab = function(){return {
 				value: language,
 				triggerAction: 'all',
 				foreSelection: true,
-   				fieldLabel: '<?php echo __('Select language',null,'installer'); ?>',
+   				fieldLabel: '<?php echo __('Language',null,'installer'); ?>',
    				width: 200,
 				store: this.theComboStore,
 				listeners: {
