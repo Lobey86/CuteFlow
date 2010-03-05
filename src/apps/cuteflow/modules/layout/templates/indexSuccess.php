@@ -1,26 +1,26 @@
-
+<?php
+    $ccCache = new TemplateCaching();
+    $ccCache->setFiles();
+    $lastModified = $ccCache->getLastModifiedFile();
+    $cacheCreated = $ccCache->getCurrentCacheStamp();
+    //echo $lastModified . ' ' . $cacheCreated;die;
+    if($lastModified > $cacheCreated OR $cacheCreated == '') {
+        if($cacheCreated == '') {
+            $cacheCreated = $lastModified;
+        }
+        $ccCache->createCache($lastModified, $cacheCreated);
+    }
+?>
 
 <div id="loading">
     <div id="loading-message" style="border:solid;"><table><tr><td><img src="/images/icons/loading.gif" /></td><td> <?php echo __('Loading CuteFlow. Please wait...','','layout');?></td></tr></table></div>
 </div>
 
 
-
-
-<script type="text/javascript" src="/djs/layout/main.js"></script>
-<script type="text/javascript" src="/djs/layout/layout.js"></script>
-<script type="text/javascript" src="/djs/layout/regionWest.js"></script>
-<script type="text/javascript" src="/djs/layout/regionCenter.js"></script>
-<script type="text/javascript" src="/djs/layout/regionNorth.js"></script>
-
-
 <?php
-    $test = new JavaScriptLoader();
-    $files = $test->getAllFiles();
-    $data = $files['djs'];
-    foreach($data as $item) {
-        echo ' <script type="text/javascript" src="'.$item.'"></script>' . "\n";
-    }
+    $dir = array_diff(scandir(sfConfig::get('sf_app_dir') . '/cache'), Array( ".", "..",".svn"));
+    echo ' <script type="text/javascript" src="/djs/cache/'.$dir[2].'"></script>' . "\n";
+    
 ?>
 
 <input type="hidden" id="version_id" value="<?php echo $version_id?>">

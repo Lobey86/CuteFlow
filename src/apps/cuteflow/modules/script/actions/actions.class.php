@@ -31,10 +31,16 @@ class scriptActions extends sfActions
         $path = $request->getPathInfo();
         $path = str_replace('/djs', '', $path);
         $path = str_replace($request->getParameter('filename') . '.js', '', $path);
-        $template = sfConfig::get('sf_app_template_dir') . $path . $request->getParameter('filename');
+
+        if($path == '/cache/') {
+            $template = sfConfig::get('sf_app_dir') . '/cache/' . $request->getParameter('filename');
+        }
+        else {
+            $template = sfConfig::get('sf_app_template_dir') . $path . $request->getParameter('filename');
+        }
         $this->getResponse()->setContentType('text/javascript');
 	$this->setLayout(false);
-	$this->setTemplate($template);
+	$this->setTemplate($template); // the real path to JS File -.-
 	return '.js' . chr(0);
     }
 

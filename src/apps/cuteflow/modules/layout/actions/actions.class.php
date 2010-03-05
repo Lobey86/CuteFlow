@@ -64,17 +64,20 @@ class layoutActions extends sfActions {
         return sfView::NONE;
     }
 
+    
+
     /**
      * Action Test
      */
-    /*public function executeTest(sfWebRequest $request) {
-        $mail = new EmailSettings();
-        $mail->setReceiver('cuteflow@cuteflow.de');
-        $mail->setSender(array ('cuteflow@cuteflow.de' => 'cuteflow@cuteflow.de'));
-        $mail->setBody('fewfew');
-        $mail->sendEmail();
+    public function executeTest(sfWebRequest $request) {
+
+       
+        
+        
+
+
         return sfView::NONE;
-    }*/
+    }
 
 
 
