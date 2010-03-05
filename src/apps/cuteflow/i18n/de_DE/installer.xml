@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.0">
+  <file original="global" source-language="en_US" target-language="de_DE" datatype="plaintext">
+    <body>  
+      <trans-unit id="1">
+        <source>Loading Data...</source>
+        <target>Lade Daten...</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>CuteFlow Installer</source>
+        <target>CuteFlow Installationsroutine</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Building System</source>
+        <target>Erstelle System</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>CuteFlow installed</source>
+        <target>CuteFlow installiert</target>
+      </trans-unit> 	  
+		<trans-unit id="5">
+        <source>Close</source>
+        <target>Verwerfen</target>
+      </trans-unit> 
+	  <trans-unit id="6">
+        <source>Store</source>
+        <target>Speichern</target>
+      </trans-unit> 
+	  <trans-unit id="7">
+        <source>Database Settings</source>
+        <target>Datenbank Einstellungen</target>
+      </trans-unit> 
+	  <trans-unit id="8">
+        <source>Data to load</source>
+        <target>Zu ladende Daten</target>
+      </trans-unit> 
+	 <trans-unit id="9">
+        <source>System Data only</source>
+        <target>Nur Systemdaten</target>
+     </trans-unit> 
+	 <trans-unit id="10">
+        <source>Data with some Examples</source>
+        <target>Beispieldatensätze</target>
+     </trans-unit>
+	 <trans-unit id="11">
+        <source>Set email adresse of admin</source>
+        <target>E-Mailadresse des Administrators</target>
+     </trans-unit>
+	 <trans-unit id="12">
+        <source>Select Database</source>
+        <target>Datenbank w&#228;hlen</target>
+     </trans-unit>
+	 <trans-unit id="13">
+        <source>Host</source>
+        <target>Host</target>
+     </trans-unit>
+	 <trans-unit id="14">
+        <source>Databasename</source>
+        <target>Datenbankname</target>
+     </trans-unit> 
+	 <trans-unit id="15">
+        <source>Username</source>
+        <target>Benutzername</target>
+     </trans-unit>
+	 <trans-unit id="16">
+        <source>Password</source>
+        <target>Passwort</target>
+     </trans-unit>
+	 <trans-unit id="17">
+        <source>Installer language</source>
+        <target>Sprache des Installers</target>
+     </trans-unit>
+	 <trans-unit id="18">
+        <source>Language</source>
+        <target>Sprache</target>
+     </trans-unit>
+	 <trans-unit id="19">
+        <source>Email Settings</source>
+        <target>E-Mail Einstellungen</target>
+     </trans-unit>
+	 <trans-unit id="20">
+        <source>Reply Settings</source>
+        <target>Antwort Einstellungen</target>
+     </trans-unit>
+	 <trans-unit id="21">
+        <source>Allow System to send emails</source>
+        <target>System darf E-Mails senden</target>
+     </trans-unit>	
+	 <trans-unit id="22">
+        <source>System reply address</source>
+        <target>Antwortadresse des Systems</target>
+     </trans-unit>		
+	 <trans-unit id="23">
+        <source>Remove Text</source>
+        <target>Text entfernen</target>
+     </trans-unit>
+	 <trans-unit id="24">
+        <source>Available Additional Textes</source>
+        <target>Verf&#252;gbare einleitende Texte</target>
+     </trans-unit>
+	 <trans-unit id="25">
+        <source>Search for...</source>
+        <target>Suche nach...</target>
+     </trans-unit>
+	 <trans-unit id="26">
+        <source>Add new Text</source>
+        <target>Neuen Text anlegen</target>
+     </trans-unit>
+	 <trans-unit id="27">
+        <source>OK</source>
+        <target>OK</target>
+     </trans-unit>
+	 <trans-unit id="28">
+        <source>Text saved</source>
+        <target>Text gespeichert</target>
+     </trans-unit>	
+	 <trans-unit id="29">
+        <source>Delete successful</source>
+        <target>Text gel&#246;scht</target>
+     </trans-unit>		
+	 <trans-unit id="30">
+        <source>Copy successful</source>
+        <target>Text kopiert</target>
+     </trans-unit>
+	 <trans-unit id="31">
+        <source>plain</source>
+        <target>Text</target>
+     </trans-unit>
+	 <trans-unit id="32">
+        <source>html</source>
+        <target>HTML</target>
+     </trans-unit>
+	 <trans-unit id="33">
+        <source>Saving Data</source>
+        <target>Speichere Daten</target>
+     </trans-unit>
+	 <trans-unit id="34">
+        <source>Delete text?</source>
+        <target>Text l&#246;schen?</target>
+     </trans-unit>
+	 <trans-unit id="35">
+        <source>Saving Data</source>
+        <target>Speichere Daten</target>
+     </trans-unit> 	 
+    </body>
+  </file>
+</xliff>
