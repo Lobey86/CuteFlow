@@ -2,6 +2,4 @@ disabled:
   module_1:
     login
   module_2:
-    layout
-  module_3:
     installer
