@@ -4,31 +4,82 @@ cf.mainWindow = function(){return {
 	thePanel				:false,
 	theWindow				:false,
 	theLoadingMask			:false,
+	theCardLayout			:false,
+	theLayoutCounter		:false,
 	
 	/** Calls all necessary function to display the login form **/
 	init: function(){
+		this.theLayoutCounter = 0;
 		cf.mainWindow.theLoadingMask = new Ext.LoadMask(Ext.getBody(), {msg:'<?php echo __('Loading Data...',null,'installer'); ?>'});					
 		cf.mainWindow.theLoadingMask.show();
+		
+		cf.startTab.init();
 		cf.installerSettingsTab.init();
 		cf.firstTab.init();
 		cf.secondTab.init();
 		this.initWindow();
 		this.initPanel();
-		this.initTabPanel();
-		this.theTabPanel.add(cf.installerSettingsTab.thePanel);
-		this.theTabPanel.add(cf.firstTab.thePanel);
-		this.theTabPanel.add(cf.secondTab.thePanel);
-		this.thePanel.add(this.theTabPanel);
-		this.theWindow.add(this.thePanel);
-		this.theTabPanel.setActiveTab(2);
-		cf.mainWindow.setActiveTab.defer(500,this, [1]);
-		cf.mainWindow.setActiveTab.defer(500,this, [0]);			
-	},
-	
-	setActiveTab: function (panel) {
-		cf.mainWindow.theTabPanel.setActiveTab(panel);
+		this.initCardLayout();
+		
+		this.theCardLayout.add(cf.installerSettingsTab.thePanel);
+		this.theCardLayout.add(cf.startTab.thePanel);
+		this.theCardLayout.add(cf.firstTab.thePanel);
+		this.theCardLayout.add(cf.secondTab.thePanel);
+		this.theCardLayout.doLayout();
+		this.theWindow.add(this.theCardLayout);
 		cf.mainWindow.theLoadingMask.hide();
 	},
+	
+	initCardLayout: function() {
+		this.theCardLayout = new Ext.FormPanel({
+			    layout:'card',
+			    border: false,
+			    deferredRender:false,
+			    activeItem: 0, 
+			    hideMode:'offsets',
+			    bodyStyle: 'padding:15px',
+			    bbar: [{
+			            id: 'move-prev',
+			            text: '<table><tr><td><img src="/images/icons/arrow_left.png"></td><td><?php echo __('Previous Step',null,'installer'); ?></td></tr></table>',
+			            handler: this.navHandler.createDelegate(this, [-1]),
+			            disabled: true
+			        },'->',{
+			            id: 'move-next',
+			            text: '<table><tr><td><?php echo __('Next Step',null,'installer'); ?></td><td><img src="/images/icons/arrow_right.png"></tr></table>',
+			            handler: this.navHandler.createDelegate(this, [1])
+			        }]
+			});
+	},
+	
+	navHandler: function (direction) {
+		
+		if(this.theLayoutCounter == 1 && direction == -1) {
+			Ext.getCmp('move-prev').setDisabled(true);
+		}
+		else {
+			Ext.getCmp('move-prev').setDisabled(false);
+		}
+		
+		if(this.theLayoutCounter == 2 && direction == 1) {
+			Ext.getCmp('move-next').setDisabled(true);
+		}
+		else {
+			Ext.getCmp('move-next').setDisabled(false);
+		}
+		
+		if(direction == 1 && this.theLayoutCounter <= 3) {
+			this.theLayoutCounter++;
+		}
+		if(direction == -1 && this.theLayoutCounter >= 0) {
+			this.theLayoutCounter--;
+		}
+		if(this.theLayoutCounter == 3) {
+			Ext.getCmp('installer_saveButton').setVisible(true);
+			Ext.getCmp('installer_closeButton').setVisible(true);
+		}
+		cf.mainWindow.theCardLayout.getLayout().setActiveItem(this.theLayoutCounter);
+	},
+	
 	
 	initTabPanel: function (){
 		this.theTabPanel = new Ext.TabPanel({
@@ -45,14 +96,12 @@ cf.mainWindow = function(){return {
 	},
 	
 	initWindow: function () {
-		
-
 		this.theWindow = new Ext.Window({
 			modal: true,
 			closable: false,
 			modal: true,
-			width: 800,
-			height: 600,
+			width: 850,
+			height: 620,
 			autoScroll: true,
 			title: '<?php echo __('CuteFlow Installer',null,'installer'); ?>',
 			shadow: false,
@@ -64,9 +113,12 @@ cf.mainWindow = function(){return {
 			buttons:[{
 				text:'<?php echo __('Store',null,'installer'); ?>', 
 				icon: '/images/icons/accept.png',
+				id: 'installer_saveButton',
+				hidden: true,
 				handler: function () {
-					cf.mainWindow.thePanel.getForm().submit({
-						url: '<?php echo build_dynamic_javascript_url('installer/SaveData')?>',
+					var url = Ext.get('url_save').dom.value;
+					cf.mainWindow.theCardLayout.getForm().submit({
+						url: url,
 						method: 'POST',
 						waitMsg: '<?php echo __('Building System',null,'installer'); ?>',
 						success: function(objServerResponse){
@@ -87,6 +139,8 @@ cf.mainWindow = function(){return {
 			},{
 				text:'<?php echo __('Close',null,'installer'); ?>', 
 				icon: '/images/icons/cancel.png',
+				id: 'installer_closeButton',
+				hidden: true,
 				handler: function () {
 					cf.mainWindow.theWindow.hide();
 					cf.mainWindow.theWindow.destroy();
@@ -110,6 +164,7 @@ cf.mainWindow = function(){return {
 			autoScroll: false,
 			draggable: false,
 			resizable: false,
+			border: false,
 			plain: true
 		});
 		
@@ -118,5 +173,5 @@ cf.mainWindow = function(){return {
 	
 	
 	
-	
 };}();
+
