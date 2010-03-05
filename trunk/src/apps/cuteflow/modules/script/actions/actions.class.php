@@ -33,7 +33,7 @@ class scriptActions extends sfActions
         $path = str_replace($request->getParameter('filename') . '.js', '', $path);
 
         if($path == '/cache/') {
-            $template = sfConfig::get('sf_app_dir') . '/cache/' . $request->getParameter('filename');
+            $template = sfConfig::get('sf_cache_dir') . '/javaScriptCache/' . $request->getParameter('filename');
         }
         else {
             $template = sfConfig::get('sf_app_template_dir') . $path . $request->getParameter('filename');
