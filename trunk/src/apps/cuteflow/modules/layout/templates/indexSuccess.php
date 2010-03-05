@@ -2,18 +2,6 @@
     <div id="loading-message" style="border:solid;"><table><tr><td><img src="/images/icons/loading.gif" /></td><td> <?php echo __('Loading CuteFlow. Please wait...','','layout');?></td></tr></table></div>
 </div>
 <?php
-    $ccCache = new TemplateCaching();
-    $ccCache->checkCacheDir();
-    $ccCache->setFiles();
-    $lastModified = $ccCache->getLastModifiedFile();
-    $cacheCreated = $ccCache->getCurrentCacheStamp();
-
-    if($lastModified > $cacheCreated OR $cacheCreated == '') {
-        if($cacheCreated == '') {
-            $cacheCreated = $lastModified;
-        }
-        $ccCache->createCache($lastModified, $cacheCreated);
-    }
     $dir = array_diff(scandir(sfConfig::get('sf_cache_dir') . '/javaScriptCache'), Array());
     echo ' <script type="text/javascript" src="/djs/cache/'.$dir[count($dir)-1].'"></script>' . "\n";
     

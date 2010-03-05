@@ -30,6 +30,10 @@
         <source>Failure during login process</source>
         <target>Failure during login process</target>
       </trans-unit> 
+	  <trans-unit id="8">
+        <source>Logging in, please wait...</source>
+        <target>Logging in, please wait...</target>
+      </trans-unit> 
     </body>
   </file>
 </xliff>
