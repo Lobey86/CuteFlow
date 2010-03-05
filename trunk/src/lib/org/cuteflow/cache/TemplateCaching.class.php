@@ -8,9 +8,18 @@ class TemplateCaching {
         $files = new JavaScriptLoader();
         $files->addNameSpaceFiles();
         $this->files = $files->getAllFiles();
-
     }
 
+    public function checkCacheDir() {
+        if(is_dir(sfConfig::get('sf_cache_dir')) == true) {
+            if(is_dir(sfConfig::get('sf_cache_dir') . '/javaScriptCache') == false )  {
+                mkdir(sfConfig::get('sf_cache_dir') . '/javaScriptCache');
+            }
+        }
+        else {
+            mkdir(sfConfig::get('sf_cache_dir'));
+        }
+    }
 
     public function getLastModifiedFile() {
         $files = new JavaScriptLoader();
@@ -27,22 +36,28 @@ class TemplateCaching {
 
 
     public function getCurrentCacheStamp() {
-        $dir = array_diff(scandir(sfConfig::get('sf_app_dir') . '/cache'), Array( ".", "..",".svn"));
-        if(isset($dir[2])) {
-         return str_replace('.js', '', $dir[2]);
+        $dir = array_diff(scandir(sfConfig::get('sf_cache_dir') . '/javaScriptCache'), Array());
+        if(!empty($dir)) {
+            $lastIndex =  $dir[count($dir)-1];
+        }
+        else {
+            return '';
+        }
+        if(substr_count($lastIndex, '.js') == 1) {
+            return str_replace('.js', '', $lastIndex);
         }
         return '';
     }
 
     
     public function createCache($lastModified, $cacheStamp) {
-        @unlink (sfConfig::get('sf_app_dir') . '/cache/' . $cacheStamp);
+        @unlink (sfConfig::get('sf_cache_dir') . '/javaScriptCache/' . $cacheStamp);
         $js = '';
         foreach($this->files as $file) {
             $jsMin = JSMin::minify(file_get_contents($file));
             $js .= $jsMin;
         }
-        $dir = sfConfig::get('sf_app_dir') . '/cache/';
+        $dir = sfConfig::get('sf_cache_dir') . '/javaScriptCache/';
         file_put_contents($dir . $lastModified .'.js',$js);
         return true;
     }
