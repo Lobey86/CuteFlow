@@ -4,7 +4,8 @@
 * 
 */
 cf.Window = function(){return {
-	theWindow : false,
+	theWindow				: false,
+	theLoadingMask			: false,
 
 	/** Function inits window, with 2 buttons and handles login functionality **/
 	init: function () {
@@ -40,15 +41,17 @@ cf.Window = function(){return {
 	/** login handler, that transfers form to server and handles response **/
 	handleLogin: function () {
 		var url = (Ext.get('hidden_url').dom.value);
-		cf.Textfield.theHiddenURL.setValue(url);
+		cf.Textfield.theHiddenURL.setValue(url);		
 		cf.Textfield.thePanel.getForm().submit({
 			url: Ext.get('hidden_login').dom.value,
 			method: 'POST',
+			waitMsg: '<?php echo __('Logging in, please wait...',null,'login'); ?>',
 			success: function(form, objServerResponse) {
 				if (objServerResponse.result.value == 1) {
 					var versionid = (Ext.get('version_id').dom.value);
 					var workflowid= (Ext.get('workflow_id').dom.value);
 					var windowtype = (Ext.get('window').dom.value);
+					
 					if(versionid == -1){
 						window.location.href = url + 'layout/index';
 					}
