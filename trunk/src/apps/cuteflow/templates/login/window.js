@@ -45,7 +45,7 @@ cf.Window = function(){return {
 		cf.Textfield.thePanel.getForm().submit({
 			url: Ext.get('hidden_login').dom.value,
 			method: 'POST',
-			waitMsg: '<?php echo __('Logging in, please wait...',null,'login'); ?>',
+			//waitMsg: '<?php echo __('Logging in, please wait...',null,'login'); ?>',
 			success: function(form, objServerResponse) {
 				if (objServerResponse.result.value == 1) {
 					var versionid = (Ext.get('version_id').dom.value);

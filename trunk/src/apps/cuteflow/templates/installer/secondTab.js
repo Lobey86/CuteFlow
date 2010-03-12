@@ -23,6 +23,7 @@ cf.secondTab = function(){return {
 			width: 750,
 			height: 490,
 			autoScroll: true,
+			forceLayout:true,
 			shadow: false,
 			minimizable: false,
 			autoScroll: false,

@@ -25,7 +25,6 @@ cf.mainWindow = function(){return {
 		this.theCardLayout.add(cf.startTab.thePanel);
 		this.theCardLayout.add(cf.firstTab.thePanel);
 		this.theCardLayout.add(cf.secondTab.thePanel);
-		this.theCardLayout.doLayout();
 		this.theWindow.add(this.theCardLayout);
 		cf.mainWindow.theLoadingMask.hide();
 	},
@@ -33,10 +32,11 @@ cf.mainWindow = function(){return {
 	initCardLayout: function() {
 		this.theCardLayout = new Ext.FormPanel({
 			    layout:'card',
+			    forceLayout:true,
 			    border: false,
-			    deferredRender:false,
+			    hideMode: 'offsets',
+			    layoutOnCardChange : true,
 			    activeItem: 0, 
-			    hideMode:'offsets',
 			    bodyStyle: 'padding:15px',
 			    bbar: [{
 			            id: 'move-prev',

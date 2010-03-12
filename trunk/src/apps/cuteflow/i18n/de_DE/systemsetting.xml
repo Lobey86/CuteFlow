@@ -559,8 +559,12 @@
         <target>Umlauf Einstellungen</target>
      </trans-unit>
 	 <trans-unit id="139">
-        <source>Allow System to send Emails</source>
+        <source>Allow System to send emails</source>
 		<target>System darf E-Mails versenden</target>
+     </trans-unit>
+	 <trans-unit id="140">
+        <source>Sending type of email</source>
+		<target>Art des E-Mail versandes</target>
      </trans-unit>
     </body>
   </file>
