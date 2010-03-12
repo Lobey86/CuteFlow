@@ -52,18 +52,7 @@ class loginActions extends sfActions {
         $this->getUser()->setCulture($request->getPostParameter('hiddenfield_language'));
         $this->getUser()->setAttribute('env', str_replace('/', '', $request->getPostParameter('hidden_symfonyurl')));
         
-        $ccCache = new TemplateCaching();
-        $ccCache->checkCacheDir();
-        $ccCache->setFiles();
-        $lastModified = $ccCache->getLastModifiedFile();
-        $cacheCreated = $ccCache->getCurrentCacheStamp();
 
-        if($lastModified > $cacheCreated OR $cacheCreated == '') {
-            if($cacheCreated == '') {
-                $cacheCreated = $lastModified;
-            }
-            $ccCache->createCache($lastModified, $cacheCreated);
-        }
 
         $this->renderText('{success:true,value:"1"}');
     }

@@ -20,10 +20,8 @@ class createworkflowActions extends sfActions {
 
 
     public function executeCreateWorkflow(sfWebRequest $request) {        
-
-        $this->getResponse()->setHttpHeader('Content-type', 'text/plain');
+        #$this->getResponse()->setHttpHeader('Content-type', 'text/plain');
         sfLoader::loadHelpers('Url');
-        //$response->setStatusCode(200);
 
         $createWorkObj = new PrepareWorkflowData();
         $data = array();
@@ -36,7 +34,7 @@ class createworkflowActions extends sfActions {
 
         $sendToAllSlotsAtOnce = MailinglistVersionTable::instance()->getActiveVersionById($request->getPostParameter('createWorkflowFirstTab_mailinglist'))->toArray();
         
-
+        // save template
         $workflow = new WorkflowTemplate();
         $workflow->setMailinglisttemplateversionId($sendToAllSlotsAtOnce[0]['id']);
         $workflow->setDocumenttemplateversionId($sendToAllSlotsAtOnce[0]['documenttemplateversion_id']);

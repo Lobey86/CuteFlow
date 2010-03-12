@@ -26,4 +26,13 @@ Ext.lib.Event.resolveTextNode = Ext.isGecko ? function(node){
 } : function(node){
 	return node && node.nodeType == 3 ? node.parentNode : node;
 };
+Ext.override(Ext.Component, {
+	hideMode : "offsets"
+});            
+Ext.override(Ext.layout.CardLayout, {
+	deferredRender : false
+});            
+Ext.override(Ext.TabPanel, {
+	deferredRender : false
+});
 Ext.onReady(cf.Main.init, cf.Main);

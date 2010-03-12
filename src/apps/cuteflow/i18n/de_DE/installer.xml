@@ -18,7 +18,7 @@
         <source>CuteFlow installed</source>
         <target>CuteFlow installiert</target>
       </trans-unit> 	  
-		<trans-unit id="5">
+     <trans-unit id="5">
         <source>Close</source>
         <target>Verwerfen</target>
       </trans-unit> 
@@ -40,7 +40,7 @@
      </trans-unit> 
 	 <trans-unit id="10">
         <source>Data with some Examples</source>
-        <target>Beispieldatensätze</target>
+        <target>Beispieldatens&#228;tze</target>
      </trans-unit>
 	 <trans-unit id="11">
         <source>Set email adresse of admin</source>
@@ -78,11 +78,11 @@
         <source>Email Settings</source>
         <target>E-Mail Einstellungen</target>
      </trans-unit>
-	 <trans-unit id="20">
+     <trans-unit id="20">
         <source>Reply Settings</source>
         <target>Antwort Einstellungen</target>
      </trans-unit>
-	 <trans-unit id="21">
+     <trans-unit id="21">
         <source>Allow System to send emails</source>
         <target>System darf E-Mails senden</target>
      </trans-unit>	
@@ -130,17 +130,33 @@
         <source>html</source>
         <target>HTML</target>
      </trans-unit>
-	 <trans-unit id="33">
+     <trans-unit id="33">
         <source>Saving Data</source>
         <target>Speichere Daten</target>
      </trans-unit>
-	 <trans-unit id="34">
+     <trans-unit id="34">
         <source>Delete text?</source>
         <target>Text l&#246;schen?</target>
      </trans-unit>
-	 <trans-unit id="35">
+     <trans-unit id="35">
         <source>Saving Data</source>
         <target>Speichere Daten</target>
+     </trans-unit>
+	 <trans-unit id="36">
+        <source>Previous Step</source>
+        <target>Zur&#252;ck</target>
+     </trans-unit> 
+	 <trans-unit id="37">
+        <source>Next Step</source>
+        <target>Vorw&#228;rts</target>
+     </trans-unit>
+	 <trans-unit id="38">
+        <source>Welcome to CuteFlow installer</source>
+        <target>Willkommen zur Installation von CuteFlow</target>
+     </trans-unit>
+	 <trans-unit id="39">
+        <source>System data</source>
+        <target>System Daten</target>
      </trans-unit> 	 
     </body>
   </file>
