@@ -4,6 +4,17 @@ class TemplateCaching {
 
     public $files;
 
+
+    public function __construct() {
+
+    }
+
+    public static function checkCache() {
+        $filepath = sfConfig::get('sf_app_dir') . '/config/template.yml';
+        $array = sfYAML::Load($filepath);
+        print_r ($array);die;
+    }
+
     public function setFiles() {
         $files = new JavaScriptLoader();
         $files->addNameSpaceFiles();
