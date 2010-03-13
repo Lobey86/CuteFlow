@@ -24,7 +24,7 @@
       </trans-unit> 
 	  <trans-unit id="6">
         <source>Store</source>
-        <target>Speichern</target>
+        <target>Installieren</target>
       </trans-unit> 
 	  <trans-unit id="7">
         <source>Database Settings</source>
@@ -157,7 +157,11 @@
 	 <trans-unit id="39">
         <source>System data</source>
         <target>System Daten</target>
-     </trans-unit> 	 
+     </trans-unit>
+	 <trans-unit id="40">
+        <source>Step</source>
+        <target>Schritt</target>
+     </trans-unit> 	 	 
     </body>
   </file>
 </xliff>

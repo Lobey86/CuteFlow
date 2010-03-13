@@ -17,7 +17,7 @@ cf.firstTab = function(){return {
 		this.thePanel = new Ext.Panel({
 			modal: false,
 			closable: false,
-			title: '<?php echo __('Email Settings',null,'installer'); ?>',
+			title: '<?php echo __('Email Settings',null,'installer'); ?>, <?php echo __('Step',null,'installer'); ?>: 3/4',
 			layout: 'form',
 			width: 750,
 			height: 490,
@@ -167,7 +167,7 @@ cf.firstTab = function(){return {
 				displayField:'text',
 				triggerAction: 'all',
 				foreSelection: true,
-   				fieldLabel: '<?php echo __('SMPT Used Encryption',null,'systemsetting'); ?>',
+   				fieldLabel: '<?php echo __('SMTP Used Encryption',null,'systemsetting'); ?>',
    				width:200,
 				store: new Ext.data.SimpleStore({
 					 fields:['id','text'],
@@ -176,7 +176,7 @@ cf.firstTab = function(){return {
 				
 			},{
 				xtype : 'textfield',
-				fieldLabel: '<?php echo __('Absolute path of Sendmail (e.g. /usr/bin/sendmail -bs))',null,'systemsetting'); ?>',
+				fieldLabel: '<?php echo __('Absolute path of Sendmail',null,'systemsetting'); ?> (<?php echo __('e.g.',null,'systemsetting'); ?> /usr/bin/sendmail -bs)',
 				hidden: true,
 				id: 'email_sendmail',
 				width:200
