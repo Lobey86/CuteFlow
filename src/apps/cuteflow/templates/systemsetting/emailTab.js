@@ -174,7 +174,7 @@ cf.emailTab = function(){return {
 				
 			},{
 				xtype : 'textfield',
-				fieldLabel: '<?php echo __('Absolute path of Sendmail (e.g. /usr/bin/sendmail -bs))',null,'systemsetting'); ?>',
+				fieldLabel: '<?php echo __('Absolute path of Sendmail',null,'systemsetting'); ?> (<?php echo __('e.g.',null,'systemsetting'); ?> /usr/bin/sendmail -bs)',
 				id: 'email_sendmail',
 				width:200
 			}]

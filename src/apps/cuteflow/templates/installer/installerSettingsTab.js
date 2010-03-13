@@ -16,7 +16,7 @@ cf.installerSettingsTab = function(){return {
 		this.thePanel = new Ext.Panel({
 			modal: false,
 			closable: false,
-			title: '<?php echo __('Installer language',null,'installer'); ?>',
+			title: '<?php echo __('Installer language',null,'installer'); ?>, <?php echo __('Step',null,'installer'); ?>: 1/4',
 			layout: 'form',
 			width: 750,
 			height: 490,

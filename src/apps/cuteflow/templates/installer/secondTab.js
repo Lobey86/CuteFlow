@@ -18,7 +18,7 @@ cf.secondTab = function(){return {
 			modal: true,
 			closable: false,
 			modal: true,
-			title: '<?php echo __('Database Settings',null,'installer'); ?>',
+			title: '<?php echo __('Database Settings',null,'installer'); ?>, <?php echo __('Step',null,'installer'); ?>: 4/4',
 			layout: 'form',
 			width: 750,
 			height: 490,

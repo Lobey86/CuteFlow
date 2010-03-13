@@ -11,7 +11,7 @@ cf.startTab = function(){return {
 		this.thePanel = new Ext.Panel({
 			modal: false,
 			closable: false,
-			title: '<?php echo __('Welcome to CuteFlow installer',null,'installer'); ?>',
+			title: '<?php echo __('Welcome to CuteFlow installer',null,'installer'); ?>, <?php echo __('Step',null,'installer'); ?>: 2/4',
 			layout: 'form',
 			width: 750,
 			height: 490,

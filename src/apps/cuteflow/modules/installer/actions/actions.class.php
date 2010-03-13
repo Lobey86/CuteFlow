@@ -44,15 +44,30 @@ class installerActions extends sfActions
         $installer = new Installer();
         $data = $request->getPostParameters();
         $installer->createConfigFile($data);
+        // create DB
         $task = new sfDoctrineBuildAllReLoadTask(sfContext::getInstance()->getEventDispatcher(), new sfFormatter());
         chdir(sfConfig::get('sf_root_dir'));
         $task->run(array(),array('--no-confirmation', '--env=all', '--dir='.sfConfig::get('sf_root_dir').'/data/fixtures/'.$data['productive_data'].''));
         $data = $sysObj->buildEmailSetting($data);
         UserLoginTable::instance()->updateEmail($data['productive_emailadresse']);
         EmailConfigurationTable::instance()->updateEmailConfiguration($data);
+        // clear cache
         $taskCC = new sfCacheClearTask(sfContext::getInstance()->getEventDispatcher(), new sfFormatter());
-        
         $taskCC->run(array(), array());
+        // create JS Cache
+        $ccCache = new TemplateCaching();
+        $ccCache->checkCacheDir();
+        $ccCache->setFiles();
+        $lastModified = $ccCache->getLastModifiedFile();
+        $cacheCreated = $ccCache->getCurrentCacheStamp();
+
+        if($lastModified > $cacheCreated OR $cacheCreated == '') {
+            if($cacheCreated == '') {
+                $cacheCreated = $lastModified;
+            }
+            $ccCache->createCache($lastModified, $cacheCreated);
+        }
+
         $this->renderText('{success:true}');
         return sfView::NONE;
     }

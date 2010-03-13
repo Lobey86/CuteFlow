@@ -566,6 +566,42 @@
         <source>Sending type of email</source>
 		<target>Art des E-Mail versandes</target>
      </trans-unit>
+	 <trans-unit id="141">
+        <source>SMTP Username</source>
+        <target>SMTP Benutzername</target>
+    </trans-unit>
+	     <trans-unit id="142">
+        <source>SMTP Password</source>
+        <target>SMTP Passwort</target>
+    </trans-unit>
+	<trans-unit id="143">
+        <source>SMTP Use authentication</source>
+        <target>SMTP benutze Authentifizierung</target>
+    </trans-unit>
+	<trans-unit id="144">
+        <source>SMTP Used Encryption</source>
+        <target>SMTP Verschl&#252;sselung</target>
+    </trans-unit>
+	<trans-unit id="145">
+        <source>SSL</source>
+        <target>SSL</target>
+    </trans-unit>
+	<trans-unit id="146">
+        <source>TLS</source>
+        <target>TLS</target>
+    </trans-unit>
+	<trans-unit id="147">
+        <source>Absolute path of Sendmail</source>
+        <target>Absoluter Pfad von Sendmail</target>
+    </trans-unit>
+	<trans-unit id="148">
+        <source>e.g.</source>
+        <target>z.b.</target>
+    </trans-unit>
+	<trans-unit id="149">
+        <source>no encryption</source>
+        <target>keine Verschl&#252;sselung</target>
+    </trans-unit>
     </body>
   </file>
 </xliff>
