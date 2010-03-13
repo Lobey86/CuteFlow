@@ -3,3 +3,8 @@ disabled:
     login
   module_2:
     installer
+  module_3:
+    layout
+enableJavaScriptCache:
+  isEnabled:
+    true
