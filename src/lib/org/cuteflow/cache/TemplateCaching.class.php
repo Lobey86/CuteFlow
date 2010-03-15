@@ -73,7 +73,7 @@ class TemplateCaching {
         return true;
     }
 }
-function cmp ($a, $b) {
-    return strcmp($a, $b);
-}
+    function cmp ($a, $b) {
+        return strcmp($a, $b);
+    }
 ?>
