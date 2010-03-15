@@ -315,20 +315,27 @@ cf.createWorkflowCRUD = function(){return {
 	
 	checkUser: function () {
 		var panel = cf.createWorkflowSecondTab.theLeftPanel;
-		var users = true;
-		for(var a=0;a<panel.items.length;a++) {
-			var fieldset = panel.getComponent(a);
-			var grid = fieldset.getComponent(0);
-			if(grid.store.getCount() == 0) {
-				Ext.Msg.minWidth = 400;
-				Ext.MessageBox.alert('<?php echo __('Error',null,'workflowmanagement'); ?>','<?php echo __('Add some Users to your slots',null,'workflowmanagement'); ?>');
-				users = false;
+		if(panel.items.length > 0) {
+			var users = true;
+			for(var a=0;a<panel.items.length;a++) {
+				var fieldset = panel.getComponent(a);
+				var grid = fieldset.getComponent(0);
+				if(grid.store.getCount() == 0) {
+					Ext.Msg.minWidth = 400;
+					Ext.MessageBox.alert('<?php echo __('Error',null,'workflowmanagement'); ?>','<?php echo __('Add some Users to your slots',null,'workflowmanagement'); ?>');
+					users = false;
+				}
 			}
+			if(users == false){
+				cf.createWorkflowCRUD.theLoadingMask.hide();
+			}
+			return users;
 		}
-		if(users == false){
-			cf.createWorkflowCRUD.theLoadingMask.hide();
+		else {
+			users =  false;
+			return users;
 		}
-		return users;
+		
 	},
 	
 	
