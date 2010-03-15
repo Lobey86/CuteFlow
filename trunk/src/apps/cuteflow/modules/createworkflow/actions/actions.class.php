@@ -20,7 +20,6 @@ class createworkflowActions extends sfActions {
 
 
     public function executeCreateWorkflow(sfWebRequest $request) {        
-        #$this->getResponse()->setHttpHeader('Content-type', 'text/plain');
         sfLoader::loadHelpers('Url');
 
         $createWorkObj = new PrepareWorkflowData();
