@@ -22,7 +22,7 @@ cf.startTab = function(){return {
 			draggable: false,
 			resizable: false,
 			plain: false,
-			html: 'INSTALLER UND SO'
+			html: '<?php echo __('Installertext',null,'installer'); ?><br /><br /><center><img src="/images/icons/cf_schema_large.png" width=450"/></center>'
 		});
 		
 	}
