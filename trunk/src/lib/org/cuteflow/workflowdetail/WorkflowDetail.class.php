@@ -391,7 +391,7 @@ class WorkflowDetail {
             $result[$a]['hashname'] = $file['hashname'];
             $result[$a]['filename'] = $file['filename'];
             $url = $this->serverUrl . '/file/ShowAttachment';
-            $url .= '/workflowid/' .  $file['workflowversion_id'] . '/versionid/' . $file['workflowversion_id'] . '/attachmentid/' . $file['id'] . '/file/0';
+            $url .= '/workflowid/' .  $file['workflowtemplate_id'] . '/versionid/' . $file['workflowversion_id'] . '/attachmentid/' . $file['id'] . '/file/0';
             $result[$a]['link'] = '<a href="'.$url.'" target="_blank">'.$result[$a]['filename'].'</a>';
             $a++;
         }

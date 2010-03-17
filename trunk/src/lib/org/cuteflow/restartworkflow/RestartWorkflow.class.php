@@ -314,10 +314,6 @@ class RestartWorkflow {
 
 
     public function restartAtLastStation(array $lastStationData, array $newData, $version_id, $workflow_id) {
-        #print_r ($lastStationData);
-        #print_r ($newData);die;
-
-
         for($a = 0;$a<count($lastStationData);$a++) {
             $lastSlots = $lastStationData[$a];
             $newSlots = $newData[$a];
