@@ -426,6 +426,10 @@
         <source>Login Data</source>
         <target>Anmelde Daten</target>
      </trans-unit>
+	 <trans-unit id="107">
+        <source>Saving Data</source>
+        <target>Speichere Daten</target>
+     </trans-unit>
     </body>
   </file>
 </xliff>

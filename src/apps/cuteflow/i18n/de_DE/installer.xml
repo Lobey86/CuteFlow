@@ -176,7 +176,7 @@
      </trans-unit>
 	 <trans-unit id="44">
         <source>Installertext</source>
-        <target>Pr&#252;fe Einstellungen</target>
+        <target>CuteFlow is a web based document circulation tool. Users are able to define "documents" which are send step by step to every station/user in a list. It s an electronic way for doing (i.e. internal) document circulations.</target>
      </trans-unit>  	 
     </body>
   </file>
