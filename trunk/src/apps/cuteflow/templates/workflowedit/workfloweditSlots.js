@@ -321,7 +321,7 @@ cf.workfloweditSlot = function(){return {
 			style: 'margin-top:5px;margin-left:10px;margin-right:10px;',
 			id: 'WORKFLOWSLOTID__' + id,
 			width: cf.Layout.theRegionWest.getWidth() +  cf.Layout.theRegionCenter.getWidth() - 140,
-			height: 250
+			height: 'auto'
 		});
 		return theFieldset;
 	},
