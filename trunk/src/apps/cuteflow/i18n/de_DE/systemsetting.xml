@@ -602,6 +602,10 @@
         <source>no encryption</source>
         <target>keine Verschl&#252;sselung</target>
     </trans-unit>
+		<trans-unit id="150">
+        <source>SMTP Used Encryption</source>
+        <target>SMTP Verschl&#252;sselung</target>
+    </trans-unit>
     </body>
   </file>
 </xliff>
