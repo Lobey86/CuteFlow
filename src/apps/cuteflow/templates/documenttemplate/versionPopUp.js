@@ -30,7 +30,7 @@ cf.documenttemplateVersionPopUp = function(){return {
 			modal: true,
 			height: cf.Layout.theRegionWest.getHeight() + cf.Layout.theRegionNorth.getHeight() - 40,
 			width: 820,
-			autoScroll: false,
+			autoScroll: true,
 			shadow: false,
 			minimizable: false,
 			draggable: true,

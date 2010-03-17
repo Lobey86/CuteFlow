@@ -143,6 +143,7 @@ cf.documenttemplateVersionSecondTab = function(){return {
 			id: 'panel_' + id,
 			title: grid_id + ': ' + created_at,
 			closable: true,
+			autoScroll: true,
 			frame: true,
 			height: cf.Layout.theRegionWest.getHeight() + cf.Layout.theRegionNorth.getHeight() - 148
 		});
