@@ -568,7 +568,7 @@
      </trans-unit>
 	 	 <trans-unit id="141">
         <source>SMTP Username</source>
-        <target>SMTP Benutzername</target>
+        <target>SMTP Username</target>
     </trans-unit>
 	     <trans-unit id="142">
         <source>SMTP Password</source>
