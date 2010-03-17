@@ -239,7 +239,6 @@ class restartworkflowActions extends sfActions {
             $wfRestart->setContext($context);
             $wfRestart->setServerUrl(str_replace('/layout', '', url_for('layout/index',true)));
             $lastStationdata = $wfRestart->getRestartData($version_id);
-
             $wfRestart->restartAtLastStation($lastStationdata, $dataStore, $newVersionId, $workflowtemplate_id[0]['workflowtemplate_id']);
         }
         else {
