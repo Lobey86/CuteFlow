@@ -4,7 +4,7 @@ disabled:
   module_2:
     installer
   module_3:
-    layout
+    namespace
 enableJavaScriptCache:
   isEnabled:
     true
