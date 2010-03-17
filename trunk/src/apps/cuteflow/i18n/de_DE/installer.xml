@@ -173,7 +173,11 @@
 	 <trans-unit id="43">
         <source>Checking Settings</source>
         <target>Pr&#252;fe Einstellungen</target>
-     </trans-unit> 	 
+     </trans-unit>
+	 <trans-unit id="44">
+        <source>Installertext</source>
+        <target>Pr&#252;fe Einstellungen</target>
+     </trans-unit>  	 
     </body>
   </file>
 </xliff>
