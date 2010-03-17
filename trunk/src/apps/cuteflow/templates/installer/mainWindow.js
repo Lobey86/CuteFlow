@@ -116,25 +116,40 @@ cf.mainWindow = function(){return {
 				id: 'installer_saveButton',
 				hidden: true,
 				handler: function () {
-					var url = Ext.get('url_save').dom.value;
+					var checkUrl = Ext.get('url_check').dom.value;
 					cf.mainWindow.theCardLayout.getForm().submit({
-						url: url,
-						method: 'POST',
-						waitMsg: '<?php echo __('Building System',null,'installer'); ?>',
-						success: function(objServerResponse){
-							Ext.Msg.minWidth = 200;
-							Ext.MessageBox.alert('<?php echo __('CuteFlow installed',null,'installer'); ?>','<?php echo __('CuteFlow installed',null,'installer'); ?>');
-							var url = Ext.get('url_login').dom.value;
-							window.location.href = url;
-						},
-						failure: function (objServerResponse) {
-							Ext.Msg.minWidth = 200;
-							Ext.MessageBox.alert('<?php echo __('CuteFlow installed',null,'installer'); ?>','<?php echo __('CuteFlow installed',null,'installer'); ?>');
-							var url = Ext.get('url_login').dom.value;
-							window.location.href = url;
-							
-						}
-					});
+							url: checkUrl,
+							method: 'POST',
+							waitMsg: '<?php echo __('Checking Settings',null,'installer'); ?>',
+							success: function(objServerResponse){
+								var url = Ext.get('url_save').dom.value;
+								cf.mainWindow.theCardLayout.getForm().submit({
+									url: url,
+									method: 'POST',
+									waitMsg: '<?php echo __('Building System',null,'installer'); ?>',
+									success: function(objServerResponse){
+										Ext.Msg.minWidth = 200;
+										Ext.MessageBox.alert('<?php echo __('CuteFlow installed',null,'installer'); ?>','<?php echo __('CuteFlow installed',null,'installer'); ?>');
+										var url = Ext.get('url_login').dom.value;
+										window.location.href = url;
+									},
+									failure: function (objServerResponse) {
+										Ext.Msg.minWidth = 200;
+										Ext.MessageBox.alert('<?php echo __('CuteFlow installed',null,'installer'); ?>','<?php echo __('CuteFlow installed',null,'installer'); ?>');
+										var url = Ext.get('url_login').dom.value;
+										window.location.href = url;
+										
+									}
+								});
+							},
+							failure: function(objServerResponse) {
+								Ext.Msg.minWidth = 250;
+								Ext.MessageBox.alert('<?php echo __('Failure',null,'installer'); ?>','<?php echo __('Database connection is not valid',null,'installer'); ?>');
+							}
+						});
+
+					
+					
 				}
 			},{
 				text:'<?php echo __('Close',null,'installer'); ?>', 

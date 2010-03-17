@@ -4,6 +4,7 @@ cf.firstTab = function(){return {
 	thePanel				:false,
 	theEmailReplay			:false,
 	theEmailSendingType		:false,
+	
 	/** Calls all necessary function to display the login form **/
 	init: function(){
 		this.initEmail();
