@@ -161,7 +161,19 @@
 	 <trans-unit id="40">
         <source>Step</source>
         <target>Schritt</target>
-     </trans-unit> 	 	 
+     </trans-unit> 	
+	 <trans-unit id="41">
+        <source>Failure</source>
+        <target>Fehler</target>
+     </trans-unit>
+	 <trans-unit id="42">
+        <source>Database connection is not valid</source>
+        <target>Datenbankverbindung ist fehlerhaft</target>
+     </trans-unit>
+	 <trans-unit id="43">
+        <source>Checking Settings</source>
+        <target>Pr&#252;fe Einstellungen</target>
+     </trans-unit> 	 
     </body>
   </file>
 </xliff>

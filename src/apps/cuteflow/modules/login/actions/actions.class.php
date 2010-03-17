@@ -52,8 +52,6 @@ class loginActions extends sfActions {
         $this->getUser()->setCulture($request->getPostParameter('hiddenfield_language'));
         $this->getUser()->setAttribute('env', str_replace('/', '', $request->getPostParameter('hidden_symfonyurl')));
         
-
-
         $this->renderText('{success:true,value:"1"}');
     }
     else {

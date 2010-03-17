@@ -19,6 +19,27 @@ class installerActions extends sfActions
         return sfView::SUCCESS;
     }
 
+    /**
+     * Action name
+     */
+    public function executeCheckConnection(sfWebRequest $request) {
+        $data = $request->getPostParameters();
+
+        $dsn = $data['productive_database'] . ':dbname='.$data['productive_databasename'].';host='.$data['productive_host'];
+        $user = $data['productive_username'];
+        $password = $data['productive_password'];
+        
+        try {
+            $dbh = new PDO($dsn, $user, $password);
+            $conn = Doctrine_Manager::connection($dbh);
+            $this->renderText('{success:true}');
+        }
+        catch(Exception $e) {
+            $this->renderText('{success:false}');
+        }
+        return sfView::NONE;
+    }
+
 
     public function executeChangeLanguage(sfWebRequest $request) {
         $this->getUser()->setCulture($request->getParameter('value'));
