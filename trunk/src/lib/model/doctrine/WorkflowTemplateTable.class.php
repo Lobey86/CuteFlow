@@ -565,7 +565,9 @@ class WorkflowTemplateTable extends Doctrine_Table {
         $query =  Doctrine_Query::create()
             ->from('WorkflowTemplate wft')
             ->select('wft.*, wfv.id as activeversion_id,wfv.workflowisstarted as workflowisstarted,wfv.startworkflow_at as startworkflow_at, wfv.created_at as versioncreated_at, wft.iscompleted')
-            ->leftJoin('wft.WorkflowVersion wfv');
+            ->leftJoin('wft.WorkflowVersion wfv')
+            ->leftJoin('wfv.WorkflowProcess wfp')
+            ->leftJoin('wfp.WorkflowProcessUser wfpu');
         if($offset != -1 AND $limit != -1) {
             $query->limit($limit)
                   ->offset($offset);
