@@ -175,8 +175,16 @@
         <target>Checking Settings</target>
      </trans-unit> 
 	 <trans-unit id="44">
-        <source>Installertext</source>
+        <source>Installertext1</source>
         <target>CuteFlow is a web based document circulation tool. Users are able to define "documents" which are send step by step to every station/user in a list. It s an electronic way for doing (i.e. internal) document circulations.</target>
+     </trans-unit>
+	 <trans-unit id="45">
+        <source>Installertext2</source>
+        <target>A document can consist of different types of input fields and the fields can be filled with values directly in the receivers Browser. After a completed circulation you will have a completely filled document. Also attachments to the document are possible (i.e. for illustration material).</target>
+     </trans-unit>  
+	 <trans-unit id="46">
+        <source>Installertext3</source>
+        <target>All operations like starting a workflow, tracking, workflow-definition, or status observation can be done within a comfortable and easy to use web interface.</target>
      </trans-unit>    	 
     </body>
   </file>

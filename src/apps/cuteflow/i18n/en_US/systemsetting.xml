@@ -580,7 +580,7 @@
     </trans-unit>
 	<trans-unit id="144">
         <source>SMTP Used Encryption</source>
-        <target>SMTP Verschl&#252;sselung</target>
+        <target>SMTP Used Encryption</target>
     </trans-unit>
 	<trans-unit id="145">
         <source>SSL</source>
