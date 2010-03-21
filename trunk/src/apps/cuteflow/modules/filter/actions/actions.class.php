@@ -1,7 +1,7 @@
 <?php
 
 /**
- * filter actions.
+ * filter actions for workflooverview, todo, archiveoverview
  *
  * @package    cf
  * @subpackage filter
@@ -10,17 +10,14 @@
  */
 class filterActions extends sfActions
 {
- /**
-  * Executes index action
-  *
-  * @param sfRequest $request A request object
-  */
-  public function executeIndex(sfWebRequest $request)
-  {
-    $this->forward('default', 'module');
-  }
 
 
+    /**
+     * Load all mailinglist
+     *
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeLoadMailinglist(sfWebRequest $request) {
         $mailinglist = new Mailinglist();
         $data = MailinglistTemplateTable::instance()->getAllMailinglistTemplates(-1,-1);
@@ -30,7 +27,12 @@ class filterActions extends sfActions
     }
 
 
-    
+    /**
+     * Load all Documenttemplates
+     *
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeLoadDocumenttemplate(sfWebRequest $request) {
         $docObj = new Documenttemplate();
         $data = DocumenttemplateTemplateTable::instance()->getAllDocumentTemplates(-1,-1)->toArray();
@@ -40,14 +42,23 @@ class filterActions extends sfActions
     }
 
 
-    
+    /**
+     * Load all user, which are able to send a worklfow
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeLoadSender(sfWebRequest $request) {
         $result = UserLoginTable::instance()->getAllSenderUser()->toArray();
         $this->renderText('{"result":'.json_encode($result).'}');
         return sfView::NONE;
     }
 
-    
+    /**
+     * Load all stations, which are running
+     *
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeLoadStation(sfWebRequest $request) {
         $filter = new FilterManagement();
         $data = WorkflowProcessUserTable::instance()->getWaitingProcess();
@@ -56,7 +67,12 @@ class filterActions extends sfActions
         return sfView::NONE;
     }
 
-
+    /**
+     * Load all available fields
+     * 
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeLoadFields(sfWebRequest $request) {
         $fieldObj = new FieldClass();
         $result = FieldTable::instance()->getAllFields();
@@ -66,6 +82,11 @@ class filterActions extends sfActions
     }
 
 
+    /**
+     * Save a created filter
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeSaveFilter(sfWebRequest $request) {
 		
         $sender_id = $request->getPostParameter('filter_sender') == '' ? -1 : $request->getPostParameter('filter_sender');
@@ -86,9 +107,7 @@ class filterActions extends sfActions
         $filter->setDocumenttemplateversionId($documentTemplate);
         $filter->save();
         $filterId = $filter->getId();
-
-		$this->renderText('{success:true}');
-        return sfView::NONE;
+        // save the field grid
         if($request->hasParameter('field')) {
             $fields = $request->getParameter('field');
             $operators = $request->getParameter('operator');
@@ -114,7 +133,12 @@ class filterActions extends sfActions
     }
 
 
-    
+    /**
+     * Load all filters from database
+     *
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeLoadFilter(sfWebRequest $request) {
         $data = FilterTable::instance()->getAllFilter()->toArray();
         $this->renderText('({"result":'.json_encode($data).'})');
@@ -122,6 +146,13 @@ class filterActions extends sfActions
     }
 
 
+
+    /**
+     * Load a single filter
+     *
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeLoadSingleFilter(sfWebRequest $request) {
         $filtObj = new FilterManagement();
         $filters = FilterTable::instance()->getFilterById($request->getParameter('id'));
@@ -130,6 +161,12 @@ class filterActions extends sfActions
         return sfView::NONE;
     }
 
+    /**
+     * Delete a filter
+     *
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeDeleteFilter(sfWebRequest $request) {
         FilterFieldTable::instance()->deleteFieldsByFilterId($request->getParameter('id'));
         $filter = Doctrine::getTable('Filter')->find($request->getParameter('id'));

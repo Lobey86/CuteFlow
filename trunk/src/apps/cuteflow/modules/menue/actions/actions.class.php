@@ -28,7 +28,6 @@ class menueActions extends sfActions {
      */
     public function executeLoadMenue(sfWebRequest $request) {
         $menueObject = new Menue();
-
         $result = CredentialTable::instance()->getAllCredentials('c.usermodule asc,c.usergroup asc');
 
         $menueObject->setRecords($result);

@@ -14,35 +14,36 @@ class loginActions extends sfActions {
 
 
     /**
-    * Executes index action
+    * Show the login page
     *
     * @param sfRequest $request A request object
     */
     public function executeIndex(sfWebRequest $request) {
-        $loginObj = new Login();
-        if ($loginObj->checkInstaller() == false) {
-            $this->redirect('installer/index');
-        }
-
-
         $this->getUser()->setAuthenticated(false);
         sfLoader::loadHelpers('Url');
         $this->getUser()->setCulture(Language::loadDefaultLanguage());
         $tm = new ThemeManagement();
         $systemTheme = UserConfigurationTable::instance()->getUserConfiguration()->toArray();
         $this->theTheme = $systemTheme[0]['theme'];
+
+        /*
+         * -1 is set when user uses login form to login
+         * int is set, when user logges in from en email link, then a workflow needs to opened
+         */
         $this->version_id = $request->getParameter('versionid',-1);
         $this->workflow_id = $request->getParameter('workflow',-1);
         $this->window  = $request->getParameter('window',-1);
-
         return sfView::SUCCESS;
     }
 
     /**
-     * 
-    * Dummy Action, to login User......add ldap functionality here...
-    *
-    */
+     * Action to login the user and set its role, and userid
+     * currently only cuteflow database can be used to login
+     *
+     * @todo LDAP and OpenID login
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeDoLogin(sfWebRequest $request) {
     $result = UserLoginTable::instance()->findUserByNameAndPassword($request->getPostParameter('username'), $request->getPostParameter('userpassword'));
     if($result[0]->getUserName() == $request->getPostParameter('username') AND $result[0]->getPassword() == $request->getPostParameter('userpassword')) {
@@ -90,60 +91,6 @@ class loginActions extends sfActions {
         $result = $language->loadAjaxLanguage($this->getContext());
         $default = Language::buildDefaultLanguage($this->getUser()->getCulture());
         $this->renderText('{"defaultValue":"'.$default.'","result":'.json_encode($result).'}');
-        return sfView::NONE;
-    }
-
-
-
-    public function executeAuth(sfWebRequest $request) {
-
-        
-        
-
-         $openid = sfOpenID::simplifyURL($this->getRequestParameter('openid_identity'));
-        print_r ($openid);
-
-
-
-
-        
-
-
-
-         /*
-        * $c
-        * redentials = new ezcAuthenticationPasswordCredentials( 'manu@apk.local', 'gisbert' );
-         $ldap = new ezcAuthenticationLdapInfo( 'apk.local', 's=%s%', 'dc=apk,dc=local', 389 );
-         $authentication = new ezcAuthentication( $credentials );
-         $authentication->addFilter( new ezcAuthenticationLdapFilter( $ldap ) );
-
-         if ( !$authentication->run() )  {
-
-             echo "test";
-         }*/
-
-
-        die;
-        $ds = ldap_connect( 'apk.local' );
-        ldap_set_option($ds, LDAP_OPT_PROTOCOL_VERSION, 3) ;
-        $login = ldap_bind( $ds, 'manu@apk.local', 'gisbert' );
-
-        $filter="(objectClass=*)";
-        $justthese = array("ou", "sn", "givenname", "mail");
-
-        $sr=ldap_read($ds, "","(objectClass=*)");
-        $entry = ldap_get_entries($ds, $sr);
-        print_r ($entry);die;
-
-
-
-
-
-
-
-
-
-        die;
         return sfView::NONE;
     }
 

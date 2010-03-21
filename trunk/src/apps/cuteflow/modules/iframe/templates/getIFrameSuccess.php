@@ -47,6 +47,9 @@
             <td height="20"></td>
         </tr>
         <?php
+        /**
+         * Load the slots and its fields
+         */
         $buildIframe = new BuildIFrameEmail();
         $fieldcounter = 0;
         $slotcounter = 0;

@@ -9,17 +9,21 @@
  * @version    SVN: $Id: actions.class.php 12479 2008-10-31 10:54:40Z fabien $
  */
 class workfloweditActions extends sfActions {
+
+
+
+
     /**
-    * Executes index action
-    *
-    * @param sfRequest $request A request object
-    */
-    public function executeIndex(sfWebRequest $request) {
-        $this->forward('default', 'module');
-    }
-
-
-
+     * Load all data, wich is needed to fill out an workflow
+     * generalData like sender, creation date is loaded
+     * slotData, all slots to fill out
+     * workflowAttachment, load public attachments
+     * userData: tree on left side, to show current process
+     * showName: flag if users can be shown in the left side or not
+     *
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeLoadWorkflowData(sfWebRequest $request) {
         sfLoader::loadHelpers('EndAction');
         $detailsObj = new WorkflowDetail();
@@ -45,16 +49,22 @@ class workfloweditActions extends sfActions {
 
 
     /**
-     * Save the workflow out of an IFRAME
+     * Function allows to save an workflow out of an email (IFRAME)
+     * 
+     * @param sfWebRequest $request
+     * @return <type>
      */
     public function executeSaveIFrame (sfWebRequest $request) {
         sfLoader::loadHelpers('Url');
         $failure = array();
         $workflowSaveObj = new SaveWorkflow();
         $data = $request->getPostParameters();
+        // data mus be set
         if(!empty($data)) {
+            // check if all fields are correct set
             $failure = $workflowSaveObj->checkFields($data['field']);
             if($failure['isFalse'] == 0) {
+                 // workflow accepted
                 if($data['workfloweditAcceptWorkflow_decission'] == 1) {
                     if(isset($data['field'])) {
                         foreach($data['field'] as $field) {
@@ -104,6 +114,7 @@ class workfloweditActions extends sfActions {
 
                         }
                     }
+                    // calculate next station
                     $slots = $data['slot'];
                     $context = sfContext::getInstance();
                     $context->getConfiguration()->loadHelpers('Partial', 'I18N', 'Url', 'Date', 'CalculateDate', 'ColorBuilder', 'Icon', 'EndAction');
@@ -111,6 +122,7 @@ class workfloweditActions extends sfActions {
                     $workflowSaveObj->setServerUrl(str_replace('/layout', '', url_for('layout/index',true)));
                     $workflowSaveObj->getNextStation($slots,$request->getParameter('userid'),$request->getParameter('versionid'));
                 }
+                // deny workflow
                 else {
                     $workflowSaveObj->denyWorkflow($data, $request->getParameter('workflowid'), $request->getParameter('userid'), $request->getParameter('versionid'));
                 }
@@ -123,6 +135,7 @@ class workfloweditActions extends sfActions {
             }
         }
         else {
+                // workflow not correct
                $this->setLayout(false);
                $this->setTemplate('failure');
                return sfView::SUCCESS;
@@ -134,12 +147,18 @@ class workfloweditActions extends sfActions {
 
 
 
-
+    /**
+     * Save workflow out of the browser
+     * 
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeSaveWorkflow(sfWebRequest $request) {
         sfLoader::loadHelpers('Url');
         $data = $request->getPostParameters();
         $workflowSaveObj = new SaveWorkflow();
         if($data['workfloweditAcceptWorkflow_decission'] == 1) { // user accepted Workflow
+            // workflow contains fields to write, not e.g. not only file-fields
             if(isset($data['field'])) {
                 foreach($data['field'] as $field) {
                     switch ($field['type']) {
@@ -185,6 +204,7 @@ class workfloweditActions extends sfActions {
                     }
                 }
             }
+            // calculate next station
             $context = sfContext::getInstance();
             $context->getConfiguration()->loadHelpers('Partial', 'I18N', 'Url', 'Date', 'CalculateDate', 'ColorBuilder', 'Icon', 'EndAction');
             $slots = $data['slot'];

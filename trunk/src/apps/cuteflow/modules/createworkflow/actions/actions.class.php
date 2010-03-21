@@ -9,16 +9,14 @@
  * @version    SVN: $Id: actions.class.php 12479 2008-10-31 10:54:40Z fabien $
  */
 class createworkflowActions extends sfActions {
- /**
-  * Executes index action
-  *
-  * @param sfRequest $request A request object
-  */
-    public function executeIndex(sfWebRequest $request) {
-        $this->forward('default', 'module');
-    }
 
 
+    /**
+     * Actions creates a new workflow
+     *
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeCreateWorkflow(sfWebRequest $request) {        
         sfLoader::loadHelpers('Url');
 
@@ -27,16 +25,16 @@ class createworkflowActions extends sfActions {
         $startDate = array();
         $userslot_id = array();
 
-        $endreason = $createWorkObj->createEndreason($request->getPostParameter('createWorkflowFirstTabSettings', array()));
-        $startDate = $createWorkObj->createStartDate($request->getPostParameter('createWorkflowFirstTab_datepicker'));
-        $content = $createWorkObj->createContenttype($request->getPostParameters());
+        $endreason = $createWorkObj->createEndreason($request->getPostParameter('createWorkflowFirstTabSettings', array())); // additional settings of the workflow
+        $startDate = $createWorkObj->createStartDate($request->getPostParameter('createWorkflowFirstTab_datepicker')); // create timestamp and flag if workflow is to start just in time
+        $content = $createWorkObj->createContenttype($request->getPostParameters()); // create the contenttype of the additionaltext
 
-        $sendToAllSlotsAtOnce = MailinglistVersionTable::instance()->getActiveVersionById($request->getPostParameter('createWorkflowFirstTab_mailinglist'))->toArray();
+        $sendToAllSlotsAtOnce = MailinglistVersionTable::instance()->getActiveVersionById($request->getPostParameter('createWorkflowFirstTab_mailinglist'))->toArray(); // get flag if mailinglist is send to all slots at once
         
-        // save template
+        // save the workflow to main table
         $workflow = new WorkflowTemplate();
-        $workflow->setMailinglisttemplateversionId($sendToAllSlotsAtOnce[0]['id']);
-        $workflow->setDocumenttemplateversionId($sendToAllSlotsAtOnce[0]['documenttemplateversion_id']);
+        $workflow->setMailinglisttemplateversionId($sendToAllSlotsAtOnce[0]['id']); // mailinglistversionid
+        $workflow->setDocumenttemplateversionId($sendToAllSlotsAtOnce[0]['documenttemplateversion_id']); // documenttemplateversionid
         $workflow->setName($request->getPostParameter('createWorkflowFirstTab_name'));
         $workflow->setSenderId($this->getUser()->getAttribute('id'));
         $workflow->setIsarchived(0);
@@ -46,6 +44,7 @@ class createworkflowActions extends sfActions {
         $workflow->save();
         $workflow_id = $workflow->getId();
 
+        // save version
         $workflowtemplate = new WorkflowVersion();
         $workflowtemplate->setWorkflowtemplateId($workflow_id);
         $workflowtemplate->setActiveversion(1);
@@ -61,6 +60,7 @@ class createworkflowActions extends sfActions {
         $data = $request->getPostParameter('slot');
         $slotposition = 1;
 
+        // begin to store the slots for the workflow
         foreach($data as $slot) {
             $slotObj = new WorkflowSlot();
             $slotObj->setSlotId($slot['slot']['id']);
@@ -71,25 +71,25 @@ class createworkflowActions extends sfActions {
             $users = $slot['user'];
             $fields = $slot['slot']['field'];
             $userposition = 1;
+            // start to save
             foreach($users as $user) {
                 $userObj = new WorkflowSlotUser();
                 $userObj->setWorkflowslotId($slot_id);
-                $user['id'] = $user['id'] == -2 ? $this->getUser()->getAttribute('id') : $user['id'];
+                $user['id'] = $user['id'] == -2 ? $this->getUser()->getAttribute('id') : $user['id']; // remove the placeholder "workflowsender"
                 $userObj->setUserId($user['id']);
                 $userObj->setPosition($userposition++);
                 $userObj->save();
-                if(($slotposition-1) == 1) {
-                    $userslot_id[] = $userObj->getId();
-                }
             }
             $fieldposition = 1;
-            foreach($fields as $field) {
+            foreach($fields as $field) { // save all fields for the current slot
+                // save parent field element
                 $fieldObj = new WorkflowSlotField();
                 $fieldObj->setWorkflowslotId($slot_id);
                 $fieldObj->setFieldId($field['field_id']);
                 $fieldObj->setPosition($fieldposition++);
                 $fieldObj->save();
                 $field_id = $fieldObj->getId();
+                // save all field items
                 switch ($field['type']) {
                     case 'TEXTFIELD':
                         $textfield = new WorkflowSlotFieldTextfield();
@@ -160,7 +160,6 @@ class createworkflowActions extends sfActions {
                     case 'FILE':
                         $fieldToStore =  $field['filearray'];
                         $allFiles = $_FILES;
-                        
                         $file = $allFiles[$fieldToStore];
                         $upload = new FileUpload();
                         $upload->uploadFormFile($file, $field_id,$template_id,$workflow_id);
@@ -168,11 +167,18 @@ class createworkflowActions extends sfActions {
             }
 
         }
-        
+
+        /**
+         *  save files from file grid in overview.
+         *  files are moved forom ext
+         *  $keys[0]['uploadfile']->file1
+         *  $keys[1]['uploadfile']->file2
+         *  it is also necessary to use $_FILES instead of $request->getFiles()
+         */
+
         $files = $_FILES;
         $keys = array();
         $keys = array_keys($files);
-
         for($a=0;$a<count($keys);$a++) {
 	$key = $keys[$a];
             if(substr_count($key, 'uploadfile') == 1) {
@@ -183,21 +189,29 @@ class createworkflowActions extends sfActions {
 
         $context = sfContext::getInstance();
         $context->getConfiguration()->loadHelpers('Partial', 'I18N', 'Url', 'Date', 'CalculateDate', 'ColorBuilder', 'Icon', 'EndAction');
-        $sendToAllSlotsAtOnce = MailinglistVersionTable::instance()->getActiveVersionById($request->getPostParameter('createWorkflowFirstTab_mailinglist'))->toArray();
+
+        // check is workflow needs to be started at the moment
         if($startDate['workflowisstarted'] == 1) {
-            if($sendToAllSlotsAtOnce[0]['sendtoallslotsatonce'] == 1) {
+            if($sendToAllSlotsAtOnce[0]['sendtoallslotsatonce'] == 1) { // workflow is send to all slots at once
                 $calc = new CreateWorkflow($template_id);
                 $calc->setContext($context);
                 $calc->setServerUrl(str_replace('/layout', '', url_for('layout/index',true)));
                 $calc->addAllSlots();
             }
-            else {
+            else { // workflow is send to single slot first
                 $calc = new CreateWorkflow($template_id);
                 $calc->setContext($context);
                 $calc->setServerUrl(str_replace('/layout', '', url_for('layout/index',true)));
                 $calc->addSingleSlot();
             }
         }
+        /**
+         * set the response of the action.
+         * it is needed to use this response when using fileupload in extjs with symfony.
+         * extjs is uploading files using iframe. this iframe needs text/html as response
+         */
+
+
         $this->getResponse()->setHttpHeader('Content-Type','text/html; charset=utf-8');
         $json = array('success' => true);
         $string = '<textarea>'.json_encode($json).'</textarea>';
@@ -207,7 +221,7 @@ class createworkflowActions extends sfActions {
 
 
     /**
-     * Load all mailinglists
+     * Load all mailinglists for the tab: Mailing list when starting creation process
      * @param sfWebRequest $request
      * @return <type>
      */
@@ -221,7 +235,11 @@ class createworkflowActions extends sfActions {
     }
 
 
-
+    /**
+     * Load all Fields for the tab: Fields when starting creation process
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeLoadAllField(sfWebRequest $request) {
         $workflowObj = new Workflow();
         $workflowObj->setContext($this->getContext());

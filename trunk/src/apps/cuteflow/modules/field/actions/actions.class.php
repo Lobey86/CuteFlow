@@ -19,7 +19,7 @@ class fieldActions extends sfActions {
     }
 
     /**
-    * Load all data for grid
+    * Load all fields  for the  overviewgrid
     *
     * @param sfRequest $request A request object
     */
@@ -33,7 +33,7 @@ class fieldActions extends sfActions {
 
 
     /**
-     * Delete record
+     * Delete a field
      * @param sfWebRequest $request
      * @return <type>
      */
@@ -44,15 +44,16 @@ class fieldActions extends sfActions {
     
 
     /**
-     * Save fields
+     * Create a new field and save it to database
      * @param sfWebRequest $request
      * @return <type>
      */
     public function executeSaveField(sfWebRequest $request) {
         $data = $request->getPostParameters();
         $fieldClass = new FieldClass();
-        $data = $fieldClass->prepareSaveData($data);
-        
+        $data = $fieldClass->prepareSaveData($data); // prepare the data to save, set color and writeprotected flag
+
+        // create parent element for the fields
         $fieldObj = new Field();
         $fieldObj->setTitle($data['createFileWindow_fieldname']);
         $fieldObj->setType($data['createFileWindow_fieldtype']);
@@ -61,6 +62,7 @@ class fieldActions extends sfActions {
         $fieldObj->save();
         $id = $fieldObj->getId();
 
+        // add the child elements to the field, with the selected field type
         switch ($data['createFileWindow_fieldtype']) {
             case 'TEXTFIELD':
                 $textfield = new FieldTextfield();
@@ -97,13 +99,13 @@ class fieldActions extends sfActions {
                 $textarea->save();
                 break;
             case 'RADIOGROUP':
-                $fieldClass->saveRadiogroup($id, $data);
+                $fieldClass->saveRadiogroup($id, $data); // save radiogroup
                 break;
             case 'CHECKBOXGROUP':
-                $fieldClass->saveCheckboxgroup($id, $data);
+                $fieldClass->saveCheckboxgroup($id, $data); // save checkboxgroup
                 break;
             case 'COMBOBOX':
-                $fieldClass->saveCombobox($id, $data);
+                $fieldClass->saveCombobox($id, $data); // save combobox
                 break;
             case 'FILE':
                 $file = new FieldFile();
@@ -118,13 +120,14 @@ class fieldActions extends sfActions {
 
 
     /**
-     * Load single Field
+     * Load single Field to edit it
      * @param sfWebRequest $request
      * @return <type>
      */
     public function executeLoadSingleField(sfWebRequest $request) {
         $fieldObject = new FieldClass();
-        $data = FieldTable::instance()->getFieldById($request->getParameter('id'));
+        $data = FieldTable::instance()->getFieldById($request->getParameter('id')); // load parent element
+        // add the childelements
         switch ($data[0]->getType()) {
             case 'TEXTFIELD':
                 $json_result = $fieldObject->buildTextfield($data);
@@ -154,8 +157,6 @@ class fieldActions extends sfActions {
                 $json_result = $fieldObject->buildFile($data);
                 break;
         }
-
-
         $this->renderText('{"result":'.json_encode($json_result).'}');
         return sfView::NONE;
     }
@@ -169,7 +170,7 @@ class fieldActions extends sfActions {
         $fieldType = FieldTable::instance()->getFieldById($request->getParameter('id'));
         $data = $request->getPostParameters();
         $fieldClass = new FieldClass();
-        $data = $fieldClass->prepareSaveData($data);
+        $data = $fieldClass->prepareSaveData($data); // prepare the data to save, set color and writeprotected flag
         FieldTable::instance()->updateFieldById($request->getParameter('id'), $data);
         switch ($fieldType[0]->getType()) {
             case 'TEXTFIELD':

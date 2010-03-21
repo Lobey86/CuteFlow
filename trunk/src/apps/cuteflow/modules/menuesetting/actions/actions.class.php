@@ -9,18 +9,9 @@
  * @version    SVN: $Id: actions.class.php 12479 2008-10-31 10:54:40Z fabien $
  */
 class menuesettingActions extends sfActions {
-    /**
-    * Executes index action
-    *
-    * @param sfRequest $request A request object
-    */
-    public function executeIndex(sfWebRequest $request){
-        $this->forward('default', 'module');
-    }
-
 
     /**
-     * loads all exisitng Modules
+     * loads all exisitng Modules, order them by position asc
      *
      * @param sfWebRequest $request
      * @return <type>
@@ -39,7 +30,7 @@ class menuesettingActions extends sfActions {
     }
 
     /**
-     * Save new order of Module
+     * Save new order of Modules
      *
      * @param sfWebRequest $request
      * @return <type>
@@ -54,7 +45,7 @@ class menuesettingActions extends sfActions {
 
 
     /**
-     * Functions loads menue elements for regionWest
+     * Functions loads menue elements for a usermodule, ordered by position asc
      *
      * @param sfWebRequest $request
      * @return <type>
@@ -72,7 +63,7 @@ class menuesettingActions extends sfActions {
     }
 
     /**
-     * Save new order of Group
+     * Save new order of usermodulegroup
      *
      * @param sfWebRequest $request
      * @return <type>

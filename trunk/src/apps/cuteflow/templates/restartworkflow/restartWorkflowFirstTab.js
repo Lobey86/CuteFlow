@@ -243,7 +243,7 @@ cf.restartWorkflowFirstTab = function(){return {
 		});
 		
 		this.theFileUploadGrid = new Ext.grid.GridPanel({ 
-			frame:false,
+			frame:true,
 			autoScroll: true,
 			collapsible:false,
 			closable: false,
@@ -251,7 +251,7 @@ cf.restartWorkflowFirstTab = function(){return {
 			fieldLabel: '<?php echo __('Add attachments',null,'workflowmanagement'); ?>',
 			height: 200,
 			tbar: tbar,
-			border: true,
+			border: false,
 			store: new Ext.data.SimpleStore({
 				fields:['file', 'unique_id']
 			}),

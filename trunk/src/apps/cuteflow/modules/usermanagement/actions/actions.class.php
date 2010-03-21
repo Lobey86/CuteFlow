@@ -11,15 +11,6 @@
 class usermanagementActions extends sfActions {
     
     /**
-    * Executes index action
-    *
-    * @param sfRequest $request A request object
-    */
-    public function executeIndex(sfWebRequest $request) {
-        return sfView::NONE;
-    }
-
-    /**
     *
     * Function loads all Users for Datagrid overview.
     *

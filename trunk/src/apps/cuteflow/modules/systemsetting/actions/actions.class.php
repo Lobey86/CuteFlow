@@ -9,19 +9,11 @@
  * @version    SVN: $Id: actions.class.php 12479 2008-10-31 10:54:40Z fabien $
  */
 class systemsettingActions extends sfActions {
-    /**
-     *
-    * Executes index action
-    *
-    * @param sfRequest $request A request object
-    */
-    public function executeIndex(sfWebRequest $request) {
-        $this->forward('default', 'module');
-    }
+
 
 
     /**
-     * Loads Systems settings
+     * Loads Systems settings for all tabs
      *
      * @param sfRequest $request A request object
      */
@@ -95,7 +87,7 @@ class systemsettingActions extends sfActions {
             UserConfigurationTable::instance()->updateTheme($data['guitab_theme']);
         }
 
-
+        // store useragent settings tab
         if(isset($data['useragent_useragentsettings']) OR isset($data['useragent_useragentcreation'])) {
             $data = $sysObj->prepareUserAgentData($data);
             SystemConfigurationTable::instance()->updateUserAgent($data);
@@ -132,7 +124,6 @@ class systemsettingActions extends sfActions {
         $sysObj = new SystemSetting();
         $worklfosettings = WorkflowConfigurationTable::instance()->getWorkflowConfigurattion()->toArray();
         $worklfosettings = $sysObj->buildColumns($worklfosettings, $this->getContext());
-        
         $this->renderText('{"result":'.json_encode($worklfosettings).'}');
         return sfView::NONE;
     }
@@ -147,7 +138,6 @@ class systemsettingActions extends sfActions {
         $sysObj = new SystemSetting();
         $authorization = AuthorizationConfigurationTable::instance()->getAuthorizationConfiguration()->toArray();
         $worklfosettings = $sysObj->buildAuthorizationColumns($authorization, $this->getContext());
-
         $this->renderText('{"result":'.json_encode($worklfosettings).'}');
         return sfView::NONE;
     }

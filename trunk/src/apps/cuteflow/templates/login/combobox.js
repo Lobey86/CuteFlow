@@ -14,6 +14,7 @@ cf.ComboBox = function(){return {
 		this.initStore();
 		this.initCombobox();
 	},
+	
 
 	/** Combobox is initialzed here, the Combo is needed to change the language before login, Combo also handles ajax functionality to change the language in frontend **/
 	initCombobox: function () {

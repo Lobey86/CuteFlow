@@ -19,8 +19,12 @@ class installerActions extends sfActions
         return sfView::SUCCESS;
     }
 
+
     /**
-     * Action name
+     * check if the current database settings are correct and can be used to install CF
+     *
+     * @param sfWebRequest $request
+     * @return <type>
      */
     public function executeCheckConnection(sfWebRequest $request) {
         $data = $request->getPostParameters();
@@ -41,13 +45,22 @@ class installerActions extends sfActions
     }
 
 
+    /**
+     * Change the culture of the user
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeChangeLanguage(sfWebRequest $request) {
         $this->getUser()->setCulture($request->getParameter('value'));
         return sfView::NONE;
     }
 
-        /**
-     * Action CheckLogin
+
+    /**
+     * check if cuteflow is already installed or not
+     * 
+     * @param sfWebRequest $request
+     * @return <type>
      */
     public function executeCheckLogin(sfWebRequest $request) {
         $loginObj = new Login();
@@ -60,11 +73,17 @@ class installerActions extends sfActions
         return sfView::NONE;
     }
 
+    /**
+     * Create the config file with the database settings and write email settings
+     *
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeSaveData(sfWebRequest $request) {
         $sysObj = new SystemSetting();
         $installer = new Installer();
         $data = $request->getPostParameters();
-        $installer->createConfigFile($data);
+        $installer->createConfigFile($data); // write settings in database.yml
         // create DB
         $task = new sfDoctrineBuildAllReLoadTask(sfContext::getInstance()->getEventDispatcher(), new sfFormatter());
         chdir(sfConfig::get('sf_root_dir'));
@@ -88,7 +107,7 @@ class installerActions extends sfActions
             }
             $ccCache->createCache($lastModified, $cacheCreated);
         }
-
+        // return success, then JS redirect
         $this->renderText('{success:true}');
         return sfView::NONE;
     }

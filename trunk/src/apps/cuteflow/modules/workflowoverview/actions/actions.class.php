@@ -9,16 +9,15 @@
  * @version    SVN: $Id: actions.class.php 12479 2008-10-31 10:54:40Z fabien $
  */
 class workflowoverviewActions extends sfActions {
+
+
+
     /**
-    * Executes index action
-    *
-    * @param sfRequest $request A request object
-    */
-    public function executeIndex(sfWebRequest $request){
-        $this->forward('default', 'module');
-    }
-
-
+     * Load all workflows which are not in archive
+     * 
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeLoadAllWorkflow(sfWebRequest $request) {
         $workflow = new WorkflowOverview($this->getContext(), $this->getUser());
         $limit = $this->getUser()->getAttribute('userSettings');
@@ -31,7 +30,12 @@ class workflowoverviewActions extends sfActions {
         return sfView::NONE;
     }
 
-
+    /**
+     * Stop a workflow and its running workflowprocesses
+     *
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeStopWorkflow(sfWebRequest $request) {
         WorkflowTemplateTable::instance()->stopWorkflow($request->getParameter('workflowtemplateid'), $this->getUser()->getAttribute('id'));
         $workflow = new WorkflowOverview($this->getContext(), $this->getUser());
@@ -48,9 +52,11 @@ class workflowoverviewActions extends sfActions {
     }
 
 
-    /*
-    *  Delete Workflow
-    */
+    /**
+     * Delete a workflow, also stop its processes
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeDeleteWorkflow(sfWebRequest $request) {
         WorkflowTemplateTable::instance()->deleteAndStopWorkflow($request->getParameter('workflowtemplateid'), $this->getUser()->getAttribute('id'));
         $workflow = new WorkflowOverview($this->getContext(), $this->getUser());
@@ -67,7 +73,12 @@ class workflowoverviewActions extends sfActions {
         return sfView::NONE;
     }
 
-
+    /**
+     * Move workflow to archive, and stop it
+     * 
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeArchiveWorkflow(sfWebRequest $request) {
         WorkflowTemplateTable::instance()->archiveAndStopWorkflow($request->getParameter('workflowtemplateid'), $this->getUser()->getAttribute('id'));
         $workflow = new WorkflowOverview($this->getContext(), $this->getUser());
@@ -83,6 +94,12 @@ class workflowoverviewActions extends sfActions {
         return sfView::NONE;
     }
 
+    /**
+     * Start a workflow and its processes. Needed to start a workflow, also if it is started in future
+     *
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeStartWorkflow(sfWebRequest $request) {
         WorkflowVersionTable::instance()->startWorkflow($request->getParameter('versionid'));
         $workflowVersion = WorkflowTemplateTable::instance()->getWorkflowTemplateByVersionId($request->getParameter('versionid'));
@@ -98,7 +115,12 @@ class workflowoverviewActions extends sfActions {
         return sfView::NONE;
     }
 
-
+    /**
+     * Load all workflows, using the filter
+     * 
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeLoadAllWorkflowByFilter(sfWebRequest $request) {
         $limit = $this->getUser()->getAttribute('userSettings');
         $workflow = new WorkflowOverview($this->getContext(), $this->getUser());

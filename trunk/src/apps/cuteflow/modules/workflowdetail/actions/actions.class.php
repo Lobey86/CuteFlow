@@ -10,17 +10,14 @@
  */
 class workflowdetailActions extends sfActions
 {
- /**
-  * Executes index action
-  *
-  * @param sfRequest $request A request object
-  */
-    public function executeIndex(sfWebRequest $request) {
-        $this->forward('default', 'module');
-    }
 
     /**
-     * Load details for a single workflow
+     * Load details for a single workflow, 
+     * generalData like sender, creation date is loaded
+     * detailData, to modifiy running worklfow, e.g. resent, or leave one out
+     * workflowData, current values of the fields
+     * workflowAttachment, load public attachments
+     *
      * @param sfWebRequest $request
      * @return <type>
      */
@@ -38,7 +35,12 @@ class workflowdetailActions extends sfActions
         return sfView::NONE;
     }
 
-
+    /**
+     * Resend emial to selected station
+     *
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeResendEmail(sfWebRequest $request) {
         sfLoader::loadHelpers('Url');
         sfLoader::loadHelpers('Partial');
@@ -51,6 +53,13 @@ class workflowdetailActions extends sfActions
         return sfView::NONE;
     }
 
+
+    /**
+     * Load a previos version of the workflow, when combobox is used
+     *
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeLoadVersion(sfWebRequest $request) {
         $detailsObj = new WorkflowDetail();
         $detailsObj->setUser($this->getUser());
@@ -66,7 +75,12 @@ class workflowdetailActions extends sfActions
     }
 
 
-
+    /**
+     * Skip a station, and calculate next
+     *
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeSkipStation(sfWebRequest $request) {
         sfLoader::loadHelpers('Url');
         WorkflowProcessUserTable::instance()->skipStation($request->getParameter('workflowprocessuserid'));
@@ -93,7 +107,7 @@ class workflowdetailActions extends sfActions
 
 
     /**
-     * Load all stations to set them
+     * Load all stations of the workflow for an overview, finally user can jump into another station
      * 
      * @param sfWebRequest $request
      * @return <type>
@@ -112,7 +126,12 @@ class workflowdetailActions extends sfActions
 
 
 
-
+    /**
+     * Add a useragent manually
+     *
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeSetUseragent(sfWebRequest $request) {
         sfLoader::loadHelpers('Url');
         $useragent_id = $request->getParameter('userid');
@@ -149,7 +168,12 @@ class workflowdetailActions extends sfActions
         return sfView::NONE;
     }
 
-    
+    /**
+     * Save the selected station from the popup
+     *
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeSetNewStation(sfWebRequest $request) {
         sfLoader::loadHelpers('Url');
         $context = sfContext::getInstance();

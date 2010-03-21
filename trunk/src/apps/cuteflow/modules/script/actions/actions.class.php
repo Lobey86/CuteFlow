@@ -21,8 +21,10 @@ class scriptActions extends sfActions
   }
 
   /**
-   * Routing, to get JS Files compiled
-   *
+   * Action for the JS Routing. Action checks if a cached file is used or
+   * not. Cached = prod, not cached = dev.
+   * prod means that a single file is loaded with all logic
+   * dev means that all files (about 120) will be loaded
    *
    * @param sfWebRequest $request
    * @return <type>

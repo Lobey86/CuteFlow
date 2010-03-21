@@ -9,18 +9,13 @@
  * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
 class archiveoverviewActions extends sfActions {
- /**
-  * Executes index action
-  *
-  * @param sfRequest $request A request object
-  */
-    public function executeIndex(sfWebRequest $request) {
-        $this->forward('default', 'module');
-    }
+
 
 
     /**
-     * Action LoadAllArchivedWorkflow
+     * Actions loads alle archived workflows for the overview
+     * @param sfWebRequest $request
+     * @return <type>
      */
     public function executeLoadAllArchivedWorkflow(sfWebRequest $request) {
         $limit = $this->getUser()->getAttribute('userSettings');
@@ -34,12 +29,23 @@ class archiveoverviewActions extends sfActions {
         return sfView::NONE;
     }
 
-    
+
+    /**
+     * Action removes a Workflow from Archive
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeRemoveFromArchive(sfWebRequest $request) {
         WorkflowTemplateTable::instance()->removeFromArchive($request->getParameter('workflowtemplateid'), $this->getUser()->getAttribute('id'));
         return sfView::NONE;
     }
 
+
+    /**
+     * Load all workflows, when filter functionality is used
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeLoadAllArchivedWorkflowByFilter(sfWebRequest $request) {
         $limit = $this->getUser()->getAttribute('userSettings');
         $workflow = new WorkflowOverview($this->getContext(), $this->getUser());
