@@ -9,16 +9,14 @@
  * @version    SVN: $Id: actions.class.php 12479 2008-10-31 10:54:40Z fabien $
  */
 class todooverviewActions extends sfActions {
- /**
-  * Executes index action
-  *
-  * @param sfRequest $request A request object
-  */
-    public function executeIndex(sfWebRequest $request){
-        $this->forward('default', 'module');
-    }
 
 
+    /**
+     * Load all worklfows, which a user has to fill
+     *
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeLoadAllOwnWorkflow(sfWebRequest $request) {
         $limit = $this->getUser()->getAttribute('userSettings');
         $workflow = new WorkflowOverview($this->getContext(), $this->getUser());
@@ -32,7 +30,12 @@ class todooverviewActions extends sfActions {
     }
 
 
-
+    /**
+     * Load all worklflows a user has to fill, when filter is used
+     *
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeLoadAllOwnWorkflowByFilter(sfWebRequest $request) {
         $limit = $this->getUser()->getAttribute('userSettings');
         $workflow = new WorkflowOverview($this->getContext(), $this->getUser());

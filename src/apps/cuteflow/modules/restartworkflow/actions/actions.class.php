@@ -9,17 +9,13 @@
  * @version    SVN: $Id: actions.class.php 12479 2008-10-31 10:54:40Z fabien $
  */
 class restartworkflowActions extends sfActions {
+
+
     /**
-    * Executes index action
-    *
-    * @param sfRequest $request A request object
-    */
-    public function executeIndex(sfWebRequest $request){
-        $this->forward('default', 'module');
-    }
-
-
-
+     * Load All Stations for a workflow, to select one where the workflow will restart
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeLoadAllStation(sfWebRequest $request) {
         $workObj = new RestartWorkflow();
         $data = WorkflowSlotTable::instance()->getSlotByVersionId($request->getParameter('versionid'));
@@ -30,16 +26,12 @@ class restartworkflowActions extends sfActions {
     }
 
 
-
+    /**
+     * the Action restarts the workflow
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeRestartWorkflow(sfWebRequest $request) {
-       
-        if($request->getPostParameter('restartWorkflowFirstTabSettings') != 'BEGINNING' AND $request->getPostParameter('restartWorkflowFirstTabSettings') != 'LASTSTATION') {
-            $slotOrder = array();
-            $slotOrder = explode('__', $request->getPostParameter('restartWorkflowFirstTab_startpointid'));
-        }
-
-
-
         sfLoader::loadHelpers('Url');
         $context = sfContext::getInstance();
         $context->getConfiguration()->loadHelpers('Partial', 'I18N', 'Url', 'Date', 'CalculateDate', 'ColorBuilder', 'Icon', 'EndAction');
@@ -49,31 +41,33 @@ class restartworkflowActions extends sfActions {
         $startDate = array();
 
         $version_id = $request->getParameter('versionid');
-        $newValue = $request->getParameter('restartWorkflowFirstTab_useoldvalues',0);
-        $endreason = $createWorkObj->createEndreason($request->getPostParameter('restartWorkflowFirstTabSettings', array()));
-        $startDate = $createWorkObj->createStartDate('');
-        $content = $createWorkObj->createRestartContenttype($request->getPostParameters());
+        $newValue = $request->getParameter('restartWorkflowFirstTab_useoldvalues',0); // set flag if values form previous version will be used or from the default value of the fields
+        $endreason = $createWorkObj->createEndreason($request->getPostParameter('restartWorkflowFirstTabSettings', array())); // set additional settings
+        $startDate = $createWorkObj->createStartDate(''); // startdate is always at the moment
+        $content = $createWorkObj->createRestartContenttype($request->getPostParameters());// ste contenttype of the additional text
+
+        $workflowtemplate_id = WorkflowVersionTable::instance()->getWorkflowVersionById($version_id)->toArray(); // load the current workflowversion
 
 
-
-        $workflowtemplate_id = WorkflowVersionTable::instance()->getWorkflowVersionById($version_id)->toArray();
-
-
-        WorkflowTemplateTable::instance()->updateEndaction($workflowtemplate_id[0]['id'],$endreason);
+        WorkflowTemplateTable::instance()->updateEndaction($workflowtemplate_id[0]['id'],$endreason); // update the endaction/additionalsettings
 
 
-        $currentVersion = WorkflowVersionTable::instance()->getLastVersionById($workflowtemplate_id[0]['workflowtemplate_id'])->toArray();
-        $slots = WorkflowSlotTable::instance()->getSlotByVersionId($version_id);
+        $currentVersion = WorkflowVersionTable::instance()->getLastVersionById($workflowtemplate_id[0]['workflowtemplate_id'])->toArray(); // load the last workflow
+        $slots = WorkflowSlotTable::instance()->getSlotByVersionId($version_id); // get all slots for the current workflow
 
 
-        WorkflowVersionTable::instance()->setVersionInactive($version_id);
-        WorkflowTemplateTable::instance()->restartWorkflow($workflowtemplate_id[0]['workflowtemplate_id']);
+        WorkflowVersionTable::instance()->setVersionInactive($version_id); // set the current version inactive
+        WorkflowTemplateTable::instance()->restartWorkflow($workflowtemplate_id[0]['workflowtemplate_id']); // remove stopflag from template
 
         
         $wfRestart = new RestartWorkflow();
+        // set flag if workflow uses old values or not
         $wfRestart->setNewValue($newValue);
+        
+        //load the data for fields. they contain old values or the default field values. the data array contains slots and its fields, values and users of the last version
         $data = $wfRestart->buildSaveData($slots);
 
+        // create a new instance of the workflow
         $wfVersion = new WorkflowVersion();
         $wfVersion->setWorkflowtemplateId($workflowtemplate_id[0]['workflowtemplate_id']);
         $wfVersion->setActiveversion(1);
@@ -85,6 +79,11 @@ class restartworkflowActions extends sfActions {
         $wfVersion->save();
         $newVersionId = $wfVersion->getId();
 
+        /*
+        * to transfer the last version of the workflow into a new one, it is needed to copy
+        * the old version and set new relations (ids). $slotCounter stores the id's of the
+        * new created slots, user and userproeccess, to replace the old values with the new ones.
+        */
         $dataStore = array();
         $slotCounter = 0;
 
@@ -97,11 +96,13 @@ class restartworkflowActions extends sfActions {
             $singleSlot->save();
 
             $slotId = $singleSlot->getId();
+            // ids of created slots
             $dataStore[$slotCounter]['slot_id'] = $slotId;
 
-            $fields = $slot['fields'];
-            $users = $slot['users'];
+            $fields = $slot['fields']; // the fields of the slot
+            $users = $slot['users']; // the users of the slot
 
+            // create the fields for the slot and set the value
             foreach($fields as $field) {
                 $newField = new WorkflowSlotField();
                 $newField->setWorkflowslotId($slotId);
@@ -186,14 +187,15 @@ class restartworkflowActions extends sfActions {
                 }
             }
 
+            // save the users for a slot
             $userCounter = 0;
             foreach($users as $user) {
-
                 $wfSlotUser = new WorkflowSlotUser();
                 $wfSlotUser->setWorkflowslotId($slotId);
                 $wfSlotUser->setPosition($user['position']);
                 $wfSlotUser->setUserId($user['user_id']);
                 $wfSlotUser->save();
+                // store the new id of the user and its user_id
                 $dataStore[$slotCounter]['slotuser_id'][$userCounter]['id'] = $wfSlotUser->getId();
                 $dataStore[$slotCounter]['slotuser_id'][$userCounter++]['user_id'] = $user['user_id'];
             }
@@ -202,7 +204,13 @@ class restartworkflowActions extends sfActions {
         }
 
          
-        
+        /**
+         *  save files from file grid in overview.
+         *  files are moved forom ext
+         *  $keys[0]['uploadfile']->file1
+         *  $keys[1]['uploadfile']->file2
+         *  it is also necessary to use $_FILES instead of $request->getFiles()
+         */
         $files = $_FILES;
         $keys = array();
         $keys = array_keys($files);
@@ -216,40 +224,40 @@ class restartworkflowActions extends sfActions {
         }
         $workflowTemplate = WorkflowTemplateTable::instance()->getWorkflowTemplateByVersionId($version_id)->toArray();
 
-
-
-
+        
         $sendToAllSlotsAtOnce = MailinglistVersionTable::instance()->getActiveVersionById($workflowTemplate[0]['mailinglisttemplateversion_id'])->toArray();
-        if($request->getPostParameter('restartWorkflowFirstTab_startpoint') == 'BEGINNING'){
-            if($sendToAllSlotsAtOnce[0]['sendtoallslotsatonce'] == 1) {
+        if($request->getPostParameter('restartWorkflowFirstTab_startpoint') == 'BEGINNING'){ // workflow starts from beginning
+            // check if mailinglist is send to all slots at once, no workflowprocessuser data is needed to be loaded
+            if($sendToAllSlotsAtOnce[0]['sendtoallslotsatonce'] == 1) { // create all slots
                 $calc = new CreateWorkflow($newVersionId);
                 $calc->setServerUrl(str_replace('/layout', '', url_for('layout/index',true)));
                 $calc->setContext($context);
                 $calc->addAllSlots();
             }
-            else {
+            else { // create a single slot
                 $calc = new CreateWorkflow($newVersionId);
                 $calc->setServerUrl(str_replace('/layout', '', url_for('layout/index',true)));
                 $calc->setContext($context);
                 $calc->addSingleSlot();
             }
         }
-        else if ($request->getPostParameter('restartWorkflowFirstTab_startpoint') == 'LASTSTATION') {
+        else if ($request->getPostParameter('restartWorkflowFirstTab_startpoint') == 'LASTSTATION') { // workflow is send to last station
             $wfRestart = new RestartWorkflow();
             $wfRestart->setContext($context);
             $wfRestart->setServerUrl(str_replace('/layout', '', url_for('layout/index',true)));
+            // load the workflowprocessuser / workflowprocess data of the old version
             $lastStationdata = $wfRestart->getRestartData($version_id);
+            // write the oldversions workflowprocessuser/workflowprocess and set the new id's from $dataStore array
             $wfRestart->restartAtLastStation($lastStationdata, $dataStore, $newVersionId, $workflowtemplate_id[0]['workflowtemplate_id']);
         }
-        else {
+        else { // workflow will start at specific station
             $slotOrder = array();
             $slotOrder = explode('__', $request->getPostParameter('restartWorkflowFirstTab_startpointid'));
             $slotPosition = $slotOrder[1]; // Slot Position worklfow must start
-            $userPosition = $slotOrder[3]; // position of the user in the slot
+            $userPosition = $slotOrder[3]; // position of the user in the slot. e.g. Slot 3 and User 2
             $currentUserSlotId = $dataStore[0]['slotuser_id'][0]['id']; // get Id of the first WorkflowSlot of the restarted Workflow
             $newUserSlotId = $dataStore[$slotPosition-1]['slotuser_id'][$userPosition-1]['id']; // get Id of the first WorkflowSlotUser of the restarted Workflow
             $direction = 'UP'; // direction is UP!
-
 
             // write first Process
             $wfProcess = new WorkflowProcess();
@@ -269,13 +277,20 @@ class restartworkflowActions extends sfActions {
             $wfProcessUser->setDateofdecission(time());
             $wfProcessUser->setResendet(0);
             $wfProcessUser->save();
+            // use Set Nextstation with direction UP from slot 1 user 1 to defined user e.g. slot 3 and user 2
             $calc = new SetStation($newVersionId, $newUserSlotId, $currentUserSlotId, $direction, $context, str_replace('/layout', '', url_for('layout/index',true)));
 
         }
+        /**
+         * set the response of the action.
+         * it is needed to use this response when using fileupload in extjs with symfony.
+         * extjs is uploading files using iframe. this iframe needs text/html as response
+         */
         $this->getResponse()->setHttpHeader('Content-Type','text/html; charset=utf-8');
         $json = array('success' => true);
         $string = '<textarea>'.json_encode($json).'</textarea>';
         $this->renderText($string);
+        
         return sfView::NONE;
     }
 

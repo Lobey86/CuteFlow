@@ -11,6 +11,12 @@
 class iframeActions extends sfActions {
 
 
+    /**
+     * Action loads an IFrame for the email, when settings are set IFRAME and HTML
+     * the template getIframeSuccess.php adds the needed fields to the iframe
+     * @param sfWebRequest $request
+     * @return <type>
+     */
 
     public function executeGetIFrame(sfWebRequest $request) {
         sfLoader::loadHelpers('Url', 'I18N');
@@ -23,7 +29,6 @@ class iframeActions extends sfActions {
 
         $sf_i18n = $context->getI18N();
         $sf_i18n->setCulture($userSettings->userSettings['language']);
-
 
 
         $this->linkto = $context->getI18N()->__('Direct link to workflow' ,null,'sendstationmail');
@@ -45,7 +50,6 @@ class iframeActions extends sfActions {
         $editObj->setUserId($userId);
         $this->slots = $editObj->buildSlots($wfSettings , $versionId);
 
-        #print_r ($this->slots);die;
 
         $content['workflow'][0] = $context->getI18N()->__('You have to fill out the fields in the workflow' ,null,'sendstationmail');
         $content['workflow'][1] = $workflow[0]['name'];
@@ -65,7 +69,6 @@ class iframeActions extends sfActions {
         $this->userid  = $userId;
         $this->workflow  = $templateId;
         $this->text = $content;
-        //$this->getResponse()->setContentType('text/html');
 	$this->setLayout(false);
 	$this->setTemplate('getIFrame');
         return sfView::SUCCESS;

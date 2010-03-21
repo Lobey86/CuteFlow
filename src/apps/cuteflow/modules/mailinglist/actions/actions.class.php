@@ -9,14 +9,7 @@
  * @version    SVN: $Id: actions.class.php 12479 2008-10-31 10:54:40Z fabien $
  */
 class mailinglistActions extends sfActions {
-    /**
-    * Executes index action
-    *
-    * @param sfRequest $request A request object
-    */
-    public function executeIndex(sfWebRequest $request) {
-        $this->forward('default', 'module');
-    }
+
 
 
     /**
@@ -36,7 +29,7 @@ class mailinglistActions extends sfActions {
 
 
     /**
-     * Load Mailinglist by filter
+     * Load Mailinglist by ajaxfilter
      * @param sfWebRequest $request
      * @return <type>
      */
@@ -51,6 +44,12 @@ class mailinglistActions extends sfActions {
     }
 
 
+    /**
+     * build the receiver for a mailinglist
+     *
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeBuildReceiver(sfWebRequest $request) {
         $mailinglist = new Mailinglist();
         $result = UserDataTable::instance()->getAllUserFullname();
@@ -60,7 +59,8 @@ class mailinglistActions extends sfActions {
     }
 
     /**
-     * Load all Documents
+     * Load all Documenttemplates
+     * 
      * @param sfWebRequest $request
      * @return <type>
      */
@@ -72,6 +72,7 @@ class mailinglistActions extends sfActions {
 
     /**
      * Loads all users, which are allowed to send workflows
+     * 
      * @param sfWebRequest $request
      * @return <type>
      */
@@ -85,6 +86,7 @@ class mailinglistActions extends sfActions {
 
     /**
      * Load a form without user
+     * 
      * @param sfWebRequest $request
      * @return <type>
      */
@@ -100,7 +102,8 @@ class mailinglistActions extends sfActions {
 
 
     /**
-     * Save mailinglist
+     * Saves a new mailinglist
+     * 
      * @param sfWebRequest $request
      * @return <type>
      */
@@ -115,18 +118,18 @@ class mailinglistActions extends sfActions {
         $mailinglisttemplate->setDocumenttemplatetemplateId($data['mailinglistFirstTab_documenttemplate']);
         $mailinglisttemplate->save();
         $mailinglisttemplate_id = $mailinglisttemplate->getId();
-        $mailinglistversion_id = $mailinglist->storeVersion($mailinglisttemplate_id, 1, $activeVersion[0]['id'], $sendToAll);
-        //$mailinglist->createAuthorizationEntry($mailinglistversion_id);
-        $mailinglist->saveAuthorization($mailinglistversion_id, $data['auth']);
-        $mailinglist->saveUser($mailinglistversion_id, isset($data['user']) ? $data['user'] : array());
+        $mailinglistversion_id = $mailinglist->storeVersion($mailinglisttemplate_id, 1, $activeVersion[0]['id'], $sendToAll); // store the list
+        
+        $mailinglist->saveAuthorization($mailinglistversion_id, $data['auth']); // save auth settings
+        $mailinglist->saveUser($mailinglistversion_id, isset($data['user']) ? $data['user'] : array()); // save allowed user
         $slots = $data['slot'];
-        $mailinglist->storeMailinglist($slots, $mailinglistversion_id);
+        $mailinglist->storeMailinglist($slots, $mailinglistversion_id); // save the users for the slots
         $this->renderText('{success:true}');
         return sfView::NONE;
     }
 
-        /**
-     * Update an mailinglist
+     /**
+     * Update a mailinglist
      * @param sfWebRequest $request
      * @return <type>
      */
@@ -134,19 +137,22 @@ class mailinglistActions extends sfActions {
         $mailinglist = new Mailinglist();
         $data = $request->getPostParameters();
         $sendToAll = isset($data['mailinglistFirstTab_sendtoallslots'])  ? 1 : 0;
+        // create the next version for the mailinglist
         $mailingsdata = MailinglistVersionTable::instance()->getVersionById($request->getParameter('id'))->toArray();
         MailinglistVersionTable::instance()->setMailinglistInactiveById($request->getParameter('id'));
+        // save mailinglist
         $mailinglistversion_id = $mailinglist->storeVersion($mailingsdata[0]['mailinglisttemplate_id'],$mailingsdata[0]['version']+1, $mailingsdata[0]['documenttemplateversion_id'], $sendToAll);
-        $mailinglist->saveAuthorization($mailinglistversion_id, $data['auth']);
-        $mailinglist->saveUser($mailinglistversion_id, isset($data['user']) ? $data['user'] : array());
+        $mailinglist->saveAuthorization($mailinglistversion_id, $data['auth']); // save auth settings
+        $mailinglist->saveUser($mailinglistversion_id, isset($data['user']) ? $data['user'] : array()); // save allowed user
         $slots = $data['slot'];
-        $mailinglist->storeMailinglist($slots, $mailinglistversion_id);
+        $mailinglist->storeMailinglist($slots, $mailinglistversion_id); // save the users for the slot
         $this->renderText('{success:true}');
         return sfView::NONE;
     }
     
     /**
-     * Set standard to mailinglist
+     * Set a mailinglist to standard
+     *
      * @param sfWebRequest $request
      * @return <type>
      */
@@ -157,7 +163,7 @@ class mailinglistActions extends sfActions {
     }
 
     /**
-     * Delete Mailinglist
+     * Delete an Mailinglist
      * @param sfWebRequest $request
      * @return <type>
      */
@@ -167,7 +173,7 @@ class mailinglistActions extends sfActions {
     }
 
     /**
-     * Load Mailinglist by filter
+     * Load Mailinglist by ajaxfilter
      * @param sfWebRequest $request
      * @return <type>
      */
@@ -184,6 +190,7 @@ class mailinglistActions extends sfActions {
 
     /**
      * Load Authorization settings for an exisiting template
+     * 
      * @param sfWebRequest $request
      * @return <type>
      */
@@ -200,7 +207,13 @@ class mailinglistActions extends sfActions {
         return sfView::NONE;
     }
 
-        public function executeLoadDefaultAuthorization(sfWebRequest $request) {
+    /**
+     * Load auth for editing template
+     *
+     * @param sfWebRequest $request
+     * @return <type>
+     */
+    public function executeLoadDefaultAuthorization(sfWebRequest $request) {
         $sysObj = new SystemSetting();
         $auth = new MergeAuthorization();
         $authorization = AuthorizationConfigurationTable::instance()->getAuthorizationConfiguration(false)->toArray();
@@ -208,7 +221,6 @@ class mailinglistActions extends sfActions {
         $worklfosettings = $sysObj->buildAuthorizationColumns($authorization, $this->getContext());
         $allRoles = RoleTable::instance()->getAllRole()->toArray();
         $mergedRoles = $auth->mergeRoles($allRoles, $defaultRole, $worklfosettings);
-        #print_r ($mergedRoles);die;
         $this->renderText('{"result":'.json_encode($mergedRoles).'}');
         return sfView::NONE;
     }
@@ -239,6 +251,7 @@ class mailinglistActions extends sfActions {
         $this->renderText('{"result":'.json_encode($json_result).'}');
         return sfView::NONE;
     }
+    
     /**
      * Load name of an single Mailinglist
      * @param sfWebRequest $request

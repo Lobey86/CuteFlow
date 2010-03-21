@@ -1,7 +1,7 @@
 <?php
 
 /**
- * additionaltext actions.
+ * Contains all actions for additional texts
  *
  * @package    cf
  * @subpackage additionaltext
@@ -9,15 +9,7 @@
  * @version    SVN: $Id: actions.class.php 12479 2008-10-31 10:54:40Z fabien $
  */
 class additionaltextActions extends sfActions {
-    /**
-    *
-    * Executes index action
-    *
-    * @param sfRequest $request A request object
-    */
-    public function executeIndex(sfWebRequest $request) {
-        $this->forward('default', 'module');
-    }
+
 
 
     /**
@@ -28,7 +20,6 @@ class additionaltextActions extends sfActions {
     public function executeLoadAllText(sfWebRequest $request) {
        $addTextObj = new AddText();
        $result = AdditionalTextTable::instance()->getAllAdditionalTextes();
-       
        $json_result = $addTextObj->buildAllText($result, $this->getContext());
        $this->renderText('{"result":'.json_encode($json_result).'}');
        return sfView::NONE;
@@ -41,21 +32,13 @@ class additionaltextActions extends sfActions {
      */
     public function executeSaveText(sfWebRequest $request) {
         $data = $request->getPostParameters();
-        if($data['contenttype'] == 'plain') {
-            $data['content'] = $data['content_textarea'];
-        }
-        else {
-            $data['content'] = $data['content_htmleditor'];
-        }
-
+        $data['content'] = $data['contenttype'] == 'plain' ? $data['content_textarea'] : $data['content_htmleditor']; // set Content type of selected editor
         $textObj = new AdditionalText();
         $textObj->setTitle($data['title']);
         $textObj->setContent($data['content']);
         $textObj->setContenttype($data['contenttype']);
         $textObj->setIsactive(0);
         $textObj->save();
-        
-
         $this->renderText('{success:true}');
         return sfView::NONE;
     }
@@ -63,6 +46,7 @@ class additionaltextActions extends sfActions {
 
     /**
      * Changes standrad radio button
+     * Action sets a text to standard
      * 
      * @param sfWebRequest $request
      * @return <type>
@@ -73,7 +57,7 @@ class additionaltextActions extends sfActions {
     }
 
     /**
-     * Load a single Text
+     * Load a single Text to edit
      * @param sfWebRequest $request
      */
     public function executeLoadText(sfWebRequest $request) {
@@ -112,9 +96,7 @@ class additionaltextActions extends sfActions {
      * @return <type>
      */
     public function executeCopyText(sfWebRequest $request) {
-        $result = AdditionalTextTable::instance()->findSingleTextById($request->getParameter('id'));
-        $result->toArray();
-        
+        $result = AdditionalTextTable::instance()->findSingleTextById($request->getParameter('id'))->toArray();
         $textObj = new AdditionalText();
         $textObj->setTitle('## ' . $result[0]['title']);
         $textObj->setContent($result[0]['content']);

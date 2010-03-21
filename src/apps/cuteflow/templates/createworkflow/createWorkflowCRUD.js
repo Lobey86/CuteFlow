@@ -232,7 +232,6 @@ cf.createWorkflowCRUD = function(){return {
 			url: '<?php echo build_dynamic_javascript_url('createworkflow/CreateWorkflow')?>',
 			method: 'POST',
 			waitMsg: '<?php echo __('Saving Data',null,'workflowmanagement'); ?>',
-			headers: {'Content-type':'text/html'},
 			success: function(objServerResponse){
 				cf.workflowmanagementPanelGrid.theWorkflowStore.reload();
 				cf.createWorkflowWindow.theCreateWorkflowWindow.hide();

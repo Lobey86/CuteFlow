@@ -18,23 +18,27 @@ class layoutActions extends sfActions {
     public function executeIndex(sfWebRequest $request) {
         $loginObject = new Login();
         
-        // Load UserSetting and Store to session here
-
+        /*
+        * Load the userrole, userrigths, userSettings, userId, workflowSettings for the logged user and store to session
+        */
         $userSettings = UserSettingTable::instance()->getUserSettingById($this->getUser()->getAttribute('id'));
         $userWorkflowSetting = UserWorkflowConfigurationTable::instance()->getSingleUserWorkflowConfigurattion($this->getUser()->getAttribute('id'))->toArray();
-        $this->getUser()->setAttribute('userSettings', $userSettings[0]->toArray());
+        $this->getUser()->setAttribute('userSettings', $userSettings[0]->toArray()); // set userSettings
         $config = SystemConfigurationTable::instance()->getSystemConfiguration()->toArray();
-        $this->getUser()->setAttribute('userWorkflowSettings', $loginObject->generateUserWorklowView($userWorkflowSetting, sfContext::getInstance()));
-
+        $this->getUser()->setAttribute('userWorkflowSettings', $loginObject->generateUserWorklowView($userWorkflowSetting, sfContext::getInstance())); // set workflowsettings
         $data = $this->getUser()->getAttribute('userWorkflowSettings');
 
 
         $credentials = CredentialTable::instance()->getAllCredentials();
         $userrights = CredentialRoleTable::instance()->getCredentialRoleById($this->getUser()->getAttribute('id'));
         $rights = $loginObject->loadUserRight($credentials, $userrights);
-        $this->getUser()->setAttribute('credential', $rights);
+        $this->getUser()->setAttribute('credential', $rights); // set rights and role
         $this->systemConfiguration = $config[0];
-        $this->theTheme = $userSettings[0]->getTheme();
+        $this->theTheme = $userSettings[0]->getTheme(); // load the users theme
+        /*
+         * -1 is set when user uses login form to login
+         * int is set, when user logges in from en email link, then a workflow needs to opened
+         */
         $this->version_id  = $request->getParameter('versionid',-1);
         $this->workflow_id  = $request->getParameter('workflow',-1);
         $this->window  = $request->getParameter('window',-1);
@@ -52,7 +56,11 @@ class layoutActions extends sfActions {
     }
 
 
-
+    /**
+     * Check if the session is still active
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeCheckSession(sfWebRequest $request) {
         if($this->getUser()->hasAttribute('id')) {
             $result = 1;
@@ -64,23 +72,18 @@ class layoutActions extends sfActions {
         return sfView::NONE;
     }
 
-    
+   
+
 
     /**
-     * Action Test
+     * Function allows LinkLogin by an email and redirects to the needed actions
+     * the redirect depends on systemsettings. it allows direct linklogin without authentication using loginmask
+     * other possibility is, if no session is set using emaillogin, loginmask is shown and user needs to login
+     * to fill the workflow
+     *
+     * @param sfWebRequest $request
+     * @return <type>
      */
-    public function executeTest(sfWebRequest $request) {
-
-       
-        
-        
-
-
-        return sfView::NONE;
-    }
-
-
-
     public function executeLinklogin(sfWebRequest $request) {
 
         $settings = AuthenticationConfigurationTable::instance()->getAuthenticationConfiguration()->toArray();
@@ -116,10 +119,4 @@ class layoutActions extends sfActions {
         }
         return sfView::NONE;
     }
-
-
-
-
-
-
 }

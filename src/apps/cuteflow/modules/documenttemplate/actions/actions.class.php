@@ -9,14 +9,7 @@
  * @version    SVN: $Id: actions.class.php 12479 2008-10-31 10:54:40Z fabien $
  */
 class documenttemplateActions extends sfActions {
- /**
-  * Executes index action
-  *
-  * @param sfRequest $request A request object
-  */
-    public function executeIndex(sfWebRequest $request) {
-        $this->forward('default', 'module');
-    }
+
 
 
     /**
@@ -33,7 +26,7 @@ class documenttemplateActions extends sfActions {
     }
 
     /**
-     * Save template
+     * Save a documenttemplate
      * @param sfWebRequest $request
      * @return <type>
      */
@@ -52,26 +45,26 @@ class documenttemplateActions extends sfActions {
     }
 
 
-        /**
-     * Update a template
+    /**
+     * Update a documenttemplate, and create a new version
      * @param sfWebRequest $request
      * @return <type>
      */
     public function executeUpdateDocumenttemplate(sfWebRequest $request) {
         $docObj = new Documenttemplate();
         $data = $request->getPostParameters();
-        DocumenttemplateVersionTable::instance()->setTemplateInactiveById($request->getParameter('id'));
-        $template_array = DocumenttemplateVersionTable::instance()->getDocumentTemplateId($request->getParameter('id'))->toArray();
+        DocumenttemplateVersionTable::instance()->setTemplateInactiveById($request->getParameter('id')); // set old template inactive
+        $template_array = DocumenttemplateVersionTable::instance()->getDocumentTemplateId($request->getParameter('id'))->toArray(); // get old template
         $template_id = $template_array[0]['documenttemplate_id'];
-        $version = $template_array[0]['version']+1;
-        $version_id = $docObj->storeVersion($template_id, $version);
+        $version = $template_array[0]['version']+1;// create the nexte version of the template
+        $version_id = $docObj->storeVersion($template_id, $version); // write new version
         $slots = $data['slot'];
-        $docObj->storeData($slots, $version_id);
+        $docObj->storeData($slots, $version_id); // store slots
         $this->renderText('{success:true}');
         return sfView::NONE;
     }
     /**
-     * Load all Documenttemplates
+     * Load all Documenttemplates for datagrid
      * @param sfWebRequest $request
      * @return <type>
      */
@@ -86,6 +79,11 @@ class documenttemplateActions extends sfActions {
     }
 
 
+    /**
+     * Load all documenttemplates by ajaxfilter
+     * @param sfWebRequest $request
+     * @return <type>
+     */
     public function executeLoadAllDocumenttemplatesByFilter(sfWebRequest $request) {
         $docObj = new Documenttemplate();
         $limit = $this->getUser()->getAttribute('userSettings');
@@ -97,7 +95,7 @@ class documenttemplateActions extends sfActions {
     }
 
     /**
-     * Delete template
+     * Delete a documenttemplate
      * @param sfWebRequest $request
      * @return <type>
      */
@@ -107,7 +105,7 @@ class documenttemplateActions extends sfActions {
     }
 
     /**
-     * Load a single Documenttemplate with slots and fields
+     * Load a single Documenttemplate with slots and fields to edit it
      * @param sfWebRequest $request
      * @return <type>
      */
@@ -121,7 +119,7 @@ class documenttemplateActions extends sfActions {
 
 
     /**
-     * Load all versions of an template
+     * Load all versions of an template, for the popwindow
      * @param sfWebRequest $request
      * @return <type>
      */
@@ -135,15 +133,15 @@ class documenttemplateActions extends sfActions {
 
 
     /**
-     * Activates a template
+     * Activates a documenttemplate
      * @param sfWebRequest $request
      * @return <type>
      */
     public function executeActivateDocumenttemplate(sfWebRequest $request) {
         $document_id = $request->getParameter('documenttemplateid');
         $id = $request->getParameter('id');
-        DocumenttemplateVersionTable::instance()->setAllTemplateInactiveByTemplateId($document_id);
-        DocumenttemplateVersionTable::instance()->setTemplateActiveById($id);
+        DocumenttemplateVersionTable::instance()->setAllTemplateInactiveByTemplateId($document_id); // set template inactive
+        DocumenttemplateVersionTable::instance()->setTemplateActiveById($id); // set new template active
         return sfView::NONE;
     }
 

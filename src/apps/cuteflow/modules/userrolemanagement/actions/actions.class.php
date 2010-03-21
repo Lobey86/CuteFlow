@@ -10,14 +10,7 @@
 */
 
 class userrolemanagementActions extends sfActions {
-    /**
-    * Executes index action
-    *
-    * @param sfRequest $request A request object
-    */
-    public function executeIndex(sfWebRequest $request) {
-        return sfView::SUCCESS;
-    }
+
 
 
     /**
@@ -81,8 +74,9 @@ class userrolemanagementActions extends sfActions {
     public function executeLoadRoleTree(sfWebRequest $request) {
         $credentialmanagement = new CredentialRolemanagement();
         $credentials = NULL;
-        // Part when role was edited
+        // when in editmode, load additinaldata
         if ($request->getParameter('role_id') != '') {
+            // available rights for role
             $res =  CredentialRoleTable::instance()->getCredentialById($request->getParameter('role_id'));
             $credentials = $credentialmanagement->buildCredentials($res);
             $roleName = RoleTable::instance()->getRoleById($request->getParameter('role_id'));
@@ -106,7 +100,7 @@ class userrolemanagementActions extends sfActions {
     /**
     * Function checks, when user is trying to create a new userrole , if its
     * name is already stored in database.
-    * When alreasy storen, no save process is done.
+    * When already stored, no save process is done.
     *
     *
     * @param sfWebRequest $request

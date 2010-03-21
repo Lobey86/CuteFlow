@@ -21,7 +21,7 @@ class sendmessageActions extends sfActions {
 
 
     /**
-     * Function sends systemmesage
+     * Function sends systemmesage, and loads all sender
      * 
      * @param sfWebRequest $request
      * @return <type>
@@ -33,20 +33,20 @@ class sendmessageActions extends sfActions {
         $decission = $request->getParameter('receiver');
         switch ($decission) {
             case 'ALL':
-                $users = UserLoginTable::instance()->getAllUser(-1, -1)->toArray();
+                $users = UserLoginTable::instance()->getAllUser(-1, -1)->toArray(); // load all user
                 break;
             case 'SENDER':
-                $users = WorkflowTemplateTable::instance()->getWorkflowSender()->toArray();
+                $users = WorkflowTemplateTable::instance()->getWorkflowSender()->toArray(); // load sender only
                 break;
             case 'ONLINE':
                 $currentTime = time();
                 $fiveMinutes = (1 * 60)*5;
                 $fiveMinutesAgo = $currentTime - $fiveMinutes;
-                $users = UserDataTable::instance()->getOnlineUser($fiveMinutesAgo)->toArray();
+                $users = UserDataTable::instance()->getOnlineUser($fiveMinutesAgo)->toArray(); // user which are online for about 5mins^^
                 break;
         }
         
-        
+        // send messages
         foreach($users as $user) {
             if($decission == 'SENDER') {
                $userData = new UserMailSettings($user['sender_id']);
