@@ -1,7 +1,9 @@
 <?php
 
 
-
+/**
+ * Class restarts a workflow
+ */
 class RestartWorkflow {
 
 
@@ -22,11 +24,21 @@ class RestartWorkflow {
         $this->serverUrl = $url;
     }
 
+    /**
+     * Set flag, if the workflow uses values form previous version or not!
+     * @param boolean $value
+     */
     public function setNewValue($value) {
         $this->newValue = $value;
     }
 
-
+    /**
+     * Loads all users and slots for a worklfow.
+     * Out of this function a specific user in a slot can be seleced, where worfklwo will start
+     *
+     * @param Doctrine_Collection $data
+     * @return array $result, Slot und Users
+     */
     public function buildSelectStation(Doctrine_Collection $data) {
         $result = array();
         $a = 0;
@@ -46,7 +58,14 @@ class RestartWorkflow {
     }
 
 
-
+    /**
+     * Add Users to a slot
+     *
+     * @param String $slotname, slotname
+     * @param int $workflowslot_id, id of the slot
+     * @param int $slotcounter, number of the slot
+     * @return array $result
+     */
     public function getUser($slotname, $workflowslot_id, $slotcounter) {
         $users = WorkflowSlotUserTable::instance()->getUserBySlotId($workflowslot_id);
         $result = array();
@@ -66,7 +85,14 @@ class RestartWorkflow {
     }
 
 
-
+    /**
+     *
+     * Build out of the tree with slots and users a single branch, that contains only users
+     * which are linked to a slot. So this datastrcutre can be used in a GroupingGrid
+     *
+     * @param array $data
+     * @return array $result
+     */
     public function mergeArray(array $data) {
         $result = array();
         $c = 0;
@@ -87,9 +113,11 @@ class RestartWorkflow {
     }
 
 
-
-
-
+    /**
+     * Function loads all slots, fields and users for a slot and returns all slots for a workflow
+     * @param Doctrine_Collection $data
+     * @return array $result
+     */
     public function buildSaveData(Doctrine_Collection $data) {
         $a = 0;
 
@@ -101,14 +129,16 @@ class RestartWorkflow {
             $result[$a]['fields'] = $this->getFields($slot->getId());
             $result[$a]['users'] = WorkflowSlotUserTable::instance()->getUserBySlotId($slot->getId())->toArray();
             $a++;
-
-
         }
         return $result;
     }
 
 
-
+    /**
+     * Get all Fields for a slot
+     * @param int $slot_id, id of the slot
+     * @return array $result
+     */
     public function getFields($slot_id) {
         $result = array();
         $a = 0;
@@ -126,14 +156,19 @@ class RestartWorkflow {
         return $result;
     }
 
-
+    /**
+     * Add all fields with its values to the slot. Value depends on the flag if old values are used or not
+     * @param <type> $type
+     * @param <type> $field_id
+     * @param <type> $workflowslotfield_id
+     * @return <type>
+     */
     public function getItems($type, $field_id, $workflowslotfield_id) {
         $result = array();
         $a = 0;
-        $this->newValue = 1;
         switch($type) {
             case 'TEXTFIELD':
-                if($this->newValue == 1) {
+                if($this->newValue == 0) {
                     $data = FieldTextfieldTable::instance()->getTextfieldByFieldId($field_id)->toArray();
                     $result[0]['value'] = $data[0]['defaultvalue'];
                     return $result;
@@ -145,7 +180,7 @@ class RestartWorkflow {
                 }
                 break;
             case 'CHECKBOX':
-                if($this->newValue == 1) {
+                if($this->newValue == 0) {
                     $result[0]['value'] = 0;
                     return $result;
                 }
@@ -156,7 +191,7 @@ class RestartWorkflow {
                 }
                 break;
             case 'NUMBER':
-                if($this->newValue == 1) {
+                if($this->newValue == 0) {
                     $data = FieldNumberTable::instance()->getNumberByFieldId($field_id)->toArray();
                     $result[0]['value'] = $data[0]['defaultvalue'];
                     return $result;
@@ -168,7 +203,7 @@ class RestartWorkflow {
                 }
                 break;
             case 'DATE':
-                if($this->newValue == 1) {
+                if($this->newValue == 0) {
                     $data = FieldDateTable::instance()->getDateByFieldId($field_id)->toArray();
                     $result[0]['value'] = $data[0]['defaultvalue'];
                     return $result;
@@ -180,7 +215,7 @@ class RestartWorkflow {
                 }
                 break;
             case 'TEXTAREA':
-                if($this->newValue == 1) {
+                if($this->newValue == 0) {
                     $data = FieldTextareaTable::instance()->getTextareaByFieldId($field_id)->toArray();
                     $result[0]['value'] = $data[0]['content'];
                     return $result;
@@ -192,7 +227,7 @@ class RestartWorkflow {
                 }
                 break;
             case 'RADIOGROUP':
-                if($this->newValue == 1) {
+                if($this->newValue == 0) {
                     $data = FieldRadiogroupTable::instance()->findRadiogroupByFieldId($field_id)->toArray();
                     foreach($data as $item) {
                         $result[$a]['value'] = $item['isactive'];
@@ -212,7 +247,7 @@ class RestartWorkflow {
                 }
                 break;
             case 'CHECKBOXGROUP':
-                if($this->newValue == 1) {
+                if($this->newValue == 0) {
                     $data = FieldCheckboxgroupTable::instance()->findCheckboxgroupByFieldId($field_id)->toArray();
                     foreach($data as $item) {
                         $result[$a]['value'] = $item['isactive'];
@@ -232,7 +267,7 @@ class RestartWorkflow {
                 }
                 break;
             case 'COMBOBOX':
-                if($this->newValue == 1) {
+                if($this->newValue == 0) {
                     $data = FieldComboboxTable::instance()->findComboboxByFieldId($field_id)->toArray();
                     foreach($data as $item) {
                         $result[$a]['value'] = $item['isactive'];
@@ -260,11 +295,17 @@ class RestartWorkflow {
 
 
 
-
+    /**
+     * Get the workflowprocess and workflowprocessuser entries of an old version, to rebuild the structure
+     * when workflow will start at current station
+     *
+     * @param int $version_id, old id of the workflow
+     * @return array $result
+     */
     public function getRestartData($version_id) {
         $result = array();
         $a = 0;
-       
+        // load the slots
         $slots = WorkflowSlotTable::instance()->getSlotByVersionId($version_id);
         foreach($slots as $slot) {
             $documentSlot = $slot->getDocumenttemplateSlot()->toArray();
@@ -272,10 +313,12 @@ class RestartWorkflow {
             $result[$a]['slot_id'] = $slot->getId();
             $result[$a]['sendtoallreceivers'] = $documentSlot[0]['sendtoallreceivers'];
             $result[$a]['version_id'] = $slot->getWorkflowversionId();
+            // load the processtable
             $wfProcess = WorkflowProcessTable::instance()->getWorkflowProcessBySlotId($slot->getId())->toArray();
             if(!empty($wfProcess)) {
                 foreach($wfProcess as $process) {
                     $result[$a]['userprocess'][$b]  = $process;
+                    // add its processes for a user
                     $result[$a]['userprocess'][$b]['process'] = $this->addWorkflowProcessUser($process);
                     $b++;
                 }
@@ -287,7 +330,6 @@ class RestartWorkflow {
             }
             $a++;
         }
-        #print_r ($result);die;
         return $result;
     }
 
@@ -295,7 +337,12 @@ class RestartWorkflow {
 
 
 
-
+    /**
+     * Load all Workflowproecsses and Workflowprcessuser entries
+     *
+     * @param array $wfProcess, processdata
+     * @return array $result
+     */
     public function addWorkflowProcessUser(array $wfProcess) {
         $result = array();
         $userprocess = WorkflowProcessUserTable::instance()->getWorkflowProcessUserByWorklflowProcessId($wfProcess['id'])->toArray();
@@ -312,7 +359,16 @@ class RestartWorkflow {
 
 
 
-
+    /**
+     *
+     * This function writes the structure of workflowprocess and workflowprocessusers of an old version and
+     * replaces this structre with the id's of the new version and its slots, and users
+     *
+     * @param array $lastStationData, data of the old workflow with its processes and processusers
+     * @param array $newData, contains the id's of the new users and slots
+     * @param <type> $version_id
+     * @param <type> $workflow_id
+     */
     public function restartAtLastStation(array $lastStationData, array $newData, $version_id, $workflow_id) {
         for($a = 0;$a<count($lastStationData);$a++) {
             $lastSlots = $lastStationData[$a];
@@ -321,51 +377,60 @@ class RestartWorkflow {
             if($lastSlots['userprocess'] != '') {
                 for($b=0;$b<count($lastSlots['userprocess']);$b++) {
                     $lastProcess = $lastSlots['userprocess'][$b];
-                    $wfProcess = new WorkflowProcess();
-                    $wfProcess->setWorkflowtemplateId($workflow_id);
-                    $wfProcess->setWorkflowversionId($version_id);
-                    $wfProcess->setWorkflowslotId($newSlots['slot_id']);
-                    $wfProcess->save();
-                    $wfprocessId = $wfProcess->getId();
-                    $newProcessUser = $newSlots['slotuser_id'][$b];
-                    $processCounter = 0;
-                    
-                    for($c=0;$c<count($lastProcess['process']);$c++){
-                        
-                        $lastProcessUser = $lastProcess['process'][$c];
-                        $user_id = $lastProcessUser['user_id'];
-                        $wfsUid = $newProcessUser['id'];
+                    if(isset($lastProcess['process']) == true) {
+                        $wfProcess = new WorkflowProcess(); // write the process
+                        $wfProcess->setWorkflowtemplateId($workflow_id); // wf id
+                        $wfProcess->setWorkflowversionId($version_id); // new id of the worklflow
+                        $wfProcess->setWorkflowslotId($newSlots['slot_id']); //the id of the new slot is used
+                        $wfProcess->save();
+                        $wfprocessId = $wfProcess->getId();
+                        $newProcessUser = $newSlots['slotuser_id'][$b];
+                        $processCounter = 0;
 
-                        if($lastProcessUser['decissionstate'] == 'STOPPEDBYADMIN' OR $lastProcessUser['decissionstate'] == 'STOPPEDBYUSER') {
-                            $setDecission = 'WAITING';
-                        }
-                        else if ($lastProcessUser['decissionstate'] == 'WAITING') {
-                            $setDecission = 'WAITING';
-                        }
-                        else if ($lastProcessUser['decissionstate'] == 'SKIPPED') {
-                            $setDecission = 'SKIPPED';
-                        }
-                        else if ($lastProcessUser['decissionstate'] == 'USERAGENTSET') {
-                            $setDecission = 'USERAGENTSET';
-                        }
-                        else {
-                            
-                        }
-                        $wfProcessUser = new WorkflowProcessUser();
-                        $wfProcessUser->setWorkflowprocessId($wfprocessId);
-                        $wfProcessUser->setWorkflowslotuserId($wfsUid);
-                        $wfProcessUser->setUserId($user_id);
-                        $wfProcessUser->setInprogresssince(time());
-                        $wfProcessUser->setDecissionstate($setDecission);
-                        $wfProcessUser->setDateofdecission(time());
-                        $wfProcessUser->setResendet(0);
-                        $wfProcessUser->setIsuseragentof($lastProcessUser['isuseragentof']);
-                        $wfProcessUser->save();
+                        // write processes of the user
+                        for($c=0;$c<count($lastProcess['process']);$c++){
+                            $lastProcessUser = $lastProcess['process'][$c];
+                            $user_id = $lastProcessUser['user_id'];
+                            $wfsUid = $newProcessUser['id'];
 
-                        if($setDecission == 'WAITING') {
-                            $mail = new PrepareStationEmail($version_id, $workflow_id, $user_id, $this->context, $this->serverUrl);
-                        }
+                            // create the new states of the
+                            if($lastProcessUser['decissionstate'] == 'STOPPEDBYADMIN' OR $lastProcessUser['decissionstate'] == 'STOPPEDBYUSER') {
+                                $setDecission = 'WAITING';
+                            }
+                            else if ($lastProcessUser['decissionstate'] == 'WAITING') {
+                                $setDecission = 'WAITING';
+                            }
+                            else if ($lastProcessUser['decissionstate'] == 'SKIPPED') {
+                                $setDecission = 'SKIPPED';
+                            }
+                            else if ($lastProcessUser['decissionstate'] == 'USERAGENTSET') {
+                                $setDecission = 'USERAGENTSET';
+                            }
+                            else if ($lastProcessUser['decissionstate'] == 'DONE') {
+                                $setDecission = 'DONE';
+                            }
+                            else if ($lastProcessUser['decissionstate'] == 'ARCHIVED') {
+                                $setDecission = 'ARCHIVED';
+                            }
+                            else {
+                                $setDecission = 'SKIPPED';
+                            }
+                            $wfProcessUser = new WorkflowProcessUser();
+                            $wfProcessUser->setWorkflowprocessId($wfprocessId);
+                            $wfProcessUser->setWorkflowslotuserId($wfsUid);
+                            $wfProcessUser->setUserId($user_id);
+                            $wfProcessUser->setInprogresssince(time());
+                            $wfProcessUser->setDecissionstate($setDecission);
+                            $wfProcessUser->setDateofdecission(time());
+                            $wfProcessUser->setResendet(0);
+                            $wfProcessUser->setIsuseragentof($lastProcessUser['isuseragentof']);
+                            $wfProcessUser->save();
 
+                            if($setDecission == 'WAITING') {
+                                $mail = new PrepareStationEmail($version_id, $workflow_id, $user_id, $this->context, $this->serverUrl);
+                            }
+
+                        }
                     }
                 }
             }
@@ -373,7 +438,11 @@ class RestartWorkflow {
     }
 
 
-
+    /**
+     * Function retuns flag if slot is send to all at once
+     * @param int $versionid, version id
+     * @return boolean
+     */
     public function getSendToAllSlots($versionid) {
         $template = WorkflowTemplateTable::instance()->getWorkflowTemplateByVersionId($versionid)->toArray();
         $mailinglist = MailinglistTemplateTable::instance()->getMailinglistByVersionId($template[0]['mailinglisttemplateversion_id']);
