@@ -208,7 +208,7 @@ CredentialRole:
     role_id: 3
     credential_id: 27
   rc33:
-    role_id: 2
+    role_id: 3
     credential_id: 6
   rc34:
     role_id: 3
@@ -258,6 +258,9 @@ CredentialRole:
   rc49:
     role_id: 3
     credential_id: 28
+  rc50:
+    role_id: 2
+    credential_id: 27
 
 
 UserLogin:
