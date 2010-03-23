@@ -13,7 +13,7 @@ class MergeAuthorization {
             $write = true;
             for($a=0;$a<count($auth);$a++) {
                 $exists = $auth[$a];
-                if($singleRole['description'] == $exists['type'] OR $singleRole['description'] == 'admin' OR $singleRole['description'] == 'sender' ) {
+                if($singleRole['description'] == $exists['type'] OR $singleRole['description'] == 'admin' OR $singleRole['description'] == 'sender' OR $singleRole['description'] == 'receiver') {
                     $write = false;
                 }
             }
