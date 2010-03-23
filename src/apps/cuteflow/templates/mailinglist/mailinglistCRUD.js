@@ -118,39 +118,46 @@ cf.mailinglistCRUD = function(){return {
 			
 			
 			var hiddenfield = new Ext.form.Field({
-				autoCreate : {tag:'input', type: 'hidden', name: 'auth['+authCounter+'][type]', value:row.data.type, width: 0}			
+				autoCreate : {tag:'input', type: 'hidden', name: 'auth['+authCounter+'][type]', value:row.data.raw_type, width: 0}			
 			});
 			cf.mailinglistFirstTab.theFormPanel.add(hiddenfield);
-			
+		
+			var theRealId = row.data.raw_type + '_mailinglistthirdtab_deleteworkflow';
+			var theValue = Ext.getCmp(theRealId).getValue() == true ? 1 : 0;
 			
 			var hiddenfield = new Ext.form.Field({
-				autoCreate : {tag:'input', type: 'hidden', name: 'auth['+authCounter+'][deleteworkflow]', value:row.data.deleteworkflow, width: 0}			
+				autoCreate : {tag:'input', type: 'hidden', name: 'auth['+authCounter+'][deleteworkflow]', value:theValue, width: 0}			
 			});
 			cf.mailinglistFirstTab.theFormPanel.add(hiddenfield);
+			
+			var theRealId = row.data.raw_type + '_mailinglistthirdtab_archiveworkflow';
+			var theValue = Ext.getCmp(theRealId).getValue() == true ? 1 : 0;
 			
 			var hiddenfield = new Ext.form.Field({
-				autoCreate : {tag:'input', type: 'hidden', name: 'auth['+authCounter+'][archiveworkflow]', value:row.data.archiveworkflow, width: 0}			
+				autoCreate : {tag:'input', type: 'hidden', name: 'auth['+authCounter+'][archiveworkflow]', value:theValue, width: 0}			
 			});
 			cf.mailinglistFirstTab.theFormPanel.add(hiddenfield);
 			
-						var hiddenfield = new Ext.form.Field({
-				autoCreate : {tag:'input', type: 'hidden', name: 'auth['+authCounter+'][stopneworkflow]', value:row.data.stopneworkflow, width: 0}			
+			var theRealId = row.data.raw_type + '_mailinglistthirdtab_stopneworkflow';
+			var theValue = Ext.getCmp(theRealId).getValue() == true ? 1 : 0;
+			
+			var hiddenfield = new Ext.form.Field({
+				autoCreate : {tag:'input', type: 'hidden', name: 'auth['+authCounter+'][stopneworkflow]', value:theValue, width: 0}			
 			});
 			cf.mailinglistFirstTab.theFormPanel.add(hiddenfield);
+		
+			var theRealId = row.data.raw_type + '_mailinglistthirdtab_detailsworkflow';
+			var theValue = Ext.getCmp(theRealId).getValue() == true ? 1 : 0;	
 			
-				var hiddenfield = new Ext.form.Field({
-				autoCreate : {tag:'input', type: 'hidden', name: 'auth['+authCounter+'][detailsworkflow]', value:row.data.detailsworkflow, width: 0}			
+			var hiddenfield = new Ext.form.Field({
+				autoCreate : {tag:'input', type: 'hidden', name: 'auth['+authCounter+'][detailsworkflow]', value:theValue, width: 0}			
 			});
 			cf.mailinglistFirstTab.theFormPanel.add(hiddenfield);
 			authCounter++;
 			
 			
 		}
-		
-		
-		
-		
-		
+
 		return true;
 	},
 	
