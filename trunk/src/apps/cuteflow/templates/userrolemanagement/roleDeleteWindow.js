@@ -117,7 +117,7 @@ cf.DeleteRoleWindow = function(){return {
 			},
 			{ // do nothing
 				id: 'cancelButton',
-				text:'<?php echo __('Verwerfen',null,'userrolemanagement'); ?>', 
+				text:'<?php echo __('close',null,'userrolemanagement'); ?>', 
 				icon: '/images/icons/cancel.png',
 				handler: function () {
 					cf.DeleteRoleWindow.theRoleDeleteWindow.hide();
