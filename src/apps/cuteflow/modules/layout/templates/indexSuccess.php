@@ -21,10 +21,6 @@
     }
     else {
         echo '<script type="text/javascript" src="/djs/namespace/main.js"></script>';
-        #echo '<script type="text/javascript" src="/djs/layout/layout.js"></script>';
-        #echo '<script type="text/javascript" src="/djs/layout/regionWest.js"></script>';
-        #echo '<script type="text/javascript" src="/djs/layout/regionCenter.js"></script>';
-        #echo '<script type="text/javascript" src="/djs/layout/regionNorth.js"></script>';
         $files = new JavaScriptLoader();
         $jsFiles = $files->getAllFiles();
         foreach($jsFiles['djs'] as $singeFile) {
