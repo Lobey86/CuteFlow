@@ -13,6 +13,12 @@ class SystemSetting {
     }
 
 
+    /**
+     *
+     *  Get Values, if Position in mail is shown
+     *
+     * @return array $result
+     */
     public static function getShowPositionInMail() {
         $data = SystemConfigurationTable::instance()->getSystemConfiguration()->toArray();
         $result = array();
@@ -29,6 +35,12 @@ class SystemSetting {
 
 
 
+    /**
+     * Prepare data for useragent settings
+     *
+     * @param array $data
+     * @return <type>
+     */
     public function prepareUserAgentData(array $data) {
         $data['useragent_useragentsettings'] = isset($data['useragent_useragentsettings']) ? 1 : 0;
         $data['useragent_useragentcreation'] = isset($data['useragent_useragentcreation']) ? 1 : 0;
@@ -142,7 +154,13 @@ class SystemSetting {
     }
 
 
-
+    /**
+     * build individual cronjob settings
+     *
+     * @param array $data cronjob data
+     * @param sfContext $context
+     * @return array $result
+     */
     public function buildUserAgent(array $data, sfContext $context) {
         
         $result['individualcronjob'] = $data[0]['individualcronjob'];
@@ -154,7 +172,12 @@ class SystemSetting {
         return $result;
     }
 
-
+    /**
+     * Get days for their shortcut
+     *
+     * @param array $date
+     * @return array $result
+     */
     public function getDays(array $date) {
         $result['mon'] = $date[6];
         $result['tue'] = $date[5];
@@ -177,6 +200,12 @@ class SystemSetting {
 	return $array;
     }
 
+
+    /**
+     *
+     * @param sfContext $context
+     * @return <type>
+     */
     public function getDate($context) {
         $result = array();
         $a = 0;

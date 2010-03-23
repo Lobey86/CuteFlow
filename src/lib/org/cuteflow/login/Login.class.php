@@ -88,7 +88,10 @@ class Login {
         return $result;
     }
 
-
+    /**
+     * Check if system is already installed
+     * @return <type>
+     */
     public function checkInstaller() {
         $file = sfConfig::get('sf_root_dir') . '/config/installed';
         if(file_exists($file) == true) {
@@ -100,6 +103,14 @@ class Login {
 
     }
 
+    /**
+     *
+     * Generates the columns for grid, in workflow overivew, todo and archvie
+     *
+     * @param array $data, columns
+     * @param sfContext $context, context
+     * @return array $result
+     */
     public function generateUserWorklowView(array $data, sfContext $context) {
         sfLoader::loadHelpers('I18N');
         $a = 0;

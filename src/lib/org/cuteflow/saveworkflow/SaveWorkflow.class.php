@@ -17,7 +17,15 @@ class SaveWorkflow {
         $this->serverUrl = $url;
     }
 
-
+    /**
+     *
+     * Create next station if a workflow is been saved
+     *
+     * @param array $slots, all SLots
+     * @param int $userId, userid
+     * @param int $versionId, version of workflow
+     * @return true
+     */
     public function getNextStation(array $slots, $userId, $versionId) {
         foreach($slots as $slot) {
             $wfProcessData = WorkflowProcessUserTable::instance()->getActiveProcessUserForWorkflowSlot($slot['workflowslot_id'],$userId)->toArray();
@@ -60,7 +68,14 @@ class SaveWorkflow {
         return true;
     }
 
-
+    /**
+     *
+     * @param array $data, contains reason for deny
+     * @param int $workflowid, workflow id
+     * @param int $userId, user id
+     * @param int $versionId, version id
+     * @return <type>
+     */
     public function denyWorkflow(array $data, $workflowid, $userId, $versionId) {
         WorkflowTemplateTable::instance()->stopWorkflow($workflowid, $userId);
         WorkflowVersionTable::instance()->setEndReason($versionId, $data['workfloweditAcceptWorkflow_reason']);
@@ -74,7 +89,11 @@ class SaveWorkflow {
         return true;
     }
 
-
+    /**
+     * Check if the fields are correctly filled, only in IFRAME 
+     * @param array $fields, field data
+     * @return $failure
+     */
     public function checkFields(array $fields) {
         $failure = array();
         $failure['isFalse'] = 0;

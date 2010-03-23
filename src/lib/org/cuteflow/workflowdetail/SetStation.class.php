@@ -1,6 +1,8 @@
 <?php
 
-
+/**
+ * Class sets another station if selected by sender
+ */
 
 class SetStation {
 
@@ -23,6 +25,15 @@ class SetStation {
     public $newWorkflowSlotUser;
 
 
+    /**
+     *
+     * @param int $version_id, id of workflow version
+     * @param int $newWorkflowSlotUser_id, station id which is to set
+     * @param int $currentWorkflowSlotUser_id, station id of the current user
+     * @param String $move, direction can be UP or DOWN
+     * @param sfContext $context
+     * @param String $serverUrl 
+     */
     public function  __construct($version_id,$newWorkflowSlotUser_id, $currentWorkflowSlotUser_id, $move, sfContext $context, $serverUrl) {
         $this->context = $context;
         $this->serverUrl = $serverUrl;

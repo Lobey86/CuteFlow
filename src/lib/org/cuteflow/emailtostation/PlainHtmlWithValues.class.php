@@ -9,7 +9,9 @@ class PlainHtmlWithValues extends EmailSettings {
     }
 
 
-
+    /**
+     * Send mail, plain or html only values
+     */
     public function sendEmailToStation() {
         $sf_i18n = $this->data->context->getI18N();
         $sf_i18n->setCulture($this->data->userSettings->userSettings['language']);

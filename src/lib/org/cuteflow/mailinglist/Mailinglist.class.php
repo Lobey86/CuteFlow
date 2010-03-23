@@ -84,12 +84,6 @@ class Mailinglist {
            $asObj->save();
         }
 
-
-        /*foreach ($data as $item => $key) {
-            $item_data = array();
-            $item_data = explode('__', $item);
-            MailinglistAuthorizationSettingTable::instance()->updateAuthorizationConfigurationById($id, $item_data[0],$item_data[1]);
-        }*/
     }
 
     /**

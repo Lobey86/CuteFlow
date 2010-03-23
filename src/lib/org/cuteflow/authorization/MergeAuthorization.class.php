@@ -7,7 +7,15 @@ class MergeAuthorization {
     }
 
 
-
+    /**
+     *
+     *  Function merges the rights for the mailinglist auth tab
+     *
+     * @param array $allRoles, alls rolles in the system
+     * @param array $defaultAuth
+     * @param array $auth
+     * @return <type>
+     */
     public function mergeRoles(array $allRoles, array $defaultAuth, array $auth) {
         foreach($allRoles as $singleRole) {
             $write = true;

@@ -9,13 +9,22 @@ class File {
 
     }
 
-
+    /**
+     *
+     * @param String $filepath, path to file
+     * @return $fc, filecontent
+     */
     public function getFileContent($filepath) {
-
         $fc = @file_get_contents($filepath);
         return $fc;
     }
 
+
+    /**
+     * Get contenttype of the file
+     *
+     * @param String $file, filename
+     */
     public function getContenttype($file) {
         $data = array();
         $data = explode('.', $file);

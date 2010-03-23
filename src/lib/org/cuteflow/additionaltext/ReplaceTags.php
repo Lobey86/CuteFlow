@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Class replaces Spaceholder from Textfields and Additional Textes
+ */
 class ReplaceTags {
 
     public $workflow;
@@ -7,7 +9,15 @@ class ReplaceTags {
     public $newText;
     public $culture;
     public $workflowVersion;
-    
+
+
+    /**
+     *
+     * @param int $versionId, id of the current workflow
+     * @param String $text, the text to replace
+     * @param String $culture, the language
+     * @param sfContext $context , context object
+     */
     public function __construct($versionId, $text, $culture, $context = false) {
         if($context == false) {
             sfLoader::loadHelpers('Date');
@@ -36,6 +46,12 @@ class ReplaceTags {
         $this->workflowVersion = $data[0];
     }
 
+    /**
+     * Replace the tags
+     *
+     * @param string $text, text to replace
+     * @return string $text, $text replaced
+     */
     public function replacePlaceholder($text) {
         $date = format_date(time(), 'g', $this->culture);
         $text = str_replace('{%CIRCULATION_TITLE%}', $this->workflow['name'], $text);

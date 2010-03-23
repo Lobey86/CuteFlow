@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Function loads auth for a user, if he has right to load details or delete a workflow
+ */
 class CreateWorkflowAuthorizationRights {
 
     public $defaultRole;
@@ -10,12 +13,19 @@ class CreateWorkflowAuthorizationRights {
         
     }
 
-
+    /**
+     * Set the default role settings
+     */
     public function setDefaultRole() {
         $roles = AuthorizationConfigurationTable::instance()->getAllRoles()->toArray();
         $this->defaultRole = $roles[0];
     }
 
+    /**
+     * Load the rolename for the logged user
+     *
+     * @param int $userId
+     */
     public function setUserRole($userId) {
         $role = RoleTable::instance()->getRoleByUserId($userId)->toArray();
         $this->userroleName = $role[0]['description'];
@@ -23,7 +33,14 @@ class CreateWorkflowAuthorizationRights {
     }
 
 
-
+    /**
+     *
+     * Function checks all rights for the user
+     *
+     * @param int $mailinglistVersionId, id of the mailinglist version
+     * @param int $workflowversionid, id of the workflowversion
+     * @return array $result, array with the rights
+     */
     public function getRights($mailinglistVersionId, $workflowversionid) {
         $roleCheck = $this->checkRole($mailinglistVersionId); // checks if the role of the user, is appearing in the mailinglist auth settings. if not, default settings are loaded
         $allowedSenderCheck = $this->checkAllowedSender($mailinglistVersionId);
@@ -37,6 +54,15 @@ class CreateWorkflowAuthorizationRights {
     }
 
 
+    /**
+     *
+     * @param array $roles, the role of the user, with the sending rights for delete, archive, stop, details
+     * @param array $allowedsender, user is allowed to send workflows
+     * @param array $sendingRight, user has sendingrights
+     * @param array $receiver, user is a receiver
+     * @param string $offset, offset can be delete, archive stopnew or detailsworkflow
+     * @return <type>
+     */
     public function mergeRights(array $roles, array $allowedsender, array $sendingRight, array $receiver, $offset) {
         $result = array();
         
@@ -60,6 +86,14 @@ class CreateWorkflowAuthorizationRights {
        return $value;
     }
 
+    /**
+     *
+     * Check if the user is in the receiverslist of the workflow
+     *
+     * @param int $workflowversionId, id of the workflow
+     * @param int $mailinglistVersionId, id of the mailinglist
+     * @return boolean
+     */
     public function checkReceiver($workflowversionId, $mailinglistVersionId) {
         $receiver = WorkflowSlotUserTable::instance()->getUserByWorkflowVersionId($this->userId, $workflowversionId)->toArray();
         if(empty($receiver) == true) {
@@ -74,6 +108,14 @@ class CreateWorkflowAuthorizationRights {
         
     }
 
+
+    /**
+     *
+     * Check if the user has sending rights
+     *
+     * @param int $mailinglistVersionId
+     * @return boolean
+     */
     public function checkSendingRight($mailinglistVersionId) {
         
         $credentialId = CredentialTable::instance()->getCredentialIdByRight('workflow','workflowmanagement','sendWorkflow')->toArray();
@@ -90,6 +132,12 @@ class CreateWorkflowAuthorizationRights {
         
     }
 
+    /**
+     * Check if the user can use the mailinglist to create a workflow
+     *
+     * @param int $mailinglistVersionId
+     * @return boolean
+     */
     public function checkAllowedSender($mailinglistVersionId) {
         $allowedsender = MailinglistAllowedSenderTable::instance()->getAllowedSenderByMailinglistIdAndUserId($this->userId, $mailinglistVersionId)->toArray();
         if(empty($allowedsender) == true) {
@@ -104,7 +152,14 @@ class CreateWorkflowAuthorizationRights {
     }
 
 
-
+    /**
+     *
+     * Check if the role of the user, is exisiting in the mailinglist, if not default role is returend, else
+     * the usersrole is returned
+     *
+     * @param <type> $mailinglistVersionId
+     * @return <type>
+     */
     public function checkRole($mailinglistVersionId) {
         $rights = MailinglistAuthorizationSettingTable::instance()->getSettingsByType($this->userroleName, $mailinglistVersionId)->toArray();
         if(empty($rights) == true) {
