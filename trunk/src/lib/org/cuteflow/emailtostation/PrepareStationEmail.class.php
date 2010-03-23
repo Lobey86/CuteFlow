@@ -13,6 +13,17 @@ class PrepareStationEmail {
     public $context;
     public $serverUrl;
 
+
+    /**
+     *
+     * Load all Slots and Fields for a workflow and then send the email
+     *
+     * @param int $versionId, id of the current workflowversion
+     * @param int $templateId, id of the current workflowtemplate
+     * @param int $userId, userid
+     * @param sfContext $context, context
+     * @param String $serverUrl, server url
+     */
     public function __construct($versionId, $templateId, $userId, sfContext $context, $serverUrl) {
         if($this->checkSendingRight() == true) {
             $this->serverUrl = $serverUrl;
@@ -39,6 +50,11 @@ class PrepareStationEmail {
         }
     }
 
+    /**
+     * Check if an email can be send
+     *
+     * @return boolean
+     */
     public function checkSendingRight() {
         $wfSettings = SystemConfigurationTable::instance()->getSystemConfiguration()->toArray();
         if($wfSettings[0]['sendreceivermail'] == 1) {

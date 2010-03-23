@@ -7,7 +7,12 @@ class Installer {
         
     }
 
-
+    /**
+     * Create the config file for database
+     *
+     * @param array $data, database data
+     * @return true
+     */
     public function createConfigFile(array $data) {
         $all = 'all:' . "\n";
         $doctrine = '  doctrine:' . "\n";
@@ -29,7 +34,11 @@ class Installer {
         return true;
     }
 
-
+    /**
+     * get the default system language
+     *
+     * @return string, the language as string e.g. englisch
+     */
     public static function getInstallerLanguage() {
         $file = sfConfig::get('sf_app_dir') . '/config/i18n.yml';
         $array = sfYAML::Load($file);
@@ -41,7 +50,12 @@ class Installer {
     }
 
 
-
+    /**
+     * get language shortcut, e.g. de en
+     *
+     * @param String $language, de_DE, en_US
+     * @return String en, de
+     */
     public static function getLanguage($language) {
         sfLoader::loadHelpers('I18N');
         $result = array();

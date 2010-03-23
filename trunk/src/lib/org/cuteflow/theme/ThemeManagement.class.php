@@ -14,7 +14,12 @@ class ThemeManagement {
     }
 
 
-
+    /**
+     *
+     * get all themes and translate them
+     *
+     * @return array $result
+     */
     public function getThemes() {
         $themeDir =  sfConfig::get('sf_web_dir') . '/themes';
         $result = array();
@@ -29,7 +34,13 @@ class ThemeManagement {
         return $result;
     }
 
-
+    /**
+     * Check which theme is default
+     *
+     * @param array $data
+     * @param string $theme
+     * @return <type>
+     */
     public function checkDefault(array $data, $theme) {
         $result = array();
         $a = 0;
@@ -47,6 +58,12 @@ class ThemeManagement {
         return $result;
     }
 
+    /**
+     * get the path to the theme
+     *
+     * @param string $theme
+     * @return string '' if blue theme, themepath if other
+     */
     public function getThemePath($theme) {
         if($theme == 'DEFAULT') {
             return '';

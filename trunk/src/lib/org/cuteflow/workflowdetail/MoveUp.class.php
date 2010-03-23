@@ -14,6 +14,13 @@ class MoveUp extends WorkflowSetStation{
         $this->checkSendToAllReceiverAtOnce($this->station->newSlotSendToAllReceiver, $this->station->newWorkflowSlotUser, 'WAITING');
     }
 
+    /**
+     * Fill the users
+     *
+     * @param bool $sendToAllReceiverFlag
+     * @param id $workflowslotUser
+     * @param String $decission, skipped or waiting
+     */
     public function checkSendToAllReceiverAtOnce($sendToAllReceiverFlag, $workflowslotUser, $decission) {
         if($sendToAllReceiverFlag == 1) {
             $station = WorkflowSlotUserTable::instance()->getUserBySlotId($workflowslotUser->getWorkflowslotId())->toArray();
@@ -44,12 +51,23 @@ class MoveUp extends WorkflowSetStation{
         }
         
     }
-
+    /**
+     * Set current station inactive
+     *
+     * @param int $workflowslotuser_id, Workflowslot userid
+     */
     public function setStationInactive($workflowslotuser_id) {
         WorkflowProcessUserTable::instance()->skipAllStation($workflowslotuser_id);
     }
 
 
+    /**
+     * Calculate the next stations and set them to inactive
+     *
+     * @param int $workflowslot_id, id of the slot
+     * @param int $position, position
+     * @return <type>
+     */
     public function calculateStation($workflowslot_id, $position) {
         $nextUser = $this->getNextUser($workflowslot_id, $position);
          if(!empty($nextUser)) {

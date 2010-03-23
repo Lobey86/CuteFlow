@@ -14,7 +14,13 @@ class Workflow {
         $this->context = $context_in;
     }
 
-
+    /**
+     *
+     * Load Slots and Fields for a template
+     *
+     * @param array $data
+     * @return array $result
+     */
     public function buildSlots(array $data) {
         $slots = DocumenttemplateSlotTable::instance()->getSlotByDocumentTemplateId($data[0]['id']);
         $result = array();
@@ -31,7 +37,13 @@ class Workflow {
     }
 
 
-
+    /**
+     * Add all fields to a slot. The Fields contain also LEFT and RIGHT to set them to the right column
+     * in the overview
+     *
+     * @param int $slot_id, id of the slot
+     * @return array $result, Slotdata
+     */
     public function buildFields($slot_id) {
         $fields = DocumenttemplateFieldTable::instance()->getAllFieldsBySlotId($slot_id);
         $result = array();
@@ -61,7 +73,13 @@ class Workflow {
         return $result;
     }
 
-
+    /**
+     * Load the values for fields
+     *
+     * @param int $field_id, field id
+     * @param String $type, typ des feldes
+     * @return array $result
+     */
     public function buildItems($field_id, $type) {
         $result = array();
         switch ($type) {

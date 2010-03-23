@@ -1,10 +1,21 @@
 <?php
 
-
+/**
+ * Class handles file upload
+ */
 
 class FileUpload {
 
 
+    /**
+     * Upload a file for an workflowattachment. not a field-File!
+     * File is stored in web/uploads/templateid/versionid/md5(time() . filename).**
+     *
+     * @param array $file, contains filename
+     * @param <type> $versionid, id of the workflowversion
+     * @param <type> $templateid, id of the workflowtemplate
+     * @return boolean
+     */
     public function uploadFile(array $file, $versionid, $templateid) {
         if($file['name'] != '') {
             $this->checkFolder($versionid, $templateid);
@@ -23,7 +34,13 @@ class FileUpload {
         return false;
     }
 
-
+    /**
+     * Check if the folders in upload dir are exisitng
+     *
+     * @param int $versionid, workflowversion id
+     * @param int $templateid, workflow id
+     * @return true
+     */
     public function checkFolder($versionid, $templateid) {
         if(is_dir(sfConfig::get('sf_upload_dir') . '/' . $templateid) == false) {
             mkdir(sfConfig::get('sf_upload_dir') . '/' . $templateid);
@@ -36,6 +53,15 @@ class FileUpload {
     }
 
 
+    /**
+     * Upload a file for a field FILE!
+     * File is stored in web/uploads/templateid/versionid/md5(time() . filename).**
+     *
+     * @param array $file, contains filename
+     * @param <type> $versionid, id of the workflowversion
+     * @param <type> $templateid, id of the workflowtemplate
+     * @return boolean
+     */
     public function uploadFormFile(array $file, $field_id, $versionid, $templateid) {
         $this->checkFolder($versionid, $templateid);
         $hashFileArray = explode('.', $file['name']);
@@ -49,6 +75,14 @@ class FileUpload {
     }
 
 
+    /**
+     * Copy the files, if a new worklfowversion will be created
+     *
+     * @param array $oldValues, contains the hashname
+     * @param int $newversionid, id of the new version
+     * @param int $templateid, templateid of the workflow
+     * @param int $oldversionid, id of the old version
+     */
     public function moveFile(array $oldValues, $newversionid, $templateid, $oldversionid) {
         $this->checkFolder($newversionid, $templateid);
         $current = sfConfig::get('sf_upload_dir') . '/' . $templateid . '/' . $oldversionid . '/' . $oldValues['hashname'];

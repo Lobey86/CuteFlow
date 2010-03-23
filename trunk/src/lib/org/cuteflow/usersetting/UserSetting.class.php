@@ -17,7 +17,11 @@ class UserSettingClass {
 
     }
 
-
+    /**
+     * Get first login flag of an user
+     *
+     * @return boolean
+     */
     public static function getFirstLogin() {
         $result = UserSettingTable::instance()->getFirstLogin(sfContext::getInstance()->getUser()->getAttribute('id'))->toArray();
         return $result[0]['firstlogin'];

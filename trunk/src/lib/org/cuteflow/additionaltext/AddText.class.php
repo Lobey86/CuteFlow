@@ -15,6 +15,7 @@ class AddText {
      * Function creates data for displaying all additional textes in datagrid
      * 
      * @param Doctrine_Collection $data, all records for grid
+     * @param sfContext $context, context object
      * @return array $resultset, resultset.
      */
     public function buildAllText(Doctrine_Collection $data, sfContext $context) {

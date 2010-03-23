@@ -15,7 +15,9 @@ class MoveDown extends WorkflowSetStation {
         $this->checkNewSlot();
     }
 
-
+    /**
+     * check if the new slot is send to all at once, if yes at processes
+     */
     public function checkNewSlot() {
         if($this->station->newSlotSendToAllReceiver == 1) {
             $station = WorkflowSlotUserTable::instance()->getUserBySlotId($this->station->newWorkflowSlotUser->getWorkflowslotId())->toArray();
@@ -43,7 +45,9 @@ class MoveDown extends WorkflowSetStation {
         }
     }
     
-
+    /**
+     * If slot is sent to all at once, remove all users
+     */
     public function checkCurrentSlot() {
         if($this->station->currentSlotSendToAllReceiver == 1) {
             $station = WorkflowSlotUserTable::instance()->getUserBySlotId($this->station->currentWorkflowSlotUser->getWorkflowslotId())->toArray();
@@ -56,7 +60,13 @@ class MoveDown extends WorkflowSetStation {
     }
 
 
-
+    /**
+     * Write the new Station and set active write email
+     *
+     * @param WorkflowSlotUser $user
+     * @param int $version_id, workflowversion id
+     * @param int $workflowtemplate_id , workfowtemplate id
+     */
     public function setNewStationActive (WorkflowSlotUser $user, $version_id, $workflowtemplate_id) {
         $currentWorkflowProcessUser = WorkflowProcessUserTable::instance()->getProcessUserByWorkflowSlotUserId($user->getId());
         WorkflowProcessUserTable::instance()->deleteWorkflowProcessUserByWorkfloSlotUserId($user->getId());
@@ -71,7 +81,14 @@ class MoveDown extends WorkflowSetStation {
         $mail = new PrepareStationEmail($this->station->version_id, $this->station->workflowtemplate_id, $user->getUserId(), $this->station->context, $this->station->serverUrl);
 
     }
-    
+
+    /**
+     * Now the slots / stations between the old id and the new id must be filled.
+     * This function calculates the slots and users and fills it
+     *
+     * @param int $workflowslot_id, id of the slot
+     * @param int $position, SLot position
+     */
     public function calculateStation($workflowslot_id, $position) {
         $nextUser = $this->getNextUser($workflowslot_id, $position);
         if(!empty($nextUser)) { // user has been found

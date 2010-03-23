@@ -13,6 +13,7 @@ class CheckSubstitute {
     public $context;
     public $cronJobSetting;
 
+
     public function __construct(Doctrine_Collection $openProcesses, $context, $serverUrl, $cronjobSetting) {
         $result = $this->checkForSubstitute($openProcesses);
         $this->cronJobSetting = $cronjobSetting;
@@ -65,7 +66,7 @@ class CheckSubstitute {
      */
     public function addUserAgentsAndUserSettingsAndTime() {
         for($a=0;$a<count($this->openProcesses);$a++) {
-            $user = UserAgentTable::instance()->getAllUserAgents($this->openProcesses[$a]['user_id'])->toArray();
+            $user = UserAgentTable::instance()->getAllUserAgents($this->openProcesses[$a]['user_id'])->toArray(); // get useraegnts for the user
             if(empty($user) == true) {
                 $this->openProcesses[$a]['hasUserAgent'] = 0;
             }
@@ -80,13 +81,12 @@ class CheckSubstitute {
     }
 
     /**
-     * Function 
+     * Check only entries of the process, where a useragent can be set
      */
     public function checkTime() {
         foreach($this->openProcesses as $process) {
             // check only entries, where a useragent is set
             if($process['hasUserAgent'] == 1) {
-                #print_r ($process);die;
                 $sub = new CreateSubstitute($this, $process);
             }
         }

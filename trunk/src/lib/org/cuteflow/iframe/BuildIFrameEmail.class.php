@@ -6,7 +6,15 @@ class BuildIFrameEmail {
 
     }
 
-
+    /**
+     * Build the HTML Fields for an IFRAME email
+     *
+     * @param array $field, field data
+     * @param int $fieldcounter, unique id of the next field
+     * @param String $fileTranslation, contains LINK TO in different languages for file attachments
+     * @param boolean $slotIsDisabled, flag if slot is editable or not
+     * @return String $theField, contains html String for field
+     */
     public function getField(array $field, $fieldcounter, $fileTranslation, $slotIsDisabled) {
         $hiddenField = $this->getHiddenField($field['type'], $fieldcounter);
         $hiddenIdField = '';
@@ -90,25 +98,47 @@ class BuildIFrameEmail {
 
     }
 
-
+    /**
+     * Build a hidden Field for the Name
+     * @param String $name
+     * @param int $fieldcounter, unique ID
+     * @return $fieldString, html String
+     */
     public function getFieldName($name, $fieldcounter) {
         $fieldString = '<input type="hidden" name="field['.$fieldcounter.'][name]" value="'.$name.'" />';
         return $fieldString;
         
     }
 
-
+    /**
+     * Add regex to a field
+     *
+     * @param int $fieldId
+     * @param string $regEx
+     * @param int $fieldcounter
+     * @return $fieldString, html String
+     */
     public function getRegExField($fieldId, $regEx, $fieldcounter) {
         $fieldString = '<input type="hidden" name="field['.$fieldcounter.'][regex]" value="'.$regEx.'" />';
         return $fieldString;
     }
-
+    /**
+     * Build a hidden Field for the type of the field
+     * @param String $type, fieldtype
+     * @param int $fieldcounter, unique ID
+     * @return $fieldString, html String
+     */
     public function getHiddenField($type, $fieldcounter) {
         $fieldString = '<input type="hidden" name="field['.$fieldcounter.'][type]" value="'.$type.'" />';
         return $fieldString;
     }
 
-
+    /**
+     * Build a hidden Field for the id of the field
+     * @param int $id, id of the field
+     * @param int $fieldcounter, unique ID
+     * @return $fieldString, html String
+     */
     public function getHiddenIdField($id, $fieldcounter) {
         $fieldString = '<input type="hidden" name="field['.$fieldcounter.'][field_id]" value="'.$id.'" />';
         return $fieldString;

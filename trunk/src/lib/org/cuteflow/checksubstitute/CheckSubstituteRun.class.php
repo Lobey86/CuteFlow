@@ -1,4 +1,7 @@
 <?php
+/**
+ * Class checks at which date, the cronjonnb can run
+ */
 class CheckSubstituteRun {
 
     public $context;
@@ -7,6 +10,14 @@ class CheckSubstituteRun {
         $this->context = $context;
     }
 
+    /**
+     * Function checks if the current day can run a cronjob and is between to and from
+     *
+     * @param String $days, binary code for days, when Cron can run
+     * @param String $from, time from
+     * @param String $to, time to
+     * @return boolean, true if the current time is between to and from, false if not
+     */
     public function checkRun($days, $from, $to) {
         $hour = date("H",time());
         $hour = $this->checkDate($hour);
@@ -25,6 +36,12 @@ class CheckSubstituteRun {
         }
     }
 
+    /**
+     *
+     *
+     * @param String $days, days in binary string
+     * @return boolean $write, 1 can run, 0 cannot run
+     */
     public function checkDays($days) {
         $result = array();
         $result = $this->getRunningDays($days, 7);
@@ -71,6 +88,12 @@ class CheckSubstituteRun {
         return $write;
     }
 
+    /**
+     * remomves 0 from 09, or 08 , 07 etc
+     *
+     * @param string $date, a day in a month
+     * @return string
+     */
     public function checkDate($date) {
         $firstChar = substr($date, 0, 1);
         if($firstChar == 0) {
@@ -81,6 +104,13 @@ class CheckSubstituteRun {
         }
     }
 
+    /**
+     * Build out of the Binary String, days where CJ can run
+     *
+     * @param String $number, binary String
+     * @param int $count, mount of elements, not needed here
+     * @return array $array, 7 days where CJ can run or not
+     */
     public function getRunningDays($number, $count = 5) {
         $bin =  decbin ($number);
         

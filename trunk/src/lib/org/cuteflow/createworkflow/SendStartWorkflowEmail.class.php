@@ -1,7 +1,15 @@
 <?php
 class SendStartWorkflowEmail extends EmailSettings {
 
-
+    /**
+     * Send an email, when workflow is started in the future
+     *
+     * @param UserMailSettings $userSettings, Object that contains useragent settings
+     * @param sfContext $controller
+     * @param array $workflowVersion, workflowversion details
+     * @param array $workflowTemplate, workfowtemplate detials
+     * @param String $serverUrl , url of the server,
+     */
     public function  __construct(UserMailSettings $userSettings, sfContext $controller, array $workflowVersion, array $workflowTemplate, $serverUrl) {
         $sf_i18n = $controller->getI18N();
         $sf_i18n->setCulture($userSettings->userSettings['language']);

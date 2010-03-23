@@ -17,7 +17,7 @@ class CreateSubstitute {
     public function  __construct(CheckSubstitute $obj, array $process) {
         $this->checkSubObj = $obj;
         $this->process = $process;
-        $this->setCurrenTime();
+        $this->setCurrenTime(); // date of today
         $this->checkSubstitute();
     }
 

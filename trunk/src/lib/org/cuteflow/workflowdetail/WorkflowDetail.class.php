@@ -43,6 +43,11 @@ class WorkflowDetail {
         $this->serverUrl = $url;
     }
 
+    /**
+     *
+     * @param Doctrine_Collection $data
+     * @return array $data
+     */
     public function buildHeadLine(Doctrine_Collection $data) {
         $result = array();
         $workflowtemplate = WorkflowTemplateTable::instance()->getWorkflowTemplateById($data[0]->getWorkflowtemplateId());

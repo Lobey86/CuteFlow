@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Load all JS Files
+ */
 class JavaScriptLoader {
 
     public $folders;
@@ -18,7 +20,9 @@ class JavaScriptLoader {
         return $this->files;
     }
 
-
+    /**
+     * Add the Namsepace file main.js as first item to the array.!IMPORTANT!
+     */
     public function addNameSpaceFiles() {
         $result = array();
         $dir = sfConfig::get('sf_app_dir') . '/templates/namespace/';
@@ -31,6 +35,9 @@ class JavaScriptLoader {
     }
 
 
+    /**
+     * load the disabled modules, which where not cached
+     */
     public function getDisabledFolders() {
         $filepath = sfConfig::get('sf_app_dir') . '/config/template.yml';
         $array = sfYAML::Load($filepath);
@@ -43,7 +50,9 @@ class JavaScriptLoader {
 
 
 
-
+    /**
+     * Load all folders form templates directory , excluded the disabled modules
+     */
     public function getFolders() {
         $result = array();
         $filepath = sfConfig::get('sf_app_dir') . '/templates';
@@ -58,7 +67,11 @@ class JavaScriptLoader {
 
 
 
-
+    /**
+     *
+     * @param String $folder, folder from templates dir
+     * @return boolean, true if folder is disabled, false if folder can be cached
+     */
     public function checkFolder($folder) {
         if(in_array($folder, $this->disabled) == true) {
             return true;
@@ -69,7 +82,12 @@ class JavaScriptLoader {
     }
 
 
-
+    /**
+     * Load all JS Files from the folders.
+     * Result contains absolute path and djs url
+     *
+     * @return array $result
+     */
     public function getFiles() {
         $result = array();
         $a = 0;
@@ -85,6 +103,13 @@ class JavaScriptLoader {
         
     }
 
+    /**
+     *
+     * @param String $directory, dir to check,
+     * @param array $exempt, excluded files
+     * @param obj $files,
+     * @return array $files
+     */
     public function getFilesInDirectory($directory,$exempt = array('.','..','.svn'),&$files = array()) {
         $handle = opendir($directory);
         while(false !== ($resource = readdir($handle))) {

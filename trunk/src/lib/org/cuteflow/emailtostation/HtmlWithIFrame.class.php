@@ -10,7 +10,9 @@ class HtmlWithIFrame extends EmailSettings {
 
 
 
-
+    /**
+     * Send IFRAME EMail
+     */
     public function sendEmailToStation() {
         $sf_i18n = $this->data->context->getI18N();
         $sf_i18n->setCulture($this->data->userSettings->userSettings['language']);
@@ -50,7 +52,6 @@ class HtmlWithIFrame extends EmailSettings {
         $this->setBody(get_partial('sendreminderemail/htmlSendIFrameToStation', $bodyData));
         $this->setAttachments($this->data->attachments);
         $this->sendEmail();
-        #print_r ($this->data->slots);die;
     }
 
 

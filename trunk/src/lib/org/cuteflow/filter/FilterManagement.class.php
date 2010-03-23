@@ -7,7 +7,11 @@ class FilterManagement {
         
     }
 
-
+    /**
+     *
+     * @param Doctrine_Collection $filter, data with all filters
+     * @return array $result
+     */
     public function buildFilter(Doctrine_Collection $filter) {
         $result = array();
         $result = $filter[0]->toArray();
@@ -16,6 +20,12 @@ class FilterManagement {
         return $result;
     }
 
+    /**
+     * get all running stations in the system
+     *
+     * @param Doctrine_Collection $data, data with running station
+     * @return array $result
+     */
     public function getRunningStation(Doctrine_Collection $data) {
         $result = array();
         $a = 0;
@@ -28,6 +38,11 @@ class FilterManagement {
         return $result;
     }
 
+    /**
+     * Merge the running system array
+     * @param array $data, running stations
+     * @return array $result
+     */
     public function mergeArray(array $data) {
         $result = array();
         $inArray = array();
@@ -47,6 +62,12 @@ class FilterManagement {
         return $result;
     }
 
+    /**
+     * Adjust the paramter of the request, if the filter is set or not
+     *
+     * @param sfWebRequest $filter
+     * @return array $result
+     */
     public function checkFilter(sfWebRequest $filter) {
         $result = array();
         $result['name'] = $filter->getParameter('name',-1);
@@ -64,7 +85,12 @@ class FilterManagement {
     }
 
 
-
+    /**
+     * Load the Fields for a filter when a filter is executed
+     *
+     * @param sfWebRequest $filter,
+     * @return array $result, contains the fields, for which will be searched
+     */
     public function getFields(sfWebRequest $filter) {
         $result = array();
         $hasElements = true;
