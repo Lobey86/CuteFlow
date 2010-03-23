@@ -69,18 +69,18 @@ class CreateWorkflowAuthorizationRights {
         $value = $roles[$offset];
         if($allowedsender['allowedtosend'] == 1) {
             if($value != 1) {
-                $value = $allowedsender[$offset];
+                $value = $roles[$offset];
             }
 
         }
         if($sendingRight['allowedtosend'] == 1) {
             if($value != 1) {
-                $value = $sendingRight[$offset];
+                $value = $roles[$offset];
             }
         }
         if($receiver['allowedtosend'] == 1) {
             if($value != 1) {
-                $value = $receiver[$offset];
+                $value = $roles[$offset];
             }
         }
        return $value;
