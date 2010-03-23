@@ -119,7 +119,7 @@ cf.mailinglistPanelGrid = function(){return {
 		    		}
 		    	}
 			}]
-		});	
+		});
 		
 	},
 	
