@@ -97,7 +97,7 @@ cf.UserRoleGrid = function(){return {
 	**/
 	createButtons: function (id, label) {
 		var disabled = false;
-		if (label == 'admin' || label == 'sender') {
+		if (label == 'admin' || label == 'sender' || label == 'receiver') {
 			disabled = true;
 		}
 		var btn_delete = new Ext.form.Label(  {

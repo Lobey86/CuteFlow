@@ -56,7 +56,7 @@
     </trans-unit>
 	<trans-unit id="14">
         <source>thesender</source>
-        <target>The Sender</target>
+        <target>Sender</target>
     </trans-unit>
 	<trans-unit id="15">
         <source>USERDEFINED1</source>
