@@ -257,9 +257,6 @@ CredentialRole:
     credential_id: 26
   rc49:
     role_id: 3
-    credential_id: 27
-  rc50:
-    role_id: 3
     credential_id: 28
 
 
