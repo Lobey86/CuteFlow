@@ -131,8 +131,9 @@ cf.mailinglistThirdTab = function(){return {
 		var name = id + '__' + table;
 		var check = new Ext.form.Checkbox({
 			renderTo: div,
+			id: id + '_mailinglistthirdtab_' + table,
 			name: 'mailinglistFirstTab[' + name + ']',
-			inputValue: 1,
+			inputValue: "1",
 			checked: value
 		});
 	}
