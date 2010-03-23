@@ -50,12 +50,12 @@ EOF;
         if($system[0]['individualcronjob'] == 1) {
             $systemConifg = new CheckSubstituteRun($context);
             if($systemConifg->checkRun($system[0]['cronjobdays'],$system[0]['cronjobfrom'],$system[0]['cronjobto']) == true) {
-                $process = WorkflowProcessUserTable::instance()->getWaitingProcess();
+                $process = WorkflowProcessUserTable::instance()->getWaitingProcess(); // load all waiting processes
                 $sub = new CheckSubstitute($process, $context, $serverUrl, $system[0]['setuseragenttype']);
             }
         }
         else {
-            $process = WorkflowProcessUserTable::instance()->getWaitingProcess();
+            $process = WorkflowProcessUserTable::instance()->getWaitingProcess(); // load all waiting processes
             $sub = new CheckSubstitute($process, $context, $serverUrl, $system[0]['setuseragenttype']);
         }
     }
