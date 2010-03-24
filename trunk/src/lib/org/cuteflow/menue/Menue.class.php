@@ -61,7 +61,6 @@ class Menue extends MenueCredential {
                 $result[$this->moduleCounter]['usermodule']['usergroup'][$this->groupCounter]['position'] = $item->getUsergroupposition();
             }
         }
-       // print_r ($result);die;
         $result = $this->sortMenue($result);
         return $result;
      }
