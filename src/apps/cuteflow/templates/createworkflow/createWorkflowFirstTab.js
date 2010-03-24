@@ -284,7 +284,7 @@ cf.createWorkflowFirstTab = function(){return {
 			allowBlank: true,
 			hidden: true,
 			height: 250,
-			width: cf.Layout.theRegionWest.getWidth() +  cf.Layout.theRegionCenter.getWidth() - 300,
+			width: 450,
 			value: '',
 			anchor: '100%'
 		});
@@ -296,7 +296,7 @@ cf.createWorkflowFirstTab = function(){return {
 				height: 250,
 				id: 'createWorkflowFirstTab_htmlarea',
 				hidden:false,
-				width: (cf.Layout.theRegionWest.getWidth() +  cf.Layout.theRegionCenter.getWidth()) / 2,
+				width: 450,
 				style: 'margin-top:5px;margin-left:5px;',
 				allowBlank: true,
 				value: '',
@@ -334,13 +334,13 @@ cf.createWorkflowFirstTab = function(){return {
 						if(item.data.contenttype == 'plain') {
 							cf.createWorkflowFirstTab.theTextarea.setVisible(true);
 							cf.createWorkflowFirstTab.theHtmlarea.setVisible(false);
-							cf.createWorkflowFirstTab.theTextarea.setSize({width: (cf.Layout.theRegionWest.getWidth() +  cf.Layout.theRegionCenter.getWidth()) / 2});
+							cf.createWorkflowFirstTab.theTextarea.setSize({width: 450});
 							cf.createWorkflowFirstTab.theTextarea.setValue(item.data.content);
 						}
 						else {
 							cf.createWorkflowFirstTab.theTextarea.setVisible(false);
 							cf.createWorkflowFirstTab.theHtmlarea.setVisible(true);
-							cf.createWorkflowFirstTab.theHtmlarea.setSize({width: (cf.Layout.theRegionWest.getWidth() +  cf.Layout.theRegionCenter.getWidth()) / 2});
+							cf.createWorkflowFirstTab.theHtmlarea.setSize({width: 450});
 							cf.createWorkflowFirstTab.theHtmlarea.setValue(item.data.content);
 						}
 					}
