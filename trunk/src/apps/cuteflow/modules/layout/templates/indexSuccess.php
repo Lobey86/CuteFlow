@@ -1,9 +1,10 @@
 
 <?php
+    // loading mask -.-
     echo '<div id="loading"><div id="loading-message" style="border:solid;"><table><tr><td><img src="/images/icons/loading.gif" /></td><td>' . __('Loading CuteFlow. Please wait...','','layout') . '</td></tr></table></div></div>';
     $filepath = sfConfig::get('sf_app_dir') . '/config/template.yml';
     $cacheEnabled = sfYAML::Load($filepath);
-    if($cacheEnabled['enableJavaScriptCache']['isEnabled'] == 1) {
+    if($cacheEnabled['enableJavaScriptCache']['isEnabled'] == 1) { // caching is enabled
         $ccCache = new TemplateCaching();
         $ccCache->checkCacheDir();
         $ccCache->setFiles();
@@ -19,7 +20,7 @@
         $dir = array_diff(scandir(sfConfig::get('sf_cache_dir') . '/javaScriptCache'), Array());
         echo ' <script type="text/javascript" src="/djs/cache/'.$dir[count($dir)-1].'"></script>' . "\n";
     }
-    else {
+    else { // caching is off
         echo '<script type="text/javascript" src="/djs/namespace/main.js"></script>';
         $files = new JavaScriptLoader();
         $jsFiles = $files->getAllFiles();
