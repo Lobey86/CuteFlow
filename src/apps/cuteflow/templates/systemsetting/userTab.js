@@ -44,7 +44,7 @@ cf.userTab = function(){return {
 		this.theUserGuiFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('Default user GUI settings',null,'systemsetting'); ?>',
 			width: 600,
-			height: 230,
+			height: 'auto',
 			style: 'margin-top:20px;margin-left:5px;',
 			labelWidth: 330,
 			items:[{
@@ -166,7 +166,7 @@ cf.userTab = function(){return {
 		this.theUserSystemFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('Default user system settings',null,'systemsetting'); ?>',
 			width: 600,
-			height: 180,
+			height: 'auto',
 			style: 'margin-top:20px;margin-left:5px;',
 			labelWidth: 330,
 			items:[{

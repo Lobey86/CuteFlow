@@ -23,7 +23,7 @@ cf.fieldTextarea = function(){return {
 		this.theTextareaFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('Textarea settings',null,'field'); ?>',
 			width: 600,
-			height: 220,
+			height: 'auto',
 			hidden: true,
 			style: 'margin-top:20px;margin-left:5px;',
 			labelWidth: 170
@@ -75,13 +75,13 @@ cf.fieldTextarea = function(){return {
 	    					var value = cf.fieldTextarea.theHTMLarea.getValue();
 	    					cf.fieldTextarea.theHTMLarea.setVisible(false);
 	    					cf.fieldTextarea.theTextarea.setVisible(true);
-	    					cf.fieldTextarea.theTextarea.setValue(value);
+	    					//cf.fieldTextarea.theTextarea.setValue(value);
 	    				}
 	    				else {
 	    					var value = cf.fieldTextarea.theTextarea.getValue();
 	    					cf.fieldTextarea.theHTMLarea.setVisible(true);
 	    					cf.fieldTextarea.theTextarea.setVisible(false);
-	    					cf.fieldTextarea.theHTMLarea.setValue(value);
+	    					//cf.fieldTextarea.theHTMLarea.setValue(value);
 	    				}
 	    			}
 	    		}

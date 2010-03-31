@@ -60,6 +60,7 @@ cf.mailinglistVersionSecondTab = function(){return {
 			}
 		}
 		cf.mailinglistVersionPopUp.theTabPanel.add(panel);
+		cf.mailinglistVersionPopUp.theTabPanel.setActiveTab(panel);
 		cf.mailinglistVersionFirstTab.theLoadingMask.hide();
 	},
 	

@@ -201,7 +201,7 @@ cf.createFileWindow = function(){return {
 		this.theGeneralSettingsFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('General Field Settings',null,'field'); ?>',
 			width: 600,
-			height: 150,
+			height: 'auto',
 			style: 'margin-top:20px;margin-left:5px;',
 			labelWidth: 170,
 			items: [{

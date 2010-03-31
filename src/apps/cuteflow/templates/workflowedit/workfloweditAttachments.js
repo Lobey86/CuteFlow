@@ -16,7 +16,7 @@ cf.workfloweditAttachments = function(){return {
 			style: 'margin-top:5px;margin-left:10px;',
 			autoScroll: true,
 			width: cf.Layout.theRegionWest.getWidth() +  cf.Layout.theRegionCenter.getWidth() - 100,
-			height: 130
+			height: 'auto'
 		});
 	},
 	

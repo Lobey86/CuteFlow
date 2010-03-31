@@ -191,7 +191,7 @@ cf.restartWorkflowFirstTab = function(){return {
 		]);
 		
 		this.thePlaceholderGrid = new Ext.grid.GridPanel({ 
-			frame:false,
+			frame:true,
 			autoScroll: true,
 			collapsible:false,
 			closable: false,
@@ -448,7 +448,7 @@ cf.restartWorkflowFirstTab = function(){return {
 	createFieldset: function(id, label, collapsed, height, autoscroll, collapsible) {
 		var fieldset = new Ext.form.FieldSet({
 			title: label,
-			height: height,
+			height: 'auto',
 			style: 'margin-left:5px;margin-top:5px',
 			width:cf.Layout.theRegionWest.getWidth() +  cf.Layout.theRegionCenter.getWidth() - 100,
 			autoScroll: autoscroll,

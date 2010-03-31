@@ -18,7 +18,7 @@ cf.fieldNumber = function(){return {
 		this.theNumberFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('Number settings',null,'field'); ?>',
 			width: 600,
-			height: 130,
+			height: 'auto',
 			hidden: true,
 			style: 'margin-top:20px;margin-left:5px;',
 			labelWidth: 170,

@@ -34,7 +34,7 @@ cf.userFirstTab = function(){return {
 		this.theUserdataFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('Userdata',null,'usermanagement'); ?>',
 			width: 500,
-			height: 120,
+			height: 'auto',
 			style: 'margin-top:20px;margin-left:5px;',
 			labelWidth: 180,
 			items: [{
@@ -64,7 +64,7 @@ cf.userFirstTab = function(){return {
 		this.theUserlogindataFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('User login data',null,'usermanagement'); ?>',
 			width: 500,
-			height: 120,
+			height: 'auto',
 			style: 'margin-top:20px;margin-left:5px;',
 			labelWidth: 180,
 			items: [{
@@ -96,7 +96,7 @@ cf.userFirstTab = function(){return {
 		this.theUserroleFieldset = new Ext.form.FieldSet({
 				title: '<?php echo __('Userrole',null,'usermanagement'); ?>',
 				width: 500,
-				height: 80,
+				height: 'auto',
 				labelWidth: 180,
 				style: 'margin-top:20px;margin-left:5px;',
 				items:[{
@@ -129,7 +129,7 @@ cf.userFirstTab = function(){return {
 		this.theEmailformatFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('Email Format',null,'usermanagement'); ?>',
 			width: 500,
-			height: 100,
+			height: 'auto',
 			labelWidth: 180,
 			style: 'margin-top:20px;margin-left:5px;',
 			items:[{

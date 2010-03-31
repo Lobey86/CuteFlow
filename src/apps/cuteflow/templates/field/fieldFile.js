@@ -14,7 +14,7 @@ cf.fieldFile = function(){return {
 		this.theFileFieldset = new Ext.form.FieldSet({
 			title: '<table><tr><td><img src="/images/icons/information.png"  ext:qtip=\"<?php echo __('During the Circulation you can choose and upload a file',null,'field'); ?>\" ext:qwidth=\"300\"/></td><td>&nbsp;&nbsp;<?php echo __('File settings',null,'file'); ?></td></tr></table>',
 			width: 600,
-			height: 80,
+			height: 'auto',
 			hidden: true,
 			style: 'margin-top:20px;margin-left:5px;',
 			labelWidth: 170,

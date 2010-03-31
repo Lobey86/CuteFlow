@@ -37,7 +37,7 @@ cf.emailTab = function(){return {
 		this.theEmailReplay = new Ext.form.FieldSet({
 			title: '<?php echo __('Reply Settings',null,'systemsetting'); ?>',
 			width: 600,
-			height: 90,
+			height: 'auto',
 			style: 'margin-top:20px;margin-left:5px;',
 			labelWidth: 330,
 			items:[{
@@ -67,7 +67,7 @@ cf.emailTab = function(){return {
 		this.theEmailSendingType = new Ext.form.FieldSet({
 			title: '<?php echo __('Email Settings',null,'systemsetting'); ?>',
 			width: 600,
-			height: 220,
+			height: 'auto',
 			labelWidth: 330,
 			style: 'margin-top:20px;margin-left:5px;',
 			items:[{
@@ -100,7 +100,7 @@ cf.emailTab = function(){return {
 								Ext.getCmp('email_smtp_password').setVisible(true);
 								//Ext.getCmp('email_smtp_auth').setVisible(true);
 								Ext.getCmp('emailtab_encryption_id').setVisible(true);
-								cf.emailTab.theEmailSendingType.setHeight(250);
+								//cf.emailTab.theEmailSendingType.setHeight(250);
 							}
 							else if (combo.getValue() == 'SENDMAIL') {
 								Ext.getCmp('email_smtp_server').hide();
@@ -110,7 +110,7 @@ cf.emailTab = function(){return {
 								//Ext.getCmp('email_smtp_auth').hide();
 								Ext.getCmp('emailtab_encryption_id').hide();
 								Ext.getCmp('email_sendmail').setVisible(true);
-								cf.emailTab.theEmailSendingType.setHeight(100);
+								//cf.emailTab.theEmailSendingType.setHeight(100);
 							}
 							else {
 								
@@ -121,7 +121,7 @@ cf.emailTab = function(){return {
 								Ext.getCmp('email_sendmail').hide();
 								//Ext.getCmp('email_smtp_auth').hide();
 								Ext.getCmp('emailtab_encryption_id').hide();
-								cf.emailTab.theEmailSendingType.setHeight(80);
+								//cf.emailTab.theEmailSendingType.setHeight(80);
 							}
 						}
 					}
@@ -202,7 +202,7 @@ cf.emailTab = function(){return {
 			
 			if (data.activetype == 'SMTP'){
 				Ext.getCmp('email_sendmail').hide();
-				cf.emailTab.theEmailSendingType.setHeight(250);
+				//cf.emailTab.theEmailSendingType.setHeight(250);
 				cf.emailTab.theEmailSendingType.setWidth(600);
 			}
 			else if(data.activetype == 'SENDMAIL') {
@@ -212,7 +212,7 @@ cf.emailTab = function(){return {
 				Ext.getCmp('email_smtp_password').hide();
 				//Ext.getCmp('email_smtp_auth').hide();
 				Ext.getCmp('emailtab_encryption_id').hide();
-				cf.emailTab.theEmailSendingType.setHeight(100);
+				//cf.emailTab.theEmailSendingType.setHeight(100);
 				cf.emailTab.theEmailSendingType.setWidth(600);
 			}
 			else {
@@ -223,7 +223,7 @@ cf.emailTab = function(){return {
 				Ext.getCmp('email_smtp_auth').hide();
 				Ext.getCmp('email_sendmail').hide();
 				Ext.getCmp('emailtab_encryption_id').hide();
-				cf.emailTab.theEmailSendingType.setHeight(80);
+				//cf.emailTab.theEmailSendingType.setHeight(80);
 				cf.emailTab.theEmailSendingType.setWidth(600);
 			}
 		}

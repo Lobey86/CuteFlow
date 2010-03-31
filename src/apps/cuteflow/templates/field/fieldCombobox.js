@@ -30,7 +30,7 @@ cf.fieldCombobox = function(){return {
 			title: '<?php echo __('Combobox settings',null,'field'); ?>',
 			width: 600,
 			frame: false,
-			height: 250,
+			height: 'auto',
 			hidden: true,
 			style: 'margin-top:20px;margin-left:5px;',
 			labelWidth: 170

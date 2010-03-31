@@ -78,7 +78,7 @@ cf.userAgentSetting = function(){return {
 		this.theConfigFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('Useragent Settings',null,'systemsetting'); ?>',
 			width: 600,
-			height: 300,
+			height: 'auto',
 			style: 'margin-top:20px;margin-left:5px;',
 			labelWidth: 330,
 			hidden: false,
@@ -178,7 +178,7 @@ cf.userAgentSetting = function(){return {
 		this.theUserAgentFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('Useragent Settings',null,'systemsetting'); ?>',
 			width: 600,
-			height: 120,
+			height: 'auto',
 			style: 'margin-top:20px;margin-left:5px;',
 			labelWidth: 330,
 			items:[{

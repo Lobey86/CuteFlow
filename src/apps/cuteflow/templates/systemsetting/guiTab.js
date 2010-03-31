@@ -81,7 +81,7 @@ cf.guiTab = function(){return {
 		this.theThemeFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('Set Default Theme',null,'systemsetting'); ?>',
 			width: 430,
-			height: 80,
+			height: 'auto',
 			style: 'margin-top:20px;margin-left:5px;',
 			labelWidth: 150
 		});
@@ -120,7 +120,7 @@ cf.guiTab = function(){return {
 		this.theGuiFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('GUI Workflow Settings',null,'systemsetting'); ?>',
 			width: 430,
-			height: 490,
+			height: 'auto',
 			style: 'margin-top:20px;margin-left:5px;',
 			labelWidth: 330
 		});
@@ -136,7 +136,7 @@ cf.guiTab = function(){return {
 			closable: false,
 			ddGroup : 'theguiTabGridDD',
 			//title: '<?php echo __('Change order',null,'systemsetting'); ?>',
-			height: 470,
+			height: 400,
 			width: 400,
 			allowContainerDrop : true,
 			enableDragDrop:true,

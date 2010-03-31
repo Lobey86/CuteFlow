@@ -38,7 +38,7 @@ cf.mailinglistThirdTab = function(){return {
 		this.theAuthorizationFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('Authorization',null,'mailinglist'); ?>',
 			width: 700,
-			height: cf.Layout.theRegionWest.getHeight() + cf.Layout.theRegionNorth.getHeight() - 200,
+			height: 'auto',
 			style: 'margin-top:20px;margin-left:5px;',
 			labelWidth: 120
 		});
