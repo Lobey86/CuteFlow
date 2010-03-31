@@ -70,6 +70,7 @@ cf.administration_sendmessage = function(){return {
 		this.theTxtfield = new Ext.form.FieldSet({
 			title: '<?php echo __('Subject',null,'sendmessage'); ?>',
 			allowBlank: false,
+			height: 'auto',
 			style:'margin-top:5px;margin-left:10px;',
 			width: 600,
 			items:[{
@@ -91,6 +92,7 @@ cf.administration_sendmessage = function(){return {
 			allowBlank: false,
 			style:'margin-top:5px;margin-left:10px;',
 			width: 600,
+			height: 'auto',
 			items:[{
 				xtype: 'combo',
 				mode: 'local',
@@ -176,6 +178,7 @@ cf.administration_sendmessage = function(){return {
 			allowBlank: false,
 			style:'margin-top:5px;margin-left:10px;',
 			width: 600,
+			height: 'auto',
 			items: [{
 				xtype: 'combo',
 				mode: 'local',
@@ -202,6 +205,7 @@ cf.administration_sendmessage = function(){return {
 		this.theButtons = new Ext.form.FieldSet({
 			style:'margin-top:5px;margin-left:10px;',
 			width: 600,
+			height: 'auto',
 			border: false,
 			buttonAlign: 'center',
 			buttons:[{

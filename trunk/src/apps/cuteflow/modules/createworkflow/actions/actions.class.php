@@ -26,7 +26,7 @@ class createworkflowActions extends sfActions {
         $userslot_id = array();
 
         $endreason = $createWorkObj->createEndreason($request->getPostParameter('createWorkflowFirstTabSettings', array())); // additional settings of the workflow
-        $startDate = $createWorkObj->createStartDate($request->getPostParameter('createWorkflowFirstTab_datepicker')); // create timestamp and flag if workflow is to start just in time
+        $startDate = $createWorkObj->createStartDate($request->getPostParameter('createWorkflowFirstTab_datepicker'),$request->getPostParameter('createWorkflowFirstTab_timepicker')); // create timestamp and flag if workflow is to start just in time
         $content = $createWorkObj->createContenttype($request->getPostParameters()); // create the contenttype of the additionaltext
 
         $sendToAllSlotsAtOnce = MailinglistVersionTable::instance()->getActiveVersionById($request->getPostParameter('createWorkflowFirstTab_mailinglist'))->toArray(); // get flag if mailinglist is send to all slots at once

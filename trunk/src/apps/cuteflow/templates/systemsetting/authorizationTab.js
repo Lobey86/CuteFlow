@@ -91,7 +91,7 @@ cf.authorizationTab = function(){return {
 		this.theAuthorizationFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('Authorization Settings',null,'systemsetting'); ?>',
 			width: 750,
-			height: 520,
+			height: 'auto',
 			style: 'margin-top:20px;margin-left:5px;',
 			labelWidth: 330
 		});

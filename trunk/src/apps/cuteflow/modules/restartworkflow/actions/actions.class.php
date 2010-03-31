@@ -43,7 +43,7 @@ class restartworkflowActions extends sfActions {
         $version_id = $request->getParameter('versionid');
         $newValue = $request->getParameter('restartWorkflowFirstTab_useoldvalues',0); // set flag if values form previous version will be used or from the default value of the fields
         $endreason = $createWorkObj->createEndreason($request->getPostParameter('restartWorkflowFirstTabSettings', array())); // set additional settings
-        $startDate = $createWorkObj->createStartDate(''); // startdate is always at the moment
+        $startDate = $createWorkObj->createStartDate('', ''); // startdate is always at the moment
         $content = $createWorkObj->createRestartContenttype($request->getPostParameters());// ste contenttype of the additional text
 
         $workflowtemplate_id = WorkflowVersionTable::instance()->getWorkflowVersionById($version_id)->toArray(); // load the current workflowversion

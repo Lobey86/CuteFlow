@@ -16,7 +16,7 @@ cf.createWorkflowFirstTab = function(){return {
 	theUniqueFileStoreId			:false,
 	theLoadingMask					:false,
 	theDatefieldCheckbox			:false,
-	
+	theTimePicker					:false,
 	
 	
 	
@@ -28,6 +28,7 @@ cf.createWorkflowFirstTab = function(){return {
 		var fieldset1 = this.createFieldset('createWorkflowFirstTab_fieldset1', '<?php echo __('Set name, mailinglist, attachments and start date',null,'workflowmanagement'); ?>', false, 350, true);
 		this.initNameTextfield();
 		this.initMailinglist();
+		this.initTimePicker();
 		this.initDatepicker();
 		this.initFileGrid();
 		this.initDatefieldCheckbox();
@@ -35,6 +36,7 @@ cf.createWorkflowFirstTab = function(){return {
 		fieldset1.add(this.theMailinglist);
 		fieldset1.add(this.theDatefieldCheckbox);
 		fieldset1.add(this.theDatepicker);
+		fieldset1.add(this.theTimePicker);
 		fieldset1.add(this.theFileUploadGrid);
 		
 		
@@ -66,7 +68,7 @@ cf.createWorkflowFirstTab = function(){return {
 		fieldset3.add([cb1,cb2,cb3,cb4,cb5,cb6]);
 		this.theFirstTabPanel.add(fieldset1);
 		this.theFirstTabPanel.add(fieldset2);
-		this.theFirstTabPanel.add(fieldset3);		
+		this.theFirstTabPanel.add(fieldset3);
 	},
 	
 
@@ -89,10 +91,14 @@ cf.createWorkflowFirstTab = function(){return {
 				if(checkbox.getValue() == 1) {
 					cf.createWorkflowFirstTab.theDatepicker.setVisible(false);
 					cf.createWorkflowFirstTab.theDatepicker.setValue();
+					cf.createWorkflowFirstTab.theTimePicker.setVisible(false);
+					cf.createWorkflowFirstTab.theTimePicker.setValue();
 				}
 				else {
 					cf.createWorkflowFirstTab.theDatepicker.setVisible(true);
-					cf.createWorkflowFirstTab.theDatepicker.setValue();					
+					cf.createWorkflowFirstTab.theDatepicker.setValue();
+					cf.createWorkflowFirstTab.theTimePicker.setVisible(true);
+					cf.createWorkflowFirstTab.theTimePicker.setValue();					
 				}
 			}	
 		});
@@ -396,6 +402,20 @@ cf.createWorkflowFirstTab = function(){return {
 		});
 	},
 	
+	initTimePicker: function() {
+		this.theTimePicker = new Ext.form.TimeField({
+			fieldLabel : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo __('Set Time',null,'workflowmanagement'); ?>',
+			hidden:true,
+			hiddenName: 'createWorkflowFirstTab_timepicker',
+			format: 'H:i',
+		    increment: 30,
+			editable: false,
+			autoSelect: false,
+			forceSelection: true,  
+			width:170	
+		});	
+	},
+	
 	initDatepicker: function () {
 		this.theDatepicker = new Ext.form.DateField({
 			allowBlank:true,
@@ -403,7 +423,7 @@ cf.createWorkflowFirstTab = function(){return {
 			editable: false,
 			format:'d-m-Y',
 			id: 'createWorkflowFirstTab_datepicker',
-			fieldLabel: "<span ext:qtip=\"<table><tr><td><b><?php echo __('Datefield is empty',null,'workflowmanagement'); ?></b></td><td> : <?php echo __('Workflow will start immediately',null,'workflowmanagement'); ?></td></tr><tr><td><b><?php echo __('Datefield is set',null,'workflowmanagement'); ?></b></td><td> : <?php echo __('Workflow will start at selected date',null,'workflowmanagement'); ?></td></tr></table>\" ext:qwidth=\"350\"><?php echo __('Startdate of Workflow',null,'workflowmanagement'); ?></span>",
+			fieldLabel: "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span ext:qtip=\"<table><tr><td><b><?php echo __('Datefield is empty',null,'workflowmanagement'); ?></b></td><td> : <?php echo __('Workflow will start immediately',null,'workflowmanagement'); ?></td></tr><tr><td><b><?php echo __('Datefield is set',null,'workflowmanagement'); ?></b></td><td> : <?php echo __('Workflow will start at selected date',null,'workflowmanagement'); ?></td></tr></table>\" ext:qwidth=\"350\"><?php echo __('Startdate of Workflow',null,'workflowmanagement'); ?></span>",
 			width:170	
 		});
 		if (Ext.isIE6 == true) {
@@ -522,7 +542,7 @@ cf.createWorkflowFirstTab = function(){return {
 	createFieldset: function(id, label, collapsed, height, autoscroll) {
 		var fieldset = new Ext.form.FieldSet({
 			title: label,
-			height: height,
+			height: 'auto',
 			style: 'margin-left:5px;margin-top:5px',
 			width:cf.Layout.theRegionWest.getWidth() +  cf.Layout.theRegionCenter.getWidth() - 100,
 			autoScroll: autoscroll,

@@ -23,7 +23,7 @@ cf.authTab = function(){return {
 		this.theLdapFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('LDAP Settings',null,'systemsetting'); ?>',
 			width: 600,
-			height: 420,
+			height: 'auto',
 			style: 'margin-top:20px;margin-left:5px;',
 			labelWidth: 330,
 			items: [{
@@ -154,7 +154,7 @@ cf.authTab = function(){return {
 		this.theFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('use only CuteFLow Database',null,'systemsetting'); ?>',
 			width: 600,
-			height: 130,
+			height: 'auto',
 			style: 'margin-top:20px;margin-left:5px;',
 			labelWidth: 330,
 			items: [{

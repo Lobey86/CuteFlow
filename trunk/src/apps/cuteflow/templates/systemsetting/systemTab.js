@@ -46,7 +46,7 @@ cf.systemTab = function(){return {
 		this.theColorFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('Set Background of Navigation north',null,'systemsetting'); ?>',
 			width: 600,
-			height: 90,
+			height: 'auto',
 			style: 'margin-top:20px;margin-left:5px;',
 			labelWidth: 330
 		});
@@ -71,7 +71,7 @@ cf.systemTab = function(){return {
 		this.theWorkflowFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('Workflow settings',null,'systemsetting'); ?>',
 			width: 600,
-			height: 190,
+			height: 'auto',
 			style: 'margin-top:20px;margin-left:5px;',
 			labelWidth: 330,
 			items:[{
@@ -116,7 +116,7 @@ cf.systemTab = function(){return {
 		this.theLanguageFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('Default system language',null,'systemsetting'); ?>',
 			width: 600,
-			height: 80,
+			height: 'auto',
 			style: 'margin-top:20px;margin-left:5px;',
 			labelWidth: 330,
 			items:[{

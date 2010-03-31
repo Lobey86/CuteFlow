@@ -70,7 +70,7 @@ cf.PopUpRoleTabpanel = function(){return {
 			var tabItem = new Ext.Panel({
 				title: theJsonTreeData.result[a].usermodule.translation,
 				id: theJsonTreeData.result[a].usermodule.id,
-				height: cf.Layout.theRegionWest.getHeight() + cf.Layout.theRegionNorth.getHeight() - 220,
+				height:'auto',
 				width: 500,
 				autoScroll:true,
 				layout: 'form',

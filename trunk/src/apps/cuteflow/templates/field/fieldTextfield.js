@@ -12,7 +12,7 @@ cf.fieldTextfield = function(){return {
 		this.theTextfieldFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('Textfield settings',null,'field'); ?>',
 			width: 600,
-			height: 100,
+			height: 'auto',
 			style: 'margin-top:20px;margin-left:5px;',
 			labelWidth: 170,
 			items:[{

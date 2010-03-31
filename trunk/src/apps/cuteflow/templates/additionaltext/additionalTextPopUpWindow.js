@@ -147,7 +147,7 @@ cf.additionalTextPopUpWindow = function(){return {
 			allowBlank: false,
 			style: 'margin-top:5px;margin-left:10px;',
 			width: 874,
-			height: 80,
+			height: 'auto',
 			items: [{
 				xtype: 'textfield',
 				name: 'title',
@@ -166,7 +166,7 @@ cf.additionalTextPopUpWindow = function(){return {
 			allowBlank: false,
 			style: 'margin-top:5px;margin-left:10px;',
 			width: 874,
-			height: 80,
+			height: 'auto',
 			items: [{
 				xtype: 'combo',
 				fieldLabel: '<?php echo __('Content Type',null,'additionaltext'); ?>',
@@ -216,7 +216,7 @@ cf.additionalTextPopUpWindow = function(){return {
 			allowBlank: false,
 			style: 'margin-top:10px;margin-left:5px;',
 			width: 620,
-			height: 290,
+			height: 'auto',
 			items: [{
 				xtype: 'textarea',
 				name: 'content_textarea',
@@ -239,7 +239,7 @@ cf.additionalTextPopUpWindow = function(){return {
 			allowBlank: false,
 			style: 'margin-top:10px;margin-left:10px;',
 			width: 610,
-			height: 290,
+			height: 'auto',
 			hidden: true,
 			items: [{
 				xtype: 'htmleditor',

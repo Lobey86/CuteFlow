@@ -267,6 +267,7 @@ cf.createWorkflowCRUD = function(){return {
 	
 	
 	initSave: function () {
+		
 		cf.createWorkflowCRUD.theLoadingMask = new Ext.LoadMask(cf.createWorkflowWindow.theCreateWorkflowWindow.body, {msg:'<?php echo __('Preparing Data...',null,'workflowmanagement'); ?>'});					
 		cf.createWorkflowCRUD.theLoadingMask.show();
 		if(cf.createWorkflowWindow.theTabPanel.items.length>1) {

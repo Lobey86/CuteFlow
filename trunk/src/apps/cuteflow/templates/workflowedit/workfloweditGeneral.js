@@ -30,7 +30,7 @@ cf.workfloweditGeneral = function(){return {
 			autoScroll: true,
 			style: 'margin-top:5px;margin-left:10px;',
 			width: cf.Layout.theRegionWest.getWidth() +  cf.Layout.theRegionCenter.getWidth() - 100,
-			height: 200
+			height: 'auto'
 		});
 	}
 	

@@ -30,6 +30,7 @@ cf.documenttemplateVersionSecondTab = function(){return {
 			}
 		}
 		cf.documenttemplateVersionPopUp.theTabPanel.add(panel);
+		cf.documenttemplateVersionPopUp.theTabPanel.setActiveTab(panel);
 		cf.documenttemplateVersionFirstTab.theLoadingMask.hide();
 		
 	},
@@ -116,7 +117,7 @@ cf.documenttemplateVersionSecondTab = function(){return {
 		var fieldset = new Ext.form.FieldSet({
 			title: 'Slot: ' + title,
 			width: 'auto',
-			height: 250,
+			height: 'auto',
 			style: 'margin-top:20px;margin-left:5px;',
 			labelWidth: 170,
 			items:[{

@@ -25,7 +25,7 @@ cf.documenttemplatePopUpFirstTab = function(){return {
 		this.theFirstTabFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('Set name of Document template',null,'documenttemplate'); ?>',
 			width: 600,
-			height: 100,
+			height: 'auto',
 			style: 'margin-top:20px;margin-left:5px;',
 			labelWidth: 170,
 			items: [{

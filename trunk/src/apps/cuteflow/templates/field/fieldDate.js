@@ -20,7 +20,7 @@ cf.fieldDate = function(){return {
 		this.theDateFieldset = new Ext.form.FieldSet({
 			title: '<?php echo __('Textfield settings',null,'field'); ?>',
 			width: 600,
-			height: 130,
+			height: 'auto',
 			hidden: true,
 			style: 'margin-top:20px;margin-left:5px;',
 			labelWidth: 170,
