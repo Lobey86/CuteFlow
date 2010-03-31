@@ -15,7 +15,7 @@ class PrepareWorkflowData {
      * @param array $date, POST data
      * @return array $result, correct startdate und starttedat flag
      */
-    public function createStartDate($date) {
+    public function createStartDate($date, $time) {
         $result = array();
         if($date == '') {
             $result['startworkflowat'] = time();
@@ -23,8 +23,14 @@ class PrepareWorkflowData {
         }
         else {
             $dateStamp = array();
+            $timeStamp = array();
+            if($time == '') {
+                $time = '08:00';
+            }
             $dateStamp = explode('-', $date);
-            $result['startworkflowat'] = mktime(0,0,0,$dateStamp[1],$dateStamp[0],$dateStamp[2]);
+            $timeStamp = explode(':', $time);
+
+            $result['startworkflowat'] = mktime($timeStamp[0],$timeStamp[1],0,$dateStamp[1],$dateStamp[0],$dateStamp[2]);
             $result['workflowisstarted'] = 0;
         }
         return $result;
