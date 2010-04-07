@@ -102,13 +102,91 @@ class WorkflowOverview {
                 $result[$a]['stationrunning'] = '-';
             }
 
-            $result[$a]['versioncreated_at'] = format_date($item->getVersioncreatedAt(), 'g', $this->culture);
-            
+
+            $result[$a]['userdefined1'] = $this->getFields('userdefined1',$item->getActiveversionId());
+            $result[$a]['userdefined2'] = $this->getFields('userdefined1',$item->getActiveversionId());
+
+            $result[$a]['versioncreated_at'] = format_date($item->getVersioncreatedAt(), 'g', $this->culture);   
             $result[$a++]['activeversion_id'] = $item->getActiveversionId();
         }
         #print_r ($result);die;
         return $result;
 
+    }
+
+
+    /**
+     * Get userdefined field
+     *
+     * @param String  $type, userdefined1, userdefined2
+     */
+    public function getFields($type, $versionId) {
+        $view = $this->user->getAttribute('userWorkflowSettings');
+        $result = '';
+        foreach($view as $singleView) {
+            if($singleView['store'] == $type AND $singleView['fieldid'] > -1) {
+                $wfItem = WorkflowVersionTable::instance()->getFieldByWorkflowversionIdAndFieldId($singleView['fieldid'], $versionId)->toArray();
+                
+                if(empty($wfItem) == true) {
+                    return '';
+                }
+                else {
+                    $slots = WorkflowSlotTable::instance()->getFieldBySlotIdAndFieldId($singleView['fieldid'], $versionId);
+                    $fields = $slots[0]->getWorkflowSlotField();
+                    $fields = $fields->toArray();
+                    $type = FieldTable::instance()->getFieldById($fields['field_id'])->toArray();
+                    if(!empty($type)) {
+                        switch ($type[0]['type']) {
+                            case 'TEXTFIELD':
+                                $value = WorkflowSlotFieldTextfieldTable::instance()->getAllItemsByWorkflowFieldId($fields['id'])->toArray();
+                                $result = $value[0]['value'];
+                                return $result;
+                                break;
+                            case 'CHECKBOX':
+                                $value = WorkflowSlotFieldCheckboxTable::instance()->getAllItemsByWorkflowFieldId($fields['id'])->toArray();
+                                $result = $value[0]['value'];
+                                return $result;
+                                break;
+                            case 'NUMBER':
+                                $value = WorkflowSlotFieldNumberTable::instance()->getAllItemsByWorkflowFieldId($fields['id'])->toArray();
+                                $result = $value[0]['value'];
+                                return $result;
+                                break;
+                            case 'DATE':
+                                $value = WorkflowSlotFieldDateTable::instance()->getAllItemsByWorkflowFieldId($fields['id'])->toArray();
+                                $result = $value[0]['value'];
+                                return $result;
+                                break;
+                            case 'TEXTAREA':
+                                $value = WorkflowSlotFieldTextareaTable::instance()->getAllItemsByWorkflowFieldId($fields['id'])->toArray();
+                                $result = $value[0]['value'];
+                                return $result;
+                                break;
+                            case 'RADIOGROUP':
+                                $value = WorkflowSlotFieldRadiogroupTable::instance()->getAllItemsByWorkflowFieldId($fields['id'])->toArray();
+                                $result = $value[0]['value'];
+                                return $result;
+                                break;
+                            case 'CHECKBOXGROUP':
+                                $value = WorkflowSlotFieldCheckboxgroupTable::instance()->getAllItemsByWorkflowFieldId($fields['id'])->toArray();
+                                $result = $value[0]['value'];
+                                return $result;
+                                break;
+                            case 'COMBOBOX':
+                                $value = WorkflowSlotFieldFileTable::instance()->getAllItemsByWorkflowFieldId($fields['id'])->toArray();
+                                print_r ($value);die;
+                                $result = $value[0]['value'];
+                                return $result;
+                                break;
+
+                        }
+                    }
+                    else {
+                        return '';
+                    }
+                }
+            }
+        }
     }
 
 
