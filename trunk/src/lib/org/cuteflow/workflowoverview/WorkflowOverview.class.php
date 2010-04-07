@@ -174,7 +174,6 @@ class WorkflowOverview {
                                 break;
                             case 'COMBOBOX':
                                 $value = WorkflowSlotFieldFileTable::instance()->getAllItemsByWorkflowFieldId($fields['id'])->toArray();
-                                print_r ($value);die;
                                 $result = $value[0]['value'];
                                 return $result;
                                 break;
