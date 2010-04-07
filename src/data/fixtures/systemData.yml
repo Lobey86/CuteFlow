@@ -331,6 +331,16 @@ UserWorkflowConfiguration:
     columntext: MAILINGLIST
     isactive: 'false'
     position: 7
+  uwc8:
+    user_id: 1
+    columntext: USERDEFINED1
+    isactive: 'false'
+    position: 8
+  uwc9:
+    user_id: 1
+    columntext: USERDEFINED2
+    isactive: 'false'
+    position: 9
 
 EmailConfiguration:
   ec1:
@@ -408,6 +418,14 @@ WorkflowConfiguration:
     columntext: MAILINGLIST
     isactive: 'false'
     position: 7
+  wc8:
+    columntext: USERDEFINED1
+    isactive: 'false'
+    position: 8
+  wc9:
+    columntext: USERDEFINED2
+    isactive: 'false'
+    position: 9
 
 
 AuthorizationConfiguration:
