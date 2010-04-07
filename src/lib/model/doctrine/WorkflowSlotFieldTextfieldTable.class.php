@@ -34,5 +34,6 @@ class WorkflowSlotFieldTextfieldTable extends Doctrine_Table {
             ->where ('wsft.id = ?',$id)
             ->execute();
     }
+    
 
 }

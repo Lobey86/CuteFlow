@@ -260,9 +260,6 @@ class WorkflowTemplateTable extends Doctrine_Table {
 
 
 
-
-
-
     public function getAllToDoWorkflowTemplatesByFilter($limit, $offset, $user_id, array $filter) {
         $query = Doctrine_Query::create()
             ->from('WorkflowTemplate wft')
