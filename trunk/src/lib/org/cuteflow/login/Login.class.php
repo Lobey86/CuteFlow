@@ -117,6 +117,7 @@ class Login {
         foreach($data as $item) {
             $result[$a]['columntext'] = $item['columntext'];
             $result[$a]['hidden'] = $item['isactive'] == 'true' ? 'false' : 'true';
+            $result[$a]['fieldid'] = -1;
             $result[$a]['text'] = $context->getI18N()->__($item['columntext'] ,null,'systemsetting');
             switch($item['columntext']) {
                 case 'NAME':
@@ -146,6 +147,24 @@ class Login {
                 case 'MAILINGLIST':
                     $result[$a]['store'] = 'mailinglisttemplate';
                     $result[$a]['width'] = '150';
+                    break;
+                case 'USERDEFINED1':
+                    if($item['field_id'] != '' AND is_numeric($item['field_id']) == true AND $item['isactive'] == 'true') {
+                        $fieldName = FieldTable::instance()->getFieldById($item['field_id']);
+                        $result[$a]['text'] = $fieldName[0]->getTitle();
+                        $result[$a]['store'] = 'userdefined1';
+                        $result[$a]['fieldid'] = $item['field_id'];
+                        $result[$a]['width'] = '100';
+                    }
+                    break;
+                case 'USERDEFINED2':
+                    if($item['field_id'] != '' AND is_numeric($item['field_id']) == true AND $item['isactive'] == 'true') {
+                        $fieldName = FieldTable::instance()->getFieldById($item['field_id']);
+                        $result[$a]['text'] = $fieldName[0]->getTitle();
+                        $result[$a]['store'] = 'userdefined2';
+                        $result[$a]['fieldid'] = $item['field_id'];
+                        $result[$a]['width'] = '100';
+                    }
                     break;
             }
             $a++;
