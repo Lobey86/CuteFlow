@@ -27,8 +27,6 @@ class layoutActions extends sfActions {
         $config = SystemConfigurationTable::instance()->getSystemConfiguration()->toArray();
         $this->getUser()->setAttribute('userWorkflowSettings', $loginObject->generateUserWorklowView($userWorkflowSetting, sfContext::getInstance())); // set workflowsettings
         $data = $this->getUser()->getAttribute('userWorkflowSettings');
-
-
         $credentials = CredentialTable::instance()->getAllCredentials();
         $userrights = CredentialRoleTable::instance()->getCredentialRoleById($this->getUser()->getAttribute('id'));
         $rights = $loginObject->loadUserRight($credentials, $userrights);
