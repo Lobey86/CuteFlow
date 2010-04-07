@@ -612,6 +612,14 @@ WorkflowConfiguration:
     columntext: MAILINGLIST
     isactive: 'false'
     position: 7
+  wc8:
+    columntext: USERDEFINED1
+    isactive: 'false'
+    position: 8
+  wc9:
+    columntext: USERDEFINED2
+    isactive: 'false'
+    position: 9
 
 Field:
   f1:
