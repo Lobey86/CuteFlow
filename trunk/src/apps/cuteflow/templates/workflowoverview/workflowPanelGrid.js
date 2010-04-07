@@ -54,8 +54,8 @@ cf.workflowmanagementPanelGrid = function(){return {
 			{header: "<?php echo $arr[4]['text'];?>", width: <?php echo $arr[4]['width']; ?>, sortable: true, dataIndex: '<?php echo $arr[4]['store']; ?>', css : "text-align : left;font-size:12px;align:center;", hidden: <?php echo $arr[4]['hidden']; ?>},
 			{header: "<?php echo $arr[5]['text'];?>", width: <?php echo $arr[5]['width']; ?>, sortable: true, dataIndex: '<?php echo $arr[5]['store']; ?>', css : "text-align : left;font-size:12px;align:center;", hidden: <?php echo $arr[5]['hidden']; ?>},
 			{header: "<?php echo $arr[6]['text'];?>", width: <?php echo $arr[6]['width']; ?>, sortable: true, dataIndex: '<?php echo $arr[6]['store']; ?>', css : "text-align : left;font-size:12px;align:center;", hidden: <?php echo $arr[6]['hidden']; ?>},
-						
-	
+			{header: "<?php echo $arr[7]['text'];?>", width: <?php echo $arr[7]['width']; ?>, sortable: true, dataIndex: '<?php echo $arr[7]['store']; ?>', css : "text-align : left;font-size:12px;align:center;", hidden: <?php echo $arr[7]['hidden']; ?>},
+			{header: "<?php echo $arr[8]['text'];?>", width: <?php echo $arr[8]['width']; ?>, sortable: true, dataIndex: '<?php echo $arr[8]['store']; ?>', css : "text-align : left;font-size:12px;align:center;", hidden: <?php echo $arr[8]['hidden']; ?>},
 			{header: "<?php echo __('already done',null,'workflowmanagement'); ?>", width: 110, sortable: true, dataIndex: 'process', css : "text-align : left;font-size:12px;align:center;",  hidden: false},
 			{header: "<div ext:qtip=\"<table><tr><td><img src='/images/icons/delete.png' />&nbsp;&nbsp;</td><td><?php echo __('Delete Workflow',null,'workflowmanagement'); ?></td></tr><tr><td><img src='/images/icons/zoom.png' />&nbsp;&nbsp;</td><td><?php echo __('Show Details',null,'workflowmanagement'); ?></td></tr><tr><td><img src='/images/icons/disk.png' />&nbsp;&nbsp;</td><td><?php echo __('Move to Archive',null,'workflowmanagement'); ?></td</tr><tr><td><img src='/images/icons/control_stop_blue.png' />&nbsp;&nbsp;</td><td><?php echo __('Stop Workflow',null,'workflowmanagement'); ?></td></tr><tr><td><img src='/images/icons/control_play.png' />&nbsp;&nbsp;</td><td><?php echo __('Start Workflow',null,'workflowmanagement'); ?></td></tr></table>\" ext:qwidth=\"230\"><?php echo __('Action',null,'documenttemplate'); ?></div>", width: 100, sortable: false, dataIndex: 'action', css : "text-align : left;font-size:12px;align:center;", renderer: this.renderButton}
 		]);
@@ -86,7 +86,9 @@ cf.workflowmanagementPanelGrid = function(){return {
 					{name: 'auth'},
 					{name: 'currentlyrunning'},
 					{name: 'versioncreated_at'},
-					{name: 'activeversion_id'}
+					{name: 'activeversion_id'},
+					{name: 'userdefined1'},
+					{name: 'userdefined2'}
 				]
 		});
 	},
