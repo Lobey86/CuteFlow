@@ -23,7 +23,7 @@ abstract class BaseRoleForm extends BaseFormDoctrine
 
     $this->setValidators(array(
       'id'               => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
-      'description'      => new sfValidatorString(array('max_length' => 100, 'required' => false)),
+      'description'      => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'deleted_at'       => new sfValidatorDateTime(array('required' => false)),
       'credentials_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Credential', 'required' => false)),
     ));

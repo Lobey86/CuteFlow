@@ -26,9 +26,9 @@ abstract class BaseUserLoginForm extends BaseFormDoctrine
     $this->setValidators(array(
       'id'         => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
       'role_id'    => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Role'), 'required' => false)),
-      'username'   => new sfValidatorString(array('max_length' => 100, 'required' => false)),
-      'password'   => new sfValidatorString(array('max_length' => 100, 'required' => false)),
-      'email'      => new sfValidatorString(array('max_length' => 100, 'required' => false)),
+      'username'   => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'password'   => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'email'      => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'deleted_at' => new sfValidatorDateTime(array('required' => false)),
     ));
 

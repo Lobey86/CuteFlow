@@ -25,9 +25,9 @@ abstract class BaseFieldNumberForm extends BaseFormDoctrine
     $this->setValidators(array(
       'id'            => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
       'field_id'      => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Field'), 'required' => false)),
-      'regex'         => new sfValidatorString(array('max_length' => 100, 'required' => false)),
-      'defaultvalue'  => new sfValidatorString(array('max_length' => 100, 'required' => false)),
-      'comboboxvalue' => new sfValidatorString(array('max_length' => 40, 'required' => false)),
+      'regex'         => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'defaultvalue'  => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'comboboxvalue' => new sfValidatorString(array('max_length' => 255, 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('field_number[%s]');

@@ -23,8 +23,8 @@ abstract class BaseWorkflowConfigurationForm extends BaseFormDoctrine
 
     $this->setValidators(array(
       'id'         => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
-      'columntext' => new sfValidatorString(array('max_length' => 45, 'required' => false)),
-      'isactive'   => new sfValidatorString(array('max_length' => 10, 'required' => false)),
+      'columntext' => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'isactive'   => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'position'   => new sfValidatorInteger(array('required' => false)),
     ));
 

@@ -25,7 +25,7 @@ abstract class BaseFieldComboboxForm extends BaseFormDoctrine
     $this->setValidators(array(
       'id'       => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
       'field_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Field'), 'required' => false)),
-      'value'    => new sfValidatorString(array('max_length' => 100, 'required' => false)),
+      'value'    => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'isactive' => new sfValidatorInteger(array('required' => false)),
       'position' => new sfValidatorInteger(array('required' => false)),
     ));

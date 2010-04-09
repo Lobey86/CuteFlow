@@ -25,10 +25,10 @@ abstract class BaseFieldForm extends BaseFormDoctrine
 
     $this->setValidators(array(
       'id'             => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
-      'title'          => new sfValidatorString(array('max_length' => 100, 'required' => false)),
-      'type'           => new sfValidatorString(array('max_length' => 20, 'required' => false)),
+      'title'          => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'type'           => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'writeprotected' => new sfValidatorInteger(array('required' => false)),
-      'color'          => new sfValidatorString(array('max_length' => 20, 'required' => false)),
+      'color'          => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'deleted_at'     => new sfValidatorDateTime(array('required' => false)),
     ));
 

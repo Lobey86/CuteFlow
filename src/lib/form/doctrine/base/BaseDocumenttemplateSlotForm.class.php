@@ -25,7 +25,7 @@ abstract class BaseDocumenttemplateSlotForm extends BaseFormDoctrine
     $this->setValidators(array(
       'id'                         => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
       'documenttemplateversion_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('DocumenttemplateVersion'), 'required' => false)),
-      'name'                       => new sfValidatorString(array('max_length' => 100, 'required' => false)),
+      'name'                       => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'sendtoallreceivers'         => new sfValidatorInteger(array('required' => false)),
       'position'                   => new sfValidatorInteger(array('required' => false)),
     ));

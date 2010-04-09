@@ -25,7 +25,7 @@ abstract class BaseAuthorizationConfigurationForm extends BaseFormDoctrine
 
     $this->setValidators(array(
       'id'              => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
-      'type'            => new sfValidatorString(array('max_length' => 45, 'required' => false)),
+      'type'            => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'deleteworkflow'  => new sfValidatorInteger(array('required' => false)),
       'archiveworkflow' => new sfValidatorInteger(array('required' => false)),
       'stopneworkflow'  => new sfValidatorInteger(array('required' => false)),

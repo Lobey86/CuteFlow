@@ -24,7 +24,7 @@ abstract class BaseDocumenttemplateTemplateForm extends BaseFormDoctrine
 
     $this->setValidators(array(
       'id'         => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
-      'name'       => new sfValidatorString(array('max_length' => 100, 'required' => false)),
+      'name'       => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'deleted_at' => new sfValidatorDateTime(array('required' => false)),
       'created_at' => new sfValidatorDateTime(),
       'updated_at' => new sfValidatorDateTime(),

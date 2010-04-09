@@ -24,7 +24,7 @@ abstract class BaseFieldTextareaForm extends BaseFormDoctrine
     $this->setValidators(array(
       'id'          => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
       'field_id'    => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Field'), 'required' => false)),
-      'contenttype' => new sfValidatorString(array('max_length' => 45, 'required' => false)),
+      'contenttype' => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'content'     => new sfValidatorString(array('max_length' => 5000, 'required' => false)),
     ));
 
