@@ -156,6 +156,10 @@ class Login {
                         $result[$a]['fieldid'] = $item['field_id'];
                         $result[$a]['width'] = '100';
                     }
+                    else {
+                        $result[$a]['width'] = '100';
+                        $result[$a]['store'] = 'userdefined1';
+                    }
                     break;
                 case 'USERDEFINED2':
                     if($item['field_id'] != '' AND is_numeric($item['field_id']) == true AND $item['isactive'] == 'true') {
@@ -164,6 +168,10 @@ class Login {
                         $result[$a]['store'] = 'userdefined2';
                         $result[$a]['fieldid'] = $item['field_id'];
                         $result[$a]['width'] = '100';
+                    }
+                    else {
+                        $result[$a]['width'] = '100';
+                        $result[$a]['store'] = 'userdefined2';
                     }
                     break;
             }
