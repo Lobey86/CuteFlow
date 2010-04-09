@@ -25,9 +25,9 @@ abstract class BaseAdditionalTextForm extends BaseFormDoctrine
 
     $this->setValidators(array(
       'id'          => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
-      'title'       => new sfValidatorString(array('max_length' => 100, 'required' => false)),
+      'title'       => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'content'     => new sfValidatorString(array('max_length' => 5000, 'required' => false)),
-      'contenttype' => new sfValidatorString(array('max_length' => 45, 'required' => false)),
+      'contenttype' => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'isactive'    => new sfValidatorInteger(array('required' => false)),
       'deleted_at'  => new sfValidatorDateTime(array('required' => false)),
     ));

@@ -26,9 +26,9 @@ abstract class BaseCredentialForm extends BaseFormDoctrine
 
     $this->setValidators(array(
       'id'                 => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
-      'usermodule'         => new sfValidatorString(array('max_length' => 100, 'required' => false)),
-      'usergroup'          => new sfValidatorString(array('max_length' => 100, 'required' => false)),
-      'userright'          => new sfValidatorString(array('max_length' => 100, 'required' => false)),
+      'usermodule'         => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'usergroup'          => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'userright'          => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'usermoduleposition' => new sfValidatorInteger(array('required' => false)),
       'usergroupposition'  => new sfValidatorInteger(array('required' => false)),
       'roles_list'         => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Role', 'required' => false)),

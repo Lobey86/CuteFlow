@@ -23,7 +23,7 @@ abstract class BaseWorkflowSlotFieldDateForm extends BaseFormDoctrine
     $this->setValidators(array(
       'id'                   => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
       'workflowslotfield_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('WorkflowSlotField'), 'required' => false)),
-      'value'                => new sfValidatorString(array('max_length' => 100, 'required' => false)),
+      'value'                => new sfValidatorString(array('max_length' => 255, 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('workflow_slot_field_date[%s]');

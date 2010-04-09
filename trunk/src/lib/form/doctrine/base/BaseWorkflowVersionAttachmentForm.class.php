@@ -28,8 +28,8 @@ abstract class BaseWorkflowVersionAttachmentForm extends BaseFormDoctrine
       'id'                  => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
       'workflowtemplate_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('WorkflowTemplate'), 'required' => false)),
       'workflowversion_id'  => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('WorkflowVersion'), 'required' => false)),
-      'filename'            => new sfValidatorString(array('max_length' => 200, 'required' => false)),
-      'hashname'            => new sfValidatorString(array('max_length' => 200, 'required' => false)),
+      'filename'            => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'hashname'            => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'created_at'          => new sfValidatorDateTime(),
       'updated_at'          => new sfValidatorDateTime(),
     ));

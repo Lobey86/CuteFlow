@@ -24,8 +24,8 @@ abstract class BaseWorkflowSlotFieldFileForm extends BaseFormDoctrine
     $this->setValidators(array(
       'id'                   => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
       'workflowslotfield_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('WorkflowSlotField'), 'required' => false)),
-      'filename'             => new sfValidatorString(array('max_length' => 200, 'required' => false)),
-      'hashname'             => new sfValidatorString(array('max_length' => 200, 'required' => false)),
+      'filename'             => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'hashname'             => new sfValidatorString(array('max_length' => 255, 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('workflow_slot_field_file[%s]');

@@ -26,8 +26,8 @@ abstract class BaseFilterFieldForm extends BaseFormDoctrine
       'id'        => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
       'filter_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Filter'), 'required' => false)),
       'field_id'  => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Field'), 'required' => false)),
-      'operator'  => new sfValidatorString(array('max_length' => 20, 'required' => false)),
-      'value'     => new sfValidatorString(array('max_length' => 200, 'required' => false)),
+      'operator'  => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'value'     => new sfValidatorString(array('max_length' => 255, 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('filter_field[%s]');

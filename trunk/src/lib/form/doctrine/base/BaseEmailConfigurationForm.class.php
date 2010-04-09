@@ -30,16 +30,16 @@ abstract class BaseEmailConfigurationForm extends BaseFormDoctrine
 
     $this->setValidators(array(
       'id'                  => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
-      'smtphost'            => new sfValidatorString(array('max_length' => 100, 'required' => false)),
-      'smtpuseauth'         => new sfValidatorString(array('max_length' => 100, 'required' => false)),
-      'smtpport'            => new sfValidatorString(array('max_length' => 100, 'required' => false)),
-      'smtpusername'        => new sfValidatorString(array('max_length' => 100, 'required' => false)),
-      'smtppassword'        => new sfValidatorString(array('max_length' => 100, 'required' => false)),
-      'smtpencryption'      => new sfValidatorString(array('max_length' => 100, 'required' => false)),
-      'sendmailpath'        => new sfValidatorString(array('max_length' => 100, 'required' => false)),
-      'systemreplyaddress'  => new sfValidatorString(array('max_length' => 100, 'required' => false)),
+      'smtphost'            => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'smtpuseauth'         => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'smtpport'            => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'smtpusername'        => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'smtppassword'        => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'smtpencryption'      => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'sendmailpath'        => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'systemreplyaddress'  => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'allowemailtransport' => new sfValidatorInteger(array('required' => false)),
-      'activetype'          => new sfValidatorString(array('max_length' => 20, 'required' => false)),
+      'activetype'          => new sfValidatorString(array('max_length' => 255, 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('email_configuration[%s]');
