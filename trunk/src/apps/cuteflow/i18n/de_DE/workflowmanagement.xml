@@ -718,6 +718,14 @@
 			<source>Reset</source>
 			<target>Zur&#252;cksetzen</target>
 		</trans-unit>
+		<trans-unit id="165">
+			<source>Yes</source>
+			<target>Ja</target>
+		</trans-unit>
+		<trans-unit id="166">
+			<source>No</source>
+			<target>Nein</target>
+		</trans-unit>
 	</body>
   </file>
 </xliff>
