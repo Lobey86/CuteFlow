@@ -51,6 +51,7 @@ cf.rolePopUpWindow = function(){return {
 			autoScroll: false,
 			title: title,
 			shadow: false,
+			border: false,
 			minimizable: false,
 			draggable: true,
 			resizable: true,
